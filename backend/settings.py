@@ -2,6 +2,7 @@ from pathlib import Path
 import os
 import dj_database_url
 from django_storage_url import dsn_configured_storage_class
+from multisite import SiteID
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,6 +40,10 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',  # http://whitenoise.evans.io/en/stable/django.html#using-whitenoise-in-development
     'django.contrib.staticfiles',
     'django.contrib.sites',
+
+    # djangocms-multisite
+    'multisite',
+    'djangocms_multisite',
 
     # key django CMS modules
     'cms',
@@ -81,6 +86,10 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'multisite.middleware.DynamicSiteMiddleware',
+    'cms.middleware.utils.ApphookReloadMiddleware',
+    'djangocms_multisite.middleware.CMSMultiSiteMiddleware',
+    
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -97,14 +106,16 @@ MIDDLEWARE = [
     'cms.middleware.language.LanguageCookieMiddleware',
 ]
 
-ROOT_URLCONF = 'backend.urls'
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],
-        'APP_DIRS': True,
+        # 'APP_DIRS': True,
         'OPTIONS': {
+            'loaders': [
+                'multisite.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader',
+            ],
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
@@ -117,7 +128,6 @@ TEMPLATES = [
 
                 'cms.context_processors.cms_settings',
                 'sekizai.context_processors.sekizai',
-
             ],
         },
     },
@@ -220,4 +230,28 @@ MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join('/data/media/')
 
 
-SITE_ID = 1
+SITE_ID = SiteID(default=1)
+# SITE_ID = 1
+
+SILENCED_SYSTEM_CHECKS = [
+    'sites.E101'
+]
+
+# Multisite config
+# https://github.com/nephila/djangocms-multisite
+
+ROOT_URLCONF = 'backend.urls'
+
+MULTISITE_CMS_URLS={
+    'nossas.staging.bonde.org': ROOT_URLCONF,
+    'bonde.devel': ROOT_URLCONF,
+    'nossas.devel': ROOT_URLCONF,
+}
+
+MULTISITE_CMS_ALIASES={
+    'nossas.staging.bonde.org': ('nossas.staging.bonde.org', ),
+    'bonde.devel': ('nossas.bonde.devel', 'nossas1.bonde.devel'),
+    'nossas.devel': ('subdomain.nossas.devel', ),
+}
+
+MULTISITE_CMS_FALLBACK='bonde.devel'
