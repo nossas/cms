@@ -179,10 +179,12 @@ if not DEBUG:
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'pt-br'
 
 LANGUAGES = [
+    ('pt-br', 'Português'),
     ('en', 'English'),
+    ('es', 'Español')
 ]
 
 TIME_ZONE = 'UTC'
