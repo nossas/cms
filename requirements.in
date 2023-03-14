@@ -33,13 +33,12 @@ djangocms-video>=3.0,<4.0
 djangocms-file>=3.0,<4.0
 djangocms-picture>=3.0,<4.0
 
+django-appconf
+hashids
+
 easy-thumbnails
 # optional django CMS Frontend modules
 djangocms-frontend
-
-# django multisite support for DjangoCMS
-django-multisite
-djangocms-multisite
 
 # Django Filer - optional, but used in most projects (alpha) - already implicitly installed through djangocms-file
 # https://github.com/django-cms/django-filer/archive/refs/tags/2.1.1.zip#egg=django-filer
