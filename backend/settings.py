@@ -65,6 +65,8 @@ INSTALLED_APPS = [
     'djangocms_style',
     'djangocms_googlemap',
     'djangocms_video',
+    # 'form_entries',
+    'bondewidgets_forms',
 
     # optional django CMS Frontend modules
     'djangocms_frontend',

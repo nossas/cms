@@ -1,0 +1,25 @@
+{% load cms_tags %}
+
+{% spaceless %}
+<div class="container" id="{{ instance.form_id }}">
+    {% if instance.title %}
+        <h3>{{ instance.title }}</h3>
+    {% endif %}
+    {% if instance.description %}
+        <p>{{ instance.description }}</p>
+    {% endif %}
+    <div class="form-wrapper">
+        <form action="" method="POST">
+            {% for plugin in instance.child_plugin_instances %}
+                {% with parentloop=forloop parent=instance %}
+                    {% render_plugin plugin %}
+                {% endwith %}
+            {% endfor %}
+            {% csrf_token %}
+            {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+            {% endfor %}
+        </form>
+    </div>
+</div>
+{% endspaceless %}
