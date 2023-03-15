@@ -1,7 +1,7 @@
-{% load cms_tags %}
+{% load cms_tags sekizai_tags %}
 
 {% spaceless %}
-<div class="container" id="{{ instance.form_id }}">
+<div class="container" id="{{ form.form_id.value }}">
     {% if instance.title %}
         <h3>{{ instance.title }}</h3>
     {% endif %}
@@ -9,7 +9,7 @@
         <p>{{ instance.description }}</p>
     {% endif %}
     <div class="form-wrapper">
-        <form action="" method="POST">
+        <form method="post" novalidate>
             {% for plugin in instance.child_plugin_instances %}
                 {% with parentloop=forloop parent=instance %}
                     {% render_plugin plugin %}
@@ -19,7 +19,56 @@
             {% for hidden in form.hidden_fields %}
                 {{ hidden }}
             {% endfor %}
+            <button class="btn btn-primary" type="submit">Enviar</button>
         </form>
+    </div>
+    <div class="form-success" style="display: none;">
+        <h3>Formulário enviado com sucesso!</h3>
     </div>
 </div>
 {% endspaceless %}
+
+{% addtoblock "js" %}
+<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+    $('#{{ form.form_id.value }} form').submit((e) => {
+        e.preventDefault();
+        const form = $('#{{ form.form_id.value }} form')
+        const serializedData = form.serialize();
+
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'bondewidgets_forms_submit' %}",
+            data: serializedData,
+            success: (response) => {
+                if (response.formIsValid) {
+                    console.log('valid')
+                    $('#{{ form.form_id.value }} .form-success').fadeIn('slow')
+                    $('#{{ form.form_id.value }} .form-wrapper').slideUp('slow').remove();
+                } else {
+                    $.each(response.errors, (name, errorList) => {
+                        if (name === '__all__') {
+                            console.log("Errors __all__", errorList);
+                        } else {
+                            const formInput = ':input[name=' + name + ']';
+                            const formField = form.find(formInput).first();
+                            const fieldWrapper = formField.parents('.field-wrapper').addClass('.error')
+                            
+                            const fieldErrors = $('<ul class="alert alert-danger"></ul>');
+                            errorList.forEach((error) => {
+                                $('<li></li>').text(error).appendTo(fieldErrors);
+                            });
+                            fieldWrapper.find('.field-errors').append(fieldErrors).fadeIn('slow');
+
+                            console.log('invalid', response.errors)
+                        }
+                    })
+                }
+            },
+            error: () => {
+                console.log("error")
+            }
+        })
+    })
+</script>
+{% endaddtoblock %}

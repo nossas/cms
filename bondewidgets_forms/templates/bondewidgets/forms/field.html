@@ -1,10 +1,11 @@
 {% load cms_tags sekizai_tags %}
 {% spaceless %}
-    <div class="mb-3">
+    <div class="field-wrapper mb-3">
         <label for="{{ field.name }}" class="form-label">{{ field.label }}</label>
         {{ field }}
         {% if field.help_text %}
         <small id="help-text-{{ field.auto_id }}" class="form-text text-muted">{{ field.help_text }}</small>
         {% endif %}
+        <div class="field-errors"></div>
     </div>
 {% endspaceless %}

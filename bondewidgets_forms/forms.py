@@ -27,7 +27,7 @@ class FormBuilder(forms.Form):
         self.fields['form_id'].initial = int_to_hashid(form_instance.pk)
         # self.redirect_url = form_definition.redirect_url
 
-        for field in form_instance.fields.all():
+        for field in form_instance.fields.order_by('field_name').distinct('field_name'):
             if hasattr(self, 'prepare_%s' % field.field_type):
                 field_name = self.get_unique_field_name(field)
                 form_field = getattr(self, 'prepare_%s' % field.field_type)(field)
