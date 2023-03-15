@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',  # http://whitenoise.evans.io/en/stable/django.html#using-whitenoise-in-development
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'bootstrap_customizer',
 
     # djangocms-multisite
     # 'multisite',
@@ -92,6 +93,9 @@ MIDDLEWARE = [
     # 'cms.middleware.utils.ApphookReloadMiddleware',
     # 'djangocms_multisite.middleware.CMSMultiSiteMiddleware',
     'backend.middleware.DynamicSiteMiddleware',
+
+    'django.contrib.sites.middleware.CurrentSiteMiddleware',
+    'bootstrap_customizer.middleware.BootstrapThemeMiddleware',
     
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -151,6 +155,9 @@ CMS_TEMPLATES = [
 
     # optional templates that extend base.html, to be used with Bootstrap 5
     ('bootstrap5.html', 'Bootstrap 5 Demo'),
+
+    # optional templates that extend base.html, to be used with Bootstrap 4 customize
+    ('bootstrap4_customize.html', 'Bootstrap 4 Customize'),
 
     # serving static files with whitenoise demo
     ('whitenoise-static-files-demo.html', 'Static File Demo'),

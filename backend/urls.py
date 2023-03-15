@@ -15,6 +15,7 @@ urlpatterns += staticfiles_urlpatterns()
 urlpatterns += i18n_patterns(
     re_path(r'^admin/', admin.site.urls),
     re_path(r'^forms/', include('bondewidgets_forms.urls')),
+    re_path(r'^bootstrap_customizer/', include('bootstrap_customizer.urls')),
     re_path(r'^', include('cms.urls'))
 )
 
