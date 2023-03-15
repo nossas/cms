@@ -24,18 +24,23 @@ class FormPlugin(CMSPluginBase):
     render_template = 'bondewidgets/forms/form.html'
 
     def render(self, context, instance, placeholder):
-        context = super(FormPlugin, self).render(context, instance, placeholder)
-        request = context['request']
+        ctx = super(FormPlugin, self).render(context, instance, placeholder)
+        path_info = ctx['request'].path_info
+        is_draft = ctx['current_page'].publisher_is_draft
 
         form = FormBuilder(
-            initial={'referrer': request.path_info}, form_instance=instance.form,
-            label_suffix='', auto_id='%s')
+            initial={'referrer': path_info},
+            form_instance=instance.form,
+            is_draft=is_draft,
+            label_suffix='',
+            auto_id='%s'
+        )
 
-        context.update({
+        ctx.update({
             'form': form
         })
 
-        return context
+        return ctx
 
 @plugin_pool.register_plugin
 class FormFieldPlugin(CMSPluginBase):

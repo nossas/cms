@@ -1,9 +1,0 @@
-{% extends "bondewidgets/forms/field.html" %}
-{% load bondewidgets_forms_tags %}
-{% block field %}
-    <label for="{{ field.name }}" class="form-label">{{ field.label }}</label>
-    {{ field }}
-    {% if field.help_text %}
-    <small id="help-text-{{ field.auto_id }}" class="form-text text-muted">{{ field.help_text }}</small>
-    {% endif %}
-{% endblock %}

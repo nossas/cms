@@ -16,9 +16,10 @@ class FormBuilder(forms.Form):
     form_id = forms.CharField(widget=forms.HiddenInput)
     referrer = forms.CharField(widget=forms.HiddenInput)
 
-    def __init__(self, form_instance, *args, **kwargs):
+    def __init__(self, form_instance, is_draft=False, *args, **kwargs):
         super(FormBuilder, self).__init__(*args, **kwargs)
         self.form_instance = form_instance
+        self.is_draft = is_draft
         self.field_names = []
         self.file_fields = []
         self.field_types = {}
@@ -27,7 +28,9 @@ class FormBuilder(forms.Form):
         self.fields['form_id'].initial = int_to_hashid(form_instance.pk)
         # self.redirect_url = form_definition.redirect_url
 
-        for field in form_instance.fields.order_by('field_name').distinct('field_name'):
+        for field in form_instance.fields.filter(
+            placeholder__page__publisher_is_draft=self.is_draft):
+
             if hasattr(self, 'prepare_%s' % field.field_type):
                 field_name = self.get_unique_field_name(field)
                 form_field = getattr(self, 'prepare_%s' % field.field_type)(field)
