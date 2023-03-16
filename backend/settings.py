@@ -158,6 +158,7 @@ CMS_TEMPLATES = [
 
     # optional templates that extend base.html, to be used with Bootstrap 4 customize
     ('bootstrap4_customize.html', 'Bootstrap 4 Customize'),
+    ('nossas/nossas.html', 'Customize NOSSAS'),
 
     # serving static files with whitenoise demo
     ('whitenoise-static-files-demo.html', 'Static File Demo'),

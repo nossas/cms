@@ -1,25 +1,17 @@
-{% extends "base.html" %}{% load bootstrap_customizer cms_tags menu_tags %}
+{% extends "bootstrap5.html" %}{% load bootstrap_customizer cms_tags menu_tags %}
 {% block base_css %}
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bebas+Neue" data-optimized-fonts="true">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue" rel="stylesheet" media="all" data-optimized-fonts="true">
+
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Droid+Sans:100,400,700" data-optimized-fonts="true">
     <link href="https://fonts.googleapis.com/css?family=Droid+Sans:100,400,700" rel="stylesheet" media="all" data-optimized-fonts="true">
+
     <style lang="css">{% bootstrap_theme_css_above_the_fold %}</style>
+
+    {% block extra_css %}{% endblock %}
 {% endblock %}
 {% block base_js %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
-{% endblock %}
-{% block navbar %}
-    <nav class="navbar {% block navbar_options %}navbar-expand-lg navbar-dark bg-primary{% endblock %}">
-        <div class="container">
-            <a class="navbar-brand" href="/">{% block brand %}{% endblock %}</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">{% block menubar %}{% show_menu 0 100 0 100 'menu/menu.html' %}{% endblock %}</ul>
-                {% block searchbar %}{% endblock %}
-            </div>
-        </div>
-    </nav>
 {% endblock %}
 {% block bottom_css %}
 <link rel="stylesheet" type="text/css" href="{% bootstrap_theme_css_below_the_fold_url %}">

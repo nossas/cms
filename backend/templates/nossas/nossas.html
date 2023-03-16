@@ -1,0 +1,63 @@
+{% extends "bootstrap4_customize.html" %}{% load menu_tags static %}
+
+{% block extra_css %}
+<style>
+    .navbar .nav-link {
+        font-family: Bebas Neue;
+        font-size: 21px;
+    }
+    .navbar .dropdown-item {
+        font-family: Bebas Neue;
+        font-size: 18px;
+        text-transform: unset;
+    }
+    .navbar-dark .navbar-nav .nav-link {
+        color: #fff;
+    }
+    .navbar-dark .navbar-nav .nav-link:hover {
+        color: #fff;
+        text-decoration: underline;
+    }
+    .navbar-dark .navbar-nav .nav-link:focus,
+    .navbar-dark .navbar-nav .nav-link:visited {
+        color: #fff;
+    }
+    .navbar-nav .dropdown-menu {
+        border-radius: 0;
+    }
+    .navbar-nav .dropdown-menu .dropdown-item {
+        color: #fff;
+    }
+    .navbar .dropdown-item:hover,
+    .navbar .dropdown-item:focus {
+        color: #fff;
+        text-decoration: underline;
+        background: none;
+    }
+    
+
+</style>
+{% endblock %}
+
+{% block navbar %}
+    <nav class="navbar {% block navbar_options %}navbar-expand-lg navbar-dark bg-primary{% endblock %}">
+        <div class="container-fluid mx-auto px-4" style="max-width:1850px;height:70px;">
+            <a class="navbar-brand" href="/">{% block brand %}<img src="{% static 'nossas-logo.png' %}" height="30" />{% endblock %}</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse d-flex flex-row-reverse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    {% block menubar %}
+                    {% with bg='bg-primary' %}
+                    {% show_menu 0 100 100 100 'nossas/menu/menu.html' %}
+                    {% endwith %}
+                    {% endblock %}
+                </ul>
+                {% block searchbar %}{% endblock %}
+            </div>
+        </div>
+    </nav>
+{% endblock %}
