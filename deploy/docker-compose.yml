@@ -1,0 +1,71 @@
+version: "3"
+
+services:
+  traefik:
+    image: "traefik:v2.9"
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      # # Map the static configuration into the container
+      - ./config/static.yml:/etc/traefik/traefik.yml:ro
+      # # Map the dynamic configuration into the container
+      - ./config/dynamic.yml:/etc/traefik/dynamic.yml:ro
+      # Map the certificats into the container
+      - ./certs:/etc/certs:ro
+
+
+  web:
+    # the application's web service (container) will use an image based on our Dockerfile
+    build: ../
+    # map the internal port 80 to port 8000 on the host
+    ports:
+      - "8000:80"
+    # map the host directory to app (which allows us to see and edit files inside the container)
+    # volumes:
+    #   - ".:/app:rw"
+    #   - "./data:/data:rw"
+    # the default command to run whenever the container is launched
+    # command: python manage.py runserver 0.0.0.0:80
+    # the URL 'postgres' or 'mysql' will point to the application's db service
+    # networks:
+    #   - bonde
+
+    env_file: .env-staging
+
+    labels:
+      # - traefik.http.services.public.loadbalancer.server.port=80
+      - traefik.enable=true
+      - traefik.http.routers.public.priority=-1
+      - traefik.http.routers.public.tls=true
+      # - traefik.http.routers.public.tls.certresolver=myresolver
+      - traefik.http.routers.public.rule=HostRegexp(`{host:.+}`)
+      - traefik.http.routers.public.tls.domains[0].main=${DEFAULT_DOMAIN_RULE:-docker.localhost}
+      - traefik.http.routers.public.tls.domains[0].sans=*.${DEFAULT_DOMAIN_RULE:-docker.localhost}
+
+      # Enable this container to be mapped by traefik
+      # For more information, see: https://docs.traefik.io/providers/docker/#exposedbydefault
+      # - "traefik.enable=true"
+      # Define the network that should be used
+      # - "traefik.docker.network=proxy"
+      # URL to reach this container
+      # - "traefik.http.routers.whoami.rule=Host(`whoami.docker.localhost`)"
+      # Activation of TLS
+      # - "traefik.http.routers.whoami.tls=true"
+      # If port is different than 80, use the following service:
+      # - "traefik.http.services.<service_name>.loadbalancer.server.port=<port>"
+
+    # volumes:
+    #   - ".:/app:rw"
+
+volumes:
+  letsencrypt:
+    driver: local
+  etcd_data:
+    driver: local
+
+networks:
+  default:
+    name: bonde

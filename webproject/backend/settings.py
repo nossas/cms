@@ -7,19 +7,25 @@ from django_storage_url import dsn_configured_storage_class
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY', '<a string of random characters>')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG') == "True"
 
-ALLOWED_HOSTS = [os.environ.get('DOMAIN'),]
+DOMAIN_ALIASES = os.environ.get('DOMAIN_ALIASES') or ''
+
+ALLOWED_HOSTS = list(map(lambda x: x.strip(), DOMAIN_ALIASES.split(',')))
+
 if DEBUG:
     ALLOWED_HOSTS = ["*",]
 
 # Redirect to HTTPS by default, unless explicitly disabled
 SECURE_SSL_REDIRECT = os.environ.get('SECURE_SSL_REDIRECT') != "False"
+
+# print(f'DEBUG: {DEBUG}')
+# print(f'DOMAIN_ALIASES: {DOMAIN_ALIASES}')
+# print(f'SECURE_SSL_REDIRECT: {SECURE_SSL_REDIRECT}')
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 

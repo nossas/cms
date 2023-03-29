@@ -19,13 +19,17 @@ class DynamicSiteMiddleware(MiddlewareMixin):
     REGEX_PATH_ADMIN = r'/[\w-]*[/]*admin[/]*'
 
     def process_request(self, request):
+        
         host = request.get_host().split(':')[0]
 
         try:
             current_site = Site.objects.get(domain=host)
         except Site.DoesNotExist:
-            if re.match(DynamicSiteMiddleware.REGEX_PATH_ADMIN, request.get_full_path()) \
-                is None:
+            match_path = re.match(
+                DynamicSiteMiddleware.REGEX_PATH_ADMIN, request.get_full_path())
+            
+            print(match_path)
+            if  match_path is None:
                 
                 return server_error(request)
             else:
