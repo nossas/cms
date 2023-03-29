@@ -11,6 +11,10 @@ db.sqlite3
 /data.tar.gz
 /data
 
+# Environment
+.env*
+venv/
+
 
 # OS-specific patterns - add your own here
 .DS_Store
