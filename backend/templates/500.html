@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="https://static.bonde.org/static/images/icon/favicon-16.png"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+            rel="stylesheet"
+        />
+        <style type="text/css">
+            body {
+                display: flex;
+                flex-direction: column;
+                padding: 10px 52px;
+                font-family: 'Roboto', sans-serif;
+            }
+            .main {
+                display: flex;
+                flex-direction: row;
+                flex-grow: 1;
+                width: 100%;
+                align-items: center;
+                justify-content: center;
+                margin: 120px 0 0;
+            }
+            .content {
+                max-width: 428px;
+                margin-left: 70px;
+            }
+            .content h2 {
+                font-size: 60px;
+                font-weight: 900;
+                line-height: 66px;
+                margin: 20px 0;
+            }
+            .content p {
+                font-size: 18px;
+                line-height: 27px;
+                margin: 10px 0;
+            }
+            .content a {
+                color: rgb(233, 97, 184);
+            }
+
+            @media screen and (max-width: 991px) {
+                body {
+                    padding: 0 29px;
+                }
+                .main {
+                    flex-direction: column;
+                    margin: 0;
+                }
+                .main img {
+                    width: 100%;
+                }
+                .content {
+                    margin-left: 0;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main">
+            <img src="/static/images/500.png" alt="500 Internal Server Error" />
+            <div class="content">
+                <h2>Ops</h2>
+                <p>
+                    Estamos com um problema inesperado nos nossos servidores. Nossa equipe
+                    já foi alertada e está trabalhando para colocar o Bonde nos trilhos
+                    novamente.
+                </p>
+                <p>Tente acessar a página de novo em alguns minutos.</p>
+                <p>
+                    Caso seja algo urgente ou você queira falar sobre outro assunto, envie
+                    um email para <a href="mailto:suporte@bonde.org.">suporte@bonde.org</a>.
+                </p>
+                <p>Obrigada pela compreensão :)</p>
+            </div>
+        </div>
+    </body>
+</html>
