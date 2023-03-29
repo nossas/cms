@@ -3,6 +3,16 @@
     <head>
         <title>{% page_attribute "page_title" %}</title>
         {% render_block "css" %}
+        <style type="text/css">
+            button {
+                padding: 1rem;
+                border: none;
+            }
+
+            .btn-primary {
+                background-color: bisque;
+            }
+        </style>
     </head>
     <body>
         {% cms_toolbar %}
