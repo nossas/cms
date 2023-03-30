@@ -1,0 +1,8 @@
+{% load cms_tags sekizai_tags i18n %}
+<div class="block" id="{{ instance.slug }}">
+    {% for plugin in instance.child_plugin_instances %}
+        {% with parentloop=forloop parent=instance %}
+            {% render_plugin plugin %}
+        {% endwith %}
+    {% endfor %}
+</div>
