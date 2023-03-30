@@ -1,5 +1,5 @@
 {% load cms_tags sekizai_tags i18n %}
-<div class="block" id="{{ instance.slug }}">
+<div class="lp-block" id="{{ instance.slug }}" {% if styles %}style="{{ styles }}"{% endif %}>
     {% for plugin in instance.child_plugin_instances %}
         {% with parentloop=forloop parent=instance %}
             {% render_plugin plugin %}

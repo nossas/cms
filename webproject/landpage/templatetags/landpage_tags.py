@@ -9,10 +9,10 @@ register = template.Library()
 @register.simple_tag(takes_context=True)
 def landpage_create_menu(context, template_name='landpage/menu.html'):
     placeholder = context['request'].current_page.placeholders.first()
-    menus = list(map(
+    menus = list(filter(lambda x: x.is_menu, map(
         lambda plugin: plugin.get_plugin_instance()[0],
         placeholder.get_plugins().filter(plugin_type='ContentPlugin')
-    ))
+    )))
 
     template = loader.get_template(template_name)
 

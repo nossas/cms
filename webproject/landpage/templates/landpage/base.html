@@ -22,10 +22,13 @@
     </head>
     <body {% block body_attrs %}{% endblock %}>
 {% endspaceless %}{% cms_toolbar %}{% spaceless %}
+<div class="landpage">
     {% block navbar %}{% endblock %}
     {% block content %}
         {% placeholder "Content" %}
     {% endblock content %}
+    {% block footer %}{% endblock %}
+</div>
     {% block base_js %}{% endblock %}
 {% endspaceless %}{% render_block 'js' %}{% spaceless %}
     {% block end_js %}{% endblock %}
