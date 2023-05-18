@@ -1,0 +1,40 @@
+{% load wagtailcore_tags %}
+
+<div>
+  <div class="container py-5">
+    <div id="action" class="row">
+      <div class="col-md-6 px-5">
+        {% include_block value.story %}
+      </div>
+      <div class="col-md-6 px-5">
+        <div class="mb-3">
+          {% include_block value.targets %}
+        </div>
+        
+        {% if user.is_authenticated %}
+        <p>Você não é {{user.first_name}}, <a href="{% url 'logout' %}?next={{request.path}}" target="_self">clique aqui</a></p>
+        {% endif %}
+      
+        {{ form }}
+        <!-- <form>
+          <div class="mb-3">
+            <label for="" class="form-label">Assunto</label>
+            <input class="form-control" name="email_subject" value="{% include_block value.subject %}" />
+          </div>
+          <div class="mb-3">
+            <label for="" class="form-label">Assunto</label>
+            <input class="form-control" name="email_subject" value="{% include_block value.subject %}" />
+          </div>
+          <div class="mb-3">
+            <label for="" class="form-label">Assunto</label>
+            <input class="form-control" name="email_subject" value="{% include_block value.subject %}" />
+          </div>
+          <div class="mb-3">
+            <label for="" class="form-label">Corpo do e-mail</label>
+            <textarea class="form-control" name="email_body" rows="10">{% include_block value.content %}</textarea>
+          </div>
+        </form> -->
+      </div>
+    </div>
+  </div>
+</div>
