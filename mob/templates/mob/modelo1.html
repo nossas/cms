@@ -1,0 +1,11 @@
+{% extends "tailwind/base.html" %}
+{% load cms_tags %}
+
+{% block content %}
+  <!-- Content -->
+  {% placeholder "content" %}
+  <!-- Footer -->
+  <footer>
+    {% static_placeholder 'footer' %}
+  </footer>
+{% endblock %}
