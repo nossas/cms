@@ -25,6 +25,9 @@ class BlockBase(CMSPlugin):
     def __str__(self):
         return self.title
 
+    def get_menu_title(self):
+        return self.menu_title or self.title
+
 
 class Block(BlockBase):
     pass
@@ -37,3 +40,41 @@ class ActionButton(CMSPlugin):
     bg_color = models.CharField(
         "cor do fundo", max_length=50, default="blue", blank=True
     )
+
+
+class RowStyles(models.TextChoices):
+    flex = ("flex", "Flex")
+
+
+class Row(CMSPlugin):
+    styled = models.CharField(
+        "Estilo da linha",
+        max_length=20,
+        choices=RowStyles.choices,
+        default=RowStyles.flex
+    )
+
+    def classnames(self, attrs=None):
+        if self.styled == RowStyles.flex:
+            return 'flex flex-row items-center gap-8'
+        
+        return ''
+
+
+class ColumnStyles(models.TextChoices):
+    auto = ("auto", "Auto")
+
+
+class Column(CMSPlugin):
+    styled = models.CharField(
+        "Estilho da coluna",
+        max_length=20,
+        choices=ColumnStyles.choices,
+        default=ColumnStyles.auto
+    )
+
+    def classnames(self, attrs=None):
+        if self.styled == ColumnStyles.auto:
+            return 'flex-auto'
+        
+        return ''

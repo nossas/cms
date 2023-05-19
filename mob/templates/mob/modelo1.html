@@ -1,10 +1,13 @@
 {% extends "tailwind/base.html" %}
-{% load cms_tags %}
+{% load cms_tags mob_menu_tags %}
 
 {% block content %}
+  {% show_menu 'mob/plugins/navbar.html' %}
+  <main>
   <!-- Content -->
   {% placeholder "content" %}
   <!-- Footer -->
+  </main>
   <footer>
     {% static_placeholder 'footer' %}
   </footer>
