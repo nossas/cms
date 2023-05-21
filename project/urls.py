@@ -18,8 +18,13 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
 
+from mob.views import override_wizard_create
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # path('cms_wizard/create/', override_wizard_create),
+
     path('', include('cms.urls')),
 ]
 
