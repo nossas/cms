@@ -11,16 +11,7 @@ from cms.utils.page_permissions import user_can_add_page, user_can_add_subpage
 # from .forms.wizards import CreateCMSPageForm, CreateCMSSubPageForm
 # from .wizards.wizard_base import Wizard
 # from .wizards.wizard_pool import wizard_pool
-
-
-class WizardForm(CreateCMSPageForm):
-    content = None
-
-    def save(self, **kwargs):
-        # import ipdb;ipdb.set_trace()
-        # Criar página padrão para tipo de form
-        import ipdb;ipdb.set_trace()
-        pass
+from .forms import CreatePressureForm
 
 
 class CMSPressureWizard(Wizard):
@@ -53,7 +44,7 @@ class CMSDonationWizard(Wizard):
 cms_pressure_wizard = CMSPressureWizard(
     title="Campanha de Pressão",
     weight=100,
-    form=WizardForm,
+    form=CreatePressureForm,
     model=Page,
     description="Pressão por e-mail Explica tática"
 )
@@ -61,7 +52,7 @@ cms_pressure_wizard = CMSPressureWizard(
 cms_donation_wizard = CMSDonationWizard(
     title="Campanha de Doação",
     weight=100,
-    form=WizardForm,
+    form=CreatePressureForm,
     model=Page,
     description="Doação Explica tática"
 )

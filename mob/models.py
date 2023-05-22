@@ -28,6 +28,12 @@ class BlockBase(CMSPlugin):
     def get_menu_title(self):
         return self.menu_title or self.title
 
+    def get_background(self):
+        if self.background.startswith("url"):
+            return f"bg-[{self.background}] bg-no-repeat bg-cover"
+        
+        return f"bg-[{self.background}]"
+
 
 class Block(BlockBase):
     pass
@@ -38,12 +44,19 @@ class ActionButton(CMSPlugin):
         "endereço da ação", max_length=80, help_text="slug do bloco usado na URL"
     )
     bg_color = models.CharField(
-        "cor do fundo", max_length=50, default="blue", blank=True
+        "cor do fundo", max_length=100, default="blue", blank=True
     )
+
+    def get_bg_color(self):
+        if self.bg_color.startswith("bg-"):
+            return self.bg_color
+        
+        return f"bg-{{self.bg_color}}-800 hover:bg-{{self.bg_color}}-900"
 
 
 class RowStyles(models.TextChoices):
     flex = ("flex", "Flex")
+    wrap = ("wrap", "Wrap")
 
 
 class Row(CMSPlugin):
@@ -57,7 +70,9 @@ class Row(CMSPlugin):
     def classnames(self, attrs=None):
         if self.styled == RowStyles.flex:
             return 'flex flex-row items-center gap-8'
-        
+        elif self.styled == RowStyles.wrap:
+            return 'flex flex-wrap gap-8 justify-center'
+
         return ''
 
 

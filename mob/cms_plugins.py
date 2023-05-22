@@ -55,7 +55,7 @@ class RowPlugin(CMSPluginBase):
     name = "Linha"
     render_template = "mob/plugins/row.html"
     allow_children = True
-    child_classes = ["ColumnPlugin"]
+    child_classes = ["ColumnPlugin", "PicturePlugin"]
 
 
 @plugin_pool.register_plugin

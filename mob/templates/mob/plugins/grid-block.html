@@ -2,7 +2,7 @@
 {% load cms_tags %}
 
 {% block main %}
-    <div class="flex gap-8">
+    <div class="flex flex-col md:flex-row gap-8">
         {% for plugin in instance.child_plugin_instances %}
             <div class="flex-1">
                 {% render_plugin plugin %}
