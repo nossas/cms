@@ -2,24 +2,25 @@
 
 {% load i18n static %}
 {% load account socialaccount %}
+{% load mob_form_tags %}
 
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
 
 {% block content %}
-<div class="card w-2/4 bg-neutral text-neutral-content mx-auto mt-48">
+<div class="card w-2/4 bg-white text-white-content mx-auto mt-48 drop-shadow-md border">
   <div class="card-body items-center text-center">
-    <h1 class="card-title text-3xl">{% trans "Sign In" %}</h1>
+    <h1 class="card-title text-3xl mb-4">Acessar o DjangoCMS com seu usuário BONDE</h1>
 
     {% get_providers as socialaccount_providers %}
 
     {% if socialaccount_providers %}
     <p>Escolha uma das opções de login abaixo ou utilize seu usuário e senha:</p>
 
-    <div class="flex flex-row gap-8">
+    <div class="flex flex-col gap-8 w-full mt-2">
       {% include "socialaccount/snippets/provider_list.html" with process="login" %}
     </div>
 
-    <div class="login-or">{% trans 'or' %}</div>
+    <div class="divider">{% trans 'or' %}</div>
 
     {% include "socialaccount/snippets/login_extra.html" %}
 
@@ -28,14 +29,33 @@
     <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
     {% endif %}
 
-    <form class="login" method="POST" action="{% url 'account_login' %}">
+    <form class="flex flex-col w-1/2" method="POST" action="{% url 'account_login' %}">
       {% csrf_token %}
-      {{ form.as_p }}
+      <!-- {{ form.as_p }} -->
+      {% for field in form %}
+      
+        {% if field.name == 'remember' %}
+        <div class="form-control mb-2">
+          <label class="label cursor-pointer flex justify-center gap-4">
+            {{ field|add_class:"checkbox" }}
+            <span class="label-text">{{ field.label }}</span> 
+            <!-- <input type="checkbox" checked="checked" class="checkbox" /> -->
+          </label>
+        </div>
+        {% else %}
+        <div class="form-control w-full mb-2">
+        {{ field|add_class:"input input-bordered" }}
+        </div>
+        {% endif %}
+      {% endfor %}
       {% if redirect_field_value %}
       <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
       {% endif %}
-      <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
-      <button class="primaryAction" type="submit">{% trans "Sign In" %}</button>
+
+      <div class="flex flex-col gap-2">
+        <button class="btn btn-outline btn-primary w-full" type="submit">{% trans "Sign In" %}</button>
+        <a class="btn btn-ghost btn-neutral w-full" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+      </div>
     </form>
   </div>
 </div>
