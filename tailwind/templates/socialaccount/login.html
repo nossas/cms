@@ -1,0 +1,25 @@
+{% extends "socialaccount/base.html" %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+{% block content %}
+<div class="card w-2/4 bg-white text-white-content mx-auto mt-48 drop-shadow-md border">
+  <div class="card-body items-center text-center">
+    <div class="flex flex-col gap-2 mb-4">
+      {% if process == "connect" %}
+      <h1 class="text-3xl">Conectar ao {{ provider.name }}</h1>
+      <p>Você está prestes a conectar uma conta {{ provider.name }}.</p>
+      
+      {% else %}
+      <h1 class="text-3xl">Entrar usando {{ provider.name }}</h1>
+      <p>Você está prestes a entrar usando uma conta {{ provider.name }}.</p>
+      {% endif %}
+    </div>
+    <form method="post">
+      {% csrf_token %}
+      <button class="btn btn-primary text-primary hover:text-white" type="submit">{% trans "Continue" %}</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

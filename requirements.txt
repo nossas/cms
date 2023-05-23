@@ -1,4 +1,9 @@
 django==3.2
+django-environ
+psycopg2-binary
+# Django CMS
 django-cms
 djangocms-text-ckeditor
 djangocms-picture
+# Authentication all platforms
+django-allauth
