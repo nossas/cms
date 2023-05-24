@@ -49,10 +49,10 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.sites",
     # All Auth Providers
-    "allauth",
-    "allauth.account",
-    "allauth.socialaccount",
-    "allauth.socialaccount.providers.google",
+    # "allauth",
+    # "allauth.account",
+    # "allauth.socialaccount",
+    # "allauth.socialaccount.providers.google",
     # Django CMS
     "cms",
     "menus",
@@ -67,7 +67,7 @@ INSTALLED_APPS = [
     
     # My Apps
     "mob",
-    "bonde",
+    "contrib.bonde",
 ]
 
 MIDDLEWARE = [
@@ -78,6 +78,9 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+
+    "contrib.bonde.middleware.SiteMiddleware",
+
     "cms.middleware.user.CurrentUserMiddleware",
     "cms.middleware.page.CurrentPageMiddleware",
     "cms.middleware.toolbar.ToolbarMiddleware",
@@ -159,7 +162,7 @@ DATABASES = {
     "bonde": env.db_url("BONDE_DATABASE_URL")
 }
 
-DATABASE_ROUTERS = ["bonde.router.AuthRouter", ]
+DATABASE_ROUTERS = ["contrib.bonde.router.AuthRouter", ]
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -181,10 +184,12 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
-    'django.contrib.auth.backends.ModelBackend',
+    # 'django.contrib.auth.backends.ModelBackend',
+
+    'contrib.bonde.backends.BondeBackend',
 
     # `allauth` specific authentication methods, such as login by e-mail
-    'allauth.account.auth_backends.AuthenticationBackend',
+    # 'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 
@@ -273,4 +278,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Sites
 # https://docs.djangoproject.com/en/4.2/ref/contrib/sites/
 
-SITE_ID = 1
+# SITE_ID = 1
+
+DEFAULT_SITE_ID = 1

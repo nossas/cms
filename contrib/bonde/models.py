@@ -6,6 +6,10 @@
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
+from django.contrib.auth.models import Permission
+from django.contrib.contenttypes.models import ContentType
+
+from cms.models import Page, CMSPlugin
 
 
 class User(models.Model):
@@ -39,3 +43,11 @@ class User(models.Model):
         managed = False
         db_table = 'users'
         unique_together = (('uid', 'provider'),)
+
+
+    def set_default_perms(self, user):
+        content_type = ContentType.objects.get_for_model(Page)
+        
+        permissions = Permission.objects.filter(content_type=content_type)
+        user.user_permissions.set([p.codename for p in permissions])
+        user.save()

@@ -41,13 +41,18 @@ class ShowMenu(InclusionTag):
 
         placeholder = current_page.get_placeholders().first()
 
-        plugins = placeholder.get_child_plugins().filter(
-            Q(plugin_type="BlockPlugin") | Q(plugin_type="GridBlockPlugin")
-        )
+        if placeholder:
+            plugins = placeholder.get_child_plugins().filter(
+                Q(plugin_type="BlockPlugin") | Q(plugin_type="GridBlockPlugin")
+            )
 
-        context['template'] = template
-        
-        context["children"] = list(filter(lambda x: not x.menu_hidden, map(lambda x: x.get_bound_plugin(), plugins)))
+            context['template'] = template
+            
+            context["children"] = list(filter(lambda x: not x.menu_hidden, map(lambda x: x.get_bound_plugin(), plugins)))
+        else:
+            context["template"] = template
+
+            context["children"] = list()
 
         # try:
         #     # If there's an exception (500), default context_processors may not be called.

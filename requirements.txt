@@ -6,4 +6,5 @@ django-cms
 djangocms-text-ckeditor
 djangocms-picture
 # Authentication all platforms
-django-allauth
+# django-allauth
+bcrypt
