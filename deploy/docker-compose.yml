@@ -1,6 +1,6 @@
 services:
     cms:
-      image: ${DOCKER_IMAGE:-nossas/cms:feature-bonde}
+      image: ${DOCKER_IMAGE:-nossas/cms:main}
       restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
       pull_policy: always
       environment:

@@ -52,4 +52,4 @@ WORKDIR /app
 COPY --from=node-builder /app ./
 
 # Runtime command that executes when "docker run" is called.
-CMD uwsgi --http=0.0.0.0:8000 --module=project.wsgi --honour-stdin
+CMD uwsgi --socket=0.0.0.0:8000 --module=project.wsgi --master --processes 4 --threads 2 --stats 0.0.0.0:8001 --honour-stdin
