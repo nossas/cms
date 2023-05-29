@@ -1,8 +1,0 @@
-services:
-
-  cms:
-    image: nossas/cms
-    env_file:
-      - .env
-    ports:
-      - 80:8000

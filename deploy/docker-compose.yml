@@ -1,0 +1,22 @@
+services:
+    cms:
+      image: ${DOCKER_IMAGE:-nossas/cms:feature-bonde}
+      restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
+      pull_policy: always
+      environment:
+        - DEBUG=${DEBUG:-True}
+        - ALLOWED_HOSTS=${ALLOWED_HOSTS:-"docker.localhost"}
+        - CMS_DATABASE_URL=${CMS_DATABASE_URL}
+        - BONDE_DATABASE_URL=${BONDE_DATABASE_URL}
+        - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+        - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+        - AWS_STORAGE_BUCKET_NAME=${AWS_STORAGE_BUCKET_NAME}
+      labels:
+        - traefik.enable=true
+        - traefik.http.services.cms.loadbalancer.server.port=8000
+        - traefik.http.routers.cms.tls=true
+        - traefik.http.routers.cms.tls.certresolver=myresolver
+
+networks:
+  default:
+    name: bonde
