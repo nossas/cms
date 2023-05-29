@@ -1,0 +1,10 @@
+/* static/src/input.css */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.bg-red-600 {
+    background-color: yellow;
+}

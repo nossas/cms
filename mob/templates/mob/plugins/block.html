@@ -1,8 +1,0 @@
-{% extends "mob/block_base.html" %}
-{% load cms_tags %}
-
-{% block main %}
-    {% for plugin in instance.child_plugin_instances %}
-        {% render_plugin plugin %}
-    {% endfor %}
-{% endblock %}

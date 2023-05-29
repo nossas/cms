@@ -90,7 +90,7 @@ class CommunityUser(models.Model):
         unique_together = (("community_id", "user_id", "role"),)
 
 
-class DnsHostedZones(models.Model):
+class DnsHostedZone(models.Model):
     community = models.ForeignKey(Community, on_delete=models.CASCADE, blank=True, null=True)
     domain_name = models.CharField(unique=True, max_length=100, blank=True, null=True)
     # comment = models.TextField(blank=True, null=True)

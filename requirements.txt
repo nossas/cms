@@ -8,3 +8,4 @@ djangocms-picture
 # Authentication all platforms
 # django-allauth
 bcrypt
+django-compressor

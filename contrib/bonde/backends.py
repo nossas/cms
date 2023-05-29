@@ -1,13 +1,18 @@
 import bcrypt
 
 from django.contrib.auth.models import Group
-from django.contrib.auth.backends import BaseBackend, ModelBackend
+from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth.models import User
 
-from .models import User as UserBonde, Community
+from .models import User as UserBonde
 
 
 class BondeBackend(ModelBackend):
+    """
+    Cria um novo usuário caso ele exista no Bonde e adiciona ao
+    grupo Mobilizador se esse usuário não for administrador.
+    """
+
     def authenticate(self, request, username=None, password=None, **kwargs):
         user = super(BondeBackend, self).authenticate(
             request, username, password, **kwargs
@@ -40,9 +45,10 @@ class BondeBackend(ModelBackend):
 
 
 class BondeSiteBackend(BondeBackend):
-
     def authenticate(self, request, username, password, **kwargs):
-        user = super(BondeSiteBackend, self).authenticate(request, username, password, **kwargs)
+        user = super(BondeSiteBackend, self).authenticate(
+            request, username, password, **kwargs
+        )
 
         if user and not user.is_superuser:
             host, port = request.get_host().split(":")
@@ -51,7 +57,9 @@ class BondeSiteBackend(BondeBackend):
             if port:
                 host = host.replace(".localhost", ".org.br")
 
-            if not user_bonde.communityuser_set.filter(community__dnshostedzones__domain_name=host).exists():
+            if not user_bonde.communityuser_set.filter(
+                community__dnshostedzone__domain_name=host
+            ).exists():
                 return
-        
+
         return user

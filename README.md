@@ -8,6 +8,10 @@ Open Action Tool
 
 `sudo apt-get install build-essential cargo`
 
+Estilos CSS com Tailwind:
+
+`npx tailwindcss -i ./static/css/input.css -o ./static/dist/css/output.css --watch`
+
 
 Como publicar vários sites?
 
@@ -46,4 +50,4 @@ enquanto o dominio principal, precisaria ser migrado pro CMS
 
 
 Remove ideia google autenticate
-Criptograr com a mesma chave o password
+Criptografar com a mesma chave o password
