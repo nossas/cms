@@ -15,6 +15,8 @@ from pathlib import Path
 
 env = environ.Env(
     DEBUG=(bool, True),
+    SECRET_KEY=(str, "django-insecure-cx!j1+m*n87=*iq%m8!^$d8tf0%%=muz4lb5bf4p7h8=zpgfe)"),
+    ALLOWED_HOSTS=(list, None)
 )
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -26,12 +28,12 @@ environ.Env.read_env(BASE_DIR / ".env")
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-cx!j1+m*n87=*iq%m8!^$d8tf0%%=muz4lb5bf4p7h8=zpgfe)"
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DEBUG")
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
 
 X_FRAME_OPTIONS = "SAMEORIGIN"
 
@@ -151,11 +153,10 @@ CMS_PLACEHOLDER_CONF = {
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+DEFAULT_DB_SQLITE = BASE_DIR / "db.sqlite3"
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    },
+    "default": env.db_url("CMS_DATABASE_URL", f"sqlite:///{DEFAULT_DB_SQLITE}"),
     "bonde": env.db_url("BONDE_DATABASE_URL"),
 }
 
@@ -214,6 +215,8 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
+STATIC_ROOT = BASE_DIR / "data/staticfiles/"
+
 # only required for local file storage and serving, in development
 MEDIA_URL = "/media/"
 
@@ -267,6 +270,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Sites
 # https://docs.djangoproject.com/en/4.2/ref/contrib/sites/
 
-# SITE_ID = 1
+SITE_ID = 1
 
-DEFAULT_SITE_ID = 1
+# DEFAULT_SITE_ID = 1
