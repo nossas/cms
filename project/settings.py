@@ -14,8 +14,8 @@ from pathlib import Path
 
 
 env = environ.Env(
-    DEBUG=(bool, True),
-    SECRET_KEY=(str, "django-insecure-cx!j1+m*n87=*iq%m8!^$d8tf0%%=muz4lb5bf4p7h8=zpgfe)"),
+    DEBUG=(bool, False),
+    SECRET_KEY=(str, "django-insecure-secret-key"),
     ALLOWED_HOSTS=(list, None)
 )
 
@@ -157,7 +157,8 @@ DEFAULT_DB_SQLITE = BASE_DIR / "db.sqlite3"
 
 DATABASES = {
     "default": env.db_url("CMS_DATABASE_URL", f"sqlite:///{DEFAULT_DB_SQLITE}"),
-    "bonde": env.db_url("BONDE_DATABASE_URL"),
+    # Add tmp sqlite file to build image
+    "bonde": env.db_url("BONDE_DATABASE_URL", "sqlite:////tmp/bonde.sqlite3"),
 }
 
 DATABASE_ROUTERS = [
@@ -215,12 +216,12 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
-STATIC_ROOT = BASE_DIR / "data/staticfiles/"
+STATIC_ROOT = BASE_DIR / "staticfiles/"
 
 # only required for local file storage and serving, in development
 MEDIA_URL = "/media/"
 
-MEDIA_ROOT = BASE_DIR / "data/media/"
+MEDIA_ROOT = BASE_DIR / "media/"
 
 # Django Compressor
 COMPRESS_ROOT = BASE_DIR / "tailwind/static"

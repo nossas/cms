@@ -1,7 +1,11 @@
 # Django project
 /media/
 /static/
+/staticfiles/
 *.sqlite3
+CACHE/
+.env
+.env-*
 
 # Python and others
 __pycache__

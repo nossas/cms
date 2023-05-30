@@ -19,12 +19,9 @@ from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path, include
 
-# from mob.views import override_wizard_create
-
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    # path('accounts/', include('allauth.urls')),
     path("", include("cms.urls"))
 ]
 
@@ -33,8 +30,5 @@ urlpatterns += staticfiles_urlpatterns()
 if settings.DEBUG:
     urlpatterns.extend(static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT))
 
-urlpatterns.extend([
-    
-])
 
 # urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
