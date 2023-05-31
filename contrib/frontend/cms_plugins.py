@@ -1,10 +1,8 @@
-from django.db.models import Q
-
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
-from .models import Block, Grid
-# from .forms import PressureForm
+from .models import Block, Grid, ColumnChoices, LayoutChoices
+from .utils import copy_by_layout
 
 
 @plugin_pool.register_plugin
@@ -43,6 +41,11 @@ class BlockPlugin(CMSPluginBase):
             }
         )
     ]
+
+    def save_model(self, request, obj, form, change):
+        super(BlockPlugin, self).save_model(request, obj, form, change)
+
+        copy_by_layout(obj=obj, layout=form.cleaned_data["layout"])
 
 
 
