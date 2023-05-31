@@ -31,5 +31,3 @@ PUBLIC_MEDIA_LOCATION = 'media'
 MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/'
 
 DEFAULT_FILE_STORAGE = 'project.storages.PublicMediaStorage'
-
-COMPRESS_STORAGE = 'project.storages.StaticStorage'

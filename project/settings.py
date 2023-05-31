@@ -16,7 +16,7 @@ from pathlib import Path
 env = environ.Env(
     DEBUG=(bool, False),
     SECRET_KEY=(str, "django-insecure-secret-key"),
-    ALLOWED_HOSTS=(list, None)
+    ALLOWED_HOSTS=(list, None),
 )
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -47,15 +47,9 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    "whitenoise.runserver_nostatic",  # http://whitenoise.evans.io/en/stable/django.html#using-whitenoise-in-development
     "django.contrib.staticfiles",
     "django.contrib.sites",
-    # Staticfiles
-    "compressor",
-    # All Auth Providers
-    # "allauth",
-    # "allauth.account",
-    # "allauth.socialaccount",
-    # "allauth.socialaccount.providers.google",
     # Django CMS
     "cms",
     "menus",
@@ -74,6 +68,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -186,10 +181,7 @@ AUTH_PASSWORD_VALIDATORS = [
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
     # 'django.contrib.auth.backends.ModelBackend',
-    # 'contrib.bonde.backends.BondeBackend',
     "contrib.bonde.backends.BondeSiteBackend",
-    # `allauth` specific authentication methods, such as login by e-mail
-    # 'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 
@@ -218,21 +210,18 @@ STATIC_URL = "/static/"
 
 STATIC_ROOT = BASE_DIR / "staticfiles/"
 
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+STATICFILES_FINDERS = (
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+)
+
 # only required for local file storage and serving, in development
 MEDIA_URL = "/media/"
 
 MEDIA_ROOT = BASE_DIR / "media/"
 
-# Django Compressor
-COMPRESS_ROOT = BASE_DIR / "tailwind/static"
-
-COMPRESS_ENABLED = True
-
-STATICFILES_FINDERS = (
-    "django.contrib.staticfiles.finders.FileSystemFinder",
-    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-    "compressor.finders.CompressorFinder",
-)
 
 # Thumbnails
 # https://easy-thumbnails.readthedocs.io/en/latest/
@@ -272,5 +261,3 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # https://docs.djangoproject.com/en/4.2/ref/contrib/sites/
 
 SITE_ID = 1
-
-# DEFAULT_SITE_ID = 1
