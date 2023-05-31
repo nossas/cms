@@ -5,6 +5,7 @@ psycopg2-binary
 django-cms
 djangocms-text-ckeditor
 djangocms-picture
+django-colorfield
 # Authentication all platforms
 # django-allauth
 bcrypt

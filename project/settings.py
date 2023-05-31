@@ -61,9 +61,12 @@ INSTALLED_APPS = [
     # some content plugins - optional, but used in most projects
     "djangocms_picture",
     "djangocms_text_ckeditor",
+    # Third apps
+    "colorfield",
     # My Apps
-    "contrib.campaign",
     "contrib.bonde",
+    "contrib.campaign",
+    "contrib.frontend",
 ]
 
 MIDDLEWARE = [
@@ -119,7 +122,7 @@ CMS_TEMPLATES = [
 # https://docs.django-cms.org/en/latest/reference/configuration.html#std-setting-CMS_PLACEHOLDER_CONF
 CMS_PLACEHOLDER_CONF = {
     "content": {
-        "plugins": ["BlockPlugin", "GridBlockPlugin"],
+        "plugins": ["BlockPlugin"],
         "name": "Conteúdo",
         # 'language_fallback': True,
         # 'default_plugins': [

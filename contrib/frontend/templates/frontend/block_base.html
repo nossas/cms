@@ -1,0 +1,5 @@
+<div style="{{ instance.styles }}">
+    <div{% if instance.slug %} id="{{ instance.slug }}"{% endif %} class="container mx-auto py-24">
+    {% block main %}{% endblock %}
+    </div>
+</div>

@@ -35,8 +35,8 @@ class BlockBase(CMSPlugin):
         return f"bg-[{self.background}]"
 
 
-class Block(BlockBase):
-    pass
+# class Block(BlockBase):
+#     pass
 
 class ActionButton(CMSPlugin):
     title = models.CharField("título", max_length=80)

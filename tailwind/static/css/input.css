@@ -3,3 +3,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@layer components {
+    .col-3 {
+        @apply w-full md:w-1/3;
+    }
+
+    .col-2 {
+        @apply w-full md:w-1/2;
+    }
+}
