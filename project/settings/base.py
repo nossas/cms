@@ -106,48 +106,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "project.wsgi.application"
 
-# CMS Templates
-# https://docs.django-cms.org/en/latest/how_to/install.html#templates
-
-CMS_TEMPLATES = [
-    ("app/home.html", "Home"),
-    ("campaign/landpage.html", "Landpage"),
-]
-
-# DJANGOCMS_PICTURE_TEMPLATES = [
-#     ('brand', "Assinatura"),
-# ]
-
-# Placeholder
-# https://docs.django-cms.org/en/latest/reference/configuration.html#std-setting-CMS_PLACEHOLDER_CONF
-CMS_PLACEHOLDER_CONF = {
-    "content": {
-        "plugins": ["BlockPlugin"],
-        "name": "Conteúdo",
-        # 'language_fallback': True,
-        # 'default_plugins': [
-        #     {
-        #         'plugin_type': 'TextPlugin',
-        #         'values': {
-        #             'body':'<p>Lorem ipsum dolor sit amet...</p>',
-        #         },
-        #     },
-        # ],
-        # 'child_classes': {
-        #     'TextPlugin': ['PicturePlugin', 'LinkPlugin'],
-        # },
-        # 'parent_classes': {
-        #     'LinkPlugin': ['TextPlugin'],
-        # },
-    },
-    "navbar": {
-        "plugins": ["NavigationPlugin"],
-    },
-    "footer": {
-        "plugins": ["FooterPlugin"],
-    },
-}
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
@@ -162,6 +120,7 @@ DATABASES = {
 DATABASE_ROUTERS = [
     "contrib.bonde.router.AuthRouter",
 ]
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -236,17 +195,6 @@ THUMBNAIL_PROCESSORS = (
     "filer.thumbnail_processors.scale_and_crop_with_subject_location",
     "easy_thumbnails.processors.filters",
 )
-
-
-# Picture
-# https://github.com/django-cms/djangocms-picture
-
-DJANGOCMS_PICTURE_ALIGN = [
-    # Change prefix classes alignment for not use space
-    (" object-left", "Esquerda"),
-    (" mx-auto", "Centro"),
-    (" object-right", "Direita"),
-]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

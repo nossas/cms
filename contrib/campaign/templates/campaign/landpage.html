@@ -4,13 +4,14 @@
 {% block title %}{% page_attribute "page_title" %}{% endblock %}
 
 {% block content %}
-  {% show_menu 'campaign/plugins/navbar.html' %}
+  <!-- {% show_menu 'campaign/plugins/navbar.html' %} -->
+  {% placeholder "navigation" %}
   <main>
   <!-- Content -->
   {% placeholder "content" %}
   <!-- Footer -->
   </main>
   <footer class="bg-white">
-    {% static_placeholder 'footer' %}
+    {% placeholder "footer" %}
   </footer>
 {% endblock %}

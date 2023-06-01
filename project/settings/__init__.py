@@ -1,3 +1,3 @@
 from .base import *
 
-from .ckeditor import *
+from .cms import *
