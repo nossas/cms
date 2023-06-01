@@ -92,7 +92,7 @@ Executando o servidor de desenvolvimento:
 
 Executando o build dos estilos CSS (necessário executar dentro da pasta **tailwind**):
 
-`npx tailwindcss -i ./static/css/input.css -o ./static/dist/css/output.css --watch`
+`npm run watch`
 
 
 ### Configurações
