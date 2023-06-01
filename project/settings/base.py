@@ -20,7 +20,7 @@ env = environ.Env(
 )
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 environ.Env.read_env(BASE_DIR / ".env")
 
@@ -247,13 +247,6 @@ DJANGOCMS_PICTURE_ALIGN = [
     (" mx-auto", "Centro"),
     (" object-right", "Direita"),
 ]
-
-
-# CKEditor
-# https://github.com/django-cms/djangocms-text-ckeditor#configuration
-
-TEXT_INLINE_EDITING = True
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

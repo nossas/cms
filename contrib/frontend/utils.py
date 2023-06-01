@@ -12,7 +12,7 @@ def copy_by_layout(obj, layout):
             plugin_type="TextPlugin",
             language=obj.language,
             target=obj,
-            body='<h2 style="text-align:center;">Título do bloco</h2>',
+            body='<h2 class="text-center">Título do bloco</h2>',
         )
 
         grid_obj = add_plugin(
@@ -46,5 +46,5 @@ def copy_by_layout(obj, layout):
                 plugin_type="TextPlugin",
                 language=col_obj.language,
                 target=col_obj,
-                body="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.",
+                body="<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>",
             )
