@@ -1,9 +1,9 @@
-from typing import Any, Optional
+from django.contrib import admin
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
 from .forms import AddBlockForm
-from .models import Block, Button, Grid, Navbar
+from .models import Block, Button, Grid, Navbar, SocialMedia, SocialMediaItem
 from .utils import copy_by_layout
 
 
@@ -50,7 +50,7 @@ class BlockPlugin(CMSPluginBase):
 
     def save_model(self, request, obj, form, change):
         super(BlockPlugin, self).save_model(request, obj, form, change)
-        
+
         if not change:
             copy_by_layout(obj=obj, layout=form.cleaned_data["layout"])
 
@@ -73,7 +73,7 @@ class ColumnPlugin(CMSPluginBase):
     module = "Frontend"
     render_template = "frontend/plugins/column.html"
     allow_children = True
-    child_classes = ["PicturePlugin", "TextPlugin", "ButtonPlugin"]
+    child_classes = ["PicturePlugin", "TextPlugin", "ButtonPlugin", "SocialMediaPlugin"]
 
     def render(self, context, instance, placeholder):
         context = super(ColumnPlugin, self).render(context, instance, placeholder)
@@ -124,5 +124,24 @@ class ButtonPlugin(CMSPluginBase):
     fieldsets = [
         (None, {"fields": ["title", ("action_url", "target_blank")]}),
         ("Estilo", {"fields": [("font", "color"), ("background_color", "bold")]}),
-        ("Borda", {"classes": ["collapse"],"fields": ["border_color", "border_size", "rounded"]})
+        (
+            "Borda",
+            {
+                "classes": ["collapse"],
+                "fields": ["border_color", "border_size", "rounded"],
+            },
+        ),
     ]
+
+
+class SocialMediaItemInline(admin.TabularInline):
+    model = SocialMediaItem
+
+
+@plugin_pool.register_plugin
+class SocialMediaPlugin(CMSPluginBase):
+    name = "Social Media"
+    module = "Frontend"
+    render_template = "frontend/plugins/social-media.html"
+    model = SocialMedia
+    inlines = [SocialMediaItemInline]

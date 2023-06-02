@@ -243,3 +243,30 @@ class Button(BlockElementStyled, CMSPlugin):
             styles += f"border-color:{self.background_color};"
 
         return styles
+
+
+class KindChoices(models.TextChoices):
+    twitter = "twitter", "Twitter"
+    facebook = "facebook", "Facebook"
+    instagram = "instagram", "Instagram"
+    site = "site", "Site"
+
+
+class SocialMedia(CMSPlugin):
+    pass
+
+
+class SocialMediaItem(models.Model):
+    url = models.CharField(
+        verbose_name="URL",
+        max_length=100,
+    )
+    kind = models.CharField(
+        verbose_name="Tipo",
+        max_length=100,
+        choices=KindChoices.choices,
+    )
+    icon = FilerImageField(
+        verbose_name="Ícone", blank=True, null=True, on_delete=models.SET_NULL
+    )
+    plugin = models.ForeignKey(SocialMedia, on_delete=models.CASCADE)
