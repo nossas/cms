@@ -1,6 +1,8 @@
+from typing import Any, Optional
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
+from .forms import AddBlockForm
 from .models import Block, Grid, Navbar
 from .utils import copy_by_layout
 
@@ -15,7 +17,8 @@ class BlockPlugin(CMSPluginBase):
     child_classes = [
         "PicturePlugin",
         "TextPlugin",
-        "GridPlugin"
+        "GridPlugin",
+        "ButtonPlugin"
         # "ActionButtonPlugin",
         # "RowPlugin",
     ]
@@ -23,7 +26,7 @@ class BlockPlugin(CMSPluginBase):
     fieldsets = [
         (
             None,
-            {"fields": [("title", "slug"), "layout", "spacing"]},
+            {"fields": [("title", "slug"), "spacing"]},
         ),
         ("Background", {"fields": [("background_color", "background_image")]}),
         (
@@ -34,6 +37,23 @@ class BlockPlugin(CMSPluginBase):
             },
         ),
     ]
+
+    def get_form(self, request, obj, change, **kwargs):
+        if not change:
+            self.form = AddBlockForm
+
+        return super(BlockPlugin, self).get_form(request, obj, change, **kwargs)
+
+    def get_fieldsets(self, request, obj=None):
+        fieldsets = super(BlockPlugin, self).get_fieldsets(request, obj)
+
+        if not obj:
+            fieldsets[0] = (
+                None,
+                {"fields": [("title", "slug"), ("spacing", "layout")]}
+            )
+
+        return fieldsets
 
     def save_model(self, request, obj, form, change):
         super(BlockPlugin, self).save_model(request, obj, form, change)
@@ -59,7 +79,7 @@ class ColumnPlugin(CMSPluginBase):
     module = "Frontend"
     render_template = "frontend/plugins/column.html"
     allow_children = True
-    child_classes = ["PicturePlugin", "TextPlugin"]
+    child_classes = ["PicturePlugin", "TextPlugin", "ButtonPlugin"]
 
     def render(self, context, instance, placeholder):
         context = super(ColumnPlugin, self).render(context, instance, placeholder)
@@ -99,3 +119,10 @@ class NavbarPlugin(CMSPluginBase):
             context["children"] = list()
 
         return context
+
+
+@plugin_pool.register_plugin
+class ButtonPlugin(CMSPluginBase):
+    name = "Button"
+    module = "Frontend"
+    render_template = "frontend/plugins/button.html"

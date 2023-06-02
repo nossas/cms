@@ -2,7 +2,8 @@ from django.conf import settings
 
 from cms.api import add_plugin
 
-from .models import LayoutChoices, ColumnChoices
+from .forms import LayoutChoices
+from .models import ColumnChoices
 
 
 def copy_by_layout(obj, layout):

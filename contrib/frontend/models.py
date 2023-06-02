@@ -50,8 +50,21 @@ STYLED_COLOR_PALLETE = [
 ]
 
 
+class SpacingChoices(models.TextChoices):
+    py_extra_small = "py-8", "Extra small"
+    py_small = "py-10", "Small"
+    py_normal = "py-12", "Default"
+    py_large = "py-14", "Large"
+    py_extra_large = "py-16", "Extra large"
+
+
 class Styled(models.Model):
-    spacing = models.CharField("margem", max_length=30, default="py-7")
+    spacing = models.CharField(
+        "espaçamento",
+        max_length=30,
+        choices=SpacingChoices.choices,
+        default=SpacingChoices.py_normal
+    )
 
     background_color = ColorField(
         samples=STYLED_COLOR_PALLETE, format="hexa", blank=True, null=True
@@ -83,25 +96,10 @@ class Styled(models.Model):
         return style
 
 
-class LayoutChoices(models.TextChoices):
-    hero = "hero", "Hero"
-    hero_nobrand = "hero_nobrand", "Hero Sem logo"
-    tree_columns = "tree_columns", "3 Colunas"
-    four_columns = "four_columns", "4 Colunas"
-    two_columns_a = "two_columns_a", "2 Colunas - 6x6"
-    two_columns_b = "two_columns_b", "2 Colunas - 4x8"
-    signature = "signature", "Assinatura"
-    signature_partners_a = (
-        "signature_partners_a",
-        "2 Colunas - Assinatura com parceiros",
-    )
-    signature_partners_b = "signature_partners_b", "1 Coluna - Assinatura com parceiros"
-
-
 class Block(Section, Styled, CMSPlugin):
-    layout = models.CharField(
-        "Layout", choices=LayoutChoices.choices, max_length=75, blank=True, null=True
-    )
+    
+    class Meta:
+        abstract = False
 
 
 class AlignChoices(models.TextChoices):

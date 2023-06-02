@@ -1,0 +1,25 @@
+{% load cms_tags %}
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-57DQ85PQ8E"></script>
+<script>
+    // Inicia configuraçõa principal do GA4
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-57DQ85PQ8E', {
+      "page_title": "{% page_attribute 'page_title' %}"
+    });
+
+    // Aplica evento de clica aos botões com data-ga-event configurado
+    const elements = document.querySelector('[data-ga-event="click"]');
+
+    if (elements || elements.length > 0) {
+        elements.addEventListener("click", function (evt) {
+            gtag('event', 'click', {
+                'propriedade1': 'value1'
+            });
+        });
+    }
+</script>
