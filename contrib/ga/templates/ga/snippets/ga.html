@@ -15,7 +15,7 @@
     // Aplica evento de clica aos botões com data-ga-event configurado
     const elements = document.querySelector('[data-ga-event="click"]');
 
-    if (elements || elements.length > 0) {
+    if (elements || elements?.length > 0) {
         elements.addEventListener("click", function (evt) {
             gtag('event', 'click', {
                 'propriedade1': 'value1'

@@ -3,6 +3,7 @@ from django.db import models
 
 
 class LayoutChoices(models.TextChoices):
+    empty = "", "---"
     hero = "hero", "Hero"
     hero_nobrand = "hero_nobrand", "Hero Sem logo"
     tree_columns = "tree_columns", "3 Colunas"
@@ -19,8 +20,10 @@ class LayoutChoices(models.TextChoices):
 
 
 class AddBlockForm(forms.ModelForm):
-    layout = forms.ChoiceField(
+    layout = forms.CharField(
         label="Layout",
         required=False,
-        choices=LayoutChoices.choices
+        widget=forms.Select(
+            choices=LayoutChoices.choices
+        )
     )

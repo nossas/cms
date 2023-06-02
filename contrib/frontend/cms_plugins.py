@@ -3,7 +3,7 @@ from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
 from .forms import AddBlockForm
-from .models import Block, Grid, Navbar
+from .models import Block, Button, Grid, Navbar
 from .utils import copy_by_layout
 
 
@@ -14,19 +14,12 @@ class BlockPlugin(CMSPluginBase):
     module = "Frontend"
     render_template = "frontend/plugins/block.html"
     allow_children = True
-    child_classes = [
-        "PicturePlugin",
-        "TextPlugin",
-        "GridPlugin",
-        "ButtonPlugin"
-        # "ActionButtonPlugin",
-        # "RowPlugin",
-    ]
+    child_classes = ["PicturePlugin", "TextPlugin", "GridPlugin", "ButtonPlugin"]
     prepopulated_fields = {"slug": ("title",)}
     fieldsets = [
         (
             None,
-            {"fields": [("title", "slug"), "spacing"]},
+            {"fields": [("title", "slug"), ("spacing", "alignment")]},
         ),
         ("Background", {"fields": [("background_color", "background_image")]}),
         (
@@ -50,15 +43,16 @@ class BlockPlugin(CMSPluginBase):
         if not obj:
             fieldsets[0] = (
                 None,
-                {"fields": [("title", "slug"), ("spacing", "layout")]}
+                {"fields": [("title", "slug"), ("spacing", "layout")]},
             )
 
         return fieldsets
 
     def save_model(self, request, obj, form, change):
         super(BlockPlugin, self).save_model(request, obj, form, change)
-
-        copy_by_layout(obj=obj, layout=form.cleaned_data["layout"])
+        
+        if not change:
+            copy_by_layout(obj=obj, layout=form.cleaned_data["layout"])
 
 
 @plugin_pool.register_plugin
@@ -125,4 +119,10 @@ class NavbarPlugin(CMSPluginBase):
 class ButtonPlugin(CMSPluginBase):
     name = "Button"
     module = "Frontend"
+    model = Button
     render_template = "frontend/plugins/button.html"
+    fieldsets = [
+        (None, {"fields": ["title", ("action_url", "target_blank")]}),
+        ("Estilo", {"fields": [("font", "color"), ("background_color", "bold")]}),
+        ("Borda", {"classes": ["collapse"],"fields": ["border_color", "border_size", "rounded"]})
+    ]

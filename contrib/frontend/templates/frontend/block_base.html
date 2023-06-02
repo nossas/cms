@@ -1,5 +1,8 @@
 <div style="{{ instance.styles }}">
-    <div{% if instance.slug %} id="{{ instance.slug }}"{% endif %} class="container mx-auto gap-4 {{ instance.spacing }}">
+    <div
+        {% if instance.slug %}id="{{ instance.slug }}"{% endif %}
+        class="{{ instance.classnames }}"
+    >
     {% block main %}{% endblock %}
     </div>
 </div>

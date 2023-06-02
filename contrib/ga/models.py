@@ -17,3 +17,9 @@ class GA(models.Model):
 
     def __str__(self):
         return self.site.name
+
+
+class TrackingGA(models.Model):
+
+    class Meta:
+        abstract = True
