@@ -1,14 +1,14 @@
 {% load cms_tags %}
 
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-57DQ85PQ8E"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id={{GTAG_ID}}"></script>
 <script>
     // Inicia configuraçõa principal do GA4
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
 
-    gtag('config', 'G-57DQ85PQ8E', {
+    gtag('config', '{{GTAG_ID}}', {
       "page_title": "{% page_attribute 'page_title' %}"
     });
 

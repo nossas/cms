@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     "contrib.bonde",
     "contrib.campaign",
     "contrib.frontend",
+    "contrib.ga",
 ]
 
 MIDDLEWARE = [
@@ -99,6 +100,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "sekizai.context_processors.sekizai",
+                "contrib.ga.context_processors.ga",
             ],
         },
     },

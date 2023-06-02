@@ -32,7 +32,9 @@
 
   {% render_block "js" %}
 
-  {% include "frontend/snippets/ga.html" %}
+  {% if ga %}
+  {% include "ga/snippets/ga.html" with GTAG_ID=ga.uuid %}
+  {% endif %}
 </body>
 
 </html>
