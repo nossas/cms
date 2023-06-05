@@ -89,7 +89,7 @@ class ColumnPlugin(CMSPluginBase):
         "ButtonPlugin",
         "SocialMediaPlugin",
         "PartnersPlugin",
-        "GridPlugin",
+        "PressurePlugin"
     ]
 
     def render(self, context, instance, placeholder):
