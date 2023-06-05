@@ -4,6 +4,10 @@ from django.db import transaction
 from cms.forms.wizards import CreateCMSPageForm
 from djangocms_text_ckeditor.widgets import TextEditorWidget
 
+from contrib.bonde.widgets import BondeWidget
+
+from .models import Pressure
+
 
 class CreatePressureForm(CreateCMSPageForm):
     content = None
@@ -147,3 +151,12 @@ class PressureForm(forms.Form):
 
             if isinstance(visible.field.widget, forms.Textarea):
                 visible.field.widget.attrs["class"] += " h-28"
+
+
+
+class PressureSettingsForm(forms.ModelForm):
+    widget = forms.IntegerField(widget=forms.Select)
+
+    class Meta:
+        model = Pressure
+        fields = ['widget']

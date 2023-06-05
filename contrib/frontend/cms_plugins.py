@@ -73,7 +73,7 @@ class ColumnPlugin(CMSPluginBase):
     module = "Frontend"
     render_template = "frontend/plugins/column.html"
     allow_children = True
-    child_classes = ["PicturePlugin", "TextPlugin", "ButtonPlugin"]
+    child_classes = ["PicturePlugin", "TextPlugin", "ButtonPlugin", "PressurePlugin"]
 
     def render(self, context, instance, placeholder):
         context = super(ColumnPlugin, self).render(context, instance, placeholder)
