@@ -4,6 +4,7 @@
     href="{{ instance.action_url }}"
     target="{% if instnace.target_blank %}_blank{% else %}_self{% endif %}"
     {% if instance.styles %}style="{{instance.styles}}"{% endif %}
+    data-ga-event="click"
 >
     {{ instance.title }}
 </a>
