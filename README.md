@@ -119,7 +119,7 @@ site.domain = "127.0.0.1:8000"
 
 ou
 
-site.domain = "127.0.0.1:8000"
+site.domain = "localhost:8000"
 
 site.save()
 ```
