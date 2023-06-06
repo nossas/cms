@@ -106,7 +106,7 @@ CMS_DATABASE_URL=
 BONDE_DATABASE_URL=
 ```
 
-Como iniciar o servidor para desenvolvimento:
+Como iniciar server de desenvolvimento:
 
 ```
 python manage.py shell
