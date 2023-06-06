@@ -1,0 +1,12 @@
+<!-- <button class="btn btn-primary" data-ga-event="click" type="button">Botão GA4</button> -->
+<a
+    class="btn {% if instance.border_size %} {{instance.border_size}}{% endif %}{% if instance.rounded %} {{instance.rounded}}{% endif %}"
+    href="{{ instance.action_url }}"
+    target="{% if instnace.target_blank %}_blank{% else %}_self{% endif %}"
+    {% if instance.styles %}style="{{instance.styles}}"{% endif %}
+>
+    {{ instance.title }}
+</a>
+
+
+

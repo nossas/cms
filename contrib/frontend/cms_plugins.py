@@ -1,7 +1,9 @@
+from django.contrib import admin
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
-from .models import Block, Grid, Navbar
+from .forms import AddBlockForm
+from .models import Block, Button, Grid, Navbar, SocialMedia, SocialMediaItem
 from .utils import copy_by_layout
 
 
@@ -12,18 +14,12 @@ class BlockPlugin(CMSPluginBase):
     module = "Frontend"
     render_template = "frontend/plugins/block.html"
     allow_children = True
-    child_classes = [
-        "PicturePlugin",
-        "TextPlugin",
-        "GridPlugin"
-        # "ActionButtonPlugin",
-        # "RowPlugin",
-    ]
+    child_classes = ["PicturePlugin", "TextPlugin", "GridPlugin", "ButtonPlugin"]
     prepopulated_fields = {"slug": ("title",)}
     fieldsets = [
         (
             None,
-            {"fields": [("title", "slug"), "layout", "spacing"]},
+            {"fields": [("title", "slug"), ("spacing", "alignment")]},
         ),
         ("Background", {"fields": [("background_color", "background_image")]}),
         (
@@ -35,10 +31,28 @@ class BlockPlugin(CMSPluginBase):
         ),
     ]
 
+    def get_form(self, request, obj, change, **kwargs):
+        if not change:
+            self.form = AddBlockForm
+
+        return super(BlockPlugin, self).get_form(request, obj, change, **kwargs)
+
+    def get_fieldsets(self, request, obj=None):
+        fieldsets = super(BlockPlugin, self).get_fieldsets(request, obj)
+
+        if not obj:
+            fieldsets[0] = (
+                None,
+                {"fields": [("title", "slug"), ("spacing", "layout")]},
+            )
+
+        return fieldsets
+
     def save_model(self, request, obj, form, change):
         super(BlockPlugin, self).save_model(request, obj, form, change)
 
-        copy_by_layout(obj=obj, layout=form.cleaned_data["layout"])
+        if not change:
+            copy_by_layout(obj=obj, layout=form.cleaned_data["layout"])
 
 
 @plugin_pool.register_plugin
@@ -59,7 +73,7 @@ class ColumnPlugin(CMSPluginBase):
     module = "Frontend"
     render_template = "frontend/plugins/column.html"
     allow_children = True
-    child_classes = ["PicturePlugin", "TextPlugin"]
+    child_classes = ["PicturePlugin", "TextPlugin", "ButtonPlugin", "SocialMediaPlugin"]
 
     def render(self, context, instance, placeholder):
         context = super(ColumnPlugin, self).render(context, instance, placeholder)
@@ -99,3 +113,35 @@ class NavbarPlugin(CMSPluginBase):
             context["children"] = list()
 
         return context
+
+
+@plugin_pool.register_plugin
+class ButtonPlugin(CMSPluginBase):
+    name = "Button"
+    module = "Frontend"
+    model = Button
+    render_template = "frontend/plugins/button.html"
+    fieldsets = [
+        (None, {"fields": ["title", ("action_url", "target_blank")]}),
+        ("Estilo", {"fields": [("font", "color"), ("background_color", "bold")]}),
+        (
+            "Borda",
+            {
+                "classes": ["collapse"],
+                "fields": ["border_color", "border_size", "rounded"],
+            },
+        ),
+    ]
+
+
+class SocialMediaItemInline(admin.TabularInline):
+    model = SocialMediaItem
+
+
+@plugin_pool.register_plugin
+class SocialMediaPlugin(CMSPluginBase):
+    name = "Social Media"
+    module = "Frontend"
+    render_template = "frontend/plugins/social-media.html"
+    model = SocialMedia
+    inlines = [SocialMediaItemInline]
