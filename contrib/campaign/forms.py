@@ -6,7 +6,7 @@ from djangocms_text_ckeditor.widgets import TextEditorWidget
 
 from contrib.bonde.widgets import BondeWidget
 
-from .models import Pressure
+from .models import Pressure, SharingChoices
 
 
 class CreatePressureForm(CreateCMSPageForm):
@@ -153,10 +153,22 @@ class PressureForm(forms.Form):
                 visible.field.widget.attrs["class"] += " h-28"
 
 
-
 class PressureSettingsForm(forms.ModelForm):
-    widget = forms.IntegerField(widget=forms.Select)
+    # widget = forms.IntegerField(widget=forms.Select)
+
+    is_group = forms.ChoiceField(
+        label="Tipo",
+        choices=((False, "Um grupo de alvos"), (True, "Mais de um grupo")),
+        widget=forms.RadioSelect
+    )
+
+    sharing = forms.MultipleChoiceField(
+        label="Opções de compartilhamento",
+        choices=SharingChoices.choices,
+        widget=forms.CheckboxSelectMultiple
+    )
 
     class Meta:
         model = Pressure
-        fields = ['widget']
+        # fields = "__all__"
+        exclude = ["widget"]

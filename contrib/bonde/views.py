@@ -1,3 +1,6 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+# def select_widget(request):
+#     if request.is_ajax():
+#         pass
