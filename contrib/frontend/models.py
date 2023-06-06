@@ -60,6 +60,8 @@ class SpacingChoices(models.TextChoices):
 
 class AlignmentChoices(models.TextChoices):
     center = "grid justify-items-center", "Centralizar"
+    left = "grid justify-items-start", "Esquerda"
+    right = "grid justify-items-end", "Direita"
 
 
 class Styled(models.Model):
@@ -75,6 +77,7 @@ class Styled(models.Model):
         choices=AlignmentChoices.choices,
         blank=True,
         null=True,
+        default=AlignmentChoices.left,
     )
 
     background_color = ColorField(
@@ -253,7 +256,13 @@ class KindChoices(models.TextChoices):
 
 
 class SocialMedia(CMSPlugin):
-    pass
+    def copy_relations(self, oldinstance):
+        self.socialmediaitem_set.all().delete()
+
+        for item in oldinstance.socialmediaitem_set.all():
+            item.pk = None
+            item.plugin = self
+            item.save()
 
 
 class SocialMediaItem(models.Model):
