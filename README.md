@@ -106,6 +106,25 @@ CMS_DATABASE_URL=
 BONDE_DATABASE_URL=
 ```
 
+Como iniciar o servidor para desenvolvimento:
+
+```
+python manage.py shell
+
+from django.contrib.sites.models import Site
+
+site = Site.objects.first()
+
+site.domain = "127.0.0.1:8000"
+
+ou
+
+site.domain = "127.0.0.1:8000"
+
+site.save()
+```
+
+
 <!-- Como publicar vários sites?
 
 1. Carregar a configuração do site no Django a partir do host
