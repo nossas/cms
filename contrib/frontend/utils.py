@@ -148,15 +148,7 @@ def copy_by_layout(obj, layout):
         )
         add_plugin(
             placeholder=col_obj.placeholder,
-            plugin_type="PicturePlugin",
+            plugin_type="SocialMediaPlugin",
             language=col_obj.language,
             target=col_obj,
-            external_picture=settings.STATIC_URL + "images/image 2.png",
-        )
-        add_plugin(
-            placeholder=col_obj.placeholder,
-            plugin_type="PicturePlugin",
-            language=col_obj.language,
-            target=col_obj,
-            external_picture=settings.STATIC_URL + "images/image 1.png",
         )

@@ -270,6 +270,7 @@ class SocialMediaItem(models.Model):
     url = models.CharField(
         verbose_name="URL",
         max_length=100,
+        help_text="Insira a URL com https://",
     )
     kind = models.CharField(
         verbose_name="Tipo",
