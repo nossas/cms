@@ -3,7 +3,7 @@ from django.conf import settings
 from cms.api import add_plugin
 
 from .forms import LayoutChoices
-from .models import ColumnChoices
+from .models import ColumnChoices, AlignmentChoices
 
 
 def copy_by_layout(obj, layout):
@@ -113,6 +113,7 @@ def copy_by_layout(obj, layout):
             language=obj.language,
             target=obj,
             cols=ColumnChoices.grid_1_2,
+            alignment = AlignmentChoices.left,
         )
         col_obj = add_plugin(
             placeholder=grid_obj.placeholder,

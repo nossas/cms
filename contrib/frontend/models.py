@@ -148,6 +148,7 @@ class Grid(CMSPlugin):
     )
 
 
+
 class BlockElementStyled(models.Model):
     font = models.CharField(
         "Estilo de fonte",
