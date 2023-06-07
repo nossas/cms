@@ -5,13 +5,13 @@ from cms.models import CMSPlugin
 
 class Thank(models.Model):
     # Agradecimento
-    email_subject = models.CharField(
+    thank_email_subject = models.CharField(
         verbose_name="Assunto do e-mail de agradecimento para quem vai pressionar",
         max_length=120,
     )
+    thank_email_body = models.TextField(verbose_name="Corpo do e-mail de agradecimento")
     sender_name = models.CharField(verbose_name="Remetente", max_length=120)
     sender_email = models.EmailField(verbose_name="Email de resposta")
-    email_body = models.TextField(verbose_name="Corpo do e-mail de agradecimento")
 
     class Meta:
         abstract = True
@@ -45,9 +45,20 @@ class Target(models.Model):
         verbose_name="Telefone do alvo", max_length=20, null=True, blank=True
     )
 
+    class Meta:
+        verbose_name ="Alvo"
+        verbose_name_plural = "Alvos"
+
 
 class Pressure(PostAction, Thank, CMSPlugin):
     widget = models.IntegerField(null=True, blank=True)
+
+    email_subject = models.JSONField(
+        verbose_name="Assunto do e-mail para os alvos"
+    )
+    email_body = models.TextField(
+        verbose_name="Corpo do e-mail para os alvos"
+    )
 
     # Envio
     submissions_limit = models.IntegerField(
@@ -62,18 +73,22 @@ class Pressure(PostAction, Thank, CMSPlugin):
         default=True,
     )
 
+    def copy_relations(self, old_instance):
+        # https://docs.django-cms.org/en/latest/how_to/custom_plugins.html#handling-relations
+        self.targetgroup_set.delete()
+
+        for item in old_instance.targetgroup_set.all():
+            item.pk = None
+            item.plugin = self
+            item.save()
+
 
 class TargetGroup(models.Model):
     name = models.CharField(verbose_name="Nome do grupo", max_length=50)
-    targets = models.ManyToManyField(Target)
-    email_subject = models.CharField(
-        verbose_name="Assunto do e-mail para os alvos",
-        max_length=120,
-        null=True,
-        blank=True,
-    )
-    email_body = models.TextField(
-        verbose_name="Corpo do e-mail para os alvos", null=True, blank=True
-    )
+    targets = models.ManyToManyField(Target, verbose_name="Alvos")
 
     pressure = models.ForeignKey(Pressure, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = "Grupo de alvos"
+        verbose_name_plural = "Grupos de alvos"
