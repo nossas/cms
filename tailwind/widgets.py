@@ -1,5 +1,4 @@
 import json
-from typing import Any, Optional
 from django import forms
 
 
@@ -8,12 +7,19 @@ class RadioSelect(forms.RadioSelect):
     option_template_name = "tailwind/widgets/radio_option.html"
 
 
+class CheckboxSelectMultiple(forms.CheckboxSelectMultiple):
+    template_name = 'tailwind/widgets/checkbox_select.html'
+    option_template_name = 'tailwind/widgets/checkbox_option.html'
+
+
 class InputArrayWidget(forms.MultiWidget):
     template_name = "tailwind/widgets/input_array.html"
 
     def get_context(self, name, value, attrs):
         if type(value) == str:
             value = json.loads(value)
+        elif not value:
+            value = []
         
         value = list(filter(lambda x: x, value))
 

@@ -40,7 +40,7 @@
           </div>
           <div class="py-8">
           {% for fieldset in adminform %}
-            {% include "campaign/admin/includes/tab_panel.html" %}
+            {% include "campaign/admin/includes/tab_panel.html" with sorted_inline_formsets=sorted_inline_formsets %}
           {% endfor %}
           </div>
           <!-- Errors -->
@@ -50,6 +50,13 @@
             </p>
             {{ adminform.form.non_field_errors }}
           {% endif %}
+          <!-- Inline -->
+          {% block inline_field_sets %}
+          {% for inline_admin_formset in inline_admin_formsets %}
+              {% include inline_admin_formset.opts.template %}
+          {% endfor %}
+          {% endblock %}
+
           <!-- Script -->
           {% block admin_change_form_document_ready %}
           {{ block.super }}

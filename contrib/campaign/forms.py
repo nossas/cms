@@ -1,110 +1,16 @@
+from typing import Any, Dict
 from django import forms
 from django.db import transaction
 
-from cms.forms.wizards import CreateCMSPageForm
+# from cms.forms.wizards import CreateCMSPageForm
 from djangocms_text_ckeditor.widgets import TextEditorWidget
+
+from tailwind.widgets import RadioSelect, CheckboxSelectMultiple
+from tailwind.fields import InputArrayField
 
 from contrib.bonde.widgets import BondeWidget
 
 from .models import Pressure, SharingChoices
-
-
-class CreatePressureForm(CreateCMSPageForm):
-    content = None
-    storytelling = forms.CharField(label="Narrativa", widget=TextEditorWidget)
-
-    def get_template(self):
-        return "campaign/modelo1.html"
-
-    @transaction.atomic
-    def save(self, content=None, **kwargs):
-        from cms.api import add_plugin
-
-        new_page = super(CreatePressureForm, self).save(**kwargs)
-        new_page.rescan_placeholders()
-
-        slot = "content"
-
-        placeholder = self.get_placeholder(new_page, slot=slot)
-
-        # Trabalhando bloco principal
-        hero_block_plugin = add_plugin(
-            placeholder=placeholder,
-            plugin_type="BlockPlugin",
-            language=self.language_code,
-            title="Hero",
-            slug="hero",
-            background="#e40523",
-        )
-
-        # Trabalhando bloco de pressão
-        pressure_block_plugin = add_plugin(
-            placeholder=placeholder,
-            plugin_type="GridBlockPlugin",
-            language=self.language_code,
-            title="Action",
-            slug="action",
-            background="black",
-        )
-
-        row_plugin = add_plugin(
-            placeholder=placeholder,
-            language=self.language_code,
-            target=pressure_block_plugin,
-            plugin_type="RowPlugin",
-        )
-
-        col_left_plugin = add_plugin(
-            placeholder=placeholder,
-            language=self.language_code,
-            target=row_plugin,
-            plugin_type="ColumnPlugin",
-        )
-        storytelling = self.cleaned_data.get("storytelling")
-        add_plugin(
-            placeholder=placeholder,
-            language=self.language_code,
-            target=col_left_plugin,
-            plugin_type="TextPlugin",
-            body=storytelling,
-        )
-
-        col_right_plugin = add_plugin(
-            placeholder=placeholder,
-            language=self.language_code,
-            target=row_plugin,
-            plugin_type="ColumnPlugin",
-        )
-        add_plugin(
-            placeholder=placeholder,
-            language=self.language_code,
-            target=col_right_plugin,
-            plugin_type="PressurePlugin",
-        )
-
-        # Trabalhando bloco de assinatura
-        signature_block_plugin = add_plugin(
-            placeholder=placeholder,
-            plugin_type="BlockPlugin",
-            language=self.language_code,
-            title="Signature",
-            slug="signature",
-        )
-
-        # content = self.cleaned_data.get("storytelling")
-        # add_plugin(
-        #     placeholder=placeholder,
-        #     plugin_type="TextPlugin",
-        #     language=self.language_code,
-        #     target=hero_block_plugin,
-        #     body=content
-        # )
-
-        return new_page
-
-        # import ipdb;ipdb.set_trace()
-        # Criar página padrão para tipo de form
-        # pass
 
 
 class PressureForm(forms.Form):
@@ -156,19 +62,36 @@ class PressureForm(forms.Form):
 class PressureSettingsForm(forms.ModelForm):
     # widget = forms.IntegerField(widget=forms.Select)
 
-    is_group = forms.ChoiceField(
-        label="Tipo",
-        choices=((False, "Um grupo de alvos"), (True, "Mais de um grupo")),
-        widget=forms.RadioSelect
+    email_subject = InputArrayField(
+        label="Assunto do e-mail para os alvos",
+        num_widgets=10
+    )
+
+    disable_editing = forms.ChoiceField(
+        label="Desabilitar edição do e-mail e do assunto pelos ativistas?",
+        choices=(
+            (True, "Desabilitar"),
+            (False, "Habilitar")
+        ),
+        widget=RadioSelect,
+        initial=True
     )
 
     sharing = forms.MultipleChoiceField(
         label="Opções de compartilhamento",
         choices=SharingChoices.choices,
-        widget=forms.CheckboxSelectMultiple
+        widget=CheckboxSelectMultiple
     )
 
     class Meta:
         model = Pressure
-        # fields = "__all__"
         exclude = ["widget"]
+
+    def clean(self):
+        cleaned_data = super(PressureSettingsForm, self).clean()
+        # import ipdb;ipdb.set_trace()
+        return cleaned_data
+
+    def save(self, commit):
+        import ipdb;ipdb.set_trace()
+        return super(PressureSettingsForm, self).save(commit)

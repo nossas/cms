@@ -1,3 +1,5 @@
+{% load campaign_form_tags %}
+
 <div data-tab-index="{{forloop.counter}}" class="hidden">
     {% for line in fieldset %}
     {% for field in line %}
@@ -26,5 +28,9 @@
       {% endif %}
     </div>
     {% endfor %}
+    {% endfor %}
+
+    {% for inline_admin_formset in sorted_inline_formsets|get_dict_value:fieldset.name %}
+      {% include inline_admin_formset.opts.template %}
     {% endfor %}
   </div>
