@@ -86,7 +86,7 @@ Executar migrações pendentes:
 
 `python manage.py migrate`
 
-Executando o servidor de desenvolvimento:
+Executando o server de desenvolvimento:
 
 `python manage.py runserver`
 
