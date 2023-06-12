@@ -118,7 +118,7 @@ class NavbarPlugin(CMSPluginBase):
         placeholder = current_page.get_placeholders().get(slot="content")
 
         if placeholder:
-            plugins = placeholder.get_child_plugins().filter(plugin_type="BlockPlugin")
+            plugins = placeholder.get_child_plugins().filter(plugin_type="BlockPlugin").order_by("position")
 
             context["children"] = list(
                 filter(
