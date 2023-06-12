@@ -148,7 +148,6 @@ class Grid(CMSPlugin):
     )
 
 
-
 class BlockElementStyled(models.Model):
     font = models.CharField(
         "Estilo de fonte",
@@ -281,3 +280,30 @@ class SocialMediaItem(models.Model):
         verbose_name="Ícone", blank=True, null=True, on_delete=models.SET_NULL
     )
     plugin = models.ForeignKey(SocialMedia, on_delete=models.CASCADE)
+
+
+class Partners(CMSPlugin):
+    def copy_relations(self, oldinstance):
+        self.partnersitem_set.all().delete()
+
+        for item in oldinstance.partnersitem_set.all():
+            item.pk = None
+            item.plugin = self
+            item.save()
+
+
+class PartnersItem(models.Model):
+    url = models.CharField(
+        verbose_name="URL",
+        max_length=100,
+        blank=True,
+        null=True,
+        help_text="Insira a URL com https://",
+    )
+    icon = FilerImageField(
+        verbose_name="Logo",
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+    plugin = models.ForeignKey(Partners, on_delete=models.CASCADE)
