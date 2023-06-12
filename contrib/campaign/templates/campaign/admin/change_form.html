@@ -8,6 +8,10 @@
 <link rel="stylesheet" href="{% static 'dist/css/output.css' %}">
 {% endblock %}
 
+{% block pretitle %}{% endblock %}
+{% block content_title %}{% endblock %}
+{% block content_subtitle %}{% endblock %}
+
 {% block content %}
 <div id="content-main">
   <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post"
@@ -38,11 +42,9 @@
             <!-- <a class="tab tab-bordered tab-active">Tab 2</a>
             <a class="tab tab-bordered">Tab 3</a> -->
           </div>
-          <div class="py-8">
           {% for fieldset in adminform %}
-            {% include "campaign/admin/includes/tab_panel.html" with sorted_inline_formsets=sorted_inline_formsets %}
+            {% include "campaign/admin/includes/tab_panel.html" with inline_admin_formsets=inline_admin_formsets %}
           {% endfor %}
-          </div>
           <!-- Errors -->
           {% if errors %}
             <p class="errornote">
@@ -52,9 +54,6 @@
           {% endif %}
           <!-- Inline -->
           {% block inline_field_sets %}
-          {% for inline_admin_formset in inline_admin_formsets %}
-              {% include inline_admin_formset.opts.template %}
-          {% endfor %}
           {% endblock %}
 
           <!-- Script -->
