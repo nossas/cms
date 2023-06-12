@@ -111,7 +111,6 @@ class DnsHostedZone(models.Model):
 
 
 class RequestManager(models.Manager):
-
     def __init__(self, lookup_field=None):
         self.lookup_field = lookup_field
         super(RequestManager, self).__init__()
@@ -120,12 +119,10 @@ class RequestManager(models.Manager):
         site = Site.objects.get(id=settings.SITE_ID)
         if request:
             site = request.current_site
-        
-        prefix = '' if not self.lookup_field else f'{self.lookup_field}__'
 
-        params = {
-            f'{prefix}community__dnshostedzone__domain_name': site.domain
-        }
+        prefix = "" if not self.lookup_field else f"{self.lookup_field}__"
+
+        params = {f"{prefix}community__dnshostedzone__domain_name": site.domain}
 
         return self.get_queryset().filter(**params)
 
@@ -218,8 +215,17 @@ class Widget(models.Model):
     # goal = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
     deleted_at = models.DateTimeField(blank=True, null=True)
 
-    objects = RequestManager(lookup_field='block__mobilization')
+    objects = RequestManager(lookup_field="block__mobilization")
 
     class Meta:
         managed = False
         db_table = "widgets"
+
+
+class ActionPressure(models.Model):
+    activist_id = models.PositiveIntegerField()
+    widget = models.ForeignKey(Widget, models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = "activist_pressures"

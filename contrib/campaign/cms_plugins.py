@@ -1,9 +1,13 @@
+import random
+import json
+from typing import Any, Optional
+
 from django.contrib import admin
 
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
-from contrib.bonde.models import Widget
+from contrib.bonde.models import Widget, ActionPressure
 
 from .models import Pressure, TargetGroup
 from .forms import PressureForm, PressureSettingsForm
@@ -22,94 +26,75 @@ class PressurePlugin(CMSPluginBase):
     render_template = "campaign/plugins/pressure.html"
     change_form_template = "campaign/admin/change_form.html"
     model = Pressure
-    # model = Dummy
     form = PressureSettingsForm
     inlines = [
         TargetGroupInline,
     ]
     fieldsets = [
-        ("Alvos", {"fields": [], "classes": ["tab-active"]}),
+        (
+            "Alvos",
+            {
+                "fields": [
+                    "widget",
+                ],
+                "classes": ["tab-active"],
+            },
+        ),
         ("Email", {"fields": ["email_subject", "email_body", "disable_editing"]}),
         ("Envio", {"fields": ["submissions_limit", "submissions_interval"]}),
-        ("Agradecimento", {"fields": ["thank_email_subject", "sender_name", "sender_email", "thank_email_body"]}),
-        ("Pós-ação", {"fields": ["sharing", "whatsapp_text"]})
-    ]
-    # fieldsets = [
-    # ("Alvos", {"fields": ["is_group", "email_subject"], "classes": ["tab-active"]}),
-    # ("Email", {"fields": ["disable_editing"]}),
-    # (
-    #     "Envio",
-    #     {
-    #         "fields": ["submissions_limit", "submissions_interval"],
-    #     },
-    # ),
-    # (
-    #     "Agradecimento",
-    #     {
-    #         "fields": [
-    #             "email_subject",
-    #             "sender_name",
-    #             "sender_email",
-    #             "email_body",
-    #         ],
-    #     },
-    # ),
-    # ("Pós-ação", {"fields": ["sharing", "whatsapp_text"]}),
-    # ]
-
-    # return super().save_form(request, form, change)
-
-    # def get_form(self, request, obj=None, change=False, **kwargs):
-    #     form = super(PressurePlugin, self).get_form(request, obj, change, **kwargs)
-
-    #     qs = Widget.objects.on_site(request=request).filter(kind="pressure")
-
-    #     choices = list(
-    #         map(lambda x: (x.id, f"{x.block.mobilization.name} {x.kind} {x.id}"), qs)
-    #     )
-
-    #     form.base_fields["widget"].widget.choices = choices
-
-    #     return form
-
-    def render_change_form(
-        self, request, context, add=False, change=False, form_url="", obj=None
-    ):
-        sorted_inline_formsets = {}
-        inline_admin_formsets = context["inline_admin_formsets"]
-        formsets_to_remove = []
-
-        for inline_formset in inline_admin_formsets:
-            if hasattr(inline_formset.opts, "fieldset"):
-                fieldset = inline_formset.opts.fieldset
-                if fieldset in sorted_inline_formsets:
-                    sorted_inline_formsets[fieldset].append(inline_formset)
-                else:
-                    sorted_inline_formsets.update(
-                        {
-                            fieldset: [
-                                inline_formset,
-                            ]
-                        }
-                    )
-                formsets_to_remove.append(inline_formset)
-
-        for inline_formset in formsets_to_remove:
-            inline_admin_formsets.remove(inline_formset)
-
-        context.update(
+        (
+            "Agradecimento",
             {
-                "sorted_inline_formsets": sorted_inline_formsets,
-                "inline_admin_formsets": inline_admin_formsets,
-            }
-        )
+                "fields": [
+                    "thank_email_subject",
+                    "sender_name",
+                    "sender_email",
+                    "thank_email_body",
+                ]
+            },
+        ),
+        ("Pós-ação", {"fields": ["sharing", "whatsapp_text"]}),
+    ]
 
-        # import ipdb;ipdb.set_trace()
-        return super(PressurePlugin, self).render_change_form(
-            request, context, add, change, form_url, obj
-        )
+    def get_form(self, request, obj, change, **kwargs):
+        form = super(PressurePlugin, self).get_form(request, obj, change, **kwargs)
+
+        widget_field = form.base_fields.get("widget", None)
+        if widget_field:
+            widget_field.widget.choices = list(
+                map(
+                    lambda x: (x.id, f"{x.block.mobilization.name} {x.kind} #{x.id}"),
+                    Widget.objects.on_site(request).filter(kind="pressure"),
+                )
+            )
+            form.base_fields["widget"] = widget_field
+
+        return form
 
     def render(self, context, instance, placeholder):
         context = super(PressurePlugin, self).render(context, instance, placeholder)
-        context.update({"form": PressureForm()})
+        request = context["request"]
+        initial = dict()
+
+        if instance:
+            initial["email_subject"] = random.choice(json.loads(instance.email_subject))
+            initial["email_body"] = instance.email_body
+
+        if request.method == "POST":
+            form = PressureForm(request.POST, initial=initial)
+        else:
+            form = PressureForm(initial=initial)
+
+        size = 0
+        if hasattr(instance, "widget"):
+            size = (
+                # Garante apenas pessoas que pressionaram
+                # e não número total de pressões
+                ActionPressure.objects.filter(widget=instance.widget)
+                .values("activist_id")
+                .distinct()
+                .count()
+            )
+
+        context.update({"form": form, "size": size})
         return context
