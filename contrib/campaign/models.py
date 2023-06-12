@@ -25,10 +25,10 @@ class SharingChoices(models.TextChoices):
 
 class PostAction(models.Model):
     # Pós ação
-    sharing = models.CharField(
+    sharing = models.JSONField(
         verbose_name="Opções de compartilhamento",
-        choices=SharingChoices.choices,
-        max_length=50,
+        # choices=SharingChoices.choices,
+        # max_length=50,
     )
     whatsapp_text = models.TextField(verbose_name="Mensagem para o whatsapp")
 
@@ -48,6 +48,10 @@ class Target(models.Model):
     class Meta:
         verbose_name ="Alvo"
         verbose_name_plural = "Alvos"
+    
+
+    def __str__(self):
+        return f"{self.name} <{self.email}>"
 
 
 class Pressure(PostAction, Thank, CMSPlugin):
