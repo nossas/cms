@@ -1,20 +1,45 @@
 {% load cms_tags %}
 
 <div class="container">
-  <div class="bg-white">
+  <div class="bg-white rounded-lg">
+    <h3 class="text-lg font-bold text-center py-4 mb-0">Envie um e-mail mandando seu recado</h3>
+    {% if instance.targetgroup_set.all|length == 1 %}
+    <div class="bg-gray-200 px-6 py-4">
+      {% with instance.targetgroup_set.first.targets.all|length as targets_size %}
+      <p class="mb-2">Quem você vai pressionar? ({{targets_size}} alvo{% if targets_size > 1 %}s{% endif %})</p>
+      <ul class="flex">
+        {% for target in instance.targetgroup_set.first.targets.all %}
+        <li class="bg-white text-sm py-2 px-4">
+          <p class="font-bold">{{ target.name }}</p>
+          <p>{{ target.email }}</p>
+        </li>
+        {% endfor %}
+      </ul>
+      {% endwith %}
+    </div>
+    {% else %}
+    <h3></h3>
+    {% endif %}
+
     <form method="POST" novalidate>
       {% csrf_token %}
       {% for field in form %}
-      <div class="form-control border-t py-2 px-6">
-        {% if field.label %}
-        <label for="{{field.auto_id}}" class="label text-xs text-gray-500 font-bold">{{ field.label }}</label>
-        {% endif %}
-        {{ field }}
+      <div class="form-control py-2 px-6">
+        <div class="relative">
+          {{ field }}
+          {% if field.label %}
+          <label for="{{field.auto_id}}" class="label text-xs text-gray-600 absolute duration-300 transform -translate-y-4 top-4 z-10 origin-[0] px-2 peer-focus:px-2 peer-focus:text-gray-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-4 peer-focus:-translate-y-4 left-1">{{ field.label }}</label>
+          {% endif %}
+        </div>
         {{ field.errors }}
       </div>
       {% endfor %}
       {% for hidden_field in form.hidden_fields %}{{hidden_field}}{% endfor %}
+      <div class="px-6 pt-4 pb-6 flex flex-col gap-4">
+        <button type="submit" class="btn w-full">Pressionar</button>
+        <p class="text-xs">Ao inserir seus dados, você concorda em ter seus dados compartilhados com os organizadores dessa página e aceita receber emails de atualização, conforme descrito na política de privacidade. Você pode cancelar o recebimento desses e-mails a qualquer momento.</p>
+        <p class="text-lg text-center font-bold">{{ size }} pessoas já pressionaram</p>
+      </div>
     </form>
-    <p class="text-xs p-6">Ao inserir seus dados, você concorda em ter seus dados compartilhados com os organizadores dessa página e aceita receber emails de atualização, conforme descrito na política de privacidade. Você pode cancelar o recebimento desses e-mails a qualquer momento.</p>
   </div>
 </div>

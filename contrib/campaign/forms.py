@@ -16,35 +16,28 @@ from .models import Pressure, SharingChoices
 class PressureForm(forms.Form):
     # People Fields
     email_address = forms.EmailField(
-        label="Endereço de email",
-        widget=forms.EmailInput(attrs={"placeholder": "Insira seu e-mail"}),
+        label="Seu e-mail",
+        widget=forms.EmailInput(attrs={"placeholder": " "}),
     )
 
-    given_name = forms.CharField(
-        label="Primeiro nome",
+    name = forms.CharField(
+        label="Seu nome",
         max_length=80,
-        widget=forms.TextInput(attrs={"placeholder": "Insira seu nome"}),
-    )
-
-    family_name = forms.CharField(
-        label="Sobrenome",
-        required=False,
-        max_length=120,
-        widget=forms.TextInput(attrs={"placeholder": "Insira seu sobrenome"}),
+        widget=forms.TextInput(attrs={"placeholder": " "}),
     )
 
     phone_number = forms.CharField(
-        label="Whatsapp",
+        label="Seu telefone",
         required=False,
         max_length=15,
-        widget=forms.TextInput(attrs={"placeholder": "(DDD) 9 9999-9999"}),
+        widget=forms.TextInput(attrs={"placeholder": " "}),
     )
 
     # Action Fields
-    email_subject = forms.CharField(label="Assunto", max_length=100, disabled=True)
+    email_subject = forms.CharField(label="Assunto", max_length=100, disabled=True, widget=forms.TextInput(attrs={"placeholder": " "}),)
 
     email_body = forms.CharField(
-        label="Corpo do e-mail", disabled=True, widget=forms.Textarea
+        label="Corpo do e-mail", disabled=True, widget=forms.Textarea(attrs={"placeholder": " "})
     )
 
     def __init__(self, *args, **kwargs):
@@ -53,14 +46,14 @@ class PressureForm(forms.Form):
         for visible in self.visible_fields():
             visible.field.widget.attrs[
                 "class"
-            ] = "input input-sm px-2 rounded-none hover:border-none focus:border-none focus:outline-none"
+            ] = "block input input-bordered px-2.5 pb-2.5 pt-8 w-full text-sm focus:outline-none focus:ring-0 peer"
 
             if isinstance(visible.field.widget, forms.Textarea):
                 visible.field.widget.attrs["class"] += " h-28"
 
 
 class PressureSettingsForm(forms.ModelForm):
-    # widget = forms.IntegerField(widget=forms.Select)
+    widget = forms.IntegerField(widget=forms.Select)
 
     email_subject = InputArrayField(
         label="Assunto do e-mail para os alvos",
@@ -85,7 +78,7 @@ class PressureSettingsForm(forms.ModelForm):
 
     class Meta:
         model = Pressure
-        exclude = ["widget"]
+        fields = "__all__"
 
     def clean(self):
         cleaned_data = super(PressureSettingsForm, self).clean()
