@@ -21,6 +21,7 @@ from django.urls import path, include
 
 
 urlpatterns = [
+    path("reactpy/", include("reactpy_django.http.urls")),
     path("admin/", admin.site.urls),
     path("", include("cms.urls"))
 ]

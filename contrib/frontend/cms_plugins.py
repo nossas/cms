@@ -14,7 +14,7 @@ class BlockPlugin(CMSPluginBase):
     module = "Frontend"
     render_template = "frontend/plugins/block.html"
     allow_children = True
-    child_classes = ["PicturePlugin", "TextPlugin", "GridPlugin", "ButtonPlugin"]
+    child_classes = ["PicturePlugin", "TextPlugin", "GridPlugin", "ButtonPlugin", "ReactPlugin"]
     prepopulated_fields = {"slug": ("title",)}
     fieldsets = [
         (

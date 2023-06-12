@@ -40,6 +40,7 @@ X_FRAME_OPTIONS = "SAMEORIGIN"
 # Application definition
 
 INSTALLED_APPS = [
+    "daphne",
     "tailwind",
     "djangocms_admin_style",
     "django.contrib.admin",
@@ -63,11 +64,14 @@ INSTALLED_APPS = [
     "djangocms_text_ckeditor",
     # Third apps
     "colorfield",
+    # reactpy
+    "reactpy_django",
     # My Apps
     "contrib.bonde",
     "contrib.campaign",
     "contrib.frontend",
     "contrib.ga",
+    "contrib.react",
 ]
 
 MIDDLEWARE = [
@@ -207,3 +211,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # https://docs.djangoproject.com/en/4.2/ref/contrib/sites/
 
 SITE_ID = 1
+
+
+ASGI_APPLICATION = "project.asgi.application"
