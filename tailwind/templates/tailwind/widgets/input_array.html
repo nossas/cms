@@ -1,6 +1,10 @@
 <!-- {'widget': {'name': 'email_subject', 'is_hidden': False, 'required': True, 'value': None, 'attrs': {'required': True, 'id': 'id_email_subject'}, 'template_name': 'tailwind/widgets/input_array.html', 'type': 'text'}} -->
 
-<div id="{{ widget.attrs.id }}">
+<div
+  data-fieldset-id="{{ widget.attrs.id }}"
+  data-fieldset-limit="{{ input_array_limit }}"
+  data-fieldset-name="{{ widget.name }}"
+>
   {% for value in widget.value %}
   <div data-fieldset class="flex flex-row">
     <input type="text" name="{{ widget.name }}_{{forloop.counter0}}" value="{{value}}" />
@@ -21,48 +25,4 @@
   </button>
 </div>
 
-<script>
-  (function ($) {
-    function getInputElement(index) {
-      return `
-        <div data-fieldset class="flex flex-row">
-          <input type="text" name="{{ widget.name }}_${index}" />
-          <button type="button">Remover</button>
-        </div>
-      `;
-    }
-
-    $(document).ready(function () {
-      const limit = Number("{{input_array_limit}}") - 1;
-
-      const $addElement = $("#{{ widget.attrs.id }} > button");
-
-      // Evento para adicionar novo INPUT
-      $addElement.on("click", function (evt) {
-        const index = $("#{{ widget.attrs.id }} div[data-fieldset]").length;
-        $(getInputElement(index)).insertBefore(evt.target);
-
-        // Desabilitar botão quando chegar no limite
-        if (index === limit) {
-          $addElement.prop("disabled", true);
-        }
-
-        // Evento para remover INPUT
-        $("#{{ widget.attrs.id }} div[data-fieldset] > button").on("click", function (evt) {
-          $(evt.target).parent().remove();
-
-          // Habilita botão ao remover um itme da lista
-          $addElement.prop("disabled", false);
-        });
-      });
-
-      // Evento para remover INPUT
-      $("#{{ widget.attrs.id }} div[data-fieldset] > button").on("click", function (evt) {
-        $(evt.target).parent().remove();
-
-        // Habilita botão ao remover um itme da lista
-        $addElement.prop("disabled", false);
-      });
-    });
-  })(django.jQuery);
-</script>
+{{ widget.media }}
