@@ -39,11 +39,10 @@ class Section(models.Model):
 
 
 class SpacingChoices(models.TextChoices):
-    py_extra_small = "py-8", "Extra small"
-    py_small = "py-10", "Small"
-    py_normal = "py-12", "Default"
-    py_large = "py-14", "Large"
-    py_extra_large = "py-16", "Extra large"
+    py_small = "py-12", "Pequeno"
+    py_normal = "py-20", "Padrão"
+    py_large = "py-28", "Grande"
+    py_extra_large = "py-32", "Muito grande"
 
 
 class AlignmentChoices(models.TextChoices):

@@ -8,9 +8,14 @@ from contrib.frontend.grid.models import (
     YAlignmentChoices,
     GridColumnChoices,
 )
-from contrib.frontend.models import SocialMediaItem, SocialMediaChoices, PartnersItem, PartnersColumnChoices
+from contrib.frontend.models import (
+    SocialMediaItem,
+    SocialMediaChoices,
+    PartnersItem,
+    PartnersColumnChoices,
+)
 
-from .models import Block, AlignmentChoices
+from .models import Block, AlignmentChoices, SpacingChoices
 from .forms import LayoutChoices
 
 
@@ -36,6 +41,7 @@ class Layout(object):
 
     def __make_hero(self):
         # Configurar o alinhamento do bloco ao centro
+        self.obj.spacing = SpacingChoices.py_extra_large
         self.obj.alignment = AlignmentChoices.center
         self.obj.save()
 
@@ -57,12 +63,19 @@ class Layout(object):
                 + "images/examples/Hero - Logo da campanha.png",
             )
 
+        paragraph = """
+        <p style="text-align:center;">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor<br/>
+        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud<br/>
+        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        </p>
+        """
         add_plugin(
             placeholder=self.obj.placeholder,
             plugin_type="TextPlugin",
             language=self.obj.language,
             target=self.obj,
-            body="<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>",
+            body=paragraph,
         )
         add_plugin(
             placeholder=self.obj.placeholder,
@@ -77,6 +90,9 @@ class Layout(object):
         self._tree_columns_copy()
 
     def _tree_columns_copy(self):
+        self.obj.alignment = AlignmentChoices.center
+        self.obj.save()
+
         add_plugin(
             placeholder=self.obj.placeholder,
             plugin_type="TextPlugin",
@@ -180,6 +196,10 @@ class Layout(object):
         )
 
     def _signature_copy(self):
+        self.obj.spacing = SpacingChoices.py_large
+        self.obj.menu_hidden = True
+        self.obj.save()
+
         grid_obj = add_plugin(
             placeholder=self.obj.placeholder,
             plugin_type="GridPlugin",
@@ -207,10 +227,10 @@ class Layout(object):
             plugin_type="ColumnPlugin",
             language=grid_obj.language,
             target=grid_obj,
-            alignmnet_x=XAlignmentChoices.start,
-            alignment_y=YAlignmentChoices.center
+            alignment_x=XAlignmentChoices.start,
+            alignment_y=YAlignmentChoices.center,
         )
-        
+
         add_plugin(
             placeholder=col_obj.placeholder,
             plugin_type="TextPlugin",
@@ -218,8 +238,8 @@ class Layout(object):
             target=col_obj,
             body="""
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
-            """
-        )   
+            """,
+        )
 
         socialmedia_plugin = add_plugin(
             placeholder=col_obj.placeholder,
@@ -227,15 +247,19 @@ class Layout(object):
             language=col_obj.language,
             target=col_obj,
         )
-        
+
         for choice in [SocialMediaChoices.facebook, SocialMediaChoices.instagram]:
             SocialMediaItem.objects.create(
                 kind=choice,
-                external_icon=settings.STATIC_URL + f"images/examples/Social Media {choice.capitalize()}.png",
-                plugin=socialmedia_plugin
+                external_picture=settings.STATIC_URL
+                + f"images/examples/Social Media {choice.capitalize()}.png",
+                plugin=socialmedia_plugin,
             )
 
     def _signature_partners_a_copy(self):
+        self.obj.spacing = SpacingChoices.py_large
+        self.obj.save()
+
         grid_obj = add_plugin(
             placeholder=self.obj.placeholder,
             plugin_type="GridPlugin",
@@ -263,7 +287,8 @@ class Layout(object):
             plugin_type="PicturePlugin",
             language=col_obj.language,
             target=col_obj,
-            external_picture=settings.STATIC_URL + "images/examples/Assinatura Logo.png",
+            external_picture=settings.STATIC_URL
+            + "images/examples/Assinatura Logo.png",
         )
         add_plugin(
             placeholder=col_obj.placeholder,
@@ -279,27 +304,27 @@ class Layout(object):
             plugin_type="ColumnPlugin",
             language=grid_obj.language,
             target=grid_obj,
-            alignment_y=YAlignmentChoices.center
+            alignment_y=YAlignmentChoices.center,
         )
         partners_obj = add_plugin(
             placeholder=col_obj.placeholder,
             plugin_type="PartnersPlugin",
             language=col_obj.language,
             target=col_obj,
-            cols=PartnersColumnChoices.cols_4
+            cols=PartnersColumnChoices.cols_4,
         )
 
         for _ in range(8):
             PartnersItem.objects.create(
-                external_picture=settings.STATIC_URL + "images/examples/Logo Parceiro.png",
-                plugin=partners_obj
+                external_picture=settings.STATIC_URL
+                + "images/examples/Logo Parceiro.png",
+                plugin=partners_obj,
             )
-
 
     def _signature_partners_b_copy(self):
         self.obj.alignment = AlignmentChoices.center
         self.obj.save()
-        
+
         add_plugin(
             placeholder=self.obj.placeholder,
             plugin_type="TextPlugin",
@@ -312,11 +337,12 @@ class Layout(object):
             plugin_type="PartnersPlugin",
             language=self.obj.language,
             target=self.obj,
-            cols=PartnersColumnChoices.cols_6
+            cols=PartnersColumnChoices.cols_6,
         )
 
         for _ in range(12):
             PartnersItem.objects.create(
-                external_picture=settings.STATIC_URL + "images/examples/Logo Parceiro.png",
-                plugin=partners_obj
+                external_picture=settings.STATIC_URL
+                + "images/examples/Logo Parceiro.png",
+                plugin=partners_obj,
             )

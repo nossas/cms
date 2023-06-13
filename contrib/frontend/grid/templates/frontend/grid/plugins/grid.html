@@ -1,7 +1,6 @@
 {% load cms_tags %}
 
-<div class="grid gap-4 {{ instance.cols }}">
-    
+<div class="grid gap-20 {{ instance.cols }}">
 {% for plugin in instance.child_plugin_instances %}
     {% render_plugin plugin %}
 {% endfor %}
