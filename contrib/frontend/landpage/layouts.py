@@ -2,16 +2,73 @@ from django.conf import settings
 
 from cms.api import add_plugin
 
+from contrib.frontend.grid.models import ColumnAlignChoices, ColumnChoices
+
+from .models import Block, AlignmentChoices
 from .forms import LayoutChoices
-from .models import ColumnChoices, AlignmentChoices
 
 
-def copy_by_layout(obj, layout):
-    """Copy plugins to a placeholder based on layout.
-    Args:
-        obj (Block): Block object.
-        layout (LayoutChoices): Layout choice."""
-    if layout == LayoutChoices.tree_columns or layout == LayoutChoices.four_columns:
+class Layout(object):
+    def __init__(self, obj: Block, layout: any):
+        """Copy plugins to a placeholder based on layout.
+        Args:
+            obj (Block): Block object.
+            layout (LayoutChoices): Layout choice."""
+
+        self.obj = obj
+        self.layout = layout
+
+    def copy(self):
+        getattr(self, f"_{self.layout}_copy")(self.obj, self.layout)
+
+    def _hero_copy(self, obj: Block, layout: any):
+        self.__make_hero(obj, layout)
+    
+    def _hero_nobrand_copy(self, obj: Block, layout: any):
+        self.__make_hero(obj, layout)
+    
+    def __make_hero(self, obj: Block, layout: any):
+        # Configurar o alinhamento do bloco ao centro
+        obj.alignment = AlignmentChoices.center
+        obj.save()
+
+        if layout == LayoutChoices.hero_nobrand:
+            add_plugin(
+                placeholder=obj.placeholder,
+                plugin_type="TextPlugin",
+                language=obj.language,
+                target=obj,
+                body='<h2 class="text-center">Título do bloco</h2>',
+            )
+        else:
+            add_plugin(
+                placeholder=obj.placeholder,
+                plugin_type="PicturePlugin",
+                language=obj.language,
+                target=obj,
+                external_picture=settings.STATIC_URL + "images/examples/Hero - Logo da campanha.png"
+            )
+
+        add_plugin(
+            placeholder=obj.placeholder,
+            plugin_type="TextPlugin",
+            language=obj.language,
+            target=obj,
+            body="<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>",
+        )
+        add_plugin(
+            placeholder=obj.placeholder,
+            plugin_type="ButtonPlugin",
+            language=obj.language,
+            target=obj,
+            title="Pressione",
+            action_url="#"
+        )
+
+    def _four_columns_copy(self, obj: Block, layout: any):
+        self._tree_columns_copy(obj, layout)
+
+    def _tree_columns_copy(self, obj: Block, layout: any):
         add_plugin(
             placeholder=obj.placeholder,
             plugin_type="TextPlugin",
@@ -43,7 +100,7 @@ def copy_by_layout(obj, layout):
                 plugin_type="PicturePlugin",
                 language=col_obj.language,
                 target=col_obj,
-                external_picture=settings.STATIC_URL + "images/img.png",
+                external_picture=settings.STATIC_URL + "images/examples/Coluna.png",
             )
 
             add_plugin(
@@ -51,9 +108,13 @@ def copy_by_layout(obj, layout):
                 plugin_type="TextPlugin",
                 language=col_obj.language,
                 target=col_obj,
-                body="<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>",
+                body="<p style='text-align:center;'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>",
             )
-    elif layout == LayoutChoices.two_columns_a or layout == LayoutChoices.two_columns_b:
+
+    def _two_columns_b_copy(self, obj: Block, layout: any):
+        self._two_columns_a_copy(obj, layout)
+
+    def _two_columns_a_copy(self, obj: Block, layout: any):
         grid_obj = add_plugin(
             placeholder=obj.placeholder,
             plugin_type="GridPlugin",
@@ -63,6 +124,7 @@ def copy_by_layout(obj, layout):
             if layout == LayoutChoices.two_columns_a
             else ColumnChoices.grid_1_2,
         )
+        # Coluna da Esquerda
         col_obj = add_plugin(
             placeholder=grid_obj.placeholder,
             plugin_type="ColumnPlugin",
@@ -74,15 +136,17 @@ def copy_by_layout(obj, layout):
             plugin_type="PicturePlugin",
             language=col_obj.language,
             target=col_obj,
-            external_picture=settings.STATIC_URL + "images/Image Square.png"
+            external_picture=settings.STATIC_URL + "images/examples/6x6.png"
             if layout == LayoutChoices.two_columns_a
-            else settings.STATIC_URL + "images/Rectangle 26.png",
+            else settings.STATIC_URL + "images/examples/4x8.png",
         )
+        # Coluna da Direita
         col_obj = add_plugin(
             placeholder=grid_obj.placeholder,
             plugin_type="ColumnPlugin",
             language=grid_obj.language,
             target=grid_obj,
+            align=ColumnAlignChoices.items_left
         )
         add_plugin(
             placeholder=col_obj.placeholder,
@@ -106,7 +170,7 @@ def copy_by_layout(obj, layout):
             body=text,
         )
 
-    elif layout == LayoutChoices.signature:
+    def _signature_copy(self, obj: Block, layout: any):
         grid_obj = add_plugin(
             placeholder=obj.placeholder,
             plugin_type="GridPlugin",

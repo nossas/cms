@@ -19,7 +19,7 @@ class LayoutChoices(models.TextChoices):
 
 
 
-class AddBlockForm(forms.ModelForm):
+class LayoutBlockForm(forms.ModelForm):
     layout = forms.CharField(
         label="Layout",
         required=False,

@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     "contrib.bonde",
     "contrib.campaign",
     "contrib.frontend",
+    "contrib.frontend.landpage",
     "contrib.ga",
 ]
 

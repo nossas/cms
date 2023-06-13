@@ -2,8 +2,8 @@
 # https://docs.django-cms.org/en/latest/how_to/install.html#templates
 
 CMS_TEMPLATES = [
-    ("app/home.html", "Home"),
-    ("campaign/landpage.html", "Landpage"),
+    # ("app/home.html", "Home"),
+    ("frontend/landpage/page.html", "Landpage"),
 ]
 
 # Placeholder
