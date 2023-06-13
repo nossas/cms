@@ -2,7 +2,11 @@ from django.conf import settings
 
 from cms.api import add_plugin
 
-from contrib.frontend.grid.models import ColumnAlignChoices, ColumnChoices
+from contrib.frontend.grid.models import (
+    XAlignmentChoices,
+    YAlignmentChoices,
+    GridColumnChoices,
+)
 
 from .models import Block, AlignmentChoices
 from .forms import LayoutChoices
@@ -23,10 +27,10 @@ class Layout(object):
 
     def _hero_copy(self, obj: Block, layout: any):
         self.__make_hero(obj, layout)
-    
+
     def _hero_nobrand_copy(self, obj: Block, layout: any):
         self.__make_hero(obj, layout)
-    
+
     def __make_hero(self, obj: Block, layout: any):
         # Configurar o alinhamento do bloco ao centro
         obj.alignment = AlignmentChoices.center
@@ -46,7 +50,8 @@ class Layout(object):
                 plugin_type="PicturePlugin",
                 language=obj.language,
                 target=obj,
-                external_picture=settings.STATIC_URL + "images/examples/Hero - Logo da campanha.png"
+                external_picture=settings.STATIC_URL
+                + "images/examples/Hero - Logo da campanha.png",
             )
 
         add_plugin(
@@ -62,7 +67,7 @@ class Layout(object):
             language=obj.language,
             target=obj,
             title="Pressione",
-            action_url="#"
+            action_url="#",
         )
 
     def _four_columns_copy(self, obj: Block, layout: any):
@@ -82,9 +87,9 @@ class Layout(object):
             plugin_type="GridPlugin",
             language=obj.language,
             target=obj,
-            cols=ColumnChoices.grid_4
+            cols=GridColumnChoices.grid_4
             if layout == LayoutChoices.four_columns
-            else ColumnChoices.grid_3,
+            else GridColumnChoices.grid_3,
         )
 
         for x in range(4 if layout == LayoutChoices.four_columns else 3):
@@ -120,9 +125,9 @@ class Layout(object):
             plugin_type="GridPlugin",
             language=obj.language,
             target=obj,
-            cols=ColumnChoices.grid_2
+            cols=GridColumnChoices.grid_2
             if layout == LayoutChoices.two_columns_a
-            else ColumnChoices.grid_1_2,
+            else GridColumnChoices.grid_1_2,
         )
         # Coluna da Esquerda
         col_obj = add_plugin(
@@ -146,7 +151,8 @@ class Layout(object):
             plugin_type="ColumnPlugin",
             language=grid_obj.language,
             target=grid_obj,
-            align=ColumnAlignChoices.items_left
+            alignment_x=XAlignmentChoices.left,
+            alignment_y=YAlignmentChoices.middle
         )
         add_plugin(
             placeholder=col_obj.placeholder,
@@ -176,7 +182,7 @@ class Layout(object):
             plugin_type="GridPlugin",
             language=obj.language,
             target=obj,
-            cols=ColumnChoices.grid_1_2,
+            cols=GridColumnChoices.grid_1_2,
         )
         col_obj = add_plugin(
             placeholder=grid_obj.placeholder,

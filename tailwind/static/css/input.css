@@ -8,22 +8,22 @@
 
 @layer components {
     h1 {
-        @apply text-5xl mb-8;
+        @apply text-5xl;
     }
     h2 {
-        @apply text-4xl mb-8;
+        @apply text-4xl;
     }
     h3 {
-        @apply text-3xl mb-6;
+        @apply text-3xl;
     }
     h4 {
-        @apply text-2xl mb-6;
+        @apply text-2xl;
     }
     h5 {
-        @apply text-xl mb-4;
+        @apply text-xl;
     }
     h6 {
-        @apply text-lg mb-4;
+        @apply text-lg;
     }
     a {
         @apply text-blue-500 cursor-pointer;

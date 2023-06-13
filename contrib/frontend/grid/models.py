@@ -3,13 +3,18 @@ from django.db import models
 from cms.plugin_base import CMSPlugin
 
 
-class ColumnAlignChoices(models.TextChoices):
-    items_center = "items-center", "Centro"
-    items_left = "items-left", "Esquerda"
-    items_right = "items-right", "Direita"
+class XAlignmentChoices(models.TextChoices):
+    center = "items-center", "Centro"
+    left = "items-left", "Esquerda"
+    right = "items-right", "Direita"
+
+class YAlignmentChoices(models.TextChoices):
+    start = "justify-start", "Acima"
+    middle = "justify-center", "Ao centro"
+    end = "justify-end", "Abaixo"
 
 
-class ColumnChoices(models.TextChoices):
+class GridColumnChoices(models.TextChoices):
     grid_1 = "grid-cols-1", "1 Coluna"
     grid_2 = "grid-cols-1 md:grid-cols-2", "2 Colunas"
     grid_3 = "grid-cols-1 md:grid-cols-3", "3 Colunas"
@@ -21,15 +26,22 @@ class Grid(CMSPlugin):
     cols = models.CharField(
         "Colunas",
         max_length=80,
-        default=ColumnChoices.grid_1,
-        choices=ColumnChoices.choices,
+        default=GridColumnChoices.grid_1,
+        choices=GridColumnChoices.choices,
     )
 
 
 class Column(CMSPlugin):
-    align = models.CharField(
-        "Alinhamento",
-        choices=ColumnAlignChoices.choices,
-        default=ColumnAlignChoices.items_center,
+    alignment_x = models.CharField(
+        "Alinhamento Horizontal",
+        choices=XAlignmentChoices.choices,
+        default=XAlignmentChoices.center,
         max_length=30,
+    )
+
+    alignment_y = models.CharField(
+        "Alinhamento Vertical",
+        choices=YAlignmentChoices.choices,
+        default=YAlignmentChoices.start,
+        max_length=30
     )
