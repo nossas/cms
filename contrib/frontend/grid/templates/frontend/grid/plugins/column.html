@@ -1,6 +1,6 @@
 {% load cms_tags %}
 
-<div class="grid gap-6 {{ alignment }}">
+<div class="flex flex-col gap-4 {{ instance.align }}">
     {% for plugin in instance.child_plugin_instances %}
     {% render_plugin plugin %}
     {% endfor %}
