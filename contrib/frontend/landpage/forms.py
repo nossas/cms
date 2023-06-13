@@ -16,7 +16,7 @@ class LayoutChoices(models.TextChoices):
         "2 Colunas - Assinatura com parceiros",
     )
     signature_partners_b = "signature_partners_b", "1 Coluna - Assinatura com parceiros"
-
+    pressure = "pressure", "Pressão"
 
 
 class LayoutBlockForm(forms.ModelForm):

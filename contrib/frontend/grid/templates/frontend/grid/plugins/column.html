@@ -1,6 +1,6 @@
 {% load cms_tags %}
 
-<div class="flex flex-col gap-8 {{ instance.alignment_x }} {{ instance.alignment_y }}">
+<div class="flex flex-col {{ instance.spacing }} {{ instance.alignment_x }} {{ instance.alignment_y }}">
     {% for plugin in instance.child_plugin_instances %}
     {% render_plugin plugin %}
     {% endfor %}

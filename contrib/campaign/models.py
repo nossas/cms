@@ -8,10 +8,25 @@ class Thank(models.Model):
     thank_email_subject = models.CharField(
         verbose_name="Assunto do e-mail de agradecimento para quem vai pressionar",
         max_length=120,
+        blank=True,
+        null=True
     )
-    thank_email_body = models.TextField(verbose_name="Corpo do e-mail de agradecimento")
-    sender_name = models.CharField(verbose_name="Remetente", max_length=120)
-    sender_email = models.EmailField(verbose_name="Email de resposta")
+    thank_email_body = models.TextField(
+        verbose_name="Corpo do e-mail de agradecimento",
+        blank=True,
+        null=True
+    )
+    sender_name = models.CharField(
+        verbose_name="Remetente",
+        max_length=120,
+        blank=True,
+        null=True
+    )
+    sender_email = models.EmailField(
+        verbose_name="Email de resposta",
+        blank=True,
+        null=True
+    )
 
     class Meta:
         abstract = True
@@ -27,10 +42,14 @@ class PostAction(models.Model):
     # Pós ação
     sharing = models.JSONField(
         verbose_name="Opções de compartilhamento",
-        # choices=SharingChoices.choices,
-        # max_length=50,
+        blank=True,
+        null=True
     )
-    whatsapp_text = models.TextField(verbose_name="Mensagem para o whatsapp")
+    whatsapp_text = models.TextField(
+        verbose_name="Mensagem para o whatsapp",
+        blank=True,
+        null=True
+    )
 
     class Meta:
         abstract = True

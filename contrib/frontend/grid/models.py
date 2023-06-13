@@ -31,7 +31,21 @@ class Grid(CMSPlugin):
     )
 
 
+class ColumnSpacingChoices(models.TextChoices):
+    gap_0 = "gap-0", "Sem espaçamento"
+    gap_4 = "gap-4", "Pequeno"
+    gap_8 = "gap-8", "Grande"
+
+
 class Column(CMSPlugin):
+    spacing = models.CharField(
+        "Espaçamento",
+        choices=ColumnSpacingChoices.choices,
+        default=ColumnSpacingChoices.gap_0,
+        max_length=15,
+        help_text="Espaço entre os elementos desta Coluna"
+    )
+
     alignment_x = models.CharField(
         "Alinhamento Horizontal",
         choices=XAlignmentChoices.choices,

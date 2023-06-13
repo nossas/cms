@@ -1,3 +1,4 @@
+from typing import Tuple
 from django.conf import settings
 
 from cms.api import add_plugin
@@ -7,6 +8,7 @@ from contrib.frontend.grid.models import (
     XAlignmentChoices,
     YAlignmentChoices,
     GridColumnChoices,
+    ColumnSpacingChoices
 )
 from contrib.frontend.models import (
     SocialMediaItem,
@@ -32,6 +34,75 @@ class Layout(object):
     def copy(self):
         if self.layout:
             getattr(self, f"_{self.layout}_copy")()
+
+    def create_grid(self, n_cols: str) -> Tuple:
+        """
+        Criar grid e colunas a partir do número de colunas definidos
+        Args:
+            n_cols (str): 1 | 2 | 3 | 4 | 1_2
+        """
+        if "_" not in n_cols:
+            n = int(n_cols)
+        else:
+            # TODO: Melhorar essa lógica de escolha
+            n = int(n_cols.split("_")[1])
+
+        grid = add_plugin(
+            placeholder=self.obj.placeholder,
+            plugin_type="GridPlugin",
+            language=self.obj.language,
+            target=self.obj,
+            cols=getattr(GridColumnChoices, f"grid_{n_cols}"),
+        )
+
+        cols = []
+        for x in range(n):
+            cols.append(
+                add_plugin(
+                    placeholder=grid.placeholder,
+                    plugin_type="ColumnPlugin",
+                    language=grid.language,
+                    target=grid,
+                )
+            )
+
+        return grid, cols
+
+    def _pressure_copy(self):
+        self.obj.spacing = SpacingChoices.py_small
+        self.obj.save()
+        # Adiciona plugin de grid
+        grid, cols = self.create_grid(n_cols="2")
+
+        # Coluna da esquerda
+        col_obj = cols[0]
+        add_plugin(
+            placeholder=col_obj.placeholder,
+            plugin_type="PressurePlugin",
+            language=self.obj.language,
+            target=col_obj,
+            # Attributos de Pressure,
+            email_subject='["Sou contra o aumento abusivo do trem!"]',
+            email_body="""
+Prezado,
+Entra ano e sai ano, e mais uma vez estou aqui pedindo para que o aumento do valor da passagem seja suspenso. Parece que todos os anos precisamos vir aqui nos mobilizar para que as propostas de aumento completamente absurdas sejam suspensas. Nós, usuários da supervia viemos vir aqui nos mobilizar para que as propostas de...
+            """,
+        )
+
+        col_obj = cols[1]
+        add_plugin(
+            placeholder=col_obj.placeholder,
+            plugin_type="TextPlugin",
+            language=self.obj.language,
+            target=col_obj,
+            # Attributos de Pressure,
+            body="""
+            <p>Narrativa lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat<br/>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<br />
+            Narrativa lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<br />
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            """,
+        )
 
     def _hero_copy(self):
         self.__make_hero()
@@ -101,23 +172,13 @@ class Layout(object):
             body='<h2 class="text-center">Título do bloco</h2>',
         )
 
-        grid_obj = add_plugin(
-            placeholder=self.obj.placeholder,
-            plugin_type="GridPlugin",
-            language=self.obj.language,
-            target=self.obj,
-            cols=GridColumnChoices.grid_4
-            if self.layout == LayoutChoices.four_columns
-            else GridColumnChoices.grid_3,
+        grid, cols = self.create_grid(
+            n_cols="4" if self.layout == LayoutChoices.four_columns else "3"
         )
 
-        for x in range(4 if self.layout == LayoutChoices.four_columns else 3):
-            col_obj = add_plugin(
-                placeholder=grid_obj.placeholder,
-                plugin_type="ColumnPlugin",
-                language=grid_obj.language,
-                target=grid_obj,
-            )
+        for col_obj in cols:
+            col_obj.spacing = ColumnSpacingChoices.gap_8
+            col_obj.save()
 
             add_plugin(
                 placeholder=col_obj.placeholder,
@@ -139,22 +200,12 @@ class Layout(object):
         self._two_columns_a_copy()
 
     def _two_columns_a_copy(self):
-        grid_obj = add_plugin(
-            placeholder=self.obj.placeholder,
-            plugin_type="GridPlugin",
-            language=self.obj.language,
-            target=self.obj,
-            cols=GridColumnChoices.grid_2
-            if self.layout == LayoutChoices.two_columns_a
-            else GridColumnChoices.grid_1_2,
+        grid, cols = self.create_grid(
+            n_cols="2" if self.layout == LayoutChoices.two_columns_a else "1_2"
         )
+
         # Coluna da Esquerda
-        col_obj = add_plugin(
-            placeholder=grid_obj.placeholder,
-            plugin_type="ColumnPlugin",
-            language=grid_obj.language,
-            target=grid_obj,
-        )
+        col_obj = cols[0]
         add_plugin(
             placeholder=col_obj.placeholder,
             plugin_type="PicturePlugin",
@@ -165,14 +216,12 @@ class Layout(object):
             else settings.STATIC_URL + "images/examples/4x8.png",
         )
         # Coluna da Direita
-        col_obj = add_plugin(
-            placeholder=grid_obj.placeholder,
-            plugin_type="ColumnPlugin",
-            language=grid_obj.language,
-            target=grid_obj,
-            alignment_x=XAlignmentChoices.start,
-            alignment_y=YAlignmentChoices.center,
-        )
+        col_obj = cols[1]
+        col_obj.spacing = ColumnSpacingChoices.gap_8
+        col_obj.alignment_x = XAlignmentChoices.start
+        col_obj.alignment_y = YAlignmentChoices.center
+        col_obj.save()
+
         add_plugin(
             placeholder=col_obj.placeholder,
             plugin_type="TextPlugin",
@@ -200,20 +249,10 @@ class Layout(object):
         self.obj.menu_hidden = True
         self.obj.save()
 
-        grid_obj = add_plugin(
-            placeholder=self.obj.placeholder,
-            plugin_type="GridPlugin",
-            language=self.obj.language,
-            target=self.obj,
-            cols=GridColumnChoices.grid_1_2,
-        )
+        grid, cols = self.create_grid(n_cols="1_2")
+
         # Coluna da esquerda
-        col_obj = add_plugin(
-            placeholder=grid_obj.placeholder,
-            plugin_type="ColumnPlugin",
-            language=grid_obj.language,
-            target=grid_obj,
-        )
+        col_obj = cols[0]
         add_plugin(
             placeholder=col_obj.placeholder,
             plugin_type="PicturePlugin",
@@ -222,14 +261,11 @@ class Layout(object):
             external_picture=settings.STATIC_URL + "images/examples/Assinatura.png",
         )
         # Coluna da direita
-        col_obj = add_plugin(
-            placeholder=grid_obj.placeholder,
-            plugin_type="ColumnPlugin",
-            language=grid_obj.language,
-            target=grid_obj,
-            alignment_x=XAlignmentChoices.start,
-            alignment_y=YAlignmentChoices.center,
-        )
+        col_obj = cols[1]
+        col_obj.spacing = ColumnSpacingChoices.gap_8
+        col_obj.alignment_x = XAlignmentChoices.start
+        col_obj.alignment_y = YAlignmentChoices.center
+        col_obj.save()
 
         add_plugin(
             placeholder=col_obj.placeholder,
@@ -260,21 +296,11 @@ class Layout(object):
         self.obj.spacing = SpacingChoices.py_large
         self.obj.save()
 
-        grid_obj = add_plugin(
-            placeholder=self.obj.placeholder,
-            plugin_type="GridPlugin",
-            language=self.obj.language,
-            target=self.obj,
-            cols=GridColumnChoices.grid_1_2,
-        )
+        grid, cols = self.create_grid(n_cols="1_2")
 
         # Coluna da esquerda
-        col_obj = add_plugin(
-            placeholder=grid_obj.placeholder,
-            plugin_type="ColumnPlugin",
-            language=grid_obj.language,
-            target=grid_obj,
-        )
+        col_obj = cols[0]
+        col_obj.spacing = ColumnSpacingChoices.gap_8
         add_plugin(
             placeholder=col_obj.placeholder,
             plugin_type="TextPlugin",
@@ -299,13 +325,10 @@ class Layout(object):
         )
 
         # Coluna da direita
-        col_obj = add_plugin(
-            placeholder=grid_obj.placeholder,
-            plugin_type="ColumnPlugin",
-            language=grid_obj.language,
-            target=grid_obj,
-            alignment_y=YAlignmentChoices.center,
-        )
+        col_obj = cols[1]
+        col_obj.alignment_y = YAlignmentChoices.center
+        col_obj.save()
+
         partners_obj = add_plugin(
             placeholder=col_obj.placeholder,
             plugin_type="PartnersPlugin",
