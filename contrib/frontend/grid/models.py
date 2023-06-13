@@ -5,12 +5,12 @@ from cms.plugin_base import CMSPlugin
 
 class XAlignmentChoices(models.TextChoices):
     center = "items-center", "Centro"
-    left = "items-left", "Esquerda"
-    right = "items-right", "Direita"
+    start = "items-start", "Esquerda"
+    end = "items-end", "Direita"
 
 class YAlignmentChoices(models.TextChoices):
     start = "justify-start", "Acima"
-    middle = "justify-center", "Ao centro"
+    center = "justify-center", "Ao centro"
     end = "justify-end", "Abaixo"
 
 

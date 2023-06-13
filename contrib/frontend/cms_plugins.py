@@ -32,6 +32,7 @@ class ButtonPlugin(CMSPluginBase):
 
 class SocialMediaItemInline(admin.TabularInline):
     model = SocialMediaItem
+    fields = ("url", "kind", "picture", )
 
 
 @plugin_pool.register_plugin
@@ -45,6 +46,7 @@ class SocialMediaPlugin(CMSPluginBase):
 
 class PartnersItemInline(admin.TabularInline):
     model = PartnersItem
+    fields = ["picture", "url"]
 
 
 @plugin_pool.register_plugin

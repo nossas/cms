@@ -1,12 +1,14 @@
 from django.conf import settings
 
 from cms.api import add_plugin
+from filer.models import Image
 
 from contrib.frontend.grid.models import (
     XAlignmentChoices,
     YAlignmentChoices,
     GridColumnChoices,
 )
+from contrib.frontend.models import SocialMediaItem, SocialMediaChoices, PartnersItem, PartnersColumnChoices
 
 from .models import Block, AlignmentChoices
 from .forms import LayoutChoices
@@ -151,8 +153,8 @@ class Layout(object):
             plugin_type="ColumnPlugin",
             language=grid_obj.language,
             target=grid_obj,
-            alignment_x=XAlignmentChoices.left,
-            alignment_y=YAlignmentChoices.middle,
+            alignment_x=XAlignmentChoices.start,
+            alignment_y=YAlignmentChoices.center,
         )
         add_plugin(
             placeholder=col_obj.placeholder,
@@ -184,6 +186,7 @@ class Layout(object):
             target=obj,
             cols=GridColumnChoices.grid_1_2,
         )
+        # Coluna da esquerda
         col_obj = add_plugin(
             placeholder=grid_obj.placeholder,
             plugin_type="ColumnPlugin",
@@ -197,30 +200,39 @@ class Layout(object):
             target=col_obj,
             external_picture=settings.STATIC_URL + "images/examples/Assinatura.png",
         )
+        # Coluna da direita
         col_obj = add_plugin(
             placeholder=grid_obj.placeholder,
             plugin_type="ColumnPlugin",
             language=grid_obj.language,
             target=grid_obj,
+            alignmnet_x=XAlignmentChoices.start,
+            alignment_y=YAlignmentChoices.center
         )
-        text = """
-            <div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
-            </div>
-            """
+        
         add_plugin(
             placeholder=col_obj.placeholder,
             plugin_type="TextPlugin",
             language=col_obj.language,
             target=col_obj,
-            body=text,
-        )
-        add_plugin(
+            body="""
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+            """
+        )   
+
+        socialmedia_plugin = add_plugin(
             placeholder=col_obj.placeholder,
             plugin_type="SocialMediaPlugin",
             language=col_obj.language,
             target=col_obj,
         )
+        
+        for choice in [SocialMediaChoices.facebook, SocialMediaChoices.instagram]:
+            SocialMediaItem.objects.create(
+                kind=choice,
+                external_icon=settings.STATIC_URL + f"images/examples/Social Media {choice.capitalize()}.png",
+                plugin=socialmedia_plugin
+            )
 
     def _signature_partners_a_copy(self, obj: Block, layout: any):
         grid_obj = add_plugin(
@@ -230,72 +242,80 @@ class Layout(object):
             target=obj,
             cols=GridColumnChoices.grid_1_2,
         )
+
+        # Coluna da esquerda
         col_obj = add_plugin(
             placeholder=grid_obj.placeholder,
             plugin_type="ColumnPlugin",
             language=grid_obj.language,
             target=grid_obj,
         )
-        title = """
-            <div>
-            <h1>Titulo da coluna</h1>
-            </div>
-            """
         add_plugin(
             placeholder=col_obj.placeholder,
             plugin_type="TextPlugin",
             language=col_obj.language,
             target=col_obj,
-            body=title,
+            body="<h1>Quem assina</h1>",
         )
         add_plugin(
             placeholder=col_obj.placeholder,
             plugin_type="PicturePlugin",
             language=col_obj.language,
             target=col_obj,
-            external_picture=settings.STATIC_URL + "images/examples/Assinatura.png",
+            external_picture=settings.STATIC_URL + "images/examples/Assinatura Logo.png",
         )
-        text = """
-            <div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
-            </div>
-            """
         add_plugin(
             placeholder=col_obj.placeholder,
             plugin_type="TextPlugin",
             language=col_obj.language,
             target=col_obj,
-            body=text,
+            body="<p style='text-align:center;'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>",
         )
+
+        # Coluna da direita
         col_obj = add_plugin(
             placeholder=grid_obj.placeholder,
             plugin_type="ColumnPlugin",
             language=grid_obj.language,
             target=grid_obj,
+            alignment_y=YAlignmentChoices.center
         )
-        add_plugin(
+        partners_obj = add_plugin(
             placeholder=col_obj.placeholder,
             plugin_type="PartnersPlugin",
             language=col_obj.language,
             target=col_obj,
+            cols=PartnersColumnChoices.cols_4
         )
 
+        for _ in range(8):
+            PartnersItem.objects.create(
+                external_picture=settings.STATIC_URL + "images/examples/Logo Parceiro.png",
+                plugin=partners_obj
+            )
+
+
     def _signature_partners_b_copy(self, obj: Block, layout: any):
-        title = """
-            <div>
-            <h1>Titulo da coluna</h1>
-            </div>
-            """
+        obj.alignment = AlignmentChoices.center
+        obj.save()
+        
         add_plugin(
             placeholder=obj.placeholder,
             plugin_type="TextPlugin",
             language=obj.language,
             target=obj,
-            body=title,
+            body="<h1>Quem Assina</h1>",
         )
-        add_plugin(
+        partners_obj = add_plugin(
             placeholder=obj.placeholder,
             plugin_type="PartnersPlugin",
             language=obj.language,
             target=obj,
+            cols=PartnersColumnChoices.cols_6
         )
+
+        for _ in range(12):
+            PartnersItem.objects.create(
+                external_picture=settings.STATIC_URL + "images/examples/Logo Parceiro.png",
+                plugin=partners_obj
+            )

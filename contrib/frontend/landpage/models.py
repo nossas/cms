@@ -91,10 +91,10 @@ class Styled(models.Model):
         if self.background_color and self.background_image:
             style += f"box-shadow: inset 0 0 0 1000px {self.background_color}"
 
-        return style
+        return style if style != "" else None
 
     def classnames(self):
-        classnames = ["container", "gap-4", "mx-auto", self.spacing]
+        classnames = ["container", "gap-8", "mx-auto", self.spacing]
 
         if self.alignment:
             classnames.append(self.alignment)

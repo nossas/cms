@@ -1,4 +1,4 @@
-<div style="{{ instance.styles }}">
+<div{% if instance.style %} style="{{ instance.styles }}"{% endif %}>
     <div
         {% if instance.slug %}id="{{ instance.slug }}"{% endif %}
         class="{{ instance.classnames }}"

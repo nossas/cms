@@ -5,7 +5,7 @@
     {% for socialmediaitem in instance.socialmediaitem_set.all %}
     <li class="mr-3.5">
       <a href="{{ socialmediaitem.url }}" target="_blank">
-        <img src="{{ socialmediaitem.icon.url }}" alt="{{ socialmediaitem.kind }}" />
+        <img src="{{ socialmediaitem.get_image_url }}" alt="{{ socialmediaitem.kind }}" />
       </a>
     </li>
     {% endfor %}
