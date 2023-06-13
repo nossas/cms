@@ -43,7 +43,6 @@ class BlockPlugin(CMSPluginBase):
     def get_form(self, request, obj, change, **kwargs):
         if not change:
             self.form = AddBlockForm
-        #import ipdb; ipdb.set_trace()
         
         return super(BlockPlugin, self).get_form(request, obj, change, **kwargs)
 
@@ -54,6 +53,11 @@ class BlockPlugin(CMSPluginBase):
             fieldsets[0] = (
                 None,
                 {"fields": [("title", "slug"), ("spacing", "layout")]},
+            )
+        else:
+            fieldsets[0] = (
+                None,
+                {"fields": [("title", "slug"), ("spacing", "alignment")]},
             )
 
         return fieldsets
