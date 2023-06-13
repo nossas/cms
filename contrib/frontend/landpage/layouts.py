@@ -25,76 +25,77 @@ class Layout(object):
         self.layout = layout
 
     def copy(self):
-        getattr(self, f"_{self.layout}_copy")(self.obj, self.layout)
+        if self.layout:
+            getattr(self, f"_{self.layout}_copy")()
 
-    def _hero_copy(self, obj: Block, layout: any):
-        self.__make_hero(obj, layout)
+    def _hero_copy(self):
+        self.__make_hero()
 
-    def _hero_nobrand_copy(self, obj: Block, layout: any):
-        self.__make_hero(obj, layout)
+    def _hero_nobrand_copy(self):
+        self.__make_hero()
 
-    def __make_hero(self, obj: Block, layout: any):
+    def __make_hero(self):
         # Configurar o alinhamento do bloco ao centro
-        obj.alignment = AlignmentChoices.center
-        obj.save()
+        self.obj.alignment = AlignmentChoices.center
+        self.obj.save()
 
-        if layout == LayoutChoices.hero_nobrand:
+        if self.layout == LayoutChoices.hero_nobrand:
             add_plugin(
-                placeholder=obj.placeholder,
+                placeholder=self.obj.placeholder,
                 plugin_type="TextPlugin",
-                language=obj.language,
-                target=obj,
+                language=self.obj.language,
+                target=self.obj,
                 body='<h2 class="text-center">Título do bloco</h2>',
             )
         else:
             add_plugin(
-                placeholder=obj.placeholder,
+                placeholder=self.obj.placeholder,
                 plugin_type="PicturePlugin",
-                language=obj.language,
-                target=obj,
+                language=self.obj.language,
+                target=self.obj,
                 external_picture=settings.STATIC_URL
                 + "images/examples/Hero - Logo da campanha.png",
             )
 
         add_plugin(
-            placeholder=obj.placeholder,
+            placeholder=self.obj.placeholder,
             plugin_type="TextPlugin",
-            language=obj.language,
-            target=obj,
+            language=self.obj.language,
+            target=self.obj,
             body="<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>",
         )
         add_plugin(
-            placeholder=obj.placeholder,
+            placeholder=self.obj.placeholder,
             plugin_type="ButtonPlugin",
-            language=obj.language,
-            target=obj,
+            language=self.obj.language,
+            target=self.obj,
             title="Pressione",
             action_url="#",
         )
 
-    def _four_columns_copy(self, obj: Block, layout: any):
-        self._tree_columns_copy(obj, layout)
+    def _four_columns_copy(self):
+        self._tree_columns_copy()
 
-    def _tree_columns_copy(self, obj: Block, layout: any):
+    def _tree_columns_copy(self):
         add_plugin(
-            placeholder=obj.placeholder,
+            placeholder=self.obj.placeholder,
             plugin_type="TextPlugin",
-            language=obj.language,
-            target=obj,
+            language=self.obj.language,
+            target=self.obj,
             body='<h2 class="text-center">Título do bloco</h2>',
         )
 
         grid_obj = add_plugin(
-            placeholder=obj.placeholder,
+            placeholder=self.obj.placeholder,
             plugin_type="GridPlugin",
-            language=obj.language,
-            target=obj,
+            language=self.obj.language,
+            target=self.obj,
             cols=GridColumnChoices.grid_4
-            if layout == LayoutChoices.four_columns
+            if self.layout == LayoutChoices.four_columns
             else GridColumnChoices.grid_3,
         )
 
-        for x in range(4 if layout == LayoutChoices.four_columns else 3):
+        for x in range(4 if self.layout == LayoutChoices.four_columns else 3):
             col_obj = add_plugin(
                 placeholder=grid_obj.placeholder,
                 plugin_type="ColumnPlugin",
@@ -118,17 +119,17 @@ class Layout(object):
                 body="<p style='text-align:center;'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>",
             )
 
-    def _two_columns_b_copy(self, obj: Block, layout: any):
-        self._two_columns_a_copy(obj, layout)
+    def _two_columns_b_copy(self):
+        self._two_columns_a_copy()
 
-    def _two_columns_a_copy(self, obj: Block, layout: any):
+    def _two_columns_a_copy(self):
         grid_obj = add_plugin(
-            placeholder=obj.placeholder,
+            placeholder=self.obj.placeholder,
             plugin_type="GridPlugin",
-            language=obj.language,
-            target=obj,
+            language=self.obj.language,
+            target=self.obj,
             cols=GridColumnChoices.grid_2
-            if layout == LayoutChoices.two_columns_a
+            if self.layout == LayoutChoices.two_columns_a
             else GridColumnChoices.grid_1_2,
         )
         # Coluna da Esquerda
@@ -144,7 +145,7 @@ class Layout(object):
             language=col_obj.language,
             target=col_obj,
             external_picture=settings.STATIC_URL + "images/examples/6x6.png"
-            if layout == LayoutChoices.two_columns_a
+            if self.layout == LayoutChoices.two_columns_a
             else settings.STATIC_URL + "images/examples/4x8.png",
         )
         # Coluna da Direita
@@ -178,12 +179,12 @@ class Layout(object):
             body=text,
         )
 
-    def _signature_copy(self, obj: Block, layout: any):
+    def _signature_copy(self):
         grid_obj = add_plugin(
-            placeholder=obj.placeholder,
+            placeholder=self.obj.placeholder,
             plugin_type="GridPlugin",
-            language=obj.language,
-            target=obj,
+            language=self.obj.language,
+            target=self.obj,
             cols=GridColumnChoices.grid_1_2,
         )
         # Coluna da esquerda
@@ -234,12 +235,12 @@ class Layout(object):
                 plugin=socialmedia_plugin
             )
 
-    def _signature_partners_a_copy(self, obj: Block, layout: any):
+    def _signature_partners_a_copy(self):
         grid_obj = add_plugin(
-            placeholder=obj.placeholder,
+            placeholder=self.obj.placeholder,
             plugin_type="GridPlugin",
-            language=obj.language,
-            target=obj,
+            language=self.obj.language,
+            target=self.obj,
             cols=GridColumnChoices.grid_1_2,
         )
 
@@ -295,22 +296,22 @@ class Layout(object):
             )
 
 
-    def _signature_partners_b_copy(self, obj: Block, layout: any):
-        obj.alignment = AlignmentChoices.center
-        obj.save()
+    def _signature_partners_b_copy(self):
+        self.obj.alignment = AlignmentChoices.center
+        self.obj.save()
         
         add_plugin(
-            placeholder=obj.placeholder,
+            placeholder=self.obj.placeholder,
             plugin_type="TextPlugin",
-            language=obj.language,
-            target=obj,
+            language=self.obj.language,
+            target=self.obj,
             body="<h1>Quem Assina</h1>",
         )
         partners_obj = add_plugin(
-            placeholder=obj.placeholder,
+            placeholder=self.obj.placeholder,
             plugin_type="PartnersPlugin",
-            language=obj.language,
-            target=obj,
+            language=self.obj.language,
+            target=self.obj,
             cols=PartnersColumnChoices.cols_6
         )
 
