@@ -113,7 +113,6 @@ def copy_by_layout(obj, layout):
             language=obj.language,
             target=obj,
             cols=ColumnChoices.grid_1_2,
-            alignment = AlignmentChoices.left,
         )
         col_obj = add_plugin(
             placeholder=grid_obj.placeholder,

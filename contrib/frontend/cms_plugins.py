@@ -3,7 +3,16 @@ from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
 from .forms import AddBlockForm
-from .models import Block, Button, Grid, Navbar, SocialMedia, SocialMediaItem
+from .models import (
+    Block,
+    Button,
+    Grid,
+    Navbar,
+    SocialMedia,
+    SocialMediaItem,
+    Partners,
+    PartnersItem,
+)
 from .utils import copy_by_layout
 
 
@@ -74,7 +83,14 @@ class ColumnPlugin(CMSPluginBase):
     module = "Frontend"
     render_template = "frontend/plugins/column.html"
     allow_children = True
-    child_classes = ["PicturePlugin", "TextPlugin", "ButtonPlugin", "SocialMediaPlugin"]
+    child_classes = [
+        "PicturePlugin",
+        "TextPlugin",
+        "ButtonPlugin",
+        "SocialMediaPlugin",
+        "PartnersPlugin",
+        "GridPlugin",
+    ]
 
     def render(self, context, instance, placeholder):
         context = super(ColumnPlugin, self).render(context, instance, placeholder)
@@ -146,3 +162,16 @@ class SocialMediaPlugin(CMSPluginBase):
     render_template = "frontend/plugins/social-media.html"
     model = SocialMedia
     inlines = [SocialMediaItemInline]
+
+
+class PartnersItemInline(admin.TabularInline):
+    model = PartnersItem
+
+
+@plugin_pool.register_plugin
+class PartnersPlugin(CMSPluginBase):
+    name = "Partners"
+    module = "Frontend"
+    render_template = "frontend/plugins/partners.html"
+    model = Partners
+    inlines = [PartnersItemInline]

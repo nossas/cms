@@ -1,0 +1,21 @@
+{% load cms_tags %}
+
+<div>
+  <ul class="grid grid-cols-4 gap-4">
+    {% for partnersitem in instance.partnersitem_set.all %}
+    <li>
+
+      {% if partnersitem.url %}
+
+      <a href="{{ partnersitem.url }}" target="_blank">
+        <img src="{{ partnersitem.icon.url }}" alt="{{ partnersitem.kind }}" />
+      </a>
+
+      {% else %}
+      <img src="{{ partnersitem.icon.url }}" alt="{{ partnersitem.kind }}" />
+
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+</div>

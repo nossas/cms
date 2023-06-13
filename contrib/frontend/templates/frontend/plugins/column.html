@@ -1,8 +1,7 @@
 {% load cms_tags %}
 
-<!-- <div class="grid justify-items-center"> -->
 <div class="grid gap-6 {{ alignment }}">
-{% for plugin in instance.child_plugin_instances %}
+    {% for plugin in instance.child_plugin_instances %}
     {% render_plugin plugin %}
-{% endfor %}
+    {% endfor %}
 </div>
