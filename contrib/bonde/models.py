@@ -197,7 +197,7 @@ class WidgetKind(models.TextChoices):
 
 class Widget(models.Model):
     block = models.ForeignKey(Block, models.DO_NOTHING, blank=True, null=True)
-    # settings = models.JSONField(blank=True, null=True)
+    settings = models.JSONField(blank=True, null=True)
     kind = models.CharField(
         max_length=50, choices=WidgetKind.choices, blank=True, null=True
     )

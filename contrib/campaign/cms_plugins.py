@@ -77,11 +77,15 @@ class PressurePlugin(CMSPluginBase):
         initial = dict()
 
         if instance:
+            initial["instance"] = instance.id
             initial["email_subject"] = random.choice(json.loads(instance.email_subject))
             initial["email_body"] = instance.email_body
 
         if request.method == "POST":
             form = PressureForm(request.POST, initial=initial)
+
+            if form.is_valid():
+                form.submit()
         else:
             form = PressureForm(initial=initial)
 

@@ -79,12 +79,7 @@ class Pressure(PostAction, Thank, CMSPlugin):
 
     def copy_relations(self, old_instance):
         # https://docs.django-cms.org/en/latest/how_to/custom_plugins.html#handling-relations
-        self.targetgroup_set.delete()
-
-        for item in old_instance.targetgroup_set.all():
-            item.pk = None
-            item.plugin = self
-            item.save()
+        self.targetgroup_set.set(old_instance.targetgroup_set.all())
 
 
 class TargetGroup(models.Model):
