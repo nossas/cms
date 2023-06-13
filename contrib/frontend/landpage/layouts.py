@@ -152,7 +152,7 @@ class Layout(object):
             language=grid_obj.language,
             target=grid_obj,
             alignment_x=XAlignmentChoices.left,
-            alignment_y=YAlignmentChoices.middle
+            alignment_y=YAlignmentChoices.middle,
         )
         add_plugin(
             placeholder=col_obj.placeholder,
@@ -195,7 +195,7 @@ class Layout(object):
             plugin_type="PicturePlugin",
             language=col_obj.language,
             target=col_obj,
-            external_picture=settings.STATIC_URL + "images/Rectangle 26.png",
+            external_picture=settings.STATIC_URL + "images/examples/Assinatura.png",
         )
         col_obj = add_plugin(
             placeholder=grid_obj.placeholder,
@@ -220,4 +220,82 @@ class Layout(object):
             plugin_type="SocialMediaPlugin",
             language=col_obj.language,
             target=col_obj,
+        )
+
+    def _signature_partners_a_copy(self, obj: Block, layout: any):
+        grid_obj = add_plugin(
+            placeholder=obj.placeholder,
+            plugin_type="GridPlugin",
+            language=obj.language,
+            target=obj,
+            cols=GridColumnChoices.grid_1_2,
+        )
+        col_obj = add_plugin(
+            placeholder=grid_obj.placeholder,
+            plugin_type="ColumnPlugin",
+            language=grid_obj.language,
+            target=grid_obj,
+        )
+        title = """
+            <div>
+            <h1>Titulo da coluna</h1>
+            </div>
+            """
+        add_plugin(
+            placeholder=col_obj.placeholder,
+            plugin_type="TextPlugin",
+            language=col_obj.language,
+            target=col_obj,
+            body=title,
+        )
+        add_plugin(
+            placeholder=col_obj.placeholder,
+            plugin_type="PicturePlugin",
+            language=col_obj.language,
+            target=col_obj,
+            external_picture=settings.STATIC_URL + "images/examples/Assinatura.png",
+        )
+        text = """
+            <div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+            </div>
+            """
+        add_plugin(
+            placeholder=col_obj.placeholder,
+            plugin_type="TextPlugin",
+            language=col_obj.language,
+            target=col_obj,
+            body=text,
+        )
+        col_obj = add_plugin(
+            placeholder=grid_obj.placeholder,
+            plugin_type="ColumnPlugin",
+            language=grid_obj.language,
+            target=grid_obj,
+        )
+        add_plugin(
+            placeholder=col_obj.placeholder,
+            plugin_type="PartnersPlugin",
+            language=col_obj.language,
+            target=col_obj,
+        )
+
+    def _signature_partners_b_copy(self, obj: Block, layout: any):
+        title = """
+            <div>
+            <h1>Titulo da coluna</h1>
+            </div>
+            """
+        add_plugin(
+            placeholder=obj.placeholder,
+            plugin_type="TextPlugin",
+            language=obj.language,
+            target=obj,
+            body=title,
+        )
+        add_plugin(
+            placeholder=obj.placeholder,
+            plugin_type="PartnersPlugin",
+            language=obj.language,
+            target=obj,
         )
