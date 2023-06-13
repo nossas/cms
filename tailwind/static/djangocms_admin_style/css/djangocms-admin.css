@@ -1348,8 +1348,8 @@ a[id*=clocklink] .clock-icon,a[id*=clocklink] img {
 }
 
 .cms-admin-modal #content,.cms-admin-modal.filebrowser #content,.cms_modal-window #content,.cms_modal-window.filebrowser #content,.popup #content,.popup.filebrowser #content {
-    /* margin: 20px 20px 0!important */
-    margin: 0!important;
+    margin: 20px 20px 0!important;
+    /* margin: 0!important; */
     background-color: white;
 }
 
