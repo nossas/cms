@@ -287,8 +287,6 @@ Entra ano e sai ano, e mais uma vez estou aqui pedindo para que o aumento do val
 
         # Coluna da esquerda
         col_obj = cols[0]
-        col_obj.alignment_x = XAlignmentChoices.end
-        col_obj.save()
 
         add_plugin(
             placeholder=col_obj.placeholder,
