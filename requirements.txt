@@ -6,6 +6,7 @@ django-cms
 djangocms-text-ckeditor
 djangocms-picture
 django-colorfield
+djangocms_video
 # Authentication all platforms
 # django-allauth
 bcrypt
