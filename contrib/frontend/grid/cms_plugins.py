@@ -30,5 +30,7 @@ class ColumnPlugin(CMSPluginBase):
         "ButtonPlugin",
         "SocialMediaPlugin",
         "PartnersPlugin",
-        "PressurePlugin"
+        "PressurePlugin",
+        "VideoPlayerPlugin",
     ]
+    

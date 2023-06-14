@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     # some content plugins - optional, but used in most projects
     "djangocms_picture",
     "djangocms_text_ckeditor",
+    "djangocms_video",
     # Third apps
     "colorfield",
     # My Apps

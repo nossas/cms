@@ -18,7 +18,7 @@ class BlockPlugin(CMSPluginBase):
     module = "Frontend"
     render_template = "frontend/landpage/plugins/block.html"
     allow_children = True
-    child_classes = ["PicturePlugin", "TextPlugin", "GridPlugin", "ButtonPlugin"]
+    child_classes = ["PicturePlugin", "TextPlugin", "GridPlugin", "ButtonPlugin","VideoPlayerPlugin"]
     prepopulated_fields = {"slug": ("title",)}
     fieldsets = [
         (
@@ -108,3 +108,5 @@ class NavbarPlugin(CMSPluginBase):
             context["children"] = list()
 
         return context
+
+
