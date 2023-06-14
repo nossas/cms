@@ -1,6 +1,10 @@
 from django.contrib import admin
+from django.utils.translation import ugettext_lazy as _
+
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
+from djangocms_picture.cms_plugins import PicturePlugin as DjangoCMSPicturePlugin
+
 
 from .models import (
     Button,
@@ -9,6 +13,37 @@ from .models import (
     Partners,
     PartnersItem,
 )
+
+
+@plugin_pool.register_plugin
+class ImagePlugin(DjangoCMSPicturePlugin):
+    module = "Frontend"
+    fieldsets = [
+        (None, {
+            'fields': (
+                'picture',
+                'external_picture',
+                ('width', 'height'),
+            )
+        }),
+        (_('Link settings'), {
+            'classes': ('collapse',),
+            'fields': (
+                ('link_url', 'link_page'),
+                'link_target',
+                'link_attributes',
+            )
+        }),
+        (_('Cropping settings'), {
+            'classes': ('collapse',),
+            'fields': (
+                ('use_automatic_scaling', 'use_no_cropping'),
+                ('use_crop', 'use_upscale'),
+                'thumbnail_options',
+            )
+        })
+    ]
+
 
 
 @plugin_pool.register_plugin

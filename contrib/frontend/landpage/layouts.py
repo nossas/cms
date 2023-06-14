@@ -155,7 +155,7 @@ Entra ano e sai ano, e mais uma vez estou aqui pedindo para que o aumento do val
         else:
             add_plugin(
                 placeholder=self.obj.placeholder,
-                plugin_type="PicturePlugin",
+                plugin_type="ImagePlugin",
                 language=self.obj.language,
                 target=self.obj,
                 external_picture=settings.STATIC_URL
@@ -211,7 +211,7 @@ Entra ano e sai ano, e mais uma vez estou aqui pedindo para que o aumento do val
 
             add_plugin(
                 placeholder=col_obj.placeholder,
-                plugin_type="PicturePlugin",
+                plugin_type="ImagePlugin",
                 language=col_obj.language,
                 target=col_obj,
                 external_picture=settings.STATIC_URL + "images/examples/Coluna.png",
@@ -238,7 +238,7 @@ Entra ano e sai ano, e mais uma vez estou aqui pedindo para que o aumento do val
         col_obj = cols[0]
         add_plugin(
             placeholder=col_obj.placeholder,
-            plugin_type="PicturePlugin",
+            plugin_type="ImagePlugin",
             language=col_obj.language,
             target=col_obj,
             external_picture=settings.STATIC_URL + "images/examples/6x6.png"
@@ -290,7 +290,7 @@ Entra ano e sai ano, e mais uma vez estou aqui pedindo para que o aumento do val
 
         add_plugin(
             placeholder=col_obj.placeholder,
-            plugin_type="PicturePlugin",
+            plugin_type="ImagePlugin",
             language=col_obj.language,
             target=col_obj,
             external_picture=settings.STATIC_URL + "images/examples/Assinatura.png",
@@ -347,7 +347,7 @@ Entra ano e sai ano, e mais uma vez estou aqui pedindo para que o aumento do val
         )
         add_plugin(
             placeholder=col_obj.placeholder,
-            plugin_type="PicturePlugin",
+            plugin_type="ImagePlugin",
             language=col_obj.language,
             target=col_obj,
             external_picture=settings.STATIC_URL

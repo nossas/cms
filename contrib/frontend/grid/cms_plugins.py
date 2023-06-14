@@ -25,7 +25,7 @@ class ColumnPlugin(CMSPluginBase):
     render_template = "frontend/grid/plugins/column.html"
     allow_children = True
     child_classes = [
-        "PicturePlugin",
+        "ImagePlugin",
         "TextPlugin",
         "ButtonPlugin",
         "SocialMediaPlugin",
