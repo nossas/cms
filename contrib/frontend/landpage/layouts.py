@@ -1,3 +1,4 @@
+import math
 from typing import Tuple
 from django.conf import settings
 
@@ -8,7 +9,7 @@ from contrib.frontend.grid.models import (
     XAlignmentChoices,
     YAlignmentChoices,
     GridColumnChoices,
-    ColumnSpacingChoices
+    ColumnSpacingChoices,
 )
 from contrib.frontend.models import (
     SocialMediaItem,
@@ -34,6 +35,31 @@ class Layout(object):
     def copy(self):
         if self.layout:
             getattr(self, f"_{self.layout}_copy")()
+
+    def is_dark(self):
+        if self.obj.background_color:
+            hexColor = self.obj.background_color.lstrip("#")
+
+            [r, g, b] = tuple(int(hexColor[i : i + 2], 16) for i in (0, 2, 4))
+
+            hsp = math.sqrt(0.299 * (r * r) + 0.587 * (g * g) + 0.114 * (b * b))
+
+            if hsp > 157.5:
+                return False
+
+            return True
+    
+    def color_apply(self, paragraph: str, color: str = "white", element: str = "p") -> str:
+        lines = []
+
+        for text in paragraph.split(f"</{element}>"):
+            try:
+                init_p, inner_html = text.split(">", 1)
+                lines.extend([init_p, '>', f'<span style="color:{color};">', inner_html, f'</span></{element}>'])
+            except ValueError:
+                lines.append(text)
+        
+        return "".join(lines)
 
     def create_grid(self, n_cols: str) -> Tuple:
         """
@@ -90,18 +116,19 @@ Entra ano e sai ano, e mais uma vez estou aqui pedindo para que o aumento do val
         )
 
         col_obj = cols[1]
+        body_html = """
+        <p>Narrativa lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</p>
+        <p><br>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <p><br>Narrativa lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <p><br>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        """
         add_plugin(
             placeholder=col_obj.placeholder,
             plugin_type="TextPlugin",
             language=self.obj.language,
             target=col_obj,
             # Attributos de Pressure,
-            body="""
-            <p>Narrativa lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</p>
-            <p><br>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <p><br>Narrativa lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <p><br>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            """,
+            body=self.color_apply(body_html) if self.is_dark() else body_html,
         )
 
     def _hero_copy(self):
@@ -117,12 +144,13 @@ Entra ano e sai ano, e mais uma vez estou aqui pedindo para que o aumento do val
         self.obj.save()
 
         if self.layout == LayoutChoices.hero_nobrand:
+            text_html = '<h1 class="text-center">Título do bloco</h1>'
             add_plugin(
                 placeholder=self.obj.placeholder,
                 plugin_type="TextPlugin",
                 language=self.obj.language,
                 target=self.obj,
-                body='<h2 class="text-center">Título do bloco</h2>',
+                body=self.color_apply(text_html, element="h1") if self.is_dark() else text_html
             )
         else:
             add_plugin(
@@ -146,7 +174,7 @@ Entra ano e sai ano, e mais uma vez estou aqui pedindo para que o aumento do val
             plugin_type="TextPlugin",
             language=self.obj.language,
             target=self.obj,
-            body=paragraph,
+            body=self.color_apply(paragraph) if self.is_dark() else paragraph,
         )
         add_plugin(
             placeholder=self.obj.placeholder,
@@ -164,12 +192,13 @@ Entra ano e sai ano, e mais uma vez estou aqui pedindo para que o aumento do val
         self.obj.alignment = AlignmentChoices.center
         self.obj.save()
 
+        text_html = '<h2 class="text-center">Título do bloco</h2>'
         add_plugin(
             placeholder=self.obj.placeholder,
             plugin_type="TextPlugin",
             language=self.obj.language,
             target=self.obj,
-            body='<h2 class="text-center">Título do bloco</h2>',
+            body=self.color_apply(text_html, element="h2") if self.is_dark() else text_html
         )
 
         grid, cols = self.create_grid(
@@ -188,12 +217,13 @@ Entra ano e sai ano, e mais uma vez estou aqui pedindo para que o aumento do val
                 external_picture=settings.STATIC_URL + "images/examples/Coluna.png",
             )
 
+            paragraph = "<p style='text-align:center;'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>"
             add_plugin(
                 placeholder=col_obj.placeholder,
                 plugin_type="TextPlugin",
                 language=col_obj.language,
                 target=col_obj,
-                body="<p style='text-align:center;'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>",
+                body=self.color_apply(paragraph) if self.is_dark() else paragraph,
             )
 
     def _two_columns_b_copy(self):
@@ -222,20 +252,24 @@ Entra ano e sai ano, e mais uma vez estou aqui pedindo para que o aumento do val
         col_obj.alignment_y = YAlignmentChoices.center
         col_obj.save()
 
+        text_html = "<h2>Título do bloco</h2>"
         add_plugin(
             placeholder=col_obj.placeholder,
             plugin_type="TextPlugin",
             language=col_obj.language,
             target=col_obj,
-            body="<h2>Título do bloco</h2>",
+            body=self.color_apply(text_html, element="h2") if self.is_dark() else text_html
         )
+        
+        p = "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>"
         text = """
             <div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
-            <br/>
+            """
+        text += self.color_apply(p) if self.is_dark() else p
+        text += """
             <a href="#" target="self">Link</a>
             </div>
-            """
+        """
         add_plugin(
             placeholder=col_obj.placeholder,
             plugin_type="TextPlugin",
@@ -253,7 +287,7 @@ Entra ano e sai ano, e mais uma vez estou aqui pedindo para que o aumento do val
 
         # Coluna da esquerda
         col_obj = cols[0]
-        col_obj.alignment_x = XAlignmentChoices.right
+        col_obj.alignment_x = XAlignmentChoices.end
         col_obj.save()
 
         add_plugin(
@@ -270,14 +304,13 @@ Entra ano e sai ano, e mais uma vez estou aqui pedindo para que o aumento do val
         col_obj.alignment_y = YAlignmentChoices.center
         col_obj.save()
 
+        text_html = "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>"
         add_plugin(
             placeholder=col_obj.placeholder,
             plugin_type="TextPlugin",
             language=col_obj.language,
             target=col_obj,
-            body="""
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
-            """,
+            body=self.color_apply(text_html) if self.is_dark() else text_html,
         )
 
         socialmedia_plugin = add_plugin(
@@ -304,12 +337,15 @@ Entra ano e sai ano, e mais uma vez estou aqui pedindo para que o aumento do val
         # Coluna da esquerda
         col_obj = cols[0]
         col_obj.spacing = ColumnSpacingChoices.gap_8
+        col_obj.save()
+
+        text_html = "<h2>Quem assina</h2>"
         add_plugin(
             placeholder=col_obj.placeholder,
             plugin_type="TextPlugin",
             language=col_obj.language,
             target=col_obj,
-            body="<h1>Quem assina</h1>",
+            body=self.color_apply(text_html, element="h2") if self.is_dark() else text_html
         )
         add_plugin(
             placeholder=col_obj.placeholder,
@@ -319,12 +355,14 @@ Entra ano e sai ano, e mais uma vez estou aqui pedindo para que o aumento do val
             external_picture=settings.STATIC_URL
             + "images/examples/Assinatura Logo.png",
         )
+
+        text_html = "<p style='text-align:center;'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>"
         add_plugin(
             placeholder=col_obj.placeholder,
             plugin_type="TextPlugin",
             language=col_obj.language,
             target=col_obj,
-            body="<p style='text-align:center;'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>",
+            body=self.color_apply(text_html) if self.is_dark() else text_html,
         )
 
         # Coluna da direita
@@ -351,12 +389,13 @@ Entra ano e sai ano, e mais uma vez estou aqui pedindo para que o aumento do val
         self.obj.alignment = AlignmentChoices.center
         self.obj.save()
 
+        text_html = "<h2>Quem Assina</h2>"
         add_plugin(
             placeholder=self.obj.placeholder,
             plugin_type="TextPlugin",
             language=self.obj.language,
             target=self.obj,
-            body="<h1>Quem Assina</h1>",
+            body=self.color_apply(text_html, element="h2") if self.is_dark() else text_html
         )
         partners_obj = add_plugin(
             placeholder=self.obj.placeholder,
