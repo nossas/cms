@@ -112,8 +112,6 @@ class NavbarPlugin(CMSPluginBase):
         return context
 
 
-<<<<<<< HEAD
-=======
 @plugin_pool.register_plugin
 class FooterPlugin(CMSPluginBase):
     name = "Footer"
@@ -130,5 +128,3 @@ class FooterPlugin(CMSPluginBase):
         context.update({"community": community})
 
         return context
-
->>>>>>> 15d0db075dae15741ad802e6a2335973a8d0ee5d
