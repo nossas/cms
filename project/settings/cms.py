@@ -40,6 +40,13 @@ CMS_PLACEHOLDER_CONF = {
     },
     "footer": {
         "plugins": ["FooterPlugin"],
+        "language_fallback": True,
+        "default_plugins": [
+            {
+                "plugin_type": "FooterPlugin",
+                "values": {}
+            },
+        ],
     },
 }
 
