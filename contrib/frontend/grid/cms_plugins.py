@@ -2,7 +2,7 @@
 # Coluna
 from cms.plugin_pool import plugin_pool, CMSPluginBase
 
-from .models import Grid, Column
+from .models import Grid, Column, FluidGrid
 
 
 @plugin_pool.register_plugin
@@ -28,9 +28,17 @@ class ColumnPlugin(CMSPluginBase):
         "ImagePlugin",
         "TextPlugin",
         "ButtonPlugin",
-        "SocialMediaPlugin",
-        "PartnersPlugin",
+        "FluidGridPlugin",
         "PressurePlugin",
         "VideoPlayerPlugin",
     ]
-    
+
+
+@plugin_pool.register_plugin
+class FluidGridPlugin(CMSPluginBase):
+    name = "Fluid Grid"
+    module = "Frontend"
+    model = FluidGrid
+    render_template = "frontend/grid/plugins/fluid_grid.html"
+    allow_children = True
+    child_classes = ["ImagePlugin"]

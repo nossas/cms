@@ -3,19 +3,13 @@ from typing import Tuple
 from django.conf import settings
 
 from cms.api import add_plugin
-from filer.models import Image
 
 from contrib.frontend.grid.models import (
     XAlignmentChoices,
     YAlignmentChoices,
     GridColumnChoices,
     ColumnSpacingChoices,
-)
-from contrib.frontend.models import (
-    SocialMediaItem,
-    SocialMediaChoices,
-    PartnersItem,
-    PartnersColumnChoices,
+    FluidGridColumnChoices,
 )
 
 from .models import Block, AlignmentChoices, SpacingChoices
@@ -48,17 +42,27 @@ class Layout(object):
                 return False
 
             return True
-    
-    def color_apply(self, paragraph: str, color: str = "white", element: str = "p") -> str:
+
+    def color_apply(
+        self, paragraph: str, color: str = "white", element: str = "p"
+    ) -> str:
         lines = []
 
         for text in paragraph.split(f"</{element}>"):
             try:
                 init_p, inner_html = text.split(">", 1)
-                lines.extend([init_p, '>', f'<span style="color:{color};">', inner_html, f'</span></{element}>'])
+                lines.extend(
+                    [
+                        init_p,
+                        ">",
+                        f'<span style="color:{color};">',
+                        inner_html,
+                        f"</span></{element}>",
+                    ]
+                )
             except ValueError:
                 lines.append(text)
-        
+
         return "".join(lines)
 
     def create_grid(self, n_cols: str) -> Tuple:
@@ -150,7 +154,9 @@ Entra ano e sai ano, e mais uma vez estou aqui pedindo para que o aumento do val
                 plugin_type="TextPlugin",
                 language=self.obj.language,
                 target=self.obj,
-                body=self.color_apply(text_html, element="h1") if self.is_dark() else text_html
+                body=self.color_apply(text_html, element="h1")
+                if self.is_dark()
+                else text_html,
             )
         else:
             add_plugin(
@@ -198,7 +204,9 @@ Entra ano e sai ano, e mais uma vez estou aqui pedindo para que o aumento do val
             plugin_type="TextPlugin",
             language=self.obj.language,
             target=self.obj,
-            body=self.color_apply(text_html, element="h2") if self.is_dark() else text_html
+            body=self.color_apply(text_html, element="h2")
+            if self.is_dark()
+            else text_html,
         )
 
         grid, cols = self.create_grid(
@@ -258,9 +266,11 @@ Entra ano e sai ano, e mais uma vez estou aqui pedindo para que o aumento do val
             plugin_type="TextPlugin",
             language=col_obj.language,
             target=col_obj,
-            body=self.color_apply(text_html, element="h2") if self.is_dark() else text_html
+            body=self.color_apply(text_html, element="h2")
+            if self.is_dark()
+            else text_html,
         )
-        
+
         p = "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>"
         text = """
             <div>
@@ -311,19 +321,21 @@ Entra ano e sai ano, e mais uma vez estou aqui pedindo para que o aumento do val
             body=self.color_apply(text_html) if self.is_dark() else text_html,
         )
 
-        socialmedia_plugin = add_plugin(
+        fluidgrid_plugin = add_plugin(
             placeholder=col_obj.placeholder,
-            plugin_type="SocialMediaPlugin",
+            plugin_type="FluidGridPlugin",
             language=col_obj.language,
             target=col_obj,
         )
 
-        for choice in [SocialMediaChoices.facebook, SocialMediaChoices.instagram]:
-            SocialMediaItem.objects.create(
-                kind=choice,
+        for choice in ["facebook", "instagram"]:
+            add_plugin(
+                placeholder=fluidgrid_plugin.placeholder,
+                plugin_type="ImagePlugin",
+                language=fluidgrid_plugin.language,
+                target=fluidgrid_plugin,
                 external_picture=settings.STATIC_URL
                 + f"images/examples/Social Media {choice.capitalize()}.png",
-                plugin=socialmedia_plugin,
             )
 
     def _signature_partners_a_copy(self):
@@ -343,7 +355,9 @@ Entra ano e sai ano, e mais uma vez estou aqui pedindo para que o aumento do val
             plugin_type="TextPlugin",
             language=col_obj.language,
             target=col_obj,
-            body=self.color_apply(text_html, element="h2") if self.is_dark() else text_html
+            body=self.color_apply(text_html, element="h2")
+            if self.is_dark()
+            else text_html,
         )
         add_plugin(
             placeholder=col_obj.placeholder,
@@ -368,19 +382,22 @@ Entra ano e sai ano, e mais uma vez estou aqui pedindo para que o aumento do val
         col_obj.alignment_y = YAlignmentChoices.center
         col_obj.save()
 
-        partners_obj = add_plugin(
+        fluidgrid = add_plugin(
             placeholder=col_obj.placeholder,
-            plugin_type="PartnersPlugin",
+            plugin_type="FluidGridPlugin",
             language=col_obj.language,
             target=col_obj,
-            cols=PartnersColumnChoices.cols_4,
+            cols=FluidGridColumnChoices.cols_4,
         )
 
         for _ in range(8):
-            PartnersItem.objects.create(
+            add_plugin(
+                placeholder=fluidgrid.placeholder,
+                plugin_type="ImagePlugin",
+                language=fluidgrid.language,
+                target=fluidgrid,
                 external_picture=settings.STATIC_URL
                 + "images/examples/Logo Parceiro.png",
-                plugin=partners_obj,
             )
 
     def _signature_partners_b_copy(self):
@@ -393,19 +410,24 @@ Entra ano e sai ano, e mais uma vez estou aqui pedindo para que o aumento do val
             plugin_type="TextPlugin",
             language=self.obj.language,
             target=self.obj,
-            body=self.color_apply(text_html, element="h2") if self.is_dark() else text_html
+            body=self.color_apply(text_html, element="h2")
+            if self.is_dark()
+            else text_html,
         )
-        partners_obj = add_plugin(
+        fluidgrid = add_plugin(
             placeholder=self.obj.placeholder,
-            plugin_type="PartnersPlugin",
+            plugin_type="FluidGridPlugin",
             language=self.obj.language,
             target=self.obj,
-            cols=PartnersColumnChoices.cols_6,
+            cols=FluidGridColumnChoices.cols_6,
         )
 
         for _ in range(12):
-            PartnersItem.objects.create(
+            add_plugin(
+                placeholder=fluidgrid.placeholder,
+                plugin_type="ImagePlugin",
+                language=fluidgrid.language,
+                target=fluidgrid,
                 external_picture=settings.STATIC_URL
                 + "images/examples/Logo Parceiro.png",
-                plugin=partners_obj,
             )

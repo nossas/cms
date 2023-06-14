@@ -8,6 +8,7 @@ class XAlignmentChoices(models.TextChoices):
     start = "items-start", "Esquerda"
     end = "items-end", "Direita"
 
+
 class YAlignmentChoices(models.TextChoices):
     start = "justify-start", "Acima"
     center = "justify-center", "Ao centro"
@@ -43,7 +44,7 @@ class Column(CMSPlugin):
         choices=ColumnSpacingChoices.choices,
         default=ColumnSpacingChoices.gap_0,
         max_length=15,
-        help_text="Espaço entre os elementos desta Coluna"
+        help_text="Espaço entre os elementos desta Coluna",
     )
 
     alignment_x = models.CharField(
@@ -57,5 +58,19 @@ class Column(CMSPlugin):
         "Alinhamento Vertical",
         choices=YAlignmentChoices.choices,
         default=YAlignmentChoices.start,
-        max_length=30
+        max_length=30,
+    )
+
+
+class FluidGridColumnChoices(models.TextChoices):
+    cols_4 = "grid-cols-2 md:grid-cols-4", "4 Colunas"
+    cols_6 = "grid-cols-2 md:grid-cols-6", "6 Colunas"
+
+
+class FluidGrid(CMSPlugin):
+    cols = models.CharField(
+        "Colunas",
+        choices=FluidGridColumnChoices.choices,
+        default=FluidGridColumnChoices.cols_4,
+        max_length=50,
     )

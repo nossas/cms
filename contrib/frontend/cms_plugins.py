@@ -5,45 +5,46 @@ from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 from djangocms_picture.cms_plugins import PicturePlugin as DjangoCMSPicturePlugin
 
-
-from .models import (
-    Button,
-    SocialMedia,
-    SocialMediaItem,
-    Partners,
-    PartnersItem,
-)
+from .models import Button
 
 
 @plugin_pool.register_plugin
 class ImagePlugin(DjangoCMSPicturePlugin):
     module = "Frontend"
     fieldsets = [
-        (None, {
-            'fields': (
-                'picture',
-                'external_picture',
-                ('width', 'height'),
-            )
-        }),
-        (_('Link settings'), {
-            'classes': ('collapse',),
-            'fields': (
-                ('link_url', 'link_page'),
-                'link_target',
-                'link_attributes',
-            )
-        }),
-        (_('Cropping settings'), {
-            'classes': ('collapse',),
-            'fields': (
-                ('use_automatic_scaling', 'use_no_cropping'),
-                ('use_crop', 'use_upscale'),
-                'thumbnail_options',
-            )
-        })
+        (
+            None,
+            {
+                "fields": (
+                    "picture",
+                    "external_picture",
+                    ("width", "height"),
+                )
+            },
+        ),
+        (
+            _("Link settings"),
+            {
+                "classes": ("collapse",),
+                "fields": (
+                    ("link_url", "link_page"),
+                    "link_target",
+                    "link_attributes",
+                ),
+            },
+        ),
+        (
+            _("Cropping settings"),
+            {
+                "classes": ("collapse",),
+                "fields": (
+                    ("use_automatic_scaling", "use_no_cropping"),
+                    ("use_crop", "use_upscale"),
+                    "thumbnail_options",
+                ),
+            },
+        ),
     ]
-
 
 
 @plugin_pool.register_plugin
@@ -63,31 +64,3 @@ class ButtonPlugin(CMSPluginBase):
             },
         ),
     ]
-
-
-class SocialMediaItemInline(admin.TabularInline):
-    model = SocialMediaItem
-    fields = ("url", "kind", "picture", )
-
-
-@plugin_pool.register_plugin
-class SocialMediaPlugin(CMSPluginBase):
-    name = "Social Media"
-    module = "Frontend"
-    render_template = "frontend/plugins/social-media.html"
-    model = SocialMedia
-    inlines = [SocialMediaItemInline]
-
-
-class PartnersItemInline(admin.TabularInline):
-    model = PartnersItem
-    fields = ["picture", "url"]
-
-
-@plugin_pool.register_plugin
-class PartnersPlugin(CMSPluginBase):
-    name = "Partners"
-    module = "Frontend"
-    render_template = "frontend/plugins/partners.html"
-    model = Partners
-    inlines = [PartnersItemInline]
