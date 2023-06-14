@@ -46,6 +46,23 @@ class User(models.Model):
         return self.email
 
 
+class RequestManager(models.Manager):
+    def __init__(self, lookup_field=None):
+        self.lookup_field = lookup_field
+        super(RequestManager, self).__init__()
+
+    def on_site(self, request=None):
+        site = Site.objects.get(id=settings.SITE_ID)
+        if request:
+            site = request.current_site
+
+        prefix = "" if not self.lookup_field else f"{self.lookup_field}__"
+
+        params = {f"{prefix}dnshostedzone__domain_name": site.domain}
+
+        return self.get_queryset().filter(**params)
+
+
 class Community(models.Model):
     name = models.CharField(max_length=100, blank=True, null=True)
     city = models.CharField(max_length=100, blank=True, null=True)
@@ -69,12 +86,20 @@ class Community(models.Model):
     # classification = models.CharField(max_length=20, blank=True, null=True)
     an_group_id = models.TextField(blank=True, null=True)
 
+    objects = RequestManager()
+
     class Meta:
         managed = False
         db_table = "communities"
 
     def __str__(self):
         return self.name
+
+    def get_signature(self):
+        return {
+            "name": self.signature.get("name", self.name),
+            "url": self.signature.get("url", "#")
+        }
 
 
 class CommunityUser(models.Model):
@@ -110,23 +135,6 @@ class DnsHostedZone(models.Model):
         db_table = "dns_hosted_zones"
 
 
-class RequestManager(models.Manager):
-    def __init__(self, lookup_field=None):
-        self.lookup_field = lookup_field
-        super(RequestManager, self).__init__()
-
-    def on_site(self, request=None):
-        site = Site.objects.get(id=settings.SITE_ID)
-        if request:
-            site = request.current_site
-
-        prefix = "" if not self.lookup_field else f"{self.lookup_field}__"
-
-        params = {f"{prefix}community__dnshostedzone__domain_name": site.domain}
-
-        return self.get_queryset().filter(**params)
-
-
 class MobilizationStatus(models.TextChoices):
     archived = "archived", "Arquivada"
     active = "active", "Ativa"
@@ -159,7 +167,7 @@ class Mobilization(models.Model):
     updated_at = models.DateTimeField(blank=True, null=True)
     # theme = models.ForeignKey('Themes', models.DO_NOTHING, blank=True, null=True)
 
-    objects = RequestManager()
+    objects = RequestManager(lookup_field="community")
 
     class Meta:
         managed = False
@@ -215,7 +223,7 @@ class Widget(models.Model):
     # goal = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
     deleted_at = models.DateTimeField(blank=True, null=True)
 
-    objects = RequestManager(lookup_field="block__mobilization")
+    objects = RequestManager(lookup_field="block__mobilization__community")
 
     class Meta:
         managed = False

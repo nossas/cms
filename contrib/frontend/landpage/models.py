@@ -109,3 +109,9 @@ class Block(Section, Styled, CMSPlugin):
 class Navbar(BlockElementStyled, CMSPlugin):
     class Meta:
         abstract = False
+
+
+class Footer(BlockElementStyled, CMSPlugin):
+
+    class Meta:
+        abstract = False

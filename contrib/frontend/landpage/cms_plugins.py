@@ -6,7 +6,9 @@
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
-from .models import Block, Navbar
+from contrib.bonde.models import Community
+
+from .models import Block, Navbar, Footer
 from .forms import LayoutBlockForm
 from .layouts import Layout
 
@@ -110,3 +112,23 @@ class NavbarPlugin(CMSPluginBase):
         return context
 
 
+<<<<<<< HEAD
+=======
+@plugin_pool.register_plugin
+class FooterPlugin(CMSPluginBase):
+    name = "Footer"
+    module = "Frontend"
+    model = Footer
+    render_template = "frontend/landpage/plugins/footer.html"
+    allow_children = False
+
+    def render(self, context, instance, placeholder):
+        context = super(FooterPlugin, self).render(context, instance, placeholder)
+        request = context['request']
+
+        community = Community.objects.on_site(request).first()
+        context.update({"community": community})
+
+        return context
+
+>>>>>>> 15d0db075dae15741ad802e6a2335973a8d0ee5d
