@@ -166,6 +166,8 @@ Entra ano e sai ano, e mais uma vez estou aqui pedindo para que o aumento do val
                 target=self.obj,
                 external_picture=settings.STATIC_URL
                 + "images/examples/Hero - Logo da campanha.png",
+                use_no_cropping=True,
+                use_automatic_scaling=False,
                 use_responsive_image=True,
                 width=300,
                 height=200,
@@ -226,6 +228,8 @@ Entra ano e sai ano, e mais uma vez estou aqui pedindo para que o aumento do val
                 language=col_obj.language,
                 target=col_obj,
                 external_picture=settings.STATIC_URL + "images/examples/Coluna.png",
+                use_no_cropping=True,
+                use_automatic_scaling=False,
                 use_responsive_image=True,
                 width=80,
                 height=80,
@@ -258,6 +262,8 @@ Entra ano e sai ano, e mais uma vez estou aqui pedindo para que o aumento do val
             external_picture=settings.STATIC_URL + "images/examples/6x6.png"
             if self.layout == LayoutChoices.two_columns_a
             else settings.STATIC_URL + "images/examples/4x8.png",
+            use_no_cropping=True,
+            use_automatic_scaling=False,
             use_responsive_image=True,
             width=300,
             height=200,
@@ -313,6 +319,8 @@ Entra ano e sai ano, e mais uma vez estou aqui pedindo para que o aumento do val
             language=col_obj.language,
             target=col_obj,
             external_picture=settings.STATIC_URL + "images/examples/Assinatura.png",
+            use_no_cropping=True,
+            use_automatic_scaling=False,
             use_responsive_image=True,
             width=320,
             height=200,
@@ -348,6 +356,8 @@ Entra ano e sai ano, e mais uma vez estou aqui pedindo para que o aumento do val
                 target=fluidgrid_plugin,
                 external_picture=settings.STATIC_URL
                 + f"images/examples/Social Media {choice.capitalize()}.png",
+                use_no_cropping=True,
+                use_automatic_scaling=False,
                 use_responsive_image=True,
                 width=100,
                 height=50,
@@ -381,6 +391,8 @@ Entra ano e sai ano, e mais uma vez estou aqui pedindo para que o aumento do val
             target=col_obj,
             external_picture=settings.STATIC_URL
             + "images/examples/Assinatura Logo.png",
+            use_no_cropping=True,
+            use_automatic_scaling=False,
             use_responsive_image=True,
             width=200,
             height=100,
@@ -416,6 +428,8 @@ Entra ano e sai ano, e mais uma vez estou aqui pedindo para que o aumento do val
                 target=fluidgrid,
                 external_picture=settings.STATIC_URL
                 + "images/examples/Logo Parceiro.png",
+                use_no_cropping=True,
+                use_automatic_scaling=False,
                 use_responsive_image=True,
                 width=100,
                 height=50,
@@ -451,6 +465,8 @@ Entra ano e sai ano, e mais uma vez estou aqui pedindo para que o aumento do val
                 target=fluidgrid,
                 external_picture=settings.STATIC_URL
                 + "images/examples/Logo Parceiro.png",
+                use_no_cropping=True,
+                use_automatic_scaling=False,
                 use_responsive_image=True,
                 width=100,
                 height=50,
