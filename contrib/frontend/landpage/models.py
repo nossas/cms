@@ -93,7 +93,14 @@ class Styled(models.Model):
         return style if style != "" else None
 
     def classnames(self):
-        classnames = ["container", "gap-8", "mx-auto", self.spacing]
+        classnames = [
+            "container",
+            "gap-8",
+            "px-5",
+            "md:px-auto",
+            "mx-auto",
+            self.spacing,
+        ]
 
         if self.alignment:
             classnames.append(self.alignment)
@@ -112,6 +119,5 @@ class Navbar(BlockElementStyled, CMSPlugin):
 
 
 class Footer(BlockElementStyled, CMSPlugin):
-
     class Meta:
         abstract = False
