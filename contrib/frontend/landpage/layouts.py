@@ -275,7 +275,7 @@ Entra ano e sai ano, e mais uma vez estou aqui pedindo para que o aumento do val
         col_obj = cols[1]
         col_obj.spacing = ColumnSpacingChoices.gap_8
         col_obj.alignment_x = XAlignmentChoices.start
-        col_obj.alignment_y = YAlignmentChoices.center
+        col_obj.alignment_y = YAlignmentChoices.start
         col_obj.save()
 
         text_html = "<h2>Título do bloco</h2>"
