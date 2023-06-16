@@ -1,9 +1,11 @@
 from django import forms
 from django.db import models
 
+from .widgets import SelectLayout
+
 
 class LayoutChoices(models.TextChoices):
-    empty = "", "---"
+    # empty = "empty", "---"
     hero = "hero", "Hero"
     hero_nobrand = "hero_nobrand", "Hero Sem logo"
     tree_columns = "tree_columns", "3 Colunas"
@@ -16,14 +18,14 @@ class LayoutChoices(models.TextChoices):
         "2 Colunas - Assinatura com parceiros",
     )
     signature_partners_b = "signature_partners_b", "1 Coluna - Assinatura com parceiros"
-    pressure = "pressure", "Pressão"
+    # pressure = "pressure", "Pressão"
 
 
 class LayoutBlockForm(forms.ModelForm):
     layout = forms.CharField(
         label="Layout",
         required=False,
-        widget=forms.Select(
+        widget=SelectLayout(
             choices=LayoutChoices.choices
         )
     )

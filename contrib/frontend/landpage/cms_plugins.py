@@ -3,8 +3,10 @@
 
 # Navbar
 # Footer
+from typing import Dict, Optional, Tuple
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
+from django.http.request import HttpRequest
 
 from contrib.bonde.models import Community
 
@@ -55,10 +57,12 @@ class BlockPlugin(CMSPluginBase):
         fieldsets = super(BlockPlugin, self).get_fieldsets(request, obj)
 
         if not obj:
-            fieldsets[0] = (
-                None,
-                {"fields": [("title", "slug"), ("spacing", "layout")]},
-            )
+            fieldsets = [
+                (
+                    None,
+                    {"fields": ["layout"]},
+                )
+            ]
         else:
             fieldsets[0] = (
                 None,
@@ -66,6 +70,12 @@ class BlockPlugin(CMSPluginBase):
             )
 
         return fieldsets
+
+    def get_prepopulated_fields(self, request, obj = None):
+        if obj:
+            return super(BlockPlugin, self).get_prepopulated_fields(request, obj)
+        
+        return {}
 
     def save_model(self, request, obj, form, change):
         """

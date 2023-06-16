@@ -1,0 +1,13 @@
+<div>
+    {% for group_name, group_choices, group_index in widget.optgroups %}
+    {% for option in group_choices %}
+    <label htmlFor="{{widget.name}}_{{group_index}}">
+      {{ option.label }}
+      <input id="{{widget.name}}_{{group_index}}" class="hidden" type="radio" name="{{widget.name}}" value="{{ option.value|stringformat:'s' }}" />
+      {% with "frontend/landpage/forms/widgets/select_option/"|add:option.value|stringformat:'s'|add:".svg" as template_option_name %}
+      {% include template_option_name %}
+      {% endwith %}
+    </label>
+    {% endfor %}
+    {% endfor %}
+  </div>
