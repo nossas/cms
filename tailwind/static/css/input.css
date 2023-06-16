@@ -31,4 +31,8 @@
     a:hover{
         @apply underline;
     }
+
+    .aligned label.flex {
+        @apply inline-block;
+    }
 }
