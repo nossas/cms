@@ -35,4 +35,8 @@
     .aligned label.flex {
         @apply inline-block;
     }
+
+    input[type="radio"]:checked + div {
+        @apply text-[#131313] rounded-md bg-[#eee];
+    }
 }
