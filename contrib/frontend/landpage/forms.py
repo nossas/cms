@@ -6,18 +6,18 @@ from .widgets import SelectLayout
 
 class LayoutChoices(models.TextChoices):
     # empty = "empty", "---"
-    hero = "hero", "Hero"
-    hero_nobrand = "hero_nobrand", "Hero Sem logo"
-    tree_columns = "tree_columns", "3 Colunas"
-    four_columns = "four_columns", "4 Colunas"
-    two_columns_a = "two_columns_a", "2 Colunas - 6x6"
-    two_columns_b = "two_columns_b", "2 Colunas - 4x8"
-    signature = "signature", "Assinatura"
+    hero = "hero", "Capa 1 coluna"
+    hero_nobrand = "hero_nobrand", "Conteúdo 1 coluna"
+    tree_columns = "tree_columns", "Conteúdo 3 colunas"
+    two_columns_a = "two_columns_a", "Conteúdo 2 colunas (6x6)"
+    two_columns_b = "two_columns_b", "Conteúdo 2 colunas (4x8)"
+    four_columns = "four_columns", "Conteúdo 4 colunas"
+    signature = "signature", "Assinatura 2 colunas"
     signature_partners_a = (
         "signature_partners_a",
-        "2 Colunas - Assinatura com parceiros",
+        "Assinatura + parceiros 2 colunas",
     )
-    signature_partners_b = "signature_partners_b", "1 Coluna - Assinatura com parceiros"
+    signature_partners_b = "signature_partners_b", "Parceiros 1 coluna"
     # pressure = "pressure", "Pressão"
 
 
