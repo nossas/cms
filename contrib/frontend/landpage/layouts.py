@@ -28,6 +28,9 @@ class Layout(object):
 
     def copy(self):
         if self.layout:
+            self.obj.title = f"Bloco {self.obj.position}"
+            self.obj.slug = f"bloco-{self.obj.position}"
+            self.obj.save()
             getattr(self, f"_{self.layout}_copy")()
 
     def is_dark(self):
