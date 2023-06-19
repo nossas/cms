@@ -123,10 +123,3 @@ site.domain = "localhost:8000"
 
 site.save()
 ```
-
-# TODO
-
-- Substituir o alinhamento do grid para as Colunas
-- Trocar a classe grid para flex na Coluna
-- Definir número de colunas para parceiros
-- 

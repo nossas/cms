@@ -362,7 +362,7 @@ Entra ano e sai ano, e mais uma vez estou aqui pedindo para que o aumento do val
                 use_no_cropping=True,
                 use_automatic_scaling=False,
                 use_responsive_image=True,
-                width=100,
+                width=50,
                 height=50,
             )
 
