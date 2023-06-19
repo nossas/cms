@@ -207,9 +207,9 @@
     content: "\E013"
 }
 
-.cms-icon-logo:before,div.cms .cms-toolbar-item-logo a:before {
+/* .cms-icon-logo:before,div.cms .cms-toolbar-item-logo a:before {
     content: "\E014"
-}
+} */
 
 .cms-icon-menu:before {
     content: "\E015"
@@ -1081,6 +1081,16 @@ div.cms .cms-toolbar-item-navigation li ul {
 
 div.cms .cms-toolbar-item-navigation>li:first-child>a span {
     font-weight: 600
+}
+
+/* Adiciona logo BONDE */
+div.cms .cms-toolbar-item-logo a {
+    display: inline-block;
+    background-image: url(../../fonts/logo.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 150px;
+    scale: 0.65;
 }
 
 div.cms .cms-toolbar-item-logo .cms-toolbar-item-navigation a,div.cms .cms-toolbar-item-navigation .cms-icon,div.cms .cms-toolbar-item-navigation .cms-toolbar-item-logo a {

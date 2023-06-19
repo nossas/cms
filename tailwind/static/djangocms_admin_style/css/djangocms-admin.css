@@ -940,9 +940,9 @@ img[src*=icon-no],img[src*=icon-unknown],img[src*=icon-yes] {
     content: "\E03F"
 }
 
-.icon-logo:before {
+/* .icon-logo:before {
     content: "\E02D"
-}
+} */
 
 #id_upload_button:before {
     content: "\E047"
@@ -5980,9 +5980,7 @@ body.login.djangocms-admin-style #container #footer {
 }
 
 #header #header-logo {
-    float: left;
-    padding-left: 15px;
-    margin-right: 15px
+    margin: 0 auto;
 }
 
 #header #header-logo span {
@@ -5994,22 +5992,34 @@ body.login.djangocms-admin-style #container #footer {
     display: block;
     font-size: 21px;
     line-height: 46px;
-    height: 46px;
-    transition: color .2s
+    transition: color .2s;
+}
+
+#header #branding {
+    flex-direction: column;
+    text-align: center;
+}
+
+#header #header-logo a.icon-logo {
+    background-image: url(../../cms/fonts/logo.png)!important;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 45px;
+    width: 200px;
 }
 
 #header #header-logo a:hover {
     color: var(--dca-primary)
 }
 
-#header #header-logo a:before {
+/* #header #header-logo a:before {
     font-size: 21px;
     vertical-align: inherit;
     line-height: 46px;
     height: 46px;
     margin-right: 0;
     box-sizing: border-box
-}
+} */
 
 #footer {
     padding: 0
