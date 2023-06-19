@@ -46,6 +46,14 @@ class ImagePlugin(DjangoCMSPicturePlugin):
         ),
     ]
 
+   
+    def render(self, context, instance, placeholder):
+        context = super(ImagePlugin, self).render(context, instance, placeholder)
+        current_page = context["request"].current_page 
+        if current_page.publisher_is_draft:
+            del context["picture_link"]
+        return context
+
 
 @plugin_pool.register_plugin
 class ButtonPlugin(CMSPluginBase):
