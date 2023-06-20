@@ -1,8 +1,19 @@
-<div{% if instance.styles %} style="{{ instance.styles }}"{% endif %}>
+<div
+    {% if instance.styles %}style="{{ instance.styles }}"{% endif %}
+    {% if request.current_page.publisher_is_draft and instance.hidden %}class="relative"{% endif %}
+>
     <div
         {% if instance.slug %}id="{{ instance.slug }}"{% endif %}
         class="{{ instance.classnames }}"
-    >
+    > 
     {% block main %}{% endblock %}
+
     </div>
+    {% if request.current_page.publisher_is_draft and instance.hidden %}
+        <div class="absolute bottom-1 left-1/2 ml-[-100px]">
+            <div class="container mx-auto text-center">
+                <span class="bg-neutral-500/50 py-2 px-4 rounded-full font-semibold w-[200px]">Bloco escondido</span>
+                </div>
+        </div>
+    {% endif %}
 </div>
