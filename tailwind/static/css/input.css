@@ -39,4 +39,27 @@
     input[type="radio"]:checked + div {
         @apply text-[#131313] rounded-md bg-[#eee];
     }
+
+    form .form-row input[type="text"], 
+    form .form-row input[type="password"], 
+    form .form-row input[type="email"], 
+    form .form-row input[type="url"], 
+    form .form-row input[type="tel"], 
+    form .form-row input[type="number"], 
+    form .form-row textarea, 
+    form .form-row select {
+        background-color: #EFEFEF !important;
+        border-radius: 10px !important;
+        min-height: 50px !important;
+        border: 1px solid #E0E0E0 !important;
+        padding: 0 20px !important;
+    }
+
+    /* a .cms-btn.default {
+        background-color: #131313;
+        border-radius: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        border: 1px solid #131313;
+    } */
 }
