@@ -55,6 +55,32 @@
         padding: 0 20px !important;
     }
 
+    /* div.cms .cms-modal-item-buttons .cms-btn.cms-btn-action {
+        @apply btn btn-sm bg-black;
+    } */
+
+    /* Editor CMS */
+    /* div.cms .cms-btn-action.default {
+        @apply bg-black;
+    } */
+    /* div.cms .cms-modal-item-buttons .cms-btn {
+        @apply btn btn-sm btn-outline;
+    } */
+    div.cms .cms-modal-item-buttons a:only-child,
+    div.cms .cms-toolbar-item-buttons a:only-child {
+        @apply btn btn-sm btn-outline;
+    }
+
+    div.cms .cms-modal-item-buttons a.cms-btn-action {
+        @apply bg-base-content text-white hover:bg-transparent hover:text-base-content;
+    }
+    div.cms .cms-modal-item-buttons a.cms-btn-caution {
+        @apply bg-red-700 text-white hover:bg-transparent hover:text-red-700;
+    }
+    div.cms.cms-toolbar-debug .cms-toolbar .cms-btn-action {
+        @apply bg-yellow-400 hover:text-black !important;
+    }
+
     /* a .cms-btn.default {
         background-color: #131313;
         border-radius: 10px;
