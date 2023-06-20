@@ -39,33 +39,30 @@
     input[type="radio"]:checked + div {
         @apply text-[#131313] rounded-md bg-[#eee];
     }
-
-    form .form-row input[type="text"], 
-    form .form-row input[type="password"], 
-    form .form-row input[type="email"], 
-    form .form-row input[type="url"], 
-    form .form-row input[type="tel"], 
-    form .form-row input[type="number"], 
-    form .form-row textarea, 
-    form .form-row select {
-        background-color: #EFEFEF !important;
-        border-radius: 10px !important;
-        min-height: 50px !important;
-        border: 1px solid #E0E0E0 !important;
-        padding: 0 20px !important;
+    
+    fieldset.module div.form-row input[type="text"],
+    fieldset.module div.form-row input[type="password"],
+    fieldset.module div.form-row input[type="email"],
+    fieldset.module div.form-row input[type="url"],
+    fieldset.module div.form-row input[type="tel"],
+    fieldset.module div.form-row input[type="number"],
+    fieldset.module div.form-row textarea,
+    fieldset.module div.form-row select {
+        @apply bg-[#EFEFEF] rounded-xl min-h-[50px] border border-[#E0E0E0] border-solid py-0 px-5 !important;
     }
 
-    /* div.cms .cms-modal-item-buttons .cms-btn.cms-btn-action {
+    div.cms .cms-modal-item-buttons .cms-btn.cms-btn-action {
         @apply btn btn-sm bg-black;
-    } */
+    }
 
-    /* Editor CMS */
-    /* div.cms .cms-btn-action.default {
+    div.cms .cms-btn-action.default {
         @apply bg-black;
-    } */
-    /* div.cms .cms-modal-item-buttons .cms-btn {
+    }
+    
+    div.cms .cms-modal-item-buttons .cms-btn {
         @apply btn btn-sm btn-outline;
-    } */
+    }
+    
     div.cms .cms-modal-item-buttons a:only-child,
     div.cms .cms-toolbar-item-buttons a:only-child {
         @apply btn btn-sm btn-outline;
@@ -80,12 +77,4 @@
     div.cms.cms-toolbar-debug .cms-toolbar .cms-btn-action {
         @apply bg-yellow-400 hover:text-black !important;
     }
-
-    /* a .cms-btn.default {
-        background-color: #131313;
-        border-radius: 10px;
-        font-weight: 700;
-        text-transform: uppercase;
-        border: 1px solid #131313;
-    } */
 }
