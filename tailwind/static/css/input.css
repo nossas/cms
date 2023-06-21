@@ -134,4 +134,27 @@
     .main.shifted > #nav-sidebar + .content {
         @apply bg-white;
     }
+
+    /* Fix input file */
+    .button-upload-file {
+        @apply btn btn-primary mx-auto mt-2 !important;
+    }
+    .button-upload-file span {
+        @apply mt-0 text-white !important;
+    }
+
+    .dz-default.dz-message.js-filer-dropzone-message span {
+        @apply text-neutral-700;
+    }
+
+    form .form-row .filer-dropzone .filerFile img {
+        @apply w-[60px] h-[60px];
+    }
+
+    form .form-row .filer-dropzone.filer-dropzone-mobile .filerFile .related-lookup:not(.related-lookup-change) {
+        @apply btn-primary mx-auto mt-2 !important;
+    }
+    form .form-row .filer-dropzone.filer-dropzone-mobile .dz-message {
+        @apply mt-[60px] !important;
+    }
 }
