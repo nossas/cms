@@ -1,6 +1,9 @@
 from django.db import models
 
 from cms.models import CMSPlugin
+from cms.extensions import PageExtension
+from cms.extensions.extension_pool import extension_pool
+from filer.fields.image import FilerImageField
 
 
 class Thank(models.Model):
@@ -9,23 +12,16 @@ class Thank(models.Model):
         verbose_name="Assunto do e-mail de agradecimento para quem vai pressionar",
         max_length=120,
         blank=True,
-        null=True
+        null=True,
     )
     thank_email_body = models.TextField(
-        verbose_name="Corpo do e-mail de agradecimento",
-        blank=True,
-        null=True
+        verbose_name="Corpo do e-mail de agradecimento", blank=True, null=True
     )
     sender_name = models.CharField(
-        verbose_name="Remetente",
-        max_length=120,
-        blank=True,
-        null=True
+        verbose_name="Remetente", max_length=120, blank=True, null=True
     )
     sender_email = models.EmailField(
-        verbose_name="Email de resposta",
-        blank=True,
-        null=True
+        verbose_name="Email de resposta", blank=True, null=True
     )
 
     class Meta:
@@ -41,14 +37,10 @@ class SharingChoices(models.TextChoices):
 class PostAction(models.Model):
     # Pós ação
     sharing = models.JSONField(
-        verbose_name="Opções de compartilhamento",
-        blank=True,
-        null=True
+        verbose_name="Opções de compartilhamento", blank=True, null=True
     )
     whatsapp_text = models.TextField(
-        verbose_name="Mensagem para o whatsapp",
-        blank=True,
-        null=True
+        verbose_name="Mensagem para o whatsapp", blank=True, null=True
     )
 
     class Meta:
@@ -65,9 +57,8 @@ class Target(models.Model):
     )
 
     class Meta:
-        verbose_name ="Alvo"
+        verbose_name = "Alvo"
         verbose_name_plural = "Alvos"
-    
 
     def __str__(self):
         return f"{self.name} <{self.email}>"
@@ -76,12 +67,8 @@ class Target(models.Model):
 class Pressure(PostAction, Thank, CMSPlugin):
     widget = models.IntegerField(null=True, blank=True)
 
-    email_subject = models.JSONField(
-        verbose_name="Assunto do e-mail para os alvos"
-    )
-    email_body = models.TextField(
-        verbose_name="Corpo do e-mail para os alvos"
-    )
+    email_subject = models.JSONField(verbose_name="Assunto do e-mail para os alvos")
+    email_body = models.TextField(verbose_name="Corpo do e-mail para os alvos")
 
     # Envio
     submissions_limit = models.IntegerField(
@@ -110,3 +97,16 @@ class TargetGroup(models.Model):
     class Meta:
         verbose_name = "Grupo de alvos"
         verbose_name_plural = "Grupos de alvos"
+
+
+class IconExtension(PageExtension):
+    favicon = FilerImageField(
+        verbose_name="Favicon",
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+    )
+
+
+extension_pool.register(IconExtension)

@@ -17,6 +17,12 @@
   <meta property="og:url" content="{{ request.build_absolute_uri }}" />
   {% endblock canonical_url %}
   {% block fb_meta %}{% endblock fb_meta %}
+
+  {% if request.current_page.iconextension %}
+  <link rel="shortcut icon" href="{{ request.current_page.iconextension.favicon.url }}" type="image/x-icon">
+  {% else %}
+  <link rel="shortcut icon" href="{% static 'images/favicon-32.png' %}" type="image/x-icon">
+  {% endif %}
   <title>{% block title %}{% page_attribute "page_title" %}{% endblock %}</title>
 
   <link rel="stylesheet" href="{% static 'dist/css/output.css' %}">
