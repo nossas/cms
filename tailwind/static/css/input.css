@@ -36,10 +36,11 @@
         @apply inline-block;
     }
 
+    /* Editor CMS */
     input[type="radio"]:checked + div {
         @apply text-[#131313] rounded-md bg-[#eee];
     }
-    
+
     fieldset.module div.form-row input[type="text"],
     fieldset.module div.form-row input[type="password"],
     fieldset.module div.form-row input[type="email"],
@@ -52,17 +53,17 @@
     }
 
     div.cms .cms-modal-item-buttons .cms-btn.cms-btn-action {
-        @apply btn btn-sm bg-black;
+        @apply btn btn-sm bg-black rounded-[3px];
     }
 
     div.cms .cms-btn-action.default {
         @apply bg-black;
     }
-    
+
     div.cms .cms-modal-item-buttons .cms-btn {
         @apply btn btn-sm btn-outline;
     }
-    
+
     div.cms .cms-modal-item-buttons a:only-child,
     div.cms .cms-toolbar-item-buttons a:only-child {
         @apply btn btn-sm btn-outline;
@@ -71,10 +72,46 @@
     div.cms .cms-modal-item-buttons a.cms-btn-action {
         @apply bg-base-content text-white hover:bg-transparent hover:text-base-content;
     }
+
     div.cms .cms-modal-item-buttons a.cms-btn-caution {
         @apply bg-red-700 text-white hover:bg-transparent hover:text-red-700;
     }
     div.cms.cms-toolbar-debug .cms-toolbar .cms-btn-action {
         @apply bg-yellow-400 hover:text-black !important;
     }
+
+    /* Delete Confirmation Modal */
+    .delete-confirm h3,
+    .delete-confirm p{
+        @apply text-[#131313] my-4 !important;
+    }
+    .delete-confirm-accordion {
+        @apply w-full overflow-hidden;
+   }
+    .delete-confirm-accordion-label {
+        @apply flex content-between items-center border-y-[1px] border-y-[#E0E0E0] border-solid p-4 font-bold cursor-pointer select-none text-[#131313];
+   }
+
+   .delete-confirm-accordion-label svg{
+        @apply mr-2;
+   }
+    .delete-confirm-accordion-content {
+        @apply max-h-0 py-0 px-4 transition-all;
+    }
+
+    div.delete-confirm-accordion-content ul > li{
+        @apply border-0 !important;
+    }
+
+    .delete-confirm-accordion input {
+        @apply hidden;
+    }
+
+    input:checked + .delete-confirm-accordion-label svg {
+        @apply origin-center rotate-90;
+    }
+
+    input:checked ~ .delete-confirm-accordion-content {
+        @apply max-h-full;
+   }
 }
