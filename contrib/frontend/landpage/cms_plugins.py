@@ -3,10 +3,9 @@
 
 # Navbar
 # Footer
-from typing import Dict, Optional, Tuple
+from django.db import models
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
-from django.http.request import HttpRequest
 
 from contrib.bonde.models import Community
 
@@ -22,19 +21,29 @@ class BlockPlugin(CMSPluginBase):
     module = "Frontend"
     render_template = "frontend/landpage/plugins/block.html"
     allow_children = True
-    child_classes = ["ImagePlugin", "TextPlugin", "GridPlugin", "ButtonPlugin", "VideoPlayerPlugin"]
+    child_classes = [
+        "ImagePlugin",
+        "TextPlugin",
+        "GridPlugin",
+        "ButtonPlugin",
+        "VideoPlayerPlugin",
+    ]
     prepopulated_fields = {"slug": ("title",)}
     fieldsets = [
         (
             None,
-            {"fields": [("title", "slug"), ("spacing", "alignment")]},
-        ),
-        ("Background", {"fields": [("background_color", "background_image")]}),
-        (
-            "Opções avançadas",
             {
-                "classes": ["collapse"],
-                "fields": ["menu_title", "menu_hidden", "hidden"],
+                "fields": [
+                    ("title", "slug"),
+                    ("spacing", "alignment"),
+                    ("background_color", "background_image"),
+                ]
+            },
+        ),
+        (
+            "Opções de exibição",
+            {
+                "fields": [("hidden", "menu_hidden")],
             },
         ),
     ]
@@ -63,18 +72,13 @@ class BlockPlugin(CMSPluginBase):
                     {"fields": ["layout"]},
                 )
             ]
-        else:
-            fieldsets[0] = (
-                None,
-                {"fields": [("title", "slug"), ("spacing", "alignment")]},
-            )
 
         return fieldsets
 
-    def get_prepopulated_fields(self, request, obj = None):
+    def get_prepopulated_fields(self, request, obj=None):
         if obj:
             return super(BlockPlugin, self).get_prepopulated_fields(request, obj)
-        
+
         return {}
 
     def save_model(self, request, obj, form, change):
@@ -132,7 +136,7 @@ class FooterPlugin(CMSPluginBase):
 
     def render(self, context, instance, placeholder):
         context = super(FooterPlugin, self).render(context, instance, placeholder)
-        request = context['request']
+        request = context["request"]
 
         community = Community.objects.on_site(request).first()
         context.update({"community": community})

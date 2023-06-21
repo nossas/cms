@@ -49,10 +49,10 @@
     fieldset.module div.form-row input[type="number"],
     fieldset.module div.form-row textarea,
     fieldset.module div.form-row select {
-        @apply bg-[#efefef] border-[#e0e0e0] border-opacity-100 focus:outline-offset-0 focus:border-[1px] !important;
+        @apply bg-[#efefef] border-[#e0e0e0] border-opacity-100 focus:outline-offset-0 !important;
     }
 
-    fieldset.module div.form-row input {
+    fieldset.module div.form-row input:not([type="checkbox"]) {
         @apply input;
     }
     fieldset.module div.form-row textarea {
@@ -156,5 +156,9 @@
     }
     form .form-row .filer-dropzone.filer-dropzone-mobile .dz-message {
         @apply mt-[60px] !important;
+    }
+
+    form .form-row .fieldBox:has(input[type="checkbox"]) {
+        @apply flex items-center;
     }
 }
