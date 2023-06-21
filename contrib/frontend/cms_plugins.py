@@ -14,9 +14,6 @@ from .models import Button
 class ImageForm(forms.ModelForm):
     external_picture = forms.CharField(label=_("External picture"), required=False)
 
-    # def clean_external_picture(self):
-    #     return self.cleaned_data["external_picture"]
-
     def clean(self):
         cleaned_data = super(ImageForm, self).clean()
 
@@ -43,10 +40,6 @@ class ImageForm(forms.ModelForm):
             external_picture = external_picture.replace(" ", "_")
 
             cleaned_data.update({"external_picture": external_picture})
-
-            import ipdb
-
-            ipdb.set_trace()
 
         return cleaned_data
 
