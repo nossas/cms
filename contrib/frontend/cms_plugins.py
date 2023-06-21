@@ -1,4 +1,7 @@
-from django.contrib import admin
+# from django.contrib import admin
+from django import forms
+from django.conf import settings
+from django.contrib.sites.models import Site
 from django.utils.translation import ugettext_lazy as _
 
 from cms.plugin_base import CMSPluginBase
@@ -8,9 +11,50 @@ from djangocms_picture.cms_plugins import PicturePlugin as DjangoCMSPicturePlugi
 from .models import Button
 
 
+class ImageForm(forms.ModelForm):
+    external_picture = forms.CharField(label=_("External picture"), required=False)
+
+    # def clean_external_picture(self):
+    #     return self.cleaned_data["external_picture"]
+
+    def clean(self):
+        cleaned_data = super(ImageForm, self).clean()
+
+        picture = cleaned_data.get("picture")
+        external_picture = cleaned_data.get("external_picture", None)
+
+        protocol = "http://" if settings.DEBUG else "https://"
+        domain = Site.objects.get_current().domain
+
+        if (
+            picture
+            and external_picture
+            and (
+                external_picture.startswith("/static/")
+                or external_picture.startswith(protocol + domain)
+            )
+        ):
+            cleaned_data.update({"external_picture": None})
+
+        elif (
+            not picture and external_picture and external_picture.startswith("/static/")
+        ):
+            external_picture = f"{protocol}{domain}{external_picture}"
+            external_picture = external_picture.replace(" ", "_")
+
+            cleaned_data.update({"external_picture": external_picture})
+
+            import ipdb
+
+            ipdb.set_trace()
+
+        return cleaned_data
+
+
 @plugin_pool.register_plugin
 class ImagePlugin(DjangoCMSPicturePlugin):
     module = "Frontend"
+    form = ImageForm
     fieldsets = [
         (
             None,
@@ -46,10 +90,9 @@ class ImagePlugin(DjangoCMSPicturePlugin):
         ),
     ]
 
-   
     def render(self, context, instance, placeholder):
         context = super(ImagePlugin, self).render(context, instance, placeholder)
-        current_page = context["request"].current_page 
+        current_page = context["request"].current_page
         if current_page.publisher_is_draft:
             del context["picture_link"]
         return context

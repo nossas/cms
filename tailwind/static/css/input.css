@@ -113,5 +113,10 @@
 
     input:checked ~ .delete-confirm-accordion-content {
         @apply max-h-full;
-   }
+    }
+
+    /* Fix upload input layout */
+    form .form-row .filer-dropzone .filerFile {
+        @apply flex;
+    }
 }

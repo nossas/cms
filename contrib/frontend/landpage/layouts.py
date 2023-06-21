@@ -168,7 +168,7 @@ Entra ano e sai ano, e mais uma vez estou aqui pedindo para que o aumento do val
                 language=self.obj.language,
                 target=self.obj,
                 external_picture=settings.STATIC_URL
-                + "images/examples/Hero - Logo da campanha.png",
+                + "images/examples/Hero-Logo-da-campanha.png",
                 use_no_cropping=True,
                 use_automatic_scaling=False,
                 use_responsive_image=True,
@@ -358,7 +358,7 @@ Entra ano e sai ano, e mais uma vez estou aqui pedindo para que o aumento do val
                 language=fluidgrid_plugin.language,
                 target=fluidgrid_plugin,
                 external_picture=settings.STATIC_URL
-                + f"images/examples/Social Media {choice.capitalize()}.png",
+                + f"images/examples/Social-Media-{choice.capitalize()}.png",
                 use_no_cropping=True,
                 use_automatic_scaling=False,
                 use_responsive_image=True,
@@ -393,7 +393,7 @@ Entra ano e sai ano, e mais uma vez estou aqui pedindo para que o aumento do val
             language=col_obj.language,
             target=col_obj,
             external_picture=settings.STATIC_URL
-            + "images/examples/Assinatura Logo.png",
+            + "images/examples/Assinatura-Logo.png",
             use_no_cropping=True,
             use_automatic_scaling=False,
             use_responsive_image=True,
@@ -430,7 +430,7 @@ Entra ano e sai ano, e mais uma vez estou aqui pedindo para que o aumento do val
                 language=fluidgrid.language,
                 target=fluidgrid,
                 external_picture=settings.STATIC_URL
-                + "images/examples/Logo Parceiro.png",
+                + "images/examples/Logo-Parceiro.png",
                 use_no_cropping=True,
                 use_automatic_scaling=False,
                 use_responsive_image=True,
@@ -467,7 +467,7 @@ Entra ano e sai ano, e mais uma vez estou aqui pedindo para que o aumento do val
                 language=fluidgrid.language,
                 target=fluidgrid,
                 external_picture=settings.STATIC_URL
-                + "images/examples/Logo Parceiro.png",
+                + "images/examples/Logo-Parceiro.png",
                 use_no_cropping=True,
                 use_automatic_scaling=False,
                 use_responsive_image=True,
