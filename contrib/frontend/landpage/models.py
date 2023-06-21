@@ -24,9 +24,9 @@ class Section(models.Model):
         blank=True,
     )
 
-    menu_hidden = models.BooleanField("esconder menu?", default=False)
+    menu_hidden = models.BooleanField("Ocultar menu", default=False)
 
-    hidden = models.BooleanField("esconder bloco?", default=False)
+    hidden = models.BooleanField("Ocultar bloco", default=False)
 
     class Meta:
         abstract = True
