@@ -49,7 +49,17 @@
     fieldset.module div.form-row input[type="number"],
     fieldset.module div.form-row textarea,
     fieldset.module div.form-row select {
-        @apply bg-[#EFEFEF] rounded-xl min-h-[50px] border border-[#E0E0E0] border-solid py-0 px-5 !important;
+        @apply bg-[#efefef] border-[#e0e0e0] border-opacity-100 focus:outline-offset-0 focus:border-[1px] !important;
+    }
+
+    fieldset.module div.form-row input {
+        @apply input;
+    }
+    fieldset.module div.form-row textarea {
+        @apply textarea;
+    }
+    fieldset.module div.form-row select {
+        @apply select;
     }
 
     div.cms .cms-modal-item-buttons .cms-btn.cms-btn-action {
@@ -118,5 +128,10 @@
     /* Fix upload input layout */
     form .form-row .filer-dropzone .filerFile {
         @apply flex;
+    }
+
+    /* Fix background content modal */
+    .main.shifted > #nav-sidebar + .content {
+        @apply bg-white;
     }
 }

@@ -3,11 +3,6 @@
 {% load admin_urls %}
 {% load static %}
 
-{% block extrastyle %}
-{{ block.super }}
-<link rel="stylesheet" href="{% static 'dist/css/output.css' %}">
-{% endblock %}
-
 {% block breadcrumbs %}
 <div class="breadcrumbs">
 <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
