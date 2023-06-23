@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer components {
+    .admin-styled-app #container {
+        @apply bg-white;
+    }
+
     .admin-styled-app a.header-logo,
     .admin-styled-viewer a.header-logo,
     .admin-styled-viewer .cms-reset a.header-logo:hover {
@@ -20,6 +24,49 @@
 
     .admin-styled-viewer .cms-toolbar-left {
         @apply flex;
+    }
+
+    .admin-styled-viewer div.cms .cms-modal-body {
+        @apply border-none;
+    }
+
+    .admin-styled-app .delete-confirm h3 {
+        @apply text-4xl font-bold font-sans;
+    }
+
+    .admin-styled-app .delete-confirm h3,
+    .admin-styled-app .delete-confirm p {
+        @apply text-neutral-900 my-4;
+    }
+
+    .admin-styled-app .delete-confirm-accordion {
+        @apply w-full overflow-hidden;
+    }
+    .admin-styled-app .delete-confirm-accordion-label {
+        @apply flex content-between items-center border-y-[1px] border-y-[#E0E0E0] border-solid p-4 font-bold cursor-pointer select-none text-neutral-900;
+    }
+
+    .admin-styled-app .delete-confirm-accordion-label svg {
+        @apply mr-2;
+    }
+    .admin-styled-app .delete-confirm-accordion-content {
+        @apply max-h-0 py-0 px-4 transition-all;
+    }
+
+    .admin-styled-app div.delete-confirm-accordion-content ul > li{
+        @apply border-0 !important;
+    }
+
+    .admin-styled-app .delete-confirm-accordion input {
+        @apply hidden;
+    }
+
+    .admin-styled-app input:checked + .delete-confirm-accordion-label svg {
+        @apply origin-center rotate-90;
+    }
+
+    .admin-styled-app input:checked ~ .delete-confirm-accordion-content {
+        @apply max-h-full;
     }
 
     /* Editor CMS */
@@ -74,41 +121,6 @@
     }
     div.cms.cms-toolbar-debug .cms-toolbar .cms-btn-action {
         @apply bg-yellow-400 hover:text-black !important;
-    } */
-
-    /* Delete Confirmation Modal */
-    /* .delete-confirm h3,
-    .delete-confirm p{
-        @apply text-[#131313] my-4 !important;
-    }
-    .delete-confirm-accordion {
-        @apply w-full overflow-hidden;
-   }
-    .delete-confirm-accordion-label {
-        @apply flex content-between items-center border-y-[1px] border-y-[#E0E0E0] border-solid p-4 font-bold cursor-pointer select-none text-[#131313];
-   }
-
-   .delete-confirm-accordion-label svg{
-        @apply mr-2;
-   }
-    .delete-confirm-accordion-content {
-        @apply max-h-0 py-0 px-4 transition-all;
-    }
-
-    div.delete-confirm-accordion-content ul > li{
-        @apply border-0 !important;
-    }
-
-    .delete-confirm-accordion input {
-        @apply hidden;
-    }
-
-    input:checked + .delete-confirm-accordion-label svg {
-        @apply origin-center rotate-90;
-    }
-
-    input:checked ~ .delete-confirm-accordion-content {
-        @apply max-h-full;
     } */
 
     /* Fix upload input layout */

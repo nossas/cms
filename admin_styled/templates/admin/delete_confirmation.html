@@ -1,0 +1,73 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+{% load admin_urls %}
+{% load static %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+<a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+&rsaquo; <a href="{% url 'admin:app_list' app_label=opts.app_label %}">{{ app_label|capfirst }}</a>
+&rsaquo; <a href="{% url opts|admin_urlname:'changelist' %}">{{ opts.verbose_name_plural|capfirst|escape }}</a>
+&rsaquo; <a href="{% url opts|admin_urlname:'changelist' %}{{ object.pk }}">{{ object|truncatewords:"18" }}</a>
+&rsaquo; {% trans 'Delete' %}
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="delete-confirm">
+    <h3> {% trans "Remove" %}</h3>
+    {% if perms_lacking or protected %}
+        {% if perms_lacking %}
+            <p>{% blocktrans with escaped_object=object %}Deleting the {{ object_name }} '{{ escaped_object }}' would result in deleting related objects, but your account doesn't have permission to delete the following types of objects:{% endblocktrans %}</p>
+            <ul>
+            {% for obj in perms_lacking %}
+                <li>{{ obj }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+        {% if protected %}
+            <p>{% blocktrans with escaped_object=object %}Deleting the {{ object_name }} '{{ escaped_object }}' would require deleting the following protected related objects:{% endblocktrans %}</p>
+
+            <div class="delete-confirm-accordion">
+                <input type="checkbox" id="chck1">
+                <label class="delete-confirm-accordion-label" for="chck1">
+                    <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M4.74263 5L1.23013 1.65705L1 1.43803L1.46025 1L1.69038 1.21901L5.20288 4.56197L5.20642 4.5586L5.66667 4.99663L5.66313 5L5.66667 5.00337L5.20642 5.4414L5.20288 5.43803L1.69038 8.78099L1.46025 9L1 8.56197L1.23013 8.34295L4.74263 5Z" stroke="black" stroke-linecap="square"/>
+                    </svg>
+                    {% trans "Mostrar itens relacionados" %}
+                </label>
+                <div class="delete-confirm-accordion-content">
+                    <ul>
+                        {% for obj in protected %}
+                            <li>{{ obj }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
+    {% else %}
+        <p>{% blocktrans with escaped_object=object %}Are you sure you want to delete the {{ object_name }} "{{ escaped_object }}"? All of the following related items will be deleted:{% endblocktrans %}</p>
+
+        <div class="delete-confirm-accordion">
+            <input type="checkbox" id="chck1">
+            <label class="delete-confirm-accordion-label" for="chck1">
+                <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M4.74263 5L1.23013 1.65705L1 1.43803L1.46025 1L1.69038 1.21901L5.20288 4.56197L5.20642 4.5586L5.66667 4.99663L5.66313 5L5.66667 5.00337L5.20642 5.4414L5.20288 5.43803L1.69038 8.78099L1.46025 9L1 8.56197L1.23013 8.34295L4.74263 5Z" stroke="black" stroke-linecap="square"/>
+                </svg>
+                {% trans "Mostrar itens relacionados" %}
+            </label>
+            <div class="delete-confirm-accordion-content">
+                <ul>
+                    {{ deleted_objects|unordered_list }}
+                </ul>
+            </div>
+        </div>
+        <form action="" method="post">{% csrf_token %}
+        <div>
+            <input type="hidden" name="post" value="yes" />
+            <input class="cms-btn cms-btn-caution" type="submit" value="{% trans "Remove" %}" />
+        </div>
+        </form>
+    {% endif %}
+</div>
+{% endblock %}

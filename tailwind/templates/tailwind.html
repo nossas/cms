@@ -25,14 +25,14 @@
   {% endif %}
   <title>{% block title %}{% page_attribute "page_title" %}{% endblock %}</title>
 
-  <link rel="stylesheet" href="{% static 'dist/css/output.css' %}">
-
   {% render_block "css" %}
-
+  
+  <link rel="stylesheet" href="{% static 'css/admin_styled_theme.css' %}" />
+  <link rel="stylesheet" href="{% static 'dist/css/admin_styled.css' %}" />
   {% block page_head %}{% endblock %}
 </head>
 
-<body {% block body_attrs %}{% endblock %}>
+<body {% if request.toolbar.edit_mode_active %}class="admin-styled-viewer"{% endif %} {% block body_attrs %}{% endblock %}>
   {% cms_toolbar %}
   {% block content %}{% endblock %}
 
