@@ -1,11 +1,6 @@
 {% load admin_style_tags i18n %}
 {% load static from static %}
-<div id="header-logo">
-    <a href="/">
-        {% include "admin_styled/icons/bonde.svg" %}
-        <strong class="text-3xl">ONDE</strong>
-    </a>
-</div>
+{% include "admin_styled/items/logo.html" %}
 <ul id="site-name" class="toolbar-item toolbar-item-navigation">
     <li>
         <a class="menu-item" href="">{{ site_header|default:_('Django Administration') }}</a>

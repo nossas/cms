@@ -3,10 +3,148 @@
 @tailwind utilities;
 
 @layer components {
-    .admin-styled-app #header #header-logo a {
-        @apply flex items-center;
+    .admin-styled-app a.header-logo,
+    .admin-styled-viewer a.header-logo,
+    .admin-styled-viewer .cms-reset a.header-logo:hover {
+        @apply flex items-center ml-6 mr-4;
     }
+    
+    .admin-styled-app a.header-logo strong,
+    .admin-styled-viewer a.header-logo strong {
+        @apply text-3xl font-sans;
+    }
+
     .admin-styled-app #header .toolbar-item-navigation li ul {
         @apply bg-white;
     }
+
+    .admin-styled-viewer .cms-toolbar-left {
+        @apply flex;
+    }
+
+    /* Editor CMS */
+    /* input[type="radio"]:checked + div {
+        @apply text-[#131313] rounded-md bg-[#eee];
+    }
+
+    fieldset.module div.form-row input[type="text"],
+    fieldset.module div.form-row input[type="password"],
+    fieldset.module div.form-row input[type="email"],
+    fieldset.module div.form-row input[type="url"],
+    fieldset.module div.form-row input[type="tel"],
+    fieldset.module div.form-row input[type="number"],
+    fieldset.module div.form-row textarea,
+    fieldset.module div.form-row select {
+        @apply bg-[#efefef] border-[#e0e0e0] border-opacity-100 focus:outline-offset-0 !important;
+    }
+
+    fieldset.module div.form-row input:not([type="checkbox"]) {
+        @apply input;
+    }
+    fieldset.module div.form-row textarea {
+        @apply textarea;
+    }
+    fieldset.module div.form-row select {
+        @apply select;
+    }
+
+    div.cms .cms-modal-item-buttons .cms-btn.cms-btn-action {
+        @apply btn btn-sm bg-black rounded-[3px];
+    }
+
+    div.cms .cms-btn-action.default {
+        @apply bg-black;
+    }
+
+    div.cms .cms-modal-item-buttons .cms-btn {
+        @apply btn btn-sm btn-outline;
+    }
+
+    div.cms .cms-modal-item-buttons a:only-child,
+    div.cms .cms-toolbar-item-buttons a:only-child {
+        @apply btn btn-sm btn-outline;
+    }
+
+    div.cms .cms-modal-item-buttons a.cms-btn-action {
+        @apply bg-base-content text-white hover:bg-transparent hover:text-base-content;
+    }
+
+    div.cms .cms-modal-item-buttons a.cms-btn-caution {
+        @apply bg-red-700 text-white hover:bg-transparent hover:text-red-700;
+    }
+    div.cms.cms-toolbar-debug .cms-toolbar .cms-btn-action {
+        @apply bg-yellow-400 hover:text-black !important;
+    } */
+
+    /* Delete Confirmation Modal */
+    /* .delete-confirm h3,
+    .delete-confirm p{
+        @apply text-[#131313] my-4 !important;
+    }
+    .delete-confirm-accordion {
+        @apply w-full overflow-hidden;
+   }
+    .delete-confirm-accordion-label {
+        @apply flex content-between items-center border-y-[1px] border-y-[#E0E0E0] border-solid p-4 font-bold cursor-pointer select-none text-[#131313];
+   }
+
+   .delete-confirm-accordion-label svg{
+        @apply mr-2;
+   }
+    .delete-confirm-accordion-content {
+        @apply max-h-0 py-0 px-4 transition-all;
+    }
+
+    div.delete-confirm-accordion-content ul > li{
+        @apply border-0 !important;
+    }
+
+    .delete-confirm-accordion input {
+        @apply hidden;
+    }
+
+    input:checked + .delete-confirm-accordion-label svg {
+        @apply origin-center rotate-90;
+    }
+
+    input:checked ~ .delete-confirm-accordion-content {
+        @apply max-h-full;
+    } */
+
+    /* Fix upload input layout */
+    /* form .form-row .filer-dropzone .filerFile {
+        @apply flex;
+    } */
+
+    /* Fix background content modal */
+    /* .main.shifted > #nav-sidebar + .content {
+        @apply bg-white;
+    } */
+
+    /* Fix input file */
+    /* .button-upload-file {
+        @apply btn btn-primary mx-auto mt-2 !important;
+    }
+    .button-upload-file span {
+        @apply mt-0 text-white !important;
+    }
+
+    .dz-default.dz-message.js-filer-dropzone-message span {
+        @apply text-neutral-700;
+    }
+
+    form .form-row .filer-dropzone .filerFile img {
+        @apply w-[60px] h-[60px];
+    }
+
+    form .form-row .filer-dropzone.filer-dropzone-mobile .filerFile .related-lookup:not(.related-lookup-change) {
+        @apply btn-primary mx-auto mt-2 !important;
+    }
+    form .form-row .filer-dropzone.filer-dropzone-mobile .dz-message {
+        @apply mt-[60px] !important;
+    }
+
+    form .form-row .fieldBox:has(input[type="checkbox"]) {
+        @apply flex items-center;
+    } */
 }
