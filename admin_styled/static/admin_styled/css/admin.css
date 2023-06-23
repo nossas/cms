@@ -1,89 +1,20 @@
-@tailwind base;
+@import "tailwindcss/base";
+
+@import "tailwindcss/components";
+@import "./base.css";
+@import "./app.css";
+@import "./cms.css";
+
+@import "tailwindcss/utilities";
+
+/* @tailwind base;
+
 @tailwind components;
-@tailwind utilities;
 
-@layer components {
-    .admin-styled-app #container {
-        @apply bg-white;
-    }
 
-    .admin-styled-app a.header-logo,
-    .admin-styled-viewer a.header-logo,
-    .admin-styled-viewer .cms-reset a.header-logo:hover {
-        @apply flex items-center ml-6 mr-4;
-    }
-    
-    .admin-styled-app a.header-logo strong,
-    .admin-styled-viewer a.header-logo strong {
-        @apply text-3xl font-sans;
-    }
+@tailwind utilities; */
 
-    .admin-styled-app #header .toolbar-item-navigation li ul {
-        @apply bg-white;
-    }
 
-    .admin-styled-viewer .cms-toolbar-left {
-        @apply flex;
-    }
-
-    .admin-styled-viewer div.cms .cms-modal-body {
-        @apply border-none top-14 !important;
-    }
-
-    .admin-styled-app .delete-confirm h3 {
-        @apply text-4xl font-bold font-sans;
-    }
-
-    .admin-styled-app .delete-confirm h3,
-    .admin-styled-app .delete-confirm p {
-        @apply text-neutral-900 my-4;
-    }
-
-    .admin-styled-app .delete-confirm-accordion {
-        @apply w-full overflow-hidden;
-    }
-    .admin-styled-app .delete-confirm-accordion-label {
-        @apply flex content-between items-center border-y-[1px] border-y-[#E0E0E0] border-solid p-4 font-bold cursor-pointer select-none text-neutral-900;
-    }
-
-    .admin-styled-app .delete-confirm-accordion-label svg {
-        @apply mr-2;
-    }
-    .admin-styled-app .delete-confirm-accordion-content {
-        @apply max-h-0 py-0 px-4 transition-all;
-    }
-
-    .admin-styled-app div.delete-confirm-accordion-content ul > li{
-        @apply border-0 !important;
-    }
-
-    .admin-styled-app .delete-confirm-accordion input {
-        @apply hidden;
-    }
-
-    .admin-styled-app input:checked + .delete-confirm-accordion-label svg {
-        @apply origin-center rotate-90;
-    }
-
-    .admin-styled-app input:checked ~ .delete-confirm-accordion-content {
-        @apply max-h-full;
-    }
-
-    .admin-styled-app .cms-pagetree.cms-pagetree-section {
-        @apply h-12;
-    }
-
-    .admin-styled-app .cms-pagetree a.addlink {
-        @apply mr-1;
-    }
-    .admin-styled-app ul.messagelist a,
-    .admin-styled-app ul.messagelist a:link {
-        @apply text-[#693];
-    }
-
-    .admin-styled-app ul.messagelist {
-        @apply right-0;
-    }
 
     /* Editor CMS */
     /* input[type="radio"]:checked + div {
@@ -175,4 +106,3 @@
     form .form-row .fieldBox:has(input[type="checkbox"]) {
         @apply flex items-center;
     } */
-}

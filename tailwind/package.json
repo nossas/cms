@@ -1,12 +1,17 @@
 {
   "scripts": {
-    "build": "npx tailwindcss -i ./static/css/input.css -o ./static/dist/css/output.css",
-    "watch": "npx tailwindcss -i ./static/css/input.css -o ./static/dist/css/output.css --watch",
+    "build-site": "npx tailwindcss -i ./static/css/input.css -o ./static/dist/css/output.css",
+    "watch-site": "npx tailwindcss -i ./static/css/input.css -o ./static/dist/css/output.css --watch",
     "watch-admin": "npx tailwindcss -i ../admin_styled/static/css/input_admin_styled.css -o ../admin_styled/static/dist/css/admin_styled.css --watch",
-    "build-admin": "npx tailwindcss -i ../admin_styled/static/css/input_admin_styled.css -o ../admin_styled/static/dist/css/admin_styled.css"
+    "build-admin": "npx tailwindcss -i ../admin_styled/static/css/input_admin_styled.css -o ../admin_styled/static/dist/css/admin_styled.css",
+
+    "page:dev": "npx tailwindcss --config ./tailwind.page.config.js -i ./static/tailwind/css/page.css -o ./static/dist/tailwind/css/page.css --watch",
+    "dev": "npx tailwindcss --config ./tailwind.adminstyled.config.js -i ../admin_styled/static/admin_styled/css/admin.css -o ../admin_styled/static/dist/admin_styled/css/admin.css --watch"
   },
   "devDependencies": {
     "daisyui": "^2.51.6",
+    "postcss-import": "^15.1.0",
+    "postcss-nesting": "^11.3.0",
     "tailwindcss": "^3.3.2"
   }
 }
