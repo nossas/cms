@@ -1,4 +1,6 @@
 from django import forms
+from django.db.models import Q
+
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
@@ -51,7 +53,7 @@ class NavbarPlugin(CMSPluginBase):
         if placeholder:
             plugins = (
                 placeholder.get_child_plugins()
-                .filter(plugin_type="BlockPlugin")
+                .filter(Q(plugin_type="BlockPlugin") | Q(plugin_type="BlockPressurePlugin"))
                 .order_by("position")
             )
 
