@@ -31,6 +31,7 @@ class ColumnPlugin(CMSPluginBase):
         "FluidGridPlugin",
         "PressurePlugin",
         "VideoPlayerPlugin",
+        "SnippetPlugin",
     ]
 
 

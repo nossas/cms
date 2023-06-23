@@ -27,6 +27,7 @@ class BlockPlugin(CMSPluginBase):
         "GridPlugin",
         "ButtonPlugin",
         "VideoPlayerPlugin",
+        "SnippetPlugin",
     ]
     prepopulated_fields = {"slug": ("title",)}
     fieldsets = [
@@ -140,5 +141,8 @@ class FooterPlugin(CMSPluginBase):
 
         community = Community.objects.on_site(request).first()
         context.update({"community": community})
+
+    
+   
 
         return context

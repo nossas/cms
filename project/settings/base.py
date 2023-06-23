@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     "djangocms_picture",
     "djangocms_text_ckeditor",
     "djangocms_video",
+    "djangocms_snippet",
     # Third apps
     "colorfield",
     # My Apps
