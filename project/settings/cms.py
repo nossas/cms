@@ -10,7 +10,11 @@ CMS_TEMPLATES = [
 # https://docs.django-cms.org/en/latest/reference/configuration.html#std-setting-CMS_PLACEHOLDER_CONF
 CMS_PLACEHOLDER_CONF = {
     "content": {
+<<<<<<< HEAD
         "plugins": ["BlockPlugin","SnippetPlugin"],
+=======
+        "plugins": ["BlockPlugin", "FastPressurePlugin"],
+>>>>>>> 79642e2c574f2434ac51eae7360cddb69746cfa7
         "name": "Conteúdo",
         # 'language_fallback': True,
         # 'default_plugins': [

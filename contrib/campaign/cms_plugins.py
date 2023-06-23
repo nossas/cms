@@ -1,6 +1,5 @@
 import random
 import json
-from typing import Any, Optional
 
 from django.contrib import admin
 
@@ -23,6 +22,7 @@ class TargetGroupInline(admin.StackedInline):
 @plugin_pool.register_plugin
 class PressurePlugin(CMSPluginBase):
     name = "Pressão"
+    module = "Estrategia"
     render_template = "campaign/plugins/pressure.html"
     change_form_template = "campaign/admin/change_form.html"
     model = Pressure
