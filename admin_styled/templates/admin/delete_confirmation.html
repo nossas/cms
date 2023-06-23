@@ -3,6 +3,14 @@
 {% load admin_urls %}
 {% load static %}
 
+{% block content_title %}
+<!--
+    No Editor CMS o Javascript copia o conteúdo
+    desse elemnto HTML e adiciona a um span com a classe cms-modal-title-suffix
+-->
+<h1>{% trans 'Deseja remover este plugin?' %}</h1>
+{% endblock %}
+
 {% block breadcrumbs %}
 <div class="breadcrumbs">
 <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
@@ -15,7 +23,6 @@
 
 {% block content %}
 <div class="delete-confirm">
-    <h3> {% trans "Remove" %}</h3>
     {% if perms_lacking or protected %}
         {% if perms_lacking %}
             <p>{% blocktrans with escaped_object=object %}Deleting the {{ object_name }} '{{ escaped_object }}' would result in deleting related objects, but your account doesn't have permission to delete the following types of objects:{% endblocktrans %}</p>

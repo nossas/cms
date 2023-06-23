@@ -1,7 +1,9 @@
 {
   "scripts": {
     "build": "npx tailwindcss -i ./static/css/input.css -o ./static/dist/css/output.css",
-    "watch": "npx tailwindcss -i ./static/css/input.css -o ./static/dist/css/output.css --watch"
+    "watch": "npx tailwindcss -i ./static/css/input.css -o ./static/dist/css/output.css --watch",
+    "watch-admin": "npx tailwindcss -i ../admin_styled/static/css/input_admin_styled.css -o ../admin_styled/static/dist/css/admin_styled.css --watch",
+    "build-admin": "npx tailwindcss -i ../admin_styled/static/css/input_admin_styled.css -o ../admin_styled/static/dist/css/admin_styled.css"
   },
   "devDependencies": {
     "daisyui": "^2.51.6",

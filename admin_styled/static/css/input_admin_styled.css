@@ -27,7 +27,7 @@
     }
 
     .admin-styled-viewer div.cms .cms-modal-body {
-        @apply border-none;
+        @apply border-none top-14 !important;
     }
 
     .admin-styled-app .delete-confirm h3 {
