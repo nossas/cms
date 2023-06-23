@@ -69,6 +69,22 @@
         @apply max-h-full;
     }
 
+    .admin-styled-app .cms-pagetree.cms-pagetree-section {
+        @apply h-12;
+    }
+
+    .admin-styled-app .cms-pagetree a.addlink {
+        @apply mr-1;
+    }
+    .admin-styled-app ul.messagelist a,
+    .admin-styled-app ul.messagelist a:link {
+        @apply text-[#693];
+    }
+
+    .admin-styled-app ul.messagelist {
+        @apply right-0;
+    }
+
     /* Editor CMS */
     /* input[type="radio"]:checked + div {
         @apply text-[#131313] rounded-md bg-[#eee];
