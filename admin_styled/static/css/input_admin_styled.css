@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .admin-styled-app #header #header-logo a {
+        @apply flex items-center;
+    }
+    .admin-styled-app #header .toolbar-item-navigation li ul {
+        @apply bg-white;
+    }
+}

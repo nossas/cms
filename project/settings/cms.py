@@ -60,4 +60,8 @@ DJANGOCMS_PICTURE_ALIGN = [
     (" object-right", "Direita"),
 ]
 
+CMS_COLOR_SCHEME = "light"
+
+CMS_COLOR_SCHEME_TOGGLE = False
+
 from .ckeditor import *
