@@ -121,3 +121,5 @@ class Navbar(BlockElementStyled, CMSPlugin):
 class Footer(BlockElementStyled, CMSPlugin):
     class Meta:
         abstract = False
+
+
