@@ -5,5 +5,5 @@
 }
 
 .cms-styled-admin div.cms .cms-modal-body {
-    @apply border-none top-14 !important;
+    @apply border-none top-12 !important;
 }
