@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "page": "npx tailwindcss --config ./tailwind.page.config.js -i ./static/tailwind/css/page.css -o ./static/dist/tailwind/css/page.css",
-    "admin": "npx tailwindcss --config ./tailwind.adminstyled.config.js -i ../admin_styled/static/admin_styled/css/admin.css -o ../admin_styled/static/dist/admin_styled/css/admin.css",
+    "page": "npx tailwindcss --config ./tailwind.page.config.js -i ./static/tailwind/tailwindcss/page.css -o ./static/dist/tailwind/css/page.css",
+    "admin": "npx tailwindcss --config ./tailwind.adminstyled.config.js -i ../admin_styled/static/admin_styled/tailwindcss/admin.css -o ../admin_styled/static/dist/admin_styled/css/admin.css",
     "page:dev": "npm run page -- --watch",
     "admin:dev": "npm run admin -- --watch",
     "page:build": "npm run page -- --minify",
