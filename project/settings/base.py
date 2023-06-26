@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     "djangocms_video",
     "djangocms_snippet",
     # Third apps
+    "django_select2",
     "colorfield",
     # My Apps
     "contrib.bonde",
