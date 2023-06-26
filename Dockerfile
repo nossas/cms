@@ -9,8 +9,9 @@ WORKDIR /app/tailwind
 
 RUN npm i
 
-RUN npx tailwindcss -i ./static/css/input.css -o ./static/dist/css/output.css
+RUN npm run page:build
 
+RUN npm run admin:build
 
 # Use an official Python runtime based on Debian 10 "buster" as a parent image.
 FROM python:slim-buster
