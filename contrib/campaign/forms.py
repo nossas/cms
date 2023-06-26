@@ -1,13 +1,11 @@
 import json
 
 from django import forms
-
-from tailwind.widgets import RadioSelect, CheckboxSelectMultiple
-from tailwind.fields import InputArrayField
+from django_select2 import forms as s2forms
 
 from contrib.bonde.models import Widget as BondeWidget
 
-from .models import Pressure, SharingChoices
+from .models import Pressure
 
 
 class PressureForm(forms.Form):
@@ -77,66 +75,42 @@ class PressureForm(forms.Form):
         print("Submitting ->>", payload)
 
 
+# class BondeSearchWidget(s2forms.Select2Widget):
+#     model = BondeWidget
+#     search_fields = [
+#         "block__mobilization__name__icontains"
+#     ]
+
+#     def get_queryset(self):
+#         return self.model.objects.on_site().filter(kind="pressure")
+
+#     def filter_queryset(self, request, term, queryset=None, **dependent_fields):
+#         return self.get_queryset().filter(block__mobilization__name__icontains=term)
+
+
+class BondeWidgetSelectWidget(s2forms.Select2Widget):
+    empty_label = "Busque pelo nome ou pelo id da widget"
+
+
+def get_choices():
+    qs = BondeWidget.objects.on_site().filter(kind="pressure")
+
+    return list(
+        map(lambda x: (x.id, f"{x.block.mobilization.name} ({x.id})"), qs.all())
+    )
+
+
 class PressureSettingsForm(forms.ModelForm):
-    widget = forms.IntegerField(widget=forms.Select)
-
-    email_subject = InputArrayField(
-        label="Assunto do e-mail para os alvos", num_widgets=10
-    )
-
-    disable_editing = forms.ChoiceField(
-        label="Desabilitar edição do e-mail e do assunto pelos ativistas?",
-        choices=((True, "Desabilitar"), (False, "Habilitar")),
-        widget=RadioSelect,
-        initial=True,
-    )
-
-    sharing = forms.MultipleChoiceField(
-        label="Opções de compartilhamento",
-        choices=SharingChoices.choices,
-        widget=CheckboxSelectMultiple,
+    widget_id = forms.ChoiceField(
+        label="Selecione o form de pressão criado no BONDE",
+        choices=get_choices(),
+        widget=BondeWidgetSelectWidget,
+        required=False
     )
 
     class Meta:
         model = Pressure
-        fields = "__all__"
+        fields = ["widget_id"]
 
-    def save(self, commit):
-        obj = super(PressureSettingsForm, self).save(commit)
-        # Update Widget Settings
-        if obj.widget:
-            widget = BondeWidget.objects.get(id=obj.widget)
-            new_settings = widget.settings or {}
-
-            new_settings["sender_name"] = obj.sender_name
-            new_settings["sender_email"] = obj.sender_email
-            new_settings["email_subject"] = obj.thank_email_subject
-            new_settings["email_body"] = obj.thank_email_body
-
-            new_settings["disable_edit_field"] = "s" if obj.disable_editing else "n"
-
-            if obj.submissions_limit and obj.submissions_interval:
-                new_settings["optimization_enabled"] = True
-                new_settings["mail_limit"] = obj.submissions_limit
-                new_settings["batch_limit"] = obj.submissions_interval
-            else:
-                new_settings["optimization_enabled"] = False
-
-            new_settings["pressure_body"] = obj.email_body
-            if len(json.loads(obj.email_subject)) == 1:
-                new_settings["pressure_subject"] = json.loads(obj.email_subject)[0]
-            else:
-                new_settings["pressure_subject"] = None
-
-            if obj.targetgroup_set.count() == 1:
-                new_settings["targets"] = list(
-                    map(
-                        lambda x: f"{x.name} <{x.email}>",
-                        obj.targetgroup_set.first().targets.all(),
-                    )
-                )
-
-            widget.settings = new_settings
-            widget.save()
-
-        return obj
+    class Media:
+        js = ("//ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js",)

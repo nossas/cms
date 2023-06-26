@@ -98,7 +98,7 @@ class Community(models.Model):
     def get_signature(self):
         return {
             "name": self.signature.get("name", self.name),
-            "url": self.signature.get("url", "#")
+            "url": self.signature.get("url", "#"),
         }
 
 
@@ -193,6 +193,33 @@ class Block(models.Model):
         db_table = "blocks"
 
 
+class Theme(models.Model):
+    value = models.TextField(unique=True)
+    label = models.TextField()
+    priority = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = "themes"
+    
+    def __str__(self):
+        return self.label
+
+
+class Subtheme(models.Model):
+    value = models.TextField(unique=True)
+    label = models.TextField()
+    theme = models.ForeignKey(Theme, models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = "subthemes"
+    
+
+    def __str__(self):
+        return self.label
+
+
 class WidgetKind(models.TextChoices):
     content = "content", "Conteúdo"
     donation = "donation", "Doação"
@@ -228,6 +255,9 @@ class Widget(models.Model):
     class Meta:
         managed = False
         db_table = "widgets"
+
+    def __str__(self):
+        return f"{self.block.mobilization.name} {self.kind} #{self.id}"
 
 
 class ActionPressure(models.Model):
