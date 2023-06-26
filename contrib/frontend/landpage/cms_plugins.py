@@ -1,96 +1,38 @@
-# BlockPlugin
-# utils (layout)
+from django import forms
+from django.db.models import Q
 
-# Navbar
-# Footer
-from django.db import models
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
 from contrib.bonde.models import Community
 
-from .models import Block, Navbar, Footer
-from .forms import LayoutBlockForm
+from .models import Navbar, Footer
 from .layouts import Layout
+
+from .plugin_base import BlockPluginBase
 
 
 @plugin_pool.register_plugin
-class BlockPlugin(CMSPluginBase):
-    model = Block
-    name = "Bloco"
-    module = "Frontend"
-    render_template = "frontend/landpage/plugins/block.html"
-    allow_children = True
-    child_classes = [
-        "ImagePlugin",
-        "TextPlugin",
-        "GridPlugin",
-        "ButtonPlugin",
-        "VideoPlayerPlugin",
-        "SnippetPlugin",
-    ]
-    prepopulated_fields = {"slug": ("title",)}
-    fieldsets = [
-        (
-            None,
-            {
-                "fields": [
-                    ("title", "slug"),
-                    ("spacing", "alignment"),
-                    ("background_color", "background_image"),
-                ]
-            },
-        ),
-        (
-            "Opções de exibição",
-            {
-                "fields": [("hidden", "menu_hidden")],
-            },
-        ),
-    ]
+class BlockPlugin(BlockPluginBase):
+    name = "Bloco de Conteúdo"
+
+
+@plugin_pool.register_plugin
+class BlockPressurePlugin(BlockPluginBase):
+    name = "Bloco de Pressão"
+    fields = []
 
     def get_form(self, request, obj, change, **kwargs):
         """
-        Sobrescreve formulário para adicionar atributo layout
-        quando estamos criando um Bloco
+        Sobrescreve formulário para adicionar Pressão como layout padrão
         """
-        if not change:
-            self.form = LayoutBlockForm
-
-        return super(BlockPlugin, self).get_form(request, obj, change, **kwargs)
-
-    def get_fieldsets(self, request, obj=None):
-        """
-        Sobrescreve fieldsets para adicionar atributo layout
-        quando estamos criando um Bloco
-        """
-        fieldsets = super(BlockPlugin, self).get_fieldsets(request, obj)
-
-        if not obj:
-            fieldsets = [
-                (
-                    None,
-                    {"fields": ["layout"]},
-                )
-            ]
-
-        return fieldsets
-
-    def get_prepopulated_fields(self, request, obj=None):
-        if obj:
-            return super(BlockPlugin, self).get_prepopulated_fields(request, obj)
-
-        return {}
-
-    def save_model(self, request, obj, form, change):
-        """
-        Executa criação de elementos filho ao bloco de acordo
-        com o tipo de layout selcionado
-        """
-        super(BlockPlugin, self).save_model(request, obj, form, change)
+        form = super(BlockPressurePlugin, self).get_form(request, obj, change, **kwargs)
 
         if not change:
-            Layout(obj=obj, layout=form.cleaned_data["layout"]).copy()
+            form.base_fields["layout"].initial = "pressure"
+            form.base_fields["layout"].widget = forms.HiddenInput()
+
+        return form
 
 
 @plugin_pool.register_plugin
@@ -111,7 +53,7 @@ class NavbarPlugin(CMSPluginBase):
         if placeholder:
             plugins = (
                 placeholder.get_child_plugins()
-                .filter(plugin_type="BlockPlugin")
+                .filter(Q(plugin_type="BlockPlugin") | Q(plugin_type="BlockPressurePlugin"))
                 .order_by("position")
             )
 

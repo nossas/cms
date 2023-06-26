@@ -40,6 +40,7 @@ X_FRAME_OPTIONS = "SAMEORIGIN"
 # Application definition
 
 INSTALLED_APPS = [
+    "admin_styled",
     "tailwind",
     "djangocms_admin_style",
     "django.contrib.admin",
@@ -64,6 +65,7 @@ INSTALLED_APPS = [
     "djangocms_video",
     "djangocms_snippet",
     # Third apps
+    "django_select2",
     "colorfield",
     # My Apps
     "contrib.bonde",

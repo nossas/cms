@@ -1,0 +1,9 @@
+/* Estilos para todos os componentes dentro de cms-styled-admin */
+
+.cms-styled-admin .cms-toolbar-left {
+    @apply flex;
+}
+
+.cms-styled-admin div.cms .cms-modal-body {
+    @apply border-none top-12 !important;
+}
