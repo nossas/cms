@@ -114,12 +114,6 @@ class Layout(object):
             plugin_type="PressurePlugin",
             language=self.obj.language,
             target=col_obj,
-            # Attributos de Pressure,
-            email_subject='["Sou contra o aumento abusivo do trem!"]',
-            email_body="""
-Prezado,
-Entra ano e sai ano, e mais uma vez estou aqui pedindo para que o aumento do valor da passagem seja suspenso. Parece que todos os anos precisamos vir aqui nos mobilizar para que as propostas de aumento completamente absurdas sejam suspensas. Nós, usuários da supervia viemos vir aqui nos mobilizar para que as propostas de...
-            """,
         )
 
         col_obj = cols[1]

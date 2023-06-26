@@ -2,6 +2,7 @@ import json
 
 from django import forms
 from django_select2 import forms as s2forms
+# from django.utils.functional import lazy
 
 from contrib.bonde.models import Widget as BondeWidget
 
@@ -103,7 +104,7 @@ def get_choices():
 class PressureSettingsForm(forms.ModelForm):
     widget_id = forms.ChoiceField(
         label="Selecione o form de pressão criado no BONDE",
-        choices=get_choices(),
+        choices=get_choices,
         widget=BondeWidgetSelectWidget,
         required=False
     )
