@@ -10,10 +10,11 @@ CMS_TEMPLATES = [
 # https://docs.django-cms.org/en/latest/reference/configuration.html#std-setting-CMS_PLACEHOLDER_CONF
 CMS_PLACEHOLDER_CONF = {
     "content": {
+        "name": "Blocos",
         "plugins": ["BlockPlugin", "BlockPressurePlugin"],
-        "name": "Conteúdo",
     },
     "navigation": {
+        "name": "Navegação",
         "plugins": ["NavbarPlugin"],
         "language_fallback": True,
         "default_plugins": [
@@ -24,6 +25,7 @@ CMS_PLACEHOLDER_CONF = {
         ],
     },
     "footer": {
+        "name": "Rodapé",
         "plugins": ["FooterPlugin"],
         "language_fallback": True,
         "default_plugins": [

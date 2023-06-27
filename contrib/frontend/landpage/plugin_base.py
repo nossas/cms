@@ -7,7 +7,7 @@ from .layouts import Layout
 
 class BlockPluginBase(CMSPluginBase):
     model = Block
-    module = "Landpage"
+    module = "Blocos"
     render_template = "frontend/landpage/plugins/block.html"
     allow_children = True
     child_classes = [

@@ -15,7 +15,7 @@ from .plugin_base import BlockPluginBase
 
 @plugin_pool.register_plugin
 class BlockPlugin(BlockPluginBase):
-    name = "Bloco de Conteúdo"
+    name = "Conteúdo"
 
     def get_form(self, request, obj, change, **kwargs):
         """
@@ -30,7 +30,7 @@ class BlockPlugin(BlockPluginBase):
 
 @plugin_pool.register_plugin
 class BlockPressurePlugin(BlockPluginBase):
-    name = "Bloco de Pressão"
+    name = "Pressão"
     fields = ["layout", "background_color"]
 
     def get_form(self, request, obj, change, **kwargs):
@@ -47,8 +47,8 @@ class BlockPressurePlugin(BlockPluginBase):
 
 @plugin_pool.register_plugin
 class NavbarPlugin(CMSPluginBase):
-    name = "Navbar"
-    module = "Frontend"
+    name = "Navbar (Padrão)"
+    module = "Navegação"
     model = Navbar
     render_template = "frontend/landpage/plugins/navbar.html"
     allow_children = False
@@ -81,8 +81,8 @@ class NavbarPlugin(CMSPluginBase):
 
 @plugin_pool.register_plugin
 class FooterPlugin(CMSPluginBase):
-    name = "Footer"
-    module = "Frontend"
+    name = "Rodapé (Padrão)"
+    module = "Rodapé"
     model = Footer
     render_template = "frontend/landpage/plugins/footer.html"
     allow_children = False
