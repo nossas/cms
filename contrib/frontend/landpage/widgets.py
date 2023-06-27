@@ -2,7 +2,7 @@ from django.forms.widgets import ChoiceWidget
 
 
 class SelectLayout(ChoiceWidget):
-    template_name = 'frontend/landpage/forms/widgets/select_layout.html'
+    template_name = 'admin_styled/widgets/select_layout.html'
 
     # def get_context(self, name, value, attrs):
     #     return {

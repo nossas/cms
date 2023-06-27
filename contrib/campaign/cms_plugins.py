@@ -56,7 +56,7 @@ class PressurePlugin(CMSPluginBase):
                 map(
                     lambda x: dict(
                         name=x.split("<")[0],
-                        email=x.split("<")[-1].replace(">", ""),
+                        email=x.split("<")[-1].replace(">", "").replace(";", ""),
                     ),
                     widget.settings.get("targets", []),
                 )

@@ -1,4 +1,4 @@
-<div class="inline-grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="select-layout inline-grid grid-cols-1 md:grid-cols-3 gap-8">
   {% for group_name, group_choices, group_index in widget.optgroups %}
   {% for option in group_choices %}
   <div class="flex flex-col gap-2">
@@ -8,7 +8,7 @@
         value="{{ option.value|stringformat:'s' }}" />
       
       <div class="text-[#aaa]">
-      {% with "frontend/landpage/forms/widgets/select_option/"|add:option.value|stringformat:'s'|add:".svg" as template_option_name %}
+      {% with "admin_styled/widgets/select_layout_option/"|add:option.value|stringformat:'s'|add:".svg" as template_option_name %}
       {% include template_option_name %}
       {% endwith %}
       </div>

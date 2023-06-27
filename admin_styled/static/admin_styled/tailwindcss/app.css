@@ -70,3 +70,7 @@
 .app-styled-admin .object-tools {
     @apply bg-white;
 }
+
+.app-styled-admin .select-layout input:checked + div {
+    @apply text-black text-lg;
+}
