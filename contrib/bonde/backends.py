@@ -51,14 +51,10 @@ class BondeSiteBackend(BondeBackend):
         )
 
         if user and not user.is_superuser:
-            host, port = request.get_host().split(":")
 
             user_bonde = UserBonde.objects.get(email=username)
-            if port:
-                host = host.replace(".localhost", ".org.br")
-
             if not user_bonde.communityuser_set.filter(
-                community__dnshostedzone__domain_name=host
+                community__dnshostedzone__domain_name=request.get_host()
             ).exists():
                 return
 
