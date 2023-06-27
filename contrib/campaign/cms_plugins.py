@@ -38,7 +38,11 @@ class PressurePlugin(CMSPluginBase):
         context = super(PressurePlugin, self).render(context, instance, placeholder)
         request = context["request"]
         initial = dict()
-        settings = dict()
+        settings = dict(
+            title="Envie um e-mail mandando seu recado",
+            button="Pressionar",
+            count="pessoas já pressionaram"
+        )
 
         if instance and instance.widget_id:
             widget = Widget.objects.get(id=instance.widget_id)

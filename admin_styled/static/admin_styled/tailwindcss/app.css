@@ -62,3 +62,11 @@
 .app-styled-admin ul.messagelist {
     @apply right-0;
 }
+
+.app-styled-admin.login #header {
+    @apply pb-4 pt-6 !important;
+}
+
+.app-styled-admin .object-tools {
+    @apply bg-white;
+}
