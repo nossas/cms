@@ -59,3 +59,14 @@ class Button(BlockElementStyled, CMSPlugin):
             styles += f"border-color:{self.background_color};"
 
         return styles
+
+    def classnames(self):
+        classnames = []
+
+        if self.border_size:
+            classnames.append(self.border_size)
+        
+        if self.rounded:
+            classnames.append(self.rounded)
+        
+        return " ".join(classnames)
