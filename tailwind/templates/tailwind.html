@@ -30,7 +30,7 @@
   {% block page_head %}{% endblock %}
 </head>
 
-<body {% if request.toolbar.edit_mode_active %}class="cms-styled-admin"{% endif %} {% block body_attrs %}{% endblock %}>
+<body {% if request.toolbar %}class="cms-styled-admin"{% endif %} {% block body_attrs %}{% endblock %}>
   {% cms_toolbar %}
   {% block content %}{% endblock %}
 
