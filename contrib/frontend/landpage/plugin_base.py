@@ -38,16 +38,6 @@ class BlockPluginBase(CMSPluginBase):
         ),
     ]
 
-    def get_form(self, request, obj, change, **kwargs):
-        """
-        Sobrescreve formulário para adicionar atributo layout
-        quando estamos criando um Bloco
-        """
-        if not change:
-            self.form = LayoutBlockForm
-
-        return super(BlockPluginBase, self).get_form(request, obj, change, **kwargs)
-
     def get_prepopulated_fields(self, request, obj=None):
         if obj:
             return super(BlockPluginBase, self).get_prepopulated_fields(request, obj)
@@ -65,7 +55,7 @@ class BlockPluginBase(CMSPluginBase):
             fieldsets = [
                 (
                     None,
-                    {"fields": ["layout"]},
+                    {"fields": ["layout", "background_color"]},
                 )
             ]
 

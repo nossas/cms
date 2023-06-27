@@ -7,7 +7,8 @@ from cms.plugin_pool import plugin_pool
 from contrib.bonde.models import Community
 
 from .models import Navbar, Footer
-from .layouts import Layout
+from .forms import LayoutBlockForm, LayoutBlockPressureForm
+# from .layouts import Layout
 
 from .plugin_base import BlockPluginBase
 
@@ -16,23 +17,32 @@ from .plugin_base import BlockPluginBase
 class BlockPlugin(BlockPluginBase):
     name = "Bloco de Conteúdo"
 
+    def get_form(self, request, obj, change, **kwargs):
+        """
+        Sobrescreve formulário para adicionar atributo layout
+        quando estamos criando um Bloco
+        """
+        if not change:
+            self.form = LayoutBlockForm
+
+        return super(BlockPlugin, self).get_form(request, obj, change, **kwargs)
+
 
 @plugin_pool.register_plugin
 class BlockPressurePlugin(BlockPluginBase):
     name = "Bloco de Pressão"
-    fields = []
+    fields = ["layout", "background_color"]
 
     def get_form(self, request, obj, change, **kwargs):
         """
         Sobrescreve formulário para adicionar Pressão como layout padrão
         """
-        form = super(BlockPressurePlugin, self).get_form(request, obj, change, **kwargs)
-
         if not change:
-            form.base_fields["layout"].initial = "pressure"
-            form.base_fields["layout"].widget = forms.HiddenInput()
-
-        return form
+            self.form = LayoutBlockPressureForm
+            self.form.base_fields["layout"].initial = "pressure"
+            self.form.base_fields["layout"].widget = forms.HiddenInput()
+        
+        return super(BlockPressurePlugin, self).get_form(request, obj, change, **kwargs)
 
 
 @plugin_pool.register_plugin

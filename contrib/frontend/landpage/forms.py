@@ -1,6 +1,7 @@
 from django import forms
 from django.db import models
 
+from .models import Block
 from .widgets import SelectLayout
 
 
@@ -29,3 +30,22 @@ class LayoutBlockForm(forms.ModelForm):
             choices=LayoutChoices.choices
         )
     )
+
+    class Meta:
+        model = Block
+        fields = "__all__"
+
+
+
+class LayoutBlockPressureForm(forms.ModelForm):
+    layout = forms.CharField(
+        label="Layout",
+        required=False,
+        widget=SelectLayout(
+            choices=LayoutChoices.choices
+        )
+    )
+
+    class Meta:
+        model = Block
+        fields = "__all__"
