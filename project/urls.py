@@ -19,10 +19,13 @@ from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path, include
 
+from contrib.chatgpt.views import chatgpt_view
+
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("select2/", include("django_select2.urls")),
+    path("openai/", chatgpt_view, name="openai"),
     path("", include("cms.urls"))
 ]
 

@@ -1,0 +1,10 @@
+<div>
+<form method="POST" novalidate>
+{% csrf_token %}
+{{form.as_p}}
+<button type="submit">Buscar</button>
+</form>
+{% if result %}
+<p>{{result}}</p>
+{% endif %}
+</div>

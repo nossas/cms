@@ -3,12 +3,12 @@ import openai
 
 openai.api_key = settings.OPENAI_SECRET_KEY
 
-def main():
+def answer_me(text: str):
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=[
                 {"role": "system", "content": "You are a chatbot"},
-                {"role": "user", "content": "What are the contact emails for federal deputies from the Brazilian Chamber of Deputies?"},
+                {"role": "user", "content": text},
             ]
     )
 
@@ -16,4 +16,4 @@ def main():
     for choice in response.choices:
         result += choice.message.content
 
-    print(result)
+    return result
