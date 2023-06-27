@@ -13,3 +13,4 @@ djangocms_snippet
 # django-allauth
 bcrypt
 whitenoise
+openai

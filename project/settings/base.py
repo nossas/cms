@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     # My Apps
     "contrib.bonde",
     "contrib.campaign",
+    "contrib.chatgpt",
     "contrib.frontend",
     "contrib.frontend.landpage",
     "contrib.frontend.grid",
@@ -213,3 +214,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # https://docs.djangoproject.com/en/4.2/ref/contrib/sites/
 
 SITE_ID = 1
+
+
+# OpenAI
+OPENAI_SECRET_KEY = env("OPENAI_SECRET_KEY")
