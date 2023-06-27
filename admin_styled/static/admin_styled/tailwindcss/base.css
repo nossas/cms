@@ -1,0 +1,7 @@
+/* Estilos para todos os componentes dentro de app-styled-admin and cms-styled-admin */
+
+.app-styled-admin a.header-logo,
+.cms-styled-admin a.header-logo,
+.cms-styled-admin .cms-reset a.header-logo:hover {
+    @apply flex items-center ml-6 mr-4;
+}

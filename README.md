@@ -92,7 +92,7 @@ Executando o server de desenvolvimento:
 
 Executando o build dos estilos CSS (necessário executar dentro da pasta **tailwind**):
 
-`npx tailwindcss -i ./static/css/input.css -o ./static/dist/css/output.css --watch`
+`npm run watch`
 
 
 ### Configurações
@@ -106,41 +106,20 @@ CMS_DATABASE_URL=
 BONDE_DATABASE_URL=
 ```
 
-<!-- Como publicar vários sites?
+Como iniciar servidor de desenvolvimento:
 
-1. Carregar a configuração do site no Django a partir do host
+```
+python manage.py shell
 
-    Importante entender que a marca e o dominio são algo extremamente forte.
-        
-        Rede Nossas Cidades: nossas.org.br
-        
-        Meu Rio: meurio.org.br
-        
-        Minha Manaus: minhamanaus.org.br
+from django.contrib.sites.models import Site
 
-    Cada campanha seria acessada inicialmente através de subpaths.
+site = Site.objects.first()
 
-        Essa conta eu não pago: minhamanaus.org.br/essacontaeunaopago
-        
-        Respeita Paquetá: meurio.org.br/respeitapaqueta
-        
-        Amazônia contra COVID: nossas.org.br/amazoniacontracovid
+site.domain = "127.0.0.1:8000"
 
-2. Publicar em produção:
+ou
 
-Exige a configuração dos Sites antecipadamente (Comando, configurar sites buscar sites do Bonde)
+site.domain = "localhost:8000"
 
-Base de dados compartilhada
-
-
-Dúvidas (É outra camada):
-
-Como manter no mesmo dominio 2 aplicações (Bonde e Novo CMS)
-Caso seja negativa, como migrar campanhas já existentes no Bonde
-
-subdominios continuam pro Bonde
-enquanto o dominio principal, precisaria ser migrado pro CMS
-
-
-Remove ideia google autenticate
-Criptografar com a mesma chave o password -->
+site.save()
+```

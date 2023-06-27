@@ -1,6 +1,7 @@
 {% load cms_tags sekizai_tags static %}
 <!doctype html>
-<html lang="{{ LANGUAGE_CODE }}">
+<html lang="{{ LANGUAGE_CODE }}" data-theme="light">
+
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -8,7 +9,7 @@
   {% block meta %}
   <meta name="description" content="{% page_attribute meta_description %}" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="{% page_attribute " page_title" %}" />
+  <meta property="og:title" content="{% page_attribute 'page_title' %}" />
   <meta property="og:description" content="{% page_attribute meta_description %}" />
   {% endblock meta %}
   {% block canonical_url %}
@@ -16,20 +17,28 @@
   <meta property="og:url" content="{{ request.build_absolute_uri }}" />
   {% endblock canonical_url %}
   {% block fb_meta %}{% endblock fb_meta %}
-  <title>{% block title %}{% page_attribute "page_title" %}{% endblock %}</title>
-  
-  <link rel="stylesheet" href="{% static 'dist/css/output.css' %}">
-  
-  {% render_block "css" %}
 
+  {% if request.current_page.iconextension %}
+  <link rel="shortcut icon" href="{{ request.current_page.iconextension.favicon.url }}" type="image/x-icon">
+  {% else %}
+  <link rel="shortcut icon" href="{% static 'images/favicon-32.png' %}" type="image/x-icon">
+  {% endif %}
+  <title>{% block title %}{% page_attribute "page_title" %}{% endblock %}</title>
+
+  {% render_block "css" %}
+  <link rel="stylesheet" type="text/css" href="{% static 'dist/tailwind/css/page.css' %}" />
   {% block page_head %}{% endblock %}
 </head>
 
-<body {% block body_attrs %}{% endblock %}>
+<body {% if request.toolbar %}class="cms-styled-admin"{% endif %} {% block body_attrs %}{% endblock %}>
   {% cms_toolbar %}
   {% block content %}{% endblock %}
-  
+
   {% render_block "js" %}
+
+  {% if ga %}
+  {% include "ga/snippets/ga.html" with GTAG_ID=ga.uuid %}
+  {% endif %}
 </body>
 
 </html>

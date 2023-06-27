@@ -1,0 +1,82 @@
+/* Estilos para todos os componentes dentro de app-app-styled-admin */
+
+.app-styled-admin #container {
+    @apply bg-white;
+}
+
+.app-styled-admin #header .toolbar-item-navigation li ul {
+    @apply bg-white;
+}
+
+.app-styled-admin .delete-confirm h3 {
+    @apply text-4xl font-bold font-sans;
+}
+
+.app-styled-admin .delete-confirm h3,
+.app-styled-admin .delete-confirm p {
+    @apply text-neutral-900 my-4;
+}
+
+.app-styled-admin .delete-confirm-accordion {
+    @apply w-full overflow-hidden;
+}
+.app-styled-admin .delete-confirm-accordion-label {
+    @apply flex content-between items-center border-y-[1px] border-y-[#E0E0E0] border-solid p-4 font-bold cursor-pointer select-none text-neutral-900;
+}
+
+.app-styled-admin .delete-confirm-accordion-label svg {
+    @apply mr-2;
+}
+.app-styled-admin .delete-confirm-accordion-content {
+    @apply max-h-0 py-0 px-4 transition-all;
+}
+
+.app-styled-admin div.delete-confirm-accordion-content ul > li{
+    @apply border-0 !important;
+}
+
+.app-styled-admin .delete-confirm-accordion input {
+    @apply hidden;
+}
+
+.app-styled-admin input:checked + .delete-confirm-accordion-label svg {
+    @apply origin-center rotate-90;
+}
+
+.app-styled-admin input:checked ~ .delete-confirm-accordion-content {
+    @apply max-h-full;
+}
+
+.app-styled-admin .cms-pagetree.cms-pagetree-section {
+    @apply h-12;
+}
+
+.app-styled-admin .cms-pagetree a.addlink {
+    @apply mr-1;
+}
+.app-styled-admin ul.messagelist a,
+.app-styled-admin ul.messagelist a:link {
+    @apply text-[#693];
+}
+
+.app-styled-admin ul.messagelist {
+    @apply right-0;
+}
+
+.app-styled-admin.login #header {
+    @apply pb-4 pt-6 !important;
+}
+
+.app-styled-admin .object-tools {
+    @apply bg-white;
+}
+
+.app-styled-admin .select-layout input:checked + div {
+    @apply text-black text-lg;
+}
+
+/* filerFile Modal */
+
+span.filerFile.js-file-selector {
+    @apply flex justify-center;
+  }

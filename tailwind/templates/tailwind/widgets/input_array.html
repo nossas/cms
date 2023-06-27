@@ -1,0 +1,28 @@
+<!-- {'widget': {'name': 'email_subject', 'is_hidden': False, 'required': True, 'value': None, 'attrs': {'required': True, 'id': 'id_email_subject'}, 'template_name': 'tailwind/widgets/input_array.html', 'type': 'text'}} -->
+
+<div
+  data-fieldset-id="{{ widget.attrs.id }}"
+  data-fieldset-limit="{{ input_array_limit }}"
+  data-fieldset-name="{{ widget.name }}"
+>
+  {% for value in widget.value %}
+  <div data-fieldset class="flex flex-row">
+    <input type="text" name="{{ widget.name }}_{{forloop.counter0}}" value="{{value}}" />
+    {% if forloop.counter0 != 0 %}
+    <button type="button">Remover</button>
+    {% endif %}
+  </div>
+  {% empty %}
+  <div data-fieldset class="flex flex-row">
+    <input type="text" name="{{ widget.name }}_0" />
+  </div>
+  {% endfor %}
+  <button
+    type="button"
+    {% if widget.value|length == input_array_limit %}disabled{% endif %}
+  >
+    Adicionar assunto alternado +
+  </button>
+</div>
+
+{{ widget.media }}

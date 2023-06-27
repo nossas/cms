@@ -1,95 +1,85 @@
 from django.db import models
 
 from cms.models import CMSPlugin
+from cms.extensions import PageExtension
+from cms.extensions.extension_pool import extension_pool
+from filer.fields.image import FilerImageField
 
 
-class BlockBase(CMSPlugin):
-    title = models.CharField("título", max_length=80, blank=True)
-    slug = models.SlugField(
-        verbose_name="slug",
-        max_length=80,
+# class Thank(models.Model):
+#     # Agradecimento
+#     thank_email_subject = models.CharField(
+#         verbose_name="Assunto do e-mail de agradecimento para quem vai pressionar",
+#         max_length=120,
+#         blank=True,
+#         null=True,
+#     )
+#     thank_email_body = models.TextField(
+#         verbose_name="Corpo do e-mail de agradecimento", blank=True, null=True
+#     )
+#     sender_name = models.CharField(
+#         verbose_name="Remetente", max_length=120, blank=True, null=True
+#     )
+#     sender_email = models.EmailField(
+#         verbose_name="Email de resposta", blank=True, null=True
+#     )
+
+#     class Meta:
+#         abstract = True
+
+
+# class SharingChoices(models.TextChoices):
+#     whatsapp = "whatsapp", "Whatsapp"
+#     twitter = "twitter", "Twitter"
+#     facebook = "facebook", "Facebook"
+
+
+# class PostAction(models.Model):
+#     # Pós ação
+#     sharing = models.JSONField(
+#         verbose_name="Opções de compartilhamento", blank=True, null=True
+#     )
+#     whatsapp_text = models.TextField(
+#         verbose_name="Mensagem para o whatsapp", blank=True, null=True
+#     )
+
+#     class Meta:
+#         abstract = True
+
+
+# class Pressure(PostAction, Thank, CMSPlugin):
+#     widget = models.IntegerField(null=True, blank=True)
+#     targets = models.JSONField(verbose_name="Alvos", null=True, blank=True)
+
+#     email_subject = models.JSONField(verbose_name="Assunto do e-mail para os alvos")
+#     email_body = models.TextField(verbose_name="Corpo do e-mail para os alvos")
+
+#     # Envio
+#     submissions_limit = models.IntegerField(
+#         verbose_name="Limite de envios únicos", null=True, blank=True
+#     )
+#     submissions_interval = models.IntegerField(
+#         verbose_name="Intervalo de envio", null=True, blank=True
+#     )
+
+#     disable_editing = models.BooleanField(
+#         verbose_name="Desabilitar edição do e-mail e do assunto pelos ativistas?",
+#         default=True,
+#     )
+
+
+class Pressure(CMSPlugin):
+    widget_id = models.IntegerField(null=True, blank=True)
+
+
+class IconExtension(PageExtension):
+    favicon = FilerImageField(
+        verbose_name="Favicon",
         blank=True,
-        help_text="a parte do título que é usada na URL",
-    )
-    menu_title = models.CharField("título do menu", max_length=50, blank=True)
-    menu_hidden = models.BooleanField("esconder menu?", default=False)
-
-    # Styles
-    background = models.CharField(
-        "background", max_length=200, default="white", blank=True
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
     )
 
-    class Meta:
-        abstract = True
 
-    def __str__(self):
-        return self.title
-
-    def get_menu_title(self):
-        return self.menu_title or self.title
-
-    def get_background(self):
-        if self.background.startswith("url"):
-            return f"bg-[{self.background}] bg-no-repeat bg-cover"
-        
-        return f"bg-[{self.background}]"
-
-
-class Block(BlockBase):
-    pass
-
-class ActionButton(CMSPlugin):
-    title = models.CharField("título", max_length=80)
-    action_url = models.CharField(
-        "endereço da ação", max_length=80, help_text="slug do bloco usado na URL"
-    )
-    bg_color = models.CharField(
-        "cor do fundo", max_length=100, default="blue", blank=True
-    )
-
-    def get_bg_color(self):
-        if self.bg_color.startswith("bg-"):
-            return self.bg_color
-        
-        return f"bg-{{self.bg_color}}-800 hover:bg-{{self.bg_color}}-900"
-
-
-class RowStyles(models.TextChoices):
-    flex = ("flex", "Flex")
-    wrap = ("wrap", "Wrap")
-
-
-class Row(CMSPlugin):
-    styled = models.CharField(
-        "Estilo da linha",
-        max_length=20,
-        choices=RowStyles.choices,
-        default=RowStyles.flex
-    )
-
-    def classnames(self, attrs=None):
-        if self.styled == RowStyles.flex:
-            return 'flex flex-row items-center gap-8'
-        elif self.styled == RowStyles.wrap:
-            return 'flex flex-wrap gap-8 justify-center'
-
-        return ''
-
-
-class ColumnStyles(models.TextChoices):
-    auto = ("auto", "Auto")
-
-
-class Column(CMSPlugin):
-    styled = models.CharField(
-        "Estilho da coluna",
-        max_length=20,
-        choices=ColumnStyles.choices,
-        default=ColumnStyles.auto
-    )
-
-    def classnames(self, attrs=None):
-        if self.styled == ColumnStyles.auto:
-            return 'flex-auto'
-        
-        return ''
+extension_pool.register(IconExtension)

@@ -1,0 +1,12 @@
+{% extends "tailwind.html" %}
+{% load cms_tags campaign_menu_tags %}
+
+{% block title %}{% page_attribute "page_title" %}{% endblock %}
+
+{% block content %}
+  {% placeholder "navigation" %}
+  <main>
+  {% placeholder "content" %}
+  </main>
+  {% placeholder "footer" %}
+{% endblock %}

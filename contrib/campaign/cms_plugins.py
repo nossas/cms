@@ -1,74 +1,92 @@
-from django.db.models import Q
-
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
-from .models import ActionButton, Block, Row, Column
-from .forms import PressureForm
+from contrib.bonde.models import Widget, ActionPressure
 
+from .models import Pressure
+from .forms import PressureForm, PressureSettingsForm
 
-@plugin_pool.register_plugin
-class BlockPlugin(CMSPluginBase):
-    model = Block
-    name = "Bloco"
-    render_template = "campaign/plugins/block.html"
-    allow_children = True
-    child_classes = [
-        "PicturePlugin",
-        "TextPlugin",
-        "ActionButtonPlugin",
-        "RowPlugin",
-    ]
-
-
-@plugin_pool.register_plugin
-class GridBlockPlugin(CMSPluginBase):
-    model = Block
-    name = "Grid"
-    render_template = "campaign/plugins/grid-block.html"
-    allow_children = True
-    child_classes = ["TextPlugin", "PressurePlugin"]
-
-
-@plugin_pool.register_plugin
-class ActionButtonPlugin(CMSPluginBase):
-    model = ActionButton
-    name = "Botão de ação"
-    render_template = "campaign/plugins/action-button.html"
-    allow_children = False
+# Widget Settings
+#
+# main_color: string;
+# call_to_action?: string;
+# title_text: string;
+# button_text: string;
+# pressure_subject?: string;
+# pressure_body?: string;
+# disable_edit_field: string;
+# targets: string;
+# finish_message_type?: string;
+# finish_message?: Record<any, any>;
+# finish_message_background?: string;
+# count_text?: string;
+# show_city?: string;
+# show_state?: string;
+# pressure_type?: string | 'unique' | 'group';
+# optimization_enabled?: boolean;
 
 
 @plugin_pool.register_plugin
 class PressurePlugin(CMSPluginBase):
     name = "Pressão"
+    module = "Estrategia"
     render_template = "campaign/plugins/pressure.html"
+    model = Pressure
+    form = PressureSettingsForm
 
     def render(self, context, instance, placeholder):
         context = super(PressurePlugin, self).render(context, instance, placeholder)
-        context.update({"form": PressureForm()})
+        request = context["request"]
+        initial = dict()
+        settings = dict(
+            title="Envie um e-mail mandando seu recado",
+            button="Pressionar",
+            count="pessoas já pressionaram"
+        )
+
+        if instance and instance.widget_id:
+            widget = Widget.objects.get(id=instance.widget_id)
+            initial["instance"] = instance.id
+
+            # Alvos vindos do Bonde
+            settings["title"] = widget.settings.get("title_text", "Envie um e-mail mandando seu recado")
+            settings["button"] = widget.settings.get("button_text", "Pressionar")
+            settings["count"] = widget.settings.get("count_text", "pessoas já pressionaram")
+            settings["targets"] = list(
+                map(
+                    lambda x: dict(
+                        name=x.split("<")[0],
+                        email=x.split("<")[-1].replace(">", "").replace(";", ""),
+                    ),
+                    widget.settings.get("targets", []),
+                )
+            )
+
+            email_subject = widget.settings.get("pressure_subject", "")
+            # initial["email_subject"] = random.choice(json.loads(instance.email_subject))
+            initial["email_subject"] = email_subject
+
+            email_body = widget.settings.get("pressure_body", "")
+            initial["email_body"] = email_body
+
+        if request.method == "POST":
+            form = PressureForm(request.POST, initial=initial)
+
+            if form.is_valid():
+                form.submit()
+        else:
+            form = PressureForm(initial=initial)
+
+        size = 0
+        if hasattr(instance, "widget_id"):
+            size = (
+                # Garante apenas pessoas que pressionaram
+                # e não número total de pressões
+                ActionPressure.objects.filter(widget=instance.widget_id)
+                .values("activist_id")
+                .distinct()
+                .count()
+            )
+
+        context.update({"form": form, "size": size, "settings": settings})
         return context
-
-
-@plugin_pool.register_plugin
-class RowPlugin(CMSPluginBase):
-    model = Row
-    name = "Linha"
-    render_template = "campaign/plugins/row.html"
-    allow_children = True
-    child_classes = ["ColumnPlugin", "PicturePlugin"]
-
-
-@plugin_pool.register_plugin
-class ColumnPlugin(CMSPluginBase):
-    model = Column
-    name = "Coluna"
-    render_template = "campaign/plugins/column.html"
-    allow_children = True
-    parent_classes = ["RowPlugin"]
-
-
-@plugin_pool.register_plugin
-class FooterPlugin(CMSPluginBase):
-    name = "Rodapé"
-    render_template = "campaign/plugins/footer.html"
-    allow_children = False
