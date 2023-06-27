@@ -74,3 +74,9 @@
 .app-styled-admin .select-layout input:checked + div {
     @apply text-black text-lg;
 }
+
+/* filerFile Modal */
+
+span.filerFile.js-file-selector {
+    @apply flex justify-center;
+  }
