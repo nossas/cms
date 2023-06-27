@@ -200,7 +200,7 @@ class Layout(object):
         self.obj.alignment = AlignmentChoices.center
         self.obj.save()
 
-        text_html = '<h2 class="text-center">Título do bloco</h2>'
+        text_html = '<h2 class="text-center"><strong><span style="font-size:36px;">Título do bloco</span></strong></h2>'
         add_plugin(
             placeholder=self.obj.placeholder,
             plugin_type="TextPlugin",
@@ -272,7 +272,7 @@ class Layout(object):
         col_obj.alignment_y = YAlignmentChoices.start
         col_obj.save()
 
-        text_html = "<h2>Título do bloco</h2>"
+        text_html = '<h2 class="text-center"><strong><span style="font-size:36px;">Título do bloco</span></strong></h2>'
         add_plugin(
             placeholder=col_obj.placeholder,
             plugin_type="TextPlugin",
@@ -371,7 +371,7 @@ class Layout(object):
         col_obj.spacing = ColumnSpacingChoices.gap_8
         col_obj.save()
 
-        text_html = "<h2>Quem assina</h2>"
+        text_html = '<h2 class="text-center"><strong><span style="font-size:36px;">Quem assina</span></strong></h2>'
         add_plugin(
             placeholder=col_obj.placeholder,
             plugin_type="TextPlugin",
@@ -436,7 +436,7 @@ class Layout(object):
         self.obj.alignment = AlignmentChoices.center
         self.obj.save()
 
-        text_html = "<h2>Quem Assina</h2>"
+        text_html = '<h2 class="text-center"><strong><span style="font-size:36px;">Quem assina</span></strong></h2>'
         add_plugin(
             placeholder=self.obj.placeholder,
             plugin_type="TextPlugin",
