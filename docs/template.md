@@ -26,6 +26,6 @@ Só é permitido adicionar plugins do módulo **Blocos**.
 
 ### Rodapé
 
-Só é permitido adicionar plugins de rodapé aqui como o `Rodapé`
+Só é permitido adicionar plugins do módulo **Rodapé**
 
 ![Módulo Rodapé](images/template-modulo-rodape.png)
