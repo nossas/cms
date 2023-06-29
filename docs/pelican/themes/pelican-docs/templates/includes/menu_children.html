@@ -3,7 +3,7 @@
     <a href="{{ page.url }}" target="_self">{{ page.title }}</a>
     <ul>
         {% for page in page.children %}
-        {% include "./menu_children.html" %}
+        {% include "./includes/menu_children.html" %}
         {% endfor %}
     </ul>
 </li>
