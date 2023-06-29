@@ -3,7 +3,7 @@ FROM node:latest AS node-builder
 
 WORKDIR /app
 
-COPY . .
+COPY app/ .
 
 WORKDIR /app/tailwind
 
@@ -43,7 +43,7 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
 RUN pip install uwsgi django-storages boto3
 
 # Install the project requirements.
-COPY requirements.txt /
+COPY app/requirements.txt /
 RUN pip install -r requirements.txt
 
 # Use /app folder as a directory where the source code is stored.
