@@ -1,0 +1,23 @@
+name: Deploy
+
+on:
+  # Trigger the workflow on push on main branch,
+  push:
+    branches:
+      - feature/docs-2
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with: 
+        submodules: 'true'
+    - uses: ./.github/actions/pelican-to-github-pages
+    # - uses: rehanhaider/pelican-to-github-pages@v1.0.3
+      env:
+        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        PELICAN_CONFIG_FILE: docs/pelicanconf.py
+        PELICAN_CONTENT_FOLDER: docs/content/
+        PELICAN_REQUIREMENTS_FILE: docs/requirements.txt
+        PELICAN_SITEURL: https://nossas.github.io/cms/
