@@ -13,8 +13,9 @@ jobs:
     - uses: actions/checkout@v2
       with: 
         submodules: 'true'
-    - uses: rehanhaider/pelican-to-github-pages@v1.0.3
+    - uses: ./.github/actions/pelican-to-github-pages
       env:
         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         PELICAN_CONFIG_FILE: docs/pelicanconf.py
         PELICAN_CONTENT_FOLDER: docs/content/
+        PELICAN_REQUIREMENTS_FILE: docs/requirements.txt

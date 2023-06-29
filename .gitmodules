@@ -1,0 +1,3 @@
+[submodule "actions/pelican-to-github-pages"]
+	path = .github/actions/pelican-to-github-pages
+	url = git@github.com:igr-santos/pelican-to-github-pages.git
