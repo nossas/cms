@@ -1,0 +1,12 @@
+{% if page.children %}
+<li>
+    <a href="{{ page.url }}" target="_self">{{ page.title }}</a>
+    <ul>
+        {% for page in page.children %}
+        {% include "./menu_children.html" %}
+        {% endfor %}
+    </ul>
+</li>
+{% else %}
+<li><a href="{{ page.url }}" target="_self">{{ page.title }}</a></li>
+{% endif %}
