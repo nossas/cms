@@ -1,6 +1,6 @@
 AUTHOR = "NOSSAS"
 SITE_NAME = "Bonde"
-SITEURL = ""
+SITEURL = "https://nossas.github.io/cms"
 
 PATH = "content"
 
@@ -33,13 +33,13 @@ AUTHOR_FEED_RSS = None
 #          ('You can modify those links in your config file', '#'),)
 
 MENU_ITEMS = [
-    {"title": "Inicio", "url": "/"},
+    {"title": "Inicio", "url": f"{SITEURL}/"},
     {
         "title": "Tutorial",
-        "url": "/tutoriais/",
+        "url": f"{SITEURL}/tutoriais/",
         "children": [
-            {"title": "Login", "url": "/tutoriais/login/"},
-            {"title": "Criar uma página", "url": "/tutoriais/criar-uma-pagina/"},
+            {"title": "Login", "url": f"{SITEURL}/tutoriais/login/"},
+            {"title": "Criar uma página", "url": f"{SITEURL}/tutoriais/criar-uma-pagina/"},
             # {"title": "Parte 2", "url": ""},
             # {"title": "Parte 3", "url": ""},
         ],

@@ -16,3 +16,5 @@ jobs:
     - uses: rehanhaider/pelican-to-github-pages@v1.0.3
       env:
         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        PELICAN_CONFIG_FILE: docs/pelicanconf.py
+        PELICAN_CONTENT_FOLDER: docs/content/
