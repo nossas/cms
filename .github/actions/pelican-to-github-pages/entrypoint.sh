@@ -22,7 +22,7 @@ echo 'Building site 👷 '
 pelican ${PELICAN_CONTENT_FOLDER:=content} -s ${PELICAN_CONFIG_FILE:=publishconf.py}
 
 echo 'Publishing to GitHub Pages 📤 '
-git config --global --add safe.directory /github/workspace
+pushd output
 
 git init
 git remote add deploy "$remote_repo"
