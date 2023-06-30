@@ -10,7 +10,7 @@ from cms.cms_toolbars import (
 )
 
 DEFAULT_HELP_MENU_ITEMS = (
-    ("Guia do usuário", "https://github.com/nossas/cms/blob/feature/docs/docs/template.md"),
+    ("Guia do usuário", "https://nossas.github.io/cms/"),
     # (gettext("Getting started developer guide"), 'https://docs.django-cms.org/en/latest/introduction/index.html'),
     # (gettext("Documentation"), 'https://docs.django-cms.org/en/latest/'),
     # (gettext("User guide"), 'https://docs.google.com/document/d/1f5eWyD_sxUSok436fSqDI0NHcpQ88CXQoDoQm9ZXb0s/'),
