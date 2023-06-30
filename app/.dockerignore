@@ -7,9 +7,6 @@ CACHE/
 .env
 .env-*
 
-# Pelican
-docs/
-
 # Python and others
 __pycache__
 *.pyc

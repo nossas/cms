@@ -1,10 +1,12 @@
-name: Deploy
+name: Deploy Bonde CMS documentation with pelican
 
 on:
   # Trigger the workflow on push on main branch,
   push:
     branches:
-      - feature/docs-2
+      - main
+      - feature/*
+      - hotfix/*
 
 jobs:
   build:

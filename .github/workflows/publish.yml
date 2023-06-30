@@ -1,5 +1,6 @@
-name: Publish NOSSAS CMS docker image
+name: Publish Bonde CMS docker image
 on: [push, pull_request]
+
 
 jobs:
   build-docker:
@@ -26,7 +27,8 @@ jobs:
       - name: Build and Push
         uses: docker/build-push-action@v3
         with:
-          context: ./
+          context: ./app
+          file: Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
