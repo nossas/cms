@@ -10,7 +10,7 @@
       <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"{% if instance.styles %} style="{{instance.styles}}"{% endif %}>
         {% for block in children %}
         <li>
-          <a href="#{{ block.slug }}" target="_self">{{ block.get_menu_title }}</a>
+          <a href="#{{ block.slug }}" target="_self" data-ga-event="click">{{ block.get_menu_title }}</a>
         </li>
         {% endfor %}
       </ul>
@@ -20,7 +20,7 @@
     <ul class="menu menu-horizontal px-1">
       {% for block in children %}
       <li>
-        <a href="#{{ block.slug }}" target="_self">{{ block.get_menu_title }}</a>
+        <a href="#{{ block.slug }}" target="_self" data-ga-event="click">{{ block.get_menu_title }}</a>
       </li>
       {% endfor %}
     </ul>
