@@ -20,4 +20,4 @@ jobs:
         PELICAN_CONFIG_FILE: docs/pelicanconf.py
         PELICAN_CONTENT_FOLDER: docs/content/
         PELICAN_REQUIREMENTS_FILE: docs/requirements.txt
-        PELICAN_SITEURL: https://nossas.github.io/cms/
+        PELICAN_SITEURL: https://nossas.github.io/cms
