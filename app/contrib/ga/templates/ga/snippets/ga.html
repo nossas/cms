@@ -13,10 +13,10 @@
     });
 
     // Aplica evento de clica aos botões com data-ga-event configurado
-    const elements = document.querySelectorAll('[data-ga-event="click"]');
+    const btnElements = document.querySelectorAll('[data-ga-event="click"]');
 
-    if (elements || elements?.length > 0) {
-        elements.forEach(function (element) {
+    if (btnElements || btnElements?.length > 0) {
+        btnElements.forEach(function (element) {
             element.addEventListener("click", function (evt) {
                 const properties = {
                     name: evt.target.innerText,
@@ -25,5 +25,21 @@
                 gtag('event', 'click', properties);
             });
         });
+    }
+
+    // Aplica evento de focusOut aos inputs com formulário data-ga-event configurado
+    const inputElements = document.querySelectorAll("form[data-ga-event='form'] input");
+    if (inputElements || inputElements?.length > 0) {
+        inputElements.forEach(function (element) {
+            if (element.name !== "csrfmiddlewaretoken") {
+                element.addEventListener("focusout", function () {
+                    const properties = {
+                        input_name: element.name,
+                        focus_out: element.value !== "" ? "filled" : "unfilled"
+                    }
+                    gtag('event', 'form_field', properties)
+                })
+            }
+        })
     }
 </script>
