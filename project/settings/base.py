@@ -63,7 +63,6 @@ INSTALLED_APPS = [
     "djangocms_picture",
     "djangocms_text_ckeditor",
     "djangocms_video",
-    "djangocms_snippet",
     # Third apps
     "django_select2",
     "colorfield",
@@ -111,6 +110,8 @@ TEMPLATES = [
         },
     },
 ]
+
+
 
 WSGI_APPLICATION = "project.wsgi.application"
 

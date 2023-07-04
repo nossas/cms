@@ -30,7 +30,7 @@ class ColumnPlugin(CMSPluginBase):
         "ButtonPlugin",
         "FluidGridPlugin",
         "PressurePlugin",
-        "VideoPlayerPlugin",
+        "VideoPlugin",
         "SnippetPlugin",
     ]
 

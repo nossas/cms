@@ -7,6 +7,8 @@ from django.utils.translation import ugettext_lazy as _
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 from djangocms_picture.cms_plugins import PicturePlugin as DjangoCMSPicturePlugin
+from djangocms_video.cms_plugins import VideoPlayerPlugin as DjangoCMSVideoPlayerPlugin
+from djangocms_video.models import VideoPlayer
 
 from .models import Button
 
@@ -108,3 +110,28 @@ class ButtonPlugin(CMSPluginBase):
             },
         ),
     ]
+
+class VideoForm(forms.ModelForm):
+    width = forms.IntegerField(label=_("Width"), required=False)
+    height = forms.IntegerField(label=_("Height"), required=False)
+    class Meta:
+        model = VideoPlayer
+        fields = "__all__"
+
+@plugin_pool.register_plugin
+class VideoPlugin(DjangoCMSVideoPlayerPlugin):
+    name = "Video"
+    module = "Frontend"
+    form = VideoForm
+    model = VideoPlayer
+    fieldsets = [
+        (None, {"fields": ["embed_link", "width", "height"]}),
+        
+    ]
+    def save_model(self, request, obj, form, change):
+        width = form.cleaned_data["width"]
+        height = form.cleaned_data["height"]
+        if width and height:
+            obj.attributes = dict(width=width, height=height)
+        
+        return super(VideoPlugin, self).save_model(request, obj, form, change)
