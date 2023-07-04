@@ -34,14 +34,14 @@ class PressureForm(forms.Form):
     email_subject = forms.CharField(
         label="Assunto",
         max_length=100,
-        disabled=True,
-        widget=forms.TextInput(attrs={"placeholder": " "}),
+        # disabled=True,
+        widget=forms.TextInput(attrs={"placeholder": " ", "readonly": True}),
     )
 
     email_body = forms.CharField(
         label="Corpo do e-mail",
-        disabled=True,
-        widget=forms.Textarea(attrs={"placeholder": " "}),
+        # disabled=True,
+        widget=forms.Textarea(attrs={"placeholder": " ", "readonly": True}),
     )
 
     def __init__(self, *args, **kwargs):
