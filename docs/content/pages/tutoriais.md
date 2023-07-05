@@ -6,4 +6,5 @@ Slug: tutoriais
 Outro paragrafo
 
 - [Login](/tutoriais/login/)
-- [Criar uma página](/tutoriais/criar-uma-pagina/)
+- [Criar uma página](/tutoriais/criar-pagina/)
+- [Editar uma página](/tutoriais/editar-pagina/)

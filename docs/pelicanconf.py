@@ -43,7 +43,7 @@ MENU_ITEMS = [
         "children": [
             {"title": "Login", "url": f"{SITEURL}/tutoriais/login/"},
             {"title": "Criar uma página", "url": f"{SITEURL}/tutoriais/criar-pagina/"},
-            # {"title": "Parte 2", "url": ""},
+            {"title": "Editar página", "url": f"{SITEURL}/tutoriais/editar-pagina/"},
             # {"title": "Parte 3", "url": ""},
         ],
     },
