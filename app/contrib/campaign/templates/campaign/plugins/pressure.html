@@ -73,7 +73,6 @@
     }
     
     // Submit to action
-    console.log("formData", formData);
     const response = await fetch("{% url 'action_pressure' %}", {
       method: 'POST',
       body: JSON.stringify(formData),
@@ -103,7 +102,9 @@
           formControlElem.append(ulElem);
         }
       }
+      window.gtag("event", "form_submit_error", { form_id: "pressureFormElem" });
     } else {
+      window.gtag("event", "form_submit_success", { form_id: "pressureFormElem" });
       // Render success message
       alert("Formulário enviado com sucesso");
     }
