@@ -2,8 +2,6 @@
   "use strict";
 
   $(function () {
-    console.log("window.gtag", window.gtag);
-
     $(".pressure-plugin form").on("submit", function (evt) {
       const $form = $(this);
 
