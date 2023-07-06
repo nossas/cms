@@ -2,12 +2,15 @@
   "use strict";
 
   $(function () {
+    console.log("window.gtag", window.gtag);
+
     $(".pressure-plugin form").on("submit", function (evt) {
-      const $form = $(this)
+      const $form = $(this);
 
       function handleResponse(data) {
         if (data.success) {
-          alert("success")
+          alert("success");
+          window.gtag("event", "form_submit_success", { form_id: $form.attr("id") });
         } else {
           $form.find('.errorlist').empty();
 
@@ -17,8 +20,9 @@
               $.each(value, function (item) {
                 return "<li>" + item + "</li>"
               })
-            )
-          })
+            );
+          });
+          window.gtag("event", "form_submit_failed", { form_id: $form.attr("id") });
         }
       }
 

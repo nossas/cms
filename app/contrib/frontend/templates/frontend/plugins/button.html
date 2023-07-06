@@ -3,7 +3,6 @@
     style="{{instance.styles}}"
     href="{% if not request.current_page.publisher_is_draft %}{{instance.action_url}}{% endif %}"
     {% if instance.link_target %} target="{{ instance.link_target }}"{% endif %}
-    data-ga-event="click"
 >
     {{ instance.title }}
 </a>

@@ -3,43 +3,30 @@
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id={{GTAG_ID}}"></script>
 <script>
-    // Inicia configuraçõa principal do GA4
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
+  // Inicia configuraçõa principal do GA4
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
 
-    gtag('js', new Date());
-    gtag('config', '{{GTAG_ID}}', {
-      "page_title": "{% page_attribute 'page_title' %}"
-    });
+  gtag('js', new Date());
+  gtag('config', '{{GTAG_ID}}', {
+    "page_title": "{% page_attribute 'page_title' %}"
+  });
 
-    // Aplica evento de clica aos botões com data-ga-event configurado
-    const btnElements = document.querySelectorAll('[data-ga-event="click"]');
+  // Aplica evento de focusOut aos inputs dos formulários
+  const inputElements = document.querySelectorAll("form input");
+  if (inputElements || inputElements?.length > 0) {
+    inputElements.forEach(function (element) {
+      formElement = element.closest("form")
 
-    if (btnElements || btnElements?.length > 0) {
-        btnElements.forEach(function (element) {
-            element.addEventListener("click", function (evt) {
-                const properties = {
-                    name: evt.target.innerText,
-                    url: evt.target.href
-                }
-                gtag('event', 'click', properties);
-            });
+      if (element.name !== "csrfmiddlewaretoken") {
+        element.addEventListener("focusout", function () {
+          gtag('event', 'input_focus_out', {
+            form_id: formElement.id,
+            input_id: element.id,
+            input_status: element.value !== "" ? "filled" : "unfilled"
+          });
         });
-    }
-
-    // Aplica evento de focusOut aos inputs com formulário data-ga-event configurado
-    const inputElements = document.querySelectorAll("form[data-ga-event='form'] input");
-    if (inputElements || inputElements?.length > 0) {
-        inputElements.forEach(function (element) {
-            if (element.name !== "csrfmiddlewaretoken") {
-                element.addEventListener("focusout", function () {
-                    const properties = {
-                        input_name: element.name,
-                        focus_out: element.value !== "" ? "filled" : "unfilled"
-                    }
-                    gtag('event', 'form_field', properties)
-                })
-            }
-        })
-    }
+      }
+    });
+  }
 </script>

@@ -22,7 +22,7 @@
       {% endwith %}
     </div>
 
-    <form method="post" action="{% url 'action_pressure' %}" novalidate>
+    <form id="pressureForm" method="post" action="{% url 'action_pressure' %}" novalidate>
       {% csrf_token %}
       {% for field in form.visible_fields %}
       <div class="form-control py-2 px-6">
