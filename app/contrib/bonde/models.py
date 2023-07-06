@@ -201,7 +201,7 @@ class Theme(models.Model):
     class Meta:
         managed = False
         db_table = "themes"
-    
+
     def __str__(self):
         return self.label
 
@@ -214,7 +214,6 @@ class Subtheme(models.Model):
     class Meta:
         managed = False
         db_table = "subthemes"
-    
 
     def __str__(self):
         return self.label
@@ -258,6 +257,16 @@ class Widget(models.Model):
 
     def __str__(self):
         return f"{self.block.mobilization.name} {self.kind} #{self.id}"
+
+    def total_actions(self) -> int:
+        if self.kind == "pressure":
+            return (
+                ActionPressure.objects.filter(widget=self.id)
+                .values("activist_id")
+                .distinct()
+                .count()
+            )
+        return 0
 
 
 class ActionPressure(models.Model):

@@ -68,6 +68,7 @@ INSTALLED_APPS = [
     "django_select2",
     "colorfield",
     # My Apps
+    "contrib.actions.pressure",
     "contrib.bonde",
     "contrib.campaign",
     "contrib.frontend",

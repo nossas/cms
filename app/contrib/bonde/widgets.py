@@ -1,20 +1,25 @@
-from django.forms import MultiWidget, Select
+from typing import Any
+from django_select2 import forms as s2forms
+from .models import Widget
 
 
-class BondeWidget(MultiWidget):
-    description = "A Bonde widget reference"
-    template_name = "bonde/widgets/bonde_widget.html"
+class ActionSelectWidget(s2forms.Select2Widget):
+    """
+    """
+    empty_label = "Busque pelo nome ou pelo id da widget"
 
-    def __init__(self, *args, **kwargs):
-        kwargs["widgets"] = {
-            "mobilization_id": Select,
-            "widget_id": Select
-        }
 
-        super(BondeWidget, self).__init__(*args, **kwargs)
+class ActionChoices:
+    """
+    """
+
+    def __init__(self, kind: str):
+        self.kind = kind
     
 
-    def decompress(self, value):
-        if value:
-            return [value.mobilization_id, value.widget_id]
-        return []
+    def __call__(self, *args: Any, **kwds: Any) -> Any:
+        qs = Widget.objects.on_site().filter(kind=self.kind)
+
+        return list(
+            map(lambda x: (x.id, f"{x.block.mobilization.name} ({x.id})"), qs.all())
+        )
