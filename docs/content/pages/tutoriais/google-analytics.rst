@@ -1,10 +1,10 @@
 Configurar o Google Analytics
------------------------------
+#############################
 
 .. class:: table-of-contents
 
 Sumário
-#######
+*******
 
 - `O que é o GA?`_
 - `Como conseguir o código GA`_

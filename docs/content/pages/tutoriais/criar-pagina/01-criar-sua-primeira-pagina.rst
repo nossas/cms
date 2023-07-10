@@ -1,16 +1,16 @@
-Crie sua primeira página
-########################
+Criar sua primeira página
+*************************
 
 O assistente de criação de página do CMS abrirá uma nova caixa de diálogo.
 
-.. image:: images/primeira-pagina.png
+.. image:: {static}/images/criar-pagina/primeira-pagina.png
   :width: 600
   :alt: Caixa de diálogo da primeira página
 
 
 Selecione *Próximo* e preencha um Título para a nova página e, em seguidam clique em *Criar*
 
-.. image:: images/formulario-primeira-pagina.png
+.. image:: {static}/images/criar-pagina/formulario-primeira-pagina.png
   :width: 600
   :alt: Formulário para criar página
 
