@@ -15,7 +15,7 @@ if [ -n "$PELICAN_THEME_FOLDER" ]; then
     echo 'Installing Node Modules 🧰 '
     pushd $PELICAN_THEME_FOLDER
     npm install
-    npm build
+    npm run build
     popd
 fi
 

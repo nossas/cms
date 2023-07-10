@@ -3,8 +3,10 @@ name: Deploy Bonde CMS documentation with pelican
 on:
   # Trigger the workflow on push on main branch,
   push:
-    branches:
-      - main
+    paths:
+      - 'docs/**'
+    # branches:
+    #   - main
 
 jobs:
   build:
@@ -21,3 +23,4 @@ jobs:
         PELICAN_CONTENT_FOLDER: docs/content/
         PELICAN_REQUIREMENTS_FILE: docs/requirements.txt
         PELICAN_SITEURL: https://nossas.github.io/cms
+        PELICAN_THEME_FOLDER: docs/pelican/themes/pelican-docs/
