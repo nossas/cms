@@ -43,6 +43,8 @@ MENU_ITEMS = [
         "children": [
             {"title": "Login", "url": f"{SITEURL}/tutoriais/login/"},
             {"title": "Criar uma página", "url": f"{SITEURL}/tutoriais/criar-pagina/"},
+            {"title": "Editar uma página", "url": f"{SITEURL}/tutoriais/editar-pagina/"},
+            {"title": "Salvar e publicar página", "url": f"{SITEURL}/tutoriais/salvar-e-publicar-pagina/"},
             {"title": "Configurar o GA", "url": f"{SITEURL}/tutoriais/google-analytics/"},
         ],
     },
