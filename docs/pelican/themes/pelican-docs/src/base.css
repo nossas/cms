@@ -6,8 +6,8 @@
     @apply list-disc pl-6;
 }
 
-.section:not(.table-of-contents) li, .container img {
-    @apply mb-4;
+.section:not(.table-of-contents) li {
+    @apply my-4;
 }
 
 .section {

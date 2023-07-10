@@ -4,7 +4,7 @@ from django.contrib.sites.models import Site
 
 class GA(models.Model):
     uuid = models.CharField(
-        "ID de métricas",
+        "ID da métrica",
         help_text="Ex. G-XXXXXXXXXX",
         max_length=15,
         blank=True,

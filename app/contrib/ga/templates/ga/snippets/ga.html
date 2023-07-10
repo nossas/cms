@@ -3,36 +3,30 @@
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id={{GTAG_ID}}"></script>
 <script>
-    // Inicia configuraçõa principal do GA4
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
+  // Inicia configuraçõa principal do GA4
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
 
-    gtag('config', '{{GTAG_ID}}', {
-      "page_title": "{% page_attribute 'page_title' %}"
-    });
+  gtag('js', new Date());
+  gtag('config', '{{GTAG_ID}}', {
+    "page_title": "{% page_attribute 'page_title' %}"
+  });
 
-    // Aplica evento de clica aos botões com data-ga-event configurado
-    const elements = document.querySelector('[data-ga-event="click"]');
+  // Aplica evento de focusOut aos inputs dos formulários
+  const inputElements = document.querySelectorAll("form input");
+  if (inputElements || inputElements?.length > 0) {
+    inputElements.forEach(function (element) {
+      formElement = element.closest("form")
 
-    // elements.forEach(function (element, index) {
-    //     element.addEventListener("click", function (evt) {
-    //         gtag('event', 'click', {
-    //             name: elements[index].data-ga-target
-    //         });
-    //     })
-    // });
-
-    if (elements || elements?.length > 0) {
-        elements.addEventListener("click", function (evt) {
-            console.log("evt", evt.target)
-            const properties = {
-                name: evt.target.data,
-                url: evt.target.href
-            }
-            console.log("evt", properties)
-
-            gtag('event', 'click', properties);
+      if (element.name !== "csrfmiddlewaretoken") {
+        element.addEventListener("focusout", function () {
+          gtag('event', 'input_focus_out', {
+            form_id: formElement.id,
+            input_id: element.id,
+            input_status: element.value !== "" ? "filled" : "unfilled"
+          });
         });
-    }
+      }
+    });
+  }
 </script>
