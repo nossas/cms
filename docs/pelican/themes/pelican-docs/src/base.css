@@ -1,0 +1,15 @@
+.container a {
+    @apply text-primary underline;
+}
+
+.section:not(.table-of-contents) ol, .section:not(.table-of-contents) ul {
+    @apply list-disc pl-6;
+}
+
+.section:not(.table-of-contents) li, .container img {
+    @apply mb-4;
+}
+
+.section {
+    @apply mb-6;
+}
