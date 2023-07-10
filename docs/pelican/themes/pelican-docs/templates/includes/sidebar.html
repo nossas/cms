@@ -1,0 +1,12 @@
+    <!-- Brand -->
+    <nav class="p-4 w-80 h-full bg-base-200">
+      <span class="grid h-10 w-32 place-content-center">
+        {% include "./includes/logo-bonde-whitebg-01.svg" %}
+      </span>
+      <ul class="menu p-4 w-80 h-full">
+        <!-- Sidebar content here -->
+        {% for page in MENU_ITEMS %}
+        {% include "./includes/menu_children.html" %}
+        {% endfor %}
+      </ul>
+    </nav>
