@@ -1,5 +1,11 @@
 name: Publish Bonde CMS docker image
-on: [push, pull_request]
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+    tags:
+      - v*
 
 
 jobs:
