@@ -2,16 +2,16 @@ import json
 
 from django import forms
 
-from contrib.bonde.forms import ReferenceBaseForm
+from contrib.bonde.forms import ReferenceBaseModelForm
 from tailwind.forms import StyledBaseForm
 
 from .models import PressurePluginModel
 
 
-class PressurePluginForm(ReferenceBaseForm):
+class PressurePluginForm(ReferenceBaseModelForm):
     action_kind = "pressure"
 
-    class Meta(ReferenceBaseForm.Meta):
+    class Meta(ReferenceBaseModelForm.Meta):
         abstract = False
         model = PressurePluginModel
 

@@ -3,7 +3,7 @@ from django import forms
 from .widgets import ActionSelectWidget, ActionChoices
 
 
-class ReferenceBaseForm(forms.ModelForm):
+class ReferenceBaseModelForm(forms.ModelForm):
     """ """
 
     class Meta:
@@ -22,7 +22,7 @@ class ReferenceBaseForm(forms.ModelForm):
     action_kind = None
 
     def __init__(self, *args, **kwargs):
-        super(ReferenceBaseForm, self).__init__(*args, **kwargs)
+        super(ReferenceBaseModelForm, self).__init__(*args, **kwargs)
 
         # Configurar tipo de ação para filtrar widgets
         self.fields["reference_id"].choices = ActionChoices(self.action_kind)
