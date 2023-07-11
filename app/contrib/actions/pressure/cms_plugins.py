@@ -9,7 +9,8 @@ from .models import PressurePluginModel
 class PressurePlugin(CMSPluginBase):
     name = "Pressão"
     module = "Estrategia"
-    render_template = "pressure/pressure_plugin.html"
+    # render_template = "pressure/pressure_plugin.html"
+    render_template = "pressure/tweet_button.html"
     model = PressurePluginModel
     form = PressurePluginForm
 
@@ -36,10 +37,17 @@ class PressurePlugin(CMSPluginBase):
                 "form": form,
                 "settings": self.get_settings(obj),
                 "size": obj.total_actions() if obj else 0,
+                "tweet": {
+                    "message": self.encode_tweet("IMPORTANTE: @nossas_ queremos #tarifazero já https://nossas.org"),
+                }
             }
         )
 
         return context
+
+    def encode_tweet(self, msg):
+        """Fix caracteres not permitted in urlparams"""
+        return msg.replace("#", "%23")
 
     def get_settings(self, obj):
         settings = {
