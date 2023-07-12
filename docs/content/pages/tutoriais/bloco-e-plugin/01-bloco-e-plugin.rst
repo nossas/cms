@@ -1,5 +1,5 @@
-Entendendo Bloco e Plugin
-#########################
+Bloco e Plugin
+##############
 
 A diferença entre um Bloco e um Plugin está na sua função e escopo dentro do CMS.
 
