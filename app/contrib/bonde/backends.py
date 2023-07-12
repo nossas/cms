@@ -20,7 +20,10 @@ class BondeBackend(ModelBackend):
 
         # Se usuário ainda não existir na plataforma, buscamos na base de dados do Bonde
         if not user:
-            user_bonde = UserBonde.objects.get(email=username)
+            try:
+                user_bonde = UserBonde.objects.get(email=username)
+            except UserBonde.DoesNotExist:
+                user_bonde = None
 
             if user_bonde and bcrypt.checkpw(
                 bytes(password, "utf-8"), bytes(user_bonde.encrypted_password, "utf-8")
