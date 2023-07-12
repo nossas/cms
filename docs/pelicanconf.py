@@ -44,6 +44,7 @@ MENU_ITEMS = [
             {"title": "Login", "url": f"{SITEURL}/tutoriais/login/"},
             {"title": "Criar página", "url": f"{SITEURL}/tutoriais/criar-pagina/"},
             {"title": "Editar página", "url": f"{SITEURL}/tutoriais/editar-pagina/"},
+            {"title": "Entendendo Bloco e Plugin", "url": f"{SITEURL}/tutoriais/bloco-e-plugin/"},
             {"title": "Salvar e publicar página", "url": f"{SITEURL}/tutoriais/salvar-e-publicar-pagina/"},
             {"title": "Configurar o GA", "url": f"{SITEURL}/tutoriais/google-analytics/"},
         ],
