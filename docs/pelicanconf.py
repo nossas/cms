@@ -48,4 +48,8 @@ MENU_ITEMS = [
             {"title": "Configurar o GA", "url": f"{SITEURL}/tutoriais/google-analytics/"},
         ],
     },
+    {
+        "title": "Diagramas",
+        "url": f"{SITEURL}/diagramas/"
+    }
 ]
