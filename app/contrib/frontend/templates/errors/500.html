@@ -1,1 +1,20 @@
-<h1>500</h1>
+{% extends 'errors/base-error.html' %}
+
+{% load static %}
+
+{% block image_error %}
+<img class="mx-auto" src="{% static 'images/bonde_error_500.png' %}" alt="Error 500">
+{% endblock %}
+
+{% block message_error %}
+<div class="flex flex-col gap-2">
+  <p>
+    Estamos com um problema inesperado nos nossos servidores. Nossa equipe já foi alertada e está trabalhando para colocar o Bonde nos trilhos novamente. 
+    Tente acessar a página de novo em alguns minutos. 
+  </p>
+  <p>
+    Caso seja algo urgente ou você queira falar sobre outro assunto, envie um email para <a class="text-[#EE0090]" href="mailto:suporte@bonde.org">suporte@bonde.org</a>
+  </p>
+  <p>Obrigada pela compreensão :)</p>
+</div>
+{% endblock %}
