@@ -1,13 +1,13 @@
 {% if children %}
-<div class="sticky top-0 navbar bg-base-600"{% if instance.styles %} style="{{instance.styles}}"{% endif %}>
+<div class="sticky z-10 navbar bg-base-600 h-[70px]"{% if instance.styles %} style="{{instance.styles}}"{% endif %}>
   <div class="navbar-start">
     <div class="dropdown">
       <label tabindex="0" class="btn btn-ghost lg:hidden">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
         </svg>
       </label>
-      <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"{% if instance.styles %} style="{{instance.styles}}"{% endif %}>
+      <ul tabindex="0" class="p-2 mt-3 w-52 shadow menu menu-compact dropdown-content bg-base-100 rounded-box"{% if instance.styles %} style="{{instance.styles}}"{% endif %}>
         {% for block in children %}
         <li>
           <a href="#{{ block.slug }}" target="_self">{{ block.get_menu_title }}</a>
@@ -16,8 +16,8 @@
       </ul>
     </div>
   </div>
-  <div class="navbar-center hidden lg:flex">
-    <ul class="menu menu-horizontal px-1">
+  <div class="hidden navbar-center lg:flex">
+    <ul class="px-1 menu menu-horizontal">
       {% for block in children %}
       <li>
         <a href="#{{ block.slug }}" target="_self">{{ block.get_menu_title }}</a>
