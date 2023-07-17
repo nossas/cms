@@ -33,7 +33,7 @@
 <body {% if request.toolbar %}class="cms-styled-admin"{% endif %} {% block body_attrs %}{% endblock %}>
   {% cms_toolbar %}
   {% block content %}{% endblock %}
-
+  
   {% render_block "js" %}
 
   {% if ga %}
