@@ -1,1 +1,19 @@
-<h1>404</h1>
+{% extends 'errors/base-error.html' %}
+
+{% load static %}
+
+{% block image_error %}
+<img class="mx-auto" src="{% static 'images/bonde_error_404.png' %}" alt="Error 404">
+{% endblock %}
+
+{% block message_error %}
+<div class="flex flex-col gap-2">
+  <p>
+    Desculpa, mas não conseguimos encontrar a página que você procura. Confira se o link está certo e tente carregar a página novamente.
+  </p>
+  <p>
+    Se o erro persistir, envie um email para <a class="text-[#EE0090]" href="mailto:suporte@bonde.org">suporte@bonde.org</a> com o link da página que você está tentando acessar.
+  </p>
+  <p>Te responderemos o quanto antes :)</p>
+</div>
+{% endblock %}

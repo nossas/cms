@@ -1,0 +1,18 @@
+{% extends 'tailwind.html' %}
+
+{% load static %}
+
+{% block content %}
+<main style="padding-top: 12%;">
+  <div class="container px-5 mx-auto">
+    <div class="grid grid-cols-2 gap-4 justify-center items-center">
+      {% block image_error %}{% endblock %}
+      <div class="max-w-md">
+        <h1 class="mb-4 text-6xl font-extrabold">Ops</h1>
+        {% block message_error %}{% endblock %}
+      </div>
+    </div>
+  </div>
+</main>
+
+{% endblock %}
