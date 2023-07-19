@@ -6,14 +6,13 @@ from contrib.bonde.models import Widget
 
 
 class PressurePluginModel(CMSPlugin):
-    """
-    """
+    """ """
+
     reference_id = models.IntegerField(
         null=True,
         blank=True,
-        help_text="ID de referência da widget na plataforma Bonde"
+        help_text="ID de referência da widget na plataforma Bonde",
     )
-
 
     def get_widget(self):
         if not self.reference_id:
