@@ -15,11 +15,30 @@
             }, 2000);
           }
 
+          function getGeolocation(data) {
+            function success(position) {
+              const latitude = position.coords.latitude;
+              const longitude = position.coords.longitude;
+
+              data.geolocation.latitude = latitude;
+              data.geolocation.longitude = longitude;  
+            }
+            
+            function error(error) {
+              console.error("Error", error)
+            }
+            return navigator.geolocation.getCurrentPosition(success, error);
+            }   
+
+
         function handleResponse(data) {
             if (data.success) {
             $("#pressureWrapper").empty();
             $("#pressureWrapper").html(data.html);
 
+            getGeolocation(data);
+            
+            
             $("#copyToClipboard").on("click", function () {
                 const textToCopy = window.location.href;
         

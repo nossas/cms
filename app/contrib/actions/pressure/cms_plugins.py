@@ -52,7 +52,7 @@ class PressurePlugin(CMSPluginBase):
 
     def render(self, context, instance, placeholder):
         obj = instance.get_widget()
-        total_actions = obj.total_actions() if obj else 0
+        total_actions = obj.total_actions() if obj else 0;
         settings = self.get_settings(obj)
         initial = (
             {

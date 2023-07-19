@@ -30,7 +30,11 @@ class AjaxableResponseMixin(object):
       if self.request.is_ajax():
         data = {
               'success': True,
-              'html': render(self.request, 'pressure/pressure_success.html', {"form_data": form.cleaned_data}).content.decode('utf-8')
+              'html': render(self.request, 'pressure/pressure_success.html', {"form_data": form.cleaned_data}).content.decode('utf-8'),
+               "geolocation": {
+                    "latitude": form.cleaned_data["latitude"],
+                    "longitude": form.cleaned_data["longitude"],
+                },
           }
         return self.render_to_json_response(data)
       else:
