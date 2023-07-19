@@ -65,9 +65,11 @@ INSTALLED_APPS = [
     "djangocms_video",
     "djangocms_snippet",
     # Third apps
+    "django_extensions",
     "django_select2",
     "colorfield",
     # My Apps
+    "contrib.actions",
     "contrib.actions.pressure",
     "contrib.bonde",
     "contrib.campaign",
@@ -125,10 +127,12 @@ DATABASES = {
     "default": env.db_url("CMS_DATABASE_URL", f"sqlite:///{DEFAULT_DB_SQLITE}"),
     # Add tmp sqlite file to build image
     "bonde": env.db_url("BONDE_DATABASE_URL", "sqlite:////tmp/bonde.sqlite3"),
+    "actions": env.db_url("ACTIONS_DATABASE_URL", "sqlite:////tmp/actions.sqlite3")
 }
 
 DATABASE_ROUTERS = [
     "contrib.bonde.router.AuthRouter",
+    "contrib.actions.router.ActionsRouter"
 ]
 
 

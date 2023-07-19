@@ -18,10 +18,11 @@ from django.conf import settings
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path, include
-
+from admin_styled.admin import site as admin_site
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path("django-admin/", admin.site.urls),
+    path("admin/", admin_site.urls),
     path("select2/", include("django_select2.urls")),
     path("actions/", include("contrib.actions.pressure.urls")),
     path("", include("cms.urls"))

@@ -3,7 +3,6 @@ from cms.admin.forms import AddPageForm
 from cms.admin.pageadmin import PageAdmin
 from cms.models.pagemodel import Page
 
-admin.site.unregister(Page)
 
 class NewAddPageForm(AddPageForm):
     class Meta(AddPageForm.Meta):
@@ -17,7 +16,6 @@ class NewAddPageForm(AddPageForm):
             for value, label in self.fields["source"].widget.choices
         ]
 
+
 class NewPageAdmin(PageAdmin):
     add_form = NewAddPageForm
-
-admin.site.register(Page, NewPageAdmin)
