@@ -5,3 +5,42 @@
 .cms-styled-admin .cms-reset a.header-logo:hover {
     @apply flex items-center ml-6 mr-4;
 }
+
+.btn {
+    @apply min-h-6;
+}
+
+/* django-select2 */
+.app-styled-admin .select2-container .select2-selection--multiple .select2-selection__rendered {
+    @apply flex;
+}
+
+.app-styled-admin .field-targets .help {
+    @apply hidden;
+}
+
+.app-styled-admin .select2-container .select2-search--inline {
+    @apply flex-1;
+}
+
+.app-styled-admin .select2-container--default .select2-selection--multiple .select2-selection__choice {
+    @apply bg-black text-white;
+    @apply px-4 py-2 my-1 !important;
+}
+
+.app-styled-admin .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    @apply text-white mr-2 hover:text-white;
+}
+
+.app-styled-admin .select2-container--default .select2-selection--multiple {
+    @apply pl-4;
+}
+
+.app-styled-admin .select2-search input {
+    border: none !important;
+    padding: 10px !important;
+}
+
+.app-styled-admin .field-targets .related-widget-wrapper.widget-wrapper-links-1 select {
+    @apply w-[60em] !important;
+}

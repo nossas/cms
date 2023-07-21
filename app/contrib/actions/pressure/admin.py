@@ -3,8 +3,10 @@ from django.contrib import admin
 
 from admin_styled.admin import site as admin_site
 
+# from .models.plugins import PressurePluginModel
 from .models.base import Pressure, EmailPressure, PhonePressure, TwitterPressure
 from .models.targets import Target, Contact
+from .forms.base import PressureAdminForm, PressureAdminChangeForm
 from .forms.targets import TargetAdminForm
 
 
@@ -48,21 +50,23 @@ class TwitterPressureInline(admin.StackedInline):
 
 
 class PressureAdmin(admin.ModelAdmin):
+    form = PressureAdminForm
     change_form_template = "pressure/admin/pressure_change_form.html"
     inlines = (EmailPressureInline, PhonePressureInline, TwitterPressureInline)
 
     class Media:
-        # css = {
-        #     "all": ["pressure/css/tabs.css"]
-        # }
         js = ["pressure/js/tabs.js"]
 
-    # def get_formsets_with_inlines(self, request, obj=None):
-    #     for inline in self.get_inline_instances(request, obj):
-    #         # hide MyInline in the add view
-    #         # if not isinstance(inline, MyInline) or obj is not None:
-    #         import ipdb;ipdb.set_trace()
-    #         yield inline.get_formset(request, obj), inline
+    def get_form(self, request, obj, change=False, **kwargs: Any) -> Any:
+        if change:
+            self.form = PressureAdminChangeForm
+        return super().get_form(request, obj, change, **kwargs)
+    
+
+    def save_model(self, request: Any, obj: Any, form: Any, change: Any) -> None:
+        if change:
+            obj.campaign = obj.campaign.id
+        return super().save_model(request, obj, form, change)
 
 
 admin_site.register(Pressure, PressureAdmin)

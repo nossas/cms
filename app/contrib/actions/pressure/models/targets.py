@@ -12,7 +12,9 @@ class CustomCurrentSiteManager(CurrentSiteManager):
 
     def get_queryset(self):
         return super().get_queryset().filter(**{"publish_on__id": settings.SITE_ID})
-
+    
+    def all(self):
+        return self.get_queryset()
 
 class Target(models.Model):
     name = models.CharField(verbose_name="Nome do alvo", max_length=155)

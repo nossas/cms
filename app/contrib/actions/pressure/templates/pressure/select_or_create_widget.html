@@ -1,0 +1,14 @@
+{% with css_classes=widget.attrs.class|default:'' %}
+
+{% endwith %}
+<form>
+    {{ form.as_p }}
+
+    {% for formset in formsets %}
+        <div class="flex">
+        {% for inline_form in formset %}
+            {{ inline_form.as_p }}
+        {% endfor %}
+        </div>
+    {% endfor %}
+</form>

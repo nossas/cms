@@ -1,7 +1,5 @@
-import json
 from typing import Any
 from django.db import models
-from django.forms import Textarea
 
 from contrib.actions.fields import CampaignField
 
@@ -9,19 +7,21 @@ from .targets import Target
 
 
 class Pressure(models.Model):
-    targets = models.ManyToManyField(Target, blank=True)
+    targets = models.ManyToManyField(Target, verbose_name="Alvos", blank=True)
     campaign = CampaignField(verbose_name="Campanha", blank=True, null=True)
 
     class Meta:
         verbose_name = "pressão"
         verbose_name_plural = "pressões"
 
-    # def submit(self):
-    #     return f"/url-onde-faz-a-ação/{self.reference_id}"
+    def __str__(self):
+        if self.campaign:
+            return self.campaign.name
+        return self.__str__()
 
 
 class PressureAbstractModel(models.Model):
-    pressure = models.ForeignKey(Pressure, on_delete=models.CASCADE)
+    plugin = models.ForeignKey(Pressure, on_delete=models.CASCADE)
 
     class Meta:
         abstract = True

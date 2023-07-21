@@ -1,19 +1,69 @@
 import json
 
 from django import forms
+from django.forms import formset_factory
 
-from contrib.bonde.forms import ReferenceBaseModelForm
+# from contrib.bonde.forms import ReferenceBaseModelForm
 from tailwind.forms import StyledBaseForm
 
-from ..models import PressurePluginModel
+from contrib.actions.models import Campaign
+from ..models.base import Pressure
+from ..models.targets import Target
+from ..models.plugins import PressurePluginModel
+from .base import PressureAdminForm
+from .base import EmailPressureForm, PhonePressureForm, TwitterPressureForm
 
 
-class PressurePluginForm(ReferenceBaseModelForm):
-    action_kind = "pressure"
+class SelectOrCreateWidget(forms.Select):
+    template_name = "pressure/select_or_create_widget.html"
 
-    class Meta(ReferenceBaseModelForm.Meta):
-        abstract = False
+    def get_context(self, name, value, attrs):
+        context = super().get_context(name, value, attrs)
+        context["form"] = PressureAdminForm()
+        context["formsets"] = self._get_formsets()
+        return context
+
+    def _get_formsets(self):
+        return [
+            formset_factory(EmailPressureForm, extra=1),
+            formset_factory(PhonePressureForm, extra=1),
+            formset_factory(TwitterPressureForm, extra=1)
+        ]
+
+
+class PressurePluginAddForm(forms.ModelForm):
+    action = forms.ModelChoiceField(
+        queryset=Pressure.objects,
+        # widget=SelectOrCreateWidget,
+        blank=True
+    )
+
+    class Meta:
         model = PressurePluginModel
+        # widgets = {"targets": MultipleTargetSelect}
+        fields = "__all__"
+    
+
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+
+    #     import ipdb;ipdb.set_trace()
+    
+
+    # def clean_action(self):
+    #     import ipdb;ipdb.set_trace()
+    #     action = self.cleaned_data.get("action")
+        
+    
+
+
+
+# class PressurePluginForm(ReferenceBaseModelForm):
+#     action_kind = "pressure"
+
+#     class Meta(ReferenceBaseModelForm.Meta):
+#         abstract = False
+#         model = PressurePluginModel
 
 
 class PressureAjaxForm(StyledBaseForm):

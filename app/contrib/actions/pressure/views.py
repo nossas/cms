@@ -3,7 +3,7 @@ import json
 from django.http import HttpResponse
 from django.views.generic import FormView
 
-from .forms import PressureAjaxForm
+from .forms.plugins import PressureAjaxForm
 
 
 class AjaxableResponseMixin(object):

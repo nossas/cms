@@ -8,7 +8,7 @@ from .models import Campaign
 
 
 def get_choices():
-    qs = Campaign.objects
+    qs = Campaign.objects.all()
 
     return list(map(lambda x: (x.id, f"{x.name} ({x.slug})"), qs.all()))
 
@@ -28,6 +28,9 @@ class CampaignField(models.IntegerField):
         kwargs["choices"] = get_choices()
 
         super().__init__(*args, **kwargs)
+    
+    # def get_internal_type(self) -> str:
+    #     return "Campaign"
 
     def from_db_value(
         self, value: int | None, expression, connection
@@ -46,8 +49,10 @@ class CampaignField(models.IntegerField):
 
         return parse_campaign(value)
 
-    def get_prep_value(self, value: Campaign) -> int:
-        return value.id
+    def get_prep_value(self, value: Any) -> int:
+        if isinstance(value, Campaign):
+            return value.id
+        return value
 
     def formfield(self, **kwargs):
         defaults = {"widget": Select2Widget}
@@ -57,7 +62,9 @@ class CampaignField(models.IntegerField):
     def value_from_object(self, obj):
         # Used on django forms to render value
         value = super().value_from_object(obj)
-        return value.id
+        if isinstance(value, Campaign):
+            return value.id
+        return value
 
     @property
     def non_db_attrs(self):

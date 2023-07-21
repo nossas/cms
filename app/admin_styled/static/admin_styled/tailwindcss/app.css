@@ -1,5 +1,9 @@
 /* Estilos para todos os componentes dentro de app-app-styled-admin */
 
+.app-styled-admin #branding {
+    @apply flex;
+}
+
 .app-styled-admin #container {
     @apply bg-white;
 }
@@ -54,6 +58,7 @@
 .app-styled-admin .cms-pagetree a.addlink {
     @apply mr-1;
 }
+
 .app-styled-admin ul.messagelist a,
 .app-styled-admin ul.messagelist a:link {
     @apply text-[#693];
@@ -79,4 +84,4 @@
 
 span.filerFile.js-file-selector {
     @apply flex justify-center;
-  }
+}
