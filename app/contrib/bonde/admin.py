@@ -1,4 +1,4 @@
-from django.contrib import admin
+# from django.contrib import admin
 
 # Register your models here.
 import admin2
@@ -20,7 +20,7 @@ admin2.site.register(Community)
 admin2.site.register(CommunityUser)
 admin2.site.register(DnsHostedZone)
 admin2.site.register(Mobilization)
-admin2.site.register(Block)
+admin2.site.register(Block, admin2.ModelAdmin)
 admin2.site.register(Widget)
 admin2.site.register(Theme)
 admin2.site.register(Subtheme)
