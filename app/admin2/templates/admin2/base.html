@@ -85,13 +85,13 @@
     {% endblock %}
     {% endif %}
 
-    <div class="main" id="main">
+    <div class="main flex" id="main">
       {% if not is_popup and is_nav_sidebar_enabled %}
         {% block nav-sidebar %}
-          {% include "admin/nav_sidebar.html" %}
+          {% include "admin2/nav_sidebar.html" %}
         {% endblock %}
       {% endif %}
-      <div id="content-start" class="content" tabindex="-1">
+      <div id="content-start" class="content flex-1" tabindex="-1">
         {% block messages %}
           {% if messages %}
             <ul class="messagelist">{% for message in messages %}
