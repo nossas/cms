@@ -40,9 +40,13 @@ X_FRAME_OPTIONS = "SAMEORIGIN"
 # Application definition
 
 INSTALLED_APPS = [
+    # Aplicativos de estilização
+    "admin2",
     "admin_styled",
     "tailwind",
-    "djangocms_admin_style",
+
+    # "djangocms_admin_style",
+    # Aplicativos de gestão
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
