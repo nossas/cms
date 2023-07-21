@@ -102,19 +102,19 @@
         <!-- Content -->
         <div id="content" class="flex">
           <div class="flex-1 px-8 py-12">
-            <div class="mb-4">
-            {% block pretitle %}{% endblock %}
-            {% block content_title %}{% if title %}<h1 class="text-lg font-bold">{{ title }}</h1>{% endif %}{% endblock %}
-            {% block content_subtitle %}{% if subtitle %}<h2 class="text-sm">{{ subtitle }}</h2>{% endif %}{% endblock %}
+            <div class="flex mb-4">
+              <div class="flex-1">
+                {% block pretitle %}{% endblock %}
+                {% block content_title %}{% if title %}<h1 class="text-lg font-bold">{{ title }}</h1>{% endif %}{% endblock %}
+                {% block content_subtitle %}{% if subtitle %}<h2 class="text-sm">{{ subtitle }}</h2>{% endif %}{% endblock %}
+              </div>
+              {% block object-tools %}{% endblock %}
             </div>
           {% block content %}
-            {% block object-tools %}{% endblock %}
             {{ content }}
           {% endblock %}
           </div>
-          <aside class="border-l-2 border-solid p-8 h-auto">
-            {% block sidebar %}{% endblock %}
-          </aside>
+          {% block sidebar %}{% endblock %}
         </div>
         <!-- END Content -->
         {% block footer %}<div id="footer"></div>{% endblock %}

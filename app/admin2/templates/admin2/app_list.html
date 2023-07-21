@@ -4,7 +4,7 @@
   {% for app in app_list %}
     <section class="app-{{ app.app_label }} module{% if app.app_url in request.path %} current-app{% endif %} flex flex-col">
         <!-- Header -->
-        <h2 class="bg-black px-4 py-2 font-bold text-white">
+        <h2 class="bg-primary text-primary-content px-4 py-2 font-bold">
           <a href="{{ app.app_url }}" class="section" title="{% blocktranslate with name=app.name %}Models in the {{ name }} application{% endblocktranslate %}">{{ app.name }}</a>
         </h2>
         <!-- Linhas modelos -->

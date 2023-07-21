@@ -1,6 +1,8 @@
 @import "tailwindcss/base";
-@import "./reset.css";
 
 @import "tailwindcss/components";
+@import "./changelist-filter.css";
+@import "./nav-sidebar.css";
+@import "./object-tools.css";
 
 @import "tailwindcss/utilities";

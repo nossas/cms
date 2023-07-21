@@ -1,0 +1,3 @@
+#changelist-filter .changelist-section h3 {
+    @apply bg-secondary text-secondary-content;
+}

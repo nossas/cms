@@ -1,0 +1,7 @@
+ul.object-tools li a.addlink {
+    @apply btn-primary;
+}
+
+ul.object-tools li a {
+    @apply btn btn-sm btn-outline;
+}
