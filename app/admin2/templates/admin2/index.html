@@ -1,4 +1,4 @@
-{% extends "admin/base_site.html" %}
+{% extends "admin2/base_site.html" %}
 {% load i18n static %}
 
 {% block nav-breadcrumbs %}{% endblock %}
@@ -6,8 +6,8 @@
 {% block nav-sidebar %}{% endblock %}
 
 {% block content %}
-<div id="content-main">
-  {% include "admin/app_list.html" with app_list=app_list show_changelinks=True %}
+<div id="content-main" class="w-[50%]">
+  {% include "admin2/app_list.html" with app_list=app_list show_changelinks=True %}
 </div>
 {% endblock %}
 

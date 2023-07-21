@@ -13,3 +13,5 @@ djangocms_snippet
 # django-allauth
 bcrypt
 whitenoise
+
+fontawesomefree

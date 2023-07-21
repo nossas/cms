@@ -5,6 +5,9 @@
 <title>{% block title %}{% endblock %}</title>
 <!-- <link rel="stylesheet" href="{% static "admin/css/base.css" %}"> -->
 <link rel="stylesheet" href="{% block stylesheet %}{% static "admin2/css/admin2.css" %}{% endblock %}">
+<script src="{% static 'fontawesomefree/js/fontawesome.js' %}"></script>
+<script src="{% static 'fontawesomefree/js/solid.js' %}"></script>
+<script src="{% static 'fontawesomefree/js/brands.js' %}"></script>
 {% block dark-mode-vars %}
   <link rel="stylesheet" href="{% static "admin/css/dark_mode.css" %}">
   <script src="{% static "admin/js/theme.js" %}" defer></script>
@@ -99,9 +102,11 @@
         <!-- Content -->
         <div id="content" class="flex">
           <div class="flex-1 px-8 py-12">
-          {% block pretitle %}{% endblock %}
-          {% block content_title %}{% if title %}<h1>{{ title }}</h1>{% endif %}{% endblock %}
-          {% block content_subtitle %}{% if subtitle %}<h2>{{ subtitle }}</h2>{% endif %}{% endblock %}
+            <div class="mb-4">
+            {% block pretitle %}{% endblock %}
+            {% block content_title %}{% if title %}<h1 class="text-lg font-bold">{{ title }}</h1>{% endif %}{% endblock %}
+            {% block content_subtitle %}{% if subtitle %}<h2 class="text-sm">{{ subtitle }}</h2>{% endif %}{% endblock %}
+            </div>
           {% block content %}
             {% block object-tools %}{% endblock %}
             {{ content }}

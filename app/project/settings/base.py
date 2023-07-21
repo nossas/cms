@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "admin2",
     "admin_styled",
     "tailwind",
+    "fontawesomefree",
 
     # "djangocms_admin_style",
     # Aplicativos de gestão
