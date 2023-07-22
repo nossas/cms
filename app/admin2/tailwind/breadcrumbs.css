@@ -1,0 +1,7 @@
+.breadcrumbs {
+    @apply ml-8 flex gap-1;
+}
+
+.breadcrumbs a {
+    @apply underline ;
+}

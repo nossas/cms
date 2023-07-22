@@ -1,0 +1,11 @@
+#changelist-form .actions button {
+    @apply btn btn-sm btn-secondary !important;
+}
+
+#changelist-form .actions select {
+    @apply select select-sm select-bordered;
+}
+
+#changelist-form .results table {
+    @apply table table-zebra w-full;
+}

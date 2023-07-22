@@ -1,7 +1,10 @@
 @import "tailwindcss/base";
 
 @import "tailwindcss/components";
+@import "./base.css";
+@import "./breadcrumbs";
 @import "./changelist-filter.css";
+@import "./changelist-form.css";
 @import "./nav-sidebar.css";
 @import "./object-tools.css";
 

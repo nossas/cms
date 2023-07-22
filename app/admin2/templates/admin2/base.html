@@ -101,7 +101,7 @@
         {% endblock messages %}
         <!-- Content -->
         <div id="content" class="flex">
-          <div class="flex-1 px-8 py-12">
+          <div class="main-content">
             <div class="flex mb-4">
               <div class="flex-1">
                 {% block pretitle %}{% endblock %}
@@ -110,9 +110,9 @@
               </div>
               {% block object-tools %}{% endblock %}
             </div>
-          {% block content %}
-            {{ content }}
-          {% endblock %}
+            {% block content %}
+              {{ content }}
+            {% endblock %}
           </div>
           {% block sidebar %}{% endblock %}
         </div>
