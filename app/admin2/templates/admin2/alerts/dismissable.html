@@ -1,0 +1,7 @@
+<div class="dismissable">
+  <input type="checkbox" id="alert2" />
+  <label class="close" title="close" for="alert2">
+    <i class="fa-solid fa-close"></i>
+  </label>
+  <p class="alert{% if message.tags %} {{ message.tags }}{% endif %}"><span>{{ message|capfirst }}</span></p>
+</div>

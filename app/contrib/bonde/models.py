@@ -194,13 +194,19 @@ class Block(models.Model):
 
 
 class Theme(models.Model):
-    value = models.TextField(unique=True)
-    label = models.TextField()
-    priority = models.IntegerField(blank=True, null=True)
+    value = models.SlugField(
+        verbose_name="Valor",
+        unique=True,
+        max_length=150,
+        help_text="Slug utilizado para filtrar por esse tema, deve ser unico"
+    )
+    label = models.CharField(verbose_name="Label", max_length=140)
+    priority = models.IntegerField(verbose_name="Prioridade", blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = "themes"
+        verbose_name = "tema"
 
     def __str__(self):
         return self.label

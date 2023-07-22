@@ -2,6 +2,6 @@ body #content .main-content {
     @apply flex-1 px-8
 }
 
-body:not(.change-list) #content .main-content {
+body:not(.change-list):not(.change-form) #content .main-content {
     @apply py-12;
 }

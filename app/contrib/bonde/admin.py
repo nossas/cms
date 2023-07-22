@@ -19,6 +19,7 @@ from .models import (
 class ThemeAdmin2(admin2.ModelAdmin):
     list_display = ("id", "label", "value")
     list_filter = ("value", "label", )
+    fields = ("value", ("label", "priority"))
 
     # @admin.display
     # def get_mobilization__name(self, obj):

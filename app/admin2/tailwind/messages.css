@@ -1,0 +1,48 @@
+.dismissable {
+  @apply relative mx-4 mb-4;
+}
+
+.alert.success {
+  @apply alert-success w-full;
+}
+
+.dismissable .close {
+  @apply absolute right-4 top-4 cursor-pointer;
+}
+
+.dismissable input {
+  @apply hidden;
+}
+
+.dismissable input:checked~* {
+  animation-name: dismiss, hide;
+  animation-duration: 300ms;
+  animation-iteration-count: 1;
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
+  animation-delay: 0s, 100ms;
+}
+
+@keyframes dismiss {
+  0% {
+    opacity: 1;
+  }
+
+  90%,
+  100% {
+    opacity: 0;
+    font-size: 0.1px;
+    transform: scale(0);
+  }
+}
+
+@keyframes hide {
+  100% {
+    height: 0px;
+    width: 0px;
+    overflow: hidden;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+  }
+}

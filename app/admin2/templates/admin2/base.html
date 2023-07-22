@@ -84,7 +84,6 @@
       </nav>
     {% endblock %}
     {% endif %}
-
     <div class="main flex" id="main">
       {% if not is_popup and is_nav_sidebar_enabled %}
         {% block nav-sidebar %}
@@ -93,11 +92,13 @@
       {% endif %}
       <div id="content-start" class="content flex-1" tabindex="-1">
         {% block messages %}
-          {% if messages %}
-            <ul class="messagelist">{% for message in messages %}
-              <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|capfirst }}</li>
-            {% endfor %}</ul>
-          {% endif %}
+        {% if messages %}
+        <ul>
+        {% for message in messages %}
+          {% include "admin2/alerts/dismissable.html" with message=message %}
+        {% endfor %}
+        </ul>
+        {% endif %}
         {% endblock messages %}
         <!-- Content -->
         <div id="content" class="flex">
