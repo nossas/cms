@@ -1,0 +1,40 @@
+.change-form form fieldset {
+    @apply mb-4;
+}
+
+.change-form form fieldset .form-row {
+    @apply flex gap-4;
+}
+
+.change-form form fieldset .form-row > div {
+    @apply form-control w-full flex-1;
+}
+
+.change-form form fieldset .form-row > div:not(.fieldBox) {
+    @apply w-full;
+}
+
+.change-form form fieldset label {
+    @apply label label-text;
+}
+
+.change-form form fieldset input {
+    @apply input input-sm input-bordered;
+}
+
+.change-form form fieldset .help {
+    @apply label-text-alt mt-2 ml-1 justify-end;
+}
+
+.change-form form .submit-row {
+    @apply flex gap-2 justify-end bg-primary py-2 px-4;
+}
+
+.change-form form .submit-row input,
+.change-form form .submit-row a {
+    @apply btn btn-sm;
+}
+
+.change-form form .submit-row a.deletelink {
+    @apply btn-error text-error-content;
+}
