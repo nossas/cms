@@ -1,7 +1,11 @@
 body #content .main-content {
-    @apply flex-1 px-8
+    @apply flex-1 px-8 py-12;
 }
 
-body:not(.change-list):not(.change-form) #content .main-content {
+/* body:not(.change-list):not(.change-form) #content .main-content {
     @apply py-12;
+} */
+
+table {
+    @apply table table-zebra w-full;
 }

@@ -6,6 +6,6 @@
     @apply select select-sm select-bordered;
 }
 
-#changelist-form .results table {
+/* #changelist-form .results {
     @apply table table-zebra w-full;
-}
+} */
