@@ -2,13 +2,11 @@ from typing import Any
 from django.contrib import admin
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
-from django.http.request import HttpRequest
-from django.http.response import HttpResponse
 
 # from .forms.base import PressureAdminForm, PressureAdminChangeForm
-from .forms.plugins import PressurePluginAddForm, PressureAjaxForm
+from .forms.plugins_form import PressurePluginAddForm, PressureAjaxForm
 from .models.plugins import PressurePluginModel
-from .models.base import Pressure, EmailPressure, PhonePressure, TwitterPressure
+from .models.base import EmailPressure, PhonePressure, TwitterPressure
 
 # from .admin import EmailPressureInline, PhonePressureInline, TwitterPressureInline
 
@@ -51,24 +49,29 @@ class PressurePlugin(CMSPluginBase):
         js = ["pressure/js/tabs.js"]
 
     def render(self, context, instance, placeholder):
-        obj = instance.get_widget()
-        total_actions = obj.total_actions() if obj else 0;
-        settings = self.get_settings(obj)
+        # obj = instance.get_widget()
+        # total_actions = obj.total_actions() if obj else 0
+        # settings = self.get_settings(obj)
+        obj = None
+        total_actions = 0
+        settings = {
+            "pressure_subject": "Valor padrão alterar",
+            "pressure_body": "Valor padrão alterar"
+        }
+
         initial = (
             {
-                "email_subject": obj.settings.get("pressure_subject", ""),
-                "email_body": obj.settings.get("pressure_body", ""),
+                "email_subject": settings.get("pressure_subject", ""),
+                "email_body": settings.get("pressure_body", ""),
                 "total_actions": f"{total_actions} {settings.get('count')}",
             }
-            if obj
-            else {}
         )
 
         form = PressureAjaxForm(initial=initial)
 
-        if instance.reference_id:
+        if instance.action_id:
             form = PressureAjaxForm(
-                initial={"reference_id": instance.reference_id, **initial}
+                initial={"action_id": instance.action_id, **initial}
             )
 
         context.update(
