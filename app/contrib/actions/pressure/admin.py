@@ -1,7 +1,7 @@
 from typing import Any
 from django.contrib import admin
 
-from admin_styled.admin import site as admin_site
+# from admin_styled.admin import site as admin_site
 
 # from .models.plugins import PressurePluginModel
 from .models.base import Pressure, EmailPressure, PhonePressure, TwitterPressure
@@ -25,7 +25,7 @@ class TargetAdmin(admin.ModelAdmin):
         return super(TargetAdmin, self).save_model(request, obj, form, change)
 
 
-admin_site.register(Target, TargetAdmin)
+admin.site.register(Target, TargetAdmin)
 
 
 class EmailPressureInline(admin.StackedInline):
@@ -69,4 +69,4 @@ class PressureAdmin(admin.ModelAdmin):
         return super().save_model(request, obj, form, change)
 
 
-admin_site.register(Pressure, PressureAdmin)
+admin.site.register(Pressure, PressureAdmin)

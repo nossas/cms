@@ -67,14 +67,15 @@ class PressurePluginAddForm(forms.ModelForm):
 
 
 class PressureAjaxForm(StyledBaseForm):
-    reference_id = forms.IntegerField(widget=forms.HiddenInput)
+    action_id = forms.IntegerField(widget=forms.HiddenInput)
+    total_actions = forms.CharField(widget=forms.HiddenInput)
+    geolocation = forms.JSONField(widget=forms.HiddenInput, required=False)
 
     email_address = forms.EmailField(label="Seu e-mail")
     name = forms.CharField(label="Seu nome", max_length=80)
     phone_number = forms.CharField(label="Seu telefone", max_length=15, required=False)
     email_subject = forms.CharField(label="Assunto", max_length=100)
     email_body = forms.CharField(label="Corpo do e-mail", widget=forms.Textarea)
-    city = forms.CharField(widget=forms.HiddenInput)
 
     class Meta(StyledBaseForm.Meta):
         readonly_fields = ["email_subject", "email_body"]
@@ -97,6 +98,6 @@ class PressureAjaxForm(StyledBaseForm):
             {
                 "activist": activist,
                 "input": input,
-                "widget_id": self.cleaned_data["reference_id"],
+                "action_id": self.cleaned_data["action_id"],
             },
         )

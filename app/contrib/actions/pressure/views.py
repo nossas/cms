@@ -4,7 +4,8 @@ from django.http import JsonResponse
 from django.views.generic import FormView
 from django.shortcuts import render
 
-from .forms.plugins import PressureAjaxForm
+from .forms.plugins_form import PressureAjaxForm
+
 
 class AjaxableResponseMixin(object):
     """
@@ -17,24 +18,31 @@ class AjaxableResponseMixin(object):
 
     def form_invalid(self, form):
         response = super().form_invalid(form)
+        
         if self.request.is_ajax():
-            return self.render_to_json_response({'success': False, 'errors': form.errors}, status=400)
+            return self.render_to_json_response(
+                {"success": False, "errors": form.errors}
+            )
         else:
             return response
 
     def form_valid(self, form):
-      # We make sure to call the parent's form_valid() method because
-      # it might do some processing (in the case of CreateView, it will
-      # call form.save() for example).
-      response = super().form_valid(form)
-      if self.request.is_ajax():
-        data = {
-              'success': True,
-              'html': render(self.request, 'pressure/pressure_success.html', {"form_data": form.cleaned_data}).content.decode('utf-8')
-          }
-        return self.render_to_json_response(data)
-      else:
-          return response
+        # We make sure to call the parent's form_valid() method because
+        # it might do some processing (in the case of CreateView, it will
+        # call form.save() for example).
+        response = super().form_valid(form)
+        if self.request.is_ajax():
+            data = {
+                "success": True,
+                "html": render(
+                    self.request,
+                    "pressure/pressure_success.html",
+                    {"form_data": form.cleaned_data},
+                ).content.decode("utf-8"),
+            }
+            return self.render_to_json_response(data)
+        else:
+            return response
 
 
 class PressureFormAjaxView(AjaxableResponseMixin, FormView):

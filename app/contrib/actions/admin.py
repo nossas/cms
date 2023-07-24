@@ -2,7 +2,7 @@ from typing import Any, Callable, Optional, Sequence, Union
 from django.contrib import admin
 from django.http.request import HttpRequest
 
-from admin_styled.admin import site as admin_site
+# from admin_styled.admin import site as admin_site
 from .forms import (
     ChangeGroupForm,
     MigrateGroupForm,
@@ -73,8 +73,8 @@ class CampaignAdmin(admin.ModelAdmin):
         return ["settings", "name", "slug", "owner_group"]
 
 
-admin_site.register(Action, ActionAdmin)
+admin.site.register(Action, ActionAdmin)
 
-admin_site.register(Group, GroupAdmin)
+admin.site.register(Group, GroupAdmin)
 
-admin_site.register(Campaign, CampaignAdmin)
+admin.site.register(Campaign, CampaignAdmin)
