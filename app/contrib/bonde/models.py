@@ -71,7 +71,7 @@ class Community(models.Model):
     # mailchimp_api_key = models.TextField(blank=True, null=True)
     # mailchimp_list_id = models.TextField(blank=True, null=True)
     # mailchimp_group_id = models.TextField(blank=True, null=True)
-    image = models.CharField(max_length=200, blank=True, null=True)
+    image = models.ImageField(max_length=200, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     # recipient = models.ForeignKey('Recipients', models.DO_NOTHING, blank=True, null=True)
     facebook_app_id = models.CharField(max_length=100, blank=True, null=True)

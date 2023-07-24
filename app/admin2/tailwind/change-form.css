@@ -3,7 +3,7 @@
 }
 
 .change-form form fieldset .form-row {
-    @apply flex gap-4;
+    @apply flex gap-4 border-b border-solid pb-2;
 }
 
 .change-form form fieldset .form-row > div {
@@ -20,6 +20,14 @@
 
 .change-form form fieldset input {
     @apply input input-sm input-bordered;
+}
+
+.change-form form fieldset textarea {
+    @apply textarea textarea-sm textarea-bordered;
+}
+
+.change-form form fieldset .datetime {
+    @apply text-sm;
 }
 
 .change-form form fieldset .help {
