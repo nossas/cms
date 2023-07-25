@@ -1,0 +1,7 @@
+{% load i18n admin_urls %}
+
+{% block object-tools-items %}
+  {% if has_add_permission %}
+    <p>{{cl}}</p>
+  {% endif %}
+{% endblock %}

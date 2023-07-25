@@ -1,6 +1,5 @@
 from .custom_site import AppSite
 
-from .admin import ModelAdmin
-
+from .base_admin import ModelAdmin
 
 site = AppSite(name="app")
