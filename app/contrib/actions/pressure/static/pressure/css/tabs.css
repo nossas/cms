@@ -1,0 +1,43 @@
+.tabs {
+    list-style: none;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    font-family: sans-serif
+}
+
+.tabs li {
+    display: inline-block;
+}
+
+.tabs input[type="radio"] {
+    display: none;
+}
+
+.tabs label {
+    display: block;
+    cursor: pointer;
+    padding: 10px 15px;
+    border: 2px solid black;
+    border-bottom: 0;
+    border-radius: 3px 3px 0 0;
+}
+
+.tabs .tab-panel {
+    display: none;
+    overflow: hidden;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    border-top: 2px solid black;
+}
+
+.tabs [id^="tab"]:checked+label {
+    background-color: black;
+    color: #fff;
+}
+
+.tabs [id^="tab"]:checked~[id^="tab-panel"] {
+    display: block;
+}

@@ -1,0 +1,27 @@
+{% extends "admin/change_form.html" %}
+
+{% block field_sets %}
+{% for fieldset in adminform %}
+{% include "admin/includes/fieldset.html" %}
+{% endfor %}
+{% endblock %}
+
+{% block after_field_sets %}{% endblock %}
+
+{% block inline_field_sets %}
+<div class="flex flex-col">
+    <div class="tabs">
+        {% for inline_admin_formset in inline_admin_formsets %}
+        <div class="tab tab-bordered{% if forloop.first %} tab-active{% endif %}" tab-index="{{ forloop.counter }}">
+            <label for="tab{{ forloop.counter }}">{{ inline_admin_formset.opts.verbose_name }}</label>
+        </div>
+        {% endfor %}
+        <div class="tab tab-bordered flex-1"></div>
+    </div>
+    {% for inline_admin_formset in inline_admin_formsets %}
+    <div id="tab-panel-{{ forloop.counter }}" class="tab-panel px-4 py-8{% if not forloop.first %} hidden{% endif %}">
+        {% include inline_admin_formset.opts.template %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
