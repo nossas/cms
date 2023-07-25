@@ -9,3 +9,41 @@ body #content .main-content {
 table {
     @apply table table-zebra w-full;
 }
+
+.module {
+    @apply mb-4;
+}
+
+/* Login */
+.login {
+    @apply w-[30%] mx-auto mt-[7%];
+}
+
+.login .main-content {
+    @apply border border-solid;
+}
+
+.login form .form-row {
+    @apply form-control mb-2;
+}
+
+.login form .form-row label {
+    @apply label label-text;
+}
+
+.login form .form-row input {
+    @apply input input-sm input-bordered;
+}
+
+.login form .form-row .help {
+    @apply label-text-alt mt-2 ml-1 justify-end;
+}
+
+.login form .submit-row {
+    @apply flex gap-2 justify-end py-2 px-4;
+}
+
+/* .login form .submit-row input,
+.login form .submit-row a {
+    @apply btn btn-sm;
+} */

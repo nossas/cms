@@ -2,7 +2,8 @@ from typing import Any, Callable, Optional, Sequence, Union
 from django.contrib import admin
 from django.http.request import HttpRequest
 
-# from admin_styled.admin import site as admin_site
+import admin2
+
 from .forms import (
     ChangeGroupForm,
     MigrateGroupForm,
@@ -12,7 +13,7 @@ from .forms import (
 from .models import Group, Campaign, Action
 
 
-class ActionAdmin(admin.ModelAdmin):
+class ActionAdmin(admin2.ModelAdmin):
 
     def has_add_permission(self, request: HttpRequest) -> bool:
         return False
@@ -28,7 +29,7 @@ class ActionAdmin(admin.ModelAdmin):
         return False
 
 
-class GroupAdmin(admin.ModelAdmin):
+class GroupAdmin(admin2.ModelAdmin):
     form = MigrateGroupForm
 
     def get_form(
@@ -50,7 +51,7 @@ class GroupAdmin(admin.ModelAdmin):
         return ["reference_json"]
 
 
-class CampaignAdmin(admin.ModelAdmin):
+class CampaignAdmin(admin2.ModelAdmin):
     form = MigrateCampaignForm
     prepopulated_fields = {"slug": ("name",)}
 
@@ -73,8 +74,8 @@ class CampaignAdmin(admin.ModelAdmin):
         return ["settings", "name", "slug", "owner_group"]
 
 
-admin.site.register(Action, ActionAdmin)
+admin2.site.register(Action, ActionAdmin)
 
-admin.site.register(Group, GroupAdmin)
+admin2.site.register(Group, GroupAdmin)
 
-admin.site.register(Campaign, CampaignAdmin)
+admin2.site.register(Campaign, CampaignAdmin)

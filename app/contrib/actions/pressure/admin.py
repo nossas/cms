@@ -1,7 +1,7 @@
 from typing import Any
 from django.contrib import admin
 
-# from admin_styled.admin import site as admin_site
+import admin2
 
 # from .models.plugins import PressurePluginModel
 from .models.base import Pressure, EmailPressure, PhonePressure, TwitterPressure
@@ -14,7 +14,7 @@ class ContactInline(admin.TabularInline):
     model = Contact
 
 
-class TargetAdmin(admin.ModelAdmin):
+class TargetAdmin(admin2.ModelAdmin):
     form = TargetAdminForm
     inlines = (ContactInline,)
 
@@ -25,7 +25,7 @@ class TargetAdmin(admin.ModelAdmin):
         return super(TargetAdmin, self).save_model(request, obj, form, change)
 
 
-admin.site.register(Target, TargetAdmin)
+admin2.site.register(Target, TargetAdmin)
 
 
 class EmailPressureInline(admin.StackedInline):
@@ -49,7 +49,7 @@ class TwitterPressureInline(admin.StackedInline):
     template = "pressure/admin/pressure_inline_formset.html"
 
 
-class PressureAdmin(admin.ModelAdmin):
+class PressureAdmin(admin2.ModelAdmin):
     form = PressureAdminForm
     change_form_template = "pressure/admin/pressure_change_form.html"
     inlines = (EmailPressureInline, PhonePressureInline, TwitterPressureInline)
@@ -69,4 +69,4 @@ class PressureAdmin(admin.ModelAdmin):
         return super().save_model(request, obj, form, change)
 
 
-admin.site.register(Pressure, PressureAdmin)
+admin2.site.register(Pressure, PressureAdmin)
