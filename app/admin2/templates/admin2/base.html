@@ -73,23 +73,15 @@
     </div>
     {% endblock %}
     <!-- END Header -->
-    {% block nav-breadcrumbs %}
-      <nav aria-label="{% translate 'Breadcrumbs' %}">
-        {% block breadcrumbs %}
-          <div class="breadcrumbs">
-            <a href="{% url 'admin:index' %}">{% translate 'Home' %}</a>
-            {% if title %} &rsaquo; {{ title }}{% endif %}
-          </div>
-        {% endblock %}
-      </nav>
-    {% endblock %}
-    {% endif %}
+    
     <div class="main flex" id="main">
+      {% comment %}
       {% if not is_popup and is_nav_sidebar_enabled %}
-        {% block nav-sidebar %}
+        <!-- {% block nav-sidebar %}
           {% include "admin2/nav_sidebar.html" %}
-        {% endblock %}
+        {% endblock %} -->
       {% endif %}
+      {% endcomment %}
       <div id="content-start" class="content flex-1" tabindex="-1">
         {% block messages %}
         {% if messages %}
@@ -102,7 +94,26 @@
         {% endblock messages %}
         <!-- Content -->
         <div id="content" class="flex">
+          {% block sidebar %}
+            {% if not is_popup and is_nav_sidebar_enabled %}
+              <div class="flex flex-col">
+
+              {% include 'admin2/app_list.html' with app_list=available_apps show_changelinks=False %}
+              </div>
+            {% endif %}
+          {% endblock %}
           <div class="main-content">
+            {% block nav-breadcrumbs %}
+              <nav aria-label="{% translate 'Breadcrumbs' %}">
+                {% block breadcrumbs %}
+                  <div class="breadcrumbs">
+                    <a href="{% url 'admin:index' %}">{% translate 'Home' %}</a>
+                    {% if title %} &rsaquo; {{ title }}{% endif %}
+                  </div>
+                {% endblock %}
+              </nav>
+            {% endblock %}
+            {% endif %}
             <div class="flex mb-4">
               <div class="flex-1">
                 {% block pretitle %}{% endblock %}
@@ -115,7 +126,6 @@
               {{ content }}
             {% endblock %}
           </div>
-          {% block sidebar %}{% endblock %}
         </div>
         <!-- END Content -->
         {% block footer %}<div id="footer"></div>{% endblock %}
