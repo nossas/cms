@@ -1,18 +1,31 @@
 {% extends "admin2/base_site.html" %}
-{% load i18n static %}
+{% load i18n static admin_urls %}
 
 {% block nav-breadcrumbs %}{% endblock %}
 
 {% block nav-sidebar %}{% endblock %}
 
 {% block content %}
-<div id="content-main" class="w-[50%]">
-  {% include "admin2/app_list.html" with app_list=app_list show_changelinks=True %}
+<div id="content-main">
+  {% comment %}
+  <!-- {% include "admin2/app_list.html" with app_list=app_list show_changelinks=True %} -->
+  {% endcomment %}
+  <div>
+    <h3 class="font-bold">Páginas</h3>
+    <ul>
+    {% for page in admin2.pages %}
+      <li>
+        <a href="#">{{ page }}</a>
+      </li>
+    {% endfor %}
+    </ul>
+  </div>
 </div>
 {% endblock %}
 
 {% block sidebar %}
-<div id="content-related" class="border-l-2 border-solid p-8 h-auto">
+{% comment %}
+<!-- <div id="content-related" class="border-l-2 border-solid p-8 h-auto">
     <div class="module" id="recent-actions-module">
         <h2>{% translate 'Recent actions' %}</h2>
         <h3>{% translate 'My actions' %}</h3>
@@ -41,5 +54,6 @@
             </ul>
             {% endif %}
     </div>
-</div>
+</div> -->
+{% endcomment %}
 {% endblock %}
