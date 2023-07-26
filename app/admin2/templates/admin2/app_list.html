@@ -2,14 +2,14 @@
 
 {% if app_list %}
   {% for app in app_list %}
-    <section class="app-{{ app.app_label }} module{% if app.app_url in request.path %} current-app{% endif %} flex flex-col">
+    <section class="app-{{ app.app_label }} module{% if app.app_url in request.path %} current-app{% endif %} flex flex-col pl-7">
         <!-- Header -->
-        <h2 class="bg-primary text-primary-content px-4 py-2 font-bold">
+        <h2 class="py-2 font-bold bg-primary text-primary-content">
           <a href="{{ app.app_url }}" class="section" title="{% blocktranslate with name=app.name %}Models in the {{ name }} application{% endblocktranslate %}">{{ app.name }}</a>
         </h2>
         <!-- Linhas modelos -->
         {% for model in app.models %}
-          <div class="model-{{ model.object_name|lower }}{% if model.admin_url in request.path %} current-model{% endif %} flex flex-row justify-between pl-6 pr-4{% if forloop.counter0|divisibleby:2 %} bg-gray-300{% endif %}">
+          <div class="model-{{ model.object_name|lower }}{% if model.admin_url in request.path %} current-model{% endif %} flex flex-row justify-between pl-6 pr-4 rounded-sm border border-solid border-neutral-400 my-1 text-primary-content">
             <!-- Colunas -->
             {% if model.admin_url %}
               <div class="py-2"><a href="{{ model.admin_url }}"{% if model.admin_url in request.path %} aria-current="page"{% endif %}>{{ model.name }}</a></div>

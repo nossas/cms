@@ -6,26 +6,51 @@
 {% block nav-sidebar %}{% endblock %}
 
 {% block content %}
-<div id="content-main">
+<section id="page-content">
   {% comment %}
   <!-- {% include "admin2/app_list.html" with app_list=app_list show_changelinks=True %} -->
   {% endcomment %}
   <div>
-    <h3 class="font-bold">Páginas</h3>
+    <h3 class="mb-5 font-bold">Páginas</h3>
     <ul>
     {% for page in admin2.pages %}
-      <li>
+      <li class="grid grid-cols-3 justify-center px-5 py-2 my-3 rounded-sm border border-solid border-neutral-400">
+        <div>
         <a href="#">{{ page }}</a>
+        </div>
+        <div class="text-center">
+          <a href="#">exemplo.com</a>
+        </div>
+        <div class="flex justify-end items-center">
+          <a href="#" class="px-2">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0.0605968 13.5116L0.0419922 17.1395C0.0419922 17.3442 0.116411 17.5488 0.265248 17.6976C0.414085 17.8465 0.600132 17.9209 0.804783 17.9209L4.41408 17.9023C4.61874 17.9023 4.80478 17.8279 4.95362 17.679L17.4187 5.21392C17.7164 4.91625 17.7164 4.43253 17.4187 4.11625L13.8466 0.506947C13.549 0.209273 13.0652 0.209273 12.749 0.506947L10.2559 3.01857L0.283853 12.9721C0.15362 13.1209 0.0605968 13.3069 0.0605968 13.5116ZM13.3071 2.14416L15.8187 4.65578L14.4048 6.06974L11.8932 3.55811L13.3071 2.14416ZM1.60478 13.8465L10.7955 4.65578L13.3071 7.16741L4.11641 16.3395L1.58618 16.3581L1.60478 13.8465Z" fill="black"/>
+            </svg>
+          </a>
+          <a href="#" class="px-2">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12.0374 6.75342C6.75366 6.75342 1.63738 11.7953 1.43273 12.0185C1.28389 12.1674 1.20947 12.3534 1.20947 12.5581C1.20947 12.7627 1.28389 12.9488 1.43273 13.0976C1.65598 13.3209 6.75366 18.3627 12.0374 18.3627C17.3211 18.3627 22.4374 13.3209 22.642 13.0976C22.7909 12.9488 22.8653 12.7627 22.8653 12.5581C22.8653 12.3534 22.7909 12.1674 22.642 12.0185C22.4374 11.7953 17.3397 6.75342 12.0374 6.75342ZM12.0374 16.8185C8.33505 16.8185 4.5211 13.8046 3.08854 12.5395C4.5211 11.2744 8.33505 8.2604 12.0374 8.2604C15.7397 8.2604 19.5537 11.2744 20.9862 12.5395C19.5537 13.8046 15.7397 16.8185 12.0374 16.8185Z" fill="black"/>
+              <path d="M9.30273 12.5394C9.30273 14.0464 10.5306 15.2929 12.0562 15.2929C13.5818 15.2929 14.8097 14.065 14.8097 12.5394C14.8097 11.0138 13.5818 9.78589 12.0562 9.78589C10.5306 9.78589 9.30273 11.0324 9.30273 12.5394ZM13.2655 12.5394C13.2655 13.2091 12.726 13.7673 12.0376 13.7673C11.3678 13.7673 10.8097 13.2277 10.8097 12.5394C10.8097 11.851 11.3492 11.3115 12.0376 11.3115C12.7074 11.3301 13.2655 11.8696 13.2655 12.5394Z" fill="black"/>
+            </svg>
+          </a>
+          <a href="#" class="px-2">
+            <svg width="19" height="17" viewBox="0 0 19 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <line x1="2" y1="3.25" x2="17" y2="3.25" stroke="black" stroke-width="1.5"/>
+              <line x1="2" y1="8.25" x2="17" y2="8.25" stroke="black" stroke-width="1.5"/>
+              <line x1="2" y1="13.25" x2="17" y2="13.25" stroke="black" stroke-width="1.5"/>
+            </svg>
+          </a>
+        </div>
       </li>
     {% endfor %}
     </ul>
   </div>
-</div>
+</section>
 {% endblock %}
 
 {% comment %}
 {% block sidebar %}
-<!-- <div id="content-related" class="border-l-2 border-solid p-8 h-auto">
+<!-- <div id="content-related" class="p-8 h-auto border-l-2 border-solid">
     <div class="module" id="recent-actions-module">
         <h2>{% translate 'Recent actions' %}</h2>
         <h3>{% translate 'My actions' %}</h3>

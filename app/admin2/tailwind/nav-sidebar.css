@@ -1,3 +1,19 @@
 #toggle-nav-sidebar {
     @apply bg-primary text-primary-content !important;
 }
+
+.drawer-toggle:checked ~ .drawer-side > .drawer-overlay + * {
+    @apply w-0 transform-none translate-x-0;
+}
+
+.drawer-toggle ~ .drawer-side > .drawer-overlay + * {
+    @apply w-[350px] transform-none translate-x-0;
+}
+
+.drawer-toggle:checked ~ .drawer-content {
+    @apply transform-none translate-x-0;
+}
+
+.drawer-toggle:checked ~ .drawer-content .drawer-button svg {
+    @apply rotate-180;
+}
