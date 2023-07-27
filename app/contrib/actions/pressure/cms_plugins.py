@@ -37,6 +37,7 @@ class PressurePlugin(CMSPluginBase):
     name = "Pressão"
     module = "Estrategia"
     render_template = "pressure/pressure_plugin.html"
+    # change_form_template = "admin2/pressure_plugin/change_form.html"
     # render_template = "pressure/tweet_button.html"
     # render_template = "pressure/instagram_inc.html"
     model = PressurePluginModel
