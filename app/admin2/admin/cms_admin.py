@@ -26,4 +26,4 @@ admin2.site.register(User, UserAdmin)
 admin2.site.register(Page, CustomPageAdmin)
 admin2.site.register(PageType, CustomPageTypeAdmin)
 
-admin2.site.register(Site)
+admin2.site.register(Site, admin2.ModelAdmin)

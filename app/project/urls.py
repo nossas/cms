@@ -23,8 +23,6 @@ import admin2
 
 
 urlpatterns = [
-    # 
-    #path("admin/", admin.site.urls),
     path("admin/", admin2.site.urls),
     path("select2/", include("django_select2.urls")),
     path("actions/", include("contrib.actions.pressure.urls")),
