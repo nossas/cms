@@ -5,6 +5,19 @@
 
 {% block nav-sidebar %}{% endblock %}
 
+{% block content_title %}
+{% comment %} Estrutura do header como no Figma, colocar os dados referentes ao Site depois. {% endcomment %}
+<div class="flex items-center">
+    <svg width="69" height="69" viewBox="0 0 69 69" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="69" height="69" rx="5" fill="#AAAAAA"/>
+    </svg>
+    <div class="ml-7">
+    <h1 class="text-4xl font-bold">Meu Site</h1>
+    <a href="#">www.example.com</a>
+    </div>
+</div>
+{% endblock %}
+
 {% block content %}
 <section id="page-content">
   {% comment %}

@@ -14,6 +14,6 @@
     @apply transform-none translate-x-0;
 }
 
-.drawer-toggle:checked ~ .drawer-content .drawer-button svg {
+.drawer-toggle:checked ~ .drawer-button svg {
     @apply rotate-180;
 }

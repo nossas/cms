@@ -94,11 +94,11 @@
               {% include 'admin2/app_list.html' with app_list=available_apps show_changelinks=False %}
             </div>
           </div>
-          <div class="flex justify-center items-center w-full bg-white drawer-content">
-            <!-- Page content here -->
-            <label for="my-drawer-2" class="flex justify-center items-center px-2 h-full cursor-pointer drawer-button bg-primary">
-              <i class="text-primary-content fa fa-chevron-left" aria-hidden="true"></i>
-            </label>
+          <!-- Page content here -->
+          <label for="my-drawer-2" class="flex justify-center items-center px-2 h-full cursor-pointer drawer-button bg-primary">
+            <i class="text-primary-content fa fa-chevron-left" aria-hidden="true"></i>
+          </label>
+          <div class="flex justify-center w-full bg-white drawer-content">
             <main class="p-8 w-full">
               {% block nav-breadcrumbs %}
                 <nav aria-label="{% translate 'Breadcrumbs' %}">
@@ -112,21 +112,10 @@
               {% endblock %}
               {% endif %}
               <section class="flex mb-7">
-                {% comment %} <div class="flex-1">
+                <div class="flex-1">
                   {% block pretitle %}{% endblock %}
                   {% block content_title %}{% if title %}<h1 class="text-lg font-bold">{{ title }}</h1>{% endif %}{% endblock %}
                   {% block content_subtitle %}{% if subtitle %}<h2 class="text-sm">{{ subtitle }}</h2>{% endif %}{% endblock %}
-                </div> {% endcomment %}
-
-                {% comment %} Estrutura do header como no Figma, colocar os dados referentes ao Site depois. {% endcomment %}
-                <div class="flex items-center">
-                  <svg width="69" height="69" viewBox="0 0 69 69" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="69" height="69" rx="5" fill="#AAAAAA"/>
-                  </svg>
-                  <div class="ml-7">
-                    <h1 class="text-4xl font-bold">Meu Site</h1>
-                    <a href="#">www.example.com</a>
-                  </div>
                 </div>
                 {% block object-tools %}{% endblock %}
               </section>
