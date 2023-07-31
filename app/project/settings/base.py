@@ -75,6 +75,8 @@ INSTALLED_APPS = [
     "contrib.frontend.landpage",
     "contrib.frontend.grid",
     "contrib.ga",
+    # Experimentação
+    "eleicao",
 ]
 
 MIDDLEWARE = [
