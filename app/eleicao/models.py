@@ -57,7 +57,7 @@ class PollingPlace(models.Model):
     places = models.ManyToManyField(Address)
 
     def __str__(self):
-        return f"{self.name}: {self.address_line} - {self.neighborhood}"
+        return f"{self.name}: {self.address_line} "
 
 
 class Candidate(models.Model):
