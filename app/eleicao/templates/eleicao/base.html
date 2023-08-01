@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-theme="cupcake">
+
+<head>
+  <title>Eleição do Ano</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <link rel="stylesheet" href="{% static 'dist/tailwind/css/page.css' %}">
+
+  {% block head_js %}{% endblock %}
+</head>
+
+<body class="font-droid leading-normal tracking-normal h-screen content-between px-5 py-28">
+  {% block main %}
+  {% endblock main %}
+  {% block footer_js %}{% endblock %}
+</body>
+</html>

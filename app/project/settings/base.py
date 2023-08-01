@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
-    "whitenoise.runserver_nostatic",  # http://whitenoise.evans.io/en/stable/django.html#using-whitenoise-in-development
+    # http://whitenoise.evans.io/en/stable/django.html#using-whitenoise-in-development
+    "whitenoise.runserver_nostatic",
     "django.contrib.staticfiles",
     "django.contrib.sites",
     # Django CMS
@@ -77,6 +78,7 @@ INSTALLED_APPS = [
     "contrib.ga",
     # Experimentação
     "eleicao",
+
 ]
 
 MIDDLEWARE = [
