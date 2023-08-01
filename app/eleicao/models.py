@@ -78,6 +78,9 @@ class Candidate(models.Model):
     themes = models.ManyToManyField(Theme)
     zone = models.ForeignKey(PollingPlace, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.name
+
     def get_absolute_url(self):
         return f"/eleicao/candidatas/{self.slug}"
 

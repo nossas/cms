@@ -2,6 +2,7 @@ django==3.2
 django-environ
 psycopg2-binary
 django-select2
+django-formtools
 # Django CMS
 django-cms
 djangocms-text-ckeditor
