@@ -48,6 +48,8 @@ class Address(models.Model):
     city = models.CharField("Cidade", max_length=80, choices=[])
     neighborhood = models.CharField("Bairro", max_length=50,choices=[])
 
+    def __str__(self):
+            return f"{self.neighborhood}, {self.city} - {self.state}" 
 
 class PollingPlace(models.Model):
     name = models.CharField("Nome", max_length=120)  
