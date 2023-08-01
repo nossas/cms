@@ -10,13 +10,13 @@
 
   <link rel="stylesheet" href="{% static 'dist/tailwind/css/page.css' %}">
 
-  {% block head_js %}{% endblock %}
+  {% block extra_head %}{% endblock %}
 </head>
 
 <body class="content-between px-5 py-28 h-screen tracking-normal leading-normal font-droid">
   {% block main %}
   {% endblock main %}
-
+  
   {% block form %}{% endblock %}
   {% block footer_js %}{% endblock %}
 </body>

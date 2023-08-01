@@ -1,3 +1,7 @@
 .candidate-detail-share a > svg {
   margin-right: 10px;
 }
+
+.form-items .select2-container {
+  @apply min-w-full;
+}

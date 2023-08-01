@@ -1,33 +1,50 @@
 {% extends "eleicao/base.html" %}
 
+{% block extra_head %}
+<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+<!-- Select2 -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+{% endblock %}
+
 {% block form %}
 <p>Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p>
-<form action="" method="post">
+<form class="candidate-create-form" action="" method="post">
 {% csrf_token %}
-    <div class="form-items">
+    <table class="form-items">
     {{ wizard.management_form }}
     {% if wizard.form.forms %}
         {{ wizard.form.management_form }}
         {% for form in wizard.form.forms %}
-            {{ form.as_p }}
+            {{ form.as_table }}
         {% endfor %}
         {% else %}
         {{ wizard.form }}
     {% endif %}
-    </div>
+    </table>
 {% if wizard.steps.prev %}
 <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}">Primeira etapa</button>
 <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">Voltar uma etapa</button>
 {% endif %}
 <input type="submit" value="Avançar"/>
 </form>
+{% endblock %}
 
-<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+{% block footer_js %}
 <script>
 (function ($) {
   "use strict";
 
   $(function () {
+    $('#id_1-state').select2({
+        placeholder: 'Select an option'
+    });
+    $('#id_1-city').select2({
+        placeholder: 'Select an option'
+    });
+    $('#id_1-neighborhood').select2({
+        placeholder: 'Select an option'
+    });
     
     var uf 
     $("#id_1-state").on("change",(evt)=>{
@@ -35,18 +52,22 @@
         
         $.get("/eleicao/cep" + "?state=" + uf, (data)=>{
           $("#id_1-city").empty()
+          $("#id_1-city").append('<option value="">----</option>')
             $.each(data.choices,(index, value)=>{
-                $("#id_1-city").append("<option>" + value[0] + "</option>")
+                $("#id_1-city").append(
+                    '<option value="'+ value[0] +'">' + value[1] + '</option>'
+                )
             })
         })
     })
+
     $("#id_1-city").on("change",(evt)=>{
       
         $.get("/eleicao/cep" + "?city=" + evt.target.value +"&state="+ uf , (data)=>{
-            console.log(data.choices)
             $("#id_1-neighborhood").empty()
+            $("#id_1-neighborhood").append('<option value="">----</option>')
             $.each(data.choices,(index, value)=>{
-                $("#id_1-neighborhood").append("<option>" + value[0] + "</option>")
+                $("#id_1-neighborhood").append('<option value="'+ value[0] +'">' + value[1] + "</option>")
             })
         })
     })

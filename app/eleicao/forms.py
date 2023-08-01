@@ -1,6 +1,7 @@
 from django import forms
+from django_select2 import forms as s2forms
 
-from .models import Address, Candidate, PollingPlace
+from .models import Address, Candidate
 
 
 class Candidate1Form(forms.ModelForm):
@@ -26,6 +27,7 @@ class Candidate2Form(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+        # self.fields["state"].widget = s2forms.Select2Widget()
         self.fields["city"].widget = forms.Select()
         self.fields["neighborhood"].widget = forms.Select()
 
