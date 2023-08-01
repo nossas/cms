@@ -1,7 +1,7 @@
 {% extends 'eleicao/base.html'%}
 {% block main %}
 <main class="candidate-detail">
-  <section class="container candidate-detail-infos">
+  <section class="px-5 candidate-detail-infos">
     <div class="grid grid-cols-2 profile">
       <div class="col-1 photo">
         <img src="" alt="fotchênha">
@@ -17,22 +17,31 @@
         <div class="grid grid-cols-2 my-4 text-blue-800 candidate-info">
           <div>
             <div>
-            <label class="font-bold">Reeleição:</label>
-            <p>{%if object.is_reelection is True %}Sim{%else %}Não{%endif%}</p>
+              <label class="font-bold">Reeleição:</label>
+              <p>{%if object.is_reelection is True %}Sim{%else %}Não{%endif%}</p>
             </div>
             <div>
-            <label class="font-bold">Profissão:</label>
-            <p>{{object.profession}}</p>
+              <label class="font-bold">Profissão:</label>
+              <p>{{object.occupation}}</p>
             </div>
             <div>
-            <label class="font-bold">Idade:</label>
-            <p>{{object.age}}</p>
+              <label class="font-bold">Idade:</label>
+              <p>{{object.birth}}</p>
             </div>
           </div>
           <div>
-            <p class="font-bold">Gênero</p>
-            <p class="font-bold">Raça:</p>
-            <p class="font-bold">Sexualidade:</p>
+            <div>
+              <label class="font-bold">Gênero:</label>
+              <p>{{object.gender}}</p>
+            </div>
+            <div>
+              <label class="font-bold">Raça:</label>
+              <p>{{object.race}}</p>
+            </div>
+            <div>
+              <label class="font-bold">Sexualidade:</label>
+              <p>{{object.sexuality}}</p>
+            </div>
           </div>
         </div>
 
@@ -52,13 +61,13 @@
     </div>
   </section>
 
-  <section class="container candidate-detail-video bg-amber-300 h-96 px-">
+  <section class="py-20 bg-amber-300 candidate-detail-video">
     <div class="flex justify-center items-center my-7">
       <img src="" alt="Video aqui">
     </div>
   </section>
 
-  <section class="container candidate-detail-share">
+  <section class="px-5 candidate-detail-share">
     <div class="flex flex-col gap-4 items-center">
       <a class="btn btn-outline min-w-[250px] rounded-md text-sm border-none text-neutral-50 bg-[#71C16A]" href="https://wa.me">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
