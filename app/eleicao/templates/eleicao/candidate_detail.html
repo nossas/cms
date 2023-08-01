@@ -8,17 +8,26 @@
       </div>
       <div class="col-2 election-info">
         <div class="text-blue-800 text">
-          <p class="text-sm font-bold">Brumadinho - MG</p>
-          <h1 class="text-4xl font-bold">Mariana Silva</h1>
-          <h2 class="text-2xl font-bold">000-001</h2>
-          <h3 class="text-md">CT Centro 01</h3>
+          <p class="text-sm font-bold">{{object.state}}</p>
+          <h1 class="text-4xl font-bold">{{object.name}}</h1>
+          <h2 class="text-2xl font-bold">{{object.number}}</h2>
+          <h3 class="text-md">{{object.zone}}</h3>
         </div>
 
         <div class="grid grid-cols-2 my-4 text-blue-800 candidate-info">
           <div>
-            <p class="font-bold">Reeleição:</p>
-            <p class="font-bold">Profissão:</p>
-            <p class="font-bold">Idade:</p>
+            <div>
+            <label class="font-bold">Reeleição:</label>
+            <p>{%if object.is_reelection is True %}Sim{%else %}Não{%endif%}</p>
+            </div>
+            <div>
+            <label class="font-bold">Profissão:</label>
+            <p>{{object.profession}}</p>
+            </div>
+            <div>
+            <label class="font-bold">Idade:</label>
+            <p>{{object.age}}</p>
+            </div>
           </div>
           <div>
             <p class="font-bold">Gênero</p>
