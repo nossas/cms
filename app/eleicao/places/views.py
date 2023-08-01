@@ -4,10 +4,8 @@ from ..csv.choices import get_choices
 
 def fetch_cep(request):
     state = request.GET.get("state")
-    choices = []
-    if state:
-        choices = get_choices(state)
-
+    city = request.GET.get("city")
+    choices = get_choices(state,city)
     return JsonResponse({"choices": choices})
 
 

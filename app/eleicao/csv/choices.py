@@ -1,5 +1,6 @@
 from django.conf import settings
 
+
 def get_states():
     import csv
 
@@ -12,20 +13,23 @@ def get_states():
 
     return states
 
-def get_choices(uf, city = None):
+
+def get_choices(uf, city=None):
     import csv
 
     csv_filename = settings.BASE_DIR / "eleicao/csv/places.csv"
     choices = []
+
     with open(csv_filename) as f:
         reader = csv.DictReader(f)
         for row in reader:
-            if row['uf'] == uf:
+            if row["uf"] == uf:
                 if city:
-                    if city == row['city']:
-                      choices.append((row["neighborhood"], row["neighborhood"].capitalize()))
+                    if city == row["city"]:
+                        choices.append(
+                            (row["neighborhood"], row["neighborhood"].capitalize())
+                        )
                 else:
                     choices.append((row["city"], row["city"].capitalize()))
 
     return list(set(choices))
-

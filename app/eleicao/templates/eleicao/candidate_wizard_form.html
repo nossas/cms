@@ -31,14 +31,17 @@
         uf = evt.target.value
         
         $.get("/eleicao/cep" + "?state=" + uf, (data)=>{
+          $("#id_1-city").empty()
             $.each(data.choices,(index, value)=>{
                 $("#id_1-city").append("<option>" + value[0] + "</option>")
             })
         })
     })
     $("#id_1-city").on("change",(evt)=>{
-        // console.log(evt.target.value)
+      
         $.get("/eleicao/cep" + "?city=" + evt.target.value +"&state="+ uf , (data)=>{
+            console.log(data.choices)
+            $("#id_1-neighborhood").empty()
             $.each(data.choices,(index, value)=>{
                 $("#id_1-neighborhood").append("<option>" + value[0] + "</option>")
             })
