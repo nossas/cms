@@ -7,12 +7,12 @@ from .csv.choices import get_states
 
 
 class GenderChoices(models.TextChoices):
-    male = "masculino"
-    female = "feminino"
-    nonbinary = "não binário"
-    travesti = "travesti"
-    queer = "queer"
-    no_answer = "não declarado"
+    male = "masculino", "Masculino"
+    female = "feminino", "Feminino"
+    nonbinary = "não binário", "Não binário"
+    travesti = "travesti", "Travesti"
+    queer = "queer", "Queer"
+    no_answer = "não declarado", "Não declarado"
 
 
 class SexualityChoices(models.TextChoices):
@@ -27,12 +27,12 @@ class SexualityChoices(models.TextChoices):
 
 
 class RaceChoices(models.TextChoices):
-    white = "branca"
-    black = "preta"
-    yellow = "amarela"
-    indigenous = "indigena"
-    pardo = "parda"
-    no_answer = "não declarada"
+    white = "branca", "Branca"
+    black = "preta", "Preta"
+    yellow = "amarela", "Amarela"
+    indigenous = "indigena", "Indigena"
+    pardo = "parda", "Parda"
+    no_answer = "não declarada", "Não declarada"
 
 
 class Theme(models.Model):
