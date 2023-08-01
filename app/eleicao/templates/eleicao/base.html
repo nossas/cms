@@ -13,9 +13,11 @@
   {% block head_js %}{% endblock %}
 </head>
 
-<body class="font-droid leading-normal tracking-normal h-screen content-between px-5 py-28">
+<body class="content-between px-5 py-28 h-screen tracking-normal leading-normal font-droid">
   {% block main %}
   {% endblock main %}
+
+  {% block form %}{% endblock %}
   {% block footer_js %}{% endblock %}
 </body>
 </html>

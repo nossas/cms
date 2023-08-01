@@ -7,6 +7,7 @@ db.sqlite3
 media
 staticfiles
 
+
 # Pelican
 docs/output
 
@@ -140,3 +141,6 @@ GitHub.sublime-settings
 !.vscode/launch.json 
 !.vscode/extensions.json 
 .history
+
+# Tailwind
+node_modules/
