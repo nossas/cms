@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Candidate
+from .models import Address, Candidate, PollingPlace
 
 
 class Candidate1Form(forms.ModelForm):
@@ -10,8 +10,11 @@ class Candidate1Form(forms.ModelForm):
 
 
 class Candidate2Form(forms.ModelForm):
+    number = forms.IntegerField(label="Numero do candidato")
+    zone = forms.ModelChoiceField(PollingPlace.objects)
+
     class Meta:
-        model = Candidate
+        model = Address
         fields = ["state", "city", "neighborhood", "zone", "number"]
 
 

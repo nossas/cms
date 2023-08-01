@@ -1,20 +1,49 @@
 <p>Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p>
 <form action="" method="post">
-{% csrf_token %}
+    {% csrf_token %}
     <table>
-    {{ wizard.management_form }}
-    {% if wizard.form.forms %}
+        {{ wizard.management_form }}
+        {% if wizard.form.forms %}
         {{ wizard.form.management_form }}
         {% for form in wizard.form.forms %}
-            {{ form.as_table }}
+        {{ form.as_table }}
         {% endfor %}
-    {% else %}
+        {% else %}
         {{ wizard.form }}
-    {% endif %}
+        {% endif %}
     </table>
-{% if wizard.steps.prev %}
-<button name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}">Primeira etapa</button>
-<button name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">Voltar uma etapa</button>
-{% endif %}
-<input type="submit" value="Avançar"/>
+    {% if wizard.steps.prev %}
+    <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}">Primeira etapa</button>
+    <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">Voltar uma etapa</button>
+    {% endif %}
+    <input type="submit" value="Avançar" />
 </form>
+
+<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+<script>
+(function ($) {
+  "use strict";
+
+  $(function () {
+    
+    var uf 
+    $("#id_1-state").on("change",(evt)=>{
+        uf = evt.target.value
+        
+        $.get("/eleicao/cep" + "?state=" + uf, (data)=>{
+            $.each(data.choices,(index, value)=>{
+                $("#id_1-city").append("<option>" + value[0] + "</option>")
+            })
+        })
+    })
+    $("#id_1-city").on("change",(evt)=>{
+        // console.log(evt.target.value)
+        $.get("/eleicao/cep" + "?city=" + evt.target.value +"&state="+ uf , (data)=>{
+            $.each(data.choices,(index, value)=>{
+                $("#id_1-neighborhood").append("<option>" + value[0] + "</option>")
+            })
+        })
+    })
+  });
+}(window.jQuery));
+</script>

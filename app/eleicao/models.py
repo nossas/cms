@@ -1,4 +1,7 @@
 from django.db import models
+from django.utils.functional import lazy
+
+from .csv.choices import get_states
 
 # Create your models here.
 
@@ -40,12 +43,16 @@ class Theme(models.Model):
         return self.label
 
 
+class Address(models.Model):
+    state = models.CharField("Estado", max_length=2, choices=lazy(get_states, list)())
+    city = models.CharField("Cidade", max_length=80, choices=[])
+    neighborhood = models.CharField("Bairro", max_length=50,choices=[])
+
+
 class PollingPlace(models.Model):
-    name = models.CharField("Nome", max_length=120)
-    state = models.CharField("Estado", max_length=2)
-    city = models.CharField("Cidade", max_length=80)
+    name = models.CharField("Nome", max_length=120)  
     address_line = models.CharField("Endereço", max_length=200)
-    neighborhood = models.CharField("Bairro", max_length=50)
+    places = models.ManyToManyField(Address)
 
     def __str__(self):
         return f"{self.name}: {self.address_line} - {self.neighborhood}"
@@ -68,15 +75,13 @@ class Candidate(models.Model):
         "Sexualidade", choices=SexualityChoices.choices, max_length=20
     )
     race = models.CharField("Raça", choices=RaceChoices.choices, max_length=20)
-    state = models.CharField("Estado", max_length=2)
-    city = models.CharField("Cidade", max_length=80)
-    neighborhood = models.CharField("Bairro", max_length=50)
     social_media = models.JSONField("Redes sociais", null=True, blank=True)
     number = models.PositiveSmallIntegerField("Numero do candidato")
     is_reelection = models.BooleanField("Reeleição", default=False)
 
     themes = models.ManyToManyField(Theme)
     zone = models.ForeignKey(PollingPlace, on_delete=models.CASCADE)
+    place = models.ForeignKey(Address, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
