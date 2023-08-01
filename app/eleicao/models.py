@@ -45,8 +45,8 @@ class Theme(models.Model):
 
 class Address(models.Model):
     state = models.CharField("Estado", max_length=2, choices=lazy(get_states, list)())
-    city = models.CharField("Cidade", max_length=80, choices=[])
-    neighborhood = models.CharField("Bairro", max_length=50,choices=[])
+    city = models.CharField("Cidade", max_length=80)
+    neighborhood = models.CharField("Bairro", max_length=50)
 
     def __str__(self):
             return f"{self.neighborhood}, {self.city} - {self.state}" 
