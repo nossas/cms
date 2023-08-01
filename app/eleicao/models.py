@@ -65,6 +65,8 @@ class Candidate(models.Model):
     name = models.CharField("Nome", max_length=120)
     bio = models.TextField("Minibio")
     email = models.EmailField("Email")
+    birth = models.DateField("Data de nascimento")
+    occupation = models.CharField("Profissão", max_length=100)
     photo = models.FileField(
         "Foto", null=True, blank=True, upload_to="candidatos/fotos/"
     )
@@ -80,10 +82,11 @@ class Candidate(models.Model):
     social_media = models.JSONField("Redes sociais", null=True, blank=True)
     number = models.PositiveSmallIntegerField("Numero do candidato")
     is_reelection = models.BooleanField("Reeleição", default=False)
-
+    newsletter = models.BooleanField("Quero receber atualizações da campanha e do NOSSAS.", default=False)
     themes = models.ManyToManyField(Theme)
     zone = models.ForeignKey(PollingPlace, on_delete=models.CASCADE)
     place = models.ForeignKey(Address, on_delete=models.CASCADE)
+
 
     def __str__(self):
         return self.name

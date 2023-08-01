@@ -6,7 +6,7 @@ from .models import Address, Candidate, PollingPlace
 class Candidate1Form(forms.ModelForm):
     class Meta:
         model = Candidate
-        fields = ["name", "email", "slug"]
+        fields = ["name", "email","birth", "occupation", "slug"]
 
 
 class Candidate2Form(forms.ModelForm):
