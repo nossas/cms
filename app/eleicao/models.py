@@ -36,6 +36,9 @@ class Theme(models.Model):
     value = models.SlugField("Valor", max_length=50)
     label = models.CharField("Label", max_length=50)
 
+    def __str__(self):
+        return self.label
+
 
 class PollingPlace(models.Model):
     name = models.CharField("Nome", max_length=120)
@@ -44,8 +47,12 @@ class PollingPlace(models.Model):
     address_line = models.CharField("Endereço", max_length=200)
     neighborhood = models.CharField("Bairro", max_length=50)
 
+    def __str__(self):
+        return f"{self.name}: {self.address_line} - {self.neighborhood}"
+
 
 class Candidate(models.Model):
+    slug = models.SlugField("Slug", max_length=120, unique=True)
     name = models.CharField("Nome", max_length=120)
     bio = models.TextField("Minibio")
     email = models.EmailField("Email")
@@ -71,6 +78,9 @@ class Candidate(models.Model):
     themes = models.ManyToManyField(Theme)
     zone = models.ForeignKey(PollingPlace, on_delete=models.CASCADE)
 
+    def get_absolute_url(self):
+        return f"/eleicao/candidatas/{self.slug}"
+
 
 class Voter(models.Model):
     name = models.CharField("Nome", max_length=120)
@@ -78,5 +88,3 @@ class Voter(models.Model):
     whatsapp = models.CharField("Whatsapp", max_length=15, null=True, blank=True)
 
     zone = models.ForeignKey(PollingPlace, on_delete=models.CASCADE)
-
-
