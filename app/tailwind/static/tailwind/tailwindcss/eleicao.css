@@ -1,7 +1,15 @@
 .candidate-detail-share a > svg {
-  margin-right: 10px;
+  @apply mr-3;
 }
 
 .form-items .select2-container {
   @apply min-w-full;
+}
+
+.eleicaodoano h1, h2, h3, h4, h5, h6 {
+  font-family: "Bebas Neue", sans-serif;
+}
+
+.eleicaodoano a, p, span {
+  font-family: "Nunito Sans", sans-serif;
 }
