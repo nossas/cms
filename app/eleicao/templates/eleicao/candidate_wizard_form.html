@@ -45,11 +45,11 @@
     $('#id_1-neighborhood').select2({
         placeholder: 'Select an option'
     });
-    
-    var uf 
+
+    var uf
     $("#id_1-state").on("change",(evt)=>{
         uf = evt.target.value
-        
+
         $.get("/eleicao/cep" + "?state=" + uf, (data)=>{
           $("#id_1-city").empty()
           $("#id_1-city").append('<option value="">----</option>')
@@ -62,7 +62,7 @@
     })
 
     $("#id_1-city").on("change",(evt)=>{
-      
+
         $.get("/eleicao/cep" + "?city=" + evt.target.value +"&state="+ uf , (data)=>{
             $("#id_1-neighborhood").empty()
             $("#id_1-neighborhood").append('<option value="">----</option>')
