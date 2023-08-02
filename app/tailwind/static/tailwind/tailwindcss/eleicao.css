@@ -6,10 +6,24 @@
   @apply min-w-full;
 }
 
-.eleicaodoano h1, h2, h3, h4, h5, h6 {
+.aeleicaodoano h1, h2, h3, h4, h5, h6 {
+  font-family: "Bebas Neue", sans-serif;
+  color: #1842AC;
+}
+
+.aeleicaodoano a, p, span {
+  font-family: "Nunito Sans", sans-serif;
+  color: #1842AC;
+}
+
+.aeleicaodoano .btn {
   font-family: "Bebas Neue", sans-serif;
 }
 
-.eleicaodoano a, p, span {
-  font-family: "Nunito Sans", sans-serif;
+.aeleicaodoano .btn-primary {
+  @apply bg-[#1842AC] text-lg rounded-lg border-none !text-neutral-50;
+}
+
+.aeleicaodoano .btn-secondary {
+  @apply bg-[#93AC70] text-lg rounded-lg border-none !text-neutral-50;
 }

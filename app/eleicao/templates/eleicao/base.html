@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en" data-theme="cupcake">
+<html lang="pt" data-theme="cupcake">
 
 <head>
   <title>Eleição do Ano</title>
@@ -13,11 +13,10 @@
   {% block extra_head %}{% endblock %}
 </head>
 
-<body class="content-between py-28 h-screen tracking-normal leading-normal eleicaodoano font-droid">
-  {% block main %}
-  {% endblock main %}
-  
+<body class="content-between my-28 h-screen tracking-normal leading-normal aeleicaodoano font-droid">
+  {% block main %}{% endblock main %}
   {% block form %}{% endblock %}
+  {% block list %}{% endblock %}
   {% block footer_js %}{% endblock %}
 </body>
 </html>

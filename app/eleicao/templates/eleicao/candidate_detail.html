@@ -2,20 +2,20 @@
 {% block main %}
 {% load static %}
 <main class="candidate-detail">
-  <section class="candidate-detail-infos px-14 m-auto w-full max-w-screen-xl mb-16">
-    <div class="grid grid-cols-6 profile  ">
-      <div class="photo col-span-2">
-        <img src="{% static 'images/eleicao/mariana.png' %}" alt="Foto do(a) candidato(a)" class="h-auto max-w-xs rounded-sm">
+  <section class="px-14 m-auto mb-16 w-full max-w-screen-xl candidate-detail-infos">
+    <div class="grid grid-cols-6 profile">
+      <div class="col-span-2 photo">
+        <img src="{% static 'images/eleicao/mariana.png' %}" alt="Foto do(a) candidato(a)" class="max-w-xs h-auto rounded-sm">
       </div>
-      <div class="col-span-4 election-info ">
+      <div class="col-span-4 election-info">
         <div class="text-blue-800 text">
-          <h3 class="text-sm font-bold mb-1">{{object.place.city}} - {{object.place.state}}</h3>
-          <h1 class="text-5xl font-bold uppercase mb-1">{{object.name}}</h1>
-          <h2 class="text-2xl font-bold mb-1" aria-label="Número do(a) candidato(a)">{{object.number}}</h2>
+          <h3 class="mb-1 text-sm font-bold">{{object.place.city}} - {{object.place.state}}</h3>
+          <h1 class="mb-1 text-5xl font-bold uppercase">{{object.name}}</h1>
+          <h2 class="mb-1 text-2xl font-bold" aria-label="Número do(a) candidato(a)">{{object.number}}</h2>
           <p class="text-md">{{object.zone.name}}</p>
         </div>
 
-        <div class="grid grid-cols-2 my-1 mt-2 capitalize text-blue-800 candidate-info">
+        <div class="grid grid-cols-2 my-1 mt-2 text-blue-800 capitalize candidate-info">
           <div>
             <div>
               <label class="font-bold">Reeleição:</label>
@@ -64,14 +64,14 @@
   </section>
 
   <section class="py-16 bg-[#EDB052] candidate-detail-video text-blue-800">
-    <h1 class="flex justify-center text-4xl mb-4">O QUE MARIANA TEM PRA DIZER</h1>
+    <h1 class="flex justify-center mb-4 text-4xl">O QUE MARIANA TEM PRA DIZER</h1>
     <div class="flex justify-center items-center">
       <img src="{% static 'images/eleicao/mariana-video.png' %}" alt="Video aqui">
     </div>
   </section>
 
-  <section class="px-5 py-16 candidate-detail-share mb-10">
-    <h1 class="max-w-xs m-auto text-center text-4xl mb-4 text-blue-800">Compartilhe nas redes para apoiar Mariana</h1>
+  <section class="px-5 py-16 mb-10 candidate-detail-share">
+    <h1 class="m-auto mb-4 max-w-xs text-4xl text-center text-blue-800">Compartilhe nas redes para apoiar Mariana</h1>
     <div class="flex flex-col gap-4 items-center">
       <a class="btn btn-outline min-w-[270px] rounded-md text-sm border-none text-neutral-50 bg-[#71C16A]" href="https://wa.me">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
