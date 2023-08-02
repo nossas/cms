@@ -35,7 +35,7 @@
   @apply max-w-none;
 }
 
-.aeleicaodoano .form-control input {
+.aeleicaodoano .form-control input[type="text"] {
   @apply w-full rounded-lg input input-bordered bg-[#EFEFEF] max-w-none;
 }
 
