@@ -1,12 +1,12 @@
 from typing import Any
 from collections import ChainMap
+
 from django.conf import settings
 from django.db import transaction
 from django.db.models.query import QuerySet
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView
 
-# from django.views.generic.edit import CreateView
 from formtools.wizard.views import SessionWizardView
 
 from .forms import (
@@ -17,7 +17,7 @@ from .forms import (
     Candidate5Form,
     Candidate6Form,
 )
-from .models import Candidate, Voter
+from .models import Address, Candidate, Voter
 
 # Create your views here.
 
@@ -57,10 +57,23 @@ class CandidateCreateView(SessionWizardView):
         values = dict(ChainMap(*values))
 
         # Processar os valores
-        themes = values.pop("themes")
         values.pop("agree")
+        # Theme
+        themes = values.pop("themes")
+        # Address
+        state = values.pop("state")
+        city = values.pop("city")
+        neighborhood = values.pop("neighborhood")
+        
+        values["place_id"] = Address.objects.filter(
+            state=state, city=city, neighborhood=neighborhood
+        ).first().id
+        # PollingPlace
+        # zone = values.pop("zone")
+        # polling_place = PollingPlace.objects.get(id=zone)
 
         obj = Candidate.objects.create(**values)
+        # obj.zone = polling_place
         obj.themes.set(themes)
         obj.save()
 

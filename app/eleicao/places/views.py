@@ -20,10 +20,3 @@ def fetch_cep(request):
 
     return JsonResponse({"choices": choices})
 
-
-# def fetch_cities(request, uf):
-#     return JsonResponse({"choices": [{"value": "", "label": ""}]})
-
-
-# def fetch_neighborhoods(request, city):
-#     return JsonResponse({"choices": [{"value": "", "label": ""}]})

@@ -46,7 +46,7 @@
       $('#id_1-neighborhood').select2({
         placeholder: 'Selecione seu bairro'
       });
-      $('#id_1-zone').select2({
+      $('#id_1-zone_id').select2({
         placeholder: 'Selecione o local da candidatura'
       });
 
@@ -79,10 +79,10 @@
 
       $("#id_1-neighborhood").on("change", (evt) => {
         $.get("/eleicao/cep" + "?city=" + city + "&state=" + uf + "&neighborhood=" + evt.target.value, (data) => {
-          $("#id_1-zone").empty()
-          $("#id_1-zone").append('<option value="">----</option>')
+          $("#id_1-zone_id").empty()
+          $("#id_1-zone_id").append('<option value="">----</option>')
           $.each(data.choices, (index, value) => {
-            $("#id_1-zone").append('<option value="' + value[0] + '">' + value[1] + "</option>")
+            $("#id_1-zone_id").append('<option value="' + value[0] + '">' + value[1] + "</option>")
           })
         })
       });

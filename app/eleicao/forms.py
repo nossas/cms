@@ -1,7 +1,7 @@
 from django import forms
 from django_select2 import forms as s2forms
 
-from .models import Address, Candidate
+from .models import Address, Candidate, Theme
 
 
 class Candidate1Form(forms.ModelForm):
@@ -12,7 +12,7 @@ class Candidate1Form(forms.ModelForm):
 
 class Candidate2Form(forms.ModelForm):
     number = forms.IntegerField(label="Numero do candidato")
-    zone = forms.IntegerField()
+    zone_id = forms.IntegerField()
 
     class Meta:
         model = Address
@@ -20,7 +20,7 @@ class Candidate2Form(forms.ModelForm):
             "state",
             "city",
             "neighborhood",
-            "zone",
+            "zone_id",
             "number",
         ]
 
@@ -30,7 +30,7 @@ class Candidate2Form(forms.ModelForm):
         # self.fields["state"].widget = s2forms.Select2Widget()
         self.fields["city"].widget = forms.Select()
         self.fields["neighborhood"].widget = forms.Select()
-        self.fields["zone"].widget = forms.Select()
+        self.fields["zone_id"].widget = forms.Select()
 
 
 class Candidate3Form(forms.ModelForm):
@@ -53,7 +53,9 @@ class Candidate5Form(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.fields["themes"].widget = forms.CheckboxSelectMultiple
+        self.fields["themes"].widget = forms.CheckboxSelectMultiple(
+            choices=list(map(lambda x: x, Theme.objects.values_list("id", "label")))
+        )
 
 
 class Candidate6Form(forms.Form):
