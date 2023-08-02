@@ -27,7 +27,7 @@ from .models import Address, Candidate, Voter
 class CandidateListView(ListView):
     template_name = "eleicao/candidate_list.html"
     model = Candidate
-    paginate_by = 2
+    paginate_by = 10
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         ctx = super().get_context_data(**kwargs)
@@ -39,7 +39,6 @@ class CandidateListView(ListView):
         qs = super().get_queryset()
         
         filter_state = self.request.GET.get("uf", None)
-        filter_zone = request.GET.get("zone", None)
         if filter_state:
             return qs.filter(place__state__iexact=filter_state)
 

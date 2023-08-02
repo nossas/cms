@@ -57,10 +57,8 @@ class PollingPlace(models.Model):
     places = models.ManyToManyField(Address)
 
     def __str__(self):
-      
-
-        
-        return f"{list(map(lambda x: x, self.places.all()))}".replace('[<Address:', '').replace('>]', ' ')
+        return self.name
+        # return f"{list(map(lambda x: x, self.places.all()))}".replace('[<Address:', '').replace('>]', ' ')
 
 
 class Candidate(models.Model):
