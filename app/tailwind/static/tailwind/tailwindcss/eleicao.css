@@ -11,7 +11,7 @@
   color: #1842AC;
 }
 
-.aeleicaodoano a, p, span {
+.aeleicaodoano a, p, span, label {
   font-family: "Nunito Sans", sans-serif;
   color: #1842AC;
 }
@@ -30,4 +30,29 @@
 
 .aeleicaodoano nav a {
   font-family: "Bebas Neue", sans-serif;
+}
+
+.aeleicaodoano .form-control {
+  @apply max-w-none;
+}
+
+.aeleicaodoano .form-control input {
+  @apply w-full rounded-lg input input-bordered bg-[#EFEFEF] max-w-none;
+}
+
+.aeleicaodoano .form-control label {
+  @apply text-sm font-bold label text-neutral-700;
+}
+
+.aeleicaodoano .form-control.form-back-btn {
+  font-family: "Bebas Neue", sans-serif;
+  color: #1842AC !important;
+}
+
+.aeleicaodoano .form-control .select2-selection {
+  @apply select w-full rounded-lg bg-[#EFEFEF] max-w-none;
+}
+
+.aeleicaodoano .form-control .select2-selection__arrow {
+  @apply hidden;
 }
