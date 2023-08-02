@@ -5,4 +5,5 @@ from .create import (
     Candidate4Form,
     Candidate5Form,
     Candidate6Form,
+    VoterForm
 )
