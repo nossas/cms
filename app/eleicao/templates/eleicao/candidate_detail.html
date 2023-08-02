@@ -87,12 +87,14 @@
 
         Compartilhe no Twitter
       </a>
+
       <a class="btn btn-outline min-w-[270px] rounded-md text-sm border-none !text-neutral-50 bg-[#395AA1]" href="https://www.facebook.com/sharer/sharer.php?u=http://eleicaodoano.bonde.devel:8000/candidatas/{{object.slug}}">
         <svg width="9" height="16" viewBox="0 0 9 16" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M0.272495 8.52159H2.1242V15.7419C2.1242 15.8845 2.24615 16 2.39667 16H5.53631C5.68683 16 5.80878 15.8845 5.80878 15.7419V8.55562H7.9375C8.07591 8.55562 8.19238 8.45725 8.20818 8.32703L8.53149 5.66888C8.54036 5.59575 8.51591 5.5225 8.46424 5.46763C8.41254 5.41272 8.33854 5.38128 8.26087 5.38128H5.80891V3.715C5.80891 3.21272 6.09444 2.958 6.65771 2.958C6.73798 2.958 8.26087 2.958 8.26087 2.958C8.41139 2.958 8.53333 2.84244 8.53333 2.69994V0.259969C8.53333 0.117406 8.41139 0.00190625 8.26087 0.00190625H6.05145C6.03587 0.0011875 6.00126 0 5.95025 0C5.5669 0 4.23438 0.0712812 3.18178 0.988437C2.01552 2.00481 2.17765 3.22172 2.21639 3.43272V5.38122H0.272462C0.121945 5.38122 0 5.49672 0 5.63928V8.2635C3.29937e-05 8.40603 0.121978 8.52159 0.272495 8.52159Z" fill="white"/>
           </svg>
         Compartilhe no Facebook
       </a>
+
       <button class="btn btn-outline min-w-[270px] rounded-md text-sm border-none !text-neutral-50 bg-[#EDB052]" onclick="">
             <svg width="16" height="19" viewBox="0 0 16 19" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M10.0352 19H2.96241C1.32889 19 0 17.6683 0 16.0312V5.97461C0 4.33759 1.32889 3.00586 2.96241 3.00586H10.0352C11.6687 3.00586 12.9976 4.33759 12.9976 5.97461V16.0312C12.9976 17.6683 11.6687 19 10.0352 19ZM2.96241 4.49023C2.14572 4.49023 1.48121 5.15617 1.48121 5.97461V16.0312C1.48121 16.8497 2.14572 17.5156 2.96241 17.5156H10.0352C10.8519 17.5156 11.5164 16.8497 11.5164 16.0312V5.97461C11.5164 5.15617 10.8519 4.49023 10.0352 4.49023H2.96241ZM15.96 14.1758V2.96875C15.96 1.33173 14.6311 0 12.9976 0H4.77689C4.36782 0 4.03629 0.332245 4.03629 0.742188C4.03629 1.15213 4.36782 1.48438 4.77689 1.48438H12.9976C13.8143 1.48438 14.4788 2.15031 14.4788 2.96875V14.1758C14.4788 14.5857 14.8103 14.918 15.2194 14.918C15.6285 14.918 15.96 14.5857 15.96 14.1758Z" fill="white"/>
@@ -105,14 +107,14 @@
     function myFunction() {
       // Get the text field
       var copyText = document.getElementById("myInput");
-    
+
       // Select the text field
       copyText.select();
       copyText.setSelectionRange(0, 99999); // For mobile devices
-    
+
       // Copy the text inside the text field
       navigator.clipboard.writeText({{object.slug}});
-      
+
       // Alert the copied text
       alert("Copied the text: " + {{object.slug}});
 </main>
