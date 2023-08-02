@@ -1,5 +1,7 @@
 {% extends "eleicao/base.html" %}
 
+{% load static %}
+
 {% block extra_head %}
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"
   integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
@@ -9,26 +11,33 @@
 {% endblock %}
 
 {% block form %}
-<p>Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p>
-<form class="candidate-create-form" action="" method="post">
-  {% csrf_token %}
-  <table class="form-items">
-    {{ wizard.management_form }}
-    {% if wizard.form.forms %}
-    {{ wizard.form.management_form }}
-    {% for form in wizard.form.forms %}
-    {{ form.as_table }}
-    {% endfor %}
-    {% else %}
-    {{ wizard.form }}
-    {% endif %}
-  </table>
-  {% if wizard.steps.prev %}
-  <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}">Primeira etapa</button>
-  <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">Voltar uma etapa</button>
-  {% endif %}
-  <input type="submit" value="Avançar" />
-</form>
+<main class="h-screen">
+  <div class="grid grid-cols-2 w-full h-full">
+    <section class="candidate-form">
+      <p>Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p>
+      <form class="candidate-create-form" action="" method="post">
+        {% csrf_token %}
+        <table class="form-items">
+          {{ wizard.management_form }}
+          {% if wizard.form.forms %}
+            {{ wizard.form.management_form }}
+              {% for form in wizard.form.forms %}
+                {{ form.as_table }}
+            {% endfor %}
+          {% else %}
+            {{ wizard.form }}
+          {% endif %}
+        </table>
+        {% if wizard.steps.prev %}
+        <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}">Primeira etapa</button>
+        <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">Voltar uma etapa</button>
+        {% endif %}
+        <input type="submit" value="Avançar" />
+      </form>
+    </section>
+    <img class="h-full" src="{% static 'images/eleicao/candidate-form-image.png' %}" alt="Imagem">
+  </div>
+</main>
 {% endblock %}
 
 {% block footer_js %}
