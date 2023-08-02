@@ -57,7 +57,10 @@ class PollingPlace(models.Model):
     places = models.ManyToManyField(Address)
 
     def __str__(self):
-        return f"{self.name}: {self.address_line}"
+      
+
+        
+        return f"{list(map(lambda x: x, self.places.all()))}".replace('[<Address:', '').replace('>]', ' ')
 
 
 class Candidate(models.Model):
@@ -112,4 +115,4 @@ class Voter(models.Model):
     zone = models.ForeignKey(PollingPlace, on_delete=models.CASCADE)
     
     def get_absolute_url(self):
-        return f"/eleicao/querovotar/resultado/"
+        return f"/querovotar/resultado/?zone={self.zone.id}"

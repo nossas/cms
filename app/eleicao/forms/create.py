@@ -1,7 +1,7 @@
 from django import forms
 from django_select2 import forms as s2forms
 
-from ..models import Address, Candidate, Theme
+from ..models import Address, Candidate, Theme, Voter, PollingPlace
 
 
 class Candidate1Form(forms.ModelForm):
@@ -62,3 +62,22 @@ class Candidate6Form(forms.Form):
     agree = forms.BooleanField(
         label="Li e estou de acordo com os compromissos listados assim"
     )
+class PlacesWidget(s2forms.ModelSelect2Widget):
+  
+  search_fields = [
+    "places__state__icontains", 
+    "places__city__icontains",
+    "places__neighborhood__icontains"
+  ]
+class VoterForm(forms.ModelForm):
+  
+
+  zone = forms.ModelChoiceField(queryset= PollingPlace.objects.all(), label ="Onde você vota?", required=True)
+  class Meta: 
+    model = Voter
+    fields = ["name", "email", "whatsapp", "zone"]
+    
+    
+  # def __init__(self, *args,**kwargs): 
+  #   super().__init__(*args,**kwargs)
+  #   self.fields["zone"].widgets =  PlacesWidget

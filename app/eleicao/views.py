@@ -16,6 +16,7 @@ from .forms import (
     Candidate4Form,
     Candidate5Form,
     Candidate6Form,
+    VoterForm,
 )
 from .forms.filters import CandidateListFilter
 from .models import Address, Candidate, Voter
@@ -38,6 +39,7 @@ class CandidateListView(ListView):
         qs = super().get_queryset()
         
         filter_state = self.request.GET.get("uf", None)
+        filter_zone = request.GET.get("zone", None)
         if filter_state:
             return qs.filter(place__state__iexact=filter_state)
 
@@ -74,10 +76,12 @@ class CandidateCreateView(SessionWizardView):
         state = values.pop("state")
         city = values.pop("city")
         neighborhood = values.pop("neighborhood")
-        
-        values["place_id"] = Address.objects.filter(
-            state=state, city=city, neighborhood=neighborhood
-        ).first().id
+
+        values["place_id"] = (
+            Address.objects.filter(state=state, city=city, neighborhood=neighborhood)
+            .first()
+            .id
+        )
         # PollingPlace
         # zone = values.pop("zone")
         # polling_place = PollingPlace.objects.get(id=zone)
@@ -97,5 +101,25 @@ class CandidateDetailView(DetailView):
 
 class VoterCreateView(CreateView):
     template_name = "eleicao/voter_form.html"
+    form_class = VoterForm
     model = Voter
-    fields = "__all__"
+
+
+def results_view(request):
+    # import ipdb; ipdb.set_trace()
+    filter_zone = request.GET.get("zone", None)
+
+    return render(request=request, template_name="eleicao/voter_results.html")
+class ResultsCandidateView(ListView):
+    template_name = "eleicao/voter_results.html"
+    model = Candidate
+
+    def get_queryset(self) -> QuerySet[Any]:
+        filter_state = self.request.GET.get("uf", None)
+        filter_zone = self.request.GET.get("zone", None)
+        if filter_state:
+            return Candidate.objects.filter(state__iexact=filter_state)
+        if filter_zone:
+            return Candidate.objects.filter(zone=filter_zone)
+
+        return super().get_queryset()

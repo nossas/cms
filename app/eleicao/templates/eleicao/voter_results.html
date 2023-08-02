@@ -1,0 +1,6 @@
+<h1>PRONTO</h1>
+  <ul class="grid grid-cols-4 gap-6">
+      {% for candidate in object_list %}
+         <p>{{candidate.name}}</p>
+      {% endfor %}
+  </ul>
