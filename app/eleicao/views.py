@@ -4,7 +4,8 @@ from django.conf import settings
 from django.db import transaction
 from django.db.models.query import QuerySet
 from django.shortcuts import render, redirect
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
+
 # from django.views.generic.edit import CreateView
 from formtools.wizard.views import SessionWizardView
 
@@ -16,7 +17,7 @@ from .forms import (
     Candidate5Form,
     Candidate6Form,
 )
-from .models import Candidate
+from .models import Candidate, Voter
 
 # Create your views here.
 
@@ -69,3 +70,9 @@ class CandidateCreateView(SessionWizardView):
 class CandidateDetailView(DetailView):
     template_name = "eleicao/candidate_detail.html"
     model = Candidate
+
+
+class VoterCreateView(CreateView):
+    template_name = "eleicao/voter_form.html"
+    model = Voter
+    fields = "__all__"

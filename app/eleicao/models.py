@@ -57,7 +57,7 @@ class PollingPlace(models.Model):
     places = models.ManyToManyField(Address)
 
     def __str__(self):
-        return f"{self.name}"
+        return f"{self.name}: {self.address_line}"
 
 
 class Candidate(models.Model):
@@ -101,3 +101,6 @@ class Voter(models.Model):
     whatsapp = models.CharField("Whatsapp", max_length=15, null=True, blank=True)
 
     zone = models.ForeignKey(PollingPlace, on_delete=models.CASCADE)
+    
+    def get_absolute_url(self):
+        return f"/eleicao/querovotar/resultado/"

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import CandidateView, CandidateCreateView, CandidateDetailView
+from .views import CandidateView, CandidateCreateView, CandidateDetailView, VoterCreateView
 from .places.views import fetch_cep
 
 urlpatterns = [
@@ -8,4 +8,5 @@ urlpatterns = [
     path("candidatas/<slug:slug>/", CandidateDetailView.as_view()),
     # Filtro de endereço
     path("cep/", fetch_cep),
+    path("querovotar/descubra/", VoterCreateView.as_view()),
 ]
