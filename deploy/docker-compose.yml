@@ -13,9 +13,13 @@ services:
         - AWS_STORAGE_BUCKET_NAME=${AWS_STORAGE_BUCKET_NAME}
       labels:
         - traefik.enable=true
+        - traefik.http.routers.cms.priority=10
         - traefik.http.services.cms.loadbalancer.server.port=8000
         - traefik.http.routers.cms.tls=true
         - traefik.http.routers.cms.tls.certresolver=myresolver
+        - traefik.http.routers.cms.rule=HostRegexp(`aeleicaodoano.org`,`{subdomain:[a-z]+}.aeleicaodoano.org`,`cms.bonde.org`,`{subdomain:[a-z]+}.cms.bonde.org`)
+        # - traefik.http.routers.cms.tls.domains[0].main=aeleicaodoano.org
+        # - traefik.http.routers.cms.tls.domains[0].sans=*.aeleicaodoano.org
 
 networks:
   default:
