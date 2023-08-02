@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Dict
 from collections import ChainMap
 
 from django.conf import settings
@@ -17,21 +17,31 @@ from .forms import (
     Candidate5Form,
     Candidate6Form,
 )
+from .forms.filters import CandidateListFilter
 from .models import Address, Candidate, Voter
 
 # Create your views here.
 
 
-class CandidateView(ListView):
+class CandidateListView(ListView):
     template_name = "eleicao/candidate_list.html"
     model = Candidate
+    paginate_by = 2
+
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        ctx = super().get_context_data(**kwargs)
+        ctx["form"] = CandidateListFilter(self.request.GET)
+
+        return ctx
 
     def get_queryset(self) -> QuerySet[Any]:
+        qs = super().get_queryset()
+        
         filter_state = self.request.GET.get("uf", None)
         if filter_state:
-            return Candidate.objects.filter(state__iexact=filter_state)
+            return qs.filter(place__state__iexact=filter_state)
 
-        return super().get_queryset()
+        return qs
 
 
 class CandidateCreateView(SessionWizardView):
