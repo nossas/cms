@@ -84,7 +84,7 @@
       $("#id_1-state").on("change", (evt) => {
         uf = evt.target.value
 
-        $.get("/eleicao/cep" + "?state=" + uf, (data) => {
+        $.get("{% url 'eleicao:cep' %}" + "?state=" + uf, (data) => {
           $("#id_1-city").empty()
           $("#id_1-city").append('<option value="">----</option>')
           $.each(data.choices, (index, value) => {
@@ -98,7 +98,7 @@
       var city
       $("#id_1-city").on("change", (evt) => {
         city = evt.target.value;
-        $.get("/eleicao/cep" + "?city=" + city + "&state=" + uf, (data) => {
+        $.get("{% url 'eleicao:cep' %}" + "?city=" + city + "&state=" + uf, (data) => {
           $("#id_1-neighborhood").empty()
           $("#id_1-neighborhood").append('<option value="">----</option>')
           $.each(data.choices, (index, value) => {
@@ -108,7 +108,7 @@
       });
 
       $("#id_1-neighborhood").on("change", (evt) => {
-        $.get("/eleicao/cep" + "?city=" + city + "&state=" + uf + "&neighborhood=" + evt.target.value, (data) => {
+        $.get("{% url 'eleicao:cep' %}" + "?city=" + city + "&state=" + uf + "&neighborhood=" + evt.target.value, (data) => {
           $("#id_1-zone_id").empty()
           $("#id_1-zone_id").append('<option value="">----</option>')
           $.each(data.choices, (index, value) => {
