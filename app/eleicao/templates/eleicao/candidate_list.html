@@ -21,7 +21,7 @@
             </nav>
 
             {% if is_paginated %}
-            <ul class="py-6 font-bold text-xl text-center flex gap-2 mx-auto">
+            <ul class="flex gap-2 py-6 mx-auto text-xl font-bold text-center">
                 {% if page_obj.has_previous %}
                 <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
                 {% else %}
