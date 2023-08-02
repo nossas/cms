@@ -4,10 +4,10 @@
 {% block content %}
 <main class="candidate-detail">
   <section class="m-auto mb-16 w-full max-w-screen-xl candidate-detail-infos md:px-14">
-    <div class="grid grid-cols-1 md:grid-cols-3 profile">
-      <div class="photo col-span-1">
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-3 profile">
+      <div class="col-span-1 photo">
         {% if object.photo %}
-        <img src="{{ object.photo.url }}" alt="Foto do(a) candidato(a)" class="h-auto max-w-xs rounded-sm mx-auto md:mx-0">
+        <img src="{{ object.photo.url }}" alt="Foto do(a) candidato(a)" class="mx-auto max-w-xs h-auto rounded-sm md:mx-0">
         {% else %}
         {% include 'eleicao/includes/img.html' %}
         {% endif %}

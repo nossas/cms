@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.functional import lazy
+from django.urls import reverse
 
 from .csv.choices import get_states
 
@@ -49,10 +50,11 @@ class Address(models.Model):
     neighborhood = models.CharField("Bairro", max_length=80)
 
     def __str__(self):
-            return f"{self.neighborhood}, {self.city} - {self.state}" 
+        return f"{self.neighborhood}, {self.city} - {self.state}"
+
 
 class PollingPlace(models.Model):
-    name = models.CharField("Nome", max_length=120)  
+    name = models.CharField("Nome", max_length=120)
     address_line = models.CharField("Endereço", max_length=200, null=True, blank=True)
     places = models.ManyToManyField(Address)
 
@@ -83,25 +85,28 @@ class Candidate(models.Model):
     social_media = models.JSONField("Redes sociais", null=True, blank=True)
     number = models.PositiveSmallIntegerField("Numero do candidato")
     is_reelection = models.BooleanField("Reeleição", default=False)
-    newsletter = models.BooleanField("Quero receber atualizações da campanha e do NOSSAS.", default=False)
+    newsletter = models.BooleanField(
+        "Quero receber atualizações da campanha e do NOSSAS.", default=False
+    )
     themes = models.ManyToManyField(Theme)
     zone = models.ForeignKey(PollingPlace, on_delete=models.CASCADE)
     place = models.ForeignKey(Address, on_delete=models.CASCADE)
-
 
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
-        return f"/eleicao/candidatas/{self.slug}"
+        return reverse("eleicao:candidate_detail", kwargs={"slug": self.slug})
 
     @property
     def age(self):
         from datetime import date
 
         today = date.today()
-        return today.year - self.birth.year - (
-            (today.month, today.day) < (self.birth.month, self.birth.day)
+        return (
+            today.year
+            - self.birth.year
+            - ((today.month, today.day) < (self.birth.month, self.birth.day))
         )
 
 
@@ -111,6 +116,6 @@ class Voter(models.Model):
     whatsapp = models.CharField("Whatsapp", max_length=15, null=True, blank=True)
 
     zone = models.ForeignKey(PollingPlace, on_delete=models.CASCADE)
-    
+
     def get_absolute_url(self):
         return f"/querovotar/resultado/?zone={self.zone.id}"
