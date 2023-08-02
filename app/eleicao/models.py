@@ -7,8 +7,8 @@ from .csv.choices import get_states
 
 
 class GenderChoices(models.TextChoices):
-    male = "masculino", "Masculino"
-    female = "feminino", "Feminino"
+    male = "homem", "Homem"
+    female = "mulher", "Mulher"
     nonbinary = "não binário", "Não binário"
     travesti = "travesti", "Travesti"
     queer = "queer", "Queer"
