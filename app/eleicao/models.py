@@ -53,11 +53,11 @@ class Address(models.Model):
 
 class PollingPlace(models.Model):
     name = models.CharField("Nome", max_length=120)  
-    address_line = models.CharField("Endereço", max_length=200)
+    address_line = models.CharField("Endereço", max_length=200, null=True, blank=True)
     places = models.ManyToManyField(Address)
 
     def __str__(self):
-        return f"{self.name}: {self.address_line} "
+        return f"{self.name}"
 
 
 class Candidate(models.Model):
