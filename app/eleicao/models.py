@@ -94,6 +94,15 @@ class Candidate(models.Model):
     def get_absolute_url(self):
         return f"/eleicao/candidatas/{self.slug}"
 
+    @property
+    def age(self):
+        from datetime import date
+
+        today = date.today()
+        return today.year - self.birth.year - (
+            (today.month, today.day) < (self.birth.month, self.birth.day)
+        )
+
 
 class Voter(models.Model):
     name = models.CharField("Nome", max_length=120)
