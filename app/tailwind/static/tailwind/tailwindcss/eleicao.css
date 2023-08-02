@@ -27,3 +27,7 @@
 .aeleicaodoano .btn-secondary {
   @apply bg-[#93AC70] text-lg rounded-lg border-none !text-neutral-50;
 }
+
+.aeleicaodoano nav a {
+  font-family: "Bebas Neue", sans-serif;
+}

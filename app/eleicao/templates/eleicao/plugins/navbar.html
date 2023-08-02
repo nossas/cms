@@ -1,0 +1,9 @@
+{% load static %}
+
+<nav class="sticky px-12 bg-white flex gap-8 items-center w-full h-14">
+    <img src="{% static 'images/eleicao/logo-eleicao-do-ano.svg' %}" alt="">
+    <div class="flex gap-4">
+        <a class="text-[20px] font-bold uppercase" href="{% url 'eleicao:candidate_list' %}">Candidaturas</a>
+        <a class="text-[20px] font-bold uppercase" href="{% url 'eleicao:voter_match' %}">Eleitor(a)</a>
+    </div>
+</nav>

@@ -14,9 +14,8 @@
 </head>
 
 <body class="content-between h-screen tracking-normal leading-normal aeleicaodoano font-droid">
-  {% block main %}{% endblock main %}
-  {% block form %}{% endblock %}
-  {% block list %}{% endblock %}
+  {% include 'eleicao/plugins/navbar.html' %}
+  {% block content %}{% endblock %}
   {% block footer_js %}{% endblock %}
 </body>
 </html>
