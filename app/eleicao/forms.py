@@ -12,7 +12,7 @@ class Candidate1Form(forms.ModelForm):
 
 class Candidate2Form(forms.ModelForm):
     number = forms.IntegerField(label="Numero do candidato")
-    # zone = forms.ModelChoiceField(PollingPlace.objects)
+    zone = forms.IntegerField()
 
     class Meta:
         model = Address
@@ -20,7 +20,7 @@ class Candidate2Form(forms.ModelForm):
             "state",
             "city",
             "neighborhood",
-            # "zone",
+            "zone",
             "number",
         ]
 
@@ -30,6 +30,7 @@ class Candidate2Form(forms.ModelForm):
         # self.fields["state"].widget = s2forms.Select2Widget()
         self.fields["city"].widget = forms.Select()
         self.fields["neighborhood"].widget = forms.Select()
+        self.fields["zone"].widget = forms.Select()
 
 
 class Candidate3Form(forms.ModelForm):

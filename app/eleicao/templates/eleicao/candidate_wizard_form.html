@@ -1,7 +1,8 @@
 {% extends "eleicao/base.html" %}
 
 {% block extra_head %}
-<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"
+  integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 <!-- Select2 -->
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -10,68 +11,82 @@
 {% block form %}
 <p>Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p>
 <form class="candidate-create-form" action="" method="post">
-{% csrf_token %}
-    <table class="form-items">
+  {% csrf_token %}
+  <table class="form-items">
     {{ wizard.management_form }}
     {% if wizard.form.forms %}
-        {{ wizard.form.management_form }}
-        {% for form in wizard.form.forms %}
-            {{ form.as_table }}
-        {% endfor %}
-        {% else %}
-        {{ wizard.form }}
+    {{ wizard.form.management_form }}
+    {% for form in wizard.form.forms %}
+    {{ form.as_table }}
+    {% endfor %}
+    {% else %}
+    {{ wizard.form }}
     {% endif %}
-    </table>
-{% if wizard.steps.prev %}
-<button name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}">Primeira etapa</button>
-<button name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">Voltar uma etapa</button>
-{% endif %}
-<input type="submit" value="Avançar"/>
+  </table>
+  {% if wizard.steps.prev %}
+  <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}">Primeira etapa</button>
+  <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">Voltar uma etapa</button>
+  {% endif %}
+  <input type="submit" value="Avançar" />
 </form>
 {% endblock %}
 
 {% block footer_js %}
 <script>
-(function ($) {
-  "use strict";
+  (function ($) {
+    "use strict";
 
-  $(function () {
-    $('#id_1-state').select2({
-        placeholder: 'Select an option'
-    });
-    $('#id_1-city').select2({
-        placeholder: 'Select an option'
-    });
-    $('#id_1-neighborhood').select2({
-        placeholder: 'Select an option'
-    });
-    
-    var uf 
-    $("#id_1-state").on("change",(evt)=>{
+    $(function () {
+      $('#id_1-state').select2({
+        placeholder: 'Selecione seu estado'
+      });
+      $('#id_1-city').select2({
+        placeholder: 'Selecione sua cidade'
+      });
+      $('#id_1-neighborhood').select2({
+        placeholder: 'Selecione seu bairro'
+      });
+      $('#id_1-zone').select2({
+        placeholder: 'Selecione o local da candidatura'
+      });
+
+      var uf;
+      $("#id_1-state").on("change", (evt) => {
         uf = evt.target.value
-        
-        $.get("/eleicao/cep" + "?state=" + uf, (data)=>{
+
+        $.get("/eleicao/cep" + "?state=" + uf, (data) => {
           $("#id_1-city").empty()
           $("#id_1-city").append('<option value="">----</option>')
-            $.each(data.choices,(index, value)=>{
-                $("#id_1-city").append(
-                    '<option value="'+ value[0] +'">' + value[1] + '</option>'
-                )
-            })
+          $.each(data.choices, (index, value) => {
+            $("#id_1-city").append(
+              '<option value="' + value[0] + '">' + value[1] + '</option>'
+            )
+          })
         })
-    })
+      });
 
-    $("#id_1-city").on("change",(evt)=>{
-      
-        $.get("/eleicao/cep" + "?city=" + evt.target.value +"&state="+ uf , (data)=>{
-            $("#id_1-neighborhood").empty()
-            $("#id_1-neighborhood").append('<option value="">----</option>')
-            $.each(data.choices,(index, value)=>{
-                $("#id_1-neighborhood").append('<option value="'+ value[0] +'">' + value[1] + "</option>")
-            })
+      var city
+      $("#id_1-city").on("change", (evt) => {
+        city = evt.target.value;
+        $.get("/eleicao/cep" + "?city=" + city + "&state=" + uf, (data) => {
+          $("#id_1-neighborhood").empty()
+          $("#id_1-neighborhood").append('<option value="">----</option>')
+          $.each(data.choices, (index, value) => {
+            $("#id_1-neighborhood").append('<option value="' + value[0] + '">' + value[1] + "</option>")
+          })
         })
-    })
-  });
-}(window.jQuery));
+      });
+
+      $("#id_1-neighborhood").on("change", (evt) => {
+        $.get("/eleicao/cep" + "?city=" + city + "&state=" + uf + "&neighborhood=" + evt.target.value, (data) => {
+          $("#id_1-zone").empty()
+          $("#id_1-zone").append('<option value="">----</option>')
+          $.each(data.choices, (index, value) => {
+            $("#id_1-zone").append('<option value="' + value[0] + '">' + value[1] + "</option>")
+          })
+        })
+      });
+    });
+  }(window.jQuery));
 </script>
 {% endblock %}
