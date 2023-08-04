@@ -35,7 +35,9 @@
   @apply max-w-none;
 }
 
-.aeleicaodoano .form-control input[type="text"] {
+.aeleicaodoano .form-control input[type="text"],
+.aeleicaodoano .form-control input[type="email"],
+.aeleicaodoano .form-control input[type="number"] {
   @apply w-full rounded-lg input input-bordered bg-[#EFEFEF] max-w-none;
 }
 
@@ -59,4 +61,20 @@
 
 .aeleicaodoano .form-control span.select2-selection__rendered {
   @apply flex justify-center items-center;
+}
+
+.aeleicaodoano .candidate-content .steps li.step {
+  @apply min-w-[52px];
+}
+
+.aeleicaodoano .candidate-content .steps li.step-primary::after {
+  @apply bg-[#EDB052];
+}
+
+.aeleicaodoano .candidate-content .steps li.step::before {
+  @apply hidden;
+}
+
+.aeleicaodoano .candidate-content .steps li.step::after {
+  @apply w-6 h-6 text-xs font-bold text-[#1842AC];
 }
