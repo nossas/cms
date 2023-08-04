@@ -9,6 +9,7 @@ from django.views.generic import ListView, DetailView, CreateView
 
 from formtools.wizard.views import SessionWizardView
 
+from .bonde_utils import create_form_entry
 from .forms import (
     Candidate1Form,
     Candidate2Form,
@@ -89,6 +90,12 @@ class CandidateCreateView(SessionWizardView):
         # obj.zone = polling_place
         obj.themes.set(themes)
         obj.save()
+
+
+        # Integrate with Bonde
+        fe = create_form_entry(state=state, city=city, **values)
+
+        print(fe)
 
         return redirect(obj.get_absolute_url())
 

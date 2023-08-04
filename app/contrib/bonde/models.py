@@ -276,3 +276,44 @@ class ActionPressure(models.Model):
     class Meta:
         managed = False
         db_table = "activist_pressures"
+
+
+class Activist(models.Model):
+    name = models.CharField(max_length=155)
+    first_name = models.CharField(max_length=55, blank=True, null=True)
+    last_name = models.CharField(max_length=100, blank=True, null=True)
+    email = models.EmailField(unique=True)
+    phone = models.CharField(max_length=20, blank=True, null=True)
+    # document_number = models.CharField(max_length=-1, blank=True, null=True)
+    # document_type = models.CharField(max_length=-1, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    city = models.CharField(max_length=100, blank=True, null=True)
+    state = models.CharField(max_length=2, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'activists'
+
+
+class FormEntry(models.Model):
+    # widget = models.ForeignKey(Widget, models.DO_NOTHING, blank=True, null=True)
+    fields = models.JSONField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    synchronized = models.BooleanField(blank=True, null=True)
+    activist = models.ForeignKey(Activist, models.DO_NOTHING, blank=True, null=True)
+    # mailchimp_syncronization_at = models.DateTimeField(blank=True, null=True)
+    # mailchimp_syncronization_error_reason = models.TextField(blank=True, null=True)
+    widget_id = models.IntegerField()
+    cached_community_id = models.IntegerField(blank=True, null=True)
+    # rede_syncronized = models.BooleanField(blank=True, null=True)
+    mobilization_id = models.IntegerField(blank=True, null=True)
+    # mailchimp_status = models.CharField(max_length=20, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'form_entries'
+    
+    def __str__(self):
+        return f'ID: {self.id} / WidgetID: {self.widget_id}'
