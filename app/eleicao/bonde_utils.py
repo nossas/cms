@@ -10,16 +10,18 @@ def create_form_entry(**form_data):
     email = form_data.get("email")
     name = form_data.get("name")
     # Activist get_or_create
-    activist, created = Activist.objects.get_or_create(email=email, name=name)
+    activist = Activist.objects.get(email=email)
 
-    if created:
-        state = form_data.get("state")
-        city = form_data.get("city")
-        activist.first_name = name.split(" ")[0]
-        activist.last_name = " ".join(name.split(" ")[1:])
-        activist.state = state
-        activist.city = city
-        activist.save()
+    if not activist:
+        activist = Activist.objects.create(email=email, name=name)
+
+    state = form_data.get("state")
+    city = form_data.get("city")
+    activist.first_name = name.split(" ")[0]
+    activist.last_name = " ".join(name.split(" ")[1:])
+    activist.state = state
+    activist.city = city
+    activist.save()
 
     # Montando o FormEntry
     fe = FormEntry()
@@ -38,7 +40,7 @@ def create_form_entry(**form_data):
                 "label": key,
                 "placeholder": "",
                 "required": True,
-                "value": value if key != 'birth' else value.strftime("%d/%m/%Y"),
+                "value": value if key != "birth" else value.strftime("%d/%m/%Y"),
             }
         )
 
