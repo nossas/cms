@@ -54,13 +54,13 @@
               {% endif %}
             </div>
             <div class="flex justify-between items-center py-4">
-            {% if wizard.steps.prev %}
-              <button class="text-xl form-back-btn"name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">Voltar</button>
-            {% else %}
-              <a href="#" class="text-xl form-back-btn">Voltar</a>
-            {% endif %}
-              <input class="btn btn-primary" type="submit" value="Continuar" />
-            </div>
+              {% if wizard.steps.prev %}
+                <button class="text-xl form-back-btn" type="submit" formnovalidate name="wizard_goto_step" value="{{ wizard.steps.prev }}">Voltar</button>
+              {% else %}
+                <a href="#" class="text-xl form-back-btn">Voltar</a>
+              {% endif %}
+                <input class="btn btn-primary" type="submit" value="Continuar" />
+              </div>
           </form>
         </div>
       </div>
