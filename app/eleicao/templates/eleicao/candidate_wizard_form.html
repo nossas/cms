@@ -13,8 +13,8 @@
 {% block navbar %}{% endblock %}
 {% block content %}
 <main class="h-screen">
-  <div class="grid grid-cols-1 w-full h-full md:grid-cols-2">
-    <section class="candidate-form">
+  <div class="grid grid-cols-1 w-full h-full md:grid-cols-2 gap-10 p-5 md:pl-10 md:p-0">
+    <section class="candidate-form pb-20">
       <div class="py-4 ml-16 candidate-logo">
         <a href="#">
           <img src="{% static 'images/eleicao/logo-eleicao-do-ano.svg' %}" alt="Logo Eleição do Ano">
@@ -65,7 +65,7 @@
         </div>
       </div>
     </section>
-    <img class="hidden md:block md:w-full md:h-full" src="{% static 'images/eleicao/candidate-form-image.png' %}" alt="Imagem">
+    <img class="hidden md:block md:w-full md:h-full object-none" src="{% static 'images/eleicao/candidate-form-image.png' %}" alt="Imagem">
   </div>
 </main>
 {% endblock %}
