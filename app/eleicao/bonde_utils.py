@@ -9,11 +9,13 @@ from contrib.bonde.models import FormEntry, Activist
 def create_form_entry(**form_data):
     email = form_data.get("email")
     name = form_data.get("name")
-    # Activist get_or_create
-    activist = Activist.objects.get(email=email)
-
-    if not activist:
-        activist = Activist.objects.create(email=email, name=name)
+  
+    # Activist get_or_create 
+    activist, created = Activist.objects.get_or_create(email=email)
+   
+    if created:
+        activist.name = name
+        activist.save()
 
     state = form_data.get("state")
     city = form_data.get("city")
