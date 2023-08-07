@@ -13,50 +13,59 @@
 {% block navbar %}{% endblock %}
 {% block content %}
 <main class="h-screen">
-  <div class="grid grid-cols-2 w-full h-full">
+  <div class="grid grid-cols-1 w-full h-full md:grid-cols-2">
     <section class="candidate-form">
       <div class="py-4 ml-16 candidate-logo">
         <a href="#">
           <img src="{% static 'images/eleicao/logo-eleicao-do-ano.svg' %}" alt="Logo Eleição do Ano">
         </a>
       </div>
-      <div class="px-36 pb-36 candidate-content">
-        {% comment %} <p>Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p> {% endcomment %}
-
-        <h1 class="text-7xl text-[#1842AC] pt-10 ">Seus dados</h1>
-        <form class="candidate-create-form" action="" method="post">
-          {% csrf_token %}
-          <div class="form-items">
-            {{ wizard.management_form }}
-            {% if wizard.form.forms %}
-              {{ wizard.form.management_form }}
-                {% for form in wizard.form.forms %}
-                  {% for field in form %}
-                    {{field.label_tag}}
-                    {{field}}
-                  {% endfor %}
-                {% endfor %}
+      <div class="flex flex-col justify-center items-center px-4 candidate-content">
+        <ul class="steps steps-horizontal">
+          {% for step in wizard.steps.all %}
+            {% if step == wizard.steps.current %}
+              <li class="step step-primary">{{step1}}</li>
             {% else %}
-            {% for field in wizard.form %}
-              <div class="py-1 w-full max-w-xs form-control">
-                {{field.label_tag}}
-                {{field}}
-              </div>
-          {% endfor %}
+              <li class="step">{{step1}}</li>
             {% endif %}
-          </div>
-          <div class="flex justify-between items-center py-4">
-          {% if wizard.steps.prev %}
-            <button class="text-xl form-back-btn"name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">Voltar</button>
-          {% else %}
-            <a href="#" class="text-xl form-back-btn">Voltar</a>
-          {% endif %}
-            <input class="btn btn-primary" type="submit" value="Continuar" />
-          </div>
-        </form>
+          {% endfor %}
+        </ul>
+        <div class="w-full md:w-auto md:min-w-[450px]">
+          <h1 class="text-7xl text-[#1842AC] pt-10 ">Seus dados</h1>
+          <form class="candidate-create-form" action="" method="post">
+            {% csrf_token %}
+            <div class="form-items">
+              {{ wizard.management_form }}
+              {% if wizard.form.forms %}
+                {{ wizard.form.management_form }}
+                  {% for form in wizard.form.forms %}
+                    {% for field in form %}
+                      {{field.label_tag}}
+                      {{field}}
+                    {% endfor %}
+                  {% endfor %}
+              {% else %}
+              {% for field in wizard.form %}
+                <div class="py-1 w-full form-control">
+                  {{field.label_tag}}
+                  {{field}}
+                </div>
+            {% endfor %}
+              {% endif %}
+            </div>
+            <div class="flex justify-between items-center py-4">
+            {% if wizard.steps.prev %}
+              <button class="text-xl form-back-btn"name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">Voltar</button>
+            {% else %}
+              <a href="#" class="text-xl form-back-btn">Voltar</a>
+            {% endif %}
+              <input class="btn btn-primary" type="submit" value="Continuar" />
+            </div>
+          </form>
+        </div>
       </div>
     </section>
-    <img class="w-full h-full" src="{% static 'images/eleicao/candidate-form-image.png' %}" alt="Imagem">
+    <img class="hidden md:block md:w-full md:h-full" src="{% static 'images/eleicao/candidate-form-image.png' %}" alt="Imagem">
   </div>
 </main>
 {% endblock %}
