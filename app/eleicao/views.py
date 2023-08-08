@@ -6,6 +6,7 @@ from django.db import transaction
 from django.db.models.query import QuerySet
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView
+from django.core.files.storage import FileSystemStorage
 
 from formtools.wizard.views import SessionWizardView
 
@@ -57,7 +58,9 @@ class CandidateCreateView(SessionWizardView):
         Candidate6Form,
     ]
 
-    file_storage = settings.DEFAULT_FILE_STORAGE
+    # file_storage = settings.DEFAULT_FILE_STORAGE
+    file_storage = FileSystemStorage(location=settings.MEDIA_ROOT / "candidatos/fotos")
+
     # model = Candidate
     # fields = "__all__"
 
@@ -84,11 +87,29 @@ class CandidateCreateView(SessionWizardView):
             .id
         )
 
-        obj = Candidate.objects.create(**values)
+        obj = Candidate.objects.create(
+            name=values["name"],
+            email=values["email"],
+            occupation=values["occupation"],
+            birth=values["birth"],
+            slug=values["slug"],
+            photo=values["photo"],
+            video=values["video"],
+            gender=values["gender"],
+            is_trans=values["is_trans"],
+            race=values["race"],
+            social_media=values["social_media"],
+            number=values["number"],
+            is_reelection=values["is_reelection"],
+            # newsletter = values["newsletter"],
+            place_id=values["place_id"],
+        )
         obj.themes.set(themes)
         obj.save()
 
         # Integrate with Bonde
+        values.pop("photo")
+        values.pop("video")
         fe = create_form_entry(state=state, city=city, **values)
 
         print(fe)

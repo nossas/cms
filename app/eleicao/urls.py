@@ -1,6 +1,8 @@
+from django.conf.urls.static import static
 from django.urls import path
 from .views import CandidateListView, CandidateCreateView, CandidateDetailView, VoterCreateView, ResultsCandidateView
 from .places.views import fetch_cep
+from django.conf import settings
 
 urlpatterns = [
     path("candidaturas/", CandidateListView.as_view(), name="candidate_list"),
@@ -11,4 +13,4 @@ urlpatterns = [
     path("cep/", fetch_cep, name="cep"),
     # Precisa ser o último item da lista
     path("<slug:slug>/", CandidateDetailView.as_view(), name="candidate_detail"),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
