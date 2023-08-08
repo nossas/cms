@@ -13,7 +13,6 @@ class Candidate1Form(forms.ModelForm):
 
 class Candidate2Form(forms.ModelForm):
     number = forms.IntegerField(label="Numero do candidato")
-    zone_id = forms.IntegerField()
 
     class Meta:
         model = Address
@@ -21,7 +20,6 @@ class Candidate2Form(forms.ModelForm):
             "state",
             "city",
             "neighborhood",
-            "zone_id",
             "number",
         ]
 
@@ -31,7 +29,6 @@ class Candidate2Form(forms.ModelForm):
         # self.fields["state"].widget = s2forms.Select2Widget()
         self.fields["city"].widget = forms.Select()
         self.fields["neighborhood"].widget = forms.Select()
-        self.fields["zone_id"].widget = forms.Select()
 
 
 class Candidate3Form(forms.ModelForm):
@@ -63,17 +60,21 @@ class Candidate6Form(forms.Form):
     agree = forms.BooleanField(
         label="Li e estou de acordo com os compromissos listados assim"
     )
-class PlacesWidget(s2forms.ModelSelect2Widget):
-  
-  search_fields = [
-    "places__state__icontains", 
-    "places__city__icontains",
-    "places__neighborhood__icontains"
-  ]
-class VoterForm(forms.ModelForm):
-  
 
-  zone = forms.ModelChoiceField(queryset= PollingPlace.objects.all(), label ="Onde você vota?", required=True)
-  class Meta: 
-    model = Voter
-    fields = ["name", "email", "whatsapp", "zone"]
+
+class PlacesWidget(s2forms.ModelSelect2Widget):
+    search_fields = [
+        "places__state__icontains",
+        "places__city__icontains",
+        "places__neighborhood__icontains",
+    ]
+
+
+class VoterForm(forms.ModelForm):
+    zone = forms.ModelChoiceField(
+        queryset=PollingPlace.objects.all(), label="Onde você vota?", required=True
+    )
+
+    class Meta:
+        model = Voter
+        fields = ["name", "email", "whatsapp", "zone"]
