@@ -42,13 +42,23 @@
                     {% for field in form %}
                       {{field.label_tag}}
                       {{field}}
+
                     {% endfor %}
                   {% endfor %}
               {% else %}
               {% for field in wizard.form %}
                 <div class="py-1 w-full form-control">
-                  {{field.label_tag}}
-                  {{field}}
+                  {% if field.name == "slug" %}
+                    {{field.label_tag}}
+                    <div class="flex items-center gap-3 font-bold">
+                    <p>aeleicaodoano.org/</p>
+                    <p>{{field}}</p>
+                  </div>
+                    {% else %}
+                      {{field.label_tag}}
+                      {{field}}
+                    {% endif %}
+                    
                 </div>
             {% endfor %}
               {% endif %}
