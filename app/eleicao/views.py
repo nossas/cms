@@ -38,7 +38,7 @@ class CandidateListView(ListView):
 
     def get_queryset(self) -> QuerySet[Any]:
         qs = super().get_queryset()
-        
+
         filter_state = self.request.GET.get("uf", None)
         if filter_state:
             return qs.filter(place__state__iexact=filter_state)
@@ -56,6 +56,7 @@ class CandidateCreateView(SessionWizardView):
         Candidate5Form,
         Candidate6Form,
     ]
+
     file_storage = settings.DEFAULT_FILE_STORAGE
     # model = Candidate
     # fields = "__all__"
@@ -82,15 +83,10 @@ class CandidateCreateView(SessionWizardView):
             .first()
             .id
         )
-        # PollingPlace
-        # zone = values.pop("zone")
-        # polling_place = PollingPlace.objects.get(id=zone)
 
         obj = Candidate.objects.create(**values)
-        # obj.zone = polling_place
         obj.themes.set(themes)
         obj.save()
-
 
         # Integrate with Bonde
         fe = create_form_entry(state=state, city=city, **values)
@@ -116,6 +112,8 @@ def results_view(request):
     filter_zone = request.GET.get("zone", None)
 
     return render(request=request, template_name="eleicao/voter_results.html")
+
+
 class ResultsCandidateView(ListView):
     template_name = "eleicao/voter_results.html"
     model = Candidate
