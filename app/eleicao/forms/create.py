@@ -8,6 +8,7 @@ class Candidate1Form(forms.ModelForm):
     class Meta:
         model = Candidate
         fields = ["name", "email", "birth", "occupation", "slug"]
+        
 
 
 class Candidate2Form(forms.ModelForm):
