@@ -15,7 +15,6 @@ from .forms import (
     Candidate2Form,
     Candidate3Form,
     Candidate4Form,
-    Candidate5Form,
     Candidate6Form,
     VoterForm,
 )
@@ -53,7 +52,6 @@ class CandidateCreateView(SessionWizardView):
         Candidate2Form,
         Candidate3Form,
         Candidate4Form,
-        Candidate5Form,
         Candidate6Form,
     ]
 
