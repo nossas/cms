@@ -1,7 +1,27 @@
 from django.http import JsonResponse
 
-from ..models import PollingPlace
-from ..csv.choices import get_choices
+from ..models import PollingPlace, Address
+
+
+# Busca as opções pelos endereços cadastrados
+def get_choices(uf, city=None):
+    choices = []
+    if city:
+        list_address = Address.objects.filter(state=uf, city=city)
+    else:
+        list_address = Address.objects.filter(state=uf)
+
+    for address in list_address:
+        if address.state == uf:
+            if city:
+                if city == address.city:
+                    choices.append(
+                        (address.neighborhood, address.neighborhood.capitalize())
+                    )
+            else:
+                choices.append((address.city, address.city.capitalize()))
+
+    return list(set(choices))
 
 
 def fetch_cep(request):
@@ -19,4 +39,3 @@ def fetch_cep(request):
         choices = list(map(lambda x: x, qs))
 
     return JsonResponse({"choices": choices})
-
