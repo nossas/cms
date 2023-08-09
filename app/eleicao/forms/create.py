@@ -8,7 +8,7 @@ class Candidate1Form(forms.ModelForm):
     class Meta:
         model = Candidate
         fields = ["name", "email", "birth", "occupation", "slug"]
-
+        widgets = {'birth': forms.TextInput(attrs={'data-mask':"00/00/0000"})}
 
 class Candidate2Form(forms.ModelForm):
     number = forms.IntegerField(label="Numero do candidato")
@@ -63,16 +63,16 @@ class Candidate6Form(forms.Form):
         label="Li e estou de acordo com os compromissos listados assim"
     )
 class PlacesWidget(s2forms.ModelSelect2Widget):
-  
+
   search_fields = [
-    "places__state__icontains", 
+    "places__state__icontains",
     "places__city__icontains",
     "places__neighborhood__icontains"
   ]
 class VoterForm(forms.ModelForm):
-  
+
 
   zone = forms.ModelChoiceField(queryset= PollingPlace.objects.all(), label ="Onde você vota?", required=True)
-  class Meta: 
+  class Meta:
     model = Voter
     fields = ["name", "email", "whatsapp", "zone"]
