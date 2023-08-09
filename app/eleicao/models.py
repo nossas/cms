@@ -64,7 +64,7 @@ class PollingPlace(models.Model):
 
 
 class Candidate(models.Model):
-    slug = models.SlugField("Slug", max_length=120, unique=True)
+    slug = models.SlugField("Seu link personalizado", max_length=120, unique=True)
     name = models.CharField("Nome", max_length=120)
     bio = models.TextField("Minibio")
     email = models.EmailField("Email")
@@ -89,7 +89,6 @@ class Candidate(models.Model):
         "Quero receber atualizações da campanha e do NOSSAS.", default=False
     )
     themes = models.ManyToManyField(Theme)
-    zone = models.ForeignKey(PollingPlace, on_delete=models.CASCADE)
     place = models.ForeignKey(Address, on_delete=models.CASCADE)
 
     def __str__(self):

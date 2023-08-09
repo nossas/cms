@@ -25,11 +25,11 @@ def get_choices(uf, city=None):
         for row in reader:
             if row["uf"] == uf:
                 if city:
-                    if city == row["city"]:
+                    if city.upper() == row["city"].upper():
                         choices.append(
-                            (row["neighborhood"], row["neighborhood"].capitalize())
+                            (row["neighborhood"].capitalize(), row["neighborhood"].capitalize())
                         )
                 else:
-                    choices.append((row["city"], row["city"].capitalize()))
+                    choices.append((row["city"].capitalize(), row["city"].capitalize()))
 
     return list(set(choices))

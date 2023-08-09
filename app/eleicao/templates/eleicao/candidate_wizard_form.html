@@ -42,25 +42,35 @@
                     {% for field in form %}
                       {{field.label_tag}}
                       {{field}}
+
                     {% endfor %}
                   {% endfor %}
               {% else %}
               {% for field in wizard.form %}
                 <div class="py-1 w-full form-control">
-                  {{field.label_tag}}
-                  {{field}}
+                  {% if field.name == "slug" %}
+                    {{field.label_tag}}
+                    <div class="flex items-center gap-3 font-bold">
+                    <p>aeleicaodoano.org/</p>
+                    <p>{{field}}</p>
+                  </div>
+                    {% else %}
+                      {{field.label_tag}}
+                      {{field}}
+                    {% endif %}
+                    
                 </div>
             {% endfor %}
               {% endif %}
             </div>
             <div class="flex justify-between items-center py-4">
-            {% if wizard.steps.prev %}
-              <button class="text-xl form-back-btn"name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">Voltar</button>
-            {% else %}
-              <a href="#" class="text-xl form-back-btn">Voltar</a>
-            {% endif %}
-              <input class="btn btn-primary" type="submit" value="Continuar" />
-            </div>
+              {% if wizard.steps.prev %}
+                <button class="text-xl form-back-btn" type="submit" formnovalidate name="wizard_goto_step" value="{{ wizard.steps.prev }}">Voltar</button>
+              {% else %}
+                <a href="#" class="text-xl form-back-btn">Voltar</a>
+              {% endif %}
+                <input class="btn btn-primary" type="submit" value="Continuar" />
+              </div>
           </form>
         </div>
       </div>
