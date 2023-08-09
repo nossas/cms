@@ -71,10 +71,10 @@ class Candidate(models.Model):
     birth = models.DateField("Data de nascimento")
     occupation = models.CharField("Profissão", max_length=100)
     photo = models.FileField(
-        "Foto", null=True, blank=True, upload_to="candidatos/fotos/"
+        "Foto", null=True, blank=True, upload_to="candidaturas/fotos/"
     )
     video = models.FileField(
-        "Video", null=True, blank=True, upload_to="candidatos/videos/"
+        "Video", null=True, blank=True, upload_to="candidaturas/videos/"
     )
     gender = models.CharField("Genero", choices=GenderChoices.choices, max_length=20)
     is_trans = models.BooleanField("Pessoa Trans?", default=False)

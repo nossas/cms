@@ -32,7 +32,7 @@
         </ul>
         <div class="w-full md:w-auto md:min-w-[450px]">
           <h1 class="text-7xl text-[#1842AC] pt-10 ">Seus dados</h1>
-          <form class="candidate-create-form" action="" method="post">
+          <form class="candidate-create-form" action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-items">
               {{ wizard.management_form }}
