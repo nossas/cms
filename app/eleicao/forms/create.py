@@ -10,7 +10,6 @@ class Candidate1Form(forms.ModelForm):
         fields = ["name", "email", "birth", "occupation", "slug"]
         widgets = {'birth': forms.TextInput(attrs={'data-mask':"00/00/0000"})}
 
-
 class Candidate2Form(forms.ModelForm):
     number = forms.IntegerField(label="Numero do candidato")
 
