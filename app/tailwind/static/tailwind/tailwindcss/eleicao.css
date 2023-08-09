@@ -83,3 +83,23 @@
 .aeleicaodoano .candidate-content .steps li.step::after {
   @apply w-6 h-6 text-xs font-bold text-[#1842AC];
 }
+
+.aeleicaodoano .form-control .commitment-box {
+  @apply relative z-10 mr-4 transition-all cursor-pointer;
+}
+
+.aeleicaodoano .form-control .commitment-box .icon-svg > svg {
+  @apply text-neutral-400;
+}
+
+.aeleicaodoano .form-control .commitment input[type="checkbox"] {
+  @apply absolute;
+}
+
+.aeleicaodoano .form-control .commitment input[type="checkbox"]:checked ~ .commitment-box > .icon-svg > svg {
+  @apply text-green-600;
+}
+
+.aeleicaodoano .form-control .commitment input[type="checkbox"]:checked ~ .commitment-box {
+  @apply border-green-600;
+}

@@ -1,5 +1,4 @@
 {% extends "eleicao/base.html" %}
-
 {% load static %}
 
 {% block extra_head %}
@@ -13,8 +12,8 @@
 {% block navbar %}{% endblock %}
 {% block content %}
 <main class="h-screen">
-  <div class="grid grid-cols-1 w-full h-full md:grid-cols-2 gap-10 p-5 md:pl-10 md:p-0">
-    <section class="candidate-form pb-20">
+  <div class="grid grid-cols-1 gap-10 p-5 w-full h-full md:grid-cols-2 md:pl-10 md:p-0">
+    <section class="pb-20 candidate-form">
       <div class="py-4 ml-16 candidate-logo">
         <a href="#">
           <img src="{% static 'images/eleicao/logo-eleicao-do-ano.svg' %}" alt="Logo Eleição do Ano">
@@ -30,7 +29,7 @@
             {% endif %}
           {% endfor %}
         </ul>
-        <div class="w-full md:w-auto md:min-w-[450px]">
+        <div class="w-full md:max-w-[450px]">
           <h1 class="text-7xl text-[#1842AC] pt-10 ">Seus dados</h1>
           <form class="candidate-create-form" action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
@@ -42,26 +41,41 @@
                     {% for field in form %}
                       {{field.label_tag}}
                       {{field}}
-
                     {% endfor %}
                   {% endfor %}
               {% else %}
               {% for field in wizard.form %}
-                <div class="py-1 w-full form-control">
+                <div class="py-1 form-control">
                   {% if field.name == "slug" %}
                     {{field.label_tag}}
-                    <div class="flex items-center gap-3 font-bold">
-                    <p>aeleicaodoano.org/</p>
-                    <p>{{field}}</p>
-                  </div>
-                    {% else %}
-                      {{field.label_tag}}
-                      {{field}}
-                    {% endif %}
-                    
+                    <div class="flex gap-3 items-center font-bold">
+                      <p>aeleicaodoano.org/</p>
+                      <span>{{field}}</span>
+                    </div>
+                  {% elif "agree" in field.name %}
+                      {% comment %} TODO: Fazer esse trecho como include {% endcomment %}
+                      <div class="flex flex-col gap-3 commitment">
+                        <label class="">
+                            {{ field }}
+                            <div class="max-h-[96px] overflow-hidden !items-start !justify-center flex !p-4 rounded border bg-neutral-100 border-neutral-200 commitment-box">
+                              <picture class="pr-4 icon-svg">
+                                {% with icon_path="./icons/"|add:field.field.widget.icon|add:".svg" %}
+                                  {% include icon_path %}
+                                {% endwith %}
+                              </picture>
+                              <div class="font-normal text-neutral-600">
+                                {{ field.field.widget.text }}
+                              </div>
+                            </div>
+                        </label>
+                      </div>
+                  {% else %}
+                    {{field.label_tag}}
+                    {{field}}
+                  {% endif %}
                 </div>
-            {% endfor %}
-              {% endif %}
+              {% endfor %}
+            {% endif %}
             </div>
             <div class="flex justify-between items-center py-4">
               {% if wizard.steps.prev %}
@@ -75,7 +89,7 @@
         </div>
       </div>
     </section>
-    <img class="hidden md:block md:w-full md:h-full object-none" src="{% static 'images/eleicao/candidate-form-image.png' %}" alt="Imagem">
+    <img class="hidden object-cover md:block md:w-full md:h-full" src="{% static 'images/eleicao/candidate-form-image.png' %}" alt="Imagem">
   </div>
 </main>
 {% endblock %}
