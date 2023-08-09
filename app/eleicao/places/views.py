@@ -12,14 +12,10 @@ def get_choices(uf, city=None):
         list_address = Address.objects.filter(state=uf)
 
     for address in list_address:
-        if address.state == uf:
-            if city:
-                if city == address.city:
-                    choices.append(
-                        (address.neighborhood, address.neighborhood.capitalize())
-                    )
-            else:
-                choices.append((address.city, address.city.capitalize()))
+        if city:
+            choices.append((address.neighborhood, address.neighborhood))
+        else:
+            choices.append((address.city, address.city))
 
     return list(set(choices))
 

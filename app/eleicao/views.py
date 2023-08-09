@@ -70,8 +70,7 @@ class CandidateCreateView(SessionWizardView):
 
         # Processar os valores
         values.pop("agree")
-        # Theme
-        themes = values.pop("themes")
+
         # Address
         state = values.pop("state")
         city = values.pop("city")
@@ -87,7 +86,6 @@ class CandidateCreateView(SessionWizardView):
         video = values.pop("video")
         obj = Candidate.objects.create(**values, photo = photo, video = video)
   
-        obj.themes.set(themes)
         obj.save()
 
         # Integrate with Bonde
