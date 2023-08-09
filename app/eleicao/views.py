@@ -84,30 +84,16 @@ class CandidateCreateView(SessionWizardView):
             .first()
             .id
         )
-
-        obj = Candidate.objects.create(
-            name=values["name"],
-            email=values["email"],
-            occupation=values["occupation"],
-            birth=values["birth"],
-            slug=values["slug"],
-            photo=values["photo"],
-            video=values["video"],
-            gender=values["gender"],
-            is_trans=values["is_trans"],
-            race=values["race"],
-            social_media=values["social_media"],
-            number=values["number"],
-            is_reelection=values["is_reelection"],
-            # newsletter = values["newsletter"],
-            place_id=values["place_id"],
-        )
+        
+        photo = values.pop("photo")
+        video = values.pop("video")
+        obj = Candidate.objects.create(**values, photo = photo, video = video)
+  
         obj.themes.set(themes)
         obj.save()
 
         # Integrate with Bonde
-        values.pop("photo")
-        values.pop("video")
+
         fe = create_form_entry(state=state, city=city, **values)
 
         print(fe)
