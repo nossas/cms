@@ -1,12 +1,11 @@
 from typing import Any, Dict
 from collections import ChainMap
 
-from django.conf import settings
 from django.db import transaction
 from django.db.models.query import QuerySet
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView
-from django.core.files.storage import FileSystemStorage
+from django.core.files.storage import DefaultStorage
 
 from formtools.wizard.views import SessionWizardView
 
@@ -58,8 +57,7 @@ class CandidateCreateView(SessionWizardView):
         Candidate6Form,
     ]
 
-    # file_storage = settings.DEFAULT_FILE_STORAGE
-    file_storage = FileSystemStorage(location=settings.MEDIA_ROOT / "candidatos/fotos")
+    file_storage = DefaultStorage()
 
     # model = Candidate
     # fields = "__all__"
