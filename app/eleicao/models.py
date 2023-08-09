@@ -16,17 +16,6 @@ class GenderChoices(models.TextChoices):
     no_answer = "não declarado", "Não declarado"
 
 
-class SexualityChoices(models.TextChoices):
-    heterossexual = "heterossexual"
-    pansexual = "pansexual"
-    assexual = "assexual"
-    bissexual = "bissexual"
-    queer = "queer"
-    gay = "gay"
-    lesbica = "lesbica"
-    no_answer = "não declarada"
-
-
 class RaceChoices(models.TextChoices):
     white = "branca", "Branca"
     black = "preta", "Preta"
@@ -34,14 +23,6 @@ class RaceChoices(models.TextChoices):
     indigenous = "indigena", "Indigena"
     pardo = "parda", "Parda"
     no_answer = "não declarada", "Não declarada"
-
-
-class Theme(models.Model):
-    value = models.SlugField("Valor", max_length=50)
-    label = models.CharField("Label", max_length=50)
-
-    def __str__(self):
-        return self.label
 
 
 class Address(models.Model):
@@ -71,16 +52,13 @@ class Candidate(models.Model):
     birth = models.DateField("Data de nascimento")
     occupation = models.CharField("Profissão", max_length=100)
     photo = models.FileField(
-        "Foto", null=True, blank=True, upload_to="candidatos/fotos/"
+        "Foto", null=True, blank=True, upload_to="candidaturas/fotos/"
     )
     video = models.FileField(
-        "Video", null=True, blank=True, upload_to="candidatos/videos/"
+        "Video", null=True, blank=True, upload_to="candidaturas/videos/"
     )
     gender = models.CharField("Genero", choices=GenderChoices.choices, max_length=20)
     is_trans = models.BooleanField("Pessoa Trans?", default=False)
-    sexuality = models.CharField(
-        "Sexualidade", choices=SexualityChoices.choices, max_length=20
-    )
     race = models.CharField("Raça", choices=RaceChoices.choices, max_length=20)
     social_media = models.JSONField("Redes sociais", null=True, blank=True)
     number = models.PositiveSmallIntegerField("Numero do candidato")
@@ -88,7 +66,6 @@ class Candidate(models.Model):
     newsletter = models.BooleanField(
         "Quero receber atualizações da campanha e do NOSSAS.", default=False
     )
-    themes = models.ManyToManyField(Theme)
     place = models.ForeignKey(Address, on_delete=models.CASCADE)
 
     def __str__(self):

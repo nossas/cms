@@ -3,7 +3,6 @@ from .create import (
     Candidate2Form,
     Candidate3Form,
     Candidate4Form,
-    Candidate5Form,
     Candidate6Form,
     VoterForm
 )

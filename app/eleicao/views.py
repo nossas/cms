@@ -1,11 +1,11 @@
 from typing import Any, Dict
 from collections import ChainMap
 
-from django.conf import settings
 from django.db import transaction
 from django.db.models.query import QuerySet
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView
+from django.core.files.storage import DefaultStorage
 
 from formtools.wizard.views import SessionWizardView
 
@@ -15,7 +15,6 @@ from .forms import (
     Candidate2Form,
     Candidate3Form,
     Candidate4Form,
-    Candidate5Form,
     Candidate6Form,
     VoterForm,
 )
@@ -53,11 +52,11 @@ class CandidateCreateView(SessionWizardView):
         Candidate2Form,
         Candidate3Form,
         Candidate4Form,
-        Candidate5Form,
         Candidate6Form,
     ]
 
-    file_storage = settings.DEFAULT_FILE_STORAGE
+    file_storage = DefaultStorage()
+
     # model = Candidate
     # fields = "__all__"
 
@@ -83,12 +82,16 @@ class CandidateCreateView(SessionWizardView):
             .first()
             .id
         )
-
-        obj = Candidate.objects.create(**values)
+        
+        photo = values.pop("photo")
+        video = values.pop("video")
+        obj = Candidate.objects.create(**values, photo = photo, video = video)
+  
         obj.themes.set(themes)
         obj.save()
 
         # Integrate with Bonde
+
         fe = create_form_entry(state=state, city=city, **values)
 
         print(fe)
