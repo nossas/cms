@@ -6,6 +6,9 @@ from django.db.models.query import QuerySet
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView
 from django.core.files.storage import DefaultStorage
+from django.utils.text import slugify
+from django.http import JsonResponse
+
 
 from formtools.wizard.views import SessionWizardView
 
@@ -81,11 +84,11 @@ class CandidateCreateView(SessionWizardView):
             .first()
             .id
         )
-        
+
         photo = values.pop("photo")
         video = values.pop("video")
-        obj = Candidate.objects.create(**values, photo = photo, video = video)
-  
+        obj = Candidate.objects.create(**values, photo=photo, video=video)
+
         obj.save()
 
         # Integrate with Bonde
@@ -108,13 +111,6 @@ class VoterCreateView(CreateView):
     model = Voter
 
 
-def results_view(request):
-    # import ipdb; ipdb.set_trace()
-    filter_zone = request.GET.get("zone", None)
-
-    return render(request=request, template_name="eleicao/voter_results.html")
-
-
 class ResultsCandidateView(ListView):
     template_name = "eleicao/voter_results.html"
     model = Candidate
@@ -128,3 +124,20 @@ class ResultsCandidateView(ListView):
             return Candidate.objects.filter(zone=filter_zone)
 
         return super().get_queryset()
+
+
+# Sugerir uma slug
+def suggest_slug(request):
+    name = request.GET.get("name")
+    slug = slugify(name).replace("-", "")
+    list_candidate = Candidate.objects.filter(slug=slug)
+    total = list_candidate.count()
+    sufix = ""
+    if total > 0:
+        if total > 1:
+            list_candidate = Candidate.objects.filter(slug__startswith=slug)
+            total = list_candidate.count()
+
+        sufix = f"{total}"
+
+    return JsonResponse({"slug": slug + sufix})

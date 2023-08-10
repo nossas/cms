@@ -4,13 +4,20 @@ from django_select2 import forms as s2forms
 from ..models import Address, Candidate, Voter, PollingPlace
 
 
-class Candidate1Form(forms.ModelForm):
+class FormWithTitle(forms.BaseForm):
+    title = "Seus Dados"
+
+    def __init__(self, *args, **kwargs) -> None:
+        super(FormWithTitle, self).__init__(*args, **kwargs)
+
+
+class Candidate1Form(forms.ModelForm,FormWithTitle):
     class Meta:
         model = Candidate
         fields = ["name", "email", "birth", "occupation", "slug"]
 
 
-class Candidate2Form(forms.ModelForm):
+class Candidate2Form(forms.ModelForm,FormWithTitle):
     number = forms.IntegerField(label="Numero do candidato")
 
     class Meta:
@@ -30,19 +37,19 @@ class Candidate2Form(forms.ModelForm):
         self.fields["neighborhood"].widget = forms.Select()
 
 
-class Candidate3Form(forms.ModelForm):
+class Candidate3Form(forms.ModelForm,FormWithTitle):
     class Meta:
         model = Candidate
         fields = ["gender", "is_trans", "race", "is_reelection"]
 
 
-class Candidate4Form(forms.ModelForm):
+class Candidate4Form(forms.ModelForm,FormWithTitle):
     class Meta:
         model = Candidate
         fields = ["bio", "photo", "video", "social_media"]
 
 
-class Candidate6Form(forms.Form):
+class Candidate6Form(forms.Form,FormWithTitle):
     agree = forms.BooleanField(
         label="Li e estou de acordo com os compromissos listados assim"
     )

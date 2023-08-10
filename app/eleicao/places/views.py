@@ -13,9 +13,9 @@ def get_choices(uf, city=None):
 
     for address in list_address:
         if city:
-            choices.append((address.neighborhood, address.neighborhood))
+            choices.append((address.neighborhood, address.neighborhood.title()))
         else:
-            choices.append((address.city, address.city))
+            choices.append((address.city, address.city.title()))
 
     return list(set(choices))
 

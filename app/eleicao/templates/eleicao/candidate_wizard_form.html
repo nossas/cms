@@ -31,7 +31,11 @@
           {% endfor %}
         </ul>
         <div class="w-full md:w-auto md:min-w-[450px]">
-          <h1 class="text-7xl text-[#1842AC] pt-10 ">Seus dados</h1>
+          {% if wizard.form.forms %}
+          <h1 class="text-7xl text-[#1842AC] pt-10 ">{{wizard.form.forms.title}}</h1>
+          {% else %}
+          <h1 class="text-7xl text-[#1842AC] pt-10 ">{{wizard.form.title}}</h1>
+          {% endif %}
           <form class="candidate-create-form" action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-items">
@@ -48,6 +52,7 @@
               {% else %}
               {% for field in wizard.form %}
                 <div class="py-1 w-full form-control">
+                  
                   {% if field.name == "slug" %}
                     {{field.label_tag}}
                     <div class="flex items-center gap-3 font-bold">
@@ -137,14 +142,12 @@
       });
       
       //fill up slug
-      $("#id_0-name").on("keyup",(evt) => {
-        $("#id_0-slug").val(evt.target.value.normalize('NFKD') // split accented characters into their base characters and diacritical marks
-        .replace(/[\u0300-\u036f]/g, '') // remove all the accents, which happen to be all in the \u03xx UNICODE block.
-        .trim() // trim leading or trailing whitespace
-        .toLowerCase() // convert to lowercase
-        .replace(/[^a-z0-9]/g, '') // remove non-alphanumeric characters
-        .replace(/\s+/g, '') // replace spaces with hyphens
-        .replace(/-+/g, '-')) // remove consecutive hyphens)
+      $("#id_0-name").on("change",(evt) => {
+        
+        $.get("{% url 'eleicao:slug' %}" + "?name=" + evt.target.value, (data) => {
+          $("#id_0-slug").val(data.slug)
+         })
+          
       } )
     });
   }(window.jQuery));
