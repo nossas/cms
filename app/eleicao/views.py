@@ -15,6 +15,7 @@ from .forms import (
     Candidate2Form,
     Candidate3Form,
     Candidate4Form,
+    Candidate5Form,
     Candidate6Form,
     VoterForm,
 )
@@ -52,7 +53,8 @@ class CandidateCreateView(SessionWizardView):
         Candidate2Form,
         Candidate3Form,
         Candidate4Form,
-        Candidate6Form,
+        Candidate5Form,
+        Candidate6Form
     ]
 
     file_storage = DefaultStorage()
@@ -70,8 +72,6 @@ class CandidateCreateView(SessionWizardView):
 
         # Processar os valores
         values.pop("agree")
-        # Theme
-        themes = values.pop("themes")
         # Address
         state = values.pop("state")
         city = values.pop("city")
@@ -87,7 +87,6 @@ class CandidateCreateView(SessionWizardView):
         video = values.pop("video")
         obj = Candidate.objects.create(**values, photo = photo, video = video)
   
-        obj.themes.set(themes)
         obj.save()
 
         # Integrate with Bonde

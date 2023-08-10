@@ -93,7 +93,7 @@
 }
 
 .aeleicaodoano .form-control .commitment input[type="checkbox"] {
-  @apply absolute;
+  @apply hidden;
 }
 
 .aeleicaodoano .form-control .commitment input[type="checkbox"]:checked ~ .commitment-box > .icon-svg > svg {
@@ -103,3 +103,27 @@
 .aeleicaodoano .form-control .commitment input[type="checkbox"]:checked ~ .commitment-box {
   @apply border-green-600;
 }
+
+.aeleicaodoano .form-control .commitment-tooltip.tooltip.tooltip-bottom:hover::before {
+  visibility: hidden;
+  background-color: transparent;
+  opacity: 0;
+}
+
+.aeleicaodoano .form-control .commitment-tooltip.tooltip.tooltip-bottom:hover::after {
+  visibility: hidden;
+  background-color: transparent;
+  opacity: 0;
+}
+
+.aeleicaodoano .form-control .commitment-tooltip.tooltip.tooltip-bottom.tooltip-open:hover::before {
+  visibility: visible;
+  background-color: var(--tooltip-color);
+  opacity: 1;
+}
+
+.aeleicaodoano .form-control .commitment-tooltip.tooltip.tooltip-bottom.tooltip-open:hover::after {
+  visibility: visible;
+  opacity: 1;
+}
+

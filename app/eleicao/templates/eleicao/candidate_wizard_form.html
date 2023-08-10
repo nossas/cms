@@ -55,19 +55,21 @@
                   {% elif "agree" in field.name %}
                       {% comment %} TODO: Fazer esse trecho como include {% endcomment %}
                       <div class="flex flex-col gap-3 commitment">
-                        <label class="">
-                            {{ field }}
-                            <div class="max-h-[96px] overflow-hidden !items-start !justify-center flex !p-4 rounded border bg-neutral-100 border-neutral-200 commitment-box">
-                              <picture class="pr-4 icon-svg">
-                                {% with icon_path="./icons/"|add:field.field.widget.icon|add:".svg" %}
-                                  {% include icon_path %}
-                                {% endwith %}
-                              </picture>
-                              <div class="font-normal text-neutral-600">
-                                {{ field.field.widget.text }}
+                        <div class="commitment-tooltip tooltip tooltip-bottom before:z-20 tooltip-error" data-tip="Você deve marcar essa opção">
+                          <label id="commitment-checkbox">
+                              {{ field }}
+                              <div class="max-h-[96px] overflow-hidden !items-start !justify-center flex !p-4 rounded border bg-neutral-100 border-neutral-200 commitment-box">
+                                <picture class="pr-4 icon-svg">
+                                  {% with icon_path="./icons/"|add:field.field.widget.icon|add:".svg" %}
+                                    {% include icon_path %}
+                                  {% endwith %}
+                                </picture>
+                                <div class="font-normal text-neutral-600">
+                                  {{ field.field.widget.text }}
+                                </div>
                               </div>
-                            </div>
-                        </label>
+                          </label>
+                        </div>
                       </div>
                   {% else %}
                     {{field.label_tag}}
@@ -83,7 +85,7 @@
               {% else %}
                 <a href="#" class="text-xl form-back-btn">Voltar</a>
               {% endif %}
-                <input class="btn btn-primary" type="submit" value="Continuar" />
+                <input id="submit-btn" class="btn btn-primary" type="submit" value="Continuar" />
               </div>
           </form>
         </div>
@@ -150,6 +152,37 @@
         })
       });
     });
+
+    $(function () {
+      let checkboxes = $("#commitment-checkbox input[type='checkbox']");
+      let tooltips = $(".commitment-tooltip");
+    
+      checkboxes.on("change", function () {
+        let checkbox = $(this);
+        let isChecked = checkbox.prop("checked");
+        let index = checkboxes.index(checkbox);
+    
+        // Find the corresponding tooltip by index
+        let tooltip = tooltips.eq(index);
+    
+        if (isChecked) {
+          tooltip.removeClass('tooltip-open');
+        }
+      });
+    
+      $("#submit-btn").on("click", function () {
+        checkboxes.each(function () {
+          let checkbox = $(this);
+          let isChecked = checkbox.prop("checked");
+          
+          if (!isChecked) {
+            let index = checkboxes.index(checkbox);
+            let tooltip = tooltips.eq(index);
+            tooltip.addClass('tooltip-open');
+          }
+        });
+      });
+    })
   }(window.jQuery));
 </script>
 {% endblock %}
