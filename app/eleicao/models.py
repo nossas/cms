@@ -24,6 +24,10 @@ class RaceChoices(models.TextChoices):
     pardo = "parda", "Parda"
     no_answer = "não declarada", "Não declarada"
 
+class SocialMediaChoices(models.TextChoices):
+    twitter = "twitter", "Twitter"
+    facebook = "facebook", "Facebook"
+    instagram = "instagram", "Instagram"
 
 class Address(models.Model):
     state = models.CharField("Estado", max_length=2, choices=lazy(get_states, list)())
@@ -60,7 +64,9 @@ class Candidate(models.Model):
     gender = models.CharField("Genero", choices=GenderChoices.choices, max_length=20)
     is_trans = models.BooleanField("Pessoa Trans?", default=False)
     race = models.CharField("Raça", choices=RaceChoices.choices, max_length=20)
-    social_media = models.JSONField("Redes sociais", null=True, blank=True)
+    social_media = models.CharField("Rede social",  null=True, max_length=20, choices=SocialMediaChoices.choices)
+    social_media_2 = models.CharField("URL da Rede Social",  null=True, max_length=100)
+    # social_media_2 = models.JSONField("Rede sociallll", null=True, blank=True)
     number = models.PositiveSmallIntegerField("Numero do candidato")
     is_reelection = models.BooleanField("Reeleição", default=False)
     newsletter = models.BooleanField(

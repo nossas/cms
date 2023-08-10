@@ -42,7 +42,6 @@
                     {% for field in form %}
                       {{field.label_tag}}
                       {{field}}
-
                     {% endfor %}
                   {% endfor %}
               {% else %}
@@ -50,15 +49,29 @@
                 <div class="py-1 w-full form-control">
                   {% if field.name == "slug" %}
                     {{field.label_tag}}
-                    <div class="flex items-center gap-3 font-bold">
+                    <div class="flex items-center gap-3 font-bold ">
                     <p>aeleicaodoano.org/</p>
                     <p>{{field}}</p>
                   </div>
-                    {% else %}
+                  {% elif "social_media" in field.name %}
+                    {% if field.name == "social_media" %}
+                    <div class="md:flex gap-6">
+                    <div class="">
                       {{field.label_tag}}
                       {{field}}
                     {% endif %}
-                    
+                    {% if field.name == "social_media_2" %}
+                      <div class=" gap-1 font-bold max-w-xs">
+                        {{field.label_tag}}
+                        {{field}}
+                      </div>
+                    </div>
+                    </div>
+                    {% endif %}
+                  {% else %}
+                    {{field.label_tag}}
+                    {{field}}
+                  {% endif %}
                 </div>
             {% endfor %}
               {% endif %}

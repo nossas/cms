@@ -39,7 +39,7 @@ class Candidate3Form(forms.ModelForm):
 class Candidate4Form(forms.ModelForm):
     class Meta:
         model = Candidate
-        fields = ["bio", "photo", "video", "social_media"]
+        fields = ["bio", "photo", "video", "social_media", "social_media_2"]
 
 
 class Candidate6Form(forms.Form):
