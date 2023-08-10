@@ -102,28 +102,28 @@
     "use strict";
 
     $(function () {
-      $('#id_1-state').select2({
+      $('#id_4-state').select2({
         placeholder: 'Selecione seu estado'
       });
-      $('#id_1-city').select2({
+      $('#id_4-city').select2({
         placeholder: 'Selecione sua cidade'
       });
-      $('#id_1-neighborhood').select2({
+      $('#id_4-neighborhood').select2({
         placeholder: 'Selecione seu bairro'
       });
-      $('#id_1-zone_id').select2({
+      $('#id_4-zone_id').select2({
         placeholder: 'Selecione o local da candidatura'
       });
 
       var uf;
-      $("#id_1-state").on("change", (evt) => {
+      $("#id_4-state").on("change", (evt) => {
         uf = evt.target.value
 
         $.get("{% url 'eleicao:cep' %}" + "?state=" + uf, (data) => {
-          $("#id_1-city").empty()
-          $("#id_1-city").append('<option value="">----</option>')
+          $("#id_4-city").empty()
+          $("#id_4-city").append('<option value="">----</option>')
           $.each(data.choices, (index, value) => {
-            $("#id_1-city").append(
+            $("#id_4-city").append(
               '<option value="' + value[0] + '">' + value[1] + '</option>'
             )
           })
@@ -131,23 +131,23 @@
       });
 
       var city
-      $("#id_1-city").on("change", (evt) => {
+      $("#id_4-city").on("change", (evt) => {
         city = evt.target.value;
         $.get("{% url 'eleicao:cep' %}" + "?city=" + city + "&state=" + uf, (data) => {
-          $("#id_1-neighborhood").empty()
-          $("#id_1-neighborhood").append('<option value="">----</option>')
+          $("#id_4-neighborhood").empty()
+          $("#id_4-neighborhood").append('<option value="">----</option>')
           $.each(data.choices, (index, value) => {
-            $("#id_1-neighborhood").append('<option value="' + value[0] + '">' + value[1] + "</option>")
+            $("#id_4-neighborhood").append('<option value="' + value[0] + '">' + value[1] + "</option>")
           })
         })
       });
 
-      $("#id_1-neighborhood").on("change", (evt) => {
+      $("#id_4-neighborhood").on("change", (evt) => {
         $.get("{% url 'eleicao:cep' %}" + "?city=" + city + "&state=" + uf + "&neighborhood=" + evt.target.value, (data) => {
-          $("#id_1-zone_id").empty()
-          $("#id_1-zone_id").append('<option value="">----</option>')
+          $("#id_4-zone_id").empty()
+          $("#id_4-zone_id").append('<option value="">----</option>')
           $.each(data.choices, (index, value) => {
-            $("#id_1-zone_id").append('<option value="' + value[0] + '">' + value[1] + "</option>")
+            $("#id_4-zone_id").append('<option value="' + value[0] + '">' + value[1] + "</option>")
           })
         })
       });
@@ -156,25 +156,25 @@
     $(function () {
       let checkboxes = $("#commitment-checkbox input[type='checkbox']");
       let tooltips = $(".commitment-tooltip");
-    
+
       checkboxes.on("change", function () {
         let checkbox = $(this);
         let isChecked = checkbox.prop("checked");
         let index = checkboxes.index(checkbox);
-    
+
         // Find the corresponding tooltip by index
         let tooltip = tooltips.eq(index);
-    
+
         if (isChecked) {
           tooltip.removeClass('tooltip-open');
         }
       });
-    
+
       $("#submit-btn").on("click", function () {
         checkboxes.each(function () {
           let checkbox = $(this);
           let isChecked = checkbox.prop("checked");
-          
+
           if (!isChecked) {
             let index = checkboxes.index(checkbox);
             let tooltip = tooltips.eq(index);
