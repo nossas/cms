@@ -54,9 +54,10 @@
                     <p>{{field}}</p>
                   </div>
                   {% elif "social_media" in field.name %}
+                  <div class="flex gap-4">
                     {% if field.name == "social_media" %}
-                    <div class="md:flex gap-6">
-                    <div class="">
+                    <div>
+                    <div class="max-w-xs">
                       {{field.label_tag}}
                       {{field}}
                     {% endif %}
@@ -68,6 +69,7 @@
                     </div>
                     </div>
                     {% endif %}
+                  </div>
                   {% else %}
                     {{field.label_tag}}
                     {{field}}
