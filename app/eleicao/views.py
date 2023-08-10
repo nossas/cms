@@ -18,6 +18,7 @@ from .forms import (
     Candidate2Form,
     Candidate3Form,
     Candidate4Form,
+    Candidate5Form,
     Candidate6Form,
     VoterForm,
 )
@@ -55,7 +56,8 @@ class CandidateCreateView(SessionWizardView):
         Candidate2Form,
         Candidate3Form,
         Candidate4Form,
-        Candidate6Form,
+        Candidate5Form,
+        Candidate6Form
     ]
 
     file_storage = DefaultStorage()
@@ -70,10 +72,20 @@ class CandidateCreateView(SessionWizardView):
     def done(self, form_list, **kwargs):
         values = list(map(lambda form: form.cleaned_data, form_list))
         values = dict(ChainMap(*values))
-
+        #import ipdb; ipdb.set_trace()
         # Processar os valores
         values.pop("agree")
-
+        values.pop("agree_2")
+        values.pop("agree_3")
+        values.pop("agree_4")
+        values.pop("agree_5")
+        values.pop("agree_6")
+        values.pop("agree_7")
+        values.pop("agree_8")
+        values.pop("agree_9")
+        values.pop("agree_10")
+        values.pop("agree_11")
+        values.pop("agree_12")
         # Address
         state = values.pop("state")
         city = values.pop("city")
@@ -88,9 +100,9 @@ class CandidateCreateView(SessionWizardView):
         photo = values.pop("photo")
         video = values.pop("video")
         obj = Candidate.objects.create(**values, photo=photo, video=video)
-
         obj.save()
 
+        
         # Integrate with Bonde
 
         fe = create_form_entry(state=state, city=city, **values)

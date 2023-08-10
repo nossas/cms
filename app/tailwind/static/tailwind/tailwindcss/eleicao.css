@@ -37,12 +37,17 @@
 
 .aeleicaodoano .form-control input[type="text"],
 .aeleicaodoano .form-control input[type="email"],
-.aeleicaodoano .form-control input[type="number"] {
+.aeleicaodoano .form-control input[type="number"],
+.aeleicaodoano .form-control select {
   @apply w-full rounded-lg input input-bordered bg-[#EFEFEF] max-w-none;
 }
 
+.aeleicaodoano .form-control input[type="radio"] {
+  @apply mr-4 radio;
+}
+
 .aeleicaodoano .form-control label {
-  @apply text-sm font-bold label text-neutral-700;
+  @apply inline-flex font-bold label text-neutral-700;
 }
 
 .aeleicaodoano a.form-back-btn,
@@ -78,3 +83,47 @@
 .aeleicaodoano .candidate-content .steps li.step::after {
   @apply w-6 h-6 text-xs font-bold text-[#1842AC];
 }
+
+.aeleicaodoano .form-control .commitment-box {
+  @apply relative z-10 mr-4 transition-all cursor-pointer;
+}
+
+.aeleicaodoano .form-control .commitment-box .icon-svg > svg {
+  @apply text-neutral-400;
+}
+
+.aeleicaodoano .form-control .commitment input[type="checkbox"] {
+  @apply hidden;
+}
+
+.aeleicaodoano .form-control .commitment input[type="checkbox"]:checked ~ .commitment-box > .icon-svg > svg {
+  @apply text-green-600;
+}
+
+.aeleicaodoano .form-control .commitment input[type="checkbox"]:checked ~ .commitment-box {
+  @apply border-green-600;
+}
+
+.aeleicaodoano .form-control .commitment-tooltip.tooltip.tooltip-bottom:hover::before {
+  visibility: hidden;
+  background-color: transparent;
+  opacity: 0;
+}
+
+.aeleicaodoano .form-control .commitment-tooltip.tooltip.tooltip-bottom:hover::after {
+  visibility: hidden;
+  background-color: transparent;
+  opacity: 0;
+}
+
+.aeleicaodoano .form-control .commitment-tooltip.tooltip.tooltip-bottom.tooltip-open:hover::before {
+  visibility: visible;
+  background-color: var(--tooltip-color);
+  opacity: 1;
+}
+
+.aeleicaodoano .form-control .commitment-tooltip.tooltip.tooltip-bottom.tooltip-open:hover::after {
+  visibility: visible;
+  opacity: 1;
+}
+

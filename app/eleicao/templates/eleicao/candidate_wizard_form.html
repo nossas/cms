@@ -1,5 +1,4 @@
 {% extends "eleicao/base.html" %}
-
 {% load static %}
 
 {% block extra_head %}
@@ -13,8 +12,8 @@
 {% block navbar %}{% endblock %}
 {% block content %}
 <main class="h-screen">
-  <div class="grid grid-cols-1 w-full h-full md:grid-cols-2 gap-10 p-5 md:pl-10 md:p-0">
-    <section class="candidate-form pb-20">
+  <div class="grid grid-cols-1 gap-10 p-5 w-full h-full md:grid-cols-2 md:pl-10 md:p-0">
+    <section class="pb-20 candidate-form">
       <div class="py-4 ml-16 candidate-logo">
         <a href="#">
           <img src="{% static 'images/eleicao/logo-eleicao-do-ano.svg' %}" alt="Logo Eleição do Ano">
@@ -30,7 +29,7 @@
             {% endif %}
           {% endfor %}
         </ul>
-        <div class="w-full md:w-auto md:min-w-[450px]">
+        <div class="w-full md:max-w-[450px]">
           {% if wizard.form.forms %}
           <h1 class="text-7xl text-[#1842AC] pt-10 ">{{wizard.form.forms.title}}</h1>
           {% else %}
@@ -75,13 +74,33 @@
                     </div>
                     {% endif %}
                   </div>
+                <div class="py-1 form-control">
+                  {% elif "agree" in field.name %}
+                      {% comment %} TODO: Fazer esse trecho como include {% endcomment %}
+                      <div class="flex flex-col gap-3 commitment">
+                        <div class="commitment-tooltip tooltip tooltip-bottom before:z-20 tooltip-error" data-tip="Você deve marcar essa opção">
+                          <label id="commitment-checkbox">
+                              {{ field }}
+                              <div class="max-h-[96px] overflow-hidden !items-start !justify-center flex !p-4 rounded border bg-neutral-100 border-neutral-200 commitment-box">
+                                <picture class="pr-4 icon-svg">
+                                  {% with icon_path="./icons/"|add:field.field.widget.icon|add:".svg" %}
+                                    {% include icon_path %}
+                                  {% endwith %}
+                                </picture>
+                                <div class="font-normal text-neutral-600">
+                                  {{ field.field.widget.text }}
+                                </div>
+                              </div>
+                          </label>
+                        </div>
+                      </div>
                   {% else %}
                     {{field.label_tag}}
                     {{field}}
                   {% endif %}
                 </div>
-            {% endfor %}
-              {% endif %}
+              {% endfor %}
+            {% endif %}
             </div>
             <div class="flex justify-between items-center py-4">
               {% if wizard.steps.prev %}
@@ -89,13 +108,13 @@
               {% else %}
                 <a href="#" class="text-xl form-back-btn">Voltar</a>
               {% endif %}
-                <input class="btn btn-primary" type="submit" value="Continuar" />
+                <input id="submit-btn" class="btn btn-primary" type="submit" value="Continuar" />
               </div>
           </form>
         </div>
       </div>
     </section>
-    <img class="hidden md:block md:w-full md:h-full object-none" src="{% static 'images/eleicao/candidate-form-image.png' %}" alt="Imagem">
+    <img class="hidden object-cover md:block md:w-full md:h-full" src="{% static 'images/eleicao/candidate-form-image.png' %}" alt="Imagem">
   </div>
 </main>
 {% endblock %}
@@ -106,28 +125,28 @@
     "use strict";
 
     $(function () {
-      $('#id_1-state').select2({
+      $('#id_4-state').select2({
         placeholder: 'Selecione seu estado'
       });
-      $('#id_1-city').select2({
+      $('#id_4-city').select2({
         placeholder: 'Selecione sua cidade'
       });
-      $('#id_1-neighborhood').select2({
+      $('#id_4-neighborhood').select2({
         placeholder: 'Selecione seu bairro'
       });
-      $('#id_1-zone_id').select2({
+      $('#id_4-zone_id').select2({
         placeholder: 'Selecione o local da candidatura'
       });
 
       var uf;
-      $("#id_1-state").on("change", (evt) => {
+      $("#id_4-state").on("change", (evt) => {
         uf = evt.target.value
 
         $.get("{% url 'eleicao:cep' %}" + "?state=" + uf, (data) => {
-          $("#id_1-city").empty()
-          $("#id_1-city").append('<option value="">----</option>')
+          $("#id_4-city").empty()
+          $("#id_4-city").append('<option value="">----</option>')
           $.each(data.choices, (index, value) => {
-            $("#id_1-city").append(
+            $("#id_4-city").append(
               '<option value="' + value[0] + '">' + value[1] + '</option>'
             )
           })
@@ -135,36 +154,67 @@
       });
 
       var city
-      $("#id_1-city").on("change", (evt) => {
+      $("#id_4-city").on("change", (evt) => {
         city = evt.target.value;
         $.get("{% url 'eleicao:cep' %}" + "?city=" + city + "&state=" + uf, (data) => {
-          $("#id_1-neighborhood").empty()
-          $("#id_1-neighborhood").append('<option value="">----</option>')
+          $("#id_4-neighborhood").empty()
+          $("#id_4-neighborhood").append('<option value="">----</option>')
           $.each(data.choices, (index, value) => {
-            $("#id_1-neighborhood").append('<option value="' + value[0] + '">' + value[1] + "</option>")
+            $("#id_4-neighborhood").append('<option value="' + value[0] + '">' + value[1] + "</option>")
           })
         })
       });
 
-      $("#id_1-neighborhood").on("change", (evt) => {
+      $("#id_4-neighborhood").on("change", (evt) => {
         $.get("{% url 'eleicao:cep' %}" + "?city=" + city + "&state=" + uf + "&neighborhood=" + evt.target.value, (data) => {
-          $("#id_1-zone_id").empty()
-          $("#id_1-zone_id").append('<option value="">----</option>')
+          $("#id_4-zone_id").empty()
+          $("#id_4-zone_id").append('<option value="">----</option>')
           $.each(data.choices, (index, value) => {
-            $("#id_1-zone_id").append('<option value="' + value[0] + '">' + value[1] + "</option>")
+            $("#id_4-zone_id").append('<option value="' + value[0] + '">' + value[1] + "</option>")
           })
         })
       });
       
       //fill up slug
-      $("#id_0-name").on("change",(evt) => {
+      $("#id_2-name").on("change",(evt) => {
         
         $.get("{% url 'eleicao:slug' %}" + "?name=" + evt.target.value, (data) => {
-          $("#id_0-slug").val(data.slug)
+          $("#id_2-slug").val(data.slug)
          })
           
       } )
     });
+
+    $(function () {
+      let checkboxes = $("#commitment-checkbox input[type='checkbox']");
+      let tooltips = $(".commitment-tooltip");
+
+      checkboxes.on("change", function () {
+        let checkbox = $(this);
+        let isChecked = checkbox.prop("checked");
+        let index = checkboxes.index(checkbox);
+
+        // Find the corresponding tooltip by index
+        let tooltip = tooltips.eq(index);
+
+        if (isChecked) {
+          tooltip.removeClass('tooltip-open');
+        }
+      });
+
+      $("#submit-btn").on("click", function () {
+        checkboxes.each(function () {
+          let checkbox = $(this);
+          let isChecked = checkbox.prop("checked");
+
+          if (!isChecked) {
+            let index = checkboxes.index(checkbox);
+            let tooltip = tooltips.eq(index);
+            tooltip.addClass('tooltip-open');
+          }
+        });
+      });
+    })
   }(window.jQuery));
 </script>
 <script src="{% static 'js/jquery-mask/jquery.mask.min.js' %}"></script>
