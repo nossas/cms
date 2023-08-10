@@ -76,7 +76,14 @@
   <section class="py-16 bg-[#EDB052] candidate-detail-video text-blue-800">
     <h1 class="flex justify-center mb-4 text-4xl">O QUE MARIANA TEM PRA DIZER</h1>
     <div class="flex justify-center items-center">
-      <img src="{% static 'images/eleicao/mariana-video.png' %}" alt="Video aqui">
+      {% if object.video %}
+      <video controls width="640" height="360" alt="Vídeo do candidato">
+        <source src="{{ object.video.url }}" type="video/mp4">
+        Seu navegador não suporta o elemento de vídeo.
+    </video>
+      {% else %}
+      <img src="{% static 'images/eleicao/mariana-video.png' %}" alt="Foto do(a) candidato(a)" class="">
+      {% endif %}
     </div>
   </section>
 

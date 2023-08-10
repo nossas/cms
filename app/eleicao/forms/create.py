@@ -15,7 +15,7 @@ class Candidate1Form(forms.ModelForm,FormWithTitle):
     class Meta:
         model = Candidate
         fields = ["name", "email", "birth", "occupation", "slug"]
-
+        widgets = {'birth': forms.TextInput(attrs={'data-mask':"00/00/0000"})}
 
 class Candidate2Form(forms.ModelForm,FormWithTitle):
     number = forms.IntegerField(label="Numero do candidato")
@@ -46,7 +46,7 @@ class Candidate3Form(forms.ModelForm,FormWithTitle):
 class Candidate4Form(forms.ModelForm,FormWithTitle):
     class Meta:
         model = Candidate
-        fields = ["bio", "photo", "video", "social_media"]
+        fields = ["bio", "photo", "video", "social_media", "social_media_2"]
 
 
 class Candidate6Form(forms.Form,FormWithTitle):
