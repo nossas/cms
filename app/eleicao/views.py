@@ -130,14 +130,14 @@ class ResultsCandidateView(ListView):
 def suggest_slug(request):
     name = request.GET.get("name")
     slug = slugify(name).replace("-", "")
+    suggestion = slug
     list_candidate = Candidate.objects.filter(slug=slug)
     total = list_candidate.count()
-    sufix = ""
-    if total > 0:
-        if total > 1:
-            list_candidate = Candidate.objects.filter(slug__startswith=slug)
-            total = list_candidate.count()
+    sufix = 1
+    while total > 0:
+        suggestion = slug + f"{sufix}"
+        list_candidate = Candidate.objects.filter(slug=suggestion)
+        total = list_candidate.count()
+        sufix = sufix + 1
 
-        sufix = f"{total}"
-
-    return JsonResponse({"slug": slug + sufix})
+    return JsonResponse({"slug": suggestion})
