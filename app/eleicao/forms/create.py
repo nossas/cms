@@ -113,21 +113,22 @@ class Candidate4Form(forms.ModelForm):
         model = Candidate
         widgets = {
             "is_trans": forms.RadioSelect,
+            "is_reelection": forms.RadioSelect,
             "occupation": forms.TextInput({"placeholder": "Digite sua profissão"}),
         }
-        fields = ["occupation", "gender", "is_trans", "race"]
+        fields = ["occupation", "gender", "is_trans", "race", "is_reelection"]
 
 
 class Candidate5Form(forms.ModelForm):
     title = "sua candidatura"
 
     number = forms.IntegerField(label="Numero do candidato",  widget= forms.TextInput({"placeholder": "Seu número de voto"}))
-    is_reelection = forms.BooleanField(label="Está se candidatando para reeleição?", widget=forms.RadioSelect(choices= ((True, 'Sim'), (False, 'Não'))))
+   # is_reelection = forms.BooleanField(label="Está se candidatando para reeleição?" widget=forms.RadioSelect(choices= ((True, 'Sim'), (False, 'Não'))))
     # zone_id = forms.IntegerField()
 
     class Meta:
         model = Address
-        fields = ["state", "city", "neighborhood", "number", "is_reelection"]
+        fields = ["state", "city", "neighborhood", "number"]
    
 
     def __init__(self, *args, **kwargs):
