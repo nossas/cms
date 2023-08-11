@@ -4,11 +4,6 @@ from django.forms.widgets import CheckboxInput
 
 from ..models import Address, Candidate, Voter, PollingPlace
 
-class FormWithTitle(forms.BaseForm):
-    title = "Seus Dados"
-
-    def __init__(self, *args, **kwargs) -> None:
-        super(FormWithTitle, self).__init__(*args, **kwargs)
 
 class CustomCheckboxInput(CheckboxInput):
     def __init__(self, *args, icon=None, text=None, **kwargs):
@@ -24,7 +19,8 @@ class CustomBooleanField(forms.BooleanField):
         self.widget.icon = icon
         self.widget.text = text
 
-class Candidate1Form(forms.Form,FormWithTitle):
+class Candidate1Form(forms.Form):
+    title = "você assume compromisso com..."
     agree = CustomBooleanField(required=True, icon='icon-children', text='Atuação em parceria permanente com serviços de proteção dos direitos da criança e do adolescente')
     agree_2 = CustomBooleanField(required=True, icon='icon-participate', text='Participação popular na construção de políticas públicas para crianças e adolescentes.')
     agree_3 = CustomBooleanField(required=True, icon='icon-religious-freedom', text='Respeito à liberdade religiosa, ao Estado laico e às diferentes religiosidades, com enfrentamento ativo ao racismo religioso.')
@@ -32,7 +28,8 @@ class Candidate1Form(forms.Form,FormWithTitle):
     agree_5 = CustomBooleanField(required=True, icon='icon-network', text='Prioridade ao acionamento da rede de proteção, com encaminhamento a medidas socioeducativas como ultimo recurso')
     agree_6 = CustomBooleanField(required=True, icon='icon-family', text='Prioridade à manutenção dos vínculos familiares, com medida de abrigamento como último recurso (e sempre decidida com aval do Ministério Público).')
 
-class Candidate2Form(forms.Form,FormWithTitle):
+class Candidate2Form(forms.Form):
+    title = "você assume compromisso com..."
     agree_7 = CustomBooleanField(required=True, icon='icon-ears', text='Garantia de escuta especializada e depoimento especial para crianças e adolescentes em situação de violência.')
     agree_8 = CustomBooleanField(required=True, icon='icon-sexual-rights', text='Respeito aos direitos sexuais e reprodutivos e garantia de acesso ao aborto legal para crianças e adolescentes vítimas de violência sexual.')
     agree_9 = CustomBooleanField(required=True, icon='icon-indigenous', text='Efetivação dos direitos de populações indígenas e povos e comunidades tradicionais.')
@@ -40,13 +37,15 @@ class Candidate2Form(forms.Form,FormWithTitle):
     agree_11 = CustomBooleanField(required=True, icon='icon-orcamento', text='Colaboração com o Poder Executivo local na elaboração do orçamento para crianças e adolescentes.')
     agree_12 = CustomBooleanField(required=True, icon='icon-sipia', text='Registro permanente de informações no SIPIA - Sistema de Informação para Infância e Adolescência.')
 
-class Candidate3Form(forms.ModelForm,FormWithTitle):
+class Candidate3Form(forms.ModelForm):
+    title = "seus dados"
     class Meta:
         model = Candidate
         fields = ["name", "email", "birth", "slug"]
         widgets = {'birth': forms.TextInput(attrs={'data-mask':"00/00/0000"})}
 
-class Candidate4Form(forms.ModelForm,FormWithTitle):
+class Candidate4Form(forms.ModelForm):
+    title = "seus dados"
     class Meta:
         model = Candidate
         widgets = {
@@ -61,7 +60,9 @@ class Candidate4Form(forms.ModelForm,FormWithTitle):
             "is_reelection"
         ]
 
-class Candidate5Form(forms.ModelForm,FormWithTitle):
+class Candidate5Form(forms.ModelForm):
+    title = "sua candidatura"
+
     number = forms.IntegerField(label="Numero do candidato")
     # zone_id = forms.IntegerField()
 
@@ -83,13 +84,14 @@ class Candidate5Form(forms.ModelForm,FormWithTitle):
         self.fields["neighborhood"].widget = forms.Select()
         # self.fields["zone_id"].widget = forms.Select()
 
-class Candidate6Form(forms.ModelForm,FormWithTitle):
+class Candidate6Form(forms.ModelForm):
+    title = "complemente seu perfil"
     class Meta:
         model = Candidate
         fields = ["bio", "photo", "video", "social_media", "social_media_2"]
 
 
-class PlacesWidget(s2forms.ModelSelect2Widget,FormWithTitle):
+class PlacesWidget(s2forms.ModelSelect2Widget):
     search_fields = [
         "places__state__icontains",
         "places__city__icontains",
