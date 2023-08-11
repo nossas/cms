@@ -85,7 +85,7 @@
 }
 
 .aeleicaodoano .form-control .commitment-box {
-  @apply relative z-10 mr-4 transition-all cursor-pointer;
+  @apply overflow-hidden !items-start !justify-center flex !p-4 rounded border bg-neutral-100 border-neutral-200 transition-all cursor-pointer;
 }
 
 .aeleicaodoano .form-control .commitment-box .icon-svg > svg {

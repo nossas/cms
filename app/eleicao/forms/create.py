@@ -22,6 +22,10 @@ class CustomBooleanField(forms.BooleanField):
         self.widget.text = text
 
 class Candidate1Form(forms.Form):
+    title = "Oi, Candidata(o)"
+    starter_text = "Em todo o Brasil existem milhares de pessoas que se dedicam ao trabalho nos Conselhos Tutelares para fazer valer os direitos de crianças e adolescentes - a importante e necessária missão de ser conselheiro e conselheira tutelar! Criamos uma plataforma para destacar essas candidaturas e conectá-las aos eleitores da sua região."
+
+class Candidate2Form(forms.Form):
     title = "você assume compromisso com..."
     agree = CustomBooleanField(
         required=True,
@@ -55,7 +59,7 @@ class Candidate1Form(forms.Form):
     )
 
 
-class Candidate2Form(forms.Form):
+class Candidate3Form(forms.Form):
     title = "você assume compromisso com..."
     agree_7 = CustomBooleanField(
         required=True,
@@ -89,7 +93,7 @@ class Candidate2Form(forms.Form):
     )
 
 
-class Candidate3Form(forms.ModelForm):
+class Candidate4Form(forms.ModelForm):
     title = "seus dados"
     class Meta:
         model = Candidate
@@ -104,7 +108,7 @@ class Candidate3Form(forms.ModelForm):
         }
 
 
-class Candidate4Form(forms.ModelForm):
+class Candidate5Form(forms.ModelForm):
     title = "seus dados"
 
     class Meta:
@@ -117,7 +121,7 @@ class Candidate4Form(forms.ModelForm):
         fields = ["occupation", "gender", "is_trans", "race", "is_reelection"]
 
 
-class Candidate5Form(forms.ModelForm):
+class Candidate6Form(forms.ModelForm):
     title = "sua candidatura"
 
     number = forms.IntegerField(label="Numero do candidato",  widget= forms.TextInput({"placeholder": "Seu número de voto"}))
@@ -137,8 +141,7 @@ class Candidate5Form(forms.ModelForm):
         self.fields["neighborhood"].widget = forms.Select()
         # self.fields["zone_id"].widget = forms.Select()
 
-
-class Candidate6Form(forms.ModelForm):
+class Candidate7Form(forms.ModelForm):
     title = "complemente seu perfil"
 
     class Meta:
