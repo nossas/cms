@@ -108,7 +108,11 @@
               {% else %}
                 <a href="#" class="text-xl form-back-btn">Voltar</a>
               {% endif %}
+              {% if wizard.steps.current != wizard.steps.last %}
                 <input id="submit-btn" class="btn btn-primary" type="submit" value="Continuar" />
+              {% else %}
+                <input id="submit-btn" class="btn btn-primary" type="submit" value="Salvar e Concluir" />
+              {% endif %}
               </div>
           </form>
         </div>
