@@ -74,8 +74,8 @@ class Candidate(models.Model):
     gender = models.CharField("Gênero", choices=GenderChoices.choices, max_length=20)
     is_trans = models.BooleanField("Se identifica como pessoa transgênero/transexual?", default=False, choices=BOOL_CHOICES)
     race = models.CharField("Raça", choices=RaceChoices.choices, max_length=20)
-    social_media = models.CharField("Rede social",  null=True, max_length=20, choices=SocialMediaChoices.choices)
-    social_media_2 = models.CharField("URL da Rede Social",  null=True, max_length=100)
+    social_media = models.CharField("Rede social",  null=True, max_length=20, choices=SocialMediaChoices.choices, blank=True)
+    social_media_2 = models.CharField("URL da Rede Social",  null=True, max_length=100, blank=True)
     number = models.PositiveSmallIntegerField("Numero de voto")
     is_reelection = models.BooleanField("Está se candidatando para reeleição?", default=False, choices=BOOL_CHOICES)
     newsletter = models.BooleanField(
