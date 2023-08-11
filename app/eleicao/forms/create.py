@@ -21,7 +21,6 @@ class CustomBooleanField(forms.BooleanField):
         self.widget.icon = icon
         self.widget.text = text
 
-
 class Candidate1Form(forms.Form):
     title = "você assume compromisso com..."
     agree = CustomBooleanField(
@@ -92,14 +91,13 @@ class Candidate2Form(forms.Form):
 
 class Candidate3Form(forms.ModelForm):
     title = "seus dados"
-
     class Meta:
         model = Candidate
         fields = ["name", "email", "birth", "slug"]
         widgets = {
             "name": forms.TextInput({"placeholder": "Seu nome"}),
-            "birth": forms.DateInput(
-                attrs={"data-mask": "00/00/0000", "placeholder": "DD/MM/AAAA"}
+            "birth": forms.DateInput(format="%d-%m-%Y",
+                attrs={ "class": "date","data-mask": "00/00/0000", "placeholder": "DD/MM/AAAA"}
             ),
             "email": forms.EmailInput({"placeholder": "Seu email"}),
             "slug": forms.TextInput({"placeholder": "seunome"}),

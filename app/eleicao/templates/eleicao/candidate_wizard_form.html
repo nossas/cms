@@ -50,7 +50,7 @@
               {% else %}
               {% for field in wizard.form %}
                 <div class="py-1 w-full form-control">
-                  
+
                   {% if field.name == "slug" %}
                     {{field.label_tag}}
                     <div class="flex items-center gap-3 font-bold ">
@@ -98,6 +98,13 @@
                     {{field.label_tag}}
                     {{field}}
                   {% endif %}
+                  <div class="error-list">
+                    {% if field.errors %}
+                    {% for error in field.errors%}
+                    <span class="field-error django-error">{{ error }}</span>
+                    {% endfor %}
+                    {% endif %}
+                 </div> 
                 </div>
               {% endfor %}
             {% endif %}
@@ -225,4 +232,5 @@
   }(window.jQuery));
 </script>
 <script src="{% static 'js/jquery-mask/jquery.mask.min.js' %}"></script>
+
 {% endblock %}
