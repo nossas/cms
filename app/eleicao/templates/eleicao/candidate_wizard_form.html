@@ -55,7 +55,7 @@
                   <div class="py-1 w-full form-control">
                       {% if field.name == "slug" %}
                         {{field.label_tag}}
-                        <div class="flex items-center gap-3 font-bold ">
+                        <div class="flex gap-3 items-center font-bold">
                           <p>aeleicaodoano.org/</p>
                           <p>{{field}}</p>
                         </div>
@@ -86,7 +86,7 @@
                 <div class="error-list">
                   {% if field.errors %}
                   {% for error in field.errors%}
-                  <span class="field-error django-error text-sm text-error">{{ error }}</span>
+                  <span class="text-sm field-error django-error text-error">{{ error }}</span>
                   {% endfor %}
                   {% endif %}
                 </div>
@@ -95,9 +95,9 @@
             </div>
             {% comment %} Botões de ação {% endcomment %}
             <div class="flex justify-between items-center py-4">
-              {% comment %} {% if wizard.steps.current == wizard.steps.first %}
+              {% if wizard.steps.current == wizard.steps.first %}
                 <input id="submit-btn" class="btn btn-primary" type="submit" value="MINHA CANDIDATURA É EM DEFESA DO ECA" />
-              {% else %} {% endcomment %}
+              {% else %}
                 {% if wizard.steps.prev %}
                   <button class="text-xl form-back-btn" type="submit" formnovalidate name="wizard_goto_step" value="{{ wizard.steps.prev }}">Voltar</button>
                 {% else %}
@@ -109,7 +109,7 @@
                 {% else %}
                   <input id="submit-btn" class="btn btn-primary" type="submit" value="Salvar e Concluir" />
                 {% endif %}
-              {% comment %} {% endif %} {% endcomment %}
+              {% endif %}
             </div>
           </form>
         </div>
