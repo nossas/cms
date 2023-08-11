@@ -59,7 +59,7 @@
                       {% elif "social_media" in field.name %}
                         {% if field.name == "social_media" and not social_media_rendered %}
                           {% with social_media_rendered=True %}
-                            <div class="social_media_fields">
+                            <div class="social_media_fields" id="idsocial-media">
                               <div class="flex gap-5">
                                 <div class="max-w-xs">
                                   {{ field.label_tag }}
