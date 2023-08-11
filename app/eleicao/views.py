@@ -20,7 +20,8 @@ from .forms import (
     Candidate4Form,
     Candidate5Form,
     Candidate6Form,
-    VoterForm,
+    Candidate7Form,
+    VoterForm
 )
 from .forms.filters import CandidateListFilter
 from .models import Address, Candidate, Voter
@@ -57,7 +58,8 @@ class CandidateCreateView(SessionWizardView):
         Candidate3Form,
         Candidate4Form,
         Candidate5Form,
-        Candidate6Form
+        Candidate6Form,
+        Candidate7Form
     ]
 
     file_storage = DefaultStorage()
