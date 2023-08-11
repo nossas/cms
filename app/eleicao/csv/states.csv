@@ -26,9 +26,3 @@ SC,S,Estado de,Santa Catarina,24,42,Q41115,santa.catarina,1889,,State,America/Sa
 SE,NE,Estado do,Sergipe,25,28,Q43783,sergipe,1889,,State,America/Maceio,-3,-3,[49000-000 49999-999],21918,AL BA,7nj7gcnhv,24S,7juy1tyz9 7nq1ggffc,-11.5686557363712 -9.51502990830803,-38.2450470224021 -36.393867821,
 SP,SE,Estado de,São Paulo,26,35,Q175,sao.paulo,1889,,State,America/Sao_Paulo,-3,-2,[01000-000 09999-999]; [11000-000 19999-999],248222,MG MS PR RJ,6uj374ssp,22S 23S,6gd0p2n3h 7h2x7p4xj,-25.3123209497299 -19.7796557956015,-53.110111532 -44.1613651636666,
 TO,N,Estado de,Tocantins,27,17,Q43695,tocantins,1988,,State,America/Araguaina,-3,-2,[77000-000 77999-999],277721,BA GO MA MT PA PI,6yjwk0pwp,22S 23S,6vegmk6bb 6zpd85hsn,-13.4677126634278 -5.16838051516951,-50.742063978 -45.696670745,
-FN,NE,Território de,Fernando de Noronha,30,,Q41535907,fernando.noronha,1943,1946,Territory,,,,,,,,,,,,"extinct, merged into PE"
-GB,,Estado da,Guanabara,31,,Q1155409,guanabara,1960,1975,State,,,,,,,,,,,,"extinct, merged as city into RJ"
-GU,,Território do,Guaporé,32,,Q10380855,guapore,1943,1946,Territory,,,,,,,,,,,,renamed to Rondônia (RO)
-IG,,Estado de,Iguaçu,33,,Q2893222,iguacu,1943,1946,Territory,,,,,,,,,,,,"extinct, merged into PR"
-PP,,Território de,Ponta Porã,34,,Q10380854,ponta.pora,1943,1946,Territory,,,,,,,,,,,,extinct (now rest a city in MS)
-RB,N,Território de,Rio Branco,35,,Q10380856,rio.branco,1943,1962,State,,,,,,,,,,,,renamed to Roraima (RR)
