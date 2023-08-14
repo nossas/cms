@@ -143,10 +143,9 @@ class Candidate6Form(forms.ModelForm):
 
     class Meta:
         model = Candidate
-        fields = ["bio", "photo", "video", "social_media", "social_media_2"]
+        fields = ["bio", "photo", "video", "social_media"]
         widgets = {
             "bio": forms.Textarea({"placeholder": "Em um parágrafo, o que os(as) eleitores(as) precisam saber sobre você."}),
-            "social_media_2": forms.TextInput({"placeholder": "Link do seu perfil"}),
         }
 
 

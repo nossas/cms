@@ -4,6 +4,7 @@ from django.urls import reverse
 
 from .csv.choices import get_states
 
+
 class GenderChoices(models.TextChoices):
     male = "homem", "Homem"
     female = "mulher", "Mulher"
@@ -32,10 +33,12 @@ class RaceChoices(models.TextChoices):
     pardo = "parda", "Parda"
     no_answer = "não declarada", "Não declarada"
 
-class SocialMediaChoices(models.TextChoices):
-    twitter = "twitter", "Twitter"
-    facebook = "facebook", "Facebook"
-    instagram = "instagram", "Instagram"
+
+# class SocialMediaChoices(models.TextChoices):
+#     twitter = "twitter", "Twitter"
+#     facebook = "facebook", "Facebook"
+#     instagram = "instagram", "Instagram"
+
 
 class Address(models.Model):
     state = models.CharField("Estado", max_length=2, choices=lazy(get_states, list)())
@@ -56,8 +59,13 @@ class PollingPlace(models.Model):
         # return f"{list(map(lambda x: x, self.places.all()))}".replace('[<Address:', '').replace('>]', ' ')
 
 
+class CandidateStatusChoices(models.TextChoices):
+    published = "published", "Publicado"
+    disabled = "disabled", "Desabilitado"
+
+
 class Candidate(models.Model):
-    BOOL_CHOICES = ((True, 'Sim'), (False, 'Não'))
+    BOOL_CHOICES = ((True, "Sim"), (False, "Não"))
 
     slug = models.SlugField("Seu link personalizado", max_length=120, unique=True)
     name = models.CharField("Nome", max_length=120)
@@ -72,15 +80,27 @@ class Candidate(models.Model):
         "Video", null=True, blank=True, upload_to="candidaturas/videos/"
     )
     gender = models.CharField("Gênero", choices=GenderChoices.choices, max_length=20)
-    is_trans = models.BooleanField("Se identifica como pessoa transgênero/transexual?", default=False, choices=BOOL_CHOICES)
+    is_trans = models.BooleanField(
+        "Se identifica como pessoa transgênero/transexual?",
+        default=False,
+        choices=BOOL_CHOICES,
+    )
     race = models.CharField("Raça", choices=RaceChoices.choices, max_length=20)
-    social_media = models.CharField("Rede social",  null=True, max_length=20, choices=SocialMediaChoices.choices, blank=True)
-    social_media_2 = models.CharField("URL da Rede Social",  null=True, max_length=100, blank=True)
+    social_media = models.JSONField("Rede social", null=True, blank=True)
     number = models.PositiveSmallIntegerField("Numero de voto")
-    is_reelection = models.BooleanField("Está se candidatando para reeleição?", default=False, choices=BOOL_CHOICES)
+    is_reelection = models.BooleanField(
+        "Está se candidatando para reeleição?", default=False, choices=BOOL_CHOICES
+    )
     newsletter = models.BooleanField(
         "Quero receber atualizações da campanha e do NOSSAS.", default=False
     )
+    status = models.CharField(
+        "Status",
+        max_length=20,
+        choices=CandidateStatusChoices.choices,
+        default=CandidateStatusChoices.published,
+    )
+
     place = models.ForeignKey(Address, on_delete=models.CASCADE)
 
     def __str__(self):
