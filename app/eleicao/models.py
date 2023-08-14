@@ -60,8 +60,8 @@ class PollingPlace(models.Model):
 
 
 class CandidateStatusChoices(models.TextChoices):
-    draft = "draft", "Rascunho"
     published = "published", "Publicado"
+    disabled = "disabled", "Desabilitado"
 
 
 class Candidate(models.Model):
@@ -101,7 +101,7 @@ class Candidate(models.Model):
         "Status",
         max_length=20,
         choices=CandidateStatusChoices.choices,
-        default=CandidateStatusChoices.draft,
+        default=CandidateStatusChoices.published,
     )
 
     place = models.ForeignKey(Address, on_delete=models.CASCADE)
