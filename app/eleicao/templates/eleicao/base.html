@@ -1,4 +1,4 @@
-{% load static %}
+{% load static page_extras %}
 <!DOCTYPE html>
 <html lang="pt" data-theme="cupcake">
 
@@ -13,11 +13,13 @@
   {% block extra_head %}{% endblock %}
 </head>
 
-<body class="content-between h-screen tracking-normal leading-normal aeleicaodoano font-droid">
-  {% block navbar %}
-    {% include 'eleicao/plugins/navbar.html' %}
-  {% endblock %}
+<body class="content-between h-screen tracking-normal leading-normal aeleicaodoano font-droid bg-white">
+  {% block navbar %}{% include 'eleicao/plugins/navbar.html' %}{% endblock %}
   {% block content %}{% endblock %}
+  
+  {% block sign_footer %}{% include 'eleicao/plugins/footer.html' %}{% endblock %}
+
+  {% show_footer styles='background-color:white;' community_name='NOSSAS' %}
   {% block footer_js %}{% endblock %}
 </body>
 </html>
