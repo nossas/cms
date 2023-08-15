@@ -44,34 +44,34 @@
           </div>
         </div>
 
-        <div class="grid grid-cols-2 my-1 mt-2 text-blue-800 capitalize candidate-info">
+        <div class="grid grid-cols-2 my-1 mt-2 text-blue-800 capitalize candidate-info px-12 md:px-0">
           <div class="flex flex-col gap-1">
-            <div class="flex gap-2">
+            <div class="flex flex-col gap-2 md:flex-row">
               <label class="font-bold">Reeleição:</label>
               <p>{%if object.is_reelection is True %}Sim{%else %}Não{%endif%}</p>
             </div>
-            <div class="flex gap-2">
+            <div class="flex flex-col gap-2 md:flex-row">
               <label class="font-bold">Profissão:</label>
               <p>{{object.occupation}}</p>
             </div>
-            <div class="flex gap-2">
+            <div class="flex flex-col gap-2 md:flex-row">
               <label class="font-bold">Idade:</label>
               <p>{{object.age}}</p>
             </div>
           </div>
           <div class="flex flex-col gap-1">
             {% comment %} TODO: validação gênero {% endcomment %}
-            <div class="flex gap-2">
+            <div class="flex flex-col gap-2 md:flex-row">
               <label class="font-bold">Gênero:</label>
               <p>{{object.gender}} {% if object.is_trans is True %}Transgênero{%else %}Cisgênero{%endif%}</p>
             </div>
-            <div class="flex gap-2">
+            <div class="flex flex-col gap-2 md:flex-row">
               <label class="font-bold">Raça:</label>
               <p>{{object.race}}</p>
             </div>
           </div>
         </div>
-        <div class="minibio mt-2">
+        <div class="minibio mt-2 px-12 md:px-0">
           <p class="text-blue-800">
             {{object.bio}}
           </p>
@@ -80,8 +80,8 @@
   </section>
 
   {% if object.video %}
-  <section class="py-16 bg-[#EDB052] candidate-detail-video text-blue-800">
-    <h1 class="flex justify-center mb-4 text-4xl uppercase">O que {{ object.short_name }} tem pra dizer</h1>
+  <section class="py-16 bg-[#EDB052] candidate-detail-video text-blue-800 px-12 md:px-0">
+    <h1 class="flex justify-center mb-4 text-4xl uppercase text-center">O que {{ object.short_name }} tem pra dizer</h1>
     <div class="flex justify-center items-center">
       <video controls width="640" height="360" alt="Vídeo do candidato">
         <source src="{{ object.video.url }}" type="video/mp4">
