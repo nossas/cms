@@ -16,3 +16,4 @@ bcrypt
 whitenoise
 svglib
 reportlab
+django-social-share
