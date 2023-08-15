@@ -3,6 +3,7 @@
   "use strict";
 
   $(function () {
+    const fieldName = '5-social_media';
     const $btn = $(".social-media-fields button[type='button']");
 
     $btn.on("click", () => {
@@ -13,7 +14,7 @@
         const newSocialMediaField = `
           <div class="social-media-field-item flex gap-5">
             <div class="max-w-xs">
-              <select name="0-social_media.${countFields}.kind">
+              <select name="${fieldName}.${countFields}.kind">
                 <option value="">Selecione</option>
                 <option value="twitter">Twitter</option>
                 <option value="facebook">Facebook</option>
@@ -21,7 +22,7 @@
               </select>
             </div>
             <div class="gap-1 font-bold max-w-xs">
-              <input type="text" name="0-social_media.${countFields}.url" placeholder="Link do seu perfil" />
+              <input type="text" name="${fieldName}.${countFields}.url" placeholder="Link do seu perfil" />
             </div>
           </div>
         `;

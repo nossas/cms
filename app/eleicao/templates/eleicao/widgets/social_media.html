@@ -2,7 +2,7 @@
   {% for value_item in widget.value %}
   <div class="social-media-field-item flex gap-5">
     <div class="max-w-xs">
-      <select id="id_{{widget.name}}_kind" name="{{widget.name}}.{{forloop.counter0}}.kind">
+      <select name="{{widget.name}}.{{forloop.counter0}}.kind">
         <option value="">Selecione</option>
         <option value="twitter" {% if value_item.kind == 'twitter' %} selected{% endif %}>Twitter</option>
         <option value="facebook" {% if value_item.kind == 'facebook' %} selected{% endif %}>Facebook</option>
@@ -10,14 +10,13 @@
       </select>
     </div>
     <div class="gap-1 font-bold max-w-xs">
-      <input type="text" id="id_{{widget.name}}_url" name="{{widget.name}}{{forloop.counter0}}.url"
-        placeholder="Link do seu perfil" value="{{ value_item.url }}" />
+      <input type="text" name="{{widget.name}}{{forloop.counter0}}.url" placeholder="Link do seu perfil" value="{{ value_item.url }}" />
     </div>
   </div>
   {% empty %}
   <div class="social-media-field-item flex gap-5">
     <div class="max-w-xs">
-      <select id="id_{{widget.name}}_kind" name="{{widget.name}}.0.kind">
+      <select name="{{widget.name}}.0.kind">
         <option value="">Selecione</option>
         <option value="twitter">Twitter</option>
         <option value="facebook">Facebook</option>
@@ -25,7 +24,7 @@
       </select>
     </div>
     <div class="gap-1 font-bold max-w-xs">
-      <input type="text" id="id_{{widget.name}}_url" name="{{widget.name}}.0.url" placeholder="Link do seu perfil" />
+      <input type="text" name="{{widget.name}}.0.url" placeholder="Link do seu perfil" />
     </div>
   </div>
   {% endfor %}
