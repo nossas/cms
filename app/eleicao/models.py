@@ -62,17 +62,24 @@ class Candidate(models.Model):
     BOOL_CHOICES = ((True, "Sim"), (False, "Não"))
 
     slug = models.SlugField("Seu link personalizado", max_length=120, unique=True)
-    name = models.CharField("Nome", max_length=120)
+    name = models.CharField("Nome completo", max_length=120)
     bio = models.TextField("Minibio")
     email = models.EmailField("Email")
     birth = models.DateField("Data de nascimento")
     occupation = models.CharField("Profissão", max_length=100)
     photo = models.FileField(
-        "Foto", null=True, blank=True, upload_to="candidaturas/fotos/", help_text="Envie uma foto horizontal com no mínimo 700 pixels de largura, nos formatos JPEG ou PNG, para garantir a melhor qualidade visual. 📸✨"
+        "Foto",
+        null=True,
+        blank=True,
+        upload_to="candidaturas/fotos/",
+        help_text="Envie uma foto horizontal com no mínimo 700 pixels de largura, nos formatos JPEG ou PNG, para garantir a melhor qualidade visual. 📸✨",
     )
     video = models.FileField(
-        "Video", null=True, blank=True, upload_to="candidaturas/videos/",
-        help_text="Carregue um vídeo de até 30 segundos na posição horizontal, escolhendo entre os formatos MP4, AVI ou MOV. 🎥📽️"
+        "Video",
+        null=True,
+        blank=True,
+        upload_to="candidaturas/videos/",
+        help_text="Carregue um vídeo de até 30 segundos na posição horizontal, escolhendo entre os formatos MP4, AVI ou MOV. 🎥📽️",
     )
     gender = models.CharField("Gênero", choices=GenderChoices.choices, max_length=20)
     is_trans = models.BooleanField(

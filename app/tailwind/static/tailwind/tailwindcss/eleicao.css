@@ -55,11 +55,15 @@
 }
 
 .aeleicaodoano .form-control input[type="radio"] {
-  @apply mr-4 radio;
+  @apply mr-2 radio;
 }
 
-.aeleicaodoano .form-control label {
-  @apply inline-flex px-0 font-bold label text-neutral-700;
+.aeleicaodoano .form-control .radio-select {
+  @apply flex gap-6;
+}
+
+.aeleicaodoano .form-control .radio-select li label {
+  @apply flex flex-row;
 }
 
 .aeleicaodoano a.form-back-btn,

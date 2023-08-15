@@ -52,14 +52,8 @@
                   {% endfor %}
               {% else %}
                 {% for field in wizard.form %}
-                  <div class="py-3 w-full form-control">
-                      {% if field.name == "slug" %}
-                        {{field.label_tag}}
-                        <div class="flex gap-3 items-center font-bold">
-                          <p>aeleicaodoano.org/</p>
-                          <p>{{field}}</p>
-                        </div>
-                      {% elif "agree" in field.name %}
+                      {% if "agree" in field.name %}
+                      <div class="py-3 w-full form-control">
                           {% comment %} TODO: Fazer esse trecho como include {% endcomment %}
                           <div class="flex flex-col gap-3 commitment">
                             <div class="commitment-tooltip tooltip tooltip-bottom before:z-20 tooltip-error" data-tip="Você deve marcar essa opção">
@@ -78,6 +72,7 @@
                               </label>
                             </div>
                           </div>
+                        </div>
                       {% elif field.name == "photo" %}
                         {% include "eleicao/includes/form_control.html" with field=field help_text_second="No capricho para o seu perfil" %}
                       {% elif field.name == "video" %}
@@ -85,7 +80,6 @@
                       {% else %}
                         {% include "eleicao/includes/form_control.html" with field=field %}
                       {% endif %}
-                  </div>
                 {% endfor %}
               {% endif %}
             </div>

@@ -1,24 +1,37 @@
-<div class="flex flex-col form-field">
-  <div class="inline-flex items-center">
-    {{field.label_tag}}
-    {% if field.field.required %}<span class="required"> * </span> {% endif %}
+<div class="py-3 w-full form-control">
+  <div class="flex form-field {% if field.widget_type == 'checkbox' %}flex-row-reverse justify-end gap-2{% else %}flex-col{% endif %}">  
+    {% if field.help_text %}
+    <div class="inline-flex items-center">
+    {% endif %}
+    
+    <label for="{{field.id_for_label}}" class="inline-flex px-0 label text-neutral-700{% if field.widget_type != 'checkbox' %} font-bold{% endif %}">{{ field.label }}{% if field.field.required %}*{% endif %}</label>
+    
     {% if field.help_text %}
       <div class="pl-1 tooltip tooltip-warning tooltip-right" data-tip="{{field.help_text}}">
         {% include "eleicao/icons/icon-info.svg" %}
       </div>
+    </div>
+    {% endif %}
+
+    {% if help_text_second %}
+      <p class="pb-2 text-sm">{{help_text_second}}</p>
+    {% endif %}
+
+    {% if field.name == "slug" %}
+    <div class="flex gap-3 items-center font-bold">
+      <p>aeleicaodoano.org/</p>
+      <p>{{field}}</p>
+    </div>
+    {% else %}
+    {{field}}
     {% endif %}
   </div>
 
-  {% if help_text_second %}
-    <p class="pb-2 text-sm">{{help_text_second}}</p>
+  {% if field.errors %}
+    <div class="error-list">
+      {% for error in field.errors%}
+        <span class="text-sm field-error django-error text-error">{{ error }}</span>
+      {% endfor %}
+    </div>
   {% endif %}
-  {{field}}
 </div>
-
-{% if field.errors %}
-  <div class="error-list">
-    {% for error in field.errors%}
-      <span class="text-sm field-error django-error text-error">{{ error }}</span>
-    {% endfor %}
-  </div>
-{% endif %}

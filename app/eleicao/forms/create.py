@@ -102,7 +102,7 @@ class Candidate4Form(forms.ModelForm):
 
     class Meta:
         model = Candidate
-        fields = ["name", "email", "birth", "slug"]
+        fields = ["name", "email", "birth", "slug", "newsletter"]
         widgets = {
             "name": forms.TextInput({"placeholder": "Seu nome"}),
             "birth": forms.DateInput(
@@ -114,7 +114,7 @@ class Candidate4Form(forms.ModelForm):
                 },
             ),
             "email": forms.EmailInput({"placeholder": "Seu email"}),
-            "slug": forms.TextInput({"placeholder": "seunome"}),
+            "slug": forms.TextInput({"placeholder": "seunome"})
         }
 
 
@@ -124,7 +124,7 @@ class Candidate5Form(forms.ModelForm):
     class Meta:
         model = Candidate
         widgets = {
-            "is_trans": forms.RadioSelect(attrs={"class": "flex gap-4"}),
+            "is_trans": forms.RadioSelect(attrs={"class": "radio-select"}),
             "occupation": forms.TextInput({"placeholder": "Digite sua profissão"}),
         }
         fields = ["occupation", "gender", "is_trans", "race"]
@@ -143,7 +143,7 @@ class Candidate6Form(forms.ModelForm):
         initial=False,
         widget=forms.RadioSelect(
             choices=((True, "Sim"), (False, "Não")),
-            attrs={"class": "flex gap-4"}
+            attrs={"class": "radio-select"}
         ),
     )
 
