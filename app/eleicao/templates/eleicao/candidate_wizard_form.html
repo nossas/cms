@@ -38,7 +38,7 @@
               <p class="text-[#1842AC] py-4">{{wizard.form.starter_text}}</p>
             {% endif %}
           {% endif %}
-          <form class="candidate-create-form" action="" method="post" enctype="multipart/form-data">
+          <form class="candidate-create-form" action="" method="post" enctype="multipart/form-data" novalidate>
             {% csrf_token %}
             <div class="form-items">
               {{ wizard.management_form }}
@@ -51,62 +51,53 @@
                     {% endfor %}
                   {% endfor %}
               {% else %}
-              {% for field in wizard.form %}
-                <div class="py-1 w-full form-control">
-                  {% if field.name == "slug" %}
-                    {{field.label_tag}}
-                    <div class="flex gap-3 items-center font-bold">
-                      <p>aeleicaodoano.org/</p>
-                      <p>{{field}}</p>
-                    </div>
-                  {% elif "social_media" in field.name %}
-                    <div class="flex gap-4">
-                      {% if field.name == "social_media" %}
-                      <div>
-                      <div class="max-w-xs">
+                {% for field in wizard.form %}
+                  <div class="py-1 w-full form-control">
+                      {% if field.name == "slug" %}
+                        {{field.label_tag}}
+                        <div class="flex items-center gap-3 font-bold ">
+                          <p>aeleicaodoano.org/</p>
+                          <p>{{field}}</p>
+                        </div>
+                      {% elif "agree" in field.name %}
+                          {% comment %} TODO: Fazer esse trecho como include {% endcomment %}
+                          <div class="flex flex-col gap-3 commitment">
+                            <div class="commitment-tooltip tooltip tooltip-bottom before:z-20 tooltip-error" data-tip="Você deve marcar essa opção">
+                              <label id="commitment-checkbox">
+                                  {{ field }}
+                                  <div class="max-h-[96px] overflow-hidden !items-start !justify-center flex !p-4 rounded border bg-neutral-100 border-neutral-200 commitment-box">
+                                    <picture class="pr-4 icon-svg">
+                                      {% with icon_path="./icons/"|add:field.field.widget.icon|add:".svg" %}
+                                        {% include icon_path %}
+                                      {% endwith %}
+                                    </picture>
+                                    <div class="font-normal text-neutral-600">
+                                      {{ field.field.widget.text }}
+                                    </div>
+                                  </div>
+                              </label>
+                            </div>
+                          </div>
+                      {% else %}
                         {{field.label_tag}}
                         {{field}}
                       {% endif %}
-                      {% if field.name == "social_media_2" %}
-                        <div class="gap-1 max-w-xs font-bold">
-                          {{field.label_tag}}
-                          {{field}}
-                        </div>
-                      </div>
-                      </div>
-                      {% endif %}
-                    </div>
-                  {% elif "agree" in field.name %}
-                      {% comment %} TODO: Fazer esse trecho como include {% endcomment %}
-                      <div class="flex flex-col gap-3 commitment">
-                        <div class="commitment-tooltip tooltip tooltip-bottom before:z-20 tooltip-error" data-tip="Você deve marcar essa opção">
-                          <label id="commitment-checkbox">
-                              {{ field }}
-                              <div class="commitment-box">
-                                <picture class="pt-2 pr-4 icon-svg">
-                                  {% with icon_path="./icons/"|add:field.field.widget.icon|add:".svg" %}
-                                    {% include icon_path %}
-                                  {% endwith %}
-                                </picture>
-                                <p class="font-normal text-left text-neutral-600">
-                                  {{ field.field.widget.text }}
-                                </p>
-                              </div>
-                          </label>
-                        </div>
-                      </div>
-                  {% else %}
-                    {{field.label_tag}}
-                    {{field}}
+                  </div>
+                <div class="error-list">
+                  {% if field.errors %}
+                  {% for error in field.errors%}
+                  <span class="field-error django-error text-sm text-error">{{ error }}</span>
+                  {% endfor %}
                   {% endif %}
                 </div>
-              {% endfor %}
-            {% endif %}
+                {% endfor %}
+              {% endif %}
             </div>
+            {% comment %} Botões de ação {% endcomment %}
             <div class="flex justify-between items-center py-4">
-              {% if wizard.steps.current == wizard.steps.first %}
+              {% comment %} {% if wizard.steps.current == wizard.steps.first %}
                 <input id="submit-btn" class="btn btn-primary" type="submit" value="MINHA CANDIDATURA É EM DEFESA DO ECA" />
-              {% else %}
+              {% else %} {% endcomment %}
                 {% if wizard.steps.prev %}
                   <button class="text-xl form-back-btn" type="submit" formnovalidate name="wizard_goto_step" value="{{ wizard.steps.prev }}">Voltar</button>
                 {% else %}
@@ -118,7 +109,7 @@
                 {% else %}
                   <input id="submit-btn" class="btn btn-primary" type="submit" value="Salvar e Concluir" />
                 {% endif %}
-              {% endif %}
+              {% comment %} {% endif %} {% endcomment %}
             </div>
           </form>
         </div>
@@ -135,31 +126,31 @@
     "use strict";
 
     $(function () {
-      $('#id_4-state').select2({
+      $('#id_5-state').select2({
         placeholder: 'Selecione seu estado'
       });
-      $('#id_4-city').select2({
+      $('#id_5-city').select2({
         placeholder: 'Selecione sua cidade'
       });
-      $('#id_4-neighborhood').select2({
+      $('#id_5-neighborhood').select2({
         placeholder: 'Selecione seu bairro'
       });
-      $('#id_3-gender').select2({
+      $('#id_4-gender').select2({
         placeholder: 'Selecione'
       });
-      $('#id_3-race').select2({
+      $('#id_4-race').select2({
         placeholder: 'Selecione'
       });
 
       var uf;
-      $("#id_4-state").on("change", (evt) => {
+      $("#id_5-state").on("change", (evt) => {
         uf = evt.target.value
 
         $.get("{% url 'eleicao:cep' %}" + "?state=" + uf, (data) => {
-          $("#id_4-city").empty()
-          $("#id_4-city").append('<option value="">----</option>')
+          $("#id_5-city").empty()
+          $("#id_5-city").append('<option value="">----</option>')
           $.each(data.choices, (index, value) => {
-            $("#id_4-city").append(
+            $("#id_5-city").append(
               '<option value="' + value[0] + '">' + value[1] + '</option>'
             )
           })
@@ -167,34 +158,23 @@
       });
 
       var city
-      $("#id_4-city").on("change", (evt) => {
+      $("#id_5-city").on("change", (evt) => {
         city = evt.target.value;
         $.get("{% url 'eleicao:cep' %}" + "?city=" + city + "&state=" + uf, (data) => {
-          $("#id_4-neighborhood").empty()
-          $("#id_4-neighborhood").append('<option value="">----</option>')
+          $("#id_5-neighborhood").empty()
+          $("#id_5-neighborhood").append('<option value="">----</option>')
           $.each(data.choices, (index, value) => {
-            $("#id_4-neighborhood").append('<option value="' + value[0] + '">' + value[1] + "</option>")
+            $("#id_5-neighborhood").append('<option value="' + value[0] + '">' + value[1] + "</option>")
           })
         })
       });
 
-      $("#id_4-neighborhood").on("change", (evt) => {
-        $.get("{% url 'eleicao:cep' %}" + "?city=" + city + "&state=" + uf + "&neighborhood=" + evt.target.value, (data) => {
-          $("#id_4-zone_id").empty()
-          $("#id_4-zone_id").append('<option value="">----</option>')
-          $.each(data.choices, (index, value) => {
-            $("#id_4-zone_id").append('<option value="' + value[0] + '">' + value[1] + "</option>")
-          })
-        })
-      });
-      
       //fill up slug
-      $("#id_2-name").on("change",(evt) => {
-        
+      $("#id_3-name").on("change",(evt) => {
         $.get("{% url 'eleicao:slug' %}" + "?name=" + evt.target.value, (data) => {
-          $("#id_2-slug").val(data.slug)
+          $("#id_3-slug").val(data.slug)
          })
-          
+
       } )
     });
 
@@ -231,4 +211,5 @@
   }(window.jQuery));
 </script>
 <script src="{% static 'js/jquery-mask/jquery.mask.min.js' %}"></script>
+<script src="{% static 'js/widgets/social-media.js' %}"></script>
 {% endblock %}

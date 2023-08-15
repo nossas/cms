@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Any
 from django.core.management.base import BaseCommand
 import csv
 from django.conf import settings

@@ -1,7 +1,7 @@
 from typing import Any, Dict
 from collections import ChainMap
 
-from django.db import transaction
+from django.db import models, transaction
 from django.db.models.query import QuerySet
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView
@@ -24,7 +24,7 @@ from .forms import (
     VoterForm
 )
 from .forms.filters import CandidateListFilter
-from .models import Address, Candidate, Voter
+from .models import Address, Candidate, Voter, CandidateStatusChoices
 
 # Create your views here.
 
@@ -41,7 +41,7 @@ class CandidateListView(ListView):
         return ctx
 
     def get_queryset(self) -> QuerySet[Any]:
-        qs = super().get_queryset()
+        qs = super().get_queryset().filter(status=CandidateStatusChoices.published)
 
         filter_state = self.request.GET.get("uf", None)
         if filter_state:
@@ -74,7 +74,7 @@ class CandidateCreateView(SessionWizardView):
     def done(self, form_list, **kwargs):
         values = list(map(lambda form: form.cleaned_data, form_list))
         values = dict(ChainMap(*values))
-        #import ipdb; ipdb.set_trace()
+        # import ipdb; ipdb.set_trace()
         # Processar os valores
         values.pop("agree")
         values.pop("agree_2")
@@ -104,7 +104,6 @@ class CandidateCreateView(SessionWizardView):
         obj = Candidate.objects.create(**values, photo=photo, video=video)
         obj.save()
 
-        
         # Integrate with Bonde
 
         fe = create_form_entry(state=state, city=city, **values)
@@ -118,6 +117,9 @@ class CandidateDetailView(DetailView):
     template_name = "eleicao/candidate_detail.html"
     model = Candidate
 
+    def get_queryset(self) -> QuerySet[Any]:
+        return super().get_queryset().filter(status=CandidateStatusChoices.published)
+
 
 class VoterCreateView(CreateView):
     template_name = "eleicao/voter_form.html"
@@ -130,14 +132,16 @@ class ResultsCandidateView(ListView):
     model = Candidate
 
     def get_queryset(self) -> QuerySet[Any]:
+        qs = Candidate.objects.filter(status=CandidateStatusChoices.published)
+
         filter_state = self.request.GET.get("uf", None)
         filter_zone = self.request.GET.get("zone", None)
         if filter_state:
-            return Candidate.objects.filter(state__iexact=filter_state)
+            return qs.filter(state__iexact=filter_state)
         if filter_zone:
-            return Candidate.objects.filter(zone=filter_zone)
+            return qs.filter(zone=filter_zone)
 
-        return super().get_queryset()
+        return qs
 
 
 # Sugerir uma slug
@@ -145,12 +149,12 @@ def suggest_slug(request):
     name = request.GET.get("name")
     slug = slugify(name).replace("-", "")
     suggestion = slug
-    list_candidate = Candidate.objects.filter(slug=slug)
+    list_candidate = Candidate.objects.filter(status=CandidateStatusChoices.published).filter(slug=slug)
     total = list_candidate.count()
     sufix = 1
     while total > 0:
         suggestion = slug + f"{sufix}"
-        list_candidate = Candidate.objects.filter(slug=suggestion)
+        list_candidate = Candidate.objects.filter(status=CandidateStatusChoices.published).filter(slug=suggestion)
         total = list_candidate.count()
         sufix = sufix + 1
 
