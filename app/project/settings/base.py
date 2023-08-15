@@ -78,6 +78,7 @@ INSTALLED_APPS = [
     "contrib.ga",
     # Experimentação
     "eleicao",
+    "django_social_share"
 
 ]
 
@@ -113,6 +114,7 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "sekizai.context_processors.sekizai",
                 "contrib.ga.context_processors.ga",
+                'django.template.context_processors.request',
             ],
         },
     },
