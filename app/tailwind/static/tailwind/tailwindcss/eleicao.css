@@ -59,7 +59,7 @@
 }
 
 .aeleicaodoano .form-control label {
-  @apply inline-flex font-bold label text-neutral-700;
+  @apply inline-flex px-0 font-bold label text-neutral-700;
 }
 
 .aeleicaodoano a.form-back-btn,

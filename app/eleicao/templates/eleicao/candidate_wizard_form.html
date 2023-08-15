@@ -31,9 +31,9 @@
         </ul>
         <div class="w-full md:max-w-[520px]">
           {% if wizard.form.forms %}
-            <h1 class="text-5xl text-[#1842AC] pt-10 ">{{wizard.form.forms.title}}</h1>
+            <h1 class="text-6xl text-[#1842AC] pt-10 ">{{wizard.form.forms.title}}</h1>
           {% else %}
-            <h1 class="text-5xl text-[#1842AC] pt-10 ">{{wizard.form.title}}</h1>
+            <h1 class="text-6xl text-[#1842AC] pt-10 ">{{wizard.form.title}}</h1>
             {% if wizard.form.starter_text %}
               <p class="text-[#1842AC] py-4">{{wizard.form.starter_text}}</p>
             {% endif %}
@@ -52,7 +52,7 @@
                   {% endfor %}
               {% else %}
                 {% for field in wizard.form %}
-                  <div class="py-1 w-full form-control">
+                  <div class="py-3 w-full form-control">
                       {% if field.name == "slug" %}
                         {{field.label_tag}}
                         <div class="flex gap-3 items-center font-bold">
@@ -63,33 +63,51 @@
                           {% comment %} TODO: Fazer esse trecho como include {% endcomment %}
                           <div class="flex flex-col gap-3 commitment">
                             <div class="commitment-tooltip tooltip tooltip-bottom before:z-20 tooltip-error" data-tip="Você deve marcar essa opção">
-                              <label id="commitment-checkbox">
+                              <label id="commitment-checkbox" class="!py-0">
                                   {{ field }}
-                                  <div class="max-h-[96px] overflow-hidden !items-start !justify-center flex !p-4 rounded border bg-neutral-100 border-neutral-200 commitment-box">
-                                    <picture class="pr-4 icon-svg">
+                                  <div class="overflow-hidden !items-start !justify-center flex !p-4 rounded border bg-neutral-100 border-neutral-200 commitment-box">
+                                    <picture class="pt-1 pr-4 icon-svg">
                                       {% with icon_path="./icons/"|add:field.field.widget.icon|add:".svg" %}
                                         {% include icon_path %}
                                       {% endwith %}
                                     </picture>
-                                    <div class="font-normal text-neutral-600">
+                                    <div class="font-normal text-left text-neutral-600">
                                       {{ field.field.widget.text }}
                                     </div>
                                   </div>
                               </label>
                             </div>
                           </div>
+                      {% elif field.name == "photo" %}
+                          <div class="inline-flex items-center">
+                            <label class="py-1" for="id_6-photo">Foto</label>
+                            <div class="pl-1 tooltip tooltip-warning tooltip-right" data-tip="Envie uma foto horizontal com no mínimo 700 pixels de largura, nos formatos JPEG ou PNG, para garantir a melhor qualidade visual. 📸✨">
+                                {% include "./icons/icon-info.svg" %}
+                            </div>
+                          </div>
+                          <p class="pb-2 text-sm">No capricho para o seu perfil</p>
+                          {{field}}
+                      {% elif field.name == "video" %}
+                          <div class="inline-flex items-center">
+                            <label class="py-1" for="id_6-video">Vídeo</label>
+                            <div class="pl-1 tooltip tooltip-warning tooltip-right" data-tip="Carregue um vídeo de até 30 segundos na posição horizontal, escolhendo entre os formatos MP4, AVI ou MOV. 🎥📽️ ">
+                                {% include "./icons/icon-info.svg" %}
+                            </div>
+                          </div>
+                          <p class="pb-2 text-sm">No máximo 30s, beleza?</p>
+                          {{field}}
                       {% else %}
                         {{field.label_tag}}
                         {{field}}
                       {% endif %}
                   </div>
-                <div class="error-list">
                   {% if field.errors %}
-                  {% for error in field.errors%}
-                  <span class="text-sm field-error django-error text-error">{{ error }}</span>
-                  {% endfor %}
+                    <div class="error-list">
+                      {% for error in field.errors%}
+                        <span class="text-sm field-error django-error text-error">{{ error }}</span>
+                      {% endfor %}
+                    </div>
                   {% endif %}
-                </div>
                 {% endfor %}
               {% endif %}
             </div>
