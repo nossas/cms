@@ -28,6 +28,7 @@ class Candidate1Form(forms.Form):
     title = "Oi, Candidata(o)"
     starter_text = "Em todo o Brasil existem milhares de pessoas que se dedicam ao trabalho nos Conselhos Tutelares para fazer valer os direitos de crianças e adolescentes - a importante e necessária missão de ser conselheiro e conselheira tutelar! Criamos uma plataforma para destacar essas candidaturas e conectá-las aos eleitores da sua região."
 
+
 class Candidate2Form(forms.Form):
     title = "você assume compromisso com..."
     agree = CustomBooleanField(
@@ -123,8 +124,7 @@ class Candidate5Form(forms.ModelForm):
     class Meta:
         model = Candidate
         widgets = {
-            "is_trans": forms.RadioSelect,
-            "is_reelection": forms.RadioSelect,
+            "is_trans": forms.RadioSelect(attrs={"class": "flex gap-4"}),
             "occupation": forms.TextInput({"placeholder": "Digite sua profissão"}),
         }
         fields = ["occupation", "gender", "is_trans", "race"]
@@ -141,7 +141,10 @@ class Candidate6Form(forms.ModelForm):
         label="Está se candidatando para reeleição?",
         required=False,
         initial=False,
-        widget=forms.RadioSelect(choices=((True, "Sim"), (False, "Não"))),
+        widget=forms.RadioSelect(
+            choices=((True, "Sim"), (False, "Não")),
+            attrs={"class": "flex gap-4"}
+        ),
     )
 
     class Meta:
@@ -151,9 +154,9 @@ class Candidate6Form(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        # self.fields["state"].widget = s2forms.Select2Widget()
         self.fields["city"].widget = forms.Select()
         self.fields["neighborhood"].widget = forms.Select()
+
 
 class Candidate7Form(forms.ModelForm):
     title = "complemente seu perfil"
@@ -162,8 +165,12 @@ class Candidate7Form(forms.ModelForm):
         model = Candidate
         fields = ["bio", "photo", "video", "social_media"]
         widgets = {
-            "bio": forms.Textarea({"placeholder": "Em um parágrafo, o que os(as) eleitores(as) precisam saber sobre você."}),
-            "social_media": SocialMedia()
+            "bio": forms.Textarea(
+                {
+                    "placeholder": "Em um parágrafo, o que os(as) eleitores(as) precisam saber sobre você."
+                }
+            ),
+            "social_media": SocialMedia(),
         }
 
     def clean_video(self):
@@ -171,14 +178,16 @@ class Candidate7Form(forms.ModelForm):
         # 50MB
         max_size = 52428800
         if content:
-          if "video" in content.content_type:
-            if content.size > max_size:
-                raise forms.ValidationError(
-                    _("Por favor, escolha um video com tamanho de até %s. Tamanho Atual %s")
-                    % (filesizeformat(max_size), filesizeformat(content.size))
-                )
-          else:
-            raise forms.ValidationError(_("Tipo de arquivo não suportado."))
+            if "video" in content.content_type:
+                if content.size > max_size:
+                    raise forms.ValidationError(
+                        _(
+                            "Por favor, escolha um video com tamanho de até %s. Tamanho Atual %s"
+                        )
+                        % (filesizeformat(max_size), filesizeformat(content.size))
+                    )
+            else:
+                raise forms.ValidationError(_("Tipo de arquivo não suportado."))
         return content
 
 
