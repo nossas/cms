@@ -51,65 +51,49 @@
                     {% endfor %}
                   {% endfor %}
               {% else %}
-              {% for field in wizard.form %}
-                <div class="py-1 w-full form-control">
-                  {% if field.name == "slug" %}
-                    {{field.label_tag}}
-                    <div class="flex gap-3 items-center font-bold">
-                      <p>aeleicaodoano.org/</p>
-                      <p>{{field}}</p>
-                    </div>
-                  {% elif "social_media" in field.name %}
-                    <div class="flex gap-4">
-                      {% if field.name == "social_media" %}
-                      <div>
-                      <div class="max-w-xs">
+                {% for field in wizard.form %}
+                  <div class="py-1 w-full form-control">
+                      {% if field.name == "slug" %}
+                        {{field.label_tag}}
+                        <div class="flex items-center gap-3 font-bold ">
+                          <p>aeleicaodoano.org/</p>
+                          <p>{{field}}</p>
+                        </div>
+                      {% elif "agree" in field.name %}
+                          {% comment %} TODO: Fazer esse trecho como include {% endcomment %}
+                          <div class="flex flex-col gap-3 commitment">
+                            <div class="commitment-tooltip tooltip tooltip-bottom before:z-20 tooltip-error" data-tip="Você deve marcar essa opção">
+                              <label id="commitment-checkbox">
+                                  {{ field }}
+                                  <div class="max-h-[96px] overflow-hidden !items-start !justify-center flex !p-4 rounded border bg-neutral-100 border-neutral-200 commitment-box">
+                                    <picture class="pr-4 icon-svg">
+                                      {% with icon_path="./icons/"|add:field.field.widget.icon|add:".svg" %}
+                                        {% include icon_path %}
+                                      {% endwith %}
+                                    </picture>
+                                    <div class="font-normal text-neutral-600">
+                                      {{ field.field.widget.text }}
+                                    </div>
+                                  </div>
+                              </label>
+                            </div>
+                          </div>
+                      {% else %}
                         {{field.label_tag}}
                         {{field}}
                       {% endif %}
-                      {% if field.name == "social_media_2" %}
-                        <div class="gap-1 max-w-xs font-bold">
-                          {{field.label_tag}}
-                          {{field}}
-                        </div>
-                      </div>
-                      </div>
-                      {% endif %}
-                    </div>
-                  {% elif "agree" in field.name %}
-                      {% comment %} TODO: Fazer esse trecho como include {% endcomment %}
-                      <div class="flex flex-col gap-3 commitment">
-                        <div class="commitment-tooltip tooltip tooltip-bottom before:z-20 tooltip-error" data-tip="Você deve marcar essa opção">
-                          <label id="commitment-checkbox">
-                              {{ field }}
-                              <div class="commitment-box">
-                                <picture class="pt-2 pr-4 icon-svg">
-                                  {% with icon_path="./icons/"|add:field.field.widget.icon|add:".svg" %}
-                                    {% include icon_path %}
-                                  {% endwith %}
-                                </picture>
-                                <p class="font-normal text-left text-neutral-600">
-                                  {{ field.field.widget.text }}
-                                </p>
-                              </div>
-                          </label>
-                        </div>
-                      </div>
-                  {% else %}
-                    {{field.label_tag}}
-                    {{field}}
+                  </div>
+                <div class="error-list">
+                  {% if field.errors %}
+                  {% for error in field.errors%}
+                  <span class="field-error django-error text-sm text-error">{{ error }}</span>
+                  {% endfor %}
                   {% endif %}
-                  <div class="error-list">
-                    {% if field.errors %}
-                    {% for error in field.errors%}
-                    <span class="field-error django-error">{{ error }}</span>
-                    {% endfor %}
-                    {% endif %}
-                 </div> 
                 </div>
-              {% endfor %}
-            {% endif %}
+                {% endfor %}
+              {% endif %}
             </div>
+            {% comment %} Botões de ação {% endcomment %}
             <div class="flex justify-between items-center py-4">
               {% comment %} {% if wizard.steps.current == wizard.steps.first %}
                 <input id="submit-btn" class="btn btn-primary" type="submit" value="MINHA CANDIDATURA É EM DEFESA DO ECA" />
@@ -187,11 +171,10 @@
 
       //fill up slug
       $("#id_3-name").on("change",(evt) => {
-        
         $.get("{% url 'eleicao:slug' %}" + "?name=" + evt.target.value, (data) => {
           $("#id_3-slug").val(data.slug)
          })
-          
+
       } )
     });
 
@@ -228,5 +211,5 @@
   }(window.jQuery));
 </script>
 <script src="{% static 'js/jquery-mask/jquery.mask.min.js' %}"></script>
-
+<script src="{% static 'js/widgets/social-media.js' %}"></script>
 {% endblock %}

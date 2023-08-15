@@ -1,8 +1,10 @@
 from django import forms
 from django_select2 import forms as s2forms
 from django.forms.widgets import CheckboxInput
-from django.core import validators
+from django.template.defaultfilters import filesizeformat
+from django.utils.translation import ugettext_lazy as _
 
+from .widgets import SocialMedia
 from ..models import Address, Candidate, Voter, PollingPlace
 
 
@@ -20,6 +22,7 @@ class CustomBooleanField(forms.BooleanField):
         super().__init__(*args, **kwargs)
         self.widget.icon = icon
         self.widget.text = text
+
 
 class Candidate1Form(forms.Form):
     title = "Oi, Candidata(o)"
@@ -95,13 +98,19 @@ class Candidate3Form(forms.Form):
 
 class Candidate4Form(forms.ModelForm):
     title = "seus dados"
+
     class Meta:
         model = Candidate
         fields = ["name", "email", "birth", "slug"]
         widgets = {
             "name": forms.TextInput({"placeholder": "Seu nome"}),
-            "birth": forms.DateInput(format="%d-%m-%Y",
-                attrs={ "class": "date","data-mask": "00/00/0000", "placeholder": "DD/MM/AAAA"}
+            "birth": forms.DateInput(
+                format="%d-%m-%Y",
+                attrs={
+                    "class": "date",
+                    "data-mask": "00/00/0000",
+                    "placeholder": "DD/MM/AAAA",
+                },
             ),
             "email": forms.EmailInput({"placeholder": "Seu email"}),
             "slug": forms.TextInput({"placeholder": "seunome"}),
@@ -118,20 +127,26 @@ class Candidate5Form(forms.ModelForm):
             "is_reelection": forms.RadioSelect,
             "occupation": forms.TextInput({"placeholder": "Digite sua profissão"}),
         }
-        fields = ["occupation", "gender", "is_trans", "race", "is_reelection"]
+        fields = ["occupation", "gender", "is_trans", "race"]
 
 
 class Candidate6Form(forms.ModelForm):
     title = "sua candidatura"
 
-    number = forms.IntegerField(label="Numero do candidato",  widget= forms.TextInput({"placeholder": "Seu número de voto"}))
-   # is_reelection = forms.BooleanField(label="Está se candidatando para reeleição?" widget=forms.RadioSelect(choices= ((True, 'Sim'), (False, 'Não'))))
-    # zone_id = forms.IntegerField()
+    number = forms.IntegerField(
+        label="Numero do candidato",
+        widget=forms.TextInput({"placeholder": "Seu número de voto"}),
+    )
+    is_reelection = forms.BooleanField(
+        label="Está se candidatando para reeleição?",
+        required=False,
+        initial=False,
+        widget=forms.RadioSelect(choices=((True, "Sim"), (False, "Não"))),
+    )
 
     class Meta:
         model = Address
-        fields = ["state", "city", "neighborhood", "number"]
-   
+        fields = ["state", "city", "neighborhood", "number", "is_reelection"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -139,18 +154,32 @@ class Candidate6Form(forms.ModelForm):
         # self.fields["state"].widget = s2forms.Select2Widget()
         self.fields["city"].widget = forms.Select()
         self.fields["neighborhood"].widget = forms.Select()
-        # self.fields["zone_id"].widget = forms.Select()
 
 class Candidate7Form(forms.ModelForm):
     title = "complemente seu perfil"
 
     class Meta:
         model = Candidate
-        fields = ["bio", "photo", "video", "social_media", "social_media_2"]
+        fields = ["bio", "photo", "video", "social_media"]
         widgets = {
             "bio": forms.Textarea({"placeholder": "Em um parágrafo, o que os(as) eleitores(as) precisam saber sobre você."}),
-            "social_media_2": forms.TextInput({"placeholder": "Link do seu perfil"}),
+            "social_media": SocialMedia()
         }
+
+    def clean_video(self):
+        content = self.cleaned_data["video"]
+        # 50MB
+        max_size = 52428800
+        if content:
+          if "video" in content.content_type:
+            if content.size > max_size:
+                raise forms.ValidationError(
+                    _("Por favor, escolha um video com tamanho de até %s. Tamanho Atual %s")
+                    % (filesizeformat(max_size), filesizeformat(content.size))
+                )
+          else:
+            raise forms.ValidationError(_("Tipo de arquivo não suportado."))
+        return content
 
 
 class PlacesWidget(s2forms.ModelSelect2Widget):
