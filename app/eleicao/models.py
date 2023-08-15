@@ -34,12 +34,6 @@ class RaceChoices(models.TextChoices):
     no_answer = "não declarada", "Não declarada"
 
 
-class SocialMediaChoices(models.TextChoices):
-    twitter = "twitter", "Twitter"
-    facebook = "facebook", "Facebook"
-    instagram = "instagram", "Instagram"
-
-
 class Address(models.Model):
     state = models.CharField("Estado", max_length=2, choices=lazy(get_states, list)())
     city = models.CharField("Cidade", max_length=80)
@@ -86,10 +80,7 @@ class Candidate(models.Model):
         choices=BOOL_CHOICES,
     )
     race = models.CharField("Raça", choices=RaceChoices.choices, max_length=20)
-    social_media = models.CharField(
-        "Rede social", null=True, max_length=20, choices=SocialMediaChoices.choices
-    )
-    social_media_2 = models.CharField("URL da Rede Social", null=True, max_length=100)
+    social_media = models.JSONField("Rede social", null=True, blank=True)
     number = models.PositiveSmallIntegerField("Numero de voto")
     is_reelection = models.BooleanField(
         "Está se candidatando para reeleição?", default=False, choices=BOOL_CHOICES
