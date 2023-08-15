@@ -56,28 +56,6 @@
                           <p>aeleicaodoano.org/</p>
                           <p>{{field}}</p>
                         </div>
-                      {% elif "social_media" in field.name %}
-                        {% if field.name == "social_media" and not social_media_rendered %}
-                          {% with social_media_rendered=True %}
-                            <div class="social_media_fields" id="idsocial-media">
-                              <div class="flex gap-5">
-                                <div class="max-w-xs">
-                                  {{ field.label_tag }}
-                                  {{ field }}
-                                </div>
-                                {% if wizard.form.social_media_2 %}
-                                  <div class="gap-1 font-bold max-w-xs">
-                                    {{ wizard.form.social_media_2.label_tag }}
-                                    {{ wizard.form.social_media_2 }}
-                                  </div>
-                                {% endif %}
-                              </div>
-                            </div>
-                            <div class="flex items-start">
-                                <button type="button" id="add-social-media" class="justify-start text-[#1842AC] font-bold py-2">+ Add outra</button>
-                            </div>
-                          {% endwith %}
-                        {% endif %}
                       {% elif "agree" in field.name %}
                           {% comment %} TODO: Fazer esse trecho como include {% endcomment %}
                           <div class="flex flex-col gap-3 commitment">
@@ -236,5 +214,5 @@
   }(window.jQuery));
 </script>
 <script src="{% static 'js/jquery-mask/jquery.mask.min.js' %}"></script>
-<script src="{% static 'js/social-media.js' %}"></script>
+<script src="{% static 'js/widgets/social-media.js' %}"></script>
 {% endblock %}

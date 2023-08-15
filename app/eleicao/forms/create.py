@@ -1,8 +1,9 @@
 from django import forms
 from django_select2 import forms as s2forms
 from django.forms.widgets import CheckboxInput
-from django.core import validators
+# from django.core import validators
 
+from .widgets import SocialMedia
 from ..models import Address, Candidate, Voter, PollingPlace
 
 
@@ -146,6 +147,7 @@ class Candidate6Form(forms.ModelForm):
         fields = ["bio", "photo", "video", "social_media"]
         widgets = {
             "bio": forms.Textarea({"placeholder": "Em um parágrafo, o que os(as) eleitores(as) precisam saber sobre você."}),
+            "social_media": SocialMedia()
         }
 
 

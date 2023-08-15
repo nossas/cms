@@ -1,0 +1,35 @@
+<div class="social-media-fields flex flex-col gap-2">
+  {% for value_item in widget.value %}
+  <div class="social-media-field-item flex gap-5">
+    <div class="max-w-xs">
+      <select id="id_{{widget.name}}_kind" name="{{widget.name}}.{{forloop.counter0}}.kind">
+        <option value="">Selecione</option>
+        <option value="twitter" {% if value_item.kind == 'twitter' %} selected{% endif %}>Twitter</option>
+        <option value="facebook" {% if value_item.kind == 'facebook' %} selected{% endif %}>Facebook</option>
+        <option value="instagram" {% if value_item.kind == 'instagram' %} selected{% endif %}>Instagram</option>
+      </select>
+    </div>
+    <div class="gap-1 font-bold max-w-xs">
+      <input type="text" id="id_{{widget.name}}_url" name="{{widget.name}}{{forloop.counter0}}.url"
+        placeholder="Link do seu perfil" value="{{ value_item.url }}" />
+    </div>
+  </div>
+  {% empty %}
+  <div class="social-media-field-item flex gap-5">
+    <div class="max-w-xs">
+      <select id="id_{{widget.name}}_kind" name="{{widget.name}}.0.kind">
+        <option value="">Selecione</option>
+        <option value="twitter">Twitter</option>
+        <option value="facebook">Facebook</option>
+        <option value="instagram">Instagram</option>
+      </select>
+    </div>
+    <div class="gap-1 font-bold max-w-xs">
+      <input type="text" id="id_{{widget.name}}_url" name="{{widget.name}}.0.url" placeholder="Link do seu perfil" />
+    </div>
+  </div>
+  {% endfor %}
+  <div class="flex items-start">
+    <button type="button" class="justify-start text-[#1842AC] font-bold py-2">+ Add outra</button>
+  </div>
+</div>
