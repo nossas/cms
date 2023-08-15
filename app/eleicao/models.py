@@ -104,6 +104,10 @@ class Candidate(models.Model):
         return reverse("eleicao:candidate_detail", kwargs={"slug": self.slug})
 
     @property
+    def short_name(self):
+        return self.name.split(" ")[0]
+
+    @property
     def age(self):
         from datetime import date
 

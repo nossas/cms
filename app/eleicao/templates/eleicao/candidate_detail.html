@@ -71,7 +71,7 @@
             </div>
           </div>
         </div>
-        <div class="minibio">
+        <div class="minibio mt-2">
           <p class="text-blue-800">
             {{object.bio}}
           </p>
@@ -79,22 +79,20 @@
       </div>
   </section>
 
+  {% if object.video %}
   <section class="py-16 bg-[#EDB052] candidate-detail-video text-blue-800">
-    <h1 class="flex justify-center mb-4 text-4xl">O QUE MARIANA TEM PRA DIZER</h1>
+    <h1 class="flex justify-center mb-4 text-4xl uppercase">O que {{ object.short_name }} tem pra dizer</h1>
     <div class="flex justify-center items-center">
-      {% if object.video %}
       <video controls width="640" height="360" alt="Vídeo do candidato">
         <source src="{{ object.video.url }}" type="video/mp4">
         Seu navegador não suporta o elemento de vídeo.
       </video>
-      {% else %}
-      <img src="{% static 'images/eleicao/mariana-video.png' %}" alt="Foto do(a) candidato(a)" class="">
-      {% endif %}
     </div>
   </section>
+  {% endif %}
 
-  <section class="px-5 py-16 mb-10 candidate-detail-share">
-    <h1 class="m-auto mb-4 max-w-xs text-4xl text-center text-blue-800">Compartilhe nas redes para apoiar Mariana</h1>
+  <section class="px-5 py-16 candidate-detail-share">
+    <h1 class="m-auto mb-4 max-w-xs text-4xl text-center text-blue-800">Compartilhe nas redes para apoiar {{ object.short_name }}</h1>
     <div class="flex flex-col gap-4 items-center">
         {% post_to_whatsapp object.get_absolute_url %}
 
