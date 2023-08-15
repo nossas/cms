@@ -79,35 +79,13 @@
                             </div>
                           </div>
                       {% elif field.name == "photo" %}
-                          <div class="inline-flex items-center">
-                            <label class="py-1" for="id_6-photo">Foto</label>
-                            <div class="pl-1 tooltip tooltip-warning tooltip-right" data-tip="Envie uma foto horizontal com no mínimo 700 pixels de largura, nos formatos JPEG ou PNG, para garantir a melhor qualidade visual. 📸✨">
-                                {% include "./icons/icon-info.svg" %}
-                            </div>
-                          </div>
-                          <p class="pb-2 text-sm">No capricho para o seu perfil</p>
-                          {{field}}
+                        {% include "eleicao/includes/form_control.html" with field=field help_text_second="No capricho para o seu perfil" %}
                       {% elif field.name == "video" %}
-                          <div class="inline-flex items-center">
-                            <label class="py-1" for="id_6-video">Vídeo</label>
-                            <div class="pl-1 tooltip tooltip-warning tooltip-right" data-tip="Carregue um vídeo de até 30 segundos na posição horizontal, escolhendo entre os formatos MP4, AVI ou MOV. 🎥📽️ ">
-                                {% include "./icons/icon-info.svg" %}
-                            </div>
-                          </div>
-                          <p class="pb-2 text-sm">No máximo 30s, beleza?</p>
-                          {{field}}
+                        {% include "eleicao/includes/form_control.html" with field=field help_text_second="No máximo 30s, beleza?" %}
                       {% else %}
-                        {{field.label_tag}}
-                        {{field}}
+                        {% include "eleicao/includes/form_control.html" with field=field %}
                       {% endif %}
                   </div>
-                  {% if field.errors %}
-                    <div class="error-list">
-                      {% for error in field.errors%}
-                        <span class="text-sm field-error django-error text-error">{{ error }}</span>
-                      {% endfor %}
-                    </div>
-                  {% endif %}
                 {% endfor %}
               {% endif %}
             </div>

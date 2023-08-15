@@ -1,0 +1,24 @@
+<div class="flex flex-col form-field">
+  <div class="inline-flex items-center">
+    {{field.label_tag}}
+    {% if field.field.required %}<span class="required"> * </span> {% endif %}
+    {% if field.help_text %}
+      <div class="pl-1 tooltip tooltip-warning tooltip-right" data-tip="{{field.help_text}}">
+        {% include "eleicao/icons/icon-info.svg" %}
+      </div>
+    {% endif %}
+  </div>
+
+  {% if help_text_second %}
+    <p class="pb-2 text-sm">{{help_text_second}}</p>
+  {% endif %}
+  {{field}}
+</div>
+
+{% if field.errors %}
+  <div class="error-list">
+    {% for error in field.errors%}
+      <span class="text-sm field-error django-error text-error">{{ error }}</span>
+    {% endfor %}
+  </div>
+{% endif %}
