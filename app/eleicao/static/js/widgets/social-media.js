@@ -3,7 +3,7 @@
   "use strict";
 
   $(function () {
-    const fieldName = '5-social_media';
+    const fieldName = $(".social-media-fields select").first().attr('name').split('.')[0];
     const $btn = $(".social-media-fields button[type='button']");
 
     $btn.on("click", () => {

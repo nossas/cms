@@ -28,6 +28,4 @@ class SocialMedia(Widget):
             
             values.append(dict(kind=data.get(kind_name), url=data.get(url_name)))
 
-        import ipdb;ipdb.set_trace()
-        # return data.get(name)
         return json.dumps(values)
