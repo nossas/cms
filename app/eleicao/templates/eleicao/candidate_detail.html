@@ -8,7 +8,8 @@
     <div class="grid grid-cols-1 gap-8 md:grid-cols-3 profile">
       <div class="col-span-1 photo">
         {% if object.photo %}
-        <img src="{{ object.photo.url }}" alt="Foto do(a) candidato(a)" class="mx-auto max-w-xs h-auto rounded-sm md:mx-0">
+        <img src="{{ object.photo.url }}" alt="Foto do(a) candidato(a)"
+          class="mx-auto max-w-xs h-auto rounded-sm md:mx-0">
         {% else %}
         {% include 'eleicao/includes/img.html' %}
         {% endif %}
@@ -26,11 +27,15 @@
             <a href="{{ social_media_item.url }}">
               {% if social_media_item.kind == 'twitter' %}
               <svg width="30" height="24" viewBox="0 0 30 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M30 2.83958C28.8958 3.32144 27.7111 3.64824 26.4663 3.79413C27.7373 3.04452 28.7102 1.85552 29.1714 0.443097C27.9791 1.13729 26.6631 1.64136 25.2608 1.91462C24.1379 0.734842 22.5407 0 20.7692 0C17.3704 0 14.6147 2.71405 14.6147 6.05954C14.6147 6.53402 14.669 6.99744 14.774 7.44058C9.66002 7.18761 5.12525 4.77452 2.0902 1.10774C1.55966 2.00137 1.25785 3.04264 1.25785 4.15414C1.25785 6.25709 2.34515 8.11262 3.99486 9.1982C2.98628 9.16498 2.0377 8.89173 1.20726 8.43753V8.51323C1.20726 11.4488 3.32937 13.8989 6.1432 14.4565C5.62766 14.5931 5.08403 14.6688 4.52163 14.6688C4.12422 14.6688 3.73991 14.63 3.36309 14.5562C4.14667 16.9656 6.41878 18.7177 9.1108 18.7657C7.00555 20.3905 4.35104 21.3561 1.46785 21.3561C0.97108 21.3561 0.481765 21.3265 0 21.273C2.72388 22.9956 5.95766 24 9.43325 24C20.7542 24 26.9425 14.7648 26.9425 6.75561L26.9219 5.97095C28.131 5.12159 29.177 4.05445 30 2.83958Z" fill="#3C9CD8"/>
+                <path
+                  d="M30 2.83958C28.8958 3.32144 27.7111 3.64824 26.4663 3.79413C27.7373 3.04452 28.7102 1.85552 29.1714 0.443097C27.9791 1.13729 26.6631 1.64136 25.2608 1.91462C24.1379 0.734842 22.5407 0 20.7692 0C17.3704 0 14.6147 2.71405 14.6147 6.05954C14.6147 6.53402 14.669 6.99744 14.774 7.44058C9.66002 7.18761 5.12525 4.77452 2.0902 1.10774C1.55966 2.00137 1.25785 3.04264 1.25785 4.15414C1.25785 6.25709 2.34515 8.11262 3.99486 9.1982C2.98628 9.16498 2.0377 8.89173 1.20726 8.43753V8.51323C1.20726 11.4488 3.32937 13.8989 6.1432 14.4565C5.62766 14.5931 5.08403 14.6688 4.52163 14.6688C4.12422 14.6688 3.73991 14.63 3.36309 14.5562C4.14667 16.9656 6.41878 18.7177 9.1108 18.7657C7.00555 20.3905 4.35104 21.3561 1.46785 21.3561C0.97108 21.3561 0.481765 21.3265 0 21.273C2.72388 22.9956 5.95766 24 9.43325 24C20.7542 24 26.9425 14.7648 26.9425 6.75561L26.9219 5.97095C28.131 5.12159 29.177 4.05445 30 2.83958Z"
+                  fill="#3C9CD8" />
               </svg>
               {% elif social_media_item.kind == 'facebook' %}
               <svg width="13" height="24" viewBox="0 0 13 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0.415129 12.7824H3.23609V23.6129C3.23609 23.8267 3.42187 24 3.65117 24H8.43423C8.66353 24 8.84931 23.8267 8.84931 23.6129V12.8334H12.0923C12.3031 12.8334 12.4806 12.6859 12.5047 12.4905L12.9972 8.50331C13.0107 8.39363 12.9735 8.28375 12.8947 8.20144C12.816 8.11908 12.7032 8.07192 12.5849 8.07192H8.84951V5.5725C8.84951 4.81908 9.28449 4.437 10.1426 4.437C10.2649 4.437 12.5849 4.437 12.5849 4.437C12.8142 4.437 13 4.26366 13 4.04991V0.389953C13 0.176109 12.8142 0.00285937 12.5849 0.00285937H9.219C9.19528 0.00178125 9.14255 0 9.06484 0C8.48083 0 6.45082 0.106922 4.84725 1.48266C3.07052 3.00722 3.31752 4.83258 3.37653 5.14908V8.07183H0.415079C0.185776 8.07183 0 8.24508 0 8.45892V12.3953C5.02639e-05 12.609 0.185825 12.7824 0.415129 12.7824Z" fill="#395AA1"/>
+                <path
+                  d="M0.415129 12.7824H3.23609V23.6129C3.23609 23.8267 3.42187 24 3.65117 24H8.43423C8.66353 24 8.84931 23.8267 8.84931 23.6129V12.8334H12.0923C12.3031 12.8334 12.4806 12.6859 12.5047 12.4905L12.9972 8.50331C13.0107 8.39363 12.9735 8.28375 12.8947 8.20144C12.816 8.11908 12.7032 8.07192 12.5849 8.07192H8.84951V5.5725C8.84951 4.81908 9.28449 4.437 10.1426 4.437C10.2649 4.437 12.5849 4.437 12.5849 4.437C12.8142 4.437 13 4.26366 13 4.04991V0.389953C13 0.176109 12.8142 0.00285937 12.5849 0.00285937H9.219C9.19528 0.00178125 9.14255 0 9.06484 0C8.48083 0 6.45082 0.106922 4.84725 1.48266C3.07052 3.00722 3.31752 4.83258 3.37653 5.14908V8.07183H0.415079C0.185776 8.07183 0 8.24508 0 8.45892V12.3953C5.02639e-05 12.609 0.185825 12.7824 0.415129 12.7824Z"
+                  fill="#395AA1" />
               </svg>
               {% endif %}
             </a>
@@ -70,7 +75,7 @@
             {{object.bio}}
           </p>
         </div>
-    </div>
+      </div>
   </section>
 
   <section class="py-16 bg-[#EDB052] candidate-detail-video text-blue-800">
@@ -80,7 +85,7 @@
       <video controls width="640" height="360" alt="Vídeo do candidato">
         <source src="{{ object.video.url }}" type="video/mp4">
         Seu navegador não suporta o elemento de vídeo.
-    </video>
+      </video>
       {% else %}
       <img src="{% static 'images/eleicao/mariana-video.png' %}" alt="Foto do(a) candidato(a)" class="">
       {% endif %}
@@ -90,18 +95,13 @@
   <section class="px-5 py-16 mb-10 candidate-detail-share">
     <h1 class="m-auto mb-4 max-w-xs text-4xl text-center text-blue-800">Compartilhe nas redes para apoiar Mariana</h1>
     <div class="flex flex-col gap-4 items-center">
-      <div>
-        {% post_to_whatsapp "A Eleição do Ano está chegando! É hora de votar pelo futuro das crianças. Conheça: {{object.name}}:  http://eleicaodoano.bonde.devel:8000/{{object.slug}}" %}        
-      </div>
-      <div>        
-        {% post_to_twitter  "A Eleição do Ano está chegando! É hora de votar pelo futuro das crianças. Conheça: {{object.name}}: http://eleicaodoano.bonde.devel:8000/{{object.slug}}" %}                
-      </div>
-      <div>  
-          {% post_to_facebook "A Eleição do Ano está chegando! É hora de votar pelo futuro das crianças. Conheça: {{object.name}}:  http://eleicaodoano.bonde.devel:8000/{{object.slug}}"  %}        
-    </div>
-      <div>
-        {% copy_to_clipboard "A Eleição do Ano está chegando! É hora de votar pelo futuro das crianças. Conheça: {{object.name}}:  http://eleicaodoano.bonde.devel:8000/{{object.slug}}" %}          
-      </div>
+        {% post_to_whatsapp object.get_absolute_url %}
+
+        {% post_to_twitter "A Eleição do Ano está chegando! É hora de votar pelo futuro das crianças. Conheça: {{object.name}}" object.get_absolute_url %}
+      
+        {% post_to_facebook object.get_absolute_url %}
+      
+        {% copy_to_clipboard object.get_absolute_url %}
     </div>
   </section>
 </main>
