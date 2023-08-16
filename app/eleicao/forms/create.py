@@ -30,7 +30,7 @@ class Candidate1Form(forms.Form):
 
 
 class Candidate2Form(forms.Form):
-    title = "você assume compromisso com..."
+    title = "Você assume compromisso com..."
     agree = CustomBooleanField(
         required=True,
         icon="icon-children",
@@ -64,7 +64,7 @@ class Candidate2Form(forms.Form):
 
 
 class Candidate3Form(forms.Form):
-    title = "você assume compromisso com..."
+    title = "Você assume compromisso com..."
     agree_7 = CustomBooleanField(
         required=True,
         icon="icon-ears",
@@ -98,7 +98,7 @@ class Candidate3Form(forms.Form):
 
 
 class Candidate4Form(forms.ModelForm):
-    title = "seus dados"
+    title = "Seus dados"
 
     class Meta:
         model = Candidate
@@ -119,7 +119,7 @@ class Candidate4Form(forms.ModelForm):
 
 
 class Candidate5Form(forms.ModelForm):
-    title = "seus dados"
+    title = "Seus dados"
 
     class Meta:
         model = Candidate
@@ -159,7 +159,7 @@ class Candidate6Form(forms.ModelForm):
 
 
 class Candidate7Form(forms.ModelForm):
-    title = "complemente seu perfil"
+    title = "Complemente seu perfil"
 
     class Meta:
         model = Candidate

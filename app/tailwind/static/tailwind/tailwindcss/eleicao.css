@@ -18,6 +18,7 @@
 .aeleicaodoano .btn,
 .aeleicaodoano .navbar a {
   font-family: "Capriola", sans-serif;
+  line-height: normal;
 }
 
 .aeleicaodoano .btn-primary {
@@ -29,7 +30,7 @@
 }
 
 .aeleicaodoano nav a {
-  font-family: "Bebas Neue", sans-serif;
+  font-family: "Capriola", sans-serif;
   color: #1842AC;
 }
 
@@ -60,6 +61,10 @@
   @apply mr-2 radio;
 }
 
+.aeleicaodoano .form-control input[type="checkbox"] {
+  @apply checkbox checkbox-sm;
+}
+
 .aeleicaodoano .form-control .radio-select {
   @apply flex gap-6;
 }
@@ -70,7 +75,7 @@
 
 .aeleicaodoano a.form-back-btn,
 .aeleicaodoano button.form-back-btn  {
-  font-family: "Bebas Neue", sans-serif !important;
+  font-family: "Capriola", sans-serif;
   color: #1842AC !important;
 }
 
@@ -150,7 +155,7 @@
 }
 
 .aeleicaodoano .btn-share button > span, .aeleicaodoano .btn-share a > span {
-  font-family: "Bebas Neue", sans-serif !important;
+  font-family: "Capriola", sans-serif;
   @apply !text-neutral-50 text-lg font-normal flex-1;
 }
 
