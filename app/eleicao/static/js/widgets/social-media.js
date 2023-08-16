@@ -10,7 +10,7 @@
       const $beforeField = $(".social-media-fields .social-media-field-item").last();
       const countFields = $(".social-media-fields .social-media-field-item").length;
 
-      if (countFields < 3) {
+      if (countFields < 4) {
         const newSocialMediaField = `
           <div class="social-media-field-item flex gap-5">
             <div class="max-w-xs">
