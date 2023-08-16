@@ -2,12 +2,21 @@
   @apply min-w-full;
 }
 
-.aeleicaodoano h1, h2, h3, h4, h5, h6 {
-  font-family: "Bebas Neue", sans-serif;
+.aeleicaodoano h4,
+.aeleicaodoano h5,
+.aeleicaodoano h6,
+.aeleicaodoano a,
+.aeleicaodoano p,
+.aeleicaodoano span,
+.aeleicaodoano label {
+  font-family: "Nunito Sans", sans-serif;
 }
 
-.aeleicaodoano a, p, span, label {
-  font-family: "Nunito Sans", sans-serif;
+.aeleicaodoano h1,
+.aeleicaodoano h2,
+.aeleicaodoano h3,
+.aeleicaodoano .navbar a {
+  font-family: "Capriola", sans-serif;
 }
 
 .aeleicaodoano .btn {
