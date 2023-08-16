@@ -8,20 +8,18 @@ from .widgets import SocialMedia
 from ..models import Address, Candidate, Voter, PollingPlace
 
 
-class CustomCheckboxInput(CheckboxInput):
+class IconCheckboxInput(CheckboxInput):
     def __init__(self, *args, icon=None, text=None, **kwargs):
         super().__init__(*args, **kwargs)
         self.icon = icon
-        self.text = text
 
 
-class CustomBooleanField(forms.BooleanField):
-    widget = CustomCheckboxInput
+class IconBooleanField(forms.BooleanField):
+    widget = IconCheckboxInput
 
     def __init__(self, *args, icon=None, text=None, **kwargs):
         super().__init__(*args, **kwargs)
         self.widget.icon = icon
-        self.widget.text = text
 
 
 class Candidate1Form(forms.Form):
@@ -31,69 +29,69 @@ class Candidate1Form(forms.Form):
 
 class Candidate2Form(forms.Form):
     title = "Você assume compromisso com..."
-    agree = CustomBooleanField(
+    agree = IconBooleanField(
+        label="Atuação em parceria permanente com serviços de proteção dos direitos da criança e do adolescente",
         required=True,
-        icon="icon-children",
-        text="Atuação em parceria permanente com serviços de proteção dos direitos da criança e do adolescente",
+        icon="icon-children"
     )
-    agree_2 = CustomBooleanField(
+    agree_2 = IconBooleanField(
+        label="Participação popular na construção de políticas públicas para crianças e adolescentes.",
         required=True,
-        icon="icon-participate",
-        text="Participação popular na construção de políticas públicas para crianças e adolescentes.",
+        icon="icon-participate"
     )
-    agree_3 = CustomBooleanField(
+    agree_3 = IconBooleanField(
+        label="Respeito à liberdade religiosa, ao Estado laico e às diferentes religiosidades, com enfrentamento ativo ao racismo religioso.",
         required=True,
-        icon="icon-religious-freedom",
-        text="Respeito à liberdade religiosa, ao Estado laico e às diferentes religiosidades, com enfrentamento ativo ao racismo religioso.",
+        icon="icon-religious-freedom"
     )
-    agree_4 = CustomBooleanField(
+    agree_4 = IconBooleanField(
+        label="Respeito aos direitos da população LGBT+, como o nome social de pessoas trans e a constituição de famílias homoparentais.",
         required=True,
-        icon="icon-lgbt",
-        text="Respeito aos direitos da população LGBT+, como o nome social de pessoas trans e a constituição de famílias homoparentais.",
+        icon="icon-lgbt"
     )
-    agree_5 = CustomBooleanField(
+    agree_5 = IconBooleanField(
+        label="Prioridade ao acionamento da rede de proteção, com encaminhamento a medidas socioeducativas como ultimo recurso",
         required=True,
         icon="icon-network",
-        text="Prioridade ao acionamento da rede de proteção, com encaminhamento a medidas socioeducativas como ultimo recurso",
     )
-    agree_6 = CustomBooleanField(
+    agree_6 = IconBooleanField(
+        label="Prioridade à manutenção dos vínculos familiares, com medida de abrigamento como último recurso (e sempre decidida com aval do Ministério Público).",
         required=True,
         icon="icon-family",
-        text="Prioridade à manutenção dos vínculos familiares, com medida de abrigamento como último recurso (e sempre decidida com aval do Ministério Público).",
     )
 
 
 class Candidate3Form(forms.Form):
     title = "Você assume compromisso com..."
-    agree_7 = CustomBooleanField(
+    agree_7 = IconBooleanField(
+        label="Garantia de escuta especializada e depoimento especial para crianças e adolescentes em situação de violência.",
         required=True,
         icon="icon-ears",
-        text="Garantia de escuta especializada e depoimento especial para crianças e adolescentes em situação de violência.",
     )
-    agree_8 = CustomBooleanField(
+    agree_8 = IconBooleanField(
+        label="Respeito aos direitos sexuais e reprodutivos e garantia de acesso ao aborto legal para crianças e adolescentes vítimas de violência sexual.",
         required=True,
         icon="icon-sexual-rights",
-        text="Respeito aos direitos sexuais e reprodutivos e garantia de acesso ao aborto legal para crianças e adolescentes vítimas de violência sexual.",
     )
-    agree_9 = CustomBooleanField(
+    agree_9 = IconBooleanField(
+        label="Efetivação dos direitos de populações indígenas e povos e comunidades tradicionais.",
         required=True,
         icon="icon-indigenous",
-        text="Efetivação dos direitos de populações indígenas e povos e comunidades tradicionais.",
     )
-    agree_10 = CustomBooleanField(
+    agree_10 = IconBooleanField(
+        label="Planejamento de acordo com o Plano Decenal de Direitos Humanos de Crianças e Adolescentes.",
         required=True,
         icon="icon-plan",
-        text="Planejamento de acordo com o Plano Decenal de Direitos Humanos de Crianças e Adolescentes.",
     )
-    agree_11 = CustomBooleanField(
+    agree_11 = IconBooleanField(
+        label="Colaboração com o Poder Executivo local na elaboração do orçamento para crianças e adolescentes.",
         required=True,
         icon="icon-orcamento",
-        text="Colaboração com o Poder Executivo local na elaboração do orçamento para crianças e adolescentes.",
     )
-    agree_12 = CustomBooleanField(
+    agree_12 = IconBooleanField(
+        label="Registro permanente de informações no SIPIA - Sistema de Informação para Infância e Adolescência.",
         required=True,
         icon="icon-sipia",
-        text="Registro permanente de informações no SIPIA - Sistema de Informação para Infância e Adolescência.",
     )
 
 
@@ -131,7 +129,7 @@ class Candidate5Form(forms.ModelForm):
 
 
 class Candidate6Form(forms.ModelForm):
-    title = "sua candidatura"
+    title = "Sua candidatura"
 
     number = forms.IntegerField(
         label="Numero do candidato",
