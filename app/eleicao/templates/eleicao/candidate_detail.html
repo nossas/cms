@@ -1,9 +1,29 @@
 {% extends 'eleicao/base.html'%}
 {% load static %}
-{% load social_share%}
+
+{% block extra_head %}
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"
+  integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+{% endblock %}
 
 {% block content %}
 <main class="candidate-detail bg-white">
+  <!-- Modal -->
+  <!-- Open the modal using ID.showModal() method -->
+  <dialog id="my_modal_2" class="modal{% if modal_is_open %} modal-open{% endif %}">
+    <form method="dialog" class="modal-box">
+      <div class="flex flex-col text-center text-blue-800 mt-6">
+        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+        <h3 class="text-4xl mb-4">Perfil cadastrado 🎉</h3>
+        <p class="font-bold text-xl mb-2">{{ request.scheme }}://{{ request.META.HTTP_HOST }}{{ request.path }}</p>
+        <p class="text-lg mb-2">Agora é só divulgar nas redes</p>
+      </div>
+      {% include 'eleicao/includes/candidate_share.html' with object=object %}
+    </form>
+    <form method="dialog" class="modal-backdrop">
+      <button>close</button>
+    </form>
+  </dialog>
   <!-- Detail 1: Perfil do candidato -->
   <section class="m-auto py-12 w-full max-w-screen-xl candidate-detail-infos md:px-14">
     <div class="grid grid-cols-1 gap-8 md:grid-cols-3 profile">
@@ -93,15 +113,22 @@
 
   <section class="px-5 py-16 candidate-detail-share">
     <h1 class="m-auto mb-4 max-w-xs text-4xl text-center text-blue-800">Compartilhe nas redes para apoiar {{ object.short_name }}</h1>
-    <div class="flex flex-col gap-4 items-center">
-        {% post_to_whatsapp object.get_absolute_url %}
-
-        {% post_to_twitter "A Eleição do Ano está chegando! É hora de votar pelo futuro das crianças. Conheça: {{object.name}}" object.get_absolute_url %}
-      
-        {% post_to_facebook object.get_absolute_url %}
-      
-        {% copy_to_clipboard object.get_absolute_url %}
-    </div>
+    {% include 'eleicao/includes/candidate_share.html' with object=object %}
   </section>
 </main>
+{% endblock %}
+
+{% block footer_js %}
+<script>
+  (function ($) {
+    "use strict";
+
+    $(function () {
+      const $dialog = $("dialog.modal");
+      $("dialog.modal .modal-box button").click(() => {
+        $dialog.removeClass('modal-open');
+      });
+    });
+  }(window.jQuery));
+</script>
 {% endblock %}

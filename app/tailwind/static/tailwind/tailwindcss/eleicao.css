@@ -1,7 +1,3 @@
-.candidate-detail-share a > svg {
-  @apply mr-3;
-}
-
 .form-items .select2-container {
   @apply min-w-full;
 }
@@ -143,3 +139,15 @@
   opacity: 1;
 }
 
+.aeleicaodoano .btn-share button, .aeleicaodoano .btn-share a {
+  @apply btn-outline min-w-[270px] rounded-lg border-none flex justify-items-center;
+}
+
+.aeleicaodoano .btn-share button > span, .aeleicaodoano .btn-share a > span {
+  font-family: "Bebas Neue", sans-serif !important;
+  @apply !text-neutral-50 text-lg font-normal flex-1;
+}
+
+.aeleicaodoano .btn-share button > svg, .aeleicaodoano .btn-share a > svg {
+  @apply w-10;
+}

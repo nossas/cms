@@ -110,12 +110,23 @@ class CandidateCreateView(SessionWizardView):
 
         print(fe)
 
-        return redirect(obj.get_absolute_url())
+        return redirect(obj.get_absolute_url() + '?modal=true')
 
 
 class CandidateDetailView(DetailView):
     template_name = "eleicao/candidate_detail.html"
     model = Candidate
+
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        ctx = super().get_context_data(**kwargs)
+        modal = self.request.GET.get('modal')
+
+        if modal:
+            ctx.update({
+                "modal_is_open": True
+            })
+
+        return ctx
 
     def get_queryset(self) -> QuerySet[Any]:
         return super().get_queryset().filter(status=CandidateStatusChoices.published)

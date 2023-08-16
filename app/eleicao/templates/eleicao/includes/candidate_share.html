@@ -1,0 +1,11 @@
+{% load social_share %}
+
+<div class="flex flex-col gap-4 items-center">
+    {% post_to_whatsapp object.get_absolute_url %}
+
+    {% post_to_twitter "A Eleição do Ano está chegando! É hora de votar pelo futuro das crianças. Conheça: {{object.name}}" object.get_absolute_url %}
+  
+    {% post_to_facebook object.get_absolute_url %}
+  
+    {% copy_to_clipboard object.get_absolute_url %}
+</div>
