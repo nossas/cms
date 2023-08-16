@@ -81,13 +81,13 @@ class Candidate(models.Model):
         upload_to="candidaturas/videos/",
         help_text="Carregue um vídeo de até 30 segundos na posição horizontal, escolhendo entre os formatos MP4, AVI ou MOV. 🎥📽️",
     )
-    gender = models.CharField("Gênero", choices=GenderChoices.choices, max_length=20)
+    gender = models.CharField("Gênero", choices=GenderChoices.choices, max_length=30)
     is_trans = models.BooleanField(
         "Se identifica como pessoa transgênero/transexual?",
         default=False,
         choices=BOOL_CHOICES,
     )
-    race = models.CharField("Raça", choices=RaceChoices.choices, max_length=20)
+    race = models.CharField("Raça", choices=RaceChoices.choices, max_length=30)
     social_media = models.JSONField("Rede social", null=True, blank=True)
     number = models.PositiveSmallIntegerField("Numero de voto")
     is_reelection = models.BooleanField(
@@ -98,7 +98,7 @@ class Candidate(models.Model):
     )
     status = models.CharField(
         "Status",
-        max_length=20,
+        max_length=30,
         choices=CandidateStatusChoices.choices,
         default=CandidateStatusChoices.published,
     )
