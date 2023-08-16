@@ -125,7 +125,12 @@
 
     $(function () {
       const $dialog = $("dialog.modal");
+      
       $("dialog.modal .modal-box button").click(() => {
+        $dialog.removeClass('modal-open');
+      });
+
+      $("dialog.modal .modal-backdrop").click(() => {
         $dialog.removeClass('modal-open');
       });
     });
