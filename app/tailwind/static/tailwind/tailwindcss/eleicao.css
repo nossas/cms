@@ -2,16 +2,23 @@
   @apply min-w-full;
 }
 
-.aeleicaodoano h1, h2, h3, h4, h5, h6 {
-  font-family: "Bebas Neue", sans-serif;
-}
-
-.aeleicaodoano a, p, span, label {
+.aeleicaodoano h4,
+.aeleicaodoano h5,
+.aeleicaodoano h6,
+.aeleicaodoano a,
+.aeleicaodoano p,
+.aeleicaodoano span,
+.aeleicaodoano label {
   font-family: "Nunito Sans", sans-serif;
 }
 
-.aeleicaodoano .btn {
-  font-family: "Bebas Neue", sans-serif;
+.aeleicaodoano h1,
+.aeleicaodoano h2,
+.aeleicaodoano h3,
+.aeleicaodoano .btn,
+.aeleicaodoano .navbar a {
+  font-family: "Capriola", sans-serif;
+  line-height: normal;
 }
 
 .aeleicaodoano .btn-primary {
@@ -23,7 +30,7 @@
 }
 
 .aeleicaodoano nav a {
-  font-family: "Bebas Neue", sans-serif;
+  font-family: "Capriola", sans-serif;
   color: #1842AC;
 }
 
@@ -54,6 +61,10 @@
   @apply mr-2 radio;
 }
 
+.aeleicaodoano .form-control input[type="checkbox"] {
+  @apply checkbox checkbox-sm;
+}
+
 .aeleicaodoano .form-control .radio-select {
   @apply flex gap-6;
 }
@@ -64,7 +75,7 @@
 
 .aeleicaodoano a.form-back-btn,
 .aeleicaodoano button.form-back-btn  {
-  font-family: "Bebas Neue", sans-serif !important;
+  font-family: "Capriola", sans-serif;
   color: #1842AC !important;
 }
 
@@ -144,7 +155,7 @@
 }
 
 .aeleicaodoano .btn-share button > span, .aeleicaodoano .btn-share a > span {
-  font-family: "Bebas Neue", sans-serif !important;
+  font-family: "Capriola", sans-serif;
   @apply !text-neutral-50 text-lg font-normal flex-1;
 }
 

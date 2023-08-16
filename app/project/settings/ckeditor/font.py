@@ -14,6 +14,7 @@ font_family_options = [
     "Bebas Neue",
     "Bitter",
     "Bree Serif",
+    "Capriola",
     "Cabin",
     "Catamaran",
     "Crimson Text",

@@ -39,9 +39,9 @@
         <div class="grid justify-center md:grid-cols-2">
           <div class="text-blue-800 text">
             <h3 class="mt-3 mb-1 text-2xl md:mt-0">{{object.place.city}} - {{object.place.state}}</h3>
-            <h1 class="mb-1 text-7xl uppercase">{{object.name}}</h1>
+            <h1 class="mb-1 text-7xl">{{object.name}}</h1>
             <h2 class="mb-1 text-5xl" aria-label="Número do(a) candidato(a)">{{object.number}}</h2>
-            <p class="text-md">{{object.zone.name}}</p>
+            <p class="text-md mb-3">{{object.zone.name}}</p>
           </div>
           <div class="flex gap-4 justify-end my-4 mr-64">
             {% for social_media_item in object.social_media %}

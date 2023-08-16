@@ -31,11 +31,11 @@
         </ul>
         <div class="w-full md:max-w-[520px]">
           {% if wizard.form.forms %}
-            <h1 class="text-6xl text-[#1842AC] pt-10 ">{{wizard.form.forms.title}}</h1>
+            <h1 class="text-5xl text-[#1842AC] py-8">{{wizard.form.forms.title}}</h1>
           {% else %}
-            <h1 class="text-6xl text-[#1842AC] pt-10 ">{{wizard.form.title}}</h1>
+            <h1 class="text-5xl text-[#1842AC] py-8">{{wizard.form.title}}</h1>
             {% if wizard.form.starter_text %}
-              <p class="text-[#1842AC] py-4">{{wizard.form.starter_text}}</p>
+              <p class="text-[#1842AC] pb-4">{{wizard.form.starter_text}}</p>
             {% endif %}
           {% endif %}
           <form class="candidate-create-form" action="" method="post" enctype="multipart/form-data" novalidate>
