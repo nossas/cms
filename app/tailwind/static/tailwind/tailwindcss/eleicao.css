@@ -15,12 +15,9 @@
 .aeleicaodoano h1,
 .aeleicaodoano h2,
 .aeleicaodoano h3,
+.aeleicaodoano .btn,
 .aeleicaodoano .navbar a {
   font-family: "Capriola", sans-serif;
-}
-
-.aeleicaodoano .btn {
-  font-family: "Bebas Neue", sans-serif;
 }
 
 .aeleicaodoano .btn-primary {
