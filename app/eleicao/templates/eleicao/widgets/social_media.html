@@ -6,7 +6,8 @@
         <option value="">Selecione</option>
         <option value="twitter" {% if value_item.kind == 'twitter' %} selected{% endif %}>Twitter</option>
         <option value="facebook" {% if value_item.kind == 'facebook' %} selected{% endif %}>Facebook</option>
-        <option value="instagram" {% if value_item.kind == 'instagram' %} selected{% endif %}>Instagram</option>
+        <option value="instagram" {% if value_item.kind == 'instagram' %} selected{% endif %}>Instagram</option>  
+        <option value="site" {% if value_item.kind == 'site' %} selected{% endif %}>Site</option>
       </select>
     </div>
     <div class="gap-1 font-bold max-w-xs">
@@ -21,6 +22,7 @@
         <option value="twitter">Twitter</option>
         <option value="facebook">Facebook</option>
         <option value="instagram">Instagram</option>
+        <option value="site">Site</option>
       </select>
     </div>
     <div class="gap-1 font-bold max-w-xs">
