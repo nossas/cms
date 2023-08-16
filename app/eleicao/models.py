@@ -89,7 +89,7 @@ class Candidate(models.Model):
     )
     race = models.CharField("Raça", choices=RaceChoices.choices, max_length=30)
     social_media = models.JSONField("Rede social", null=True, blank=True)
-    number = models.PositiveSmallIntegerField("Numero de voto")
+    number = models.PositiveIntegerField("Numero de voto")
     is_reelection = models.BooleanField(
         "Está se candidatando para reeleição?", default=False, choices=BOOL_CHOICES
     )
