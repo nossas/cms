@@ -19,6 +19,7 @@
                 <option value="twitter">Twitter</option>
                 <option value="facebook">Facebook</option>
                 <option value="instagram">Instagram</option>
+                <option value="site">Site</option>
               </select>
             </div>
             <div class="gap-1 font-bold max-w-xs">
