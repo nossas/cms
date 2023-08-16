@@ -1,0 +1,20 @@
+<div class="py-3 w-full form-control">
+    {% comment %} TODO: Fazer esse trecho como include {% endcomment %}
+    <div class="flex flex-col gap-3 commitment">
+      <div class="commitment-tooltip {% if field.errors %}tooltip tooltip-bottom before:z-20 tooltip-error tooltip-open{% endif %}" data-tip="Você deve marcar essa opção">
+        <label id="commitment-checkbox" class="!py-0">
+            {{ field }}
+            <div class="overflow-hidden !items-start !justify-center flex !p-4 rounded border bg-neutral-100 border-neutral-200 commitment-box">
+              <picture class="pt-1 pr-4 icon-svg">
+                {% with icon_path="eleicao/icons/"|add:field.field.widget.icon|add:".svg" %}
+                  {% include icon_path %}
+                {% endwith %}
+              </picture>
+              <div class="font-normal text-left text-neutral-600">
+                {{ field.label }}
+              </div>
+            </div>
+        </label>
+      </div>
+    </div>
+  </div>
