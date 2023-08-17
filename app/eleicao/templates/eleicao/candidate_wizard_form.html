@@ -13,7 +13,7 @@
 {% block content %}
 <main class="h-screen">
   <div class="grid grid-cols-1 gap-10 p-5 w-full h-full md:grid-cols-2 md:pl-10 md:p-0">
-    <section class="pb-20 candidate-form">
+    <section class="pb-10 md:pb-20 candidate-form">
       <div class="py-4 ml-16 candidate-logo">
         <a href="#">
           <img src="{% static 'images/eleicao/logo-eleicao-do-ano.svg' %}" alt="Logo Eleição do Ano">
@@ -31,11 +31,11 @@
         </ul>
         <div class="w-full md:max-w-[520px]">
           {% if wizard.form.forms %}
-            <h1 class="text-5xl text-[#1842AC] py-8">{{wizard.form.forms.title}}</h1>
+            <h1 class="py-8 text-4xl text-blue-800 md:text-5xl">{{wizard.form.forms.title}}</h1>
           {% else %}
-            <h1 class="text-5xl text-[#1842AC] py-8">{{wizard.form.title}}</h1>
+            <h1 class="py-8 text-4xl text-blue-800 md:text-5xl">{{wizard.form.title}}</h1>
             {% if wizard.form.starter_text %}
-              <p class="text-[#1842AC] pb-4">{{wizard.form.starter_text}}</p>
+              <p class="pb-4 text-center text-blue-800 lg:text-left">{{wizard.form.starter_text}}</p>
             {% endif %}
           {% endif %}
           <form class="candidate-create-form" action="" method="post" enctype="multipart/form-data" novalidate>
@@ -65,7 +65,7 @@
               {% endif %}
             </div>
             {% comment %} Botões de ação {% endcomment %}
-            <div class="flex justify-between items-center py-4">
+            <div class="flex flex-col gap-4 justify-between items-center py-4 lg:flex-row">
               {% if wizard.steps.current == wizard.steps.first %}
                 <input id="submit-btn" class="btn btn-primary" type="submit" value="MINHA CANDIDATURA É EM DEFESA DO ECA" />
               {% else %}

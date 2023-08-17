@@ -21,6 +21,10 @@
   line-height: normal;
 }
 
+.aeleicaodoano .btn {
+  @apply py-1 w-full h-full whitespace-normal lg:w-auto;
+}
+
 .aeleicaodoano .btn-primary {
   @apply bg-[#1842AC] text-lg rounded-lg border-none !text-neutral-50;
 }
@@ -108,7 +112,7 @@
 }
 
 .aeleicaodoano .candidate-content .steps li.step::after {
-  @apply w-6 h-6 text-xs font-bold text-[#1842AC] bg-[#E1E1E1];
+  @apply w-6 h-6 text-xs font-bold text-blue-800 bg-[#E1E1E1];
 }
 
 .aeleicaodoano .form-control .commitment-box {
@@ -154,13 +158,18 @@
   opacity: 1;
 }
 
+.aeleicaodoano .btn-share,
+.aeleicaodoano .btn-share > button {
+  @apply w-full;
+}
+
 .aeleicaodoano .btn-share button, .aeleicaodoano .btn-share a {
   @apply btn-outline min-w-[270px] rounded-lg border-none flex justify-items-center;
 }
 
 .aeleicaodoano .btn-share button > span, .aeleicaodoano .btn-share a > span {
   font-family: "Capriola", sans-serif;
-  @apply !text-neutral-50 text-lg font-normal flex-1;
+  @apply !text-neutral-50 text-xs md:text-lg font-normal flex-1;
 }
 
 .aeleicaodoano .btn-share button > svg, .aeleicaodoano .btn-share a > svg {
