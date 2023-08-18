@@ -17,6 +17,8 @@ env = environ.Env(
     DEBUG=(bool, False),
     SECRET_KEY=(str, "django-insecure-secret-key"),
     ALLOWED_HOSTS=(list, None),
+    RECAPTCHA_PUBLIC_KEY=(str, "MyRecaptchaKey123"),
+    RECAPTCHA_PRIVATE_KEY=(str, "MyRecaptchaPrivateKey456")
 )
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -66,8 +68,9 @@ INSTALLED_APPS = [
     "djangocms_video",
     "djangocms_snippet",
     # Third apps
-    "django_select2",
+    "captcha",
     "colorfield",
+    "django_select2",
     # My Apps
     "contrib.actions.pressure",
     "contrib.bonde",
@@ -79,7 +82,6 @@ INSTALLED_APPS = [
     # Experimentação
     "eleicao",
     "django_social_share"
-
 ]
 
 MIDDLEWARE = [
@@ -221,3 +223,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # https://docs.djangoproject.com/en/4.2/ref/contrib/sites/
 
 SITE_ID = 1
+
+# reCaptcha
+RECAPTCHA_PUBLIC_KEY = env("RECAPTCHA_PUBLIC_KEY")
+RECAPTCHA_PRIVATE_KEY = env("RECAPTCHA_PUBLIC_KEY")

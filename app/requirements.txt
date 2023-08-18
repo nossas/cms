@@ -3,6 +3,7 @@ django-environ
 psycopg2-binary
 django-select2
 django-formtools
+django-recaptcha
 # Django CMS
 django-cms
 djangocms-text-ckeditor

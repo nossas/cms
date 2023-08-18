@@ -4,6 +4,9 @@ from django.forms.widgets import CheckboxInput
 from django.template.defaultfilters import filesizeformat
 from django.utils.translation import ugettext_lazy as _
 
+from captcha.fields import ReCaptchaField
+from captcha.widgets import ReCaptchaV2Checkbox
+
 from .widgets import SocialMedia
 from ..models import Address, Candidate, Voter, PollingPlace
 
@@ -25,6 +28,8 @@ class IconBooleanField(forms.BooleanField):
 class Candidate1Form(forms.Form):
     title = "Oi, Candidata(o)"
     starter_text = "Em todo o Brasil existem milhares de pessoas que se dedicam ao trabalho nos Conselhos Tutelares para fazer valer os direitos de crianças e adolescentes - a importante e necessária missão de ser conselheiro e conselheira tutelar! Criamos uma plataforma para destacar essas candidaturas e conectá-las aos eleitores da sua região."
+
+    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox())
 
 
 class Candidate2Form(forms.Form):
