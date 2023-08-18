@@ -1,14 +1,11 @@
-{% load static %}
+{% load static eleicao_menu_tags %}
 
 <nav class="flex sticky gap-8 justify-between items-center px-5 w-full h-14 bg-white md:px-12 navbar lg:justify-start">
     <a href="/">
         <img class="min-w-[200px]" src="{% static 'images/eleicao/logo-eleicao-do-ano.svg' %}" alt="Eleição do Ano">
     </a>
   <div class="hidden navbar-center md:flex">
-    <ul class="px-1 menu menu-horizontal">
-        <li><a class="text-lg hover:underline" href="{% url 'eleicao:candidate_list' %}">Candidaturas</a></li>
-        <li><a class="text-lg hover:underline" href="{% url 'eleicao:voter_match' %}">Eleitor(a)</a></li>
-    </ul>
+    {% show_menu request "px-1 menu menu-horizontal" %}
   </div>
   <div class="dropdown dropdown-end">
     <label tabindex="0" class="btn btn-ghost lg:hidden">
@@ -16,9 +13,10 @@
         <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/>
       </svg>
     </label>
-    <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-        <li><a class="text-lg hover:underline" href="{% url 'eleicao:candidate_list' %}">Candidaturas</a></li>
-        <li><a class="text-lg hover:underline" href="{% url 'eleicao:voter_match' %}">Eleitor(a)</a></li>
-    </ul>
+    {% show_menu request "menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52" %}
+    <!-- <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+        <li><a class="text-lg hover:underline" href="#">Candidaturas</a></li>
+        <li><a class="text-lg hover:underline" href="#">Eleitor(a)</a></li>
+    </ul> -->
   </div>
 </nav>

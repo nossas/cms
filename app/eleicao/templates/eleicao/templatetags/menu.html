@@ -1,0 +1,5 @@
+<ul class="{{ classnames }}">
+    {% for page in menu %}
+    <li><a class="text-lg hover:underline" href="{{ page.get_absolute_url }}">{{ page.get_menu_title }}</a></li>
+    {% endfor %}
+</ul>

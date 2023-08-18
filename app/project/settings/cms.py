@@ -4,6 +4,7 @@
 CMS_TEMPLATES = [
     # ("app/home.html", "Home"),
     ("frontend/landpage/page.html", "Landpage"),
+    ("eleicao/eleicao_template.html", "A Eleição do Ano"),
 ]
 
 # Placeholder
@@ -11,7 +12,7 @@ CMS_TEMPLATES = [
 CMS_PLACEHOLDER_CONF = {
     "content": {
         "name": "Blocos",
-        "plugins": ["BlockPlugin", "BlockPressurePlugin"],
+        "plugins": ["BlockPlugin", "BlockPressurePlugin", "EleicaoCandidateListPlugin"],
     },
     "navigation": {
         "name": "Navegação",
@@ -31,6 +32,28 @@ CMS_PLACEHOLDER_CONF = {
         "default_plugins": [
             {
                 "plugin_type": "FooterPlugin",
+                "values": {}
+            },
+        ],
+    },
+    "eleicao_navbar": {
+        "name": "Navegação",
+        "plugins": ["EleicaoNavbarPlugin"],
+        "language_fallback": True,
+        "default_plugins": [
+            {
+                "plugin_type": "EleicaoNavbarPlugin",
+                "values": {}
+            },
+        ],
+    },
+    "eleicao_footer": {
+        "name": "Rodapé",
+        "plugins": ["EleicaoFooterPlugin"],
+        "language_fallback": True,
+        "default_plugins": [
+            {
+                "plugin_type": "EleicaoFooterPlugin",
                 "values": {}
             },
         ],
