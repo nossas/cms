@@ -30,15 +30,16 @@
   {% block page_head %}{% endblock %}
 </head>
 
-<body {% if request.toolbar %}class="cms-styled-admin"{% endif %} {% block body_attrs %}{% endblock %}>
+<body{% if request.toolbar %} class="cms-styled-admin"{% endif %}{% block body_attrs %}{% endblock %}>
   {% cms_toolbar %}
+  <div class="{% block body_class %}{% endblock %}">
   {% block content %}{% endblock %}
-  
+  </div>
   {% render_block "js" %}
+  
+  {% block footer_js %}{% endblock %}
 
-  {% if ga %}
-  {% include "ga/snippets/ga.html" with GTAG_ID=ga.uuid %}
-  {% endif %}
+  {% if ga %}{% include "ga/snippets/ga.html" with GTAG_ID=ga.uuid %}{% endif %}
 </body>
 
 </html>
