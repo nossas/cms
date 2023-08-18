@@ -12,5 +12,5 @@ urlpatterns = [
     # Sugere uma slug
     path("slug/", suggest_slug, name="slug"),
     # Precisa ser o último item da lista
-    path("/c/<slug:slug>/", CandidateDetailView.as_view(), name="candidate_detail"),
+    path("c/<slug:slug>/", CandidateDetailView.as_view(), name="candidate_detail"),
 ]
