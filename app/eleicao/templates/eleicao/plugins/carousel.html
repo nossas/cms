@@ -1,0 +1,58 @@
+{% load static %}
+
+{% block page_head %}
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+      integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+  <!-- Select2 -->
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+{% endblock %}
+
+<section class="container gap-8 px-5 py-28 mx-auto md:px-auto">
+  <div class="overflow-hidden relative">
+    <div class="carousel">
+      <div class="carousel-track">
+        <div class="carousel-slide">
+          <p>Slide 1</p>
+        </div>
+        <div class="carousel-slide">
+          <p>Slide 2</p>
+        </div>
+        <div class="carousel-slide">
+          <p>Slide 3</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex justify-center mt-4 carousel-controls">
+    {% comment %} O primeiro slide sempre está com active, pensar nisso na hora de fazer o loop pro refactor do Plugin e o data-slide sempre tem o número da index (até por questões de a11y){% endcomment %}
+    <button class="mx-1 w-3 h-3 bg-[#91CEC1] rounded-full carousel-dot hover:bg-gray-400 active" data-slide="0"></button>
+    <button class="mx-1 w-3 h-3 bg-[#91CEC1] rounded-full carousel-dot hover:bg-gray-400" data-slide="1"></button>
+    <button class="mx-1 w-3 h-3 bg-[#91CEC1] rounded-full carousel-dot hover:bg-gray-400" data-slide="2"></button>
+  </div>
+</section>
+
+<script>
+  (function ($) {
+    "use strict";
+
+    const track = $('.carousel-track');
+    const dots = $('.carousel-dot');
+    let currentSlide = 0;
+
+    dots.click(function () {
+      currentSlide = parseInt($(this).attr('data-slide'));
+      updateCarousel();
+    });
+
+    function updateCarousel() {
+      const position = -currentSlide * track.width();
+      // Fazer o position alterar também a partir do redimensionamento da página seria o mais apropriado?
+      track.css('transform', `translateX(${position}px)`);
+
+      dots.removeClass('active');
+      dots.eq(currentSlide).addClass('active');
+    }
+
+  }(window.jQuery));
+</script>
