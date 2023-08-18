@@ -1,12 +1,17 @@
-{% extends 'eleicao/base.html'%}
+{% extends 'tailwind.html'%}
 {% load static %}
 
-{% block extra_head %}
+{% block page_head %}
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"
   integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 {% endblock %}
 
+{% block title %}A Eleição do Ano: {{object.short_name}}{% endblock %}
+
+{% block body_class %}aeleicaodoano{% endblock %}
+
 {% block content %}
+{% include 'eleicao/plugins/navbar.html' %}
 <main class="bg-white candidate-detail">
   <!-- Modal -->
   <!-- Open the modal using ID.showModal() method -->
@@ -126,6 +131,7 @@
   </section>
   <p class="text-blue-800 text-center">Viu algo estranho? <a href="mailto:aeleicaodoano@nossas.org">Clique aqui para denunciar esse perfil.</a></p>
 </main>
+{% include 'eleicao/plugins/footer.html' %}
 {% endblock %}
 
 {% block footer_js %}

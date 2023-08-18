@@ -1,7 +1,7 @@
-{% extends "eleicao/base.html" %}
+{% extends "tailwind.html" %}
 {% load static %}
 
-{% block extra_head %}
+{% block page_head %}
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"
   integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 <!-- Select2 -->
@@ -9,7 +9,10 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 {% endblock %}
 
-{% block navbar %}{% endblock %}
+{% block title %}A Eleição do Ano{% endblock %}
+
+{% block body_class %}aeleicaodoano{% endblock %}
+
 {% block content %}
 <main class="h-screen">
   <div class="grid grid-cols-1 gap-10 p-5 w-full h-full md:grid-cols-2 md:pl-10 md:p-0">
@@ -90,8 +93,6 @@
   </div>
 </main>
 {% endblock %}
-
-{% block footer %}{% endblock %}
 
 {% block footer_js %}
 <script>

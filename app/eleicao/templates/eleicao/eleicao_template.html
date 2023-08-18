@@ -1,6 +1,14 @@
-{% extends "eleicao/base.html" %}
-{% load cms_tags %}
+{% extends "tailwind.html" %}
+{% load cms_tags campaign_menu_tags %}
 
-{% block navbar %}{% placeholder eleicao_navbar %}{% endblock %}
-{% block content %}{% placeholder content %}{% endblock %}
-{% block footer %}{% placeholder eleicao_footer %}{% endblock %}
+{% block title %}A Eleição do Ano{% endblock %}
+
+{% block body_class %}aeleicaodoano{% endblock %}
+
+{% block content %}
+  {% placeholder eleicao_navbar %}
+  <main>
+  {% placeholder "content" %}
+  </main>
+  {% placeholder eleicao_footer %}
+{% endblock %}

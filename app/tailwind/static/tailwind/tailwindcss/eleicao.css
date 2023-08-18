@@ -22,15 +22,15 @@
 }
 
 .aeleicaodoano .btn {
-  @apply py-1 w-full h-full whitespace-normal lg:w-auto;
+  @apply whitespace-normal rounded-lg !h-auto;
 }
 
 .aeleicaodoano .btn-primary {
-  @apply bg-[#1842AC] text-lg rounded-lg border-none !text-neutral-50;
+  @apply bg-[#1842AC] border-none !text-neutral-50;
 }
 
 .aeleicaodoano .btn-secondary {
-  @apply bg-[#EDB052] text-lg rounded-lg border-none !text-neutral-50;
+  @apply bg-[#FFC60B] border-none !text-neutral-50;
 }
 
 .aeleicaodoano nav a {
