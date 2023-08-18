@@ -1,6 +1,6 @@
 services:
     cms:
-      image: ${DOCKER_IMAGE:-nossas/cms:0.1.0-beta.0}
+      image: ${DOCKER_IMAGE:-nossas/cms:main}
       restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
       pull_policy: always
       environment:
