@@ -17,10 +17,11 @@ services:
         - traefik.http.services.cms.loadbalancer.server.port=8000
         - traefik.http.routers.cms.tls=true
         - traefik.http.routers.cms.tls.certresolver=myresolver
-        - traefik.http.routers.cms.rule=HostRegexp(`cms.staging.bonde.org`,`{subdomain:[a-z]+}.cms.staging.bonde.org`)
-
-        # - traefik.http.routers.cms.tls.domains[0].main=aeleicaodoano.org
-        # - traefik.http.routers.cms.tls.domains[0].sans=*.aeleicaodoano.org
+        - traefik.http.routers.cms.rule=${TRAEFIK_ROUTERS_RULE}
+        # prod
+        # - traefik.http.routers.cms.rule=HostRegexp(`aeleicaodoano.org`,`{subdomain:[a-z]+}.aeleicaodoano.org`,`cms.bonde.org`,`{subdomain:[a-z]+}.cms.bonde.org`)
+        # staging
+        # - traefik.http.routers.cms.rule=HostRegexp(`cms.staging.bonde.org`,`{subdomain:[a-z]+}.cms.staging.bonde.org`)
 
 networks:
   default:
