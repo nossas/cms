@@ -1,4 +1,4 @@
-<svg width="171" height="171" viewBox="0 0 171 171" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="{% firstof width 50 %}" height="{% firstof width 50 %}" viewBox="0 0 171 171" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g id="icon_11_atv 2" clip-path="url(#clip0_2474_5424)">
 <g id="Camada_2">
 <path id="Vector" d="M67.7501 160.5C100.015 160.5 126.17 134.345 126.17 102.08C126.17 69.8156 100.015 43.66 67.7501 43.66C35.4856 43.66 9.33008 69.8156 9.33008 102.08C9.33008 134.345 35.4856 160.5 67.7501 160.5Z" fill="#F9AE29"/>
