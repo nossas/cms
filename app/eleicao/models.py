@@ -6,6 +6,7 @@ from .csv.choices import get_states
 
 from cms.models import CMSPlugin
 
+
 class GenderChoices(models.TextChoices):
     male = "homem", "Homem"
     female = "mulher", "Mulher"
@@ -124,10 +125,15 @@ class Voter(models.Model):
     email = models.EmailField("Email")
     whatsapp = models.CharField("Whatsapp", max_length=15, null=True, blank=True)
 
-    zone = models.ForeignKey(PollingPlace, on_delete=models.CASCADE)
+    state = models.CharField(
+        "Estado", max_length=2, choices=lazy(get_states, list)(), null=True, blank=True
+    )
+    city = models.CharField("Cidade", max_length=100, null=True, blank=True)
 
-    def get_absolute_url(self):
-        return f"/querovotar/resultado/?zone={self.zone.id}"
+    # zone = models.ForeignKey(PollingPlace, on_delete=models.CASCADE)
+
+    # def get_absolute_url(self):
+    #     return f"/querovotar/resultado/?zone={self.zone.id}"
 
 
 class EleicaoCarousel(CMSPlugin):

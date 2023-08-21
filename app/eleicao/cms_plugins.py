@@ -6,6 +6,7 @@ from cms.plugin_pool import plugin_pool
 
 from .models import Candidate, CandidateStatusChoices, EleicaoCarousel
 from .forms.filters import CandidateListFilter
+from .forms.create import VoterForm
 
 @plugin_pool.register_plugin
 class EleicaoNavbarPlugin(CMSPluginBase):
@@ -63,5 +64,23 @@ class EleicaoCandidateListPlugin(CMSPluginBase):
         ctx["is_paginated"] = p.count > 1
         ctx["page_obj"] = page_obj
         ctx["object_list"] = page_obj.object_list
+
+        return ctx
+
+
+@plugin_pool.register_plugin
+class EleicaoVoterFormPlugin(CMSPluginBase):
+    name = "Formulário de Eleitor(a)"
+    module = "A Eleição do Ano"
+    render_template = "eleicao/plugins/voter_form.html"
+
+    def render(self, context, instance, placeholder):
+        ctx = super().render(context, instance, placeholder)
+        request = ctx.get("request")
+
+        ctx["form"] = VoterForm()
+
+        if request.method == "POST":
+            ctx["form"] = VoterForm(request.POST)
 
         return ctx

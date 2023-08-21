@@ -202,10 +202,14 @@ class PlacesWidget(s2forms.ModelSelect2Widget):
 
 
 class VoterForm(forms.ModelForm):
-    zone = forms.ModelChoiceField(
-        queryset=PollingPlace.objects.all(), label="Onde você vota?", required=True
-    )
 
     class Meta:
         model = Voter
-        fields = ["name", "email", "whatsapp", "zone"]
+        fields = ["name", "email", "whatsapp", "state", "city"]
+        widgets = {
+            "whatsapp": forms.TextInput(
+                attrs={
+                    "data-mask": "(00) 0 0000-0000",
+                }
+            )
+        }

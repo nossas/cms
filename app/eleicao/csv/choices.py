@@ -1,7 +1,7 @@
 from django.conf import settings
 
 
-def get_states():
+def get_states(column_label="name"):
     import csv
 
     csv_filename = settings.BASE_DIR / "eleicao/csv/states.csv"
@@ -9,10 +9,13 @@ def get_states():
     with open(csv_filename) as f:
         reader = csv.DictReader(f)
         for row in reader:
-            states.append((row["subdivision"], row["name"]))
+            states.append((row["subdivision"], row[column_label]))
 
     return states
 
+
+def get_ufs():
+    return get_states(column_label="subdivision")
 
 # def get_choices(uf, city=None):
 #     import csv
