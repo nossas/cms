@@ -8,6 +8,7 @@ from contrib.bonde.models import Community
 
 from .models import Navbar, Footer
 from .forms import LayoutBlockForm, LayoutBlockPressureForm
+
 # from .layouts import Layout
 
 from .plugin_base import BlockPluginBase
@@ -41,7 +42,7 @@ class BlockPressurePlugin(BlockPluginBase):
             self.form = LayoutBlockPressureForm
             self.form.base_fields["layout"].initial = "pressure"
             self.form.base_fields["layout"].widget = forms.HiddenInput()
-        
+
         return super(BlockPressurePlugin, self).get_form(request, obj, change, **kwargs)
 
 
@@ -63,7 +64,9 @@ class NavbarPlugin(CMSPluginBase):
         if placeholder:
             plugins = (
                 placeholder.get_child_plugins()
-                .filter(Q(plugin_type="BlockPlugin") | Q(plugin_type="BlockPressurePlugin"))
+                .filter(
+                    Q(plugin_type="BlockPlugin") | Q(plugin_type="BlockPressurePlugin")
+                )
                 .order_by("position")
             )
 
@@ -93,8 +96,5 @@ class FooterPlugin(CMSPluginBase):
 
         community = Community.objects.on_site(request).first()
         context.update({"community": community})
-
-    
-   
 
         return context
