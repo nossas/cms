@@ -13,9 +13,17 @@ class CandidateListFilter(forms.Form):
         label="Estado",
         choices=lazy(get_states, list)(),
         widget=forms.Select(
-            attrs={"class": "w-full max-w-xs select select-bordered rounded-lg bg-[#EFEFEF] border-[#E0E0E0]"}
+            attrs={
+                "class": "w-full max-w-xs select select-bordered rounded-lg bg-[#EFEFEF] border-[#E0E0E0]",
+                "onchange": "this.form.submit()"
+            }
         )
     )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['uf'].widget.choices = [('', 'Todos'), ] + self.fields['uf'].widget.choices
 
     def as_html(self):
         template_name = "eleicao/filters/candidate_list_filter.html"
