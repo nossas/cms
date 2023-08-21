@@ -72,7 +72,7 @@ class Layout(object):
         """
         Criar grid e colunas a partir do número de colunas definidos
         Args:
-            n_cols (str): 1 | 2 | 3 | 4 | 1_2
+            n_cols (str): 1 | 2 | 3 | 4 | 5 | 1_2
         """
         if "_" not in n_cols:
             n = int(n_cols)
@@ -193,6 +193,9 @@ class Layout(object):
             action_url="#",
         )
 
+    def _five_columns_copy(self):
+        self._tree_columns_copy()
+
     def _four_columns_copy(self):
         self._tree_columns_copy()
 
@@ -214,6 +217,11 @@ class Layout(object):
         grid, cols = self.create_grid(
             n_cols="4" if self.layout == LayoutChoices.four_columns else "3"
         )
+        grid, cols = self.create_grid(
+            n_cols="5" if self.layout == LayoutChoices.five_columns else "4"
+        )
+
+       
 
         for col_obj in cols:
             col_obj.spacing = ColumnSpacingChoices.gap_8
@@ -246,7 +254,7 @@ class Layout(object):
 
     def _two_columns_a_copy(self):
         grid, cols = self.create_grid(
-            n_cols="2" if self.layout == LayoutChoices.two_columns_a else "1_2"
+            n_cols="2"  if self.layout == LayoutChoices.two_columns_a else "1_2"
         )
 
         # Coluna da Esquerda

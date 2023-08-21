@@ -13,6 +13,7 @@ class LayoutChoices(models.TextChoices):
     two_columns_a = "two_columns_a", "Conteúdo 2 colunas (6x6)"
     two_columns_b = "two_columns_b", "Conteúdo 2 colunas (4x8)"
     four_columns = "four_columns", "Conteúdo 4 colunas"
+    five_columns = "five_columns", "Conteúdo 5 colunas"
     signature = "signature", "Assinatura 2 colunas"
     signature_partners_a = (
         "signature_partners_a",
