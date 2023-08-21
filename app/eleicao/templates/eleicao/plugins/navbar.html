@@ -1,6 +1,6 @@
 {% load static eleicao_menu_tags %}
 
-<nav class="flex fixed gap-8 justify-between items-center px-5 w-full bg-[#FFFFFF30] md:px-12 navbar lg:justify-start"{% if instance.styles %} style="{{instance.styles}}"{% endif %}>
+<nav class="flex fixed gap-8 justify-between items-center px-5 w-full bg-[#FFFFFF30] md:px-12 navbar lg:justify-start">
     <a href="/">
         <img class="min-w-[200px]" src="{% static 'images/eleicao/logo-eleicao-do-ano.svg' %}" alt="Eleição do Ano">
     </a>
@@ -14,9 +14,5 @@
       </svg>
     </label>
     {% show_menu request "menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52" %}
-    <!-- <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-        <li><a class="text-lg hover:underline" href="#">Candidaturas</a></li>
-        <li><a class="text-lg hover:underline" href="#">Eleitor(a)</a></li>
-    </ul> -->
   </div>
 </nav>
