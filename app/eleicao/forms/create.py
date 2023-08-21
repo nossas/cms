@@ -8,7 +8,7 @@ from captcha.fields import ReCaptchaField
 from captcha.widgets import ReCaptchaV2Checkbox
 
 from .widgets import SocialMedia
-from ..models import Address, Candidate, Voter, PollingPlace
+from ..models import Candidate, Voter, PollingPlace
 
 
 class IconCheckboxInput(CheckboxInput):
@@ -29,7 +29,7 @@ class Candidate1Form(forms.Form):
     title = "Oi, Candidata(o)"
     starter_text = "Em todo o Brasil existem milhares de pessoas que se dedicam ao trabalho nos Conselhos Tutelares para fazer valer os direitos de crianças e adolescentes - a importante e necessária missão de ser conselheiro e conselheira tutelar! Criamos uma plataforma para destacar essas candidaturas e conectá-las aos eleitores da sua região."
 
-    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox())
+    # captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox())
 
 
 class Candidate2Form(forms.Form):
@@ -37,22 +37,22 @@ class Candidate2Form(forms.Form):
     agree = IconBooleanField(
         label="Atuação em parceria permanente com serviços de proteção dos direitos da criança e do adolescente",
         required=True,
-        icon="icon-children"
+        icon="icon-children",
     )
     agree_2 = IconBooleanField(
         label="Participação popular na construção de políticas públicas para crianças e adolescentes.",
         required=True,
-        icon="icon-participate"
+        icon="icon-participate",
     )
     agree_3 = IconBooleanField(
         label="Respeito à liberdade religiosa, ao Estado laico e às diferentes religiosidades, com enfrentamento ativo ao racismo religioso.",
         required=True,
-        icon="icon-religious-freedom"
+        icon="icon-religious-freedom",
     )
     agree_4 = IconBooleanField(
         label="Respeito aos direitos da população LGBT+, como o nome social de pessoas trans e a constituição de famílias homoparentais.",
         required=True,
-        icon="icon-lgbt"
+        icon="icon-lgbt",
     )
     agree_5 = IconBooleanField(
         label="Prioridade ao acionamento da rede de proteção, com encaminhamento a medidas socioeducativas como ultimo recurso",
@@ -117,7 +117,7 @@ class Candidate4Form(forms.ModelForm):
                 },
             ),
             "email": forms.EmailInput({"placeholder": "Seu email"}),
-            "slug": forms.TextInput({"placeholder": "seunome"})
+            "slug": forms.TextInput({"placeholder": "seunome"}),
         }
 
 
@@ -145,20 +145,19 @@ class Candidate6Form(forms.ModelForm):
         required=False,
         initial=False,
         widget=forms.RadioSelect(
-            choices=((True, "Sim"), (False, "Não")),
-            attrs={"class": "radio-select"}
+            choices=((True, "Sim"), (False, "Não")), attrs={"class": "radio-select"}
         ),
     )
 
     class Meta:
-        model = Address
-        fields = ["state", "city", "neighborhood", "number", "is_reelection"]
+        model = PollingPlace
+        fields = ["state", "city", "place", "number", "is_reelection"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.fields["city"].widget = forms.Select()
-        self.fields["neighborhood"].widget = forms.Select()
+        self.fields["place"].widget = forms.Select()
 
 
 class Candidate7Form(forms.ModelForm):

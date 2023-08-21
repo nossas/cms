@@ -24,7 +24,7 @@ from .forms import (
     VoterForm
 )
 from .forms.filters import CandidateListFilter
-from .models import Address, Candidate, Voter, CandidateStatusChoices
+from .models import Candidate, Voter, PollingPlace, CandidateStatusChoices
 
 # Create your views here.
 
@@ -88,16 +88,13 @@ class CandidateCreateView(SessionWizardView):
         values.pop("agree_10")
         values.pop("agree_11")
         values.pop("agree_12")
-        # Address
+        
+        # PollingPlace
         state = values.pop("state")
         city = values.pop("city")
-        neighborhood = values.pop("neighborhood")
+        place_id = values.pop("place")
 
-        values["place_id"] = (
-            Address.objects.filter(state=state, city=city, neighborhood=neighborhood)
-            .first()
-            .id
-        )
+        values["place_id"] = int(place_id)
 
         photo = values.pop("photo")
         video = values.pop("video")

@@ -14,22 +14,22 @@ def get_states():
     return states
 
 
-def get_choices(uf, city=None):
-    import csv
+# def get_choices(uf, city=None):
+#     import csv
 
-    csv_filename = settings.BASE_DIR / "eleicao/csv/places.csv"
-    choices = []
+#     csv_filename = settings.BASE_DIR / "eleicao/csv/places.csv"
+#     choices = []
 
-    with open(csv_filename) as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            if row["uf"] == uf:
-                if city:
-                    if city.upper() == row["city"].upper():
-                        choices.append(
-                            (row["neighborhood"].capitalize(), row["neighborhood"].capitalize())
-                        )
-                else:
-                    choices.append((row["city"].capitalize(), row["city"].capitalize()))
+#     with open(csv_filename) as f:
+#         reader = csv.DictReader(f)
+#         for row in reader:
+#             if row["uf"] == uf:
+#                 if city:
+#                     if city.upper() == row["city"].upper():
+#                         choices.append(
+#                             (row["neighborhood"].capitalize(), row["neighborhood"].capitalize())
+#                         )
+#                 else:
+#                     choices.append((row["city"].capitalize(), row["city"].capitalize()))
 
-    return list(set(choices))
+#     return list(set(choices))

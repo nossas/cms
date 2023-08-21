@@ -106,8 +106,8 @@
       $('#id_5-city').select2({
         placeholder: 'Selecione sua cidade'
       });
-      $('#id_5-neighborhood').select2({
-        placeholder: 'Selecione seu bairro'
+      $('#id_5-place').select2({
+        placeholder: 'Selecione seu local'
       });
       $('#id_4-gender').select2({
         placeholder: 'Selecione'
@@ -135,10 +135,10 @@
       $("#id_5-city").on("change", (evt) => {
         city = evt.target.value;
         $.get("{% url 'eleicao:cep' %}" + "?city=" + city + "&state=" + uf, (data) => {
-          $("#id_5-neighborhood").empty()
-          $("#id_5-neighborhood").append('<option value="">----</option>')
+          $("#id_5-place").empty()
+          $("#id_5-place").append('<option value="">----</option>')
           $.each(data.choices, (index, value) => {
-            $("#id_5-neighborhood").append('<option value="' + value[0] + '">' + value[1] + "</option>")
+            $("#id_5-place").append('<option value="' + value[0] + '">' + value[1] + "</option>")
           })
         })
       });
