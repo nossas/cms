@@ -5,6 +5,9 @@
 {% endaddtoblock %}
 
 <div>
+  {% if success %}
+  <p>Mensagem de sucesso</p>
+  {% else %}
   <form method="POST">
     {% csrf_token %}
 
@@ -17,6 +20,7 @@
       receber emails de atualização, conforme descrito na política de privacidade. Você pode cancelar o recebimento
       desses e-mails a qualquer momento.</p>
   </form>
+  {% endif %}
 </div>
 
 {% addtoblock "js" %}

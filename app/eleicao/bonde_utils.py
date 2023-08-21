@@ -6,7 +6,7 @@ from datetime import datetime
 from contrib.bonde.models import FormEntry, Activist
 
 
-def create_form_entry(**form_data):
+def create_form_entry(settings, **form_data):
     email = form_data.get("email")
     name = form_data.get("name")
   
@@ -28,9 +28,9 @@ def create_form_entry(**form_data):
     # Montando o FormEntry
     fe = FormEntry()
     fe.activist = activist
-    fe.widget_id = 76494
-    fe.mobilization_id = 7302
-    fe.cached_community_id = 263
+    fe.widget_id = settings.get("widget_id", 76494)
+    fe.mobilization_id = settings.get("mobilization_id", 7302)
+    fe.cached_community_id = settings.get("cached_community_id", 263)
 
     # Fields mapping
     fields = []
