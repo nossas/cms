@@ -1,6 +1,6 @@
 {% load static eleicao_menu_tags %}
 
-<nav class="flex sticky gap-8 justify-between items-center px-5 w-full h-14 bg-white md:px-12 navbar lg:justify-start">
+<nav class="flex fixed gap-8 justify-between items-center px-5 w-full bg-[#FFFFFF30] md:px-12 navbar lg:justify-start"{% if instance.styles %} style="{{instance.styles}}"{% endif %}>
     <a href="/">
         <img class="min-w-[200px]" src="{% static 'images/eleicao/logo-eleicao-do-ano.svg' %}" alt="Eleição do Ano">
     </a>

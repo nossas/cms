@@ -7,12 +7,12 @@ from cms.plugin_pool import plugin_pool
 from .models import Candidate, CandidateStatusChoices
 from .forms.filters import CandidateListFilter
 
-
 @plugin_pool.register_plugin
 class EleicaoNavbarPlugin(CMSPluginBase):
     name = "Navbar"
     module = "A Eleição do Ano"
     render_template = "eleicao/plugins/navbar.html"
+    allow_children = False
 
 
 @plugin_pool.register_plugin
