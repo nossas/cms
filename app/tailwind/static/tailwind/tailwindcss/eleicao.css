@@ -180,3 +180,19 @@
 .aeleicaodoano .btn-share button > svg, .aeleicaodoano .btn-share a > svg {
   @apply w-10;
 }
+
+.aeleicaodoano .carousel-controls .active {
+  @apply bg-[#FFC60B];
+}
+
+.aeleicaodoano .carousel-controls .carousel-dot {
+  @apply transition-all;
+}
+
+.aeleicaodoano .carousel-track {
+  @apply flex w-full transition-transform;
+}
+.aeleicaodoano .carousel-slide {
+  flex: 0 0 100%;
+  @apply p-5;
+}

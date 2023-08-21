@@ -21,6 +21,12 @@ class EleicaoFooterPlugin(CMSPluginBase):
     module = "A Eleição do Ano"
     render_template = "eleicao/plugins/footer.html"
 
+@plugin_pool.register_plugin
+class EleicaoCarouselPlugin(CMSPluginBase):
+    name = "Carousel"
+    module = "A Eleição do Ano"
+    render_template = "eleicao/plugins/carousel.html"
+
 
 @plugin_pool.register_plugin
 class EleicaoCandidateListPlugin(CMSPluginBase):
