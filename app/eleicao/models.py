@@ -34,23 +34,14 @@ class RaceChoices(models.TextChoices):
     no_answer = "não declarada", "Não declarada"
 
 
-class Address(models.Model):
+class PollingPlace(models.Model):
+    place = models.CharField("Local", max_length=120)
     state = models.CharField("Estado", max_length=2, choices=lazy(get_states, list)())
     city = models.CharField("Cidade", max_length=80)
-    neighborhood = models.CharField("Bairro onde se candidatou", max_length=80)
+    reference = models.TextField(null=True, blank=True)
 
     def __str__(self):
-        return f"{self.neighborhood}, {self.city} - {self.state}"
-
-
-class PollingPlace(models.Model):
-    name = models.CharField("Nome", max_length=120)
-    address_line = models.CharField("Endereço", max_length=200, null=True, blank=True)
-    places = models.ManyToManyField(Address)
-
-    def __str__(self):
-        return self.name
-        # return f"{list(map(lambda x: x, self.places.all()))}".replace('[<Address:', '').replace('>]', ' ')
+        return self.place
 
 
 class CandidateStatusChoices(models.TextChoices):
@@ -103,7 +94,7 @@ class Candidate(models.Model):
         default=CandidateStatusChoices.published,
     )
 
-    place = models.ForeignKey(Address, on_delete=models.CASCADE)
+    place = models.ForeignKey(PollingPlace, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
