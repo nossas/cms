@@ -4,7 +4,7 @@ from django.core.paginator import Paginator
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
-from .models import Candidate, CandidateStatusChoices
+from .models import Candidate, CandidateStatusChoices, EleicaoCarousel
 from .forms.filters import CandidateListFilter
 
 @plugin_pool.register_plugin
@@ -24,9 +24,17 @@ class EleicaoFooterPlugin(CMSPluginBase):
 @plugin_pool.register_plugin
 class EleicaoCarouselPlugin(CMSPluginBase):
     name = "Carousel"
+    model = EleicaoCarousel
     module = "A Eleição do Ano"
     render_template = "eleicao/plugins/carousel.html"
 
+    def render(self, context, instance, placeholder):
+        ctx = super().render(context, instance, placeholder)
+        ctx.update({
+            "title": instance.title,
+            "description": instance.description
+        })
+        return ctx
 
 @plugin_pool.register_plugin
 class EleicaoCandidateListPlugin(CMSPluginBase):

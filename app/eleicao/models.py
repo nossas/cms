@@ -4,6 +4,7 @@ from django.urls import reverse
 
 from .csv.choices import get_states
 
+from cms.models import CMSPlugin
 
 class GenderChoices(models.TextChoices):
     male = "homem", "Homem"
@@ -127,3 +128,8 @@ class Voter(models.Model):
 
     def get_absolute_url(self):
         return f"/querovotar/resultado/?zone={self.zone.id}"
+
+
+class EleicaoCarousel(CMSPlugin):
+    title = models.CharField("Título", max_length=50)
+    description = models.CharField("Descrição", max_length=50)
