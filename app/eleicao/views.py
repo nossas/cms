@@ -54,7 +54,6 @@ class CandidateCreateView(SessionWizardView):
     template_name = "eleicao/candidate_wizard_form.html"
     # Ordered of form steps same this list
     form_list = [
-        CandidatureForm,
         IntroForm,
         Commitment1Form,
         Commitment2Form,
