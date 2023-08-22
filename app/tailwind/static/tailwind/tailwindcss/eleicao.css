@@ -100,7 +100,7 @@
 }
 
 .aeleicaodoano .candidate-content .steps li.step {
-  @apply min-w-[52px];
+  @apply min-w-[32px];
 }
 
 .aeleicaodoano .candidate-content .steps li.step-primary::after {
@@ -112,7 +112,7 @@
 }
 
 .aeleicaodoano .candidate-content .steps li.step::after {
-  @apply w-6 h-6 text-xs font-bold text-blue-800 bg-[#E1E1E1];
+  @apply w-4 h-4 text-[8px] font-bold text-blue-800 bg-[#E1E1E1];
 }
 
 

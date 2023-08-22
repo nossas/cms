@@ -88,8 +88,8 @@ class Candidate(models.Model):
     is_reelection = models.BooleanField(
         "Está se candidatando para reeleição?", default=False, choices=BOOL_CHOICES
     )
-    newsletter = models.BooleanField(
-        "Quero receber atualizações da campanha e do NOSSAS.", default=False
+    lgpd = models.BooleanField(
+        "Aviso de Privacidade", default=False
     )
     status = models.CharField(
         "Status",

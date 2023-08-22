@@ -74,7 +74,7 @@ class Candidate2Form(forms.Form):
         required=True,
         icon="icon-family",
     )
-
+    helper_text = "Leia e selecione os itens acima, aceitando os compromissos com o ECA, para continuar."
 
 class Candidate3Form(forms.Form):
     title = "Você assume compromisso com..."
@@ -108,14 +108,14 @@ class Candidate3Form(forms.Form):
         required=True,
         icon="icon-sipia",
     )
-
+    helper_text = "Leia e selecione os itens acima, aceitando os compromissos com o ECA, para continuar."
 
 class Candidate4Form(forms.ModelForm):
     title = "Seus dados"
 
     class Meta:
         model = Candidate
-        fields = ["name", "email", "birth", "slug", "newsletter"]
+        fields = ["name", "email", "birth", "slug", "lgpd"]
         widgets = {
             "name": forms.TextInput({"placeholder": "Seu nome"}),
             "birth": forms.DateInput(
