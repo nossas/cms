@@ -21,7 +21,7 @@
 <main class="h-screen">
   <div class="grid grid-cols-1 gap-10 p-5 w-full h-full md:grid-cols-2 md:pl-10 md:p-0">
     <section class="pb-10 md:pb-20 candidate-form">
-      <div class="py-4 ml-16 candidate-logo">
+      <div class="flex justify-center candidate-logo md:block">
         <a href="/">
           <img class="w-[213px]" src="{% static 'images/eleicao/logo-eleicao.png' %}" alt="Logo Eleição do Ano">
         </a>
@@ -71,6 +71,9 @@
                 {% endfor %}
               {% endif %}
             </div>
+            {% if wizard.form.helper_text %}
+              <p class="py-5 text-center lg:text-left">{{wizard.form.helper_text}}</p>
+            {% endif %}
             {% comment %} Botões de ação {% endcomment %}
             <div class="flex flex-col gap-4 justify-between items-center py-4 lg:flex-row">
               {% if wizard.steps.current == wizard.steps.first %}

@@ -1,33 +1,51 @@
+{% load static %}
+
 <div class="pb-3 w-full form-control">
   <div class="flex form-field {% if field.widget_type == 'checkbox' %}flex-row-reverse justify-end gap-2 items-center{% else %}flex-col{% endif %}">  
-    {% if field.help_text %}
-    <div class="inline-flex items-center">
-    {% endif %}
-    
-    {% if field.name != "captcha" %}
-    <label for="{{field.id_for_label}}" class="inline-flex px-0 label text-neutral-700{% if field.widget_type != 'checkbox' %} font-bold{% endif %}">{{ field.label }}{% if field.field.required %}*{% endif %}</label>
-    {% endif %}
-    
-    {% if field.help_text %}
-      <div class="pl-1 tooltip tooltip-warning tooltip-right" data-tip="{{field.help_text}}">
-        {% include "eleicao/icons/icon-info.svg" %}
-      </div>
-    </div>
-    {% endif %}
-
-    {% if help_text_second %}
-      <p class="pb-2 text-sm">{{help_text_second}}</p>
-    {% endif %}
-
-    {% if field.name == "slug" %}
-    <div class="flex gap-3 items-center font-bold">
-      <p class="text-neutral-700">aeleicaodoano.org/</p>
-      <div>{{field}}</div>
-    </div>
+    {% if field.name == "lgpd" %}
+        <label for="{{ field.id_for_label }}" class="inline-block px-0 label text-neutral-700">
+            Estou de acordo e consinto, de forma livre, informada e inequívoca, com o compartilhamento de meus dados pessoais com o(s) Organizador(es) da Campanha conforme o <a href="{% static "docs/eleicao/aviso-de-privacidade.pdf" %}" class="inline-flex font-bold" target="_blank">Aviso de Privacidade</a>.
+        </label>
+        {{field}}
     {% else %}
-    {{field}}
+        {% if field.help_text %}
+            <div class="inline-flex items-center">
+        {% endif %}
+
+        {% if field.name != "captcha" %}
+            <label for="{{ field.id_for_label }}" class="inline-flex px-0 label text-neutral-700{% if field.widget_type != 'checkbox' %} font-bold{% endif %}">{{ field.label }}{% if field.field.required %}*{% endif %}</label>
+        {% endif %}
+
+        {% if field.help_text %}
+            <div class="pl-1 tooltip tooltip-warning tooltip-right" data-tip="{{field.help_text}}">
+                {% include "eleicao/icons/icon-info.svg" %}
+            </div>
+            </div>
+        {% endif %}
+
+        {% if help_text_second %}
+            <p class="pb-2 text-sm">{{help_text_second}}</p>
+        {% endif %}
+
+        {% if field.name == "slug" %}
+            <div class="flex gap-3 items-center font-bold">
+                <p class="text-neutral-700">aeleicaodoano.org/</p>
+                <div>{{field}}</div>
+            </div>
+        {% else %}
+            {{field}}
+        {% endif %}
     {% endif %}
   </div>
+  {% if field.name == "lgpd" %}
+    <p class="mt-5">Esta escolha não afeta a participação do Candidato na Campanha.</p>
+  {% endif %}
+
+  {% if field.name == "social_media" %}
+  <p class="inline-block pt-4 text-neutral-700">
+    Ao preencher o formulário e se cadastrar na Campanha, você está ciente de que seus dados pessoais serão tratados de acordo com o <a href="{% static "docs/eleicao/aviso-de-privacidade.pdf" %}" class="inline-flex font-bold" target="_blank">Aviso de Privacidade</a>.
+  </p>
+  {% endif %}
 
   {% if field.errors %}
     <div class="error-list">
