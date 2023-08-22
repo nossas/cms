@@ -21,7 +21,7 @@
 <main class="h-screen">
   <div class="grid grid-cols-1 gap-10 p-5 w-full h-full md:grid-cols-2 md:pl-10 md:p-0">
     <section class="pb-10 md:pb-20 candidate-form">
-      <div class="flex justify-center candidate-logo md:block">
+      <div class="flex justify-center py-3 candidate-logo md:block">
         <a href="/">
           <img src="{% static 'images/eleicao/logo-eleicao-do-ano.svg' %}" alt="Logo Eleição do Ano">
         </a>
@@ -42,7 +42,7 @@
           {% else %}
             <h1 class="py-8 text-4xl text-blue-800 md:text-5xl">{{wizard.form.title}}</h1>
             {% if wizard.form.starter_text %}
-              <p class="pb-4 text-center text-blue-800 lg:text-left">{{wizard.form.starter_text}}</p>
+              <p class="pb-4 text-lg text-center text-blue-800 lg:text-left">{{wizard.form.starter_text}}</p>
             {% endif %}
           {% endif %}
           <form class="candidate-create-form" action="" method="post" enctype="multipart/form-data" novalidate>
