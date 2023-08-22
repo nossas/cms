@@ -121,7 +121,7 @@ class Candidate(models.Model):
 
 
 class Voter(models.Model):
-    name = models.CharField("Nome", max_length=120)
+    name = models.CharField("Nome completo", max_length=120)
     email = models.EmailField("Email")
     whatsapp = models.CharField("Whatsapp", max_length=15, null=True, blank=True)
 

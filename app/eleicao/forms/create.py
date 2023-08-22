@@ -210,8 +210,19 @@ class VoterForm(forms.ModelForm):
         model = Voter
         fields = ["name", "email", "whatsapp", "state", "city"]
         widgets = {
+            "name": forms.TextInput(
+                attrs={
+                    "placeholder": "Seu nome completo"
+                }
+            ),
+            "email": forms.EmailInput(
+                attrs={
+                    "placeholder": "Seu email"
+                }
+            ),
             "whatsapp": forms.TextInput(
                 attrs={
+                    "placeholder": "Seu whatsapp",
                     "data-mask": "00 0 0000-0000",
                 }
             )
