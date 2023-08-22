@@ -112,7 +112,7 @@ class PersonalInfo1Form(forms.ModelForm):
 
     class Meta:
         model = Candidate
-        fields = ["name", "email", "birth", "slug", "newsletter"]
+        fields = ["name", "email", "birth", "slug", "lgpd"]
         widgets = {
             "name": forms.TextInput({"placeholder": "Seu nome"}),
             "birth": forms.DateInput(

@@ -42,6 +42,7 @@
   {% endif %}
 
   {% if field.name == "social_media" %}
+  {% comment %} Reverter esse comportamento, elaborar melhor {% endcomment %}
   <p class="inline-block pt-4 text-neutral-700">
     Ao preencher o formulário e se cadastrar na Campanha, você está ciente de que seus dados pessoais serão tratados de acordo com o <a href="{% static "docs/eleicao/aviso-de-privacidade.pdf" %}" class="inline-flex font-bold" target="_blank">Aviso de Privacidade</a>.
   </p>
