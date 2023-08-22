@@ -75,16 +75,17 @@ class EleicaoVoterFormPlugin(CMSPluginBase):
     name = "Formulário de Eleitor(a)"
     module = "A Eleição do Ano"
     render_template = "eleicao/plugins/voter_form.html"
+    cache = False
 
     def render(self, context, instance, placeholder):
         ctx = super().render(context, instance, placeholder)
         request = ctx.get("request")
 
         ctx["form"] = VoterForm()
-
+        
         if request.method == "POST":
-            form = VoterForm(request.POST)
-
+            form = VoterForm(data=request.POST)
+            
             if form.is_valid():
                 instance = form.save(commit=True)
                 ctx["success"] = True
