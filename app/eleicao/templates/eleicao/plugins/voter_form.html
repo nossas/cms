@@ -1,0 +1,67 @@
+{% load sekizai_tags static social_share %}
+
+{% addtoblock "css" %}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{% endaddtoblock %}
+
+<div>
+  {% if success %}
+  <div class="flex flex-col gap-4 items-center">
+    <h2 class="text-blue-800 text-3xl mb-2">Valeu!</h2>
+    <p class="text-blue-800 text-center text-lg md:max-w-[460px]">Assim que tivermos coletado candidaturas vamos te avisar. Por enquanto, você pode colaborar divulgando A Eleição do Ano: quanto mais gente participar, mais nossas crianças e adolescentes serão protegidos.</p>
+    
+    <div class="flex flex-col gap-4 md:max-w-[440px]">
+      {% post_to_whatsapp request.get_absolute_url %}
+      {% post_to_twitter request.get_absolute_url %}
+      {% post_to_facebook request.get_absolute_url %}
+    </div>
+  </div>
+  {% else %}
+  <div class="flex flex-col gap-2">
+    <h2 class="text-blue-800 text-3xl mb-2 text-center">Me avise quando a plataforma de conexão estiver pronta</h2>
+    <form class="flex flex-col gap-4" method="POST">
+      <div class="fields">
+      {% csrf_token %}
+
+      {% for field in form %}
+        {% include "eleicao/includes/form_control.html" with field=field %}
+      {% endfor %}
+      </div>
+      <button class="btn w-full bg-[#93AC70] hover:bg-[#758e53] text-white" type="submit">Vou votar na Eleição do Ano</button>
+      <p>Ao inserir seus dados, você concorda em ter seus dados compartilhados com os organizadores dessa página e aceita
+        receber emails de atualização, conforme descrito na <a class="underline" href="{% static 'politica-de-privacidade.pdf' %}" target="_blank">política de privacidade</a>. Você pode cancelar o recebimento
+        desses e-mails a qualquer momento.</p>
+    </form>
+  </div>
+  {% endif %}
+</div>
+
+{% addtoblock "js" %}
+<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="{% static 'js/jquery-mask/jquery.mask.min.js' %}"></script>
+<script>
+  $('#id_state').select2({
+    placeholder: 'Selecione seu estado'
+  });
+  $('#id_city').select2({
+    placeholder: 'Cidade onde você vota'
+  });
+
+  var uf;
+  $("#id_state").on("change", (evt) => {
+    uf = evt.target.value;
+
+    $.get("{% url 'eleicao:cep' %}" + "?state=" + uf, (data) => {
+      $("#id_city").empty()
+      $("#id_city").append('<option value="">----</option>')
+      $.each(data.choices, (index, value) => {
+        $("#id_city").append(
+          '<option value="' + value[0] + '">' + value[1] + '</option>'
+        );
+      });
+    });
+  });
+
+</script>
+{% endaddtoblock %}

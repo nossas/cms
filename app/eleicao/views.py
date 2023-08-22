@@ -21,7 +21,7 @@ from .forms import (
     Candidate5Form,
     Candidate6Form,
     Candidate7Form,
-    VoterForm
+    VoterForm,
 )
 from .forms.filters import CandidateListFilter
 from .models import Candidate, Voter, PollingPlace, CandidateStatusChoices
@@ -59,7 +59,7 @@ class CandidateCreateView(SessionWizardView):
         Candidate4Form,
         Candidate5Form,
         Candidate6Form,
-        Candidate7Form
+        Candidate7Form,
     ]
 
     file_storage = DefaultStorage()
@@ -88,7 +88,7 @@ class CandidateCreateView(SessionWizardView):
         values.pop("agree_10")
         values.pop("agree_11")
         values.pop("agree_12")
-        
+
         # PollingPlace
         state = values.pop("state")
         city = values.pop("city")
@@ -103,11 +103,17 @@ class CandidateCreateView(SessionWizardView):
 
         # Integrate with Bonde
 
-        fe = create_form_entry(state=state, city=city, **values)
+        settings = {
+            "widget_id": 76494,
+            "mobilization_id": 7302,
+            "cached_community_id": 263,
+        }
+
+        fe = create_form_entry(settings=settings, state=state, city=city, **values)
 
         print(fe)
 
-        return redirect(obj.get_absolute_url() + '?modal=true')
+        return redirect(obj.get_absolute_url() + "?modal=true")
 
 
 class CandidateDetailView(DetailView):
@@ -116,12 +122,10 @@ class CandidateDetailView(DetailView):
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         ctx = super().get_context_data(**kwargs)
-        modal = self.request.GET.get('modal')
+        modal = self.request.GET.get("modal")
 
         if modal:
-            ctx.update({
-                "modal_is_open": True
-            })
+            ctx.update({"modal_is_open": True})
 
         return ctx
 
@@ -157,12 +161,16 @@ def suggest_slug(request):
     name = request.GET.get("name")
     slug = slugify(name).replace("-", "")
     suggestion = slug
-    list_candidate = Candidate.objects.filter(status=CandidateStatusChoices.published).filter(slug=slug)
+    list_candidate = Candidate.objects.filter(
+        status=CandidateStatusChoices.published
+    ).filter(slug=slug)
     total = list_candidate.count()
     sufix = 1
     while total > 0:
         suggestion = slug + f"{sufix}"
-        list_candidate = Candidate.objects.filter(status=CandidateStatusChoices.published).filter(slug=suggestion)
+        list_candidate = Candidate.objects.filter(
+            status=CandidateStatusChoices.published
+        ).filter(slug=suggestion)
         total = list_candidate.count()
         sufix = sufix + 1
 

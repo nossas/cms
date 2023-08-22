@@ -1,4 +1,8 @@
+from typing import Any, Dict, Mapping, Optional, Type, Union
 from django import forms
+from django.core.files.base import File
+from django.db.models.base import Model
+from django.forms.utils import ErrorList
 from django_select2 import forms as s2forms
 from django.forms.widgets import CheckboxInput
 from django.template.defaultfilters import filesizeformat
@@ -202,10 +206,29 @@ class PlacesWidget(s2forms.ModelSelect2Widget):
 
 
 class VoterForm(forms.ModelForm):
-    zone = forms.ModelChoiceField(
-        queryset=PollingPlace.objects.all(), label="Onde você vota?", required=True
-    )
-
     class Meta:
         model = Voter
-        fields = ["name", "email", "whatsapp", "zone"]
+        fields = ["name", "email", "whatsapp", "state", "city"]
+        widgets = {
+            "name": forms.TextInput(
+                attrs={
+                    "placeholder": "Seu nome completo"
+                }
+            ),
+            "email": forms.EmailInput(
+                attrs={
+                    "placeholder": "Seu email"
+                }
+            ),
+            "whatsapp": forms.TextInput(
+                attrs={
+                    "placeholder": "Seu whatsapp",
+                    "data-mask": "00 0 0000-0000",
+                }
+            )
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields["city"].widget = forms.Select()
