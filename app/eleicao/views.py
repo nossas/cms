@@ -24,7 +24,7 @@ from .forms.candidate import (
     PersonalInfo3Form
 )
 from .forms.filters import CandidateListFilter
-from .models import Candidate, Voter, CandidateStatusChoices
+from .models import Candidate, CandidateStatusChoices
 
 # Create your views here.
 
@@ -131,12 +131,6 @@ class CandidateDetailView(DetailView):
 
     def get_queryset(self) -> QuerySet[Any]:
         return super().get_queryset().filter(status=CandidateStatusChoices.published)
-
-
-class VoterCreateView(CreateView):
-    template_name = "eleicao/voter_form.html"
-    form_class = VoterForm
-    model = Voter
 
 
 class ResultsCandidateView(ListView):
