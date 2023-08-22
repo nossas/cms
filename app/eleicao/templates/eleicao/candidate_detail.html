@@ -6,6 +6,10 @@
   integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 {% endblock %}
 
+{% block favicon %}
+<link rel="shortcut icon" href="{% static 'images/eleicao/favicon.png' %}" type="image/x-icon">
+{% endblock %}
+
 {% block title %}A Eleição do Ano: {{object.short_name}}{% endblock %}
 
 {% block body_class %}aeleicaodoano{% endblock %}
