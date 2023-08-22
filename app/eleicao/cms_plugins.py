@@ -87,17 +87,15 @@ class EleicaoVoterFormPlugin(CMSPluginBase):
 
             if form.is_valid():
                 instance = form.save(commit=True)
-                
+                ctx["success"] = True
+
                 settings = {
                     "widget_id": 76616,
                     "mobilization_id": 7302,
                     "cached_community_id": 263,
                 }
-
                 fe = create_form_entry(settings=settings, **form.cleaned_data)
-
                 print(fe)
-                ctx["success"] = True
 
             ctx["form"] = form
 

@@ -20,9 +20,8 @@
   <div class="flex flex-col gap-2">
     <h2 class="text-blue-800 text-3xl mb-2 text-center">Me avise quando a plataforma de conexão estiver pronta</h2>
     <form class="flex flex-col gap-4" method="POST">
-      <div class="fields">
       {% csrf_token %}
-
+      <div class="fields">
       {% for field in form %}
         {% include "eleicao/includes/form_control.html" with field=field %}
       {% endfor %}
