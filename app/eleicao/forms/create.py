@@ -1,5 +1,5 @@
-from typing import Any, Dict, Mapping, Optional, Type, Union
 from django import forms
+from django.conf import settings
 from django.core.files.base import File
 from django.db.models.base import Model
 from django.forms.utils import ErrorList
@@ -34,6 +34,12 @@ class Candidate1Form(forms.Form):
     starter_text = "Em todo o Brasil existem milhares de pessoas que se dedicam ao trabalho nos Conselhos Tutelares para fazer valer os direitos de crianças e adolescentes - a importante e necessária missão de ser conselheiro e conselheira tutelar! Criamos uma plataforma para destacar essas candidaturas e conectá-las aos eleitores da sua região."
 
     captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox())
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        if settings.DISABLE_RECAPTCHA:
+            del self.fields["captcha"]
 
 
 class Candidate2Form(forms.Form):

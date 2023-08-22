@@ -17,6 +17,7 @@ env = environ.Env(
     DEBUG=(bool, False),
     SECRET_KEY=(str, "django-insecure-secret-key"),
     ALLOWED_HOSTS=(list, None),
+    DISABLE_RECAPTCHA=(bool, False),
     RECAPTCHA_PUBLIC_KEY=(str, "MyRecaptchaKey123"),
     RECAPTCHA_PRIVATE_KEY=(str, "MyRecaptchaPrivateKey456")
 )
@@ -227,6 +228,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 SITE_ID = 1
 
 # reCaptcha
+DISABLE_RECAPTCHA = env("DISABLE_RECAPTCHA")
+
 RECAPTCHA_PUBLIC_KEY = env("RECAPTCHA_PUBLIC_KEY")
 
 RECAPTCHA_PRIVATE_KEY = env("RECAPTCHA_PRIVATE_KEY")
