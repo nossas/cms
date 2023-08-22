@@ -132,22 +132,10 @@ class Candidate4Form(forms.ModelForm):
 
 
 class Candidate5Form(forms.ModelForm):
-    title = "Seus dados"
-
-    class Meta:
-        model = Candidate
-        widgets = {
-            "is_trans": forms.RadioSelect(attrs={"class": "radio-select"}),
-            "occupation": forms.TextInput({"placeholder": "Digite sua profissão"}),
-        }
-        fields = ["occupation", "gender", "is_trans", "race"]
-
-
-class Candidate6Form(forms.ModelForm):
     title = "Sua candidatura"
 
     number = forms.IntegerField(
-        label="Numero do candidato",
+        label="Número da sua candidatura",
         widget=forms.TextInput({"placeholder": "Seu número de voto"}),
     )
     is_reelection = forms.BooleanField(
@@ -168,6 +156,18 @@ class Candidate6Form(forms.ModelForm):
 
         self.fields["city"].widget = forms.Select()
         self.fields["place"].widget = forms.Select()
+
+
+class Candidate6Form(forms.ModelForm):
+    title = "Complemente seu perfil"
+
+    class Meta:
+        model = Candidate
+        widgets = {
+            "is_trans": forms.RadioSelect(attrs={"class": "radio-select"}),
+            "occupation": forms.TextInput({"placeholder": "Digite sua profissão"}),
+        }
+        fields = ["occupation", "gender", "is_trans", "race"]
 
 
 class Candidate7Form(forms.ModelForm):
