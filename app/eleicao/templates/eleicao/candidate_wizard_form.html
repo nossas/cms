@@ -41,8 +41,8 @@
             <h1 class="py-8 text-4xl text-blue-800 md:text-5xl">{{wizard.form.forms.title}}</h1>
           {% else %}
             <h1 class="py-8 text-4xl text-blue-800 md:text-5xl">{{wizard.form.title}}</h1>
-            {% if wizard.form.starter_text %}
-              <p class="pb-4 text-lg text-center text-blue-800 lg:text-left">{{wizard.form.starter_text}}</p>
+            {% if wizard.form.description %}
+              <p class="pb-4 text-lg text-center text-blue-800 lg:text-left">{{wizard.form.description}}</p>
             {% endif %}
           {% endif %}
           <form class="candidate-create-form" action="" method="post" enctype="multipart/form-data" novalidate>
@@ -107,56 +107,20 @@
     "use strict";
 
     $(function () {
-      $('#id_5-state').select2({
-        placeholder: 'Selecione seu estado'
-      });
-      $('#id_5-city').select2({
-        placeholder: 'Selecione sua cidade'
-      });
-      $('#id_5-place').select2({
-        placeholder: 'Selecione seu local'
-      });
       $('#id_4-gender').select2({
         placeholder: 'Selecione'
       });
+
       $('#id_4-race').select2({
         placeholder: 'Selecione'
       });
 
-      var uf;
-      $("#id_5-state").on("change", (evt) => {
-        uf = evt.target.value
-
-        $.get("{% url 'eleicao:cep' %}" + "?state=" + uf, (data) => {
-          $("#id_5-city").empty()
-          $("#id_5-city").append('<option value="">----</option>')
-          $.each(data.choices, (index, value) => {
-            $("#id_5-city").append(
-              '<option value="' + value[0] + '">' + value[1] + '</option>'
-            )
-          })
-        })
-      });
-
-      var city
-      $("#id_5-city").on("change", (evt) => {
-        city = evt.target.value;
-        $.get("{% url 'eleicao:cep' %}" + "?city=" + city + "&state=" + uf, (data) => {
-          $("#id_5-place").empty()
-          $("#id_5-place").append('<option value="">----</option>')
-          $.each(data.choices, (index, value) => {
-            $("#id_5-place").append('<option value="' + value[0] + '">' + value[1] + "</option>")
-          })
-        })
-      });
-
       //fill up slug
-      $("#id_3-name").on("change",(evt) => {
+      $("#id_3-name").on("change", (evt) => {
         $.get("{% url 'eleicao:slug' %}" + "?name=" + evt.target.value, (data) => {
           $("#id_3-slug").val(data.slug)
          })
-
-      } )
+      });
     });
 
     $(function () {
@@ -193,4 +157,5 @@
 </script>
 <script src="{% static 'js/jquery-mask/jquery.mask.min.js' %}"></script>
 <script src="{% static 'js/widgets/social-media.js' %}"></script>
+<script src="{% static 'js/widgets/cep-fields.js' %}"></script>
 {% endblock %}
