@@ -89,7 +89,7 @@ class EleicaoVoterFormPlugin(CMSPluginBase):
                 instance = form.save(commit=True)
                 
                 settings = {
-                    "widget_id": 76494,
+                    "widget_id": 76616,
                     "mobilization_id": 7302,
                     "cached_community_id": 263,
                 }
