@@ -1,8 +1,8 @@
 {% load static eleicao_menu_tags %}
 
-<nav class="flex fixed gap-8 justify-between items-center px-5 w-full bg-[#FFFFFF30] md:px-12 navbar lg:justify-start">
+<nav class="flex fixed justify-between items-center px-5 w-full bg-[#FFFFFF30] md:px-12 navbar lg:justify-start z-10">
     <a href="/">
-        <img class="min-w-[200px]" src="{% static 'images/eleicao/logo-eleicao-do-ano.svg' %}" alt="Eleição do Ano">
+        <img class="w-[213px]" src="{% static 'images/eleicao/logo-eleicao.png' %}" alt="Eleição do Ano">
     </a>
   <div class="hidden navbar-center md:flex">
     {% show_menu request "px-1 menu menu-horizontal" %}

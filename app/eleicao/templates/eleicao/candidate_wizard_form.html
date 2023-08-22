@@ -22,8 +22,8 @@
   <div class="grid grid-cols-1 gap-10 p-5 w-full h-full md:grid-cols-2 md:pl-10 md:p-0">
     <section class="pb-10 md:pb-20 candidate-form">
       <div class="py-4 ml-16 candidate-logo">
-        <a href="#">
-          <img src="{% static 'images/eleicao/logo-eleicao-do-ano.svg' %}" alt="Logo Eleição do Ano">
+        <a href="/">
+          <img class="w-[213px]" src="{% static 'images/eleicao/logo-eleicao.png' %}" alt="Logo Eleição do Ano">
         </a>
       </div>
       <div class="flex flex-col justify-center items-center px-4 candidate-content">
@@ -81,7 +81,7 @@
                 {% else %}
                   <a href="#" class="text-xl form-back-btn">Voltar</a>
                 {% endif %}
-                
+
                 {% if wizard.steps.current != wizard.steps.last %}
                   <input id="submit-btn" class="btn btn-primary" type="submit" value="Continuar" />
                 {% else %}
