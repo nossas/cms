@@ -13,18 +13,18 @@ from django.http import JsonResponse
 from formtools.wizard.views import SessionWizardView
 
 from .bonde_utils import create_form_entry
-from .forms import (
-    Candidate1Form,
-    Candidate2Form,
-    Candidate3Form,
-    Candidate4Form,
-    Candidate5Form,
-    Candidate6Form,
-    Candidate7Form,
-    VoterForm,
+from .forms.create import VoterForm
+from .forms.candidate import (
+    IntroForm,
+    Commitment1Form,
+    Commitment2Form,
+    PersonalInfo1Form,
+    CandidatureForm,
+    PersonalInfo2Form,
+    PersonalInfo3Form
 )
 from .forms.filters import CandidateListFilter
-from .models import Candidate, Voter, PollingPlace, CandidateStatusChoices
+from .models import Candidate, Voter, CandidateStatusChoices
 
 # Create your views here.
 
@@ -52,14 +52,16 @@ class CandidateListView(ListView):
 
 class CandidateCreateView(SessionWizardView):
     template_name = "eleicao/candidate_wizard_form.html"
+    # Ordered of form steps same this list
     form_list = [
-        Candidate1Form,
-        Candidate2Form,
-        Candidate3Form,
-        Candidate4Form,
-        Candidate5Form,
-        Candidate6Form,
-        Candidate7Form,
+        CandidatureForm,
+        IntroForm,
+        Commitment1Form,
+        Commitment2Form,
+        PersonalInfo1Form,
+        CandidatureForm,
+        PersonalInfo2Form,
+        PersonalInfo3Form,
     ]
 
     file_storage = DefaultStorage()
@@ -74,7 +76,7 @@ class CandidateCreateView(SessionWizardView):
     def done(self, form_list, **kwargs):
         values = list(map(lambda form: form.cleaned_data, form_list))
         values = dict(ChainMap(*values))
-        # import ipdb; ipdb.set_trace()
+
         # Processar os valores
         values.pop("agree")
         values.pop("agree_2")
@@ -102,7 +104,6 @@ class CandidateCreateView(SessionWizardView):
         obj.save()
 
         # Integrate with Bonde
-
         settings = {
             "widget_id": 76494,
             "mobilization_id": 7302,

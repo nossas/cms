@@ -37,7 +37,7 @@ class RaceChoices(models.TextChoices):
 
 
 class PollingPlace(models.Model):
-    place = models.CharField("Local", max_length=120)
+    place = models.CharField("Unidade do Conselho Tutelar", max_length=120)
     state = models.CharField("Estado", max_length=2, choices=lazy(get_states, list)())
     city = models.CharField("Cidade", max_length=80)
     reference = models.TextField(null=True, blank=True)
