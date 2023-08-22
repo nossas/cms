@@ -31,7 +31,7 @@ class RaceChoices(models.TextChoices):
     white = "branca", "Branca"
     black = "preta", "Preta"
     yellow = "amarela", "Amarela"
-    indigenous = "indigena", "Indigena"
+    indigenous = "indígena", "Indígena"
     pardo = "parda", "Parda"
     no_answer = "não declarada", "Não declarada"
 
@@ -74,13 +74,15 @@ class Candidate(models.Model):
         upload_to="candidaturas/videos/",
         help_text="Carregue um vídeo de até 30 segundos na posição horizontal, escolhendo entre os formatos MP4, AVI ou MOV. 🎥📽️",
     )
-    gender = models.CharField("Gênero", choices=GenderChoices.choices, max_length=30)
+    gender = models.CharField("Gênero", choices=GenderChoices.choices, max_length=30, null=True, blank=True)
     is_trans = models.BooleanField(
         "Se identifica como pessoa transgênero/transexual?",
         default=False,
         choices=BOOL_CHOICES,
+        null=True,
+        blank=True,
     )
-    race = models.CharField("Raça", choices=RaceChoices.choices, max_length=30)
+    race = models.CharField("Raça", choices=RaceChoices.choices, max_length=30, null=True, blank=True)
     social_media = models.JSONField("Rede social", null=True, blank=True)
     number = models.PositiveIntegerField("Numero de voto")
     is_reelection = models.BooleanField(
