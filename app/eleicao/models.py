@@ -137,5 +137,5 @@ class Voter(models.Model):
 
 
 class EleicaoCarousel(CMSPlugin):
-    title = models.CharField("Título", max_length=50)
-    description = models.CharField("Descrição", max_length=50)
+    title = models.CharField("Título", max_length=120)
+    description = models.CharField("Descrição", max_length=50, null=True, blank=True)
