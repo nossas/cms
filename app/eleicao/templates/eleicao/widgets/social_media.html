@@ -11,7 +11,7 @@
       </select>
     </div>
     <div class="gap-1 font-bold max-w-xs">
-      <input type="text" name="{{widget.name}}{{forloop.counter0}}.url" placeholder="Link do seu perfil" value="{{ value_item.url }}" />
+      <input type="text" name="{{widget.name}}{{forloop.counter0}}.url" placeholder="Link do seu perfil"{% if value_item.url %} value="{{ value_item.url }}"{% endif %} />
     </div>
   </div>
   {% empty %}

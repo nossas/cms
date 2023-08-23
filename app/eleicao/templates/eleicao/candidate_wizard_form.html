@@ -62,9 +62,9 @@
                       {% if "agree" in field.name %}
                         {% include "eleicao/includes/agree_input.html" with field=field %}
                       {% elif field.name == "photo" %}
-                        {% include "eleicao/includes/form_control.html" with field=field help_text_second="No capricho para o seu perfil" %}
+                        {% include "eleicao/includes/form_control.html" with field=field help_text_second="Uma foto ajuda a ter mais visualizações no seu perfil." %}
                       {% elif field.name == "video" %}
-                        {% include "eleicao/includes/form_control.html" with field=field help_text_second="No máximo 30s, beleza?" %}
+                        {% include "eleicao/includes/form_control.html" with field=field help_text_second="Até 30s. Sua chance de dizer porque as pessoas devem votar em você." %}
                       {% else %}
                         {% include "eleicao/includes/form_control.html" with field=field %}
                       {% endif %}
