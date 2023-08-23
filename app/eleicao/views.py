@@ -128,8 +128,8 @@ class CandidateDetailView(DetailView):
         modal = self.request.GET.get("modal")
         candidate = self.object
         if modal:
-            msg_whatsapp_modal = parse.quote( "Olá! Eu me candidatei ao Conselho Tutelar em minha cidade e agora faço parte da plataforma A Eleição do Ano, criada para impulsionar candidaturas alinhadas com o Estatuto da Criança e do Adolescente. Tenho um perfil na plataforma apresentando um pouco sobre mim! Vem conhecer: " + self.request.build_absolute_uri().replace('/?modal_is_open=true', ''))
-            msg_twitter_modal = parse.quote( "Me candidatei ao Conselho Tutelar em minha cidade e agora faço parte da plataforma A Eleição do Ano, criada para impulsionar candidaturas alinhadas com o Estatuto da Criança e do Adolescente. Tenho um perfil na plataforma, vem conhecer: " + self.request.build_absolute_uri().replace('/?modal_is_open=true', ''))
+            msg_whatsapp_modal = parse.quote( "Olá! Eu me candidatei ao Conselho Tutelar em minha cidade e agora faço parte da plataforma A Eleição do Ano, criada para impulsionar candidaturas alinhadas com o Estatuto da Criança e do Adolescente. Tenho um perfil na plataforma apresentando um pouco sobre mim! Vem conhecer: " + self.request.build_absolute_uri().replace('/?modal=true', ''))
+            msg_twitter_modal = parse.quote( "Me candidatei ao Conselho Tutelar em minha cidade e agora faço parte da plataforma A Eleição do Ano, criada para impulsionar candidaturas alinhadas com o ECA. Tenho um perfil na plataforma, vem conhecer: " + self.request.build_absolute_uri().replace('/?modal=true', ''))
             ctx.update({"modal_is_open": True, "msg_whatsapp_modal": msg_whatsapp_modal, "msg_twitter_modal": msg_twitter_modal })
         
         
