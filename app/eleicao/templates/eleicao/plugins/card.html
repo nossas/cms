@@ -1,9 +1,9 @@
 <li class="w-[265px] shadow-sm card bg-base-100 rounded-sm border border-[#E1E1E1]">
   <a href="{% url 'eleicao:candidate_detail' slug=candidate.slug %}" class="flex flex-col">
     {% if candidate.photo %}
-    <img src="{{ candidate.photo.url }}" alt="Foto do(a) candidato(a)" class="object-cover h-[250px] max-w-xs rounded-sm mx-auto md:mx-0">
+    <img src="{{ candidate.photo.url }}" alt="Foto do(a) candidato(a)" class="object-cover aspect-[4/3] h-[250px] rounded-sm mx-auto md:mx-0">
     {% else %}
-    {% include 'eleicao/includes/img.html' with css="object-cover h-[250px] max-w-xs rounded-sm mx-auto md:mx-0" %}
+    {% include 'eleicao/includes/img.html' with css="object-cover aspect-[4/3] h-[250px] rounded-sm mx-auto md:mx-0" %}
     {% endif %}
     <div class="card-body h-[150px]">
       <div class="flex flex-col">
