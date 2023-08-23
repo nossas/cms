@@ -1,7 +1,7 @@
 <main class="candidate-list container mx-auto">
     <section class="list-header">
         <div class="px-5 py-20 text-center text-[#1842AC]">
-            <h1 class="mb-3 text-7xl">Conheça as candidaturas</h1>
+            <h1 class="mb-3 text-5xl md:text-7xl">Conheça as candidaturas</h1>
             <p class="m-auto max-w-xl text-lg">As candidatas e candidatos abaixo assumiram o compromisso com o Estatuto da Criança e do Adolescente ao se cadastrar na plataforma.<p>
         </div>
     </section>
@@ -10,7 +10,7 @@
         <div class="flex flex-col px-5">
             {{ form.as_html }}
             <nav class="py-6 candidates">
-                <ul class="flex flex-wrap gap-4">
+                <ul class="flex flex-wrap gap-4 justify-center md:justify-start">
                     {% for candidate in object_list %}
                         {% include 'eleicao/plugins/card.html' %}
                     {% endfor %}
