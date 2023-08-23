@@ -1,9 +1,11 @@
+{% load static %}
+
 <li class="w-[265px] shadow-sm card bg-base-100 rounded-sm border border-[#E1E1E1]">
   <a href="{% url 'eleicao:candidate_detail' slug=candidate.slug %}" class="flex flex-col">
     {% if candidate.photo %}
-    <img src="{{ candidate.photo.url }}" alt="Foto do(a) candidato(a)" class="object-cover aspect-[4/3] h-[250px] rounded-sm mx-auto md:mx-0">
+    <img src="{{ candidate.photo.url }}" alt="Foto do(a) candidato(a)" class="object-cover aspect-[4/3] h-[250px] rounded-sm mx-auto md:mx-0" />
     {% else %}
-    {% include 'eleicao/includes/img.html' with css="object-cover aspect-[4/3] h-[250px] rounded-sm mx-auto md:mx-0" %}
+    <img src="{% static 'images/eleicao/profile-placeholder.png' %}" alt="Foto de perfil padrão" class="object-cover aspect-[4/3] h-[250px] rounded-sm mx-auto md:mx-0"/>
     {% endif %}
     <div class="h-[200px] flex flex-col px-6 py-6">
       <h3 class="text-[#93AC70] mb-2">{{candidate.place.city}} - {{candidate.place.state}}</h3>
