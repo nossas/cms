@@ -8,7 +8,6 @@ pattern = re.compile(
 )
 
 
-@register.filter
 def url_parse(value: str, social_media_type):
     """Parse social media URL to standardize"""
     urls = {
@@ -33,3 +32,20 @@ def url_parse(value: str, social_media_type):
         return f"{base_url}{value}"
 
     return value
+
+
+@register.inclusion_tag("eleicao/templatetags/social_media.html")
+def render_social_media(social_media_item: dict):
+    kind = social_media_item.get("kind", None)
+    url = social_media_item.get("url", "")
+
+    if kind and url:
+        return {"url": url_parse(url, kind), "kind": kind}
+    elif url and "instagram" in url:
+        return {"url": url_parse(url, "instagram"), "kind": "instagram"}
+    elif url and "twitter" in url:
+        return {"url": url_parse(url, "twitter"), "kind": "twitter"}
+    elif url and "facebook" in url:
+        return {"url": url_parse(social_media_item.url, "facebook"), "kind": "facebook"}
+
+    return {}

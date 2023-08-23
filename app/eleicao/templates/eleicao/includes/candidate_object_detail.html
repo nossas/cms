@@ -1,3 +1,5 @@
+{% load eleicao_share_tags %}
+
 <section class="container pt-28 pb-12 mx-auto candidate-detail-infos">
 
   <div class="grid grid-cols-1 gap-8 {% if object.photo %}md:grid-cols-3 {% endif %}profile">
@@ -17,7 +19,9 @@
           <p class="py-3">{{object.place.place}}</p>
         </div>
         <div class="flex flex-none gap-8 justify-start px-5 w-full md:gap-4 md:px-0 md:w-auto md:justify-end">
-          {% include "eleicao/includes/candidate_social_media.html" with social_media=object.social_media %}
+          {% for object in object.social_media %}
+            {% render_social_media object %}
+          {% endfor %}
         </div>
       </div>
 

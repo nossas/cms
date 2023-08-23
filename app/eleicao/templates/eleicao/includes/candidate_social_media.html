@@ -1,9 +1,0 @@
-{% load eleicao_share_tags %}
-
-{% for social_media_item in social_media %}
-  <a href="{{ social_media_item.url|url_parse:social_media_item.kind }}">
-    {% with icon_path="eleicao/icons/social-media/"|add:social_media_item.kind|add:".svg" %}
-      {% include icon_path %}
-    {% endwith %}
-  </a>
-{% endfor %}
