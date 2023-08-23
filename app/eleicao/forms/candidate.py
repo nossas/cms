@@ -196,6 +196,16 @@ class PersonalInfo3Form(forms.ModelForm):
             "social_media": SocialMedia(),
         }
 
+    def clean_photo(self):
+        content = self.cleaned_data["photo"]
+
+        if content.content_type not in ["image/png", "image/jpg", "image/jpeg"]:
+            raise forms.ValidationError(
+                "Somente são aceitos arquivos em PNG ou JPEG. Selecione outra imagem, por favor."
+            )
+
+        return content
+
     def clean_video(self):
         content = self.cleaned_data["video"]
         # 50MB
