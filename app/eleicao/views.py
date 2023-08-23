@@ -26,6 +26,8 @@ from .forms.candidate import (
 from .forms.filters import CandidateListFilter
 from .models import Candidate, CandidateStatusChoices
 
+from urllib import parse
+
 # Create your views here.
 
 
@@ -99,6 +101,7 @@ class CandidateCreateView(SessionWizardView):
 
         photo = values.pop("photo")
         video = values.pop("video")
+
         obj = Candidate.objects.create(**values, photo=photo, video=video)
         obj.save()
 
@@ -123,10 +126,17 @@ class CandidateDetailView(DetailView):
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         ctx = super().get_context_data(**kwargs)
         modal = self.request.GET.get("modal")
-
+        candidate = self.object
         if modal:
-            ctx.update({"modal_is_open": True})
-
+            msg_whatsapp_modal = parse.quote( "Olá! Eu me candidatei ao Conselho Tutelar em minha cidade e agora faço parte da plataforma A Eleição do Ano, criada para impulsionar candidaturas alinhadas com o Estatuto da Criança e do Adolescente. Tenho um perfil na plataforma apresentando um pouco sobre mim! Vem conhecer: " + self.request.build_absolute_uri().replace('/?modal_is_open=true', ''))
+            msg_twitter_modal = parse.quote( "Me candidatei ao Conselho Tutelar em minha cidade e agora faço parte da plataforma A Eleição do Ano, criada para impulsionar candidaturas alinhadas com o Estatuto da Criança e do Adolescente. Tenho um perfil na plataforma, vem conhecer: " + self.request.build_absolute_uri().replace('/?modal_is_open=true', ''))
+            ctx.update({"modal_is_open": True, "msg_whatsapp_modal": msg_whatsapp_modal, "msg_twitter_modal": msg_twitter_modal })
+        
+        
+        msg_whatsapp = parse.quote( f"Oie! Tá sabendo da Eleição do Ano? Sim, esse ano temos uma eleição importantíssima: os municípios brasileiros vão eleger conselheiros e conselheiras tutelares no dia 1 de outubro. É o futuro das nossas crianças e adolescentes em jogo! Não fique de fora, conheça {candidate.name}" + self.request.build_absolute_uri())
+        msg_twitter = parse.quote( f"A Eleição do Ano está chegando! É hora de votar pelo futuro das crianças. Conheça {candidate.name} " + self.request.build_absolute_uri())
+       
+        ctx.update({"msg_whatsapp": msg_whatsapp, "msg_twitter": msg_twitter})
         return ctx
 
     def get_queryset(self) -> QuerySet[Any]:

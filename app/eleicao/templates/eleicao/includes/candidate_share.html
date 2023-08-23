@@ -1,11 +1,25 @@
 {% load social_share %}
 
-<div class="flex flex-col gap-4 items-center mx-auto max-w-sm">
-    {% post_to_whatsapp object.get_absolute_url %}
 
-    {% post_to_twitter "A Eleição do Ano está chegando! É hora de votar pelo futuro das crianças. Conheça: {{object.name}}" object.get_absolute_url %}
-  
-    {% post_to_facebook object.get_absolute_url %}
-  
-    {% copy_to_clipboard object.get_absolute_url %}
+<div class="flex flex-col gap-4 items-center mx-auto max-w-sm">
+  {% if modal_is_open %}
+    <a class="btn btn-outline min-w-[270px] rounded-lg text-sm border-none !text-neutral-50 bg-[#71C16A]" href="https://web.whatsapp.com/send?text={{msg_whatsapp_modal}}">
+        {% include "eleicao/icons/whatsapp.svg" %}
+         Compartilhe no Whatsapp
+    </a>
+    <a class="btn btn-outline min-w-[270px] rounded-lg text-sm border-none !text-neutral-50 bg-[#71C16A]" href="https://twitter.com/intent/tweet?text={{msg_twitter_modal}}">
+        {% include "eleicao/icons/twitter.svg" %}
+         Compartilhe no Twitter
+    </a> 
+  {% else %}
+    <a class="btn btn-outline min-w-[270px] rounded-lg text-sm border-none !text-neutral-50 bg-[#71C16A]" href="https://web.whatsapp.com/send?text={{msg_whatsapp}}">
+    {% include "eleicao/icons/whatsapp.svg" %}
+     Compartilhe no Whatsapp
+    </a>
+    <a class="btn btn-outline min-w-[270px] rounded-lg text-sm border-none !text-neutral-50 bg-[#71C16A]" href="https://twitter.com/intent/tweet?text={{msg_twitter}}">
+    {% include "eleicao/icons/twitter.svg" %}
+     Compartilhe no Twitter
+    </a> 
+  {% endif %}
 </div>
+
