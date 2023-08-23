@@ -5,9 +5,10 @@ from django.forms.widgets import CheckboxInput
 from django.template.defaultfilters import filesizeformat
 from django.utils.translation import ugettext_lazy as _
 
-from captcha.fields import ReCaptchaField
+# from captcha.fields import ReCaptchaField
 from captcha.widgets import ReCaptchaV2Checkbox
 
+from .fields import ValidateOnceReCaptchaField
 from .widgets import SocialMedia
 from ..models import Candidate, PollingPlace
 
@@ -30,7 +31,7 @@ class IntroForm(forms.Form):
     title = "Oi, Candidata(o)"
     description = "Em todo o Brasil existem milhares de pessoas que se dedicam ao trabalho nos Conselhos Tutelares para fazer valer os direitos de crianças e adolescentes - a importante e necessária missão de ser conselheiro e conselheira tutelar! Criamos uma plataforma para destacar essas candidaturas e conectá-las aos eleitores da sua região."
 
-    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox())
+    captcha = ValidateOnceReCaptchaField(widget=ReCaptchaV2Checkbox())
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

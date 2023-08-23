@@ -65,8 +65,9 @@ class CandidateCreateView(SessionWizardView):
 
     file_storage = DefaultStorage()
 
-    # model = Candidate
-    # fields = "__all__"
+    def render_done(self, form, **kwargs):
+        revalid = True
+        return super().render_done(form, **kwargs)
 
     def process_step_files(self, form):
         return self.get_form_step_files(form)
@@ -77,6 +78,8 @@ class CandidateCreateView(SessionWizardView):
         values = dict(ChainMap(*values))
 
         # Processar os valores
+        values.pop("captcha")
+
         values.pop("agree")
         values.pop("agree_2")
         values.pop("agree_3")
