@@ -111,6 +111,12 @@ class Candidate(models.Model):
         return self.name.split(" ")[0]
 
     @property
+    def cut_name(self):
+        name = self.name.split(" ")
+        name = name[0] + " " + name[-1]
+        return name
+
+    @property
     def age(self):
         from datetime import date
 
