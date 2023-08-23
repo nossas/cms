@@ -1,25 +1,27 @@
-<section class="container mx-auto candidate-detail-infos pt-28 pb-12">
+<section class="container pt-28 pb-12 mx-auto candidate-detail-infos">
 
   <div class="grid grid-cols-1 gap-8 {% if object.photo %}md:grid-cols-3 {% endif %}profile">
     {% if object.photo %}
     <div class="col-span-1 photo">
       <img src="{{ object.photo.url }}" alt="Foto do(a) candidato(a)"
-        class="object-cover w-[360px] mx-auto md:mx-0 md:w-[480px] aspect-square rounded-sm">
+        class="object-cover w-full px-5 md:px-0 mx-auto md:mx-0 md:w-[480px] aspect-square rounded-sm">
     </div>
     {% endif %}
-    <div class="{% if object.photo %}md:col-span-2 mx-0{% endif %}election-info md:mx-auto">
-      <div class="grid mb-4 md:mb-0 md:justify-center md:grid-cols-2">
-        <div class="px-5 text-blue-800 text md:px-0 mb-4">
+    <div class="{% if object.photo %}md:col-span-2 mx-0{% endif %} election-info md:mx-auto">
+      {% comment %} Dados de Candidate {% endcomment %}
+      <div class="flex flex-wrap gap-4 mb-8 md:mb-0 md:justify-center">
+        <div class="flex-1 px-5 text-blue-800 text md:px-0">
           <h3 class="mt-3 mb-1 text-xl md:text-2xl md:mt-0">{{object.place.city}} - {{object.place.state}}</h3>
-          <h1 class="mb-1 text-5xl md:text-6xl">{{object.name}}</h1>
-          <h2 class="mb-1 text-2xl md:text-4xl" aria-label="Número do(a) candidato(a)">{{object.number}}</h2>
-          <p>{{object.place.place}}</p>
+          <h1 class="text-5xl">{{object.name}}</h1>
+          <h2 class="text-2xl md:text-4xl" aria-label="Número do(a) candidato(a)">{{object.number}}</h2>
+          <p class="py-3">{{object.place.place}}</p>
         </div>
-        <div class="flex gap-4 justify-start px-5 md:px-0 md:justify-end">
+        <div class="flex flex-none gap-8 justify-start px-5 w-full md:gap-4 md:px-0 md:w-auto md:justify-end">
           {% include "eleicao/includes/candidate_social_media.html" with social_media=object.social_media %}
         </div>
       </div>
 
+      {% comment %} Informações adicionais {% endcomment %}
       <div class="grid grid-cols-2 px-5 my-1 mt-2 text-blue-800 capitalize candidate-info md:px-0">
         <div class="flex flex-col gap-1">
           <div class="flex flex-col gap-2 md:flex-row">
@@ -47,6 +49,8 @@
           </div>
         </div>
       </div>
+
+      {% comment %} Minibio {% endcomment %}
       <div class="px-5 py-5 mt-2 minibio md:px-0 md:py-0">
         <p class="text-blue-800">
           {{object.bio}}
