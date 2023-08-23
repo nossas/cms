@@ -8,9 +8,11 @@
     <img src="{% static 'images/eleicao/profile-placeholder.png' %}" alt="Foto de perfil padrão" class="object-cover aspect-[4/3] h-[250px] rounded-sm mx-auto md:mx-0"/>
     {% endif %}
     <div class="h-[200px] flex flex-col px-6 py-6">
-      <h3 class="text-[#93AC70] mb-2">{{candidate.place.city}} - {{candidate.place.state}}</h3>
-      <h1 class="text-2xl">{{candidate.name|title}}</h1>
-      <h2 class="text-2xl font-bold mb-2" aria-label="Número do(a) candidato(a)">{{candidate.number}}</h2>
+      <div class="flex-1">
+        <h3 class="text-[#93AC70] mb-2">{{candidate.place.city}} - {{candidate.place.state}}</h3>
+        <h1 class="text-2xl">{{candidate.cut_name|title}}</h1>
+        <h2 class="text-2xl font-bold mb-2" aria-label="Número do(a) candidato(a)">{{candidate.number}}</h2>
+      </div>
       <p>{{candidate.place.place}}</p>
     </div>
   </a>
