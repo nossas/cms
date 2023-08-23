@@ -1,5 +1,7 @@
+{% load eleicao_share_tags %}
+
 {% for social_media_item in social_media %}
-  <a href="{{ social_media_item.url }}">
+  <a href="{{ social_media_item.url|url_parse:social_media_item.kind }}">
     {% if social_media_item.kind == 'twitter' %}
     <svg width="30" height="24" viewBox="0 0 30 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
