@@ -17,7 +17,7 @@ def get_choices(uf, city=None):
         else:
             choices.append((address.city, address.city.title()))
 
-    return list(set(choices))
+    return list(sorted(set(choices)))
 
 
 def fetch_cep(request):
@@ -26,9 +26,9 @@ def fetch_cep(request):
     # name = request.GET.get("name")
 
     if state and city:
-        qs = PollingPlace.objects.filter(
-            state=state, city=city
-        ).values_list("id", "place")
+        qs = PollingPlace.objects.filter(state=state, city=city).values_list(
+            "id", "place"
+        )
 
         choices = list(map(lambda x: x, qs))
     else:
