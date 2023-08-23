@@ -10,7 +10,7 @@
         <div class="flex flex-col px-5">
             {{ form.as_html }}
             <nav class="py-6 candidates">
-                <ul class="grid grid-cols-5 gap-6">
+                <ul class="flex flex-wrap gap-4">
                     {% for candidate in object_list %}
                         {% include 'eleicao/plugins/card.html' %}
                     {% endfor %}
