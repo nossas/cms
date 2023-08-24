@@ -54,7 +54,7 @@ class CandidateStatusChoices(models.TextChoices):
 class Candidate(models.Model):
     BOOL_CHOICES = ((True, "Sim"), (False, "Não"))
 
-    slug = models.SlugField("Seu link personalizado", max_length=120, unique=True)
+    slug = models.SlugField("Seu link personalizado", max_length=120)
     name = models.CharField("Nome completo", max_length=120)
     bio = models.TextField("Minibio")
     email = models.EmailField("Email")
@@ -84,7 +84,7 @@ class Candidate(models.Model):
     )
     race = models.CharField("Raça", choices=RaceChoices.choices, max_length=30, null=True, blank=True)
     social_media = models.JSONField("Rede social", null=True, blank=True)
-    number = models.PositiveIntegerField("Numero de voto")
+    number = models.PositiveIntegerField("Numero de voto", null=True, blank=True)
     is_reelection = models.BooleanField(
         "Está se candidatando para reeleição?", default=False, choices=BOOL_CHOICES
     )

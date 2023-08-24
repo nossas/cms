@@ -127,6 +127,16 @@ class PersonalInfo1Form(forms.ModelForm):
             "slug": forms.TextInput({"placeholder": "seunome"}),
         }
 
+    def clean_slug(self):
+        slug = self.cleaned_data["slug"]
+        email = self.cleaned_data["email"]
+        candidate = Candidate.objects.filter(slug=slug)
+        if candidate and email != candidate[0].email:
+            raise forms.ValidationError(
+                "Candidate com este link personalizado já existe."
+            )
+        return slug
+
 
 class CandidatureForm(forms.ModelForm):
     title = "Sua candidatura"
@@ -134,6 +144,7 @@ class CandidatureForm(forms.ModelForm):
     number = forms.IntegerField(
         label="Número da sua candidatura",
         widget=forms.TextInput({"placeholder": "Seu número de voto"}),
+        required=False,
     )
     is_reelection = forms.BooleanField(
         label="Está se candidatando para reeleição?",

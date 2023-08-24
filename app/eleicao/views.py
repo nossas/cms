@@ -101,8 +101,30 @@ class CandidateCreateView(SessionWizardView):
 
         photo = values.pop("photo")
         video = values.pop("video")
+        
+        find_candidate = Candidate.objects.filter(email = values["email"])
+        if find_candidate: 
+          obj = find_candidate[0]
+          obj.name = values["name"]
+          obj.bio = values["bio"]
+          obj.birth = values["birth"]
+          obj.occupation = values["occupation"]
+          if photo :
+            obj.photo = photo
+          if video: 
+            obj.video = video
+             
+          obj.gender = values["gender"]
+          obj.is_trans = values["is_trans"]
+          obj.race = values["race"]
+          obj.social_media = values["social_media"]
+          obj.number = values["number"]
+          obj.is_reelection = values["is_reelection"]
+          obj.place_id = values["place_id"]
 
-        obj = Candidate.objects.create(**values, photo=photo, video=video)
+        else: 
+          obj = Candidate.objects.create(**values, photo=photo, video=video)
+              
         obj.save()
 
         # Integrate with Bonde
@@ -163,18 +185,21 @@ class ResultsCandidateView(ListView):
 # Sugerir uma slug
 def suggest_slug(request):
     name = request.GET.get("name")
+    email = request.GET.get("email")
+    #import ipdb; ipdb.set_trace()
+    # verificar se o candidato existe 
+    candidate = Candidate.objects.filter(email = email)
+    if candidate:
+       return JsonResponse({"slug": candidate[0].slug})
+    
     slug = slugify(name).replace("-", "")
     suggestion = slug
-    list_candidate = Candidate.objects.filter(
-        status=CandidateStatusChoices.published
-    ).filter(slug=slug)
+    list_candidate = Candidate.objects.filter(slug=slug)
     total = list_candidate.count()
     sufix = 1
     while total > 0:
         suggestion = slug + f"{sufix}"
-        list_candidate = Candidate.objects.filter(
-            status=CandidateStatusChoices.published
-        ).filter(slug=suggestion)
+        list_candidate = Candidate.objects.filter(slug=suggestion)
         total = list_candidate.count()
         sufix = sufix + 1
 
