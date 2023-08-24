@@ -45,6 +45,7 @@ class EleicaoCandidateListPlugin(CMSPluginBase):
     module = "A Eleição do Ano"
     render_template = "eleicao/plugins/candidate_list.html"
     per_page = 20
+    cache = False
 
     def render(self, context, instance, placeholder):
         ctx = super().render(context, instance, placeholder)
