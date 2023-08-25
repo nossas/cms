@@ -127,16 +127,6 @@ class PersonalInfo1Form(forms.ModelForm):
             "slug": forms.TextInput({"placeholder": "seunome"}),
         }
 
-    def clean_slug(self):
-        slug = self.cleaned_data["slug"]
-        email = self.cleaned_data["email"]
-        candidate = Candidate.objects.filter(slug=slug)
-        if candidate and email != candidate[0].email:
-            raise forms.ValidationError(
-                "Candidate com este link personalizado já existe."
-            )
-        return slug
-
 
 class CandidatureForm(forms.ModelForm):
     title = "Sua candidatura"
@@ -209,8 +199,8 @@ class PersonalInfo3Form(forms.ModelForm):
 
     def clean_photo(self):
         content = self.cleaned_data["photo"]
-
-        if content.content_type not in ["image/png", "image/jpg", "image/jpeg"]:
+        if content:
+          if content.content_type not in ["image/png", "image/jpg", "image/jpeg"]:
             raise forms.ValidationError(
                 "Somente são aceitos arquivos em PNG ou JPEG. Selecione outra imagem, por favor."
             )

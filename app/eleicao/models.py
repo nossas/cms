@@ -54,10 +54,10 @@ class CandidateStatusChoices(models.TextChoices):
 class Candidate(models.Model):
     BOOL_CHOICES = ((True, "Sim"), (False, "Não"))
 
-    slug = models.SlugField("Seu link personalizado", max_length=120)
+    slug = models.SlugField("Seu link personalizado", max_length=120, unique=True)
     name = models.CharField("Nome completo", max_length=120)
     bio = models.TextField("Minibio")
-    email = models.EmailField("Email")
+    email = models.EmailField("Email", unique=True)
     birth = models.DateField("Data de nascimento")
     occupation = models.CharField("Profissão", max_length=100)
     photo = models.FileField(
