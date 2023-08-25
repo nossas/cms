@@ -120,6 +120,11 @@
         name =  $("#id_3-name").val()
         $.get("{% url 'eleicao:slug' %}" + "?email=" + evt.target.value + "&name=" + name, (data) => {
           $("#id_3-slug").val(data.slug)
+          if (data.disable)  {
+            $("#id_3-slug").attr('disabled','disabled');
+         } else {
+            $("#id_3-slug").removeAttr('disabled');
+         }
          })
       });
     });

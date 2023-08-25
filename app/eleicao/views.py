@@ -190,7 +190,7 @@ def suggest_slug(request):
     # verificar se o candidato existe 
     candidate = Candidate.objects.filter(email = email)
     if candidate:
-       return JsonResponse({"slug": candidate[0].slug})
+       return JsonResponse({"slug": candidate[0].slug, "disable": True})
     
     slug = slugify(name).replace("-", "")
     suggestion = slug
