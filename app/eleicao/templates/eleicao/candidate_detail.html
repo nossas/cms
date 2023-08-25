@@ -50,7 +50,7 @@
   {% endif %}
 
   {% with "O que esperar de "|add:object.short_name as title %}
-  {% include "eleicao/plugins/carousel.html" with title=title description="Ao se cadastrar na Eleição do Ano, Mariana assumiu o compromisso com as diretrizes do ECA abaixo:" %}
+  {% include "eleicao/plugins/carousel.html" with title=title description="Ao se cadastrar na Eleição do Ano, {{ object.short_name }} assumiu o compromisso com as diretrizes do ECA abaixo:" %}
   {% endwith %}
 
   <section class="px-5 py-16 candidate-detail-share">
@@ -79,7 +79,14 @@
       $("dialog.modal .modal-backdrop").click(() => {
         $dialog.removeClass('modal-open');
       });
-    });
+
+    });  
+      
   }(window.jQuery));
+
+ 
+    
+  
+
 </script>
 {% endblock %}
