@@ -57,6 +57,7 @@ class EleicaoCandidateListPlugin(CMSPluginBase):
         qs = Candidate.objects.filter(status=CandidateStatusChoices.published)
         filter_state = request.GET.get("uf", None)
         if filter_state:
+            ctx["filter_state"] = filter_state
             qs = qs.filter(place__state__iexact=filter_state)
 
         page_number = request.GET.get("page", 1)
