@@ -103,6 +103,7 @@ class CandidateCreateView(SessionWizardView):
         video = values.pop("video")
 
         obj = Candidate.objects.create(**values, photo=photo, video=video)
+                      
         obj.save()
 
         # Integrate with Bonde
@@ -162,19 +163,15 @@ class ResultsCandidateView(ListView):
 
 # Sugerir uma slug
 def suggest_slug(request):
-    name = request.GET.get("name")
+    name = request.GET.get("name")    
     slug = slugify(name).replace("-", "")
     suggestion = slug
-    list_candidate = Candidate.objects.filter(
-        status=CandidateStatusChoices.published
-    ).filter(slug=slug)
+    list_candidate = Candidate.objects.filter(slug=slug)
     total = list_candidate.count()
     sufix = 1
     while total > 0:
         suggestion = slug + f"{sufix}"
-        list_candidate = Candidate.objects.filter(
-            status=CandidateStatusChoices.published
-        ).filter(slug=suggestion)
+        list_candidate = Candidate.objects.filter(slug=suggestion)
         total = list_candidate.count()
         sufix = sufix + 1
 

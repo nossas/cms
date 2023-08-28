@@ -117,7 +117,7 @@
 
       //fill up slug
       $("#id_3-name").on("change", (evt) => {
-        $.get("{% url 'eleicao:slug' %}" + "?name=" + evt.target.value, (data) => {
+        $.get("{% url 'eleicao:slug' %}" + "?name=" +  evt.target.value, (data) => {
           $("#id_3-slug").val(data.slug)
          })
       });

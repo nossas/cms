@@ -57,7 +57,7 @@ class Candidate(models.Model):
     slug = models.SlugField("Seu link personalizado", max_length=120, unique=True)
     name = models.CharField("Nome completo", max_length=120)
     bio = models.TextField("Minibio")
-    email = models.EmailField("Email")
+    email = models.EmailField("Email", unique=True)
     birth = models.DateField("Data de nascimento")
     occupation = models.CharField("Profissão", max_length=100)
     photo = models.FileField(
@@ -84,7 +84,7 @@ class Candidate(models.Model):
     )
     race = models.CharField("Raça", choices=RaceChoices.choices, max_length=30, null=True, blank=True)
     social_media = models.JSONField("Rede social", null=True, blank=True)
-    number = models.PositiveIntegerField("Numero de voto")
+    number = models.PositiveIntegerField("Numero de voto", null=True, blank=True)
     is_reelection = models.BooleanField(
         "Está se candidatando para reeleição?", default=False, choices=BOOL_CHOICES
     )
@@ -99,6 +99,11 @@ class Candidate(models.Model):
     )
 
     place = models.ForeignKey(PollingPlace, on_delete=models.CASCADE)
+
+
+    class Meta:
+        verbose_name = "Candidatura"
+        verbose_name_plural = "Candidaturas"
 
     def __str__(self):
         return self.name

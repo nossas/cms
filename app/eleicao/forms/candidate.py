@@ -134,6 +134,7 @@ class CandidatureForm(forms.ModelForm):
     number = forms.IntegerField(
         label="Número da sua candidatura",
         widget=forms.TextInput({"placeholder": "Seu número de voto"}),
+        required=False,
     )
     is_reelection = forms.BooleanField(
         label="Está se candidatando para reeleição?",
@@ -198,8 +199,8 @@ class PersonalInfo3Form(forms.ModelForm):
 
     def clean_photo(self):
         content = self.cleaned_data["photo"]
-
-        if content.content_type not in ["image/png", "image/jpg", "image/jpeg"]:
+        if content:
+          if content.content_type not in ["image/png", "image/jpg", "image/jpeg"]:
             raise forms.ValidationError(
                 "Somente são aceitos arquivos em PNG ou JPEG. Selecione outra imagem, por favor."
             )
