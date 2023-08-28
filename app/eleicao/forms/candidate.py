@@ -126,6 +126,14 @@ class PersonalInfo1Form(forms.ModelForm):
             "email": forms.EmailInput({"placeholder": "Seu email"}),
             "slug": forms.TextInput({"placeholder": "seunome"}),
         }
+        error_messages = {
+            "email": {
+                "unique": "Já existe uma candidatura cadastrada com esse e-mail."
+            },
+            "slug": {
+                "unique": "Candidatura com este link personalizado já existe."
+            }
+        }
 
 
 class CandidatureForm(forms.ModelForm):
@@ -200,10 +208,10 @@ class PersonalInfo3Form(forms.ModelForm):
     def clean_photo(self):
         content = self.cleaned_data["photo"]
         if content:
-          if content.content_type not in ["image/png", "image/jpg", "image/jpeg"]:
-            raise forms.ValidationError(
-                "Somente são aceitos arquivos em PNG ou JPEG. Selecione outra imagem, por favor."
-            )
+            if content.content_type not in ["image/png", "image/jpg", "image/jpeg"]:
+                raise forms.ValidationError(
+                    "Somente são aceitos arquivos em PNG ou JPEG. Selecione outra imagem, por favor."
+                )
 
         return content
 
