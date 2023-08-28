@@ -100,6 +100,11 @@ class Candidate(models.Model):
 
     place = models.ForeignKey(PollingPlace, on_delete=models.CASCADE)
 
+
+    class Meta:
+        verbose_name = "Candidatura"
+        verbose_name_plural = "Candidaturas"
+
     def __str__(self):
         return self.name
 
