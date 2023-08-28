@@ -39,7 +39,7 @@
 
   {% if object.video %}
   <section class="py-16 bg-[#EDB052] candidate-detail-video text-blue-800 px-12 md:px-0">
-    <h1 class="flex justify-center mb-4 text-3xl text-center uppercase md:text-4xl">O que {{ object.short_name }} tem pra dizer</h1>
+    <h1 class="flex justify-center mb-4 text-3xl text-center md:text-4xl">O que {{ object.short_name|title }} tem pra dizer</h1>
     <div class="flex justify-center items-center">
       <video controls width="640" height="360" alt="Vídeo do candidato">
         <source src="{{ object.video.url }}" type="video/mp4">

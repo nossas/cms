@@ -1,20 +1,20 @@
 {% load eleicao_share_tags %}
 
-<section class="container pt-28 pb-12 mx-auto candidate-detail-infos">
+<section class="container pt-20 md:pt-28 pb-12 mx-auto candidate-detail-infos">
 
-  <div class="grid grid-cols-1 gap-8 {% if object.photo %}md:grid-cols-3 {% endif %}profile">
+  <div class="flex flex-col md:flex-row gap-8 profile">
     {% if object.photo %}
-    <div class="col-span-1 photo">
+    <div class="photo">
       <img src="{{ object.photo.url }}" alt="Foto do(a) candidato(a)"
         class="object-cover w-full px-5 md:px-0 mx-auto md:mx-0 md:w-[480px] aspect-square rounded-sm">
     </div>
     {% endif %}
-    <div class="{% if object.photo %}md:col-span-2 mx-0{% endif %} election-info md:mx-auto">
+    <div class="flex-1 election-info">
       {% comment %} Dados de Candidate {% endcomment %}
       <div class="flex flex-wrap gap-4 mb-8 md:mb-0 md:justify-center">
         <div class="flex-1 px-5 text md:px-0">
           <h3 class="text-[#93AC70] mt-3 mb-1 text-xl md:text-2xl md:mt-0">{{object.place.city}} - {{object.place.state}}</h3>
-          <h1 class="text-5xl text-blue-800">{{object.name}}</h1>
+          <h1 class="text-5xl text-blue-800">{{object.name|title}}</h1>
           <h2 class="text-2xl text-blue-800 md:text-4xl" aria-label="Número do(a) candidato(a)">{%if object.number %}{{object.number}}{% endif %} </h2>
           <p class="py-3 text-blue-800">{{object.place.place}}</p>
         </div>
