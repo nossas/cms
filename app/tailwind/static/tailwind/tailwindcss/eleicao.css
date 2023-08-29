@@ -141,26 +141,20 @@
 }
 
 .aeleicaodoano .form-control .commitment-tooltip.tooltip.tooltip-bottom:hover::before {
-  visibility: hidden;
-  background-color: transparent;
-  opacity: 0;
+  @apply hidden bg-transparent opacity-0;
 }
 
 .aeleicaodoano .form-control .commitment-tooltip.tooltip.tooltip-bottom:hover::after {
-  visibility: hidden;
-  background-color: transparent;
-  opacity: 0;
+  @apply hidden bg-transparent opacity-0;
 }
 
 .aeleicaodoano .form-control .commitment-tooltip.tooltip.tooltip-bottom.tooltip-open:hover::before {
-  visibility: visible;
+  @apply visible opacity-100;
   background-color: var(--tooltip-color);
-  opacity: 1;
 }
 
 .aeleicaodoano .form-control .commitment-tooltip.tooltip.tooltip-bottom.tooltip-open:hover::after {
-  visibility: visible;
-  opacity: 1;
+  @apply visible opacity-100;
 }
 
 .aeleicaodoano .btn-share,
@@ -195,4 +189,8 @@
 .aeleicaodoano .carousel-slide {
   flex: 0 0 100%;
   @apply p-5;
+}
+
+.aeleicaodoano .navbar a {
+  text-shadow: 0 0.2px 1px rgba(0, 0, 0, 0.2);
 }

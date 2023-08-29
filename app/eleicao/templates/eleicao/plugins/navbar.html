@@ -1,6 +1,6 @@
 {% load static eleicao_menu_tags %}
 
-<nav class="flex fixed justify-between items-center px-5 w-full bg-[#FFFFFF30] md:px-12 navbar lg:justify-start z-10">
+<nav class="h-12 flex fixed justify-between items-center px-5 w-full bg-[#EFEFEF30] md:px-12 navbar lg:justify-start z-10 shadow-sm">
     <a href="/">
         <img class="w-[213px]" src="{% static 'images/eleicao/logo-eleicao.png' %}" alt="Eleição do Ano">
     </a>
@@ -13,6 +13,6 @@
         <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/>
       </svg>
     </label>
-    {% show_menu request "menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52" %}
+    {% show_menu request "menu dropdown-content mt-5 p-2 shadow-lg bg-base-100 rounded-box w-52" %}
   </div>
 </nav>

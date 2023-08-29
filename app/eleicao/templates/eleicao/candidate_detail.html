@@ -19,18 +19,15 @@
 <main class="bg-white candidate-detail">
   <!-- Modal -->
   <!-- Open the modal using ID.showModal() method -->
-  <dialog id="my_modal_2" class="w-full px-0 modal{% if modal_is_open %} modal-open{% endif %}">
+  <dialog id="my_modal_2" class="w-full px-0 modal !m-0 h-full {% if modal_is_open %} modal-open{% endif %}">
     <form method="dialog" class="m-auto w-full modal-box md:w-auto">
       <div class="flex flex-col mt-6 text-center text-blue-800">
-        <button class="absolute top-2 right-2 btn btn-sm btn-circle btn-ghost">✕</button>
-        <h3 class="mb-4 :text-3xl md:text-5xl">Perfil cadastrado 🎉</h3>
+        <button class="absolute top-2 right-2 btn btn-sm btn-circle btn-ghost" aria-label="Fechar modal">X</button>
+        <h3 class="mb-4 text-3xl md:text-4xl">Perfil cadastrado 🎉</h3>
         <p class="mb-2 text-xl font-bold">{{ request.scheme }}://{{ request.META.HTTP_HOST }}{{ request.path }}</p>
         <p class="mb-2 text-lg">Agora é só divulgar nas redes</p>
       </div>
       {% include 'eleicao/includes/candidate_share.html' with object=object %}
-    </form>
-    <form method="dialog" class="modal-backdrop">
-      <button>close</button>
     </form>
   </dialog>
 
