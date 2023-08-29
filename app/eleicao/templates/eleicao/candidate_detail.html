@@ -6,6 +6,12 @@
   integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 {% endblock %}
 
+{% block meta %}
+<meta property="og:title" content="Eu vou participar da Eleição do Ano, e você?" />
+<meta property="og:description" content="Faça a diferença na vida de nossas crianças e adolescentes" />
+<meta property="og:image" content="{% static 'images/eleicao/eleicao-facebook-thumbnail.jpg' %}" />
+{% endblock %}
+
 {% block favicon %}
 <link rel="shortcut icon" href="{% static 'images/eleicao/favicon.png' %}" type="image/x-icon">
 {% endblock %}
@@ -21,13 +27,12 @@
   <!-- Open the modal using ID.showModal() method -->
   <dialog id="my_modal_2" class="w-full px-0 modal !m-0 h-full {% if modal_is_open %} modal-open{% endif %}">
     <form method="dialog" class="m-auto w-full modal-box md:w-auto">
-      <div class="flex flex-col mt-6 text-center text-blue-800">
         <button class="absolute top-2 right-2 btn btn-sm btn-circle btn-ghost" aria-label="Fechar modal">X</button>
-        <h3 class="mb-4 text-3xl md:text-4xl">Perfil cadastrado 🎉</h3>
+        <h3 class="mb-4 :text-3xl md:text-5xl">Perfil cadastrado 🎉</h3>
         <p class="mb-2 text-xl font-bold">{{ request.scheme }}://{{ request.META.HTTP_HOST }}{{ request.path }}</p>
         <p class="mb-2 text-lg">Agora é só divulgar nas redes</p>
       </div>
-      {% include 'eleicao/includes/candidate_share.html' with object=object %}
+      {% include 'eleicao/includes/candidate_share.html' with object=object is_alternative_msg=True %}
     </form>
   </dialog>
 
@@ -62,6 +67,8 @@
 {% endblock %}
 
 {% block footer_js %}
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v17.0" nonce="SpgP9vDj"></script>
 <script>
   (function ($) {
     "use strict";
