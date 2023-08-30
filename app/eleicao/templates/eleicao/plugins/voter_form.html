@@ -43,28 +43,5 @@
 <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="{% static 'js/jquery-mask/jquery.mask.min.js' %}"></script>
-<script>
-  $('#id_state').select2({
-    placeholder: 'Selecione seu estado'
-  });
-  $('#id_city').select2({
-    placeholder: 'Cidade onde você vota'
-  });
-
-  var uf;
-  $("#id_state").on("change", (evt) => {
-    uf = evt.target.value;
-
-    $.get("{% url 'eleicao:cep' %}" + "?state=" + uf, (data) => {
-      $("#id_city").empty()
-      $("#id_city").append('<option value="">----</option>')
-      $.each(data.choices, (index, value) => {
-        $("#id_city").append(
-          '<option value="' + value[0] + '">' + value[1] + '</option>'
-        );
-      });
-    });
-  });
-
-</script>
+<script src="{% static 'js/widgets/cep-fields.js' %}"></script>
 {% endaddtoblock %}
