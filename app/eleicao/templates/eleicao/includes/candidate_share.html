@@ -3,17 +3,24 @@
 
 <div class="flex flex-col gap-4 items-center mx-auto max-w-sm">
     <div class="whatsapp-this btn-share">
-      <a href="https://web.whatsapp.com/send?text={% if modal_is_open %}{{ msg_whatsapp_modal }}{% else %}{{ msg_whatsapp }}{% endif %}" class="{{ link_class }} btn !bg-[#71C16A]" target="_blank">
+      <a href="https://web.whatsapp.com/send?text={% if is_alternative_msg %}{{ msg_whatsapp_modal }}{% else %}{{ msg_whatsapp }}{% endif %}" class="{{ link_class }} btn !bg-[#71C16A]" target="_blank">
         {% include 'eleicao/icons/social-media/whatsapp.svg' %}
         <span>Compartilhe no Whatsapp</span>
       </a>
     </div>
     <div class="tweet-this btn-share">
-      <a href="https://twitter.com/intent/tweet?text={% if modal_is_open %}{{ msg_twitter_modal }}{% else %}{{ msg_twitter }}{% endif %}" class="meta-act-link meta-tweet btn !bg-[#3C9CD8] {{ link_class }}" target="_blank">
+      <a href="https://twitter.com/intent/tweet?text={% if is_alternative_msg %}{{ msg_twitter_modal }}{% else %}{{ msg_twitter }}{% endif %}" class="meta-act-link meta-tweet btn !bg-[#3C9CD8] {{ link_class }}" target="_blank">
         {% include 'eleicao/icons/social-media/twitter-share.svg' %}
         <span>Compartilhe no Twitter</span>
       </a>
     </div>
+    <div class="facebook-this btn-share" data-href="{{ candidate_url }}" data-layout="" data-size="">
+      <a class="btn !bg-[#395AA1] {{ link_class }}" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ url_facebook_modal }}" class="fb-xfb ml-parse-ignore">
+        {% include 'eleicao/icons/social-media/facebook-share.svg' %}
+        <span>Compartilhar no Facebook</span>
+      </a>
+    </div>
+
     <div class="btn-share copy-this">
       <button id="copyButton" onclick="copyURL()" class="btn !bg-[#EDB052] {{ link_class }}">
         {% include 'eleicao/icons/social-media/copy-btn.svg' %}

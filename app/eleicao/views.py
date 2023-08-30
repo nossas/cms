@@ -122,20 +122,32 @@ class CandidateCreateView(SessionWizardView):
 class CandidateDetailView(DetailView):
     template_name = "eleicao/candidate_detail.html"
     model = Candidate
+    
+    def modal_flag(self, candidate_url: str, modal: str) -> str:
+        if modal:
+            return candidate_url.replace("?modal=true", "")
+        return candidate_url
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         ctx = super().get_context_data(**kwargs)
         modal = self.request.GET.get("modal")
+        candidate_url = self.request.build_absolute_uri()
         candidate = self.object
+
+        ctx.update({
+            "msg_copy_link": parse.quote(candidate_url),
+            "url_facebook_modal": parse.quote(self.modal_flag(candidate_url, modal) + "&amp;src=sdkpreparse"),
+        })
+
         if modal:
             msg_whatsapp_modal = parse.quote(
                 "Olá! Eu me candidatei ao Conselho Tutelar em minha cidade e agora faço parte da plataforma A Eleição do Ano, criada para impulsionar candidaturas alinhadas com o Estatuto da Criança e do Adolescente. Tenho um perfil na plataforma apresentando um pouco sobre mim! Vem conhecer: "
                 + "\n"
-                + self.request.build_absolute_uri().replace("/?modal=true", "")
+                + self.modal_flag(candidate_url, modal)
             )
             msg_twitter_modal = parse.quote(
                 "Me candidatei ao Conselho Tutelar em minha cidade e agora faço parte da plataforma A Eleição do Ano, criada para impulsionar candidaturas alinhadas com o Estatuto da Criança e do Adolescente. Tenho um perfil na plataforma, vem conhecer: "
-                + self.request.build_absolute_uri().replace("/?modal=true", "")
+                + self.modal_flag(candidate_url, modal)
             )
             ctx.update(
                 {
@@ -144,23 +156,20 @@ class CandidateDetailView(DetailView):
                     "msg_twitter_modal": msg_twitter_modal,
                 }
             )
-
         msg_whatsapp = parse.quote(
             f"Oie! Tá sabendo da Eleição do Ano? Sim, esse ano temos uma eleição importantíssima: os municípios brasileiros vão eleger conselheiros e conselheiras tutelares no dia 1 de outubro. É o futuro das nossas crianças e adolescentes em jogo! Não fique de fora, conheça {candidate.name}"
             + "\n"
-            + self.request.build_absolute_uri()
+            + self.modal_flag(candidate_url, modal)
         )
         msg_twitter = parse.quote(
             f"A Eleição do Ano está chegando! É hora de votar pelo futuro das crianças. Conheça {candidate.name} "
-            + self.request.build_absolute_uri()
+            + self.modal_flag(candidate_url, modal)
         )
-        msg_copy_link = parse.quote(self.request.build_absolute_uri())
 
         ctx.update(
             {
                 "msg_whatsapp": msg_whatsapp,
                 "msg_twitter": msg_twitter,
-                "msg_copy_link": msg_copy_link,
             }
         )
         return ctx
