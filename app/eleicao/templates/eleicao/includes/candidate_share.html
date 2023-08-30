@@ -22,4 +22,6 @@
     </div>
 </div>
 
-<script src="{% static 'js/copy-to-clipboard.js' %}"></script>
+{% block footer_js %}
+  <script src="{% static 'js/copy-to-clipboard.js' %}"></script>
+{% endblock %}
