@@ -1,11 +1,13 @@
-{% load sekizai_tags static social_share %}
+{% load sekizai_tags static social_share eleicao_candidate_tags %}
 
 {% addtoblock "css" %}
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 {% endaddtoblock %}
 
 <div>
-  {% if success %}
+  {% if success and voter %}
+    {% render_candidate_list voter=voter %}
+  {% elif success %}
   <div class="flex flex-col gap-4 items-center">
     <h2 class="text-blue-800 text-3xl mb-2">Valeu!</h2>
     <p class="text-blue-800 text-center text-lg md:max-w-[460px]">Assim que tivermos coletado candidaturas vamos te avisar. Por enquanto, você pode colaborar divulgando A Eleição do Ano: quanto mais gente participar, mais nossas crianças e adolescentes serão protegidos.</p>
@@ -17,23 +19,23 @@
     </div>
   </div>
   {% else %}
-  <div class="flex flex-col gap-2">
-    <h2 class="text-blue-800 text-3xl mb-2 text-center">Me avise quando a plataforma de conexão estiver pronta</h2>
-    <form class="flex flex-col gap-4" method="post" action="." novalidate>
-      {% csrf_token %}
-      <div class="fields">
-      {% for field in form %}
-        {% include "eleicao/includes/form_control.html" with field=field %}
-      {% endfor %}
-      </div>
-
-      <button  type="submit" class="btn w-full bg-[#93AC70] hover:bg-[#758e53] text-white">Vou votar na Eleição do Ano</button>
-
-      <p>Ao inserir seus dados, você concorda em ter seus dados compartilhados com os organizadores dessa página e aceita
-        receber emails de atualização, conforme descrito na <a class="underline" href="{% static 'politica-de-privacidade.pdf' %}" target="_blank">política de privacidade</a>. Você pode cancelar o recebimento
-        desses e-mails a qualquer momento.</p>
-    </form>
-  </div>
+    <div class="flex flex-col gap-2">
+      <h2 class="text-blue-800 text-3xl mb-2 text-center">Me avise quando a plataforma de conexão estiver pronta</h2>
+      <form class="flex flex-col gap-4" method="post" action="." novalidate>
+        {% csrf_token %}
+        <div class="fields">
+        {% for field in form %}
+          {% include "eleicao/includes/form_control.html" with field=field %}
+        {% endfor %}
+        </div>
+  
+        <button  type="submit" class="btn w-full bg-[#93AC70] hover:bg-[#758e53] text-white">Vou votar na Eleição do Ano</button>
+  
+        <p>Ao inserir seus dados, você concorda em ter seus dados compartilhados com os organizadores dessa página e aceita
+          receber emails de atualização, conforme descrito na <a class="underline" href="{% static 'politica-de-privacidade.pdf' %}" target="_blank">política de privacidade</a>. Você pode cancelar o recebimento
+          desses e-mails a qualquer momento.</p>
+      </form>
+    </div>
   {% endif %}
 </div>
 
