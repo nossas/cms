@@ -42,8 +42,12 @@ class PollingPlace(models.Model):
     city = models.CharField("Cidade", max_length=80)
     reference = models.TextField(null=True, blank=True)
 
+    class Meta:
+        verbose_name = "Local de Votação"
+        verbose_name_plural = "Locais de Votação"
+
     def __str__(self):
-        return self.place
+        return f"{self.place} - {self.state}"
 
 
 class CandidateStatusChoices(models.TextChoices):
@@ -74,7 +78,9 @@ class Candidate(models.Model):
         upload_to="candidaturas/videos/",
         help_text="Carregue um vídeo de até 30 segundos na posição horizontal, escolhendo entre os formatos MP4, AVI ou MOV. 🎥📽️",
     )
-    gender = models.CharField("Gênero", choices=GenderChoices.choices, max_length=30, null=True, blank=True)
+    gender = models.CharField(
+        "Gênero", choices=GenderChoices.choices, max_length=30, null=True, blank=True
+    )
     is_trans = models.BooleanField(
         "Se identifica como pessoa transgênero/transexual?",
         default=False,
@@ -82,15 +88,15 @@ class Candidate(models.Model):
         null=True,
         blank=True,
     )
-    race = models.CharField("Raça", choices=RaceChoices.choices, max_length=30, null=True, blank=True)
+    race = models.CharField(
+        "Raça", choices=RaceChoices.choices, max_length=30, null=True, blank=True
+    )
     social_media = models.JSONField("Rede social", null=True, blank=True)
     number = models.PositiveIntegerField("Numero de voto", null=True, blank=True)
     is_reelection = models.BooleanField(
         "Está se candidatando para reeleição?", default=False, choices=BOOL_CHOICES
     )
-    lgpd = models.BooleanField(
-        "Aviso de Privacidade", default=False
-    )
+    lgpd = models.BooleanField("Aviso de Privacidade", default=False)
     status = models.CharField(
         "Status",
         max_length=30,
@@ -99,7 +105,6 @@ class Candidate(models.Model):
     )
 
     place = models.ForeignKey(PollingPlace, on_delete=models.CASCADE)
-
 
     class Meta:
         verbose_name = "Candidatura"
@@ -143,7 +148,17 @@ class Voter(models.Model):
     )
     city = models.CharField("Cidade", max_length=100, null=True, blank=True)
 
-    # zone = models.ForeignKey(PollingPlace, on_delete=models.CASCADE)
+    place = models.ForeignKey(
+        PollingPlace,
+        verbose_name="Local de votação",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Eleitor(a)"
+        verbose_name_plural = "Eleitores"
 
     # def get_absolute_url(self):
     #     return f"/querovotar/resultado/?zone={self.zone.id}"
