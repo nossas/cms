@@ -1,1 +1,5 @@
-<p>Candidate List</p>
+<ul class="flex flex-wrap gap-4 justify-center md:justify-start">
+    {% for candidate in object_list %}
+        {% include 'eleicao/plugins/card.html' %}
+    {% endfor %}
+</ul>
