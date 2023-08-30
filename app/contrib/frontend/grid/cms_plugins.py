@@ -32,7 +32,6 @@ class ColumnPlugin(CMSPluginBase):
         "PressurePlugin",
         "VideoPlayerPlugin",
         "SnippetPlugin",
-        "EleicaoVoterFormPlugin"
     ]
 
 
