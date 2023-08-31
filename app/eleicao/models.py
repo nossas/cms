@@ -145,9 +145,9 @@ class Voter(models.Model):
     newsletter = models.BooleanField("Quero receber atualizações da campanha e do NOSSAS.", default=False)
 
     state = models.CharField(
-        "Estado", max_length=2, choices=lazy(get_states, list)(), null=True, blank=True
+        "Estado", max_length=2, choices=lazy(get_states, list)()
     )
-    city = models.CharField("Cidade onde você vota*", max_length=100, null=True, blank=True)
+    city = models.CharField("Cidade onde você vota", max_length=100, null=True, blank=True)
 
     place = models.ForeignKey(
         PollingPlace,
