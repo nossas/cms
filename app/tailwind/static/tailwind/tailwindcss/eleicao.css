@@ -194,3 +194,26 @@
 .aeleicaodoano .navbar a {
   text-shadow: 0 0.2px 1px rgba(0, 0, 0, 0.2);
 }
+
+.aeleicaodoano .swiper {
+  @apply w-full h-full;
+}
+
+.aeleicaodoano .swiper-slide {
+  @apply flex flex-col gap-4 content-center items-center px-8 text-center md:px-4;
+}
+
+.aeleicaodoano .swiper-pagination-bullet {
+  @apply bg-[#FFC60B];
+}
+
+.aeleicaodoano .swiper-button-next, 
+.aeleicaodoano .swiper-button-prev {
+  @apply top-1/3 text-neutral-50;
+}
+
+.aeleicaodoano .swiper-horizontal > .swiper-pagination-bullets,
+.aeleicaodoano .swiper-pagination-bullets.swiper-pagination-horizontal,
+.aeleicaodoano .swiper-pagination-custom, .swiper-pagination-fraction {
+  @apply bottom-auto;
+}
