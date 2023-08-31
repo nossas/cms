@@ -5,26 +5,23 @@
 {% endaddtoblock %}
 
 {% if success and voter %}
-{% render_candidate_list voter=voter %}
-{% elif success %}
-  {% comment %} <div class="flex flex-col gap-4 items-center">
-    <h2 class="mb-2 text-3xl text-blue-800">Valeu!</h2>
-    <p class="text-blue-800 text-center text-lg md:max-w-[460px]">Assim que tivermos coletado candidaturas vamos te avisar. Por enquanto, você pode colaborar divulgando A Eleição do Ano: quanto mais gente participar, mais nossas crianças e adolescentes serão protegidos.</p>
-    
-    <div class="flex flex-col gap-4 md:max-w-[440px]">
-      {% post_to_whatsapp request.get_absolute_url %}
-      {% post_to_twitter request.get_absolute_url %}
-      {% post_to_facebook request.get_absolute_url %}
+  <section class="voter-success">
+    <div class="container flex flex-col justify-center items-center px-5 py-20 mx-auto">
+      <div class="mb-6 md:mb-16">
+        <h2 class="py-4 text-4xl text-center text-blue-800 md:text-5xl">Pronto 🎉</h2>
+        <p class="mx-auto max-w-xl text-center text-blue-800">Conheça as candidaturas da sua região que assumiram um compromisso com os direitos humanos e o Estatuto da Criança e do Adolescente (ECA):</p>
+      </div>
+      {% render_candidate_list voter=voter %}
     </div>
-  </div> {% endcomment %}
+  </section>
 {% else %}
   <section class="voter-form">
-    <div class="container grid grid-cols-1 gap-20 py-20 mx-auto md:grid-cols-2">
-      <div class="flex flex-col gap-2 items-center">
-        <img class="pt-16 w-full max-w-lg md:block" src="{% static 'images/eleicao/eleicaodoano-esta-chegando.png' %}" alt="A Eleição do Ano está chegando!">
+    <div class="container grid grid-cols-1 px-5 py-20 mx-auto md:grid-cols-2">
+      <div class="flex flex-col gap-2 items-center pb-6 md:pb-0">
+        <img class="pt-8 w-full max-w-lg md:pt-16 md:block" src="{% static 'images/eleicao/eleicaodoano-esta-chegando.png' %}" alt="A Eleição do Ano está chegando!">
         <p class="pt-8 mx-auto max-w-sm text-center text-blue-800">Qualquer cidadão brasileiro maior de 16 anos que tenha título de eleitor e resida no Brasil pode votar e contribuir com o futuro da sua comunidade.</p>
       </div>
-      <div class="flex flex-col gap-2">
+      <div class="flex flex-col gap-2 md:max-w-2xl">
         <h2 class="mb-2 text-4xl text-center text-blue-800">Descubra candidatas(os) para você!</h2>
         <form class="flex flex-col gap-4" method="post" action="." novalidate>
 
@@ -34,13 +31,10 @@
               {% include "eleicao/includes/form_control.html" with field=field %}
             {% endfor %}
           </div>
-          <label class="label">
-            <input type="radio"/>
-            Quero receber atualizações da campanha e do NOSSAS.
-          </label>
+
           <p class="text-sm">Ao inserir seus dados, você está de acordo com a <a class="font-bold" href="{% static 'politica-de-privacidade.pdf' %}" target="_blank">política de privacidade</a>.</p>
 
-          <button  type="submit" class="btn w-full bg-[#93AC70] hover:bg-[#758e53] text-white">Quero descobrir</button>
+          <button type="submit" class="btn w-full bg-[#93AC70] hover:bg-[#758e53] text-white">Quero descobrir</button>
         </form>
       </div>
     </div>
