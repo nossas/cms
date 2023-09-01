@@ -19,6 +19,15 @@ class CandidateAdmin(admin.ModelAdmin):
     get_place_state.short_description = "Estado"
 
 
-admin.site.register(PollingPlace)
+class PollingPlaceAdmin(admin.ModelAdmin):
+    list_display = ("place", "city", "state")
+    list_filter = ("state", )
+
+
+class VoterAdmin(admin.ModelAdmin):
+    list_display = ("name", "email", "state", "city")
+    list_filter = ("state", )
+
+admin.site.register(PollingPlace, PollingPlaceAdmin)
 admin.site.register(Candidate, CandidateAdmin)
-admin.site.register(Voter)
+admin.site.register(Voter, VoterAdmin)

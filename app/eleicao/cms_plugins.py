@@ -84,21 +84,30 @@ class EleicaoVoterFormPlugin(CMSPluginBase):
         request = ctx.get("request")
 
         ctx["form"] = VoterForm()
-        
+
         if request.method == "POST":
             form = VoterForm(data=request.POST)
-            
-            if form.is_valid():
-                instance = form.save(commit=True)
-                ctx["success"] = True
 
-                settings = {
-                    "widget_id": 76616,
-                    "mobilization_id": 7302,
-                    "cached_community_id": 263,
-                }
-                fe = create_form_entry(settings=settings, **form.cleaned_data)
-                print(fe)
+            if form.is_valid():
+                voter = form.save(commit=True)
+
+                ctx["success"] = True
+                ctx["voter"] = voter
+
+                try:
+                    settings = {
+                        "widget_id": 76616,
+                        "mobilization_id": 7302,
+                        "cached_community_id": 263,
+                    }
+                    form.cleaned_data.pop("place", None)
+
+                    fe = create_form_entry(settings=settings, **form.cleaned_data)
+                    print("INFO: Success to create form on Bonde integration.")
+                    print(fe)
+                except Exception as err:
+                    print("ERROR: Don't create form on Bonde integration!")
+                    print(err)
 
             ctx["form"] = form
 
