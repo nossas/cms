@@ -1,3 +1,4 @@
+from typing import Any
 from django import forms
 from django.urls import reverse_lazy
 from django_select2 import forms as s2forms
@@ -46,3 +47,24 @@ class VoterForm(forms.ModelForm):
                 }
             ),
         }
+
+    def save(self, commit):
+        instance: Voter = super().save(commit=False)
+
+        if Voter.objects.filter(email=instance.email).exists():
+            obj = Voter.objects.get(email=instance.email)
+            instance.id = obj.id
+
+            if obj.state and not instance.state:
+                instance.state = obj.state
+
+            if obj.city and not instance.city:
+                instance.city = obj.city
+
+            if obj.place and not instance.place:
+                instance.place = obj.place
+
+        if commit:
+            instance.save()
+
+        return instance

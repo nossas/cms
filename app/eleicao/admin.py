@@ -24,6 +24,10 @@ class PollingPlaceAdmin(admin.ModelAdmin):
     list_filter = ("state", )
 
 
+class VoterAdmin(admin.ModelAdmin):
+    list_display = ("name", "email", "state", "city")
+    list_filter = ("state", )
+
 admin.site.register(PollingPlace, PollingPlaceAdmin)
 admin.site.register(Candidate, CandidateAdmin)
-admin.site.register(Voter)
+admin.site.register(Voter, VoterAdmin)
