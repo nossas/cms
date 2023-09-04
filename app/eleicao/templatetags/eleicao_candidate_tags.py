@@ -9,11 +9,15 @@ register = template.Library()
 
 @register.inclusion_tag("eleicao/templatetags/candidate_list.html")
 def render_candidate_list(voter: Voter):
-    if not voter.place:
+    if not voter.place and not voter.city:
+        object_list = Candidate.objects.filter(
+            place__state=voter.state
+        )
+    elif not voter.place:
         object_list = Candidate.objects.filter(
             place__state=voter.state, place__city=voter.city
         )
     else:
         object_list = Candidate.objects.filter(place=voter.place)
 
-    return {"object_list": object_list}
+    return {"object_list": object_list, "is_empty": not object_list.exists()}
