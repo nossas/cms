@@ -53,7 +53,9 @@
   {% endif %}
 
   {% with "O que esperar de "|add:object.short_name as title %}
-  {% include "eleicao/plugins/carousel.html" with title=title description="Ao se cadastrar na Eleição do Ano, {{ object.short_name }} assumiu o compromisso com as diretrizes do ECA abaixo:" %}
+  {% with "Ao se cadastrar na Eleição do Ano, "|add:object.short_name|title|add:" assumiu o compromisso com as diretrizes do ECA abaixo:" as description %}
+  {% include "eleicao/plugins/carousel.html" with title=title description=description %}
+  {% endwith %}
   {% endwith %}
 
   <section class="px-5 py-16 candidate-detail-share">
