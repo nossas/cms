@@ -18,7 +18,7 @@ class PlacesWidget(s2forms.ModelSelect2Widget):
 class VoterForm(forms.ModelForm):
     class Meta:
         model = Voter
-        fields = ["name", "email", "whatsapp", "state", "city", "place", "newsletter"]
+        fields = ["name", "email", "whatsapp", "state", "city", "place"]
         widgets = {
             "name": forms.TextInput(attrs={"placeholder": "Seu nome completo"}),
             "email": forms.EmailInput(attrs={"placeholder": "Seu email"}),
