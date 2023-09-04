@@ -21,16 +21,17 @@ from django.urls import path, include
 
 
 urlpatterns = [
+    path("monitoring/", include("django_prometheus.urls")),
     path("admin/", admin.site.urls),
     path("select2/", include("django_select2.urls")),
     path("actions/", include("contrib.actions.pressure.urls")),
-    path("", include("cms.urls"))
+    path("", include("cms.urls")),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
 
-handler404 = 'contrib.frontend.views.error_404'
-handler500 = 'contrib.frontend.views.error_500'
+handler404 = "contrib.frontend.views.error_404"
+handler500 = "contrib.frontend.views.error_500"
 
 if settings.DEBUG:
     urlpatterns.extend(static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT))
