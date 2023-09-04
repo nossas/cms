@@ -53,13 +53,13 @@
   {% endif %}
 
   {% with "O que esperar de "|add:object.short_name as title %}
-  {% with "Ao se cadastrar na Eleição do Ano, "|add:object.short_name|title|add:" assumiu o compromisso com as diretrizes do ECA abaixo:" as description %}
+  {% with "Ao se cadastrar na Eleição do Ano, "|add:object.short_name|add:" assumiu o compromisso com as diretrizes do ECA abaixo:" as description %}
   {% include "eleicao/plugins/carousel.html" with title=title description=description %}
   {% endwith %}
   {% endwith %}
 
   <section class="px-5 py-16 candidate-detail-share">
-    <h1 class="m-auto mb-4 max-w-xs text-3xl text-center text-blue-800 md:text-4xl">Compartilhe nas redes para apoiar {{ object.short_name }}</h1>
+    <h1 class="m-auto mb-10 max-w-[510px] text-3xl text-center text-blue-800 md:text-4xl">Compartilhe nas redes para apoiar {{ object.short_name }}</h1>
     {% include 'eleicao/includes/candidate_share.html' with object=object %}
   </section>
   <p class="text-center text-blue-800">Viu algo estranho? <a href="mailto:aeleicaodoano@nossas.org" class="font-bold">Clique aqui para denunciar esse perfil.</a></p>

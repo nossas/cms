@@ -21,6 +21,10 @@
   line-height: normal;
 }
 
+.aeleicaodoano p {
+  font-size: 18px;
+}
+
 .aeleicaodoano .btn {
   @apply whitespace-normal rounded-lg !h-auto;
 }
