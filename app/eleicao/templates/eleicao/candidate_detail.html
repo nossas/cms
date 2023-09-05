@@ -67,12 +67,16 @@
     <p class="text-center text-blue-800">Viu algo estranho? <a href="mailto:aeleicaodoano@nossas.org" class="font-bold">Clique aqui para denunciar esse perfil.</a></p>
   {% else %}
   {% comment %} Candidatura aguardando analise {% endcomment %}
-  <div class="container pt-20 md:pt-28 pb-12 mx-auto candidate-detail-infos">
-    <h2>Perfil em análise</h2>
-    <p>{{ candidate_url }}</p>
-    <div>
-    <p>Nossa equipe está revisando as informações, em poucos minutos o perfil deve estar disponível.</p>
-    <p>Se tiver alguma dúvida, envie um e-mail para eleicaodoano@nossas.org</p>
+    <div class="container grid grid-cols-1 gap-16 px-5 py-20 mx-auto md:grid-cols-2 candidate-detail-infos">
+      <div class="max-w-[526px] flex flex-col items-center justify-center">
+        <h2 class="py-4 text-4xl text-center text-blue-800 md:text-5xl">Perfil em análise</h2>
+        <p class="font-bold text-center text-blue-800">{{ candidate_url }}</p>
+        <p class="py-5 mx-auto text-center text-blue-800">Nossa equipe está revisando as informações, em poucos minutos o perfil deve estar disponível.</p>
+        <p class="mx-auto text-center text-blue-800">Se tiver alguma dúvida, envie um e-mail para <a href="mailto:eleicaodoano@nossas.org" class="font-bold">eleicaodoano@nossas.org</a></p>
+      </div>
+      <div>
+        <img class="pt-8 w-full max-w-[509px] md:pt-16 md:block" src="{% static 'images/eleicao/ilustra.png' %}" alt="Ilustração A Eleição do Ano">
+      </div>
     </div>
   </div>
   {% endif %}
