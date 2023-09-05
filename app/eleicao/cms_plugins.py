@@ -6,7 +6,12 @@ from cms.plugin_pool import plugin_pool
 
 from .bonde_utils import create_form_entry
 
-from .models import Candidate, CandidateStatusChoices, EleicaoCarousel
+from .models import (
+    Candidate,
+    CandidateStatusChoices,
+    EleicaoCarousel,
+    VoterFormPluginModel,
+)
 from .forms.filters import CandidateListFilter
 from .forms.create import VoterForm
 
@@ -78,6 +83,7 @@ class EleicaoVoterFormPlugin(CMSPluginBase):
     module = "A Eleição do Ano"
     render_template = "eleicao/plugins/voter_form.html"
     cache = False
+    model = VoterFormPluginModel
 
     def render(self, context, instance, placeholder):
         ctx = super().render(context, instance, placeholder)
