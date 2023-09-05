@@ -148,6 +148,20 @@ DATABASE_ROUTERS = [
     "contrib.bonde.router.AuthRouter",
 ]
 
+# Cache
+# https://docs.djangoproject.com/en/4.2/topics/cache/
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "PASSWORD": "eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81"
+        }
+    }
+}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

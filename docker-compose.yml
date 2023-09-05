@@ -62,6 +62,16 @@ services:
     depends_on:
       - prometheus
 
+  redis:
+    image: redis:6.2-alpine
+    restart: always
+    command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+    # ports:
+    #   - '6379:6379'
+    network_mode: "host"
+    volumes:
+      - /tmp/redis_data:/data
+
 # networks:
 #   bonde:
 #     external: True

@@ -1,3 +1,5 @@
+{% load cache %}
+
 <main class="container mx-auto candidate-list">
     <section class="list-header">
         <div class="px-5 py-20 text-center text-[#1842AC]">
@@ -10,11 +12,13 @@
         <div class="flex flex-col px-5">
             {{ form.as_html }}
             <div class="py-6 candidates">
+                {% cache 60 candidate_list form.state.value %}
                 <ul class="flex flex-wrap gap-4 justify-center md:justify-start">
                     {% for candidate in object_list %}
                         {% include 'eleicao/includes/card.html' %}
                     {% endfor %}
                 </ul>
+                {% endcache %}
             </div>
 
             {% if is_paginated %}
