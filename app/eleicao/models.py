@@ -142,12 +142,14 @@ class Voter(models.Model):
     name = models.CharField("Nome completo", max_length=120)
     email = models.EmailField("Email")
     whatsapp = models.CharField("Whatsapp", max_length=15, null=True, blank=True)
-    newsletter = models.BooleanField("Quero receber atualizações da campanha e do NOSSAS.", default=False)
-
-    state = models.CharField(
-        "Estado", max_length=2, choices=lazy(get_states, list)()
+    newsletter = models.BooleanField(
+        "Quero receber atualizações da campanha e do NOSSAS.", default=True
     )
-    city = models.CharField("Cidade onde você vota", max_length=100, null=True, blank=True)
+
+    state = models.CharField("Estado", max_length=2, choices=lazy(get_states, list)())
+    city = models.CharField(
+        "Cidade onde você vota", max_length=100, null=True, blank=True
+    )
 
     place = models.ForeignKey(
         PollingPlace,
@@ -160,9 +162,6 @@ class Voter(models.Model):
     class Meta:
         verbose_name = "Eleitor(a)"
         verbose_name_plural = "Eleitores"
-
-    # def get_absolute_url(self):
-    #     return f"/querovotar/resultado/?zone={self.zone.id}"
 
 
 class EleicaoCarousel(CMSPlugin):
