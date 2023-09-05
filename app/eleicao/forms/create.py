@@ -1,4 +1,3 @@
-from typing import Any
 from django import forms
 from django.urls import reverse_lazy
 from django_select2 import forms as s2forms

@@ -167,3 +167,21 @@ class Voter(models.Model):
 class EleicaoCarousel(CMSPlugin):
     title = models.CharField("Título", max_length=120)
     description = models.CharField("Descrição", max_length=120, null=True, blank=True)
+
+
+class VoterFormPluginModel(CMSPlugin):
+    title = models.CharField(
+        "Título",
+        max_length=255,
+        null=True,
+        blank=True,
+        default="Descubra candidatas(os) para você!",
+    )
+    description = models.TextField("Descrição", null=True, blank=True)
+    button_text = models.CharField(
+        "Texto do botão",
+        max_length=100,
+        null=True,
+        blank=True,
+        default="Quero descobrir",
+    )
