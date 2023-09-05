@@ -23,46 +23,63 @@
 {% block content %}
 {% include 'eleicao/plugins/navbar.html' %}
 <main class="bg-white candidate-detail">
-  <!-- Modal -->
-  <!-- Open the modal using ID.showModal() method -->
-  <dialog id="my_modal_2" class="w-full px-0 modal !m-0 h-full {% if modal_is_open %} modal-open{% endif %}">
-    <form method="dialog" class="m-auto w-full modal-box md:w-auto">
-      <div class="flex flex-col mt-6 text-center text-blue-800">
-        <button class="absolute top-2 right-2 btn btn-sm btn-circle btn-ghost" aria-label="Fechar modal">X</button>
-        <h3 class="mb-4 :text-3xl md:text-5xl">Perfil cadastrado 🎉</h3>
-        <p class="mb-2 text-xl font-bold">{{ request.scheme }}://{{ request.META.HTTP_HOST }}{{ request.path }}</p>
-        <p class="mb-2 text-lg">Agora é só divulgar nas redes</p>
+  {% if is_published %}
+
+    <!-- Modal -->
+    <!-- Open the modal using ID.showModal() method -->
+    <dialog id="my_modal_2" class="w-full px-0 modal !m-0 h-full {% if modal_is_open %} modal-open{% endif %}">
+      <form method="dialog" class="m-auto w-full modal-box md:w-auto">
+        <div class="flex flex-col mt-6 text-center text-blue-800">
+          <button class="absolute top-2 right-2 btn btn-sm btn-circle btn-ghost" aria-label="Fechar modal">X</button>
+          <h3 class="mb-4 :text-3xl md:text-5xl">Perfil cadastrado 🎉</h3>
+          <p class="mb-2 text-xl font-bold">{{ request.scheme }}://{{ request.META.HTTP_HOST }}{{ request.path }}</p>
+          <p class="mb-2 text-lg">Agora é só divulgar nas redes</p>
+        </div>
+        {% include 'eleicao/includes/candidate_share.html' with object=object is_alternative_msg=True %}
+      </form>
+    </dialog>
+
+    <!-- Detail 1: Perfil do candidato -->
+    {% include "eleicao/includes/candidate_object_detail.html" with object=object %}
+
+    {% if object.video %}
+    <section class="py-16 bg-[#EDB052] candidate-detail-video text-blue-800 px-12 md:px-0">
+      <h1 class="flex justify-center mb-4 text-3xl text-center md:text-4xl">O que {{ object.short_name|title }} tem pra dizer</h1>
+      <div class="flex justify-center items-center">
+        <video controls width="640" height="360" alt="Vídeo do candidato">
+          <source src="{{ object.video.url }}" type="video/mp4">
+          Seu navegador não suporta o elemento de vídeo.
+        </video>
       </div>
-      {% include 'eleicao/includes/candidate_share.html' with object=object is_alternative_msg=True %}
-    </form>
-  </dialog>
+    </section>
+    {% endif %}
 
-  <!-- Detail 1: Perfil do candidato -->
-  {% include "eleicao/includes/candidate_object_detail.html" with object=object %}
+    {% with "O que esperar de "|add:object.short_name as title %}
+    {% with "Ao se cadastrar na Eleição do Ano, "|add:object.short_name|add:" assumiu o compromisso com as diretrizes do ECA abaixo:" as description %}
+    {% include "eleicao/plugins/carousel.html" with title=title description=description %}
+    {% endwith %}
+    {% endwith %}
 
-  {% if object.video %}
-  <section class="py-16 bg-[#EDB052] candidate-detail-video text-blue-800 px-12 md:px-0">
-    <h1 class="flex justify-center mb-4 text-3xl text-center md:text-4xl">O que {{ object.short_name|title }} tem pra dizer</h1>
-    <div class="flex justify-center items-center">
-      <video controls width="640" height="360" alt="Vídeo do candidato">
-        <source src="{{ object.video.url }}" type="video/mp4">
-        Seu navegador não suporta o elemento de vídeo.
-      </video>
+    <section class="px-5 py-16 candidate-detail-share">
+      <h1 class="m-auto mb-10 max-w-[510px] text-3xl text-center text-blue-800 md:text-4xl">Compartilhe nas redes para apoiar {{ object.short_name }}</h1>
+      {% include 'eleicao/includes/candidate_share.html' with object=object %}
+    </section>
+    <p class="text-center text-blue-800">Viu algo estranho? <a href="mailto:aeleicaodoano@nossas.org" class="font-bold">Clique aqui para denunciar esse perfil.</a></p>
+  {% else %}
+  {% comment %} Candidatura aguardando analise {% endcomment %}
+    <div class="container grid grid-cols-1 gap-16 px-5 py-20 mx-auto md:grid-cols-2 candidate-detail-infos">
+      <div class="max-w-[526px] flex flex-col items-center justify-center">
+        <h2 class="py-4 text-4xl text-center text-blue-800 md:text-5xl">Perfil em análise</h2>
+        <p class="font-bold text-center text-blue-800">{{ candidate_url }}</p>
+        <p class="py-5 mx-auto text-center text-blue-800">Nossa equipe está revisando as informações, em poucos minutos o perfil deve estar disponível.</p>
+        <p class="mx-auto text-center text-blue-800">Se tiver alguma dúvida, envie um e-mail para <a href="mailto:eleicaodoano@nossas.org" class="font-bold">eleicaodoano@nossas.org</a></p>
+      </div>
+      <div>
+        <img class="pt-8 w-full max-w-[509px] md:pt-16 md:block" src="{% static 'images/eleicao/ilustra.png' %}" alt="Ilustração A Eleição do Ano">
+      </div>
     </div>
-  </section>
+  </div>
   {% endif %}
-
-  {% with "O que esperar de "|add:object.short_name as title %}
-  {% with "Ao se cadastrar na Eleição do Ano, "|add:object.short_name|add:" assumiu o compromisso com as diretrizes do ECA abaixo:" as description %}
-  {% include "eleicao/plugins/carousel.html" with title=title description=description %}
-  {% endwith %}
-  {% endwith %}
-
-  <section class="px-5 py-16 candidate-detail-share">
-    <h1 class="m-auto mb-10 max-w-[510px] text-3xl text-center text-blue-800 md:text-4xl">Compartilhe nas redes para apoiar {{ object.short_name }}</h1>
-    {% include 'eleicao/includes/candidate_share.html' with object=object %}
-  </section>
-  <p class="text-center text-blue-800">Viu algo estranho? <a href="mailto:aeleicaodoano@nossas.org" class="font-bold">Clique aqui para denunciar esse perfil.</a></p>
 </main>
 {% include 'eleicao/plugins/footer.html' %}
 {% render_bonde_footer %}
