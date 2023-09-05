@@ -102,7 +102,7 @@ class CandidateCreateView(SessionWizardView):
         video = values.pop("video")
 
         obj = Candidate.objects.create(**values, photo=photo, video=video)
-                      
+
         obj.save()
 
         # Integrate with Bonde
@@ -122,7 +122,7 @@ class CandidateCreateView(SessionWizardView):
 class CandidateDetailView(DetailView):
     template_name = "eleicao/candidate_detail.html"
     model = Candidate
-    
+
     def modal_flag(self, candidate_url: str, modal: str) -> str:
         if modal:
             return candidate_url.replace("?modal=true", "")
@@ -130,14 +130,36 @@ class CandidateDetailView(DetailView):
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         ctx = super().get_context_data(**kwargs)
+
+        is_published = True
         modal = self.request.GET.get("modal")
         candidate_url = self.request.build_absolute_uri()
         candidate = self.object
 
-        ctx.update({
-            "msg_copy_link": parse.quote(candidate_url),
-            "url_facebook_modal": parse.quote(self.modal_flag(candidate_url, modal) + "&amp;src=sdkpreparse"),
-        })
+        if candidate.status != CandidateStatusChoices.published:
+            modal = False
+            is_published = False
+
+        ctx.update(
+            {
+                "modal_is_open": modal,
+                "is_published": is_published,
+                "candidate_url": candidate_url,
+                "msg_whatsapp": parse.quote(
+                    f"Oie! Tá sabendo da Eleição do Ano? Sim, esse ano temos uma eleição importantíssima: os municípios brasileiros vão eleger conselheiros e conselheiras tutelares no dia 1 de outubro. É o futuro das nossas crianças e adolescentes em jogo! Não fique de fora, conheça {candidate.name}"
+                    + "\n"
+                    + self.modal_flag(candidate_url, modal)
+                ),
+                "msg_twitter": parse.quote(
+                    f"A Eleição do Ano está chegando! É hora de votar pelo futuro das crianças. Conheça {candidate.name} "
+                    + self.modal_flag(candidate_url, modal)
+                ),
+                "msg_copy_link": parse.quote(candidate_url),
+                "url_facebook_modal": parse.quote(
+                    self.modal_flag(candidate_url, modal) + "&amp;src=sdkpreparse"
+                ),
+            }
+        )
 
         if modal:
             msg_whatsapp_modal = parse.quote(
@@ -156,26 +178,9 @@ class CandidateDetailView(DetailView):
                     "msg_twitter_modal": msg_twitter_modal,
                 }
             )
-        msg_whatsapp = parse.quote(
-            f"Oie! Tá sabendo da Eleição do Ano? Sim, esse ano temos uma eleição importantíssima: os municípios brasileiros vão eleger conselheiros e conselheiras tutelares no dia 1 de outubro. É o futuro das nossas crianças e adolescentes em jogo! Não fique de fora, conheça {candidate.name}"
-            + "\n"
-            + self.modal_flag(candidate_url, modal)
-        )
-        msg_twitter = parse.quote(
-            f"A Eleição do Ano está chegando! É hora de votar pelo futuro das crianças. Conheça {candidate.name} "
-            + self.modal_flag(candidate_url, modal)
-        )
 
-        ctx.update(
-            {
-                "msg_whatsapp": msg_whatsapp,
-                "msg_twitter": msg_twitter,
-            }
-        )
+
         return ctx
-
-    def get_queryset(self) -> QuerySet[Any]:
-        return super().get_queryset().filter(status=CandidateStatusChoices.published)
 
 
 class ResultsCandidateView(ListView):
@@ -197,7 +202,7 @@ class ResultsCandidateView(ListView):
 
 # Sugerir uma slug
 def suggest_slug(request):
-    name = request.GET.get("name")    
+    name = request.GET.get("name")
     slug = slugify(name).replace("-", "")
     suggestion = slug
     list_candidate = Candidate.objects.filter(slug=slug)
