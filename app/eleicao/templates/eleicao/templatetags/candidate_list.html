@@ -1,5 +1,25 @@
-<ul class="flex flex-wrap gap-4 justify-center md:justify-start">
-    {% for candidate in object_list %}
-        {% include 'eleicao/plugins/card.html' %}
-    {% endfor %}
-</ul>
+{% if is_empty %}
+  <section class="voter-no-data">
+    <div class="container flex flex-col justify-center items-center px-5 py-20 mx-auto">
+      <div class="mb-6 md:mb-16">
+        <h2 class="py-4 text-4xl text-center text-blue-800 md:text-5xl">Poxa 🙁</h2>
+        <p class="pb-9 mx-auto max-w-[625px] text-center text-blue-800">Não encontramos candidaturas da sua região cadastradas n’A Eleição do Ano. Compartilhe nas redes para que as candidaturas próximas a você encontrem a plataforma e se cadastrem:</p>
+        {% include 'eleicao/includes/candidate_share.html' %}
+      </div>
+    </div>
+  </section>
+{% else %}
+  <section class="voter-success">
+    <div class="container flex flex-col justify-center items-center px-5 py-20 mx-auto">
+      <div class="mb-6 md:mb-16">
+        <h2 class="py-4 text-4xl text-center text-blue-800 md:text-5xl">Pronto 🎉</h2>
+        <p class="mx-auto max-w-[625px] text-center text-blue-800">Conheça as candidaturas da sua região que assumiram um compromisso com os direitos humanos e o Estatuto da Criança e do Adolescente (ECA):</p>
+      </div>
+      <ul class="flex flex-wrap gap-4 justify-center md:justify-start">
+        {% for candidate in object_list %}
+            {% include 'eleicao/includes/card.html' %}
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
+{% endif %}
