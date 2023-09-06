@@ -1,7 +1,7 @@
 {% load static %}
 
 <li class="w-[265px] shadow-sm card bg-base-100 rounded-sm border border-[#E1E1E1]">
-  <a href="{% url 'eleicao:candidate_detail' slug=candidate.slug %}" class="flex flex-col">
+  <a href="{% url 'eleicao:candidate_detail' slug=candidate.slug %}" class="flex flex-col" target="_blank">
     {% if candidate.photo %}
     <img src="{{ candidate.photo.url }}" alt="Foto do(a) candidato(a)" class="object-cover aspect-[4/3] h-[250px] rounded-sm mx-auto md:mx-0" />
     {% else %}
