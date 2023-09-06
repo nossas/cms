@@ -132,12 +132,20 @@
   @apply hidden;
 }
 
-.aeleicaodoano .form-control .commitment input[type="checkbox"] ~ .commitment-box > .icon-svg > svg {
-  @apply grayscale;
+.aeleicaodoano .form-control .commitment input[type="checkbox"] ~ .commitment-box > .icon-svg {
+  -webkit-filter: url(#grayscale);
+  filter: url(#grayscale);
 }
 
-.aeleicaodoano .form-control .commitment input[type="checkbox"]:checked ~ .commitment-box > .icon-svg > svg {
-  @apply grayscale-0;
+.aeleicaodoano .form-control .commitment input[type="checkbox"]:checked ~ .commitment-box > .icon-svg {
+  -webkit-filter: none;
+  filter: none;
+}
+
+.aeleicaodoano .form-control .filter-icon {
+  @apply absolute w-0 h-0;
+  overflow: none;
+  left: -100%;
 }
 
 .aeleicaodoano .form-control .commitment input[type="checkbox"]:checked ~ .commitment-box {
