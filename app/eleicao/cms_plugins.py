@@ -102,7 +102,7 @@ class EleicaoVoterFormPlugin(CMSPluginBase):
 
                 try:
                     settings = {
-                        "widget_id": 76616,
+                        "widget_id": 76495,
                         "mobilization_id": 7302,
                         "cached_community_id": 263,
                     }
