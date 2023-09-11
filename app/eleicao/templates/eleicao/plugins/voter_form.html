@@ -5,13 +5,13 @@
 {% endaddtoblock %}
 
 {% if success %}
-  {% render_candidate_list voter=voter %}
+  {% render_candidate_list voter request=request instance=None placeholder=placeholder %}
 {% else %}
   <section class="voter-form">
-    <div class="container grid grid-cols-1 px-5 py-20 mx-auto md:grid-cols-2 gap-16">
+    <div class="container grid grid-cols-1 gap-16 px-5 py-20 mx-auto md:grid-cols-2">
       <div class="flex flex-col gap-2 items-center pb-6 md:pb-0">
         <img class="pt-8 w-full max-w-[509px] md:pt-16 md:block" src="{% static 'images/eleicao/eleicaodoano-esta-chegando.png' %}" alt="A Eleição do Ano está chegando!">
-        <div class="pt-8 mx-auto text-center text-blue-800 flex flex-col gap-4">
+        <div class="flex flex-col gap-4 pt-8 mx-auto text-center text-blue-800">
           {{ instance.description|linebreaks }}
         </div>
       </div>

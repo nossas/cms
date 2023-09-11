@@ -2,6 +2,7 @@ import re
 from django import template
 
 from ..models import Voter, Candidate
+from ..forms.create import VoterForm
 
 from urllib import parse
 
@@ -10,17 +11,23 @@ register = template.Library()
 
 
 @register.inclusion_tag("eleicao/templatetags/candidate_list.html")
-def render_candidate_list(voter: Voter):
-    if not voter.place and not voter.city:
-        object_list = Candidate.objects.filter(
-            place__state=voter.state
-        )
-    elif not voter.place:
-        object_list = Candidate.objects.filter(
-            place__state=voter.state, place__city=voter.city
-        )
-    else:
-        object_list = Candidate.objects.filter(place=voter.place)
+def render_candidate_list(voter: Voter, request=None, instance=None, placeholder=None):
+    form = VoterForm(data=request.POST)
+
+    object_list = None
+
+    if form.is_valid():
+        if not voter.place and not voter.city:
+            object_list = Candidate.objects.filter(
+                place__state=form.cleaned_data.get("state")
+            )
+        elif not voter.place:
+            object_list = Candidate.objects.filter(
+                place__state=form.cleaned_data.get("state"),
+                place__city=form.cleaned_data.get("city")
+            )
+        else:
+            object_list = Candidate.objects.filter(place=form.cleaned_data.get("place"))
 
     url = "https://aeleicaodoano.org"
 
@@ -42,5 +49,6 @@ def render_candidate_list(voter: Voter):
         "msg_whatsapp": msg_whatsapp,
         "msg_twitter": msg_twitter,
         "url_facebook_modal": url_facebook_modal,
-        "msg_copy_link": msg_copy_link
+        "msg_copy_link": msg_copy_link,
+        "form": form,
     }

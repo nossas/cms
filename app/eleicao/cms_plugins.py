@@ -89,8 +89,6 @@ class EleicaoVoterFormPlugin(CMSPluginBase):
         ctx = super().render(context, instance, placeholder)
         request = ctx.get("request")
 
-        ctx["form"] = VoterForm()
-
         if request.method == "POST":
             form = VoterForm(data=request.POST)
 
@@ -115,6 +113,9 @@ class EleicaoVoterFormPlugin(CMSPluginBase):
                     print("ERROR: Don't create form on Bonde integration!")
                     print(err)
 
-            ctx["form"] = form
+        else:
+            form = VoterForm()
+
+        ctx["form"] = form
 
         return ctx
