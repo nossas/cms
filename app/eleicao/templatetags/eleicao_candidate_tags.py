@@ -2,6 +2,7 @@ import re
 from django import template
 
 from ..models import Voter, Candidate
+from ..forms.create import VoterForm
 
 from urllib import parse
 
@@ -10,17 +11,24 @@ register = template.Library()
 
 
 @register.inclusion_tag("eleicao/templatetags/candidate_list.html")
-def render_candidate_list(voter: Voter):
-    if not voter.place and not voter.city:
-        object_list = Candidate.objects.filter(
-            place__state=voter.state
-        )
-    elif not voter.place:
-        object_list = Candidate.objects.filter(
-            place__state=voter.state, place__city=voter.city
-        )
-    else:
-        object_list = Candidate.objects.filter(place=voter.place)
+def render_candidate_list(form):
+    object_list = None
+    place = form.cleaned_data.get("place")
+    state = form.cleaned_data.get("state")
+    city = form.cleaned_data.get("city")
+
+    if form.is_valid():
+        if not place and not city:
+            object_list = Candidate.objects.filter(
+                place__state=state
+            )
+        elif not place:
+            object_list = Candidate.objects.filter(
+                place__state=state,
+                place__city=city
+            )
+        else:
+            object_list = Candidate.objects.filter(place=place)
 
     url = "https://aeleicaodoano.org"
 
@@ -42,5 +50,5 @@ def render_candidate_list(voter: Voter):
         "msg_whatsapp": msg_whatsapp,
         "msg_twitter": msg_twitter,
         "url_facebook_modal": url_facebook_modal,
-        "msg_copy_link": msg_copy_link
+        "msg_copy_link": msg_copy_link,
     }
