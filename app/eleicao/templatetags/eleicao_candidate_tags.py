@@ -11,23 +11,24 @@ register = template.Library()
 
 
 @register.inclusion_tag("eleicao/templatetags/candidate_list.html")
-def render_candidate_list(voter: Voter, request=None, instance=None, placeholder=None):
-    form = VoterForm(data=request.POST)
-
+def render_candidate_list(form):
     object_list = None
+    place = form.cleaned_data.get("place")
+    state = form.cleaned_data.get("state")
+    city = form.cleaned_data.get("city")
 
     if form.is_valid():
-        if not voter.place and not voter.city:
+        if not place and not city:
             object_list = Candidate.objects.filter(
-                place__state=form.cleaned_data.get("state")
+                place__state=state
             )
-        elif not voter.place:
+        elif not place:
             object_list = Candidate.objects.filter(
-                place__state=form.cleaned_data.get("state"),
-                place__city=form.cleaned_data.get("city")
+                place__state=state,
+                place__city=city
             )
         else:
-            object_list = Candidate.objects.filter(place=form.cleaned_data.get("place"))
+            object_list = Candidate.objects.filter(place=place)
 
     url = "https://aeleicaodoano.org"
 
@@ -50,5 +51,4 @@ def render_candidate_list(voter: Voter, request=None, instance=None, placeholder
         "msg_twitter": msg_twitter,
         "url_facebook_modal": url_facebook_modal,
         "msg_copy_link": msg_copy_link,
-        "form": form,
     }

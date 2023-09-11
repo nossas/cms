@@ -5,7 +5,7 @@
 {% endaddtoblock %}
 
 {% if success %}
-  {% render_candidate_list voter request=request instance=None placeholder=placeholder %}
+  {% render_candidate_list form %}
 {% else %}
   <section class="voter-form">
     <div class="container grid grid-cols-1 gap-16 px-5 py-20 mx-auto md:grid-cols-2">
