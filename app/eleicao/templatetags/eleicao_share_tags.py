@@ -4,9 +4,8 @@ from django import template
 register = template.Library()
 
 pattern = re.compile(
-    r"(?:https?:\/\/)?(?:www.)?(?:twitter|medium|facebook|vimeo|instagram)(?:.com\/)?([@a-zA-Z0-9-_]+)"
+    r"(?:https?:\/\/)?(?:www\.)?(?:twitter|medium|facebook|vimeo|instagram)(?:\.com\/)?@?([a-zA-Z0-9-_.]+)"
 )
-
 
 def url_parse(value: str, social_media_type):
     """Parse social media URL to standardize"""
@@ -29,7 +28,7 @@ def url_parse(value: str, social_media_type):
         return f"{base_url}{result}"
 
     if not result and base_url:
-        return f"{base_url}{value}"
+        return f"{base_url}{value}".replace("@", "")
 
     return value
 
