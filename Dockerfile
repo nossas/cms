@@ -40,7 +40,7 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
 && rm -rf /var/lib/apt/lists/*
 
 # Install the application server.
-RUN pip install uwsgi django-storages boto3
+RUN pip install uwsgi django-storages boto3 django-prometheus
 
 # Install the project requirements.
 COPY requirements.txt /
