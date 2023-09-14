@@ -24,11 +24,11 @@ services:
 
     prometheus:
       image: prom/prometheus
-      restart: 'yes'
+      restart: 'no'
       user: root
       volumes:
         - prometheus_data:/prometheus
-        - ./prometheus.yml:/etc/prometheus/prometheus.yml
+        - ./prometheus_data/prometheus.yml:/etc/prometheus/prometheus.yml
       labels:
         - traefik.enable=true
         - traefik.http.services.prometheus.loadbalancer.server.port=9090
@@ -54,3 +54,9 @@ services:
 networks:
   default:
     name: bonde
+
+volumes:
+  prometheus_data:
+    driver: local
+  grafana_data:
+    driver: local
