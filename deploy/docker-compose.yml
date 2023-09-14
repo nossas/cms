@@ -20,7 +20,7 @@ services:
         - traefik.http.services.cms.loadbalancer.server.port=8000
         - traefik.http.routers.cms.tls=true
         - traefik.http.routers.cms.tls.certresolver=myresolver
-        - traefik.http.routers.cms.rule=${TRAEFIK_ROUTERS_RULE}
+        - traefik.http.routers.cms.rule=${TRAEFIK_ROUTERS_RULE:-"HostRegexp(`cms.staging.bonde.org`)"}
 
     prometheus:
       image: prom/prometheus
