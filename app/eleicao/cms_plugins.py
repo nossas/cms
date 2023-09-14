@@ -104,9 +104,10 @@ class EleicaoVoterFormPlugin(CMSPluginBase):
                         "mobilization_id": 7302,
                         "cached_community_id": 263,
                     }
-                    form.cleaned_data.pop("place", None)
+                    params = form.cleaned_data.copy()
+                    params.pop("place", None)
 
-                    fe = create_form_entry(settings=settings, **form.cleaned_data)
+                    fe = create_form_entry(settings=settings, **params)
                     print("INFO: Success to create form on Bonde integration.")
                     print(fe)
                 except Exception as err:
