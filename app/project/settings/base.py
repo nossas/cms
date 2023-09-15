@@ -84,11 +84,11 @@ INSTALLED_APPS = [
     "eleicao",
     "django_social_share",
     # 
-    "django_prometheus"
+    # "django_prometheus"
 ]
 
 MIDDLEWARE = [
-    "django_prometheus.middleware.PrometheusBeforeMiddleware",
+    # "django_prometheus.middleware.PrometheusBeforeMiddleware",
     # 
     "django.middleware.security.SecurityMiddleware",
     "project.middleware.WwwRedirectMiddleware",
@@ -106,7 +106,7 @@ MIDDLEWARE = [
     "cms.middleware.toolbar.ToolbarMiddleware",
     "cms.middleware.language.LanguageCookieMiddleware",
     # 
-    "django_prometheus.middleware.PrometheusAfterMiddleware",
+    # "django_prometheus.middleware.PrometheusAfterMiddleware",
 ]
 
 ROOT_URLCONF = "project.urls"
