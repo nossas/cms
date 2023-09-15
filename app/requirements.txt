@@ -18,4 +18,3 @@ whitenoise
 svglib
 reportlab
 django-social-share
-django-redis
