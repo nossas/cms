@@ -82,10 +82,14 @@ INSTALLED_APPS = [
     "contrib.ga",
     # Experimentação
     "eleicao",
-    "django_social_share"
+    "django_social_share",
+    # 
+    # "django_prometheus"
 ]
 
 MIDDLEWARE = [
+    # "django_prometheus.middleware.PrometheusBeforeMiddleware",
+    # 
     "django.middleware.security.SecurityMiddleware",
     "project.middleware.WwwRedirectMiddleware",
     "eleicao.middleware.EleicaoRedirectMiddleware",
@@ -101,6 +105,8 @@ MIDDLEWARE = [
     "cms.middleware.page.CurrentPageMiddleware",
     "cms.middleware.toolbar.ToolbarMiddleware",
     "cms.middleware.language.LanguageCookieMiddleware",
+    # 
+    # "django_prometheus.middleware.PrometheusAfterMiddleware",
 ]
 
 ROOT_URLCONF = "project.urls"
@@ -141,7 +147,6 @@ DATABASES = {
 DATABASE_ROUTERS = [
     "contrib.bonde.router.AuthRouter",
 ]
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
