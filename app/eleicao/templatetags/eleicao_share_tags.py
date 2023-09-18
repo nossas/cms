@@ -45,6 +45,6 @@ def render_social_media(social_media_item: dict):
     elif url and "twitter" in url:
         return {"url": url_parse(url, "twitter"), "kind": "twitter"}
     elif url and "facebook" in url:
-        return {"url": url_parse(social_media_item.url, "facebook"), "kind": "facebook"}
+        return {"url": url_parse(url, "facebook"), "kind": "facebook"}
 
     return {}
