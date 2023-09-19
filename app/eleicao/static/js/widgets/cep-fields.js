@@ -7,9 +7,9 @@
     const $placeField = $('[data-cep-fields="place"]');
 
     if ($stateField.length) {
-      $stateField.select2({ placeholder: 'Selecione seu estado' });
-      $cityField.select2({ placeholder: 'Selecione sua cidade' });
-      $placeField.select2({ placeholder: 'Selecione o CT' });
+      $stateField.select2({ dropdownAutoWidth: true, width: 'auto', placeholder: 'Selecione seu estado' });
+      $cityField.select2({ allowClean: true, dropdownAutoWidth: true, width: 'auto', placeholder: 'Selecione sua cidade' });
+      $placeField.select2({ dropdownAutoWidth: true, width: 'auto', placeholder: 'Selecione o CT' });
 
       var uf;
       $stateField.on("change", (evt) => {

@@ -3,6 +3,8 @@ from django.shortcuts import render
 from django.utils.safestring import mark_safe
 from django.utils.functional import lazy
 
+from django.urls import reverse_lazy
+
 # from django_select2 import forms as s2forms
 
 from ..csv.choices import get_states
@@ -14,8 +16,18 @@ class CandidateListFilter(forms.Form):
         choices=lazy(get_states, list)(),
         widget=forms.Select(
             attrs={
-                "class": "w-full max-w-xs select select-bordered rounded-lg bg-[#EFEFEF] border-[#E0E0E0]",
-                "onchange": "this.form.submit()"
+                "data-cep-fields": "state",
+                "data-cep-url": reverse_lazy("eleicao:cep"),
+            }
+        )
+    )
+    
+    city = forms.CharField(
+        label="Cidade",
+        widget=forms.Select(
+            attrs={
+                "data-cep-fields": "city",
+                "data-cep-url": reverse_lazy("eleicao:cep"),
             }
         )
     )

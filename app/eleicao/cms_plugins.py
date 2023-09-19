@@ -6,6 +6,8 @@ from cms.plugin_pool import plugin_pool
 
 from .bonde_utils import create_form_entry
 
+from .places.views import get_choices
+
 from .models import (
     Candidate,
     CandidateStatusChoices,
@@ -55,15 +57,24 @@ class EleicaoCandidateListPlugin(CMSPluginBase):
     def render(self, context, instance, placeholder):
         ctx = super().render(context, instance, placeholder)
         request = ctx.get("request")
-
-        ctx["form"] = CandidateListFilter(request.GET)
+        
+        form = CandidateListFilter(request.GET)
 
         # Filtered List
         qs = Candidate.objects.filter(status=CandidateStatusChoices.published)
         filter_state = request.GET.get("uf", None)
+        filter_city = request.GET.get("city", None)
+        if filter_city == "all":
+            filter_city = None
         if filter_state:
             ctx["filter_state"] = filter_state
             qs = qs.filter(place__state__iexact=filter_state)
+            form.fields["city"].widget.choices = [("all","Todas as cidades")] + get_choices(filter_state)
+        if filter_city:
+            ctx["filter_city"] = filter_city
+            qs = qs.filter(place__city__iexact=filter_city)
+
+        ctx["form"] = form
 
         page_number = request.GET.get("page", 1)
         p = Paginator(qs, self.per_page)
