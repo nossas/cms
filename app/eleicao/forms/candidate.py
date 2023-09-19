@@ -63,7 +63,7 @@ class Commitment1Form(forms.Form):
         icon="icon-lgbt",
     )
     agree_5 = IconBooleanField(
-        label="Prioridade ao acionamento da rede de proteção, com encaminhamento a medidas socioeducativas como ultimo recurso",
+        label="Prioridade ao acionamento da rede de proteção, com encaminhamento a medidas socioeducativas como último recurso.",
         required=True,
         icon="icon-network",
     )
