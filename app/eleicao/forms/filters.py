@@ -21,7 +21,7 @@ class CandidateListFilter(forms.Form):
             }
         )
     )
-    
+
     city = forms.CharField(
         label="Cidade",
         widget=forms.Select(
