@@ -1,8 +1,15 @@
-<form class="flex flex-wrap gap-4 justify-between items-center pb-12 w-full filters">
-    <div class="max-w-xs form-control">
+<form class="flex flex-wrap gap-4 items-end pb-12 w-full filters">
+    <div class="form-control">
         <label class="label">
             <span class="font-bold label-text">{{ form.uf.label }}</span>
         </label>
         {{ form.uf }}
     </div>
+    <div class="form-control">
+        <label class="label">
+            <span class="font-bold label-text">{{ form.city.label }}</span>
+        </label>
+        {{ form.city }}
+    </div>
+    <input class="btn btn-primary" type="submit" value="Buscar" />
 </form>
