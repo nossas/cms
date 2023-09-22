@@ -1,0 +1,47 @@
+@import "tailwindcss/base";
+@import "./static/tailwind/tailwindcss/fonts.css";
+
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@layer base {
+
+    h1 {
+        @apply text-5xl font-extrabold;
+    }
+
+    h2 {
+        @apply text-4xl font-extrabold;
+    }
+
+    h3 {
+        @apply text-3xl font-extrabold;
+    }
+
+    h4 {
+        @apply text-2xl font-extrabold;
+    }
+
+    h5 {
+        @apply text-xl font-extrabold;
+    }
+
+
+    /* Default */
+    html {
+        --color-primary: black;
+        --color-primary-content: white;
+        --color-primary-hover: #565656;
+        --color-primary-focus: #AAAAAA;
+        --color-secondary: #5D5FEF;
+        --color-secondary-content: white;
+        --color-secondary-hover: #7879F1;
+        --color-secondary-focus: #A5A6F6;
+    }
+
+    /* Theme 1 */
+    html[data-theme="theme1"] {
+        --color-primary: green;
+        --color-secondary: blue;
+    }
+}

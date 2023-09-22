@@ -2,8 +2,10 @@
   "scripts": {
     "page": "npx tailwindcss --config ./tailwind.page.config.js -i ./static/tailwind/tailwindcss/page.css -o ./static/dist/tailwind/css/page.css",
     "admin": "npx tailwindcss --config ./tailwind.adminstyled.config.js -i ../admin_styled/static/admin_styled/tailwindcss/admin.css -o ../admin_styled/static/dist/admin_styled/css/admin.css",
+    "theme": "npx tailwindcss --config ./tailwind.theme.config.js -i ./theme.css -o ./static/theme.css",
     "page:dev": "npm run page -- --watch",
     "admin:dev": "npm run admin -- --watch",
+    "theme:dev": "npm run theme -- --watch",
     "page:build": "npm run page -- --minify",
     "admin:build": "npm run admin -- --minify"
   },

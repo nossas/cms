@@ -5,6 +5,7 @@ CMS_TEMPLATES = [
     # ("app/home.html", "Home"),
     ("frontend/landpage/page.html", "Landpage"),
     ("eleicao/eleicao_template.html", "A Eleição do Ano"),
+    ("storybook/template.html", "Storybook"),
 ]
 
 # Placeholder
@@ -35,6 +36,11 @@ CMS_PLACEHOLDER_CONF = {
                 "values": {}
             },
         ],
+    },
+    "content_storybook": {
+        "name": "Conteúdo",
+        "plugins": ["Tipografia", ],
+        "language_fallback": True
     },
     "eleicao_navbar": {
         "name": "Navegação",
