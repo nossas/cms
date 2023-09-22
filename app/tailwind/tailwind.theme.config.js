@@ -41,6 +41,7 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['Nunito Sans', 'sans-serif'],
+        serif: ['Helvetica Neue', 'sans-serif'],
       },
       colors: {
         primary: 'var(--color-primary)',

@@ -7,23 +7,35 @@
 @layer base {
 
     h1 {
-        @apply text-5xl font-extrabold;
+        @apply text-[60px] font-extrabold font-serif;
     }
 
     h2 {
-        @apply text-4xl font-extrabold;
+        @apply text-[36px] font-extrabold font-serif;
     }
 
     h3 {
-        @apply text-3xl font-extrabold;
+        @apply text-[21px] font-extrabold font-serif;
     }
 
     h4 {
-        @apply text-2xl font-extrabold;
+        @apply text-[16px] font-normal font-serif;
     }
 
     h5 {
-        @apply text-xl font-extrabold;
+        @apply text-[13px] font-extrabold font-serif;
+    }
+
+    p {
+        @apply text-[18px] font-normal;
+    }
+
+    p.text-xs {
+        @apply text-[13px];
+    }
+
+    p.text-sm {
+        @apply text-[16px];
     }
 
 
