@@ -5,55 +5,25 @@
 @import "tailwindcss/utilities";
 
 @layer base {
-
-    h1 {
-        @apply text-[60px] font-extrabold font-serif;
-    }
-
-    h2 {
-        @apply text-[36px] font-extrabold font-serif;
-    }
-
-    h3 {
-        @apply text-[21px] font-extrabold font-serif;
-    }
-
-    h4 {
-        @apply text-[16px] font-normal font-serif;
-    }
-
-    h5 {
-        @apply text-[13px] font-extrabold font-serif;
-    }
-
-    p {
-        @apply text-[18px] font-normal;
-    }
-
-    p.text-xs {
-        @apply text-[13px];
-    }
-
-    p.text-sm {
-        @apply text-[16px];
-    }
-
-
-    /* Default */
     html {
-        --color-primary: black;
-        --color-primary-content: white;
-        --color-primary-hover: #565656;
-        --color-primary-focus: #AAAAAA;
-        --color-secondary: #5D5FEF;
-        --color-secondary-content: white;
-        --color-secondary-hover: #7879F1;
-        --color-secondary-focus: #A5A6F6;
+        --colors-primary-bg: #131313;
+        --colors-primary-content: #ffffff;
+        --colors-primary-hover: #565656;
+        --colors-primary-focus: #AAAAAA;
+        --colors-secondary-bg: #5D5FEF;
+        --colors-secondary-content: #ffffff;
+        --colors-secondary-hover: #7879F1;
+        --colors-secondary-focus: #A5A6F6;
     }
 
-    /* Theme 1 */
-    html[data-theme="theme1"] {
-        --color-primary: green;
-        --color-secondary: blue;
+    html[data-theme="eleicao"] {
+        --colors-primary-bg: #1842AC;
+        --colors-primary-content: #ffffff;
+        --colors-primary-hover: #113794;
+        --colors-primary-focus: #4271e7;
+        --colors-secondary-bg: #93AC70;
+        --colors-secondary-content: #ffffff;
+        --colors-secondary-hover: #758e53;
+        --colors-secondary-focus: #88b14f;
     }
 }
