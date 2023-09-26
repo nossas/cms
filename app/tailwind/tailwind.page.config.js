@@ -38,10 +38,30 @@ module.exports = {
     '../**/*.py'
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        whatsapp: "#71C16A",
+        // 'whatsapp-focus': 'red',
+        twitter: "#3C9CD8",
+        facebook: "#395AA1",
+        copy: "#39485F"
+      }
+    },
+  },
+  daisyui: {
+    themes: [
+      "light",
+      // {
+      //   light: {
+      //     ...require("daisyui/src/theming/themes")["[data-theme=light]"],
+      //     '--rounded-btn': "none",
+      //   }
+      // },
+    ]
   },
   plugins: [
-    require("daisyui")
+    require("daisyui"),
+    require("./plugins/socialbuttons.plugin.js"),
   ],
 }
 
