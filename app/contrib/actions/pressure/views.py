@@ -27,7 +27,9 @@ class AjaxableResponseMixin(object):
       # it might do some processing (in the case of CreateView, it will
       # call form.save() for example).
       response = super().form_valid(form)
+
       if self.request.is_ajax():
+        form.submit()
         data = {
               'success': True,
               'html': render(self.request, 'pressure/pressure_success.html', {"form_data": form.cleaned_data}).content.decode('utf-8')
@@ -50,8 +52,3 @@ class PressureFormAjaxView(AjaxableResponseMixin, FormView):
     #
     def get_success_url(self):
         return self.request.path
-
-    def form_valid(self, form):
-        # AjaxableResponseMixin expects our contact object to be 'self.object'.
-        self.object = form.submit()
-        return super(PressureFormAjaxView, self).form_valid(form)

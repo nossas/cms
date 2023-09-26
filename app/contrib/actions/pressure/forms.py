@@ -3,7 +3,6 @@ import jwt
 import requests
 
 from django import forms
-from django.db import transaction
 from django.conf import settings
 
 from contrib.bonde.forms import ReferenceBaseModelForm
@@ -22,6 +21,7 @@ class PressurePluginForm(ReferenceBaseModelForm):
 
 class PressureAjaxForm(StyledBaseForm):
     reference_id = forms.IntegerField(widget=forms.HiddenInput)
+    referrer_path = forms.CharField(widget=forms.HiddenInput)
 
     email_address = forms.EmailField(label="Seu e-mail")
     name = forms.CharField(label="Seu nome", max_length=80)
@@ -32,7 +32,6 @@ class PressureAjaxForm(StyledBaseForm):
     class Meta(StyledBaseForm.Meta):
         readonly_fields = ["email_subject", "email_body"]
 
-    @transaction.atomic
     def submit(self):
         activist = {
             "email": self.cleaned_data["email_address"],
@@ -69,12 +68,3 @@ class PressureAjaxForm(StyledBaseForm):
             print(resp.json())
         else:
             raise Exception("Query failed to run by returning code of {}. {}".format(resp.status_code, query))
-
-        # print(
-        #     "Submitting ->>",
-        #     {
-        #         "activist": activist,
-        #         "input": input,
-        #         "widget_id": self.cleaned_data["reference_id"],
-        #     },
-        # )
