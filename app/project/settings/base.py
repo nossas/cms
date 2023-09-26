@@ -148,6 +148,10 @@ DATABASE_ROUTERS = [
     "contrib.bonde.router.AuthRouter",
 ]
 
+BONDE_ACTION_API_URL = env.str("BONDE_ACTION_API_URL", "http://api-graphql.localhost/v1/graphql")
+
+BONDE_ACTION_SECRET_KEY = env.str("BONDE_ACTION_SECRET_KEY", "")
+
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 

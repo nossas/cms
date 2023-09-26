@@ -18,3 +18,4 @@ whitenoise
 svglib
 reportlab
 django-social-share
+pyjwt
