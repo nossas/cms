@@ -19,3 +19,4 @@ svglib
 reportlab
 django-social-share
 pyjwt
+requests
