@@ -29,12 +29,16 @@ class AjaxableResponseMixin(object):
       response = super().form_valid(form)
 
       if self.request.is_ajax():
-        form.submit()
-        data = {
-              'success': True,
-              'html': render(self.request, 'pressure/pressure_success.html', {"form_data": form.cleaned_data}).content.decode('utf-8')
-          }
-        return self.render_to_json_response(data)
+        try:
+            form.submit()
+            data = {
+                'success': True,
+                'html': render(self.request, 'pressure/pressure_success.html', {"form_data": form.cleaned_data}).content.decode('utf-8')
+            }
+            return self.render_to_json_response(data)
+        except Exception as err:
+            form.add_error(None, err)
+            return self.render_to_json_response({ 'success': False, 'errors': form.errors }, status=500)
       else:
           return response
 
