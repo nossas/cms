@@ -5,15 +5,15 @@
 <script type="text/javascript" src="{% static 'pressure/js/pressure.js' %}"></script>
 {% endaddtoblock %}
 
-<div class="container pressure-plugin plugin">
+<div id="pressureWrapper" class="container pressure-plugin plugin">
   <div class="bg-white rounded-lg">
-    <h3 class="text-lg font-bold text-center px-4 pt-4">{{settings.title}}</h3>
-    <div class="bg-gray-200 px-6 py-4">
+    <h3 class="px-4 pt-4 text-lg font-bold text-center">{{settings.title}}</h3>
+    <div class="px-6 py-4 bg-gray-200">
       {% with settings.targets|length as targets_size %}
       <p class="mb-2">Quem você vai pressionar? ({{targets_size}} alvo{% if targets_size > 1 %}s{% endif %})</p>
-      <ul class="flex gap-2 overflow-x-auto pb-2">
+      <ul class="flex overflow-x-auto gap-2 pb-2">
         {% for target in settings.targets %}
-        <li class="bg-white text-sm py-2 px-4">
+        <li class="px-4 py-2 text-sm bg-white">
           <p class="font-bold">{{ target.name }}</p>
           <p>{{ target.email }}</p>
         </li>
@@ -21,11 +21,11 @@
       </ul>
       {% endwith %}
     </div>
-
+  
     <form id="pressureForm" method="post" action="{% url 'action_pressure' %}" novalidate>
       {% csrf_token %}
       {% for field in form.visible_fields %}
-      <div class="form-control py-2 px-6">
+      <div class="px-6 py-2 form-control">
         <div class="relative">
           {{ field }}
           {% if field.label %}
@@ -37,12 +37,13 @@
       </div>
       {% endfor %}
       {% for hidden_field in form.hidden_fields %}{{hidden_field}}{% endfor %}
-      <div class="px-6 pt-4 pb-6 flex flex-col gap-4">
-        <button type="submit" class="btn w-full">{{settings.button}}</button>
+      <div class="flex flex-col gap-4 px-6 pt-4 pb-6">
+        <button type="submit" class="w-full btn">{{settings.button}}</button>
+        <ul class="errorlist"></ul>
         <p class="text-xs">Ao inserir seus dados, você concorda em ter seus dados compartilhados com os organizadores
           dessa página e aceita receber emails de atualização, conforme descrito na política de privacidade. Você pode
           cancelar o recebimento desses e-mails a qualquer momento.</p>
-        <p class="text-lg text-center font-bold">{{ size }} {{ settings.count }}</p>
+        <p class="py-4 text-sm text-center text-bold">{{ size }} {{ settings.count }}</p>
       </div>
     </form>
   </div>

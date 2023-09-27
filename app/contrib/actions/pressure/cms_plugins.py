@@ -15,6 +15,7 @@ class PressurePlugin(CMSPluginBase):
 
     def render(self, context, instance, placeholder):
         obj = instance.get_widget()
+        request = context["request"]
         initial = (
             {
                 "email_subject": obj.settings.get("pressure_subject", ""),
@@ -28,7 +29,11 @@ class PressurePlugin(CMSPluginBase):
 
         if instance.reference_id:
             form = PressureAjaxForm(
-                initial={"reference_id": instance.reference_id, **initial}
+                initial={
+                    "reference_id": instance.reference_id,
+                    "referrer_path": f"{request.scheme}://{request.get_host()}{request.path}",
+                    **initial,
+                }
             )
 
         context.update(

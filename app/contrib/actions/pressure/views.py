@@ -1,10 +1,10 @@
 import json
 
-from django.http import HttpResponse
+from django.http import JsonResponse
 from django.views.generic import FormView
+from django.shortcuts import render
 
 from .forms import PressureAjaxForm
-
 
 class AjaxableResponseMixin(object):
     """
@@ -13,29 +13,34 @@ class AjaxableResponseMixin(object):
     """
 
     def render_to_json_response(self, context, **response_kwargs):
-        data = json.dumps(context)
-        response_kwargs["content_type"] = "application/json"
-        return HttpResponse(data, **response_kwargs)
+        return JsonResponse(context, **response_kwargs)
 
     def form_invalid(self, form):
-        response = super(AjaxableResponseMixin, self).form_invalid(form)
+        response = super().form_invalid(form)
         if self.request.is_ajax():
-            return self.render_to_json_response(form.errors)  # , status=400)
+            return self.render_to_json_response({'success': False, 'errors': form.errors}, status=400)
         else:
             return response
 
     def form_valid(self, form):
-        # We make sure to call the parent's form_valid() method because
-        # it might do some processing (in the case of CreateView, it will
-        # call form.save() for example).
-        response = super(AjaxableResponseMixin, self).form_valid(form)
-        if self.request.is_ajax():
+      # We make sure to call the parent's form_valid() method because
+      # it might do some processing (in the case of CreateView, it will
+      # call form.save() for example).
+      response = super().form_valid(form)
+
+      if self.request.is_ajax():
+        try:
+            form.submit()
             data = {
-                "success": True,
+                'success': True,
+                'html': render(self.request, 'pressure/pressure_success.html', {"form_data": form.cleaned_data}).content.decode('utf-8')
             }
             return self.render_to_json_response(data)
-        else:
-            return response
+        except Exception as err:
+            form.add_error(None, err)
+            return self.render_to_json_response({ 'success': False, 'errors': form.errors }, status=500)
+      else:
+          return response
 
 
 class PressureFormAjaxView(AjaxableResponseMixin, FormView):
@@ -51,8 +56,3 @@ class PressureFormAjaxView(AjaxableResponseMixin, FormView):
     #
     def get_success_url(self):
         return self.request.path
-
-    def form_valid(self, form):
-        # AjaxableResponseMixin expects our contact object to be 'self.object'.
-        self.object = form.submit()
-        return super(PressureFormAjaxView, self).form_valid(form)

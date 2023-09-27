@@ -96,9 +96,10 @@ class Community(models.Model):
         return self.name
 
     def get_signature(self):
+        signature = self.signature or {}
         return {
-            "name": self.signature.get("name", self.name),
-            "url": self.signature.get("url", "#"),
+            "name": signature.get("name", self.name),
+            "url": signature.get("url", "#"),
         }
 
 
