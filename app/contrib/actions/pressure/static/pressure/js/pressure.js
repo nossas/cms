@@ -15,50 +15,49 @@
         }, 2000);
       }
 
-      function handleResponse({ status, responseJSON }) {
-        if (status === 200 && responseJSON.success) {
-          $("#pressureWrapper").empty();
-          $("#pressureWrapper").html(data.html);
+      function failResponse({ responseJSON }) {
+        $form.find('.errorlist').empty();
 
-          $("#copyToClipboard").on("click", function () {
-            const textToCopy = window.location.href;
+        $.each(responseJSON.errors, function (key, value) {
+          if (key === '__all__') {
+            const $errorlist = $form.find("[type='submit'] + .errorlist");
+            $errorlist.html(
+              $.each(value, function (item) {
+                return "<li>" + item + "</li>"
+              })
+            );
+          } else {
+            const $field = $form.find("input[name=" + key + "]").first();
+            $field.parents(".form-control").find(".errorlist").html(
+              $.each(value, function (item) {
+                return "<li>" + item + "</li>"
+              })
+            );
+          }
+        });
+        window.gtag("event", "form_submit_failed", { form_id: $form.attr("id") });
+      }
 
-            navigator.clipboard
-              .writeText(textToCopy)
-              .then(showTooltip)
-              .catch(() => console.error("Erro ao copiar link, tente novamente."));
-          });
-          window.gtag("event", "form_submit_success", { form_id: $form.attr("id") });
-        } else {
-          $form.find('.errorlist').empty();
+      function doneResponse({ success, html }) {
+        $("#pressureWrapper").empty();
+        $("#pressureWrapper").html(html);
 
-          $.each(responseJSON.errors, function (key, value) {
-            if (key === '__all__') {
-              const $errorlist = $form.find("[type='submit'] + .errorlist");
-              $errorlist.html(
-                $.each(value, function (item) {
-                  return "<li>" + item + "</li>"
-                })
-              );
-            } else {
-              const $field = $form.find("input[name=" + key + "]").first();
-              $field.parents(".form-control").find(".errorlist").html(
-                $.each(value, function (item) {
-                  return "<li>" + item + "</li>"
-                })
-              );
-            }
-          });
-          window.gtag("event", "form_submit_failed", { form_id: $form.attr("id") });
-        }
+        $("#copyToClipboard").on("click", function () {
+          const textToCopy = window.location.href;
+
+          navigator.clipboard
+            .writeText(textToCopy)
+            .then(showTooltip)
+            .catch(() => console.error("Erro ao copiar link, tente novamente."));
+        });
+        window.gtag("event", "form_submit_success", { form_id: $form.attr("id") });
       }
 
       evt.preventDefault();
       $("#id_referrer_path").val(window.location.href);
-      $.ajax($form.attr('action'), {
-        type: 'POST',
-        data: $form.serialize(),
-      }).always(handleResponse);
+      $.ajax($form.attr('action'), { type: 'POST', data: $form.serialize() })
+        .fail(failResponse)
+        .done(doneResponse);
     });
   });
 }(window.jQuery));
