@@ -35,12 +35,12 @@
             {% if page_obj.number == page_num %}
               <li><button class="join-item btn btn-md btn-active">{{ page_num }} </button></li>
             {% elif page_num >= page_obj.number|add:"-2" and page_num <= page_obj.number|add:"2" %}
-              <li><a href="?page={{ page_num }}{% if filter_state %}&uf={{filter_state}}{% endif %}" class="join-item btn btn-md">{{ page_num }}</a></li>
+              <li><a href="?page={{ page_num }}{% if filter_state %}&uf={{filter_state}}{% endif %}{% if filter_city %}&city={{filter_city}}{% endif %}" class="join-item btn btn-md">{{ page_num }}</a></li>
             {% endif %}
           {% endfor %}
 
             {% if page_obj.has_next %}
-                <li><a href="?page={{ page_obj.next_page_number }}{% if filter_state %}&uf={{filter_state}}{% endif %}" class="join-item btn">&raquo;</a></li>
+                <li><a href="?page={{ page_obj.next_page_number }}{% if filter_state %}&uf={{filter_state}}{% endif %}{% if filter_city %}&city={{filter_city}}{% endif %}" class="join-item btn">&raquo;</a></li>
             {% else %}
                 <li class="join-item btn btn-disabled"><span>&raquo;</span></li>
             {% endif %}
