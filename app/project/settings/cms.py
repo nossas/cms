@@ -12,7 +12,7 @@ CMS_TEMPLATES = [
 CMS_PLACEHOLDER_CONF = {
     "content": {
         "name": "Blocos",
-        "plugins": ["BlockPlugin", "BlockPressurePlugin", "EleicaoCandidateListPlugin", "EleicaoCarouselPlugin", "EleicaoVoterFormPlugin"],
+        "plugins": ["BlockPlugin", "BlockPressurePlugin", "EleicaoCandidateListPlugin", "EleicaoCarouselPlugin", "EleicaoVoterFormPlugin", "LeafletMapPlugin"],
     },
     "navigation": {
         "name": "Navegação",

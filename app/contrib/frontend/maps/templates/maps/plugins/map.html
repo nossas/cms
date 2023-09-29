@@ -1,0 +1,17 @@
+{% load static sekizai_tags %}
+
+{% addtoblock "css" %}
+  <link rel="stylesheet" href="{% static "maps/css/styles.css" %}">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+  crossorigin=""/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tomickigrzegorz/autocomplete@1.8.9/dist/css/autocomplete.min.css"/>
+{% endaddtoblock %}
+
+<div id="map" data-maps-geojson="{{ instance.geojson.url }}"></div>
+
+{% addtoblock "js" %}
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="https://cdn.jsdelivr.net/gh/tomickigrzegorz/autocomplete@1.8.9/dist/js/autocomplete.min.js"></script>
+  <script src="{% static "maps/js/maps.js" %}"></script>
+{% endaddtoblock %}

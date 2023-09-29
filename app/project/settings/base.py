@@ -79,6 +79,7 @@ INSTALLED_APPS = [
     "contrib.frontend",
     "contrib.frontend.landpage",
     "contrib.frontend.grid",
+    "contrib.frontend.maps",
     "contrib.ga",
     # Experimentação
     "eleicao",
