@@ -10,10 +10,10 @@ const lng = -46.63366;
 
 const mapWrapper = document.querySelector("#map");
 
+// Adiciona o mapa
 const map = L.map("map", config).setView([lat, lng], zoom);
 
-// Used to load and display tile layers on the map
-// Most tile servers require attribution, which you can set under `Layer`
+// Carrega e mostra o layer
 L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
   attribution:
     '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -35,7 +35,7 @@ L.Control.Search = L.Control.extend({
     container.insertAdjacentHTML(
       "beforeend",
       `<div class="auto-search-wrapper loupe">
-        <input type="text" id="local" autocomplete="off" placeholder="Enter e or p" />
+        <input type="text" id="local" autocomplete="off" placeholder="Encontre a linha" />
       </div>`
     );
 
@@ -46,11 +46,48 @@ L.Control.Search = L.Control.extend({
 new L.Control.Search().addTo(map);
 
 // --------------------------------------------------------------
+let startPoint, endPoint, polylineGeoJSON;
 let geojsonarray = [];
+
+function addMarkers(coordinates) {
+  // Remove marcadores existentes
+  if (startPoint) map.removeLayer(startPoint);
+  if (endPoint) map.removeLayer(endPoint);
+
+  // Adiciona marcadores nos pontos inicial e final
+  startPoint = L.marker([coordinates[0][1], coordinates[0][0]]);
+  endPoint = L.marker([coordinates[coordinates.length - 1][1], coordinates[coordinates.length - 1][0]]);
+
+  // Adiciona marcadores ao mapa
+  startPoint.addTo(map);
+  endPoint.addTo(map);
+}
+
+function addPolyline(coordinates) {
+  // Remove linha existente
+  if (polylineGeoJSON) map.removeLayer(polylineGeoJSON);
+
+  // Adiciona linha ao mapa
+  polylineGeoJSON = L.geoJSON({
+    type: "LineString",
+    coordinates: coordinates,
+  }, {
+    style: {
+      color: "orange",
+      weight: 7,
+      opacity: 1,
+      fillOpacity: 0.5,
+    },
+    onEachFeature: function (feature, layer) {
+      layer.bindPopup(
+        "<span>Informações:<br>" + "oiee<br>" + "</span>"
+      );
+    },
+  }).addTo(map);
+}
 
 new Autocomplete("local", {
   onSearch: ({ currentValue }) => {
-
     const api = mapWrapper.dataset.mapsGeojson;
     return new Promise((resolve) => {
       fetch(api)
@@ -77,69 +114,39 @@ new Autocomplete("local", {
     return matches === 0
       ? template
       : matches
-          .map((el) => {
-            const icon =
-              el.properties.type === "rectangle"
-                ? "polygon"
-                : el.properties.type.toLowerCase();
-            return `
+        .map((el) => {
+          return `
             <li>
               <div class="title">${el.properties.title}</div>
             </li>`;
-          })
-          .join("");
+        })
+        .join("");
   },
 
   onSubmit: ({ object }) => {
-    const geojsonlayer = L.geoJSON(object, {
-      style: function (feature) {
-        return {
-          color: feature.properties.color || "red",
-          weight: 7,
-          opacity: 1,
-          fillOpacity: 0.7,
-        };
-      },
-      pointToLayer: (feature, latlng) => {
-        if (feature.properties.type === "circle") {
-          return new L.circle(latlng, {
-            radius: feature.properties.radius,
-          });
-        } else if (feature.properties.type === "circlemarker") {
-          return new L.circleMarker(latlng, {
-            radius: 20,
-          });
-        } else {
-          return new L.Marker(latlng);
-        }
-      },
-      onEachFeature: function (feature, layer) {
-        // const infos = feature.properties.layer.toString();
+    const coordinates = object.geometry.coordinates;
 
-        layer.bindPopup(
-          "<span>Informações:<br>" + "oiee<br>" + "</span>"
-        );
-      },
-    });
+    // Adiciona marcadores nos pontos inicial e final
+    addMarkers(coordinates);
 
-    map.fitBounds(geojsonlayer.getBounds(), { padding: [150, 150] });
+    // Adiciona linha ao mapa
+    addPolyline(coordinates);
+
+    map.fitBounds(polylineGeoJSON.getBounds(), { padding: [150, 150] });
 
     if (geojsonarray.includes(object.properties.id)) return;
     geojsonarray.push(object.properties.id);
-
-    geojsonlayer.addTo(map);
   },
 
   noResults: ({ currentValue, template }) =>
-    template(`<li>No results found: "${currentValue}"</li>`),
+    template(`<li>Sem resultados: "${currentValue}"</li>`),
 
   onReset: () => {
-    // remove all layers
-    map.eachLayer(function (layer) {
-      if (!!layer.toGeoJSON) {
-        map.removeLayer(layer);
-      }
-    });
+    // Remove marcadores e linha
+    if (startPoint) map.removeLayer(startPoint);
+    if (endPoint) map.removeLayer(endPoint);
+    if (polylineGeoJSON) map.removeLayer(polylineGeoJSON);
+
     geojsonarray = [];
   },
 });
