@@ -61,12 +61,9 @@ function addMarkers(coordinates) {
     }
   });
   
-
   // Remove marcadores existentes
   if (startPoint) map.removeLayer(startPoint);
   if (endPoint) map.removeLayer(endPoint);
-
-  console.log(mapWrapper.dataset)
 
   startPoint = L.marker([coordinates[0][1], coordinates[0][0]]);
   endPoint = L.marker([coordinates[coordinates.length - 1][1], coordinates[coordinates.length - 1][0]]);
@@ -87,7 +84,7 @@ function addMarkers(coordinates) {
 }
 
 function addPolyline(coordinates, properties) {
-  const lineColor = mapWrapper.dataset.linecolor;
+  const lineColor = mapWrapper.dataset.mapsLinecolor;
 
   // Remove linha existente
   if (polylineGeoJSON) map.removeLayer(polylineGeoJSON);
