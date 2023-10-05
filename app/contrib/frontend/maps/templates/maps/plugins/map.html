@@ -8,7 +8,12 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tomickigrzegorz/autocomplete@1.8.9/dist/css/autocomplete.min.css"/>
 {% endaddtoblock %}
 
-<div id="map" data-maps-geojson="{{ instance.geojson.url }}"></div>
+<div id="map" 
+  data-maps-geojson="{{ instance.geojson.url }}"
+  data-maps-icons-pointA="{{ instance.pointA.url }}"
+  data-maps-icons-pointB="{{ instance.pointB.url }}"
+  data-maps-lineColor="{{ instance.lineColor.url }}">
+</div>
 
 {% addtoblock "js" %}
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>

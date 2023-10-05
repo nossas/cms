@@ -2,6 +2,8 @@ let config = {
   minZoom: 7,
   maxZoom: 18,
   zoomControl: false,
+  autoPan: false,
+  scrollWheelZoom: false
 };
 
 const zoom = 18;
@@ -20,6 +22,7 @@ L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
 }).addTo(map);
 
 // ------------------------------------------------------------
+
 L.control.zoom({ position: "topright" }).addTo(map);
 
 // --------------------------------------------------------------
@@ -50,20 +53,33 @@ let startPoint, endPoint, polylineGeoJSON;
 let geojsonarray = [];
 
 function addMarkers(coordinates) {
+  let LeafIcon = L.Icon.extend({
+    options: {
+        iconSize:     [38, 95],
+        iconAnchor:   [22, 94],
+        popupAnchor:  [-3, -76]
+    }
+  });
+  
+  let startIcon = new LeafIcon({iconUrl: mapWrapper.dataset.mapsIconsPointA})
+  let endIcon = new LeafIcon({iconUrl: mapWrapper.dataset.mapsIconsPointB})
+
   // Remove marcadores existentes
   if (startPoint) map.removeLayer(startPoint);
   if (endPoint) map.removeLayer(endPoint);
 
   // Adiciona marcadores nos pontos inicial e final
-  startPoint = L.marker([coordinates[0][1], coordinates[0][0]]);
-  endPoint = L.marker([coordinates[coordinates.length - 1][1], coordinates[coordinates.length - 1][0]]);
+  startPoint = L.marker([coordinates[0][1], coordinates[0][0]], {icon: startIcon});
+  endPoint = L.marker([coordinates[coordinates.length - 1][1], coordinates[coordinates.length - 1][0]], {icon: endIcon});
 
   // Adiciona marcadores ao mapa
   startPoint.addTo(map);
   endPoint.addTo(map);
 }
 
-function addPolyline(coordinates) {
+function addPolyline(coordinates, properties) {
+  const lineColor = mapWrapper.dataset.lineColor;
+
   // Remove linha existente
   if (polylineGeoJSON) map.removeLayer(polylineGeoJSON);
 
@@ -73,15 +89,21 @@ function addPolyline(coordinates) {
     coordinates: coordinates,
   }, {
     style: {
-      color: "orange",
+      color: lineColor || "red",
       weight: 7,
       opacity: 1,
       fillOpacity: 0.5,
     },
     onEachFeature: function (feature, layer) {
-      layer.bindPopup(
-        "<span>Informações:<br>" + "oiee<br>" + "</span>"
-      );
+        const linhaNum = properties.ln_codigo.toString();
+        const linhaName = properties.title.toString();
+        const linhaEmpresa = properties.ln_empresa.toString();
+
+        layer.bindPopup(
+          "<span>Número:\n" + linhaNum + "</span><br>" +
+          "<span>Nome:\n" + linhaName + "</span><br>" +
+          "<span>Empresa responsável:\n" + linhaEmpresa + "</span><br>"
+        );
     },
   }).addTo(map);
 }
@@ -125,12 +147,13 @@ new Autocomplete("local", {
 
   onSubmit: ({ object }) => {
     const coordinates = object.geometry.coordinates;
+    const properties = object.properties;
 
     // Adiciona marcadores nos pontos inicial e final
     addMarkers(coordinates);
 
     // Adiciona linha ao mapa
-    addPolyline(coordinates);
+    addPolyline(coordinates, properties);
 
     map.fitBounds(polylineGeoJSON.getBounds(), { padding: [150, 150] });
 
