@@ -10,9 +10,9 @@
 
 <div id="map" 
   data-maps-geojson="{{ instance.geojson.url }}"
-  data-maps-icons-pointA="{{ instance.pointA.url }}"
-  data-maps-icons-pointB="{{ instance.pointB.url }}"
-  data-maps-lineColor="{{ instance.lineColor.url }}">
+  {% if instance.point_a %}data-maps-icons-point-A="{{ instance.point_a.url }}"{% endif %}
+  {% if instance.point_b %}data-maps-icons-point-B="{{ instance.point_b.url }}"{% endif %}
+  data-maps-linecolor="{{ instance.line_color }}">
 </div>
 
 {% addtoblock "js" %}

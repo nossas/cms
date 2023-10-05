@@ -55,22 +55,31 @@ let geojsonarray = [];
 function addMarkers(coordinates) {
   let LeafIcon = L.Icon.extend({
     options: {
-        iconSize:     [38, 95],
-        iconAnchor:   [22, 94],
+        iconSize:     [40, 40],
+        iconAnchor:   [22, 50],
         popupAnchor:  [-3, -76]
     }
   });
   
-  let startIcon = new LeafIcon({iconUrl: mapWrapper.dataset.mapsIconsPointA})
-  let endIcon = new LeafIcon({iconUrl: mapWrapper.dataset.mapsIconsPointB})
 
   // Remove marcadores existentes
   if (startPoint) map.removeLayer(startPoint);
   if (endPoint) map.removeLayer(endPoint);
 
+  console.log(mapWrapper.dataset)
+
+  startPoint = L.marker([coordinates[0][1], coordinates[0][0]]);
+  endPoint = L.marker([coordinates[coordinates.length - 1][1], coordinates[coordinates.length - 1][0]]);
+
   // Adiciona marcadores nos pontos inicial e final
-  startPoint = L.marker([coordinates[0][1], coordinates[0][0]], {icon: startIcon});
-  endPoint = L.marker([coordinates[coordinates.length - 1][1], coordinates[coordinates.length - 1][0]], {icon: endIcon});
+  if (mapWrapper.dataset.mapsIconsPointA) {
+    let startIcon = new LeafIcon({iconUrl: mapWrapper.dataset.mapsIconsPointA})
+    startPoint = L.marker([coordinates[0][1], coordinates[0][0]], {icon: startIcon});
+  }
+  if (mapWrapper.dataset.mapsIconsPointB) {
+    let endIcon = new LeafIcon({iconUrl: mapWrapper.dataset.mapsIconsPointB})
+    endPoint = L.marker([coordinates[coordinates.length - 1][1], coordinates[coordinates.length - 1][0]], {icon: endIcon});
+  }
 
   // Adiciona marcadores ao mapa
   startPoint.addTo(map);
@@ -78,7 +87,7 @@ function addMarkers(coordinates) {
 }
 
 function addPolyline(coordinates, properties) {
-  const lineColor = mapWrapper.dataset.lineColor;
+  const lineColor = mapWrapper.dataset.linecolor;
 
   // Remove linha existente
   if (polylineGeoJSON) map.removeLayer(polylineGeoJSON);
@@ -90,7 +99,7 @@ function addPolyline(coordinates, properties) {
   }, {
     style: {
       color: lineColor || "red",
-      weight: 7,
+      weight: 3,
       opacity: 1,
       fillOpacity: 0.5,
     },

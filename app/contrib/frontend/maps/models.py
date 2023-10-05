@@ -16,13 +16,13 @@ STYLED_COLOR_PALLETE = [
 ]
 
 class Maps(CMSPlugin):
-  geojson = models.FileField(upload_to="maps/geojson/")
-  lineColor = ColorField(
-      verbose_name="Cor da borda",
+  geojson = models.FileField(upload_to="maps/geojson/", blank=True, null=True)
+  line_color = ColorField(
+      verbose_name="Cor da linha",
       samples=STYLED_COLOR_PALLETE,
       format="hexa",
       blank=True,
       null=True,
   )
-  pointA = models.FileField(upload_to="maps/icons/")
-  pointB = models.FileField(upload_to="maps/icons/")
+  point_a = models.FileField(upload_to="maps/icons/", blank=True, null=True)
+  point_b = models.FileField(upload_to="maps/icons/", blank=True, null=True)
