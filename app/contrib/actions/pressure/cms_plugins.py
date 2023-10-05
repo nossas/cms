@@ -51,12 +51,20 @@ class PressurePlugin(CMSPluginBase):
             "title": "Envie um e-mail mandando seu recado",
             "button": "Pressionar",
             "count": "pessoas já pressionaram",
+            "main_color": None,
         }
 
         if obj:
-            settings["title"] = obj.settings.get("title_text", settings["title"])
+            settings["title"] = (
+                obj.settings.get("call_to_action")
+                or obj.settings.get("title_text")
+                or settings["title"]
+            )
             settings["button"] = obj.settings.get("button_text", settings["button"])
             settings["count"] = obj.settings.get("count_text", settings["count"])
+            settings["main_color"] = obj.settings.get(
+                "main_color", settings["main_color"]
+            )
 
             settings["targets"] = list(
                 map(

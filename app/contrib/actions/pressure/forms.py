@@ -23,8 +23,8 @@ class PressureAjaxForm(StyledBaseForm):
     reference_id = forms.IntegerField(widget=forms.HiddenInput)
     referrer_path = forms.CharField(widget=forms.HiddenInput)
 
-    email_address = forms.EmailField(label="Seu e-mail")
-    name = forms.CharField(label="Seu nome", max_length=80)
+    email_address = forms.EmailField(label="Seu e-mail*")
+    name = forms.CharField(label="Seu nome*", max_length=80)
     phone_number = forms.CharField(label="Seu telefone", max_length=15, required=False)
     email_subject = forms.CharField(label="Assunto", max_length=100)
     email_body = forms.CharField(label="Corpo do e-mail", widget=forms.Textarea)
@@ -64,10 +64,17 @@ class PressureAjaxForm(StyledBaseForm):
                 "widget_id": self.cleaned_data["reference_id"],
             }
 
-            resp = requests.post(settings.BONDE_ACTION_API_URL, json={"query": query, "variables": variables})
+            resp = requests.post(
+                settings.BONDE_ACTION_API_URL,
+                json={"query": query, "variables": variables},
+            )
             if resp.status_code == 200:
                 print(resp.json())
             else:
-                raise Exception("Query failed to run by returning code of {}. {}".format(resp.status_code, query))
+                raise Exception(
+                    "Query failed to run by returning code of {}. {}".format(
+                        resp.status_code, query
+                    )
+                )
         except requests.ConnectionError:
             raise Exception("ConnectionError")

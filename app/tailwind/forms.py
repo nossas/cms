@@ -33,6 +33,7 @@ class StyledBaseForm(forms.Form):
 
             # Add readonly fields
             if visible.name in self.Meta.readonly_fields:
+                visible.field.widget.attrs["disabled"] = True
                 visible.field.widget.attrs["readonly"] = True
 
             # Add placeholder to use focus animation label
