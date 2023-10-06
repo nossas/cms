@@ -21,24 +21,23 @@ L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
     '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 }).addTo(map);
 
-// ------------------------------------------------------------
 
 L.control.zoom({ position: "topright" }).addTo(map);
 
-// --------------------------------------------------------------
 L.Control.Search = L.Control.extend({
   options: {
     position: "topleft",
   },
   onAdd: function () {
     const container = L.DomUtil.create("div", "autocomplete-container");
+    const searchPlaceholder = mapWrapper.dataset.mapsSearchplaceholder;
 
     L.DomEvent.disableClickPropagation(container);
 
     container.insertAdjacentHTML(
       "beforeend",
       `<div class="auto-search-wrapper loupe">
-        <input type="text" id="local" autocomplete="off" placeholder="Encontre a linha" />
+        <input type="text" id="show-all-values" autocomplete="off" placeholder="${searchPlaceholder}" />
       </div>`
     );
 
@@ -48,11 +47,10 @@ L.Control.Search = L.Control.extend({
 
 new L.Control.Search().addTo(map);
 
-// --------------------------------------------------------------
 let startPoint, endPoint, polylineGeoJSON;
 let geojsonarray = [];
 
-function addMarkers(coordinates) {
+function addMarkers(coordinates, properties) {
   let LeafIcon = L.Icon.extend({
     options: {
         iconSize:     [40, 40],
@@ -68,7 +66,7 @@ function addMarkers(coordinates) {
   startPoint = L.marker([coordinates[0][1], coordinates[0][0]]);
   endPoint = L.marker([coordinates[coordinates.length - 1][1], coordinates[coordinates.length - 1][0]]);
 
-  // Adiciona marcadores nos pontos inicial e final
+  // Adiciona marcadores custom nos pontos inicial e final
   if (mapWrapper.dataset.mapsIconsPointA) {
     let startIcon = new LeafIcon({iconUrl: mapWrapper.dataset.mapsIconsPointA})
     startPoint = L.marker([coordinates[0][1], coordinates[0][0]], {icon: startIcon});
@@ -78,18 +76,20 @@ function addMarkers(coordinates) {
     endPoint = L.marker([coordinates[coordinates.length - 1][1], coordinates[coordinates.length - 1][0]], {icon: endIcon});
   }
 
-  // Adiciona marcadores ao mapa
-  startPoint.addTo(map);
-  endPoint.addTo(map);
+  [startPoint, endPoint].forEach(marker => {
+    marker.bindPopup(
+      `<span>Número: ${properties.ln_codigo}</span><br>` +
+      `<span>Nome: ${properties.title}</span><br>` +
+      `<span>Empresa responsável: ${properties.ln_empresa}</span><br>`
+    ).addTo(map);
+  });
 }
 
 function addPolyline(coordinates, properties) {
   const lineColor = mapWrapper.dataset.mapsLinecolor;
 
-  // Remove linha existente
   if (polylineGeoJSON) map.removeLayer(polylineGeoJSON);
 
-  // Adiciona linha ao mapa
   polylineGeoJSON = L.geoJSON({
     type: "LineString",
     coordinates: coordinates,
@@ -101,20 +101,20 @@ function addPolyline(coordinates, properties) {
       fillOpacity: 0.5,
     },
     onEachFeature: function (feature, layer) {
-        const linhaNum = properties.ln_codigo.toString();
-        const linhaName = properties.title.toString();
-        const linhaEmpresa = properties.ln_empresa.toString();
-
-        layer.bindPopup(
-          "<span>Número:\n" + linhaNum + "</span><br>" +
-          "<span>Nome:\n" + linhaName + "</span><br>" +
-          "<span>Empresa responsável:\n" + linhaEmpresa + "</span><br>"
-        );
+      layer.bindPopup(
+        `<span>Número: ${properties.ln_codigo}</span><br>` +
+        `<span>Nome: ${properties.title}</span><br>` +
+        `<span>Empresa responsável: ${properties.ln_empresa}</span><br>`
+      );
     },
   }).addTo(map);
 }
 
-new Autocomplete("local", {
+new Autocomplete("show-all-values", {
+  clearButton: true,
+  cache: true,
+  showAllValues: true,
+
   onSearch: ({ currentValue }) => {
     const api = mapWrapper.dataset.mapsGeojson;
     return new Promise((resolve) => {
@@ -132,33 +132,18 @@ new Autocomplete("local", {
             });
           resolve(result);
         })
-        .catch((error) => {
-          console.error(error);
-        });
+        .catch((error) => console.error(error));
     });
   },
 
-  onResults: ({ matches, template }) => {
-    return matches === 0
-      ? template
-      : matches
-        .map((el) => {
-          return `
-            <li>
-              <div class="title">${el.properties.title}</div>
-            </li>`;
-        })
-        .join("");
-  },
+  onResults: ({ matches, template }) =>
+    matches === 0 ? template : matches.map((el) => `<li><div class="title">${el.properties.title}</div></li>`).join(""),
 
   onSubmit: ({ object }) => {
     const coordinates = object.geometry.coordinates;
     const properties = object.properties;
 
-    // Adiciona marcadores nos pontos inicial e final
-    addMarkers(coordinates);
-
-    // Adiciona linha ao mapa
+    addMarkers(coordinates, properties);
     addPolyline(coordinates, properties);
 
     map.fitBounds(polylineGeoJSON.getBounds(), { padding: [150, 150] });
@@ -167,14 +152,13 @@ new Autocomplete("local", {
     geojsonarray.push(object.properties.id);
   },
 
-  noResults: ({ currentValue, template }) =>
-    template(`<li>Sem resultados: "${currentValue}"</li>`),
+  noResults: ({ currentValue, template }) => template(`<li>Sem resultados: "${currentValue}"</li>`),
 
   onReset: () => {
     // Remove marcadores e linha
-    if (startPoint) map.removeLayer(startPoint);
-    if (endPoint) map.removeLayer(endPoint);
-    if (polylineGeoJSON) map.removeLayer(polylineGeoJSON);
+    [startPoint, endPoint, polylineGeoJSON].forEach(layer => {
+      if (layer) map.removeLayer(layer);
+    });
 
     geojsonarray = [];
   },

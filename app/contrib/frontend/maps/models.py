@@ -26,3 +26,4 @@ class Maps(CMSPlugin):
   )
   point_a = models.FileField(upload_to="maps/icons/", blank=True, null=True)
   point_b = models.FileField(upload_to="maps/icons/", blank=True, null=True)
+  search_placeholder = models.CharField("Placeholder do Campo de Busca", max_length=80, blank=True)
