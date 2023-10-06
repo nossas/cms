@@ -30,13 +30,14 @@ L.Control.Search = L.Control.extend({
   },
   onAdd: function () {
     const container = L.DomUtil.create("div", "autocomplete-container");
+    const searchPlaceholder = mapWrapper.dataset.mapsSearchplaceholder;
 
     L.DomEvent.disableClickPropagation(container);
 
     container.insertAdjacentHTML(
       "beforeend",
       `<div class="auto-search-wrapper loupe">
-        <input type="text" id="show-all-values" autocomplete="off" placeholder="Encontre a linha" />
+        <input type="text" id="show-all-values" autocomplete="off" placeholder="${searchPlaceholder}" />
       </div>`
     );
 
