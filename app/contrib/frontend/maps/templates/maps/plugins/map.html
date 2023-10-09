@@ -1,20 +1,25 @@
 {% load static sekizai_tags %}
 
 {% addtoblock "css" %}
-  <link rel="stylesheet" href="{% static "maps/css/styles.css" %}">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
   integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
   crossorigin=""/>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tomickigrzegorz/autocomplete@1.8.9/dist/css/autocomplete.min.css"/>
 {% endaddtoblock %}
 
-<div id="map" 
+{% if instance.geojson %}
+<div id="map" style="width:100%;height:800px;"
   data-maps-geojson="{{ instance.geojson.url }}"
   {% if instance.point_a %}data-maps-icons-point-A="{{ instance.point_a.url }}"{% endif %}
   {% if instance.point_b %}data-maps-icons-point-B="{{ instance.point_b.url }}"{% endif %}
   data-maps-searchplaceholder="{{ instance.search_placeholder }}"
   data-maps-linecolor="{{ instance.line_color }}">
 </div>
+{% else %}
+<div style="height:300px;">
+  <h2 class="text-xl text-red-500">Faça upload dos seus dados GeoJSON na configuração do plugin para ver o Mapa</h2>
+</div>
+{% endif %}
 
 {% addtoblock "js" %}
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
