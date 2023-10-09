@@ -17,6 +17,7 @@ class BlockPluginBase(CMSPluginBase):
         "ButtonPlugin",
         "VideoPlayerPlugin",
         "SnippetPlugin",
+        "LeafletMapPlugin"
     ]
     prepopulated_fields = {"slug": ("title",)}
     fieldsets = [
