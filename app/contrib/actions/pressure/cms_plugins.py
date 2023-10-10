@@ -28,7 +28,7 @@ class PressurePlugin(CMSPluginBase):
         form = PressureAjaxForm(initial=initial)
 
         if instance.reference_id:
-            scheme = request.scheme if request.schehem else 'https'
+            scheme = request.scheme if request.scheme else 'https'
 
             form = PressureAjaxForm(
                 initial={
