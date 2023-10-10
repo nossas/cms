@@ -28,10 +28,12 @@ class PressurePlugin(CMSPluginBase):
         form = PressureAjaxForm(initial=initial)
 
         if instance.reference_id:
+            scheme = request.scheme if request.schehem else 'https'
+
             form = PressureAjaxForm(
                 initial={
                     "reference_id": instance.reference_id,
-                    "referrer_path": f"{request.scheme}://{request.get_host()}{request.path}",
+                    "referrer_path": f"{scheme}://{request.get_host()}{request.path}",
                     **initial,
                 }
             )
