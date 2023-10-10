@@ -77,11 +77,17 @@ if (mapWrapper) {
       endPoint = L.marker([coordinates[coordinates.length - 1][1], coordinates[coordinates.length - 1][0]], {icon: endIcon});
     }
 
+    let ifObsProperty = !!properties?.observacoes ? `<span>Obs: ${properties.observacoes}</span><br>` : "";
+
     [startPoint, endPoint].forEach(marker => {
       marker.bindPopup(
         `<span>Número: ${properties.ln_codigo}</span><br>` +
         `<span>Nome: ${properties.title}</span><br>` +
-        `<span>Empresa responsável: ${properties.ln_empresa}</span><br>`
+        `<span>Empresa responsável: ${properties.ln_empresa}</span><br>` +
+        `<span>Viagens em 2019: ${properties.viagens_em_2019}</span><br>` +
+        `<span>Viagens em 2023: ${properties.viagens_em_2023}</span><br>` +
+        `<span>Redução: ${properties.reducao_linha}</span><br>` +
+        ifObsProperty
       ).addTo(map);
     });
   }
