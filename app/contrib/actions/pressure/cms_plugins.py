@@ -29,11 +29,13 @@ class PressurePlugin(CMSPluginBase):
 
         if instance.reference_id:
             scheme = request.scheme if request.scheme else 'https'
+            url = f"{scheme}://{request.get_host()}{request.path}"
 
             form = PressureAjaxForm(
                 initial={
                     "reference_id": instance.reference_id,
-                    "referrer_path": f"{scheme}://{request.get_host()}{request.path}",
+                    "referrer_path": url,
+                    "whatsapp_text": obj.settings.get("whatsapp_text", url),
                     **initial,
                 }
             )
