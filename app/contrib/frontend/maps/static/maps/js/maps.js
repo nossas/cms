@@ -77,16 +77,16 @@ if (mapWrapper) {
       endPoint = L.marker([coordinates[coordinates.length - 1][1], coordinates[coordinates.length - 1][0]], {icon: endIcon});
     }
 
-    let ifObsProperty = !!properties?.observacoes ? `<span>Obs: ${properties.observacoes}</span><br>` : "";
+    let ifObsProperty = !!properties?.observacoes ? `<span><strong>Obs:</strong> ${properties.observacoes}</span><br>` : "";
 
     [startPoint, endPoint].forEach(marker => {
       marker.bindPopup(
-        `<span>Número: ${properties.ln_codigo}</span><br>` +
-        `<span>Nome: ${properties.title}</span><br>` +
-        `<span>Empresa responsável: ${properties.ln_empresa}</span><br>` +
-        `<span>Viagens em 2019: ${properties.viagens_em_2019}</span><br>` +
-        `<span>Viagens em 2023: ${properties.viagens_em_2023}</span><br>` +
-        `<span>Redução: ${properties.reducao_linha}</span><br>` +
+        `<span><strong>Número:</strong> ${properties.ln_codigo}</span><br>` +
+        `<span><strong>Nome:</strong> ${properties.title}</span><br>` +
+        `<span><strong>Empresa responsável:</strong> ${properties.ln_empresa}</span><br>` +
+        `<span><strong>Viagens em 2019:</strong> ${properties.viagens_em_2019}</span><br>` +
+        `<span><strong>Viagens em 2023:</strong> ${properties.viagens_em_2023}</span><br>` +
+        `<span><strong>Variação da linha:</strong> ${properties.reducao_linha}%</span><br>` +
         ifObsProperty
       ).addTo(map);
     });
@@ -94,6 +94,7 @@ if (mapWrapper) {
 
   function addPolyline(coordinates, properties) {
     const lineColor = mapWrapper.dataset.mapsLinecolor;
+    let ifObsProperty = !!properties?.observacoes ? `<span>Obs: ${properties.observacoes}</span><br>` : "";
 
     if (polylineGeoJSON) map.removeLayer(polylineGeoJSON);
 
@@ -109,9 +110,13 @@ if (mapWrapper) {
       },
       onEachFeature: function (feature, layer) {
         layer.bindPopup(
-          `<span>Número: ${properties.ln_codigo}</span><br>` +
-          `<span>Nome: ${properties.title}</span><br>` +
-          `<span>Empresa responsável: ${properties.ln_empresa}</span><br>`
+          `<span><strong>Número:</strong> ${properties.ln_codigo}</span><br>` +
+          `<span><strong>Nome:</strong> ${properties.title}</span><br>` +
+          `<span><strong>Empresa responsável:</strong> ${properties.ln_empresa}</span><br>` +
+          `<span><strong>Viagens em 2019:</strong> ${properties.viagens_em_2019}</span><br>` +
+          `<span><strong>Viagens em 2023:</strong> ${properties.viagens_em_2023}</span><br>` +
+          `<span><strong>Variação da linha:</strong> ${properties.reducao_linha}%</span><br>` +
+          ifObsProperty
         );
       },
     }).addTo(map);
