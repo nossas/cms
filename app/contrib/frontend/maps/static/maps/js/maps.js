@@ -94,6 +94,7 @@ if (mapWrapper) {
 
   function addPolyline(coordinates, properties) {
     const lineColor = mapWrapper.dataset.mapsLinecolor;
+    let ifObsProperty = !!properties?.observacoes ? `<span>Obs: ${properties.observacoes}</span><br>` : "";
 
     if (polylineGeoJSON) map.removeLayer(polylineGeoJSON);
 
