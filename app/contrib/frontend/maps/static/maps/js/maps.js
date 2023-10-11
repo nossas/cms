@@ -86,7 +86,7 @@ if (mapWrapper) {
         `<span>Empresa responsável: ${properties.ln_empresa}</span><br>` +
         `<span>Viagens em 2019: ${properties.viagens_em_2019}</span><br>` +
         `<span>Viagens em 2023: ${properties.viagens_em_2023}</span><br>` +
-        `<span>Redução: ${properties.reducao_linha}</span><br>` +
+        `<span>Variação da linha: ${properties.reducao_linha}%</span><br>` +
         ifObsProperty
       ).addTo(map);
     });
@@ -111,7 +111,11 @@ if (mapWrapper) {
         layer.bindPopup(
           `<span>Número: ${properties.ln_codigo}</span><br>` +
           `<span>Nome: ${properties.title}</span><br>` +
-          `<span>Empresa responsável: ${properties.ln_empresa}</span><br>`
+          `<span>Empresa responsável: ${properties.ln_empresa}</span><br>` +
+          `<span>Viagens em 2019: ${properties.viagens_em_2019}</span><br>` +
+          `<span>Viagens em 2023: ${properties.viagens_em_2023}</span><br>` +
+          `<span>Variação da linha: ${properties.reducao_linha}%</span><br>` +
+          ifObsProperty
         );
       },
     }).addTo(map);
