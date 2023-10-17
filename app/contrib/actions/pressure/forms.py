@@ -23,6 +23,7 @@ class PressureAjaxForm(StyledBaseForm):
     reference_id = forms.IntegerField(widget=forms.HiddenInput)
     referrer_path = forms.CharField(widget=forms.HiddenInput)
     whatsapp_text = forms.CharField(widget=forms.HiddenInput, required=False)
+    twitter_share_text = forms.CharField(widget=forms.HiddenInput, required=False)
 
     email_address = forms.EmailField(label="Seu e-mail*")
     name = forms.CharField(label="Seu nome*", max_length=80)
