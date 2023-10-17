@@ -36,6 +36,7 @@ class PressurePlugin(CMSPluginBase):
                     "reference_id": instance.reference_id,
                     "referrer_path": url,
                     "whatsapp_text": obj.settings.get("whatsapp_text", url),
+                    "twitter_share_text": obj.block.mobilization.twitter_share_text,
                     **initial,
                 }
             )

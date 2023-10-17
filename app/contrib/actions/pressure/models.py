@@ -15,7 +15,7 @@ class PressurePluginModel(CMSPlugin):
     )
 
 
-    def get_widget(self):
+    def get_widget(self) -> Widget | None:
         if not self.reference_id:
             return None
 
