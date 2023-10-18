@@ -12,6 +12,7 @@ class PressurePlugin(CMSPluginBase):
     render_template = "pressure/pressure_plugin.html"
     model = PressurePluginModel
     form = PressurePluginForm
+    cache = False
 
     def render(self, context, instance, placeholder):
         obj = instance.get_widget()
