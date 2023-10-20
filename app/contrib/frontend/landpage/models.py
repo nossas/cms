@@ -118,21 +118,18 @@ class Navbar(BlockElementStyled, CMSPlugin):
         abstract = False
 
 
-class CarouselBlock(CMSPlugin):
-    title = models.CharField("Título", max_length=120)
-    description = models.CharField("Descrição", max_length=120, null=True, blank=True)
-
+class CarouselPlugin(CMSPlugin):
     def copy_relations(self, oldinstance):
-        self.carousel_items.all().delete()
+        self.carousel_item.all().delete()
 
-        for carousel_item in oldinstance.carousel_items.all():
+        for carousel_item in oldinstance.carousel_item.all():
             carousel_item.pk = None
-            carousel_item.block = self
+            carousel_item.plugin = self
             carousel_item.save()
 
 
-class CarouselItem(CMSPlugin):
-    block = models.ForeignKey(CarouselBlock, related_name='carousel_items', on_delete=models.CASCADE)
+class CarouselItem(models.Model):
+    plugin = models.ForeignKey(CarouselPlugin, related_name='carousel_item', on_delete=models.CASCADE)
     image = FilerImageField(verbose_name="Imagem do item", null=True, blank=True, on_delete=models.SET_NULL)
     text = models.TextField("Texto do item")
 

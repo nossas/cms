@@ -4,25 +4,13 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
 {% endaddtoblock %}
 
-<section class="bg-[#024C2B] relative">
-  <div class="container px-5 py-28 mx-auto md:px-4">
-    {% if title or description %}
-      <div class="mb-6">
-        {% if title %}
-          <h2 class="text-4xl text-white text-center max-w-[620px] mx-auto mb-4">{{ title }}</h2>
-        {% endif %}
-        {% if description %}
-          <p class="text-white text-center max-w-[815px] mx-auto">{{ description }}</p>
-        {% endif %}
-      </div>
-    {% endif %}
-
+  <div class="container px-5 mx-auto md:px-4">
     <div class="swiper mySwiper md:min-h-[300px]">
       <div class="swiper-wrapper">
         <!-- Slides -->
         {% for item in items %}
           <div class="swiper-slide">
-            <img src="{{ item.image.url }}" alt="{{ item.text }}">
+            <img src="{{ item.image.url }}" alt="{{ item.image.default_alt_text }}">
             <p>{{ item.text }}</p>
           </div>
         {% endfor %}
@@ -32,7 +20,7 @@
     <div class="swiper-button-prev mt-14 md:mx-5 md:mt-10"></div>
     <div class="swiper-button-next mt-14 md:mx-5 md:mt-10"></div>
   </div>
-</section>
+
 
 {% addtoblock "js" %}
   <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>

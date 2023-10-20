@@ -8,7 +8,7 @@ from cms.plugin_pool import plugin_pool
 
 from contrib.bonde.models import Community
 
-from .models import Navbar, CarouselBlock, CarouselItem, Footer
+from .models import Navbar, CarouselPlugin, CarouselItem, Footer
 from .forms import LayoutBlockForm, LayoutBlockPressureForm
 
 # from .layouts import Layout
@@ -86,25 +86,20 @@ class NavbarPlugin(CMSPluginBase):
 
 class CarouselItemInline(admin.StackedInline):
     model = CarouselItem
-    fk_name = 'block'
 
 
 @plugin_pool.register_plugin
-class CarouselBlockPlugin(CMSPluginBase):
-    model = CarouselBlock
+class CarouselPlugin(CMSPluginBase):
+    model = CarouselPlugin
     name = "Bloco de Carousel"
     inlines = [CarouselItemInline]
     render_template = "frontend/landpage/plugins/carousel.html"
 
     def render(self, context, instance, placeholder):
         ctx = super().render(context, instance, placeholder)
-        items = instance.carousel_items.all()
-
-        print("Items in render:", items)
+        items = instance.carousel_item.all()
 
         ctx.update({
-            "title": instance.title,
-            "description": instance.description,
             'items': items,
         })
         return ctx
