@@ -131,25 +131,32 @@ if (mapWrapper) {
       const api = mapWrapper.dataset.mapsGeojson;
       return new Promise((resolve) => {
         fetch(api)
-          .then((response) => response.json())
-          .then((data) => {
-            const result = data.features
-              .sort((a, b) =>
-                a.properties.title.localeCompare(b.properties.title)
-              )
-              .filter((element) => {
-                return element.properties.title.match(
+        .then((response) => response.json())
+        .then((data) => {
+          const result = data.features
+            .filter((element) => {
+              const lnCodigoMatch = element.properties.ln_codigo.toString().match(
+                new RegExp(currentValue, "gi")
+              );
+              const titleMatch = element.properties.title.match(
                   new RegExp(currentValue, "gi")
-                );
-              });
-            resolve(result);
-          })
-          .catch((error) => console.error(error));
+              );
+              return titleMatch || lnCodigoMatch;
+            })
+            .sort((a, b) => {
+                const aCombination = `${a.properties.ln_codigo} - ${a.properties.title}`;
+                const bCombination = `${b.properties.ln_codigo} - ${b.properties.title}`;
+                
+                return aCombination.localeCompare(bCombination);
+            });
+          resolve(result);
+        })
+        .catch((error) => console.error(error))
       });
     },
 
     onResults: ({ matches, template }) =>
-      matches === 0 ? template : matches.map((el) => `<li><div class="title">${el.properties.title}</div></li>`).join(""),
+      matches === 0 ? template : matches.map((el) => `<li><div class="title">${el.properties.ln_codigo} - ${el.properties.title}</div></li>`).join(""),
 
     onSubmit: ({ object }) => {
       const coordinates = object.geometry.coordinates;
