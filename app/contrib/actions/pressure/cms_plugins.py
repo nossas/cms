@@ -15,7 +15,7 @@ class PressurePlugin(CMSPluginBase):
     cache = False
 
     def render(self, context, instance, placeholder):
-        obj = instance.get_widget()
+        obj = instance.widget
         request = context["request"]
         initial = (
             {

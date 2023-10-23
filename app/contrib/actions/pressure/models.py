@@ -1,22 +1,11 @@
-from django.db import models
+# from django.db import models
 
-from cms.models import CMSPlugin
+# from cms.models import CMSPlugin
 
-from contrib.bonde.models import Widget
+from contrib.bonde.models import BondeBasePluginModel
 
 
-class PressurePluginModel(CMSPlugin):
+class PressurePluginModel(BondeBasePluginModel):
     """
     """
-    reference_id = models.IntegerField(
-        null=True,
-        blank=True,
-        help_text="ID de referência da widget na plataforma Bonde"
-    )
-
-
-    def get_widget(self) -> Widget | None:
-        if not self.reference_id:
-            return None
-
-        return Widget.objects.get(id=self.reference_id)
+    pass

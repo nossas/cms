@@ -9,6 +9,8 @@ from django.db import models
 from django.conf import settings
 from django.contrib.sites.models import Site
 
+from cms.models import CMSPlugin
+
 
 class User(models.Model):
     # provider = models.CharField(max_length=100)
@@ -318,3 +320,26 @@ class FormEntry(models.Model):
     
     def __str__(self):
         return f'ID: {self.id} / WidgetID: {self.widget_id}'
+
+
+class BondeBasePluginModel(CMSPlugin):
+    """
+    """
+    reference_id = models.IntegerField(
+        null=True,
+        blank=True,
+        help_text="ID de referência da widget na plataforma Bonde"
+    )
+
+    class Meta:
+        abstract = True
+
+    def get_widget(self) -> Widget | None:
+        if not self.reference_id:
+            return None
+
+        return Widget.objects.get(id=self.reference_id)
+
+    @property
+    def widget(self) -> Widget | None:
+        return self.get_widget()
