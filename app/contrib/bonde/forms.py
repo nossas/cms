@@ -44,21 +44,21 @@ class ReferenceBaseModelForm(forms.ModelForm):
         # Configurar tipo de ação para filtrar widgets
         self.fields["reference_id"].choices = ActionChoices(self.action_kind)
 
-        self.prepare_fields()
+        if self.instance and self.instance.reference_id:
+            self.prepare_fields()
 
     def prepare_fields(self):
-        if self.instance and self.instance.reference_id:
-            obj = self.instance.widget
+        obj = self.instance.widget
 
-            self.fields["title"].initial = (
-                obj.settings.get("call_to_action")
-                or obj.settings.get("title_text")
-                or obj.settings.get("title")
-            )
+        self.fields["title"].initial = (
+            obj.settings.get("call_to_action")
+            or obj.settings.get("title_text")
+            or obj.settings.get("title")
+        )
 
-            self.fields["button_text"].initial = obj.settings.get("button_text")
-            self.fields["main_color"].initial = obj.settings.get("main_color")
-            self.fields["whatsapp_text"].initial = obj.settings.get("whatsapp_text")
+        self.fields["button_text"].initial = obj.settings.get("button_text")
+        self.fields["main_color"].initial = obj.settings.get("main_color")
+        self.fields["whatsapp_text"].initial = obj.settings.get("whatsapp_text")
 
     def update_widget_settings(self, widget, commit=True):
         widget.settings["call_to_action"] = self.cleaned_data["title"]

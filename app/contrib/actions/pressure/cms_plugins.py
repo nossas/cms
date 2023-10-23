@@ -13,6 +13,17 @@ class PressurePlugin(CMSPluginBase):
     model = PressurePluginModel
     form = PressurePluginForm
     cache = False
+    fieldsets = (
+        ("Configuração Básica", {
+            "fields": ["title", "button_text", "main_color"],
+        }),
+        ("Compartilhamento", {
+            "fields": ["whatsapp_text"],
+        }),
+        ("Pressão por e-mail", {
+            "fields": ["pressure_email_subject", "pressure_email_content"],
+        }),
+    )
 
     def render(self, context, instance, placeholder):
         obj = instance.widget

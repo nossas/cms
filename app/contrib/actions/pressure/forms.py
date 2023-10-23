@@ -12,11 +12,40 @@ from .models import PressurePluginModel
 
 
 class PressurePluginForm(ReferenceBaseModelForm):
+    # Settings Widget Kind Form
     action_kind = "pressure"
+
+    # Extra fields
+    pressure_email_subject = forms.CharField(
+        label="Assunto do e-mail de pressão", required=False
+    )
+    pressure_email_content = forms.CharField(
+        label="Corpo do e-mail de pressão", widget=forms.Textarea, required=False
+    )
 
     class Meta(ReferenceBaseModelForm.Meta):
         abstract = False
         model = PressurePluginModel
+
+    def prepare_fields(self):
+        super().prepare_fields()
+
+        obj = self.instance.widget
+        self.fields["pressure_email_subject"].initial = obj.settings.get("pressure_subject")
+        self.fields["pressure_email_content"].initial = obj.settings.get("pressure_body")
+
+    def update_widget_settings(self, widget, commit=True):
+        widget = super().update_widget_settings(widget, commit=False)
+
+        widget.settings["pressure_subject"] = self.cleaned_data[
+            "pressure_email_subject"
+        ]
+        widget.settings["pressure_body"] = self.cleaned_data["pressure_email_content"]
+
+        if commit:
+            widget.save()
+
+        return widget
 
 
 class PressureAjaxForm(StyledBaseForm):
