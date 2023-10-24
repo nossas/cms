@@ -63,8 +63,6 @@ if (mapWrapper) {
     ifObsProperty;
   }
 
-
-
   new Autocomplete("local", {
     onSearch: ({ currentValue }) => {
       const api = mapWrapper.dataset.mapsGeojson;
@@ -127,7 +125,6 @@ if (mapWrapper) {
       });
 
       const geojsonmarkers = (properties, coordinates) => {
-
         let LeafIcon = L.Icon.extend({
           options: {
               iconSize:     [40, 40],
@@ -160,7 +157,6 @@ if (mapWrapper) {
       if (geojsonarray.includes(object.properties.id)) return;
       geojsonarray.push(object.properties.id);
 
-
       geojsonmarkers(properties, coordinates);
       geojsonlayer.addTo(map);
     },
@@ -169,7 +165,6 @@ if (mapWrapper) {
       template(`<li>Sem resultados: "${currentValue}"</li>`),
 
     onReset: () => {
-      // remove all layers
       map.eachLayer(function (layer) {
         if (!!layer.toGeoJSON) {
           map.removeLayer(layer);
