@@ -2,8 +2,6 @@ let config = {
   minZoom: 7,
   maxZoom: 18,
   zoomControl: false,
-  autoPan: false,
-  scrollWheelZoom: false
 };
 
 const zoom = 18;

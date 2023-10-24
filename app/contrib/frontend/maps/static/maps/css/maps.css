@@ -1,0 +1,3 @@
+.leaflet-pane .leaflet-map-pane {
+  will-change: transform;
+}
