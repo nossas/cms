@@ -23,6 +23,7 @@ class PressurePluginForm(ReferenceBaseModelForm):
         label="Corpo do e-mail de pressão", widget=forms.Textarea, required=False
     )
 
+
     class Meta(ReferenceBaseModelForm.Meta):
         abstract = False
         model = PressurePluginModel
