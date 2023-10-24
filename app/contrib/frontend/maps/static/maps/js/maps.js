@@ -159,6 +159,7 @@ if (mapWrapper) {
       matches === 0 ? template : matches.map((el) => `<li><div class="title">${el.properties.ln_codigo} - ${el.properties.title}</div></li>`).join(""),
 
     onSubmit: ({ object }) => {
+      console.log("maps on submit", object)
       const coordinates = object.geometry.coordinates;
       const properties = object.properties;
 
