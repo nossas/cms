@@ -46,8 +46,20 @@ if (mapWrapper) {
 
   new L.Control.Search().addTo(map);
 
-  let startPoint, endPoint, polylineGeoJSON;
+  let startPoint, endPoint, geojsonLayer, markersGeoJSON;
   let geojsonarray = [];
+
+  let popupText = (properties) => {
+    let ifObsProperty = !!properties?.observacoes ? `<span>Obs: ${properties.observacoes}</span><br>` : "";
+
+    return `<span><strong>Número:</strong> ${properties.ln_codigo}</span><br>` +
+    `<span><strong>Nome:</strong> ${properties.title}</span><br>` +
+    `<span><strong>Empresa responsável:</strong> ${properties.ln_empresa}</span><br>` +
+    `<span><strong>Viagens em 2019:</strong> ${properties.viagens_em_2019}</span><br>` +
+    `<span><strong>Viagens em 2023:</strong> ${properties.viagens_em_2023}</span><br>` +
+    `<span><strong>Variação da linha:</strong> ${properties.reducao_linha}%</span><br>` +
+    ifObsProperty;
+  }
 
   function addMarkers(coordinates, properties) {
     let LeafIcon = L.Icon.extend({
@@ -62,41 +74,27 @@ if (mapWrapper) {
     if (startPoint) map.removeLayer(startPoint);
     if (endPoint) map.removeLayer(endPoint);
 
-    startPoint = L.marker([coordinates[0][1], coordinates[0][0]]);
-    endPoint = L.marker([coordinates[coordinates.length - 1][1], coordinates[coordinates.length - 1][0]]);
-
-    // Adiciona marcadores custom nos pontos inicial e final
-    if (mapWrapper.dataset.mapsIconsPointA) {
-      let startIcon = new LeafIcon({iconUrl: mapWrapper.dataset.mapsIconsPointA})
-      startPoint = L.marker([coordinates[0][1], coordinates[0][0]], {icon: startIcon});
-    }
-    if (mapWrapper.dataset.mapsIconsPointB) {
-      let endIcon = new LeafIcon({iconUrl: mapWrapper.dataset.mapsIconsPointB})
-      endPoint = L.marker([coordinates[coordinates.length - 1][1], coordinates[coordinates.length - 1][0]], {icon: endIcon});
+    function createMarker(iconUrl, coordinates) {
+      const icon = iconUrl ? new LeafIcon({ iconUrl }) : null;
+      return L.marker([coordinates[1], coordinates[0]], { icon });
     }
 
-    let ifObsProperty = !!properties?.observacoes ? `<span><strong>Obs:</strong> ${properties.observacoes}</span><br>` : "";
+    startPoint = createMarker(mapWrapper.dataset.mapsIconsPointA, coordinates[0]);
+
+    endPoint = createMarker(mapWrapper.dataset.mapsIconsPointB, coordinates[coordinates.length -1])
+
 
     [startPoint, endPoint].forEach(marker => {
-      marker.bindPopup(
-        `<span><strong>Número:</strong> ${properties.ln_codigo}</span><br>` +
-        `<span><strong>Nome:</strong> ${properties.title}</span><br>` +
-        `<span><strong>Empresa responsável:</strong> ${properties.ln_empresa}</span><br>` +
-        `<span><strong>Viagens em 2019:</strong> ${properties.viagens_em_2019}</span><br>` +
-        `<span><strong>Viagens em 2023:</strong> ${properties.viagens_em_2023}</span><br>` +
-        `<span><strong>Variação da linha:</strong> ${properties.reducao_linha}%</span><br>` +
-        ifObsProperty
-      ).addTo(map);
+      marker.bindPopup(popupText(properties))
     });
   }
 
   function addPolyline(coordinates, properties) {
     const lineColor = mapWrapper.dataset.mapsLinecolor;
-    let ifObsProperty = !!properties?.observacoes ? `<span>Obs: ${properties.observacoes}</span><br>` : "";
 
-    if (polylineGeoJSON) map.removeLayer(polylineGeoJSON);
+    if (geojsonLayer) map.removeLayer(geojsonLayer);
 
-    polylineGeoJSON = L.geoJSON({
+    geojsonLayer = L.geoJSON({
       type: "LineString",
       coordinates: coordinates,
     }, {
@@ -107,17 +105,9 @@ if (mapWrapper) {
         fillOpacity: 0.5,
       },
       onEachFeature: function (feature, layer) {
-        layer.bindPopup(
-          `<span><strong>Número:</strong> ${properties.ln_codigo}</span><br>` +
-          `<span><strong>Nome:</strong> ${properties.title}</span><br>` +
-          `<span><strong>Empresa responsável:</strong> ${properties.ln_empresa}</span><br>` +
-          `<span><strong>Viagens em 2019:</strong> ${properties.viagens_em_2019}</span><br>` +
-          `<span><strong>Viagens em 2023:</strong> ${properties.viagens_em_2023}</span><br>` +
-          `<span><strong>Variação da linha:</strong> ${properties.reducao_linha}%</span><br>` +
-          ifObsProperty
-        );
+        layer.bindPopup(popupText(properties));
       },
-    }).addTo(map);
+    })
   }
 
   new Autocomplete("show-all-values", {
@@ -161,20 +151,23 @@ if (mapWrapper) {
       const coordinates = object.geometry.coordinates;
       const properties = object.properties;
 
-      addMarkers(coordinates, properties);
       addPolyline(coordinates, properties);
 
-      map.fitBounds(polylineGeoJSON.getBounds(), { padding: [150, 150] });
+      map.fitBounds(geojsonLayer.getBounds(), { padding: [150, 150] });
 
       if (geojsonarray.includes(object.properties.id)) return;
       geojsonarray.push(object.properties.id);
+
+      geojsonLayer.addTo(map);
+      // startPoint.addTo(map);
+      // endPoint.addTo(map);
     },
 
     noResults: ({ currentValue, template }) => template(`<li>Sem resultados: "${currentValue}"</li>`),
 
     onReset: () => {
       // Remove marcadores e linha
-      [startPoint, endPoint, polylineGeoJSON].forEach(layer => {
+      [startPoint, endPoint, geojsonLayer].forEach(layer => {
         if (layer) map.removeLayer(layer);
       });
 
