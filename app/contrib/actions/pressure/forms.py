@@ -1,5 +1,6 @@
 import json
 import jwt
+import re
 import requests
 
 from django import forms
@@ -11,18 +12,44 @@ from tailwind.forms import StyledBaseForm
 from .models import PressurePluginModel
 
 
+class ArrayWidget(forms.TextInput):
+    class Media:
+        css = {
+            "all": [
+                "//cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css",
+            ]
+        }
+        js = [
+            "//cdn.jsdelivr.net/npm/@yaireo/tagify/dist/jQuery.tagify.min.js",
+            "pressure/js/array-widget.js",
+        ]
+
+    def __init__(self, attrs={}):
+        classes = attrs.get("class", None)
+        attrs = {
+            **attrs,
+            "class": classes + " array-widget" if classes else "array-widget",
+        }
+
+        super().__init__(attrs=attrs)
+
+
 class PressurePluginForm(ReferenceBaseModelForm):
     # Settings Widget Kind Form
     action_kind = "pressure"
 
     # Extra fields
+    targets = forms.CharField(
+        label="Alvos",
+        widget=ArrayWidget(),
+    )
+
     pressure_email_subject = forms.CharField(
         label="Assunto do e-mail de pressão", required=False
     )
     pressure_email_content = forms.CharField(
         label="Corpo do e-mail de pressão", widget=forms.Textarea, required=False
     )
-
 
     class Meta(ReferenceBaseModelForm.Meta):
         abstract = False
@@ -32,8 +59,14 @@ class PressurePluginForm(ReferenceBaseModelForm):
         super().prepare_fields()
 
         obj = self.instance.widget
-        self.fields["pressure_email_subject"].initial = obj.settings.get("pressure_subject")
-        self.fields["pressure_email_content"].initial = obj.settings.get("pressure_body")
+        self.fields["pressure_email_subject"].initial = obj.settings.get(
+            "pressure_subject"
+        )
+        self.fields["pressure_email_content"].initial = obj.settings.get(
+            "pressure_body"
+        )
+
+        self.fields["targets"].initial = ",".join(obj.settings.get("targets"))
 
     def update_widget_settings(self, widget, commit=True):
         widget = super().update_widget_settings(widget, commit=False)
@@ -42,6 +75,8 @@ class PressurePluginForm(ReferenceBaseModelForm):
             "pressure_email_subject"
         ]
         widget.settings["pressure_body"] = self.cleaned_data["pressure_email_content"]
+
+        widget.settings["targets"] = list(map(lambda x: x['value'], json.loads(self.cleaned_data["targets"])))
 
         if commit:
             widget.save()

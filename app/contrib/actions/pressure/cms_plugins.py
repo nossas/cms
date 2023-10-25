@@ -18,7 +18,7 @@ class PressurePlugin(BondeWidgetPluginBase):
         (
             "Pressão por e-mail",
             {
-                "fields": ["pressure_email_subject", "pressure_email_content"],
+                "fields": ["targets", "pressure_email_subject", "pressure_email_content"],
             },
         ),
     ]

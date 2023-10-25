@@ -2,7 +2,6 @@ from typing import Any
 from django import forms
 from colorfield.fields import ColorWidget
 
-from contrib.actions.pressure.models import PressurePluginModel
 from .widgets import ActionSelectWidget, ActionChoices
 
 
@@ -16,11 +15,9 @@ class ReferenceBaseModelForm(forms.ModelForm):
     class Media:
         js = (
             "//ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js",
-            "bonde/js/edit-widget-form.js"
+            "bonde/js/edit-widget-form.js",
         )
-        css = {
-            "all": ["bonde/css/edit-widget-form.css"]
-        }
+        css = {"all": ["bonde/css/edit-widget-form.css"]}
 
     # Reference Widget ID
     reference_id = forms.ChoiceField(
@@ -40,23 +37,15 @@ class ReferenceBaseModelForm(forms.ModelForm):
     whatsapp_text = forms.CharField(
         label="Texto de compartilhamento por WhatsApp",
         widget=forms.Textarea,
-        required=False
+        required=False,
     )
 
     # Post action Fields
-    sender_name = forms.CharField(
-        label="Remetente", required=False
-    )
-    sender_email = forms.CharField(
-        label="E-mail de resposta", required=False
-    )
-    email_subject = forms.CharField(
-        label="Assunto do e-mail", required=False
-    )
+    sender_name = forms.CharField(label="Remetente", required=False)
+    sender_email = forms.CharField(label="E-mail de resposta", required=False)
+    email_subject = forms.CharField(label="Assunto do e-mail", required=False)
     email_text = forms.CharField(
-        label="Corpo do e-mail",
-        widget=forms.Textarea,
-        required=False
+        label="Corpo do e-mail", widget=forms.Textarea, required=False
     )
 
     # Settings Widget Kind Form
@@ -89,14 +78,12 @@ class ReferenceBaseModelForm(forms.ModelForm):
         self.fields["sender_email"].initial = obj.settings.get("sender_email")
         self.fields["email_subject"].initial = obj.settings.get("email_subject")
         self.fields["email_text"].initial = obj.settings.get("email_text")
-        
 
     def update_widget_settings(self, widget, commit=True):
         widget.settings["call_to_action"] = self.cleaned_data["title"]
         widget.settings["button_text"] = self.cleaned_data["button_text"]
         widget.settings["main_color"] = self.cleaned_data["main_color"]
         widget.settings["count_text"] = self.cleaned_data["count_text"]
-
 
         widget.settings["whatsapp_text"] = self.cleaned_data["whatsapp_text"]
 
