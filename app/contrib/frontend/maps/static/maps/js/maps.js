@@ -7,6 +7,9 @@ let config = {
   minZoom: 7,
   maxZoom: 18,
   zoomControl: false,
+  scrollWheelZoom: false,
+  dragging: false,
+  tap: false
 };
 
 const zoom = 18;
@@ -134,15 +137,15 @@ if (mapWrapper) {
         });
 
         if (mapWrapper.dataset.mapsIconsPointA) {
-          const startIcon = new LeafIcon({ iconUrl: mapWrapper.dataset.mapsIconsPointA });
-          startPoint = L.marker([coordinates[0][1], coordinates[0][0]], { icon: startIcon }).addTo(map);
+          let startIcon = new LeafIcon({iconUrl: mapWrapper.dataset.mapsIconsPointA})
+          startPoint = L.marker([coordinates[0][1], coordinates[0][0]], {icon: startIcon}).addTo(map);
         } else {
           startPoint = L.marker([coordinates[0][1], coordinates[0][0]]).addTo(map);
         }
-        
+
         if (mapWrapper.dataset.mapsIconsPointB) {
-          const endIcon = new LeafIcon({ iconUrl: mapWrapper.dataset.mapsIconsPointB }).addTo(map);
-          endPoint = L.marker([coordinates[coordinates.length - 1][1], coordinates[coordinates.length - 1][0]], { icon: endIcon }).addTo(map);
+          let endIcon = new LeafIcon({iconUrl: mapWrapper.dataset.mapsIconsPointB})
+          endPoint = L.marker([coordinates[coordinates.length - 1][1], coordinates[coordinates.length - 1][0]], {icon: endIcon}).addTo(map);
         } else {
           endPoint = L.marker([coordinates[coordinates.length - 1][1], coordinates[coordinates.length - 1][0]]).addTo(map);
         }
