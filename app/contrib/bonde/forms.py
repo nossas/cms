@@ -1,11 +1,85 @@
 from typing import Any
 from django import forms
+from django.db import transaction
 from colorfield.fields import ColorWidget
 
+from .models import Widget, Block, Mobilization
 from .widgets import ActionSelectWidget, ActionChoices
 
 
 class ReferenceBaseModelForm(forms.ModelForm):
+    # Settings Widget Kind Form
+    action_kind = None
+
+    class Meta:
+        abstract = True
+        fields = ["reference_id"]
+
+    class Media:
+        js = ("//ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js",)
+
+    reference_id = forms.ChoiceField(
+        label="Selecione a widget criada no BONDE",
+        widget=ActionSelectWidget,
+        required=False,
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(ReferenceBaseModelForm, self).__init__(*args, **kwargs)
+
+        # Configurar tipo de ação para filtrar widgets
+        self.fields["reference_id"].choices = ActionChoices(self.action_kind)
+
+        if (
+            self.instance
+            and self.instance.reference_id
+            and hasattr(self, "prepare_fields")
+        ):
+            self.prepare_fields()
+
+
+class CreateReferenceBaseModelForm(ReferenceBaseModelForm):
+    """ """
+
+    class Meta:
+        abstract = True
+        fields = ["reference_id"]
+
+    # Create Mobilization and Widget Fields
+    community_id = forms.IntegerField(widget=forms.HiddenInput)
+    name = forms.CharField()
+    # block_id = forms.IntegerField(widget=forms.HiddenInput)
+    # kind = forms.CharField(widget=forms.HiddenInput)
+    # settings = forms.JSONField()
+
+    @transaction.atomic
+    def save(self, commit=False) -> Any:
+        self.instance = super().save(commit=False)
+
+        # Criando a Widget no Bonde que se tornará a reference_id
+        mob = Mobilization.objects.create(
+            name=self.cleaned_data["name"],
+            community_id=self.cleaned_data["community_id"],
+        )
+        block = Block.objects.create(mobilization=mob)
+        widget = Widget.objects.create(
+            block=block,
+            kind=self.action_kind,
+            settings=dict(targets=[]),
+        )
+
+        self.instance.reference_id = widget.id
+
+        if commit:
+            self.instance.save()
+
+        # TODO: Verificar salvar sem necessidade
+        # self.update_widget_settings(widget=self.instance.widget, commit=True)
+
+        return self.instance
+
+
+class ChangeReferenceBaseModelForm(ReferenceBaseModelForm):
     """ """
 
     class Meta:
@@ -18,13 +92,6 @@ class ReferenceBaseModelForm(forms.ModelForm):
             "bonde/js/edit-widget-form.js",
         )
         css = {"all": ["bonde/css/edit-widget-form.css"]}
-
-    # Reference Widget ID
-    reference_id = forms.ChoiceField(
-        label="Selecione a widget criada no BONDE",
-        widget=ActionSelectWidget,
-        required=False,
-    )
 
     # Settings Fields
     title = forms.CharField(label="Título do formulário", required=False)
@@ -47,18 +114,6 @@ class ReferenceBaseModelForm(forms.ModelForm):
     email_text = forms.CharField(
         label="Corpo do e-mail", widget=forms.Textarea, required=False
     )
-
-    # Settings Widget Kind Form
-    action_kind = None
-
-    def __init__(self, *args, **kwargs):
-        super(ReferenceBaseModelForm, self).__init__(*args, **kwargs)
-
-        # Configurar tipo de ação para filtrar widgets
-        self.fields["reference_id"].choices = ActionChoices(self.action_kind)
-
-        if self.instance and self.instance.reference_id:
-            self.prepare_fields()
 
     def prepare_fields(self):
         obj = self.instance.widget

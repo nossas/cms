@@ -145,7 +145,7 @@ class MobilizationStatus(models.TextChoices):
 
 class Mobilization(models.Model):
     name = models.CharField(max_length=266, blank=True, null=True)
-    created_at = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
     # user_id = models.IntegerField(blank=True, null=True)
     # color_scheme = models.CharField(max_length=-1, blank=True, null=True)
     # google_analytics_code = models.CharField(max_length=-1, blank=True, null=True)
@@ -167,7 +167,7 @@ class Mobilization(models.Model):
     # traefik_host_rule = models.CharField(max_length=-1, blank=True, null=True)
     # traefik_backend_address = models.CharField(max_length=-1, blank=True, null=True)
     language = models.CharField(max_length=5, blank=True, null=True)
-    updated_at = models.DateTimeField(blank=True, null=True)
+    updated_at = models.DateTimeField(blank=True, null=True, auto_now=True)
     # theme = models.ForeignKey('Themes', models.DO_NOTHING, blank=True, null=True)
 
     objects = RequestManager(lookup_field="community")
@@ -181,8 +181,8 @@ class Block(models.Model):
     mobilization = models.ForeignKey(
         Mobilization, models.DO_NOTHING, blank=True, null=True
     )
-    created_at = models.DateTimeField()
-    updated_at = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     # bg_class = models.CharField(max_length=-1, blank=True, null=True)
     # position = models.IntegerField(blank=True, null=True)
     # hidden = models.BooleanField(blank=True, null=True)
@@ -238,8 +238,8 @@ class Widget(models.Model):
     kind = models.CharField(
         max_length=50, choices=WidgetKind.choices, blank=True, null=True
     )
-    created_at = models.DateTimeField()
-    updated_at = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     # sm_size = models.IntegerField(blank=True, null=True)
     # md_size = models.IntegerField(blank=True, null=True)
     # lg_size = models.IntegerField(blank=True, null=True)

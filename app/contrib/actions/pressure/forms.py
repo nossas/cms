@@ -6,7 +6,8 @@ import requests
 from django import forms
 from django.conf import settings
 
-from contrib.bonde.forms import ReferenceBaseModelForm
+from contrib.bonde.models import WidgetKind
+from contrib.bonde.forms import ChangeReferenceBaseModelForm, CreateReferenceBaseModelForm
 from tailwind.forms import StyledBaseForm
 
 from .models import PressurePluginModel
@@ -33,10 +34,17 @@ class ArrayWidget(forms.TextInput):
 
         super().__init__(attrs=attrs)
 
-
-class PressurePluginForm(ReferenceBaseModelForm):
+class CreatePressurePluginForm(CreateReferenceBaseModelForm):
     # Settings Widget Kind Form
-    action_kind = "pressure"
+    action_kind = WidgetKind.pressure
+    
+    class Meta(CreateReferenceBaseModelForm.Meta):
+        abstract = False
+        model = PressurePluginModel
+
+class PressurePluginForm(ChangeReferenceBaseModelForm):
+    # Settings Widget Kind Form
+    action_kind = WidgetKind.pressure
 
     # Extra fields
     targets = forms.CharField(
@@ -51,7 +59,7 @@ class PressurePluginForm(ReferenceBaseModelForm):
         label="Corpo do e-mail de pressão", widget=forms.Textarea, required=False
     )
 
-    class Meta(ReferenceBaseModelForm.Meta):
+    class Meta(ChangeReferenceBaseModelForm.Meta):
         abstract = False
         model = PressurePluginModel
 

@@ -2,7 +2,7 @@ from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
 from contrib.bonde.plugin_base import BondeWidgetPluginBase
-from .forms import PressurePluginForm, PressureAjaxForm
+from .forms import CreatePressurePluginForm, PressurePluginForm, PressureAjaxForm
 from .models import PressurePluginModel
 
 
@@ -12,8 +12,8 @@ class PressurePlugin(BondeWidgetPluginBase):
     module = "Estrategia"
     render_template = "pressure/pressure_plugin.html"
     model = PressurePluginModel
-    form = PressurePluginForm
-    # cache = False
+    edit_form_class = PressurePluginForm
+    add_form_class = CreatePressurePluginForm
     fieldsets = [
         (
             "Pressão por e-mail",
