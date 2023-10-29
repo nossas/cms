@@ -1,12 +1,14 @@
 from django import forms
 from django.db.models import Q
+from django.contrib import admin
+
 
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
 from contrib.bonde.models import Community
 
-from .models import Navbar, Footer
+from .models import Navbar, CarouselPlugin, CarouselItem, Footer
 from .forms import LayoutBlockForm, LayoutBlockPressureForm
 
 # from .layouts import Layout
@@ -80,6 +82,27 @@ class NavbarPlugin(CMSPluginBase):
             context["children"] = list()
 
         return context
+
+
+class CarouselItemInline(admin.StackedInline):
+    model = CarouselItem
+
+
+@plugin_pool.register_plugin
+class CarouselPlugin(CMSPluginBase):
+    model = CarouselPlugin
+    name = "Bloco de Carousel"
+    inlines = [CarouselItemInline]
+    render_template = "frontend/landpage/plugins/carousel.html"
+
+    def render(self, context, instance, placeholder):
+        ctx = super().render(context, instance, placeholder)
+        items = instance.carousel_item.all()
+
+        ctx.update({
+            'items': items,
+        })
+        return ctx
 
 
 @plugin_pool.register_plugin

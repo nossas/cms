@@ -118,8 +118,22 @@ class Navbar(BlockElementStyled, CMSPlugin):
         abstract = False
 
 
+class CarouselPlugin(CMSPlugin):
+    def copy_relations(self, oldinstance):
+        self.carousel_item.all().delete()
+
+        for carousel_item in oldinstance.carousel_item.all():
+            carousel_item.pk = None
+            carousel_item.plugin = self
+            carousel_item.save()
+
+
+class CarouselItem(models.Model):
+    plugin = models.ForeignKey(CarouselPlugin, related_name='carousel_item', on_delete=models.CASCADE)
+    image = FilerImageField(verbose_name="Imagem do item", null=True, blank=True, on_delete=models.SET_NULL)
+    text = models.TextField("Texto do item")
+
+
 class Footer(BlockElementStyled, CMSPlugin):
     class Meta:
         abstract = False
-
-
