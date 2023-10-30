@@ -8,7 +8,7 @@ class BondeWidgetPluginBase(CMSPluginBase):
     add_form_class = None
 
     def get_form(self, request, obj, change, **kwargs):
-        if not change:
+        if obj and not obj.reference_id:
             self.form = self.add_form_class
             form = super().get_form(request, obj, change, **kwargs)
             # Add default values
