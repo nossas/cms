@@ -11,8 +11,32 @@ class IconExtension(PageExtension):
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
-        related_name="+",
+        related_name="+"
     )
 
 
 extension_pool.register(IconExtension)
+
+
+class MetaDataExtension(PageExtension):
+    image = FilerImageField(
+        verbose_name="Thumbnail",
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="+"
+    )
+    title = models.CharField(
+        verbose_name="Título da postagem",
+        blank=True,
+        null=True,
+        max_length=70
+    )
+    subtitle = models.CharField(
+        verbose_name="Texto da postagem",
+        blank=True,
+        null=True,
+        max_length=90
+    )
+
+extension_pool.register(MetaDataExtension)
