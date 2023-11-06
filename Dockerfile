@@ -29,13 +29,6 @@ ENV PYTHONUNBUFFERED=1 \
 # Install system packages required by Django CMS and Django.
 RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-recommends \
     build-essential \
-    cargo \
-    libssl-dev \
-    libffi-dev \
-    sox \
-    ffmpeg \
-    libcairo2 \
-    libcairo2-dev \
     python3-dev \
 && rm -rf /var/lib/apt/lists/*
 
@@ -49,8 +42,10 @@ RUN pip install -r requirements.txt
 # Use /app folder as a directory where the source code is stored.
 WORKDIR /app
 
+COPY . .
+
 # Copy the source code of the project into the container.
-COPY --from=node-builder /app ./
+COPY --from=node-builder /app/tailwind/static/css ./app/tailwind/static/
 
 RUN python manage.py collectstatic --noinput --clear -i tailwindcss
 
