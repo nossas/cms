@@ -65,28 +65,40 @@ class EleicaoCandidateListPlugin(CMSPluginBase):
 
             # Filtered List
             qs = Candidate.objects.filter(status=CandidateStatusChoices.published)
+
             filter_state = request.GET.get("uf", None)
             filter_city = request.GET.get("city", None)
 
             if filter_city == "all":
                 filter_city = None
+
             if filter_state:
                 ctx["filter_state"] = filter_state
                 qs = qs.filter(place__state__iexact=filter_state)
                 form.fields["city"].widget.choices = [("all","Todas as cidades")] + get_choices(filter_state)
+
             if filter_city:
                 ctx["filter_city"] = filter_city
                 qs = qs.filter(place__city__iexact=filter_city)
 
+            del form.fields["place"]
         else:
-            form = CandidateListFilter(request.GET, initial={"uf":"MG", "city":"Belo Horizonte"})
+            form = CandidateListFilter(request.GET, initial={"uf": instance.state, "city": instance.city})
+
+            # Filtered List
             qs = Candidate.objects.filter(place__state=instance.state, place__city=instance.city, status=CandidateStatusChoices.published)
 
             filter_place = request.GET.get("place", None)
 
+            if filter_place == "all":
+                filter_place = None
+
+            if instance.city:
+                form.fields["place"].widget.choices = [("all","Todas as regiões")] + get_choices_places(instance.state, instance.city)
+
             if filter_place:
                 ctx["filter_place"] = filter_place
-                qs = qs.filter(place__name__iexact=filter_place)
+                qs = qs.filter(place__place__iexact=filter_place)
 
             del form.fields["uf"]
             del form.fields["city"]
