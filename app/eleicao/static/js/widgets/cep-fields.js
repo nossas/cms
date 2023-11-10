@@ -42,6 +42,20 @@
           });
         });
       });
+
+      var place
+      $placeField.on("change", (evt) => {
+        place = evt.target.value;
+        const url = $placeField.data("cep-url");
+
+        $.get(url + "?place=" + place, (data) => {
+          $placeField.empty()
+          $placeField.append('<option value="">----</option>')
+          $.each(data.choices, (index, value) => {
+            $placeField.append('<option value="' + value[0] + '">' + value[1] + "</option>")
+          });
+        });
+      });
     }
   });
 }(window.jQuery));
