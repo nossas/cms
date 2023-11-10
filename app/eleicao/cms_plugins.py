@@ -13,6 +13,7 @@ from .models import (
     CandidateStatusChoices,
     EleicaoCarousel,
     VoterFormPluginModel,
+    EleicaoCandidateList
 )
 from .forms.filters import CandidateListFilter
 from .forms.create import VoterForm
@@ -50,6 +51,7 @@ class EleicaoCarouselPlugin(CMSPluginBase):
 class EleicaoCandidateListPlugin(CMSPluginBase):
     name = "Lista de candidaturas"
     module = "A Eleição do Ano"
+    model = EleicaoCandidateList
     render_template = "eleicao/plugins/candidate_list.html"
     per_page = 20
     cache = False
@@ -57,22 +59,38 @@ class EleicaoCandidateListPlugin(CMSPluginBase):
     def render(self, context, instance, placeholder):
         ctx = super().render(context, instance, placeholder)
         request = ctx.get("request")
-        
-        form = CandidateListFilter(request.GET)
 
-        # Filtered List
-        qs = Candidate.objects.filter(status=CandidateStatusChoices.published)
-        filter_state = request.GET.get("uf", None)
-        filter_city = request.GET.get("city", None)
-        if filter_city == "all":
-            filter_city = None
-        if filter_state:
-            ctx["filter_state"] = filter_state
-            qs = qs.filter(place__state__iexact=filter_state)
-            form.fields["city"].widget.choices = [("all","Todas as cidades")] + get_choices(filter_state)
-        if filter_city:
-            ctx["filter_city"] = filter_city
-            qs = qs.filter(place__city__iexact=filter_city)
+        if not instance.city:
+            form = CandidateListFilter(request.GET)
+
+            # Filtered List
+            qs = Candidate.objects.filter(status=CandidateStatusChoices.published)
+            filter_state = request.GET.get("uf", None)
+            filter_city = request.GET.get("city", None)
+
+            if filter_city == "all":
+                filter_city = None
+            if filter_state:
+                ctx["filter_state"] = filter_state
+                qs = qs.filter(place__state__iexact=filter_state)
+                form.fields["city"].widget.choices = [("all","Todas as cidades")] + get_choices(filter_state)
+            if filter_city:
+                ctx["filter_city"] = filter_city
+                qs = qs.filter(place__city__iexact=filter_city)
+
+        else:
+            form = CandidateListFilter(request.GET, initial={"uf":"MG", "city":"Belo Horizonte"})
+            qs = Candidate.objects.filter(place__state=instance.state, place__city=instance.city, status=CandidateStatusChoices.published)
+
+            filter_place = request.GET.get("place", None)
+
+            if filter_place:
+                ctx["filter_place"] = filter_place
+                qs = qs.filter(place__name__iexact=filter_place)
+
+            del form.fields["uf"]
+            del form.fields["city"]
+
 
         ctx["form"] = form
 
