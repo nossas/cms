@@ -20,6 +20,10 @@ def get_choices(uf, city=None):
     return list(sorted(set(choices)))
 
 
+def get_choices_places(uf, city):
+    return list(PollingPlace.objects.filter(state=uf, city=city).values_list("place", "place"))
+
+
 def fetch_cep(request):
     state = request.GET.get("state")
     city = request.GET.get("city")

@@ -32,6 +32,16 @@ class CandidateListFilter(forms.Form):
         )
     )
 
+    place = forms.CharField(
+        label="Região",
+        widget=forms.Select(
+            attrs={
+                "data-cep-fields": "place",
+                "data-cep-url": reverse_lazy("eleicao:cep"),
+            }
+        )
+    )
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
