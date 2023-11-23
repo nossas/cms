@@ -3,7 +3,7 @@ django-environ
 psycopg2-binary
 django-select2
 django-formtools
-django-recaptcha
+django-recaptcha==3
 # Django CMS
 django-cms
 djangocms-text-ckeditor
