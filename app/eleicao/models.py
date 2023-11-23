@@ -165,8 +165,6 @@ class Voter(models.Model):
 
 
 class EleicaoCandidateList(CMSPlugin):
-    title = models.CharField("Título", max_length=120, blank=True, null=True)
-    description = models.CharField("Descrição", max_length=120, blank=True, null=True)
     city = models.CharField("Cidade", max_length=120, blank=True, null=True)
     state = models.CharField("Estado", max_length=2, blank=True, null=True, choices=lazy(get_states, list)())
 

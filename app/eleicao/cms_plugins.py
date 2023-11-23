@@ -103,6 +103,7 @@ class EleicaoCandidateListPlugin(CMSPluginBase):
             del form.fields["uf"]
             del form.fields["city"]
 
+
         ctx["form"] = form
 
         page_number = request.GET.get("page", 1)
@@ -113,8 +114,6 @@ class EleicaoCandidateListPlugin(CMSPluginBase):
         ctx["is_paginated"] = p.count > 1
         ctx["page_obj"] = page_obj
         ctx["object_list"] = page_obj.object_list
-        
-        ctx.update({"title": instance.title, "description": instance.description})
 
         return ctx
 
