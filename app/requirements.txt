@@ -4,6 +4,7 @@ psycopg2-binary
 django-select2
 django-formtools
 django-recaptcha
+captcha
 # Django CMS
 django-cms
 djangocms-text-ckeditor
