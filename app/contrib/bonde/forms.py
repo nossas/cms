@@ -6,6 +6,7 @@ from colorfield.fields import ColorWidget
 from .models import Widget, Block, Mobilization
 from .widgets import ActionSelectWidget, ActionChoices
 
+from django.core.exceptions import ValidationError
 
 class ReferenceBaseModelForm(forms.ModelForm):
     # Settings Widget Kind Form
@@ -47,28 +48,40 @@ class CreateReferenceBaseModelForm(ReferenceBaseModelForm):
 
     # Create Mobilization and Widget Fields
     community_id = forms.IntegerField(widget=forms.HiddenInput)
-    name = forms.CharField()
+    name = forms.CharField(label="Nome da Pressão", max_length=100, required=False)
     # block_id = forms.IntegerField(widget=forms.HiddenInput)
     # kind = forms.CharField(widget=forms.HiddenInput)
     # settings = forms.JSONField()
 
+    def clean(self):
+        cleaned_data = super().clean()
+
+        reference_id = cleaned_data.get('reference_id')
+        name = cleaned_data.get('name')
+
+        if not reference_id and not name:
+            raise forms.ValidationError({"name": "Este campo é obrigatório para a criação de um novo widget."})
+
+        return cleaned_data
+
     @transaction.atomic
     def save(self, commit=False) -> Any:
         self.instance = super().save(commit=False)
+        reference_id = self.cleaned_data.get('reference_id')
 
-        # Criando a Widget no Bonde que se tornará a reference_id
-        mob = Mobilization.objects.create(
-            name=self.cleaned_data["name"],
-            community_id=self.cleaned_data["community_id"],
-        )
-        block = Block.objects.create(mobilization=mob)
-        widget = Widget.objects.create(
-            block=block,
-            kind=self.action_kind,
-            settings=dict(targets=[]),
-        )
+        if not reference_id:
+            mob = Mobilization.objects.create(
+                name=self.cleaned_data["name"],
+                community_id=self.cleaned_data["community_id"],
+            )
+            block = Block.objects.create(mobilization=mob)
+            widget = Widget.objects.create(
+                block=block,
+                kind=self.action_kind,
+                settings=dict(targets=[]),
+            )
 
-        self.instance.reference_id = widget.id
+            self.instance.reference_id = widget.id
 
         if commit:
             self.instance.save()

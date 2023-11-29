@@ -34,6 +34,7 @@ class ArrayWidget(forms.TextInput):
 
         super().__init__(attrs=attrs)
 
+
 class CreatePressurePluginForm(CreateReferenceBaseModelForm):
     # Settings Widget Kind Form
     action_kind = WidgetKind.pressure
@@ -42,7 +43,8 @@ class CreatePressurePluginForm(CreateReferenceBaseModelForm):
         abstract = False
         model = PressurePluginModel
 
-class PressurePluginForm(ChangeReferenceBaseModelForm):
+
+class EditPressurePluginForm(ChangeReferenceBaseModelForm):
     # Settings Widget Kind Form
     action_kind = WidgetKind.pressure
 

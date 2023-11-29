@@ -2,21 +2,28 @@ from cms.plugin_base import CMSPluginBase
 
 from .models import Community
 
+from contrib.actions.pressure.forms import CreatePressurePluginForm, EditPressurePluginForm
+
 
 class BondeWidgetPluginBase(CMSPluginBase):
-    edit_form_class = None
-    add_form_class = None
+    edit_form_class = EditPressurePluginForm
+    add_form_class = CreatePressurePluginForm
 
-    def get_form(self, request, obj, change, **kwargs):
-        if obj and not obj.reference_id:
-            self.form = self.add_form_class
-            form = super().get_form(request, obj, change, **kwargs)
-            # Add default values
-            c = Community.objects.on_site(request).first()
-            form.base_fields["community_id"].initial = c.id
+    def get_form(self, request, obj=None, **kwargs):
+        if obj and obj.reference_id:
+            form_class = self.edit_form_class
         else:
-            self.form = self.edit_form_class
-            form = super().get_form(request, obj, change, **kwargs)
+            form_class = self.add_form_class
+
+        kwargs['form'] = form_class
+
+        form = super(BondeWidgetPluginBase, self).get_form(request, obj, **kwargs)
+
+        # Configura valores iniciais
+        if form_class == self.add_form_class:
+            c = Community.objects.on_site(request).first()
+            if c:
+                form.base_fields['community_id'].initial = c.id
 
         return form
 
