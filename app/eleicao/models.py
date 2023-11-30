@@ -169,7 +169,7 @@ class EleicaoCandidateList(CMSPlugin):
     state = models.CharField("Estado", max_length=2, blank=True, null=True, choices=lazy(get_states, list)())
     # 
     title = models.CharField("Título", max_length=120, blank=True, null=True)
-    description = models.CharField("Descrição", max_length=120, blank=True, null=True)
+    description = models.TextField("Descrição", blank=True, null=True)
 
 class EleicaoCarousel(CMSPlugin):
     title = models.CharField("Título", max_length=120)
