@@ -51,7 +51,8 @@ class EditPressurePluginForm(ChangeReferenceBaseModelForm):
     # Extra fields
     targets = forms.CharField(
         label="Alvos",
-        widget=ArrayWidget(),
+        widget=ArrayWidget(attrs={"placeholder": "Nome do alvo: <email@provedor.com>"}),
+        help_text="Escreva nome e e-mail do alvo desta forma: \"Nome do alvo &lt;email@provedor.com&gt;\" e pressione ENTER."
     )
 
     pressure_email_subject = forms.CharField(
