@@ -1,0 +1,15 @@
+ul.tags {
+    margin: 0;
+    padding: 0;
+}
+
+.tags li {
+    list-style-type: none;
+    color: var(--primary-fg);
+    background-color: var(--primary);
+    display: inline-block;
+    padding: 2px 10px;
+    font-size: smaller;
+    font-weight: bold;
+    border-radius: 50px;
+}

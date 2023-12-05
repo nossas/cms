@@ -19,7 +19,12 @@ env = environ.Env(
     ALLOWED_HOSTS=(list, None),
     DISABLE_RECAPTCHA=(bool, False),
     RECAPTCHA_PUBLIC_KEY=(str, "MyRecaptchaKey123"),
-    RECAPTCHA_PRIVATE_KEY=(str, "MyRecaptchaPrivateKey456")
+    RECAPTCHA_PRIVATE_KEY=(str, "MyRecaptchaPrivateKey456"),
+    AWS_ACCESS_KEY_ID=(str, ""),
+    AWS_SECRET_ACCESS_KEY=(str, ""),
+    AWS_REGION=(str, ""),
+    ETCD_HOST=(str, "127.0.0.1"),
+    ETCD_PORT=(int, 2379)
 )
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -81,6 +86,9 @@ INSTALLED_APPS = [
     "contrib.frontend.grid",
     "contrib.frontend.maps",
     "contrib.ga",
+    # 
+    "contrib.domains.route53",
+    "contrib.domains.traefik",
     # Experimentação
     "eleicao",
     "django_social_share",
@@ -245,3 +253,18 @@ RECAPTCHA_PUBLIC_KEY = env("RECAPTCHA_PUBLIC_KEY")
 RECAPTCHA_PRIVATE_KEY = env("RECAPTCHA_PRIVATE_KEY")
 
 SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
+
+
+# Bonde Router
+
+# AWS
+AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID")
+
+AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY")
+
+AWS_REGION = env("AWS_REGION")
+
+# Etcd
+ETCD_HOST = env("ETCD_HOST")
+
+ETCD_PORT = env("ETCD_PORT")

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <h3>Hosted Zones</h3>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Hosted Zone Id</th>
+            <th>VPS</th>
+            <th>Healtcheck</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for hz in hosted_zones %}
+          <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td style="overflow-wrap: anywhere;">{{ hz.name }}</td>
+            <td><a href="{{hz.id}}">{{ hz.id }}</a></td>
+            <td>
+              {% for vps_name in hz.vps %}
+              <span class="badge bg-primary">{{ vps_name }}</span>
+              {% endfor %}
+            </td>
+            <td style="text-align:center;">
+              <span class="badge rounded-pill py-2 {% if hz.healtcheck %}bg-success{% else %}bg-danger{% endif %}">
+                <span class="visually-hidden">New alerts</span>
+              </span>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
