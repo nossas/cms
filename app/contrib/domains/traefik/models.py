@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from etcd3 import Client
 
@@ -47,7 +48,7 @@ class Route(models.Model):
 
     def update_traefik_config(self):
         try:
-            client = Client(host="127.0.0.1", port=2379)
+            client = Client(host=settings.ETCD_HOST, port=settings.ETCD_PORT)
 
             for config in self.get_traefik_config():
                 client.put(key=config[0], value=config[1])
@@ -58,7 +59,7 @@ class Route(models.Model):
 
     def delete_traefik_config(self):
         try:
-            client = Client(host="127.0.0.1", port=2379)
+            client = Client(host=settings.ETCD_HOST, port=settings.ETCD_PORT)
     
             for config in self.get_traefik_config():
                 client.delete_range(key=config[0])

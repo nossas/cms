@@ -67,9 +67,10 @@ class TraefikAppConfig(AppConfig):
 
             for key_value in configs:
                 client.put(key=key_value[0], value=key_value[1])
-            
-            # Signals configuration
-            from . import signals, models
 
-            post_save.connect(signals.update_traefik_config, sender=models.Route)
-            post_delete.connect(signals.delete_traefik_config, sender=models.Route)
+
+        # Signals configuration
+        from . import signals, models
+
+        post_save.connect(signals.update_traefik_config, sender=models.Route)
+        post_delete.connect(signals.delete_traefik_config, sender=models.Route)
