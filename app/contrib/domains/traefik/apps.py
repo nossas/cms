@@ -71,5 +71,5 @@ class TraefikAppConfig(AppConfig):
             # Signals configuration
             from . import signals, models
 
-            post_save.connect(signals.update_traefik_config, sender=models.Site)
-            post_delete.connect(signals.delete_traefik_config, sender=models.Site)
+            post_save.connect(signals.update_traefik_config, sender=models.Route)
+            post_delete.connect(signals.delete_traefik_config, sender=models.Route)

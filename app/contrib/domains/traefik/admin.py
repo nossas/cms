@@ -1,11 +1,11 @@
 from django.contrib import admin
 
-from .models import Site
+from .models import Route
 
 
-class SiteAdmin(admin.ModelAdmin):
+class RouteAdmin(admin.ModelAdmin):
     list_display = ("dns", "subdomain", "instance", "service")
     autocomplete_fields = ("dns", "subdomain")
 
 
-admin.site.register(Site, SiteAdmin)
+admin.site.register(Route, RouteAdmin)

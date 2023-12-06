@@ -9,7 +9,7 @@ class Container(models.TextChoices):
     djangocms = "cms@docker", "CMS"
 
 
-class Site(models.Model):
+class Route(models.Model):
     dns = models.ForeignKey(HostedZone, on_delete=models.CASCADE)
     subdomain = models.ForeignKey(
         RecordSet,
