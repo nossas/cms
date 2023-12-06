@@ -4,9 +4,6 @@ from django.conf import settings
 
 
 from etcd3 import Client
-# from etcd3 import Client
-
-client = Client(host=settings.ETCD_HOST, port=settings.ETCD_PORT)
 
 initial_config = [
     # Setup inicial
@@ -59,15 +56,20 @@ class TraefikAppConfig(AppConfig):
     name = "contrib.domains.traefik"
 
     def ready(self):
-        configs = []
-        configs.extend(initial_config)
-        configs.extend(initial_web_application_config)
-
-        for key_value in configs:
-            client.put(key=key_value[0], value=key_value[1])
+        import os
         
-        # Signals configuration
-        from . import signals, models
+        if not os.getenv("DISABLE_TRAEFIK", False):
+            client = Client(host=settings.ETCD_HOST, port=settings.ETCD_PORT)
 
-        post_save.connect(signals.update_traefik_config, sender=models.Site)
-        post_delete.connect(signals.delete_traefik_config, sender=models.Site)
+            configs = []
+            configs.extend(initial_config)
+            configs.extend(initial_web_application_config)
+
+            for key_value in configs:
+                client.put(key=key_value[0], value=key_value[1])
+            
+            # Signals configuration
+            from . import signals, models
+
+            post_save.connect(signals.update_traefik_config, sender=models.Site)
+            post_delete.connect(signals.delete_traefik_config, sender=models.Site)
