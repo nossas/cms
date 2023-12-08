@@ -39,8 +39,10 @@
       }
 
       function doneResponse({ success, html }) {
-        $("#pressureWrapper").empty();
-        $("#pressureWrapper").html(html);
+        var instanceId = $('.pressure-plugin').data('instance-id');
+
+        $('#pressureWrapper-' + instanceId).empty();
+        $('#pressureWrapper-' + instanceId).html(html);
 
         $("#copyToClipboard").on("click", function () {
           const textToCopy = window.location.href;

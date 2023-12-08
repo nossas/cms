@@ -1,0 +1,17 @@
+.tabs {
+    display: flex;
+    flex-direction: row;
+}
+
+.tabs > h2 {
+    cursor: pointer;
+    padding: 10px 20px 5px 5px;
+}
+
+.tabs > .tab-active {
+    border-bottom: 2px solid black;
+}
+
+.tabs-content > fieldset {
+    padding: 25px 0 !important;
+}
