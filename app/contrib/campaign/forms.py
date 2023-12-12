@@ -43,7 +43,9 @@ class WidgetBaseForm(CreateCMSPageForm):
         slot = "content"
         placeholder = self.get_placeholder(new_page, slot=slot)
 
-        for layout in ["hero", self.action_kind, "four_columns", "signature"]:
+        layout_types = ["hero", self.action_kind, "four_columns", "signature"]
+
+        for layout in layout_types:
             block_plugin = add_plugin(
                 placeholder=placeholder,
                 plugin_type="BlockPlugin",

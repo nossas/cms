@@ -28,8 +28,9 @@ class Layout(object):
 
     def copy(self):
         if self.layout:
-            self.obj.title = f"Bloco {self.obj.position + 1}"
-            self.obj.slug = f"bloco-{self.obj.position + 1}"
+            block_title = dict(LayoutChoices.choices).get(self.layout, f"Bloco {self.obj.position + 1}")
+            self.obj.title = block_title
+            self.obj.slug = f"{self.layout}".lower().replace(" ", "-")
             self.obj.save()
             getattr(self, f"_{self.layout}_copy")()
 

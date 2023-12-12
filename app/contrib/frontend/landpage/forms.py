@@ -20,7 +20,7 @@ class LayoutChoices(models.TextChoices):
         "Assinatura + parceiros 2 colunas",
     )
     signature_partners_b = "signature_partners_b", "Parceiros 1 coluna"
-    # pressure = "pressure", "Pressão"
+    pressure = "pressure", "Pressão"
 
 
 class LayoutBlockForm(forms.ModelForm):
