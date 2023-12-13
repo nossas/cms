@@ -1,21 +1,30 @@
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
-from .forms import PressurePluginForm, PressureAjaxForm
+from contrib.bonde.plugin_base import BondeWidgetPluginBase
+from .forms import CreatePressurePluginForm, EditPressurePluginForm, PressureAjaxForm
 from .models import PressurePluginModel
 
 
 @plugin_pool.register_plugin
-class PressurePlugin(CMSPluginBase):
+class PressurePlugin(BondeWidgetPluginBase):
     name = "Pressão"
     module = "Estrategia"
     render_template = "pressure/pressure_plugin.html"
     model = PressurePluginModel
-    form = PressurePluginForm
-    cache = False
+    edit_form_class = EditPressurePluginForm
+    add_form_class = CreatePressurePluginForm
+    fieldsets = [
+        (
+            "Pressão por e-mail",
+            {
+                "fields": ["targets", "pressure_email_subject", "pressure_email_content"],
+            },
+        ),
+    ]
 
     def render(self, context, instance, placeholder):
-        obj = instance.get_widget()
+        obj = instance.widget
         request = context["request"]
         initial = (
             {
@@ -29,7 +38,7 @@ class PressurePlugin(CMSPluginBase):
         form = PressureAjaxForm(initial=initial)
 
         if instance.reference_id:
-            scheme = request.scheme if request.scheme else 'https'
+            scheme = request.scheme if request.scheme else "https"
             url = f"{scheme}://{request.get_host()}{request.path}"
 
             form = PressureAjaxForm(

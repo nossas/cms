@@ -3,17 +3,18 @@
 {% addtoblock "css" %}
 {% if settings.main_color %}
 <style>
-#pressureWrapper h3 {
+#pressureWrapper-{{instance.id}} h3 {
   color: {{ settings.main_color }};
 }
-#pressureForm input:focus, #pressureForm textarea:focus {
+#pressureWrapper-{{instance.id}} #pressureForm input:focus,
+#pressureWrapper-{{instance.id}} #pressureForm textarea:focus {
   border: 1px solid {{ settings.main_color }};
 }
-#pressureForm button[type="submit"] {
+#pressureWrapper-{{instance.id}} #pressureForm button[type="submit"] {
   color: white;
   background-color: {{ settings.main_color }};
 }
-#pressureForm .counter {
+#pressureWrapper-{{instance.id}} #pressureForm .counter {
   color: {{ settings.main_color }};
 }
 </style>
@@ -25,7 +26,7 @@
 <script type="text/javascript" src="{% static 'pressure/js/pressure.js' %}"></script>
 {% endaddtoblock %}
 
-<div id="pressureWrapper" class="container pressure-plugin plugin">
+<div id="pressureWrapper-{{instance.id}}" data-instance-id="{{ instance.id }}" class="container pressure-plugin plugin">
   <div class="bg-white rounded-lg">
     <h3 class="px-4 pt-4 text-lg font-bold text-center mb-2">{{settings.title}}</h3>
     <div class="px-6 py-4 bg-gray-200">

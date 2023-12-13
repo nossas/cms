@@ -1,22 +1,98 @@
 import json
 import jwt
+import re
 import requests
 
 from django import forms
 from django.conf import settings
 
-from contrib.bonde.forms import ReferenceBaseModelForm
+from contrib.bonde.models import WidgetKind
+from contrib.bonde.forms import ChangeReferenceBaseModelForm, CreateReferenceBaseModelForm
 from tailwind.forms import StyledBaseForm
 
 from .models import PressurePluginModel
 
 
-class PressurePluginForm(ReferenceBaseModelForm):
-    action_kind = "pressure"
+class ArrayWidget(forms.TextInput):
+    class Media:
+        css = {
+            "all": [
+                "//cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css",
+            ]
+        }
+        js = [
+            "//cdn.jsdelivr.net/npm/@yaireo/tagify/dist/jQuery.tagify.min.js",
+            "pressure/js/array-widget.js",
+        ]
 
-    class Meta(ReferenceBaseModelForm.Meta):
+    def __init__(self, attrs={}):
+        classes = attrs.get("class", None)
+        attrs = {
+            **attrs,
+            "class": classes + " array-widget" if classes else "array-widget",
+        }
+
+        super().__init__(attrs=attrs)
+
+
+class CreatePressurePluginForm(CreateReferenceBaseModelForm):
+    # Settings Widget Kind Form
+    action_kind = WidgetKind.pressure
+    
+    class Meta(CreateReferenceBaseModelForm.Meta):
         abstract = False
         model = PressurePluginModel
+
+
+class EditPressurePluginForm(ChangeReferenceBaseModelForm):
+    # Settings Widget Kind Form
+    action_kind = WidgetKind.pressure
+
+    # Extra fields
+    targets = forms.CharField(
+        label="Alvos",
+        widget=ArrayWidget(attrs={"placeholder": "Nome do alvo: <email@provedor.com>"}),
+        help_text="Escreva nome e e-mail do alvo desta forma: \"Nome do alvo &lt;email@provedor.com&gt;\" e pressione ENTER."
+    )
+
+    pressure_email_subject = forms.CharField(
+        label="Assunto do e-mail de pressão", required=False
+    )
+    pressure_email_content = forms.CharField(
+        label="Corpo do e-mail de pressão", widget=forms.Textarea, required=False
+    )
+
+    class Meta(ChangeReferenceBaseModelForm.Meta):
+        abstract = False
+        model = PressurePluginModel
+
+    def prepare_fields(self):
+        super().prepare_fields()
+
+        obj = self.instance.widget
+        self.fields["pressure_email_subject"].initial = obj.settings.get(
+            "pressure_subject"
+        )
+        self.fields["pressure_email_content"].initial = obj.settings.get(
+            "pressure_body"
+        )
+
+        self.fields["targets"].initial = ",".join(obj.settings.get("targets"))
+
+    def update_widget_settings(self, widget, commit=True):
+        widget = super().update_widget_settings(widget, commit=False)
+
+        widget.settings["pressure_subject"] = self.cleaned_data[
+            "pressure_email_subject"
+        ]
+        widget.settings["pressure_body"] = self.cleaned_data["pressure_email_content"]
+
+        widget.settings["targets"] = list(map(lambda x: x['value'], json.loads(self.cleaned_data["targets"])))
+
+        if commit:
+            widget.save()
+
+        return widget
 
 
 class PressureAjaxForm(StyledBaseForm):
