@@ -55,4 +55,8 @@ COPY --from=node-builder /app ./
 RUN python manage.py collectstatic --noinput --clear -i tailwindcss
 
 # Runtime command that executes when "docker run" is called.
+
+# Check traefik + etcd configs to running domains
+ENV ENABLE_CHECK_TRAEFIK=True
+
 CMD ["uwsgi", "--ini", "/app/wsgi.ini"]

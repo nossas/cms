@@ -5,7 +5,7 @@ django-select2
 django-formtools
 django-recaptcha==3
 # Django CMS
-django-cms
+django-cms>=3
 djangocms-text-ckeditor
 djangocms-picture
 django-colorfield
@@ -20,3 +20,6 @@ reportlab
 django-social-share
 pyjwt
 requests
+# Domains
+etcd3-py>=0.1.6
+dnspython>=2.4.2

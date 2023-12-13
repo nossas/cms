@@ -144,3 +144,6 @@ GitHub.sublime-settings
 
 # Tailwind
 node_modules/
+
+# Domains
+deploy/letsencrypt
