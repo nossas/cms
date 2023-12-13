@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.http.request import HttpRequest
 
 from django.utils.html import format_html
 
@@ -36,6 +37,12 @@ class HostedZoneAdmin(admin.ModelAdmin):
         css = {
              'all': ('css/route53/tags.css',)
         }
+    
+    def has_add_permission(self, request: HttpRequest) -> bool:
+        return False
+
+    def has_change_permission(self, request: HttpRequest, obj=None) -> bool:
+        return False
 
     def vps(self, obj):
         html = "<ul class='tags'>"
