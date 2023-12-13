@@ -37,12 +37,7 @@ class Route(models.Model):
             (
                 "/rule",
                 f"Host(`{domain}`,`www.{domain}`)"
-                # "HostRegexp(`DOMAIN_NAME`, `{subdomain:.+}.DOMAIN_NAME`)".replace(
-                #     "DOMAIN_NAME", domain
-                # ),
-            ),
-            # ("/tls/domains/0/main", domain),
-            # ("/tls/domains/0/sans/0", "*." + domain),
+            )
         )
 
         return list(map(lambda x: (prefix + x[0], x[1]), configs))

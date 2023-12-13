@@ -58,7 +58,7 @@ class TraefikAppConfig(AppConfig):
     def ready(self):
         import os
         
-        if not os.getenv("DISABLE_TRAEFIK", False):
+        if os.getenv("ENABLE_CHECK_TRAEFIK", False):
             client = Client(host=settings.ETCD_HOST, port=settings.ETCD_PORT)
 
             configs = []
