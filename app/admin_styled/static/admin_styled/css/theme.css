@@ -5,3 +5,7 @@
 .cms-pagetree-header-search .cms-pagetree-header-search-btn:hover {
     background-color: var(--dca-primary) !important;
 }
+
+form fieldset.collapse { 
+    visibility: unset;
+}
