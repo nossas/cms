@@ -39,10 +39,16 @@ class HostedZoneAdmin(admin.ModelAdmin):
         }
     
     def has_add_permission(self, request: HttpRequest) -> bool:
-        return False
+        if not request.user.is_superuser:
+            return False
+        
+        return super(HostedZoneAdmin, self).has_add_permission(request)
 
     def has_change_permission(self, request: HttpRequest, obj=None) -> bool:
-        return False
+        if not request.user.is_superuser:
+            return False
+        
+        return super(HostedZoneAdmin, self).has_change_permission(request, obj=obj)
 
     def vps(self, obj):
         html = "<ul class='tags'>"
