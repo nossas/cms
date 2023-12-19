@@ -35,3 +35,11 @@ PUBLIC_MEDIA_LOCATION = "media"
 MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/"
 
 DEFAULT_FILE_STORAGE = "project.storages.PublicMediaStorage"
+
+
+# Django Compressor
+COMPRESS_OFFLINE = True
+
+LIBSASS_OUTPUT_STYLE = 'compressed'
+
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'

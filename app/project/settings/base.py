@@ -48,7 +48,8 @@ X_FRAME_OPTIONS = "SAMEORIGIN"
 # Application definition
 
 INSTALLED_APPS = [
-    "admin_styled",
+    "contrib.designsystem",
+    # "admin_styled",
     "tailwind",
     "djangocms_admin_style",
     "django.contrib.admin",
@@ -94,6 +95,7 @@ INSTALLED_APPS = [
     "django_social_share",
     # 
     # "django_prometheus"
+    "compressor",
 ]
 
 MIDDLEWARE = [
@@ -213,9 +215,15 @@ STATIC_ROOT = BASE_DIR / "staticfiles/"
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-STATICFILES_FINDERS = (
+STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+    # 
+    "compressor.finders.CompressorFinder",
+]
+
+COMPRESS_PRECOMPILERS = (
+    ('text/x-scss', 'django_libsass.SassCompiler'),
 )
 
 # only required for local file storage and serving, in development
