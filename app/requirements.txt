@@ -23,3 +23,8 @@ requests
 # Domains
 etcd3-py>=0.1.6
 dnspython>=2.4.2
+# Design System
+django-compressor==4.4
+django-libsass==0.9
+djangocms-frontend==1.2.1
+djangocms-link==3.1.1

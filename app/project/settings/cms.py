@@ -3,9 +3,9 @@
 
 CMS_TEMPLATES = [
     # ("app/home.html", "Home"),
+    ("designsystem/base.html", "Design System"),
     ("frontend/landpage/page.html", "Landpage"),
     ("eleicao/eleicao_template.html", "A Eleição do Ano"),
-    ("designsystem/base.html", "Design System"),
 ]
 
 # Placeholder

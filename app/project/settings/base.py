@@ -24,7 +24,7 @@ env = environ.Env(
     AWS_SECRET_ACCESS_KEY=(str, ""),
     AWS_REGION=(str, ""),
     ETCD_HOST=(str, "127.0.0.1"),
-    ETCD_PORT=(int, 2379)
+    ETCD_PORT=(int, 2379),
 )
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -78,29 +78,47 @@ INSTALLED_APPS = [
     "captcha",
     "colorfield",
     "django_select2",
+    # Bootstrap5 Components
+    "djangocms_frontend",
+    "djangocms_frontend.contrib.accordion",
+    "djangocms_frontend.contrib.alert",
+    "djangocms_frontend.contrib.badge",
+    "djangocms_frontend.contrib.card",
+    "djangocms_frontend.contrib.carousel",
+    "djangocms_frontend.contrib.collapse",
+    "djangocms_frontend.contrib.content",
+    "djangocms_frontend.contrib.grid",
+    "djangocms_frontend.contrib.icon",
+    "djangocms_frontend.contrib.image",
+    "djangocms_frontend.contrib.jumbotron",
+    "djangocms_frontend.contrib.link",
+    "djangocms_frontend.contrib.listgroup",
+    "djangocms_frontend.contrib.media",
+    "djangocms_frontend.contrib.tabs",
+    "djangocms_frontend.contrib.utilities",
     # My Apps
     "contrib.actions.pressure",
     "contrib.bonde",
     "contrib.campaign",
-    "contrib.frontend",
-    "contrib.frontend.landpage",
-    "contrib.frontend.grid",
+    # "contrib.frontend",
+    # "contrib.frontend.landpage",
+    # "contrib.frontend.grid",
     "contrib.frontend.maps",
     "contrib.ga",
-    # 
+    #
     "contrib.domains.route53",
     "contrib.domains.traefik",
     # Experimentação
     "eleicao",
     "django_social_share",
-    # 
+    #
     # "django_prometheus"
     "compressor",
 ]
 
 MIDDLEWARE = [
     # "django_prometheus.middleware.PrometheusBeforeMiddleware",
-    # 
+    #
     "django.middleware.security.SecurityMiddleware",
     "project.middleware.WwwRedirectMiddleware",
     "eleicao.middleware.EleicaoRedirectMiddleware",
@@ -116,7 +134,7 @@ MIDDLEWARE = [
     "cms.middleware.page.CurrentPageMiddleware",
     "cms.middleware.toolbar.ToolbarMiddleware",
     "cms.middleware.language.LanguageCookieMiddleware",
-    # 
+    #
     # "django_prometheus.middleware.PrometheusAfterMiddleware",
 ]
 
@@ -136,7 +154,7 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "sekizai.context_processors.sekizai",
                 "contrib.ga.context_processors.ga",
-                'django.template.context_processors.request',
+                "django.template.context_processors.request",
             ],
         },
     },
@@ -159,7 +177,9 @@ DATABASE_ROUTERS = [
     "contrib.bonde.router.AuthRouter",
 ]
 
-BONDE_ACTION_API_URL = env.str("BONDE_ACTION_API_URL", "http://api-graphql.localhost/v1/graphql")
+BONDE_ACTION_API_URL = env.str(
+    "BONDE_ACTION_API_URL", "http://api-graphql.localhost/v1/graphql"
+)
 
 BONDE_ACTION_SECRET_KEY = env.str("BONDE_ACTION_SECRET_KEY", "")
 
@@ -218,13 +238,11 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-    # 
+    #
     "compressor.finders.CompressorFinder",
 ]
 
-COMPRESS_PRECOMPILERS = (
-    ('text/x-scss', 'django_libsass.SassCompiler'),
-)
+COMPRESS_PRECOMPILERS = (("text/x-scss", "django_libsass.SassCompiler"),)
 
 # only required for local file storage and serving, in development
 MEDIA_URL = "/media/"
@@ -260,7 +278,7 @@ RECAPTCHA_PUBLIC_KEY = env("RECAPTCHA_PUBLIC_KEY")
 
 RECAPTCHA_PRIVATE_KEY = env("RECAPTCHA_PRIVATE_KEY")
 
-SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
+SILENCED_SYSTEM_CHECKS = ["captcha.recaptcha_test_key_error"]
 
 
 # Bonde Router

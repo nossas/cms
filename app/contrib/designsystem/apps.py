@@ -8,15 +8,18 @@ def create_default_themescss(sender, **kwargs):
     from django.contrib.sites.models import Site
     from contrib.designsystem.models import ThemeScss
 
-    site = Site.objects.get(id=getattr(settings, 'SITE_ID', 1))
+    try:
+        site = Site.objects.get(id=getattr(settings, "SITE_ID", 1))
 
-    if not ThemeScss.objects.exists():
-        ThemeScss.objects.create(site=site)
+        if not ThemeScss.objects.exists():
+            ThemeScss.objects.create(site=site)
+    except Site.DoesNotExist:
+        pass
 
 
 class DesignSystemConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'contrib.designsystem'
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "contrib.designsystem"
 
     def ready(self):
         post_migrate.connect(create_default_themescss, sender=self)
