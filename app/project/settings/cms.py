@@ -64,6 +64,10 @@ CMS_PLACEHOLDER_CONF = {
 # Picture
 # https://github.com/django-cms/djangocms-picture
 
+DJANGOCMS_PICTURE_TEMPLATES = [
+    ('caption', 'Caption'),
+]
+
 DJANGOCMS_PICTURE_ALIGN = [
     # Change prefix classes alignment for not use space
     (" object-left", "Esquerda"),

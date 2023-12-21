@@ -76,11 +76,35 @@ $utilities: map-merge(
     }
 }
 
-// SVG
-// .heading {
-//     position: absolute;
-// }
+// Breakline
+.breakline {
+    border-top: 2px dotted;
+}
 
+@each $state in map-keys($colors) {
+    .breakline-#{$state} {
+        border-color: var(--#{$prefix}#{$state});
+    }
+}
+
+// Heading
+.heading {
+    margin-bottom: ($spacer * 1.5);
+
+    @include media-breakpoint-down(md) {
+        & {
+            position: absolute;
+            left: 0;
+
+            + div {
+                margin-top: 100px;
+            }
+        }
+    }
+}
+
+
+// SVG
 // scss-docs-start alert-modifiers
 // Generate contextual modifier classes for colorizing the alert
 @each $state in map-keys($colors) {

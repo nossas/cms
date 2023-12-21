@@ -12,3 +12,9 @@ class DSHeadingPlugin(CMSPluginBase):
     render_template = "ds/plugins/heading.html"
 
 plugin_pool.register_plugin(DSHeadingPlugin)
+
+
+class DSBreaklinePlugin(CMSPluginBase):
+    render_template = "ds/plugins/breakline.html"
+
+plugin_pool.register_plugin(DSBreaklinePlugin)
