@@ -15,7 +15,8 @@
                     {{ request.current_site.themescss.theme }}
                 {% endif %}
 
-                @import 'bootstrap/scss/bootstrap.scss';
+                {% comment %} @import 'bootstrap/scss/bootstrap.scss'; {% endcomment %}
+                @import 'designsystem/scss/nossas.scss';
             </style>
         {% endcompress %}
 

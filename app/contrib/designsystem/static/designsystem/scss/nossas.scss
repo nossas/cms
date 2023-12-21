@@ -1,0 +1,124 @@
+@import "bootstrap/scss/mixins/banner";
+@include bsBanner("");
+
+// scss-docs-start import-stack
+// Configuration
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+
+// Card
+$card-border-radius: none;
+$card-border-color: $dark;
+$card-border-width: 2px;
+
+// Button
+$btn-border-radius: 50px;
+$btn-border-radius-sm: $btn-border-radius;
+$btn-border-radius-lg: $btn-border-radius;
+$btn-padding-x: 54px;
+$btn-padding-x-sm: $btn-padding-x;
+$btn-padding-x-lg: $btn-padding-x;
+
+@import "bootstrap/scss/variables-dark";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/utilities";
+
+$utilities: map-merge(
+    $utilities,
+    (
+        "background-color": (
+            property: background-color,
+            class: bg,
+            values:
+                map-merge(
+                    $theme-colors,
+                    (
+                        "yellow": $yellow-500,
+                        "pink": $pink-500,
+                        "green": $green-500,
+                    )
+                )
+        )
+    )
+);
+
+// Layout & components
+@import "bootstrap/scss/root";
+@import "bootstrap/scss/reboot";
+@import "bootstrap/scss/type";
+@import "bootstrap/scss/images";
+@import "bootstrap/scss/containers";
+@import "bootstrap/scss/grid";
+@import "bootstrap/scss/tables";
+@import "bootstrap/scss/forms";
+@import "bootstrap/scss/buttons";
+@import "bootstrap/scss/transitions";
+@import "bootstrap/scss/dropdown";
+@import "bootstrap/scss/button-group";
+@import "bootstrap/scss/nav";
+@import "bootstrap/scss/navbar";
+@import "bootstrap/scss/card";
+
+.card {
+    @include media-breakpoint-up(md) {
+        &:nth-child(even) {
+            border-right: 0;
+            border-left: 0;
+        }
+    }
+
+    @include media-breakpoint-down(md) {
+        &:nth-child(even) {
+            border-top: 0;
+            border-bottom: 0;
+        }
+    }
+}
+
+// SVG
+// .heading {
+//     position: absolute;
+// }
+
+// scss-docs-start alert-modifiers
+// Generate contextual modifier classes for colorizing the alert
+@each $state in map-keys($colors) {
+    .svg-bg-#{$state} {
+        rect {
+            fill: var(--#{$prefix}#{$state});
+        }
+    }
+}
+
+@each $state in map-keys($colors) {
+    .svg-line-#{$state} {
+        path {
+            fill: var(--#{$prefix}#{$state});
+        }
+    }
+}
+
+@import "bootstrap/scss/accordion";
+@import "bootstrap/scss/breadcrumb";
+@import "bootstrap/scss/pagination";
+@import "bootstrap/scss/badge";
+@import "bootstrap/scss/alert";
+@import "bootstrap/scss/progress";
+@import "bootstrap/scss/list-group";
+@import "bootstrap/scss/close";
+@import "bootstrap/scss/toasts";
+@import "bootstrap/scss/modal";
+@import "bootstrap/scss/tooltip";
+@import "bootstrap/scss/popover";
+@import "bootstrap/scss/carousel";
+@import "bootstrap/scss/spinners";
+@import "bootstrap/scss/offcanvas";
+@import "bootstrap/scss/placeholders";
+
+// Helpers
+@import "bootstrap/scss/helpers";
+
+// Utilities
+@import "bootstrap/scss/utilities/api";
+// scss-docs-end import-stack
