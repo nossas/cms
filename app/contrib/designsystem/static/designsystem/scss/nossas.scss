@@ -24,6 +24,9 @@ $accordion-border-radius: none;
 $accordion-inner-border-radius: $accordion-border-radius;
 $accordion-border-width: 0;
 $accordion-button-focus-box-shadow: none;
+$accordion-button-active-bg: none;
+$accordion-button-active-color: none;
+$accordion-button-padding-y: ($spacer * .5);
 
 // Font Size
 $font-size-base: 0.8rem;
@@ -101,6 +104,10 @@ $utilities: map-merge(
     &:last-child {
         border-bottom: 0 !important;
     }
+}
+
+.accordion-button {
+    font-size: $h3-font-size;
 }
 
 @import "bootstrap/scss/breadcrumb";
