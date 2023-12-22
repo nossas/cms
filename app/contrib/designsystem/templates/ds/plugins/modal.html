@@ -1,0 +1,38 @@
+{% load static %}
+
+<!-- Button trigger modal -->
+<div class="btn-card d-flex gap-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  <img src="{% static 'dummy/alessandraorofino.png' %}" class="img-fluid img-mask" />
+  <div class="btn-card-description">
+    <h4>Alessandra Orofino</h4>
+    <p>
+      Cargo ocupado pelo integrante em até três linhas lorem ipsum dolor sit amet consectetur
+    </p>
+  </div>
+</div>
+  
+  <!-- Modal -->
+  <div class="modal modal-sm fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-green">
+          <button type="button" class="btn-close bg-pink btn-circle" data-bs-dismiss="modal" aria-label="Close"></button>
+          <img src="{% static 'dummy/alessandraorofino.png' %}" class="img-fluid img-mask" />
+        </div>
+        <div class="modal-body bg-green-subtle">
+          <div class="">
+            <h4>Alessandra Orofino</h4>
+            <p>Cargo ocupado pelo integrante em até duas linhas lorem ipsum dolor sit amet consectetur</p>
+            <hr class="breakline" />
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo con duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatu. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id es sed ut perspiciatis unde omnis iste natus error.
+            </p>
+          </div>
+        </div>
+        {% comment %} <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div> {% endcomment %}
+      </div>
+    </div>
+  </div>

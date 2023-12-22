@@ -19,6 +19,20 @@ $btn-padding-x: 54px;
 $btn-padding-x-sm: $btn-padding-x;
 $btn-padding-x-lg: $btn-padding-x;
 
+// Accordion
+$accordion-border-radius: none;
+$accordion-inner-border-radius: $accordion-border-radius;
+$accordion-border-width: 0;
+$accordion-button-focus-box-shadow: none;
+
+// Font Size
+$font-size-base: 0.8rem;
+
+// Modal
+$modal-sm: 375px;
+$modal-content-border-radius: none;
+$modal-content-inner-border-radius: $modal-content-border-radius;
+
 @import "bootstrap/scss/variables-dark";
 @import "bootstrap/scss/maps";
 @import "bootstrap/scss/mixins";
@@ -37,6 +51,7 @@ $utilities: map-merge(
                         "yellow": $yellow-500,
                         "pink": $pink-500,
                         "green": $green-500,
+                        "green-subtle": #F7F7ED,
                     )
                 )
         )
@@ -60,6 +75,7 @@ $utilities: map-merge(
 @import "bootstrap/scss/navbar";
 @import "bootstrap/scss/card";
 
+// Card
 .card {
     @include media-breakpoint-up(md) {
         &:nth-child(even) {
@@ -76,9 +92,38 @@ $utilities: map-merge(
     }
 }
 
+@import "bootstrap/scss/accordion";
+
+// Accordion
+.accordion-item {
+    border-bottom: 1px dashed !important;
+
+    &:last-child {
+        border-bottom: 0 !important;
+    }
+}
+
+@import "bootstrap/scss/breadcrumb";
+@import "bootstrap/scss/pagination";
+@import "bootstrap/scss/badge";
+@import "bootstrap/scss/alert";
+@import "bootstrap/scss/progress";
+@import "bootstrap/scss/list-group";
+@import "bootstrap/scss/close";
+@import "bootstrap/scss/toasts";
+@import "bootstrap/scss/modal";
+@import "bootstrap/scss/tooltip";
+@import "bootstrap/scss/popover";
+@import "bootstrap/scss/carousel";
+@import "bootstrap/scss/spinners";
+@import "bootstrap/scss/offcanvas";
+@import "bootstrap/scss/placeholders";
+
+// New Components
+
 // Breakline
 .breakline {
-    border-top: 2px dotted;
+    border-top: 1px dashed #000;
 }
 
 @each $state in map-keys($colors) {
@@ -123,22 +168,57 @@ $utilities: map-merge(
     }
 }
 
-@import "bootstrap/scss/accordion";
-@import "bootstrap/scss/breadcrumb";
-@import "bootstrap/scss/pagination";
-@import "bootstrap/scss/badge";
-@import "bootstrap/scss/alert";
-@import "bootstrap/scss/progress";
-@import "bootstrap/scss/list-group";
-@import "bootstrap/scss/close";
-@import "bootstrap/scss/toasts";
-@import "bootstrap/scss/modal";
-@import "bootstrap/scss/tooltip";
-@import "bootstrap/scss/popover";
-@import "bootstrap/scss/carousel";
-@import "bootstrap/scss/spinners";
-@import "bootstrap/scss/offcanvas";
-@import "bootstrap/scss/placeholders";
+// Imagem Mask
+.img-mask {
+    clip-path: polygon(0 22%, 93% 5%, 100% 94%, 11% 94%);
+}
+
+// Button Card
+.btn-card {
+    cursor: pointer;
+
+    .btn-card-description {
+        margin-top: ($spacer * 1);
+    }
+}
+
+// Modal
+.modal-sm {
+    .modal-header {
+        min-height: 230px;    
+
+        img {
+            left: 25px;
+        }
+        .btn-close.btn-circle {
+            margin-left: ($modal-sm - 85px);
+            margin-top: -95px;
+            opacity: 100;
+            z-index: 2;
+        }
+    }
+
+    .modal-body {
+        padding-top: ($spacer * 1.75);
+    }
+}
+
+.modal-header {
+    box-shadow: 0 4px 4px rgba(0,0,0,.25);
+    border-bottom: none;
+
+    img {
+        position: absolute;
+        height: 250px;
+        top: 15px;
+        z-index: 1;
+    }
+}
+
+// Button
+.btn-circle {
+    border-radius: 50%;
+}
 
 // Helpers
 @import "bootstrap/scss/helpers";
