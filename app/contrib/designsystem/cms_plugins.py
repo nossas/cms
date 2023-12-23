@@ -6,6 +6,8 @@ from djangocms_frontend.contrib.accordion.cms_plugins import (
     AccordionItemPlugin,
 )
 
+from .forms import DSForm
+
 
 class DSCardPlugin(CMSPluginBase):
     render_template = "ds/plugins/card.html"
@@ -46,6 +48,7 @@ class DSAccordionItemPlugin(AccordionItemPlugin):
         "DSAccordionPlugin",
     ]
 
+
 plugin_pool.register_plugin(DSAccordionItemPlugin)
 
 
@@ -54,3 +57,16 @@ class DSModalPlugin(CMSPluginBase):
 
 
 plugin_pool.register_plugin(DSModalPlugin)
+
+
+class DSFormPlugin(CMSPluginBase):
+    render_template = "ds/plugins/form.html"
+
+    def render(self, context, instance, placeholder):
+        context = super(DSFormPlugin, self).render(context, instance, placeholder)
+        context["form"] = DSForm()
+
+        return context
+
+
+plugin_pool.register_plugin(DSFormPlugin)

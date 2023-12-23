@@ -18,6 +18,8 @@ $btn-border-radius-lg: $btn-border-radius;
 $btn-padding-x: 54px;
 $btn-padding-x-sm: $btn-padding-x;
 $btn-padding-x-lg: $btn-padding-x;
+$btn-padding-y: $btn-padding-y-sm;
+$btn-font-size: $btn-font-size-sm;
 
 // Accordion
 $accordion-border-radius: none;
@@ -35,6 +37,19 @@ $font-size-base: 0.8rem;
 $modal-sm: 375px;
 $modal-content-border-radius: none;
 $modal-content-inner-border-radius: $modal-content-border-radius;
+
+// Forms
+$input-font-size: $font-size-base;
+$input-padding-y: $input-padding-y-sm;
+$input-focus-border-color: $dark;
+$input-focus-box-shadow: none;
+$input-border-radius: $input-border-radius-sm;
+$input-border-color: $dark;
+$input-border-width: 2px;
+
+$form-label-margin-bottom: 0.25rem;
+$form-label-font-size: $font-size-base;
+
 
 @import "bootstrap/scss/variables-dark";
 @import "bootstrap/scss/maps";
@@ -225,6 +240,12 @@ $utilities: map-merge(
 // Button
 .btn-circle {
     border-radius: 50%;
+}
+
+// Forms
+.form-label {
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
 // Helpers
