@@ -1,15 +1,15 @@
 {% load i18n %}
 
-<form action="{% url 'set_language' %}" method="post">
+<form class="i18n-form" action="{% url 'set_language' %}" method="post">
     {% csrf_token %}
     <input name="next" type="hidden" value="{{ request.get_full_path }}" />
 
     {% get_current_language as LANGUAGE_CODE %}
     {% get_available_languages as LANGUAGES %}
     {% get_language_info_list for LANGUAGES as languages %}
-    <select name="language" selected="{{ LANGUAGE_CODE }}" onchange="this.form.submit()">
+    <select class="form-select" name="language" selected="{{ LANGUAGE_CODE }}" onchange="this.form.submit()">
         {% for language in languages %}
-            <option value="{{ language.code }}"{% if LANGUAGE_CODE == language.code %} selected{% endif %}>{{ language.code }}</option>
+            <option value="{{ language.code }}"{% if LANGUAGE_CODE == language.code %} selected{% endif %}>{{ language.code|upper }}</option>
         {% endfor %}
     </select>
 </form>

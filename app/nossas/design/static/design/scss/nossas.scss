@@ -254,6 +254,20 @@ $utilities: map-merge(
     box-shadow: none;
 }
 
+// i18n
+.i18n-form {
+    margin-bottom: 0;
+
+    .form-select {
+        border: none;
+        background-color: transparent !important;
+
+        option {
+            color: $dark;
+        }
+    }
+}
+
 // Helpers
 @import "bootstrap/scss/helpers";
 
