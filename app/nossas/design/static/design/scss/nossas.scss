@@ -254,6 +254,33 @@ $utilities: map-merge(
     box-shadow: none;
 }
 
+.child {
+    .dropdown-menu a {
+        font-size: $h4-font-size;
+    }
+}
+
+.navbar-nav {
+    text-transform: uppercase;
+    font-size: $h3-font-size;
+    
+    a {
+        color: $navbar-dark-color;
+        text-decoration: none;
+    }
+
+    .dropdown-toggle {
+        text-transform: uppercase;
+        color: $navbar-dark-color;
+    }
+
+    .dropdown-menu {
+        background: inherit;
+        border: none;
+        margin-left: $spacer;
+    }
+}
+
 // i18n
 .i18n-form {
     margin-bottom: 0;
