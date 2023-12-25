@@ -26,8 +26,9 @@
     <body>
         {% cms_toolbar %}
         <div class="content">
+            {% placeholder "nossas_navbar" %}
             {% block main %}
-            {% placeholder "main" %}
+            {% placeholder "nossas_main" %}
             {% endblock main %}
         </div>
         {% render_block "js" %}

@@ -8,6 +8,7 @@ INSTALLED_APPS += [
     #
     "nossas",
     "nossas.design",
+    "nossas.plugins",
 ]
 
 
@@ -53,13 +54,31 @@ LANGUAGES = [
 ]
 
 
+# URLs
+
+ROOT_URLCONF = "nossas.urls"
+
+
 # CMS
 
-CMS_TEMPLATES += [
+CMS_TEMPLATES = [
     ("nossas/base.html", "NOSSAS"),
-]
+] + CMS_TEMPLATES
 
 CMS_PLACEHOLDER_CONF = {
     **CMS_PLACEHOLDER_CONF,
-    "main": {"name": "Corpo da página", "plugins": ["TextPlugin"]},
+    "nossas_main": {
+        "name": "Corpo da página",
+        "plugins": ["TextPlugin"],
+    },
+    "nossas_navbar": {
+        "name": "Navegação",
+        "plugins": ["NossasNavbarPlugin"],
+        "default_plugins": [
+            {
+                "plugin_type": "NossasNavbarPlugin",
+                "values": {}
+            }
+        ]
+    }
 }

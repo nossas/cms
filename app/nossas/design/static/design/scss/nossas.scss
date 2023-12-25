@@ -248,6 +248,12 @@ $utilities: map-merge(
     font-weight: bold;
 }
 
+// Navbar
+.navbar .navbar-toggler, .navbar .navbar-toggler:focus {
+    border: none;
+    box-shadow: none;
+}
+
 // Helpers
 @import "bootstrap/scss/helpers";
 
