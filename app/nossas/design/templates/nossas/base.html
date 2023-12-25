@@ -1,0 +1,35 @@
+{% load cms_tags sekizai_tags static %}
+{% load compress %}
+
+<html>
+    <head>
+        {% render_block "css" %}
+
+        {% comment %} {% compress css %}
+            <link rel="stylesheet" type="text/x-scss" href="{% static 'designsystem/scss/default.scss' %}" />
+        {% endcompress %} {% endcomment %}
+
+        {% compress css inline %}
+            <style type="text/x-scss">
+                {% comment %} {% if request.current_site.themescss.theme %}
+                    {{ request.current_site.themescss.theme }}
+                {% endif %} {% endcomment %}
+
+                {% comment %} @import 'bootstrap/scss/bootstrap.scss'; {% endcomment %}
+                @import 'design/scss/nossas.scss';
+                @import 'design/scss/reset.scss';
+            </style>
+        {% endcompress %}
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        {% cms_toolbar %}
+        <div class="content">
+            {% block main %}
+            {% placeholder "main" %}
+            {% endblock main %}
+        </div>
+        {% render_block "js" %}
+    </body>
+</html>

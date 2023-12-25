@@ -1,0 +1,14 @@
+.cms-toolbar-left {
+    display: flex;
+
+    .header-logo, .header-logo:hover {
+        margin-left: 20px;
+        margin-top: 2px;
+    }
+}
+
+.cms-toolbar-item-buttons {
+    .cms-icon {
+        margin-top: 5px;
+    }
+}

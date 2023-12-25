@@ -1,0 +1,256 @@
+@import "bootstrap/scss/mixins/banner";
+@include bsBanner("");
+
+// scss-docs-start import-stack
+// Configuration
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+
+// Card
+$card-border-radius: none;
+$card-border-color: $dark;
+$card-border-width: 2px;
+
+// Button
+$btn-border-radius: 50px;
+$btn-border-radius-sm: $btn-border-radius;
+$btn-border-radius-lg: $btn-border-radius;
+$btn-padding-x: 54px;
+$btn-padding-x-sm: $btn-padding-x;
+$btn-padding-x-lg: $btn-padding-x;
+$btn-padding-y: $btn-padding-y-sm;
+$btn-font-size: $btn-font-size-sm;
+
+// Accordion
+$accordion-border-radius: none;
+$accordion-inner-border-radius: $accordion-border-radius;
+$accordion-border-width: 0;
+$accordion-button-focus-box-shadow: none;
+$accordion-button-active-bg: none;
+$accordion-button-active-color: none;
+$accordion-button-padding-y: ($spacer * .5);
+
+// Font Size
+$font-size-base: 0.8rem;
+
+// Modal
+$modal-sm: 375px;
+$modal-content-border-radius: none;
+$modal-content-inner-border-radius: $modal-content-border-radius;
+
+// Forms
+$input-font-size: $font-size-base;
+$input-padding-y: $input-padding-y-sm;
+$input-focus-border-color: $dark;
+$input-focus-box-shadow: none;
+$input-border-radius: $input-border-radius-sm;
+$input-border-color: $dark;
+$input-border-width: 2px;
+
+$form-label-margin-bottom: 0.25rem;
+$form-label-font-size: $font-size-base;
+
+
+@import "bootstrap/scss/variables-dark";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/utilities";
+
+$utilities: map-merge(
+    $utilities,
+    (
+        "background-color": (
+            property: background-color,
+            class: bg,
+            values:
+                map-merge(
+                    $theme-colors,
+                    (
+                        "yellow": $yellow-500,
+                        "pink": $pink-500,
+                        "green": $green-500,
+                        "green-subtle": #F7F7ED,
+                    )
+                )
+        )
+    )
+);
+
+// Layout & components
+@import "bootstrap/scss/root";
+@import "bootstrap/scss/reboot";
+@import "bootstrap/scss/type";
+@import "bootstrap/scss/images";
+@import "bootstrap/scss/containers";
+@import "bootstrap/scss/grid";
+@import "bootstrap/scss/tables";
+@import "bootstrap/scss/forms";
+@import "bootstrap/scss/buttons";
+@import "bootstrap/scss/transitions";
+@import "bootstrap/scss/dropdown";
+@import "bootstrap/scss/button-group";
+@import "bootstrap/scss/nav";
+@import "bootstrap/scss/navbar";
+@import "bootstrap/scss/card";
+
+// Card
+.card {
+    @include media-breakpoint-up(md) {
+        &:nth-child(even) {
+            border-right: 0;
+            border-left: 0;
+        }
+    }
+
+    @include media-breakpoint-down(md) {
+        &:nth-child(even) {
+            border-top: 0;
+            border-bottom: 0;
+        }
+    }
+}
+
+@import "bootstrap/scss/accordion";
+
+// Accordion
+.accordion-item {
+    border-bottom: 1px dashed !important;
+
+    &:last-child {
+        border-bottom: 0 !important;
+    }
+}
+
+.accordion-button {
+    font-size: $h3-font-size;
+}
+
+@import "bootstrap/scss/breadcrumb";
+@import "bootstrap/scss/pagination";
+@import "bootstrap/scss/badge";
+@import "bootstrap/scss/alert";
+@import "bootstrap/scss/progress";
+@import "bootstrap/scss/list-group";
+@import "bootstrap/scss/close";
+@import "bootstrap/scss/toasts";
+@import "bootstrap/scss/modal";
+@import "bootstrap/scss/tooltip";
+@import "bootstrap/scss/popover";
+@import "bootstrap/scss/carousel";
+@import "bootstrap/scss/spinners";
+@import "bootstrap/scss/offcanvas";
+@import "bootstrap/scss/placeholders";
+
+// New Components
+
+// Breakline
+.breakline {
+    border-top: 1px dashed #000;
+}
+
+@each $state in map-keys($colors) {
+    .breakline-#{$state} {
+        border-color: var(--#{$prefix}#{$state});
+    }
+}
+
+// Heading
+.heading {
+    margin-bottom: ($spacer * 1.5);
+
+    @include media-breakpoint-down(md) {
+        & {
+            position: absolute;
+            left: 0;
+
+            + div {
+                margin-top: 100px;
+            }
+        }
+    }
+}
+
+
+// SVG
+// scss-docs-start alert-modifiers
+// Generate contextual modifier classes for colorizing the alert
+@each $state in map-keys($colors) {
+    .svg-bg-#{$state} {
+        rect {
+            fill: var(--#{$prefix}#{$state});
+        }
+    }
+}
+
+@each $state in map-keys($colors) {
+    .svg-line-#{$state} {
+        path {
+            fill: var(--#{$prefix}#{$state});
+        }
+    }
+}
+
+// Imagem Mask
+.img-mask {
+    clip-path: polygon(0 22%, 93% 5%, 100% 94%, 11% 94%);
+}
+
+// Button Card
+.btn-card {
+    cursor: pointer;
+
+    .btn-card-description {
+        margin-top: ($spacer * 1);
+    }
+}
+
+// Modal
+.modal-sm {
+    .modal-header {
+        min-height: 230px;    
+
+        img {
+            left: 25px;
+        }
+        .btn-close.btn-circle {
+            margin-left: ($modal-sm - 85px);
+            margin-top: -95px;
+            opacity: 100;
+            z-index: 2;
+        }
+    }
+
+    .modal-body {
+        padding-top: ($spacer * 1.75);
+    }
+}
+
+.modal-header {
+    box-shadow: 0 4px 4px rgba(0,0,0,.25);
+    border-bottom: none;
+
+    img {
+        position: absolute;
+        height: 250px;
+        top: 15px;
+        z-index: 1;
+    }
+}
+
+// Button
+.btn-circle {
+    border-radius: 50%;
+}
+
+// Forms
+.form-label {
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+// Helpers
+@import "bootstrap/scss/helpers";
+
+// Utilities
+@import "bootstrap/scss/utilities/api";
+// scss-docs-end import-stack
