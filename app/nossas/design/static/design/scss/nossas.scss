@@ -28,7 +28,7 @@ $accordion-border-width: 0;
 $accordion-button-focus-box-shadow: none;
 $accordion-button-active-bg: none;
 $accordion-button-active-color: none;
-$accordion-button-padding-y: ($spacer * .5);
+$accordion-button-padding-y: ($spacer * 0.5);
 
 // Font Size
 $font-size-base: 0.8rem;
@@ -50,31 +50,43 @@ $input-border-width: 2px;
 $form-label-margin-bottom: 0.25rem;
 $form-label-font-size: $font-size-base;
 
-
 @import "bootstrap/scss/variables-dark";
 @import "bootstrap/scss/maps";
 @import "bootstrap/scss/mixins";
 @import "bootstrap/scss/utilities";
 
-$utilities: map-merge(
-    $utilities,
-    (
-        "background-color": (
-            property: background-color,
-            class: bg,
-            values:
-                map-merge(
-                    $theme-colors,
-                    (
-                        "yellow": $yellow-500,
-                        "pink": $pink-500,
-                        "green": $green-500,
-                        "green-subtle": #F7F7ED,
-                    )
-                )
-        )
-    )
-);
+// $utilities: map-merge(
+//     $utilities,
+//     (
+//         "background-color": (
+//             property: background-color,
+//             class: bg,
+//             values:
+//                 map-merge(
+//                     $theme-colors,
+//                     (
+//                         "yellow": $yellow-500,
+//                         "pink": $pink-500,
+//                         "green": $green-500,
+//                         "green-subtle": #f7f7ed
+//                     )
+//                 )
+//         ),
+//         "color": (
+//             property: color,
+//             class: text,
+//             values:
+//                 map-merge(
+//                     $utilities-text-colors,
+//                     (
+//                         "yellow": $yellow-500,
+//                         "pink": $pink-500,
+//                         "green": $green-500
+//                     )
+//                 )
+//         )
+//     )
+// );
 
 // Layout & components
 @import "bootstrap/scss/root";
@@ -170,7 +182,6 @@ $utilities: map-merge(
     }
 }
 
-
 // SVG
 // scss-docs-start alert-modifiers
 // Generate contextual modifier classes for colorizing the alert
@@ -207,7 +218,7 @@ $utilities: map-merge(
 // Modal
 .modal-sm {
     .modal-header {
-        min-height: 230px;    
+        min-height: 230px;
 
         img {
             left: 25px;
@@ -226,7 +237,7 @@ $utilities: map-merge(
 }
 
 .modal-header {
-    box-shadow: 0 4px 4px rgba(0,0,0,.25);
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
     border-bottom: none;
 
     img {
@@ -249,7 +260,8 @@ $utilities: map-merge(
 }
 
 // Navbar
-.navbar .navbar-toggler, .navbar .navbar-toggler:focus {
+.navbar .navbar-toggler,
+.navbar .navbar-toggler:focus {
     border: none;
     box-shadow: none;
 }
@@ -263,7 +275,7 @@ $utilities: map-merge(
 .navbar-nav {
     text-transform: uppercase;
     font-size: $h3-font-size;
-    
+
     a {
         color: $navbar-dark-color;
         text-decoration: none;

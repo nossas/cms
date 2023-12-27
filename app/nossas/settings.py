@@ -6,6 +6,9 @@ INSTALLED_APPS += [
     # Build Bootstrap SCSS
     "compressor",
     #
+    # "djangocms_frontend",
+    # "djangocms_frontend.contrib.utilities",
+    #
     "nossas",
     "nossas.design",
     "nossas.plugins",
@@ -69,16 +72,38 @@ CMS_PLACEHOLDER_CONF = {
     **CMS_PLACEHOLDER_CONF,
     "nossas_main": {
         "name": "Corpo da página",
-        "plugins": ["TextPlugin"],
+        "plugins": ["TextPlugin", "BoxPlugin"],
     },
     "nossas_navbar": {
         "name": "Navegação",
         "plugins": ["NossasNavbarPlugin"],
-        "default_plugins": [
-            {
-                "plugin_type": "NossasNavbarPlugin",
-                "values": {}
-            }
-        ]
-    }
+        "default_plugins": [{"plugin_type": "NossasNavbarPlugin", "values": {}}],
+    },
+}
+
+# Design
+
+DESIGN_THEME_COLORS = [
+    ("Azul NOSSAS", "rgb(35,61,144)", "233D90"),
+    ("Verde claro NOSSAS", "rgb(145,206,193)", "91CEC1"),
+    ("Bege NOSSAS", "rgb(247,247,237)", "F7F7ED"),
+    ("Vermelho NOSSAS", "rgb(224,36,55)", "E02437"),
+    ("Amarelo NOSSAS", "rgb(248,173,57)", "F8AD39"),
+    ("Rosa NOSSAS", "rgb(246,183,193)", "F6B7C1"),
+    ("Verde NOSSAS", "rgb(140,173,106)", "8CAD6A"),
+    ("Laranja NOSSAS", "rgb(235,94,59)", "EB5E3B"),
+    ("Cinza extra NOSSAS", "rgb(67,57,57)", "433939"),
+]
+
+# CKEditor
+CKEDITOR_EXTRA_PLUGINS = [
+    *CKEDITOR_SETTINGS.get("extraPlugins", "").split(","),
+    "colorbutton",
+]
+
+CKEDITOR_SETTINGS = {
+    **CKEDITOR_SETTINGS,
+    "extraPlugins": ",".join(CKEDITOR_EXTRA_PLUGINS),
+    "colorButton_colors": ",".join([args[-1] for args in DESIGN_THEME_COLORS]),
+    "toolbar_CMS": [*CKEDITOR_SETTINGS.get("toolbar_CMS", []), "/", ["cmsplugins"]],
 }

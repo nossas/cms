@@ -1,4 +1,4 @@
-{% load cms_tags sekizai_tags static %}
+{% load cms_tags sekizai_tags design_tags static %}
 {% load compress %}
 
 <html>
@@ -11,6 +11,9 @@
 
         {% compress css inline %}
             <style type="text/x-scss">
+                @import 'design/scss/nossas.scss';
+
+                {% build_colors %}
                 {% comment %} {% if request.current_site.themescss.theme %}
                     {{ request.current_site.themescss.theme }}
                 {% endif %} {% endcomment %}
