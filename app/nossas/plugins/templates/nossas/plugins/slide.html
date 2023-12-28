@@ -1,0 +1,61 @@
+{% load static %}
+<div class="py-4">
+  <div id="carouselExampleIndicators" class="carousel carousel-dark slide">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <div class="d-block w-100 px-5">
+            <div class="d-flex">
+                <img src="{% static 'design/img/dummy/exemplo-pessoa-depoimento.png' %}" class="img-mask" />
+                <div>
+                    <p>Nome da pessoa</p>
+                    <p>área de atuação em até duas linhas lorem ipsum dolor</p>
+                </div>
+            </div>
+            <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qut enim ad minima veniam, quis nostrum exercitationem ullam corporis.</p>
+        </div>
+        {% comment %} <img src="..." class="d-block w-100" alt="..."> {% endcomment %}
+      </div>
+      <div class="carousel-item">
+        <div class="d-block w-100 px-5">
+            <div class="d-flex">
+                <img src="{% static 'design/img/dummy/exemplo-pessoa-depoimento.png' %}" class="img-mask" />
+                <div>
+                    <p>Nome da pessoa</p>
+                    <p>área de atuação em até duas linhas lorem ipsum dolor</p>
+                </div>
+            </div>
+            <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qut enim ad minima veniam, quis nostrum exercitationem ullam corporis.</p>
+        </div>
+        {% comment %} <img src="..." class="d-block w-100" alt="..."> {% endcomment %}
+      </div>
+      <div class="carousel-item">
+        <div class="d-block w-100 px-5">
+            <div class="d-flex">
+                <img src="{% static 'design/img/dummy/exemplo-pessoa-depoimento.png' %}" class="img-mask" />
+                <div>
+                    <p>Nome da pessoa</p>
+                    <p>área de atuação em até duas linhas lorem ipsum dolor</p>
+                </div>
+            </div>
+            <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qut enim ad minima veniam, quis nostrum exercitationem ullam corporis.</p>
+        </div>
+        {% comment %} <img src="..." class="d-block w-100" alt="..."> {% endcomment %}
+      </div>
+    </div>
+    <div class="slider-footer">
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+        </button>
+        <div class="slider-indicatiors carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+  </div>
+</div>

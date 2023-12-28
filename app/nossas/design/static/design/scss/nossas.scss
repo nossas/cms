@@ -50,6 +50,11 @@ $input-border-width: 2px;
 $form-label-margin-bottom: 0.25rem;
 $form-label-font-size: $font-size-base;
 
+// Carousel / Slider
+$carousel-control-prev-icon-bg: url("data:image/svg+xml,<svg width='41' height='12' viewBox='0 0 41 12' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M40 5.91895H2' stroke='#{$carousel-control-color}' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/><path d='M8 10.8379L1 5.91894L8 1' stroke='#{$carousel-control-color}' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+
+$carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='12' viewBox='0 0 41 12' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M1 5.91894L39 5.91895' stroke='#{$carousel-control-color}' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/><path d='M33 1L40 5.91895L33 10.8379' stroke='#{$carousel-control-color}' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+
 @import "bootstrap/scss/variables-dark";
 @import "bootstrap/scss/maps";
 @import "bootstrap/scss/mixins";
@@ -309,11 +314,24 @@ $form-label-font-size: $font-size-base;
 
 // Tag
 .tag {
-    padding: ($spacer * .5) ($spacer * .8);
+    padding: ($spacer * 0.5) ($spacer * 0.8);
     border-radius: 50px;
     text-transform: uppercase;
-    font-size: ($font-size-base * .85);
+    font-size: ($font-size-base * 0.85);
     font-weight: bold;
+}
+
+// Carousel / Slider
+.slider-footer {
+    display: flex;
+    justify-content: center;
+
+    .slider-indicatiors.carousel-indicators {
+        position: relative;
+        display: flex;
+        align-items: center;
+        margin-bottom: 0;
+    }
 }
 
 // Helpers
