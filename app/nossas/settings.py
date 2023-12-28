@@ -72,7 +72,7 @@ CMS_PLACEHOLDER_CONF = {
     **CMS_PLACEHOLDER_CONF,
     "nossas_main": {
         "name": "Corpo da página",
-        "plugins": ["TextPlugin", "BoxPlugin", "SlidePlugin"],
+        "plugins": ["TextPlugin", "BoxPlugin", "SliderPlugin"],
     },
     "nossas_navbar": {
         "name": "Navegação",
