@@ -307,6 +307,15 @@ $form-label-font-size: $font-size-base;
     }
 }
 
+// Tag
+.tag {
+    padding: ($spacer * .5) ($spacer * .8);
+    border-radius: 50px;
+    text-transform: uppercase;
+    font-size: ($font-size-base * .85);
+    font-weight: bold;
+}
+
 // Helpers
 @import "bootstrap/scss/helpers";
 
