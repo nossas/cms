@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css?family=Abel|Anton|Archivo+Narrow:400,400i,700,700i|Arvo:400,400i,700,700i|Asap:400,400i,700,700i|Baloo+Bhai|Bitter:400,400i,700|Bree+Serif|Bebas+Neue|Capriola|Fugaz+One|Cabin:400,400i,700,700i|Catamaran:400,700|Crimson+Text:400,400i,700,700i|Cuprum:400,400i,700,700i|David+Libre:400,700|Dosis:400,700|Droid+Sans:400,700|Exo+2:400,400i,700,700i|Exo:400,400i,700,700i|Fira+Sans:400,400i,700,700i|Fjalla+One|Francois+One|Gidugu|Hind:400,700|Inconsolata:400,700|Indie+Flower|Josefin+Sans:400,400i,700,700i|Karla:400,400i,700,700i|Lalezar|Lato:400,400i,700,700i|Libre+Baskerville:400,400i,700|Lobster|Lora:400,400i,700,700i|Merriweather+Sans:400,400i,700,700i|Montserrat:400,700|Muli:400,400i|Noto+Serif:400,400i,700,700i|Nunito+Sans:400,700,800|Open+Sans+Condensed:300,300i,700|Open+Sans:400,400i,700,700i|Oswald:400,700|Oxygen:400,700|PT+Sans:400,400i,700,700i|PT+Serif:400,400i,700,700i|Pacifico|Playfair+Display:400,400i,700,700i|Poiret+One|Poppins:400,700|Quicksand:400,700|Raleway:400,400i,700,700i|Roboto+Condensed:400,400i,700,700i|Roboto+Mono:400,400i,700,700i|Roboto+Slab:400,700|Roboto:400,400i,700,700i|Ruslan+Display|Signika:400,700|Slabo+27px|Source+Sans+Pro:200,300,400,700|Titillium+Web:400,400i,700,700i|Ubuntu+Condensed|Ubuntu:400,400i,700,700i|Varela+Round|Yanone+Kaffeesatz:400,700|Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
 @import "bootstrap/scss/mixins/banner";
 @include bsBanner("");
 
@@ -30,6 +32,11 @@ $accordion-button-active-bg: none;
 $accordion-button-active-color: none;
 $accordion-button-padding-y: ($spacer * 0.5);
 
+// Font Family
+$headings-font-family: "Bebas Neue";
+$font-family-sans-serif: "Barlow";
+$input-btn-font-family: $headings-font-family;
+
 // Font Size
 $font-size-base: 0.8rem;
 
@@ -39,6 +46,7 @@ $modal-content-border-radius: none;
 $modal-content-inner-border-radius: $modal-content-border-radius;
 
 // Forms
+$input-font-family: $font-family-sans-serif;
 $input-font-size: $font-size-base;
 $input-padding-y: $input-padding-y-sm;
 $input-focus-border-color: $dark;
@@ -46,9 +54,24 @@ $input-focus-box-shadow: none;
 $input-border-radius: $input-border-radius-sm;
 $input-border-color: $dark;
 $input-border-width: 2px;
+$input-bg: transparent;
+$input-focus-bg: transparent;
+
+$input-group-addon-border-color: $dark;
 
 $form-label-margin-bottom: 0.25rem;
 $form-label-font-size: $font-size-base;
+
+$form-select-focus-box-shadow: none;
+
+// Dropdown
+$dropdown-icon: url("data:image/svg+xml,<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M6 9L12 15L18 9' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+
+
+// Navbar
+$navbar-dark-color: $white;
+$navbar-dark-icon-color: $navbar-dark-color;
+$navbar-dark-toggler-icon-bg: url("data:image/svg+xml,<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M3 12H21' stroke='#{$navbar-dark-icon-color}' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/><path d='M3 6H21' stroke='#{$navbar-dark-icon-color}' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/><path d='M3 18H21' stroke='#{$navbar-dark-icon-color}' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
 
 // Carousel / Slider
 $carousel-control-prev-icon-bg: url("data:image/svg+xml,<svg width='41' height='12' viewBox='0 0 41 12' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M40 5.91895H2' stroke='#{$carousel-control-color}' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/><path d='M8 10.8379L1 5.91894L8 1' stroke='#{$carousel-control-color}' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
@@ -59,39 +82,6 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
 @import "bootstrap/scss/maps";
 @import "bootstrap/scss/mixins";
 @import "bootstrap/scss/utilities";
-
-// $utilities: map-merge(
-//     $utilities,
-//     (
-//         "background-color": (
-//             property: background-color,
-//             class: bg,
-//             values:
-//                 map-merge(
-//                     $theme-colors,
-//                     (
-//                         "yellow": $yellow-500,
-//                         "pink": $pink-500,
-//                         "green": $green-500,
-//                         "green-subtle": #f7f7ed
-//                     )
-//                 )
-//         ),
-//         "color": (
-//             property: color,
-//             class: text,
-//             values:
-//                 map-merge(
-//                     $utilities-text-colors,
-//                     (
-//                         "yellow": $yellow-500,
-//                         "pink": $pink-500,
-//                         "green": $green-500
-//                     )
-//                 )
-//         )
-//     )
-// );
 
 // Layout & components
 @import "bootstrap/scss/root";
@@ -162,7 +152,9 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
 
 // Breakline
 .breakline {
-    border-top: 1px dashed #000;
+    border-top: 2px dotted #000;
+    opacity: 100%;
+    margin: 0 5px;
 }
 
 @each $state in map-keys($colors) {
@@ -264,7 +256,33 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
     font-weight: bold;
 }
 
-// Navbar
+[data-bs-theme="dark"] {
+
+    .input-group {
+        border: $input-border-width solid $white;
+        border-radius: $input-border-radius;
+
+        .form-control {
+            border: none;
+        }
+
+        .input-group-text {
+            background: transparent;
+            border: none;
+        }
+    }
+
+    .form-control {
+        border-color: $white;
+        color: $white;
+        
+        &::placeholder {
+            color: $white;
+        }
+    }
+}
+
+// Navbar / Dropdown
 .navbar .navbar-toggler,
 .navbar .navbar-toggler:focus {
     border: none;
@@ -272,14 +290,41 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
 }
 
 .child {
-    .dropdown-menu a {
-        font-size: $h4-font-size;
+    .dropdown-toggle {
+        display: flex;
+        align-items: center;
+
+        .dropdown-icon {
+            margin-left: 5px;
+            width: 24px;
+            height: 24px;
+            display: inline-block;
+            background: $dropdown-icon;
+        }
+
+        &::after {
+            display: none;
+        }
+
+        &.show {
+            .dropdown-icon {
+                rotate: 180deg;
+            }
+        }
+    }
+
+    .dropdown-menu {
+        a {
+            font-size: $h5-font-size;
+            text-transform: none;
+        }
     }
 }
 
 .navbar-nav {
     text-transform: uppercase;
-    font-size: $h3-font-size;
+    font-family: $headings-font-family;
+    font-size: $h4-font-size;
 
     a {
         color: $navbar-dark-color;
