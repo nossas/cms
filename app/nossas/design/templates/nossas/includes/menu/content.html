@@ -1,7 +1,9 @@
 {% load menu_tags %}
 
 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <hr class="breakline breakline-white" />
+    <span class="px-2">
+      <hr class="breakline breakline-white" />
+    </span>
 
     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
       {% show_menu 0 100 100 100 "nossas/menu.html" %}
@@ -28,5 +30,33 @@
       </li> {% endcomment %}
     </ul>
     
-    <hr class="breakline breakline-white" />
+    <hr class="breakline breakline-white pt-6" />
+
+    <div class="py-4">
+      <div class="d-flex justify-content-between px-4">
+        <a href="#">
+          {% include "nossas/svg/instagram.svg" %}
+        </a>
+        <a href="#">
+          {% include "nossas/svg/facebook.svg" %}
+        </a>
+        <a href="#">
+          {% include "nossas/svg/twitter.svg" %}
+        </a>
+        <a href="#">
+          {% include "nossas/svg/linkedin.svg" %}
+        </a>
+        <a href="#">
+          {% include "nossas/svg/youtube.svg" %}
+        </a>
+      </div>
+      <form class="pt-4">
+        <div class="input-group">
+          <input class="form-control" name="search" placeholder="Digite aqui o que está buscando..." />
+          <button class="input-group-text">
+            {% include "nossas/svg/search.svg" %}
+          </button>
+        </div>
+      </form>
+    </div>
   </div>

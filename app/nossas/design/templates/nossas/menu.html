@@ -5,6 +5,7 @@
     {% if child.children %}
     <button class="dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false">
         {{ child.get_menu_title }}
+        <i class="dropdown-icon"></i>
     </button>
     <ul class="dropdown-menu">
 		{% show_menu from_level to_level extra_inactive extra_active "nossas/submenu.html" "" "" child %}
