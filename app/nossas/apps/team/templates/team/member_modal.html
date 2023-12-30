@@ -1,0 +1,28 @@
+<!-- Button trigger modal -->
+<div class="btn-card d-flex gap-3" data-bs-toggle="modal" data-bs-target="#exampleModal{{instance.id}}">
+  <img src="{{ instance.picture.url }}" class="img-fluid img-mask" />
+  <div class="btn-card-description">
+    <h4>{{ instance.full_name }}</h4>
+    <p>{{ instance.short_description }}</p>
+  </div>
+</div>
+  
+  <!-- Modal -->
+  <div class="modal modal-sm fade" id="exampleModal{{instance.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-green">
+          <button type="button" class="btn-close bg-rosa-nossas btn-circle" data-bs-dismiss="modal" aria-label="Close"></button>
+          <img src="{{ instance.picture.url }}" class="img-fluid img-mask" />
+        </div>
+        <div class="modal-body bg-green-subtle">
+          <div class="">
+            <h4>{{ instance.full_name }}</h4>
+            <p>{{ instance.short_description }}</p>
+            <hr class="breakline" />
+            <p>{{ instance.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
