@@ -1,5 +1,5 @@
-from nossas.design.models import UIProperties
+from nossas.design.models import UIProperties, UIDefaultPropertiesMixin
 
 
-class Button(UIProperties):
+class Button(UIDefaultPropertiesMixin, UIProperties):
     pass

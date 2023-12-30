@@ -57,3 +57,15 @@ class UIBackgroundFormMixin(EntangledModelFormMixin):
 
     class Meta:
         entangled_fields = {"attributes": ["background"]}
+
+
+class UIBorderFormMixin(EntangledModelFormMixin):
+    border_start = forms.BooleanField(required=False)
+    border_end = forms.BooleanField(required=False)
+    border_top = forms.BooleanField(required=False)
+    border_bottom = forms.BooleanField(required=False)
+
+    class Meta:
+        entangled_fields = {
+            "attributes": ["border_start", "border_end", "border_top", "border_bottom"]
+        }

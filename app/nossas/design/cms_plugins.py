@@ -8,7 +8,7 @@ class CMSUIPlugin(CMSPluginBase):
 
 
 class UIPaddingMixin:
-    blockname = "Padding"
+    blockname = "Espaçamento"
 
     # def get_fieldsets(self, request, obj=None):
     #     return insert_fields(
@@ -32,4 +32,9 @@ class UIPaddingMixin:
 
 
 class UIBackgroundMixin:
-    blockname = "Background"
+    blockname = "Cor de fundo"
+
+
+
+class UIBorderMixin:
+    blockname = "Borda"

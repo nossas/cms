@@ -1,4 +1,4 @@
-<nav class="navbar {{ instance.classes }}" data-bs-theme="dark">
+<nav class="navbar{% if instance and instance.classes %} {{ instance.classes }}{% endif %}" data-bs-theme="dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
         {% include "nossas/svg/brand.svg" %}

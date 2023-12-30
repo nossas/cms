@@ -1,5 +1,9 @@
-from nossas.design.models import UIProperties
+from nossas.design.models import (
+    UIProperties,
+    UIDefaultPropertiesMixin,
+    UIBorderPropertiesMixin,
+)
 
 
-class Box(UIProperties):
+class Box(UIDefaultPropertiesMixin, UIBorderPropertiesMixin, UIProperties):
     pass
