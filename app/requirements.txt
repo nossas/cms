@@ -23,3 +23,5 @@ requests
 # Domains
 etcd3-py>=0.1.6
 dnspython>=2.4.2
+# Nossas
+django-translated-fields>=0.12.0

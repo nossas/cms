@@ -12,6 +12,7 @@ INSTALLED_APPS += [
     "nossas",
     "nossas.design",
     "nossas.plugins",
+    "nossas.apps.team",
 ]
 
 
