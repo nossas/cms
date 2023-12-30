@@ -82,6 +82,12 @@ CMS_PLACEHOLDER_CONF = {
     },
 }
 
+# DjangoCMS Picture
+
+DJANGOCMS_PICTURE_TEMPLATES = [
+    ('full_width', 'Full width'),
+]
+
 # Design
 
 DESIGN_THEME_COLORS = [
