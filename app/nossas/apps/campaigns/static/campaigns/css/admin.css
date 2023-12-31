@@ -1,0 +1,19 @@
+.object-tools {
+    display: flex;
+}
+
+.campaign-object-tools-import form {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    background: none;
+    box-shadow: none;
+}
+
+.campaign-object-tools-import form input {
+    width: 30px;
+}
+
+.campaign-object-tools-import form [type="submit"] {
+    width: 25px;
+}

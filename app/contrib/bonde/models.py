@@ -149,7 +149,7 @@ class Mobilization(models.Model):
     # user_id = models.IntegerField(blank=True, null=True)
     # color_scheme = models.CharField(max_length=-1, blank=True, null=True)
     # google_analytics_code = models.CharField(max_length=-1, blank=True, null=True)
-    # goal = models.TextField(blank=True, null=True)
+    goal = models.TextField(blank=True, null=True)
     # header_font = models.CharField(max_length=-1, blank=True, null=True)
     # body_font = models.CharField(max_length=-1, blank=True, null=True)
     # facebook_share_title = models.CharField(max_length=-1, blank=True, null=True)
