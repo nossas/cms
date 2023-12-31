@@ -1,11 +1,22 @@
 from django.contrib import admin
+
+import urllib
+from django.core.files import File as DjangoFile
 from django.urls import path
 from django.http.response import HttpResponseRedirect
+from filer.models import Image
 
 from contrib.bonde.models import Mobilization, MobilizationStatus
 from nossas.apps.baseadmin import OnSiteAdmin
 
 from .models import Campaign, CampaignStatus
+
+
+def create_filer_image(request, filename, datafile):
+    owner = request.user
+    file_obj = DjangoFile(open(datafile, "rb"), name=filename)
+    image = Image.objects.create(owner=owner, original_filename=filename, file=file_obj)
+    return image
 
 
 class CampaignAdmin(OnSiteAdmin):
@@ -27,14 +38,26 @@ class CampaignAdmin(OnSiteAdmin):
             if mobilization_id:
                 mobilization = Mobilization.objects.get(id=mobilization_id)
 
-                Campaign.on_site.create(
+                campaign = Campaign.on_site.create(
                     name=mobilization.name,
                     description_pt_br=mobilization.goal,
                     status=CampaignStatus.closed
                     if mobilization.status != MobilizationStatus.active
                     else CampaignStatus.opened,
-                    site=request.current_site
+                    site=request.current_site,
                 )
+
+                if mobilization.facebook_share_image:
+                    result = urllib.request.urlretrieve(
+                        mobilization.facebook_share_image
+                    )
+
+                    image = create_filer_image(
+                        request, f"mobilization_{mobilization.id}_image", result[0]
+                    )
+
+                    campaign.picture = image
+                    campaign.save()
 
                 self.message_user(request, "Campanha importada com sucesso", "SUCCESS")
 

@@ -154,7 +154,7 @@ class Mobilization(models.Model):
     # body_font = models.CharField(max_length=-1, blank=True, null=True)
     # facebook_share_title = models.CharField(max_length=-1, blank=True, null=True)
     # facebook_share_description = models.TextField(blank=True, null=True)
-    # facebook_share_image = models.CharField(max_length=-1, blank=True, null=True)
+    facebook_share_image = models.CharField(max_length=255, blank=True, null=True)
     # slug = models.CharField(unique=True, max_length=-1, blank=True, null=True)
     custom_domain = models.CharField(unique=True, max_length=255, blank=True, null=True)
     twitter_share_text = models.CharField(max_length=300, blank=True, null=True)

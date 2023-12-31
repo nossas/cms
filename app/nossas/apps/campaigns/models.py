@@ -20,3 +20,6 @@ class Campaign(models.Model):
     site = models.ForeignKey(Site, on_delete=models.CASCADE)
 
     on_site = CurrentSiteManager()
+
+    def __str__(self):
+        return self.name
