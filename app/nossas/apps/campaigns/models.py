@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.sites.models import Site
 from django.contrib.sites.managers import CurrentSiteManager
 
+from cms.models.pluginmodel import CMSPlugin
 from filer.fields.image import FilerImageField
 from translated_fields import TranslatedField
 
@@ -9,6 +10,7 @@ from translated_fields import TranslatedField
 class CampaignStatus(models.TextChoices):
     opened = "opened", "Aberta"
     closed = "closed", "Fechada"
+    done = "done", "Concluída"
 
 
 class Campaign(models.Model):
@@ -16,10 +18,38 @@ class Campaign(models.Model):
     description = TranslatedField(models.TextField(), {"en": {"blank": True}})
     picture = FilerImageField(on_delete=models.SET_NULL, blank=True, null=True)
     status = models.CharField(max_length=6, choices=CampaignStatus.choices)
-    
+
     site = models.ForeignKey(Site, on_delete=models.CASCADE)
 
     on_site = CurrentSiteManager()
 
     def __str__(self):
         return self.name
+
+
+class CampaignListPluginModel(CMSPlugin):
+    def copy_relations(self, old_instance):
+        self.queries.all().delete()
+
+        for query_obj in old_instance.queries.all():
+            # instance.pk = None; instance.pk.save() is the slightly odd but
+            # standard Django way of copying a saved model instance
+            query_obj.pk = None
+            query_obj.plugin = self
+            query_obj.save()
+
+
+class QueryAttributes(models.TextChoices):
+    status = "status", "Status"
+
+
+class QueryCampaignList(models.Model):
+    attribute_name = models.CharField(max_length=20, choices=QueryAttributes.choices)
+    value = models.CharField(max_length=255, null=True, blank=True)
+
+    plugin = models.ForeignKey(
+        CampaignListPluginModel, related_name="queries", on_delete=models.CASCADE
+    )
+
+    def get_qs_filter(self):
+        return {self.attribute_name: self.value}

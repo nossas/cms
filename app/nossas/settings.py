@@ -74,7 +74,13 @@ CMS_PLACEHOLDER_CONF = {
     **CMS_PLACEHOLDER_CONF,
     "nossas_main": {
         "name": "Corpo da página",
-        "plugins": ["TextPlugin", "BoxPlugin", "SliderPlugin", "TeamAccordionPlugin"],
+        "plugins": [
+            "TextPlugin",
+            "BoxPlugin",
+            "SliderPlugin",
+            "TeamAccordionPlugin",
+            "FilterCampaignListPlugin",
+        ],
     },
     "nossas_navbar": {
         "name": "Navegação",
@@ -86,7 +92,7 @@ CMS_PLACEHOLDER_CONF = {
 # DjangoCMS Picture
 
 DJANGOCMS_PICTURE_TEMPLATES = [
-    ('full_width', 'Full width'),
+    ("full_width", "Full width"),
 ]
 
 # Design
