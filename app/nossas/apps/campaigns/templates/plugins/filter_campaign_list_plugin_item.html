@@ -1,0 +1,18 @@
+{% load sekizai_tags %}
+
+{% addtoblock 'css' %}
+<style>
+.campaign-card img {
+    height: 224px;
+}
+</style>
+{% endaddtoblock %}
+
+
+<div class="campaign-card d-flex flex-column">
+    <img src="{{ instance.picture.url }}" class="img-fluid" />
+    <div class="px-5 py-2">
+        <h3>{{ instance.name }}</h3>
+        <p>{{ instance.description }}</p>
+    </div>
+</div>
