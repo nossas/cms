@@ -88,6 +88,11 @@ CMS_PLACEHOLDER_CONF = {
         "plugins": ["NossasNavbarPlugin"],
         "default_plugins": [{"plugin_type": "NossasNavbarPlugin", "values": {}}],
     },
+    "nossas_footer": {
+        "name": "Rodapé",
+        "plugins": ["SiteFooterPlugin"],
+        "default_plugins": [{"plugin_type": "SiteFooterPlugin", "values": {}}],
+    },
 }
 
 # DjangoCMS Picture

@@ -53,6 +53,17 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
     .btn-#{$color} {
         color: color-contrast($value);
     }
+    .text-#{$color} {
+        color: $value;
+
+        &.btn {
+            color: $value;
+
+            &:hover {
+                color: $value;
+            }
+        }
+    }
 }
 """
 
