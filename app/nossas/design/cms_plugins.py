@@ -4,7 +4,7 @@ from djangocms_frontend.helpers import insert_fields
 
 
 class CMSUIPlugin(CMSPluginBase):
-    pass
+    change_form_template = "design/admin/cms_ui_plugin_change_form.html"
 
 
 class UIPaddingMixin:

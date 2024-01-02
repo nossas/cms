@@ -3,6 +3,7 @@ from django.conf import settings
 from django.utils.text import slugify
 
 from entangled.forms import EntangledModelFormMixin
+from djangocms_frontend.fields import ColoredButtonGroup
 from .models import UIProperties
 
 
@@ -52,8 +53,18 @@ else:
     ]
 
 
+class BackgroundSelect(forms.RadioSelect):
+    template_name = "design/fields/background_select.html"
+    option_template_name = "design/fields/background_select_option.html"
+
+    class Media:
+        css = {"all": ("djangocms_frontend/css/button_group.css",)}
+
+
 class UIBackgroundFormMixin(EntangledModelFormMixin):
-    background = forms.ChoiceField(choices=CORES_TEMAS, required=False)
+    background = forms.ChoiceField(
+        choices=CORES_TEMAS, required=False, widget=BackgroundSelect()
+    )
 
     class Meta:
         entangled_fields = {"attributes": ["background"]}

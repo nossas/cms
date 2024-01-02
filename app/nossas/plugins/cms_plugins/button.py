@@ -16,7 +16,7 @@ class MyLinkPlugin(LinkPlugin):
     name = "MyLinkPlugin"
     module = "NOSSAS"
     form = MyLinkForm
-    change_form_template = 'nossas/admin/link.html'
+    # change_form_template = 'nossas/admin/link.html'
 #     model = Button
 #     form = ButtonPluginForm
 #     render_template = "nossas/plugins/button.html"

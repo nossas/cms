@@ -41,6 +41,8 @@ $custom-colors: (
     {{COLORS}}
 );
 
+{{VARIABLES}}
+
 // Merge the maps
 $theme-colors: map-merge($theme-colors, $custom-colors);
 
@@ -67,13 +69,26 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 }
 """
 
+
 @register.simple_tag
 def build_colors():
     if hasattr(settings, "DESIGN_THEME_COLORS"):
-        COLORS = ",".join([
-            f'"{slugify(args[0])}":{args[1]}' for args in settings.DESIGN_THEME_COLORS
-        ])
+        COLORS = ",".join(
+            [f'"{slugify(args[0])}":{args[1]}' for args in settings.DESIGN_THEME_COLORS]
+        )
 
-        return mark_safe(scss_text.replace("{{COLORS}}", COLORS))
-    
+        TEXT_COLORS = ";".join(
+            [
+                f'$text-{slugify(args[0])}-emphasis:{args[1]}'
+                for args in settings.DESIGN_THEME_TEXT_COLORS
+            ]
+        )
+
+        print(TEXT_COLORS)
+        return mark_safe(
+            scss_text.replace("{{COLORS}}", COLORS).replace(
+                "{{VARIABLES}}", TEXT_COLORS + ";"
+            )
+        )
+
     return ""

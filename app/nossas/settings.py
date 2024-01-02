@@ -6,15 +6,15 @@ INSTALLED_APPS += [
     # Build Bootstrap SCSS
     "compressor",
     #
-    "djangocms_frontend",
-    "djangocms_frontend.contrib.utilities",
-    "djangocms_frontend.contrib.link",
-    #
     "nossas",
     "nossas.design",
     "nossas.plugins",
     "nossas.apps.campaigns",
     "nossas.apps.team",
+    # Override HTMLs
+    "djangocms_frontend",
+    "djangocms_frontend.contrib.utilities",
+    "djangocms_frontend.contrib.link",
 ]
 
 
@@ -81,6 +81,7 @@ CMS_PLACEHOLDER_CONF = {
             "SliderPlugin",
             "TeamAccordionPlugin",
             "FilterCampaignListPlugin",
+            "BreadcrumPlugin"
         ],
     },
     "nossas_navbar": {
@@ -113,6 +114,18 @@ DESIGN_THEME_COLORS = [
     ("Verde NOSSAS", "rgb(140,173,106)", "8CAD6A"),
     ("Laranja NOSSAS", "rgb(235,94,59)", "EB5E3B"),
     ("Cinza extra NOSSAS", "rgb(67,57,57)", "433939"),
+]
+
+DESIGN_THEME_TEXT_COLORS = [
+    ("Azul NOSSAS", "rgb(248,173,57)"),
+    ("Verde claro NOSSAS", "rgb(0,0,0)"),
+    ("Bege NOSSAS", "rgb(140,173,106)"),
+    ("Vermelho NOSSAS", "rgb(246,183,193)"),
+    ("Amarelo NOSSAS", "rgb(0,0,0)"),
+    ("Rosa NOSSAS", "rgb(0,0,0)"),
+    ("Verde NOSSAS", "rgb(255,255,255)"),
+    ("Laranja NOSSAS", "rgb(255,255,255)"),
+    ("Cinza extra NOSSAS", "rgb(0,0,0)"),
 ]
 
 # CKEditor

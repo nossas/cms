@@ -1,0 +1,20 @@
+{% extends editmode|default:"djangocms_frontend/admin/base-tabs.html" %}
+{% load static i18n design_tags compress %}
+
+{% block extrahead %}
+    {{ block.super }}
+    <script src="{% static 'djangocms_frontend/js/bundle.link.js' %}"></script>
+
+    {% compress css inline %}
+    <style type="text/x-scss">
+        @import 'design/scss/nossas.scss';
+        {% comment %} @import 'bootstrap/scss/bootstrap-utilities.scss' {% endcomment %}
+
+        {% build_colors %}
+
+        {% comment %} @import 'bootstrap/scss/bootstrap.scss' {% endcomment %}
+        @import 'design/scss/nossas.scss';
+        @import 'design/scss/reset.scss';
+    </style>
+    {% endcompress %}
+{% endblock %}
