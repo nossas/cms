@@ -6,8 +6,9 @@ INSTALLED_APPS += [
     # Build Bootstrap SCSS
     "compressor",
     #
-    # "djangocms_frontend",
-    # "djangocms_frontend.contrib.utilities",
+    "djangocms_frontend",
+    "djangocms_frontend.contrib.utilities",
+    "djangocms_frontend.contrib.link",
     #
     "nossas",
     "nossas.design",

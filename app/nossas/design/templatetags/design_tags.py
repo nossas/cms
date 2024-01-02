@@ -6,34 +6,54 @@ from django.utils.safestring import mark_safe
 register = template.Library()
 
 
+# scss_text = """
+# $utilities: map-merge(
+#     $utilities,
+#     (
+#         "background-color": (
+#             property: background-color,
+#             class: bg,
+#             values:
+#                 map-merge(
+#                     $theme-colors,
+#                     (
+# {{COLORS}}
+#                     )
+#                 )
+#         ),
+#         "color": (
+#             property: color,
+#             class: text,
+#             values:
+#                 map-merge(
+#                     $utilities-text-colors,
+#                     (
+# {{COLORS}}
+#                     )
+#                 )
+#         )
+#     )
+# );
+# """
 scss_text = """
-$utilities: map-merge(
-    $utilities,
-    (
-        "background-color": (
-            property: background-color,
-            class: bg,
-            values:
-                map-merge(
-                    $theme-colors,
-                    (
-{{COLORS}}
-                    )
-                )
-        ),
-        "color": (
-            property: color,
-            class: text,
-            values:
-                map-merge(
-                    $utilities-text-colors,
-                    (
-{{COLORS}}
-                    )
-                )
-        )
-    )
+// Create your own map
+$custom-colors: (
+    {{COLORS}}
 );
+
+// Merge the maps
+$theme-colors: map-merge($theme-colors, $custom-colors);
+
+// Create constrast
+@each $color, $value in $theme-colors {
+    .bg-#{$color} {
+        background-color: $value;
+        color: color-contrast($value);
+    }
+    .btn-#{$color} {
+        color: color-contrast($value);
+    }
+}
 """
 
 @register.simple_tag
