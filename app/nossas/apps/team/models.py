@@ -1,22 +1,19 @@
 from django.db import models
-from django.contrib.sites.models import Site
-from django.contrib.sites.managers import CurrentSiteManager
+
 
 from filer.fields.image import FilerImageField
 from translated_fields import TranslatedField
+from nossas.apps.basemodel import OnSiteBaseModel
 
 
-class MemberGroup(models.Model):
+class MemberGroup(OnSiteBaseModel):
     name = TranslatedField(models.CharField(max_length=120), {"en": {"blank": True}})
-    site = models.ForeignKey(Site, on_delete=models.CASCADE)
-
-    on_site = CurrentSiteManager()
 
     def __str__(self):
         return self.name
 
 
-class Member(models.Model):
+class Member(OnSiteBaseModel):
     picture = FilerImageField(on_delete=models.SET_NULL, blank=True, null=True)
     short_name = models.CharField(max_length=80, blank=True, null=True)
     full_name = models.CharField(max_length=150)
@@ -27,6 +24,3 @@ class Member(models.Model):
     member_group = models.ForeignKey(
         MemberGroup, on_delete=models.SET_NULL, blank=True, null=True
     )
-    site = models.ForeignKey(Site, on_delete=models.CASCADE)
-
-    on_site = CurrentSiteManager()

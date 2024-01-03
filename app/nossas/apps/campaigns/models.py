@@ -1,10 +1,10 @@
 from django.db import models
-from django.contrib.sites.models import Site
-from django.contrib.sites.managers import CurrentSiteManager
 
 from cms.models.pluginmodel import CMSPlugin
 from filer.fields.image import FilerImageField
 from translated_fields import TranslatedField
+
+from nossas.apps.basemodel import OnSiteBaseModel
 
 
 class CampaignStatus(models.TextChoices):
@@ -13,15 +13,11 @@ class CampaignStatus(models.TextChoices):
     done = "done", "Concluída"
 
 
-class Campaign(models.Model):
+class Campaign(OnSiteBaseModel):
     name = models.CharField(max_length=180)
     description = TranslatedField(models.TextField(), {"en": {"blank": True}})
     picture = FilerImageField(on_delete=models.SET_NULL, blank=True, null=True)
     status = models.CharField(max_length=6, choices=CampaignStatus.choices)
-
-    site = models.ForeignKey(Site, on_delete=models.CASCADE)
-
-    on_site = CurrentSiteManager()
 
     def __str__(self):
         return self.name

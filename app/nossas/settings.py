@@ -11,6 +11,7 @@ INSTALLED_APPS += [
     "nossas.plugins",
     "nossas.apps.campaigns",
     "nossas.apps.team",
+    "nossas.apps.jobs",
     # Override HTMLs
     "djangocms_frontend",
     "djangocms_frontend.contrib.utilities",
@@ -81,7 +82,7 @@ CMS_PLACEHOLDER_CONF = {
             "SliderPlugin",
             "TeamAccordionPlugin",
             "FilterCampaignListPlugin",
-            "BreadcrumPlugin"
+            "BreadcrumPlugin",
         ],
     },
     "nossas_navbar": {
@@ -139,4 +140,22 @@ CKEDITOR_SETTINGS = {
     "extraPlugins": ",".join(CKEDITOR_EXTRA_PLUGINS),
     "colorButton_colors": ",".join([args[-1] for args in DESIGN_THEME_COLORS]),
     "toolbar_CMS": [*CKEDITOR_SETTINGS.get("toolbar_CMS", []), "/", ["cmsplugins"]],
+}
+
+CKEDITOR_SETTINGS_JOB_MODEL = {
+    "toolbar_HTMLField": [
+        ["Undo", "Redo"],
+        ["Format", "Styles"],
+        [
+            "Bold",
+            "Italic",
+            "Underline",
+            "-",
+            "Subscript",
+            "Superscript",
+            "-",
+            "RemoveFormat",
+        ],
+        ["NumberedList", "BulletedList"],
+    ]
 }
