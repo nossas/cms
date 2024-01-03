@@ -68,7 +68,6 @@ $form-select-focus-box-shadow: none;
 // Dropdown
 $dropdown-icon: url("data:image/svg+xml,<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M6 9L12 15L18 9' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
 
-
 // Navbar
 $navbar-dark-color: $white;
 $navbar-dark-icon-color: $navbar-dark-color;
@@ -258,7 +257,6 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
 }
 
 [data-bs-theme="dark"] {
-
     .input-group {
         border: $input-border-width solid $white;
         border-radius: $input-border-radius;
@@ -276,7 +274,7 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
     .form-control {
         border-color: $white;
         color: $white;
-        
+
         &::placeholder {
             color: $white;
         }
@@ -377,6 +375,22 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
         display: flex;
         align-items: center;
         margin-bottom: 0;
+    }
+}
+
+.slider-jobs-item {
+    img {
+        height: 230px;
+    }
+
+    .slider-jobs-item-content {
+        position: relative;
+
+        .tag {
+            position: absolute;
+            right: 20px;
+            top: -20px;
+        }
     }
 }
 

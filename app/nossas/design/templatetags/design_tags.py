@@ -48,7 +48,7 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 
 // Create constrast
 @each $color, $value in $theme-colors {
-    .bg-#{$color} {
+    .bg-#{$color}, .tag-#{$color} {
         background-color: $value;
         color: color-contrast($value);
     }

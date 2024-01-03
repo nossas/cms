@@ -83,6 +83,7 @@ CMS_PLACEHOLDER_CONF = {
             "TeamAccordionPlugin",
             "FilterCampaignListPlugin",
             "BreadcrumPlugin",
+            "SliderJobsPlugin",
         ],
     },
     "nossas_navbar": {
@@ -101,6 +102,7 @@ CMS_PLACEHOLDER_CONF = {
 
 DJANGOCMS_PICTURE_TEMPLATES = [
     ("full_width", "Full width"),
+    ("background", "Basckground"),
 ]
 
 # Design

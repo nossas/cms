@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 from djangocms_text_ckeditor.fields import HTMLField
+from filer.fields.image import FilerImageField
 
 from nossas.apps.basemodel import OnSiteBaseModel
 
@@ -15,6 +16,9 @@ class Job(OnSiteBaseModel):
     title = models.CharField(_("Título da vaga"), max_length=100)
     description = HTMLField(
         _("Descrição da vaga"), configuration="CKEDITOR_SETTINGS_JOB_MODEL"
+    )
+    picture = FilerImageField(
+        verbose_name=_("Imagem"), on_delete=models.SET_NULL, blank=True, null=True
     )
     workload = models.CharField(_("Carga horária"), max_length=50)
     condition = models.CharField(_("Condições de trabalho"), max_length=50)
