@@ -436,6 +436,15 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
     }
 }
 
+// Button Group
+.widget-bg-btn-group {
+    
+    input[type=radio]:checked + label.widget-bg-btn {
+        outline: 2px solid green;
+        scale: 0.9;
+    }
+}
+
 // Helpers
 @import "bootstrap/scss/helpers";
 

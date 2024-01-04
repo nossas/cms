@@ -1,40 +1,44 @@
 from cms.plugin_base import CMSPluginBase
-
-from djangocms_frontend.helpers import insert_fields
+# import itertools
 
 
 class CMSUIPlugin(CMSPluginBase):
     change_form_template = "design/admin/cms_ui_plugin_change_form.html"
+    custom_fieldsets = {}
 
 
 class UIPaddingMixin:
     blockname = "Espaçamento"
+    blockfields = ("padding_x", "padding_y")
 
-    # def get_fieldsets(self, request, obj=None):
-    #     return insert_fields(
-    #         super().get_fieldsets(request, obj),
-    #         (("padding_x", "padding_y"), ),
-    #         block=None,
-    #         position=-1,
-    #         blockname=self.blockname,
-    #     )
+    def __init__(self, *args, **kwargs):
+        self.custom_fieldsets.update({self.blockname: self.blockfields})
 
-    # def render(self, context, instance, placeholder):
-    #     classes = [
-    #         instance.attributes[field]
-    #         for field in ("padding_x", "padding_y")
-    #         if field in instance.attributes and instance.attributes[field]
-    #     ]
-    #     instance.add_class(classes)
-
-    #     return super().render(context, instance, placeholder)
-
+        super().__init__(*args, **kwargs)
 
 
 class UIBackgroundMixin:
-    blockname = "Cor de fundo"
+    blockname = "Fundo"
+    blockfields = [
+        "background",
+    ]
 
+    def __init__(self, *args, **kwargs):
+        self.custom_fieldsets.update({self.blockname: self.blockfields})
+
+        super().__init__(*args, **kwargs)
 
 
 class UIBorderMixin:
     blockname = "Borda"
+    blockfields = [
+        "border_start",
+        "border_end",
+        "border_top",
+        "border_bottom",
+    ]
+
+    def __init__(self, *args, **kwargs):
+        self.custom_fieldsets.update({self.blockname: self.blockfields})
+
+        super().__init__(*args, **kwargs)
