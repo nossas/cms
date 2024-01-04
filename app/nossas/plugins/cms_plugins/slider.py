@@ -1,9 +1,9 @@
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
-from nossas.design.cms_plugins import UIPaddingMixin, UIBackgroundMixin, CMSUIPlugin
-from nossas.plugins.models.boxmodel import Box
-from nossas.plugins.forms.boxform import BoxPluginForm
+from nossas.design.cms_plugins import UIBackgroundMixin, CMSUIPlugin
+from nossas.plugins.models.slidermodel import FullPageSlider
+from nossas.plugins.forms.sliderform import FullPageSliderPluginForm
 
 
 @plugin_pool.register_plugin
@@ -19,7 +19,28 @@ class SliderPlugin(CMSPluginBase):
 class SliderContentPlugin(CMSPluginBase):
     name = "Slider Content"
     module = "NOSSAS"
-    render_template = "nossas/plugins/slider-content.html"
+    render_template = "nossas/plugins/slider_content.html"
     allow_children = True
     require_parent = True
-    parent_classes = ['SliderPlugin']
+    parent_classes = ["SliderPlugin"]
+
+
+@plugin_pool.register_plugin
+class FullPageSliderPlugin(CMSPluginBase):
+    name = "FullPage Slider"
+    module = "NOSSAS"
+    render_template = "nossas/plugins/full_page_slider.html"
+    allow_children = True
+    child_classes = ["FullPageSliderContentPlugin"]
+
+
+@plugin_pool.register_plugin
+class FullPageSliderContentPlugin(UIBackgroundMixin, CMSUIPlugin):
+    name = "FullPage Slider Content"
+    module = "NOSSAS"
+    render_template = "nossas/plugins/full_page_slider_content.html"
+    model = FullPageSlider
+    form = FullPageSliderPluginForm
+    allow_children = True
+    require_parent = True
+    parent_classes = ["FullPageSliderPlugin"]

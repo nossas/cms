@@ -1,0 +1,9 @@
+{% extends "nossas/base.html" %}
+{% load cms_tags menu_tags %}
+
+{% block content %}
+<div class="full-page">
+{% include "nossas/plugins/navbar.html" %}
+{% placeholder "nossas_home_content" %}
+</div>
+{% endblock %}

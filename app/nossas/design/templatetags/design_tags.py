@@ -84,7 +84,7 @@ def build_colors():
             ]
         )
 
-        print(TEXT_COLORS)
+        # print(TEXT_COLORS)
         return mark_safe(
             scss_text.replace("{{COLORS}}", COLORS).replace(
                 "{{VARIABLES}}", TEXT_COLORS + ";"

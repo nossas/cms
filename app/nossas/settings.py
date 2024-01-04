@@ -69,12 +69,13 @@ ROOT_URLCONF = "nossas.urls"
 # CMS
 
 CMS_TEMPLATES = [
-    ("nossas/base.html", "NOSSAS"),
+    ("nossas/page.html", "NOSSAS Página"),
+    ("nossas/home.html", "NOSSAS Home Full Page"),
 ] + CMS_TEMPLATES
 
 CMS_PLACEHOLDER_CONF = {
     **CMS_PLACEHOLDER_CONF,
-    "nossas_main": {
+    "nossas_page_content": {
         "name": "Corpo da página",
         "plugins": [
             "TextPlugin",
@@ -86,15 +87,22 @@ CMS_PLACEHOLDER_CONF = {
             "SliderJobsPlugin",
         ],
     },
-    "nossas_navbar": {
+    "nossas_page_navbar": {
         "name": "Navegação",
         "plugins": ["NossasNavbarPlugin"],
         "default_plugins": [{"plugin_type": "NossasNavbarPlugin", "values": {}}],
     },
-    "nossas_footer": {
+    "nossas_page_footer": {
         "name": "Rodapé",
         "plugins": ["SiteFooterPlugin"],
         "default_plugins": [{"plugin_type": "SiteFooterPlugin", "values": {}}],
+    },
+    "nossas_home_content": {
+        "name": "Conteúdo",
+        "plugins": [
+            "FullPageSliderPlugin",
+        ],
+        "default_plugins": [{"plugin_type": "FullPageSliderPlugin", "values": {}}],
     },
 }
 

@@ -154,7 +154,7 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
 .breakline {
     border-top: 2px dotted #000;
     opacity: 100%;
-    margin: 0 5px;
+    margin: 0 5px ($spacer * 1.25);
 }
 
 @each $state in map-keys($colors) {
@@ -390,6 +390,48 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
             position: absolute;
             right: 20px;
             top: -20px;
+        }
+    }
+}
+
+#cms-top + .content {
+    
+    .full-page {
+        --#{$prefix}-slider-full-height: calc(100vh - 47px);
+    }
+}
+
+.full-page {
+    --#{$prefix}-slider-full-height: 100vh;
+
+    height: var(--#{$prefix}-slider-full-height);
+    min-height: 350px;
+
+    .navbar {
+        position: fixed;
+        width: 100%;
+        z-index: 1;
+    }
+
+    .slider-full {
+
+        .carousel-inner {
+            background: no-repeat center center scroll;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+
+        .carousel-item {
+            height: var(--#{$prefix}-slider-full-height);
+            min-height: 350px;
+        }
+
+        .slider-footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
         }
     }
 }

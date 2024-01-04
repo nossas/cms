@@ -1,0 +1,8 @@
+{% load cms_tags %}
+<div class="carousel-item{% if instance.position == 0 %} active{% endif %}{{ instance.classes }}">
+    <div class="w-100 px-5 py-5 mt-5">
+    {% for plugin in instance.child_plugin_instances %}
+        {% render_plugin plugin %}
+    {% endfor %}
+    </div>
+</div>
