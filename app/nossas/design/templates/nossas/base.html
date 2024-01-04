@@ -1,14 +1,35 @@
-{% load cms_tags sekizai_tags design_tags static %}
+{% load cms_tags campaign_page_tags sekizai_tags design_tags static %}
 {% load compress %}
 
 <html>
     <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        {% block meta %}
+        <meta name="description" content="{{ request.current_page.metadataextension.subtitle }}" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="{{ request.current_page.metadataextension.title }}" />
+        <meta property="og:description" content="{{ request.current_page.metadataextension.subtitle }}" />
+        <meta property="og:image" content="{% get_absolute_url request request.current_page.metadataextension.image.url %}" />
+        {% endblock meta %}
+        {% block canonical_url %}
+        <link rel="canonical" href="{{ request.build_absolute_uri }}" />
+        <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+        {% endblock canonical_url %}
+        {% block fb_meta %}{% endblock fb_meta %}
+      
+        {% block favicon %}
+        {% if request.current_page.iconextension %}
+        <link rel="shortcut icon" href="{{ request.current_page.iconextension.favicon.url }}" type="image/x-icon">
+        {% else %}
+        <link rel="shortcut icon" href="{% static 'images/favicon-32.png' %}" type="image/x-icon">
+        {% endif %}
+        {% endblock %}
+        <title>{% block title %}{% page_attribute "page_title" %}{% endblock %}</title>
+
         {% render_block "css" %}
-
-        {% comment %} {% compress css %}
-            <link rel="stylesheet" type="text/x-scss" href="{% static 'designsystem/scss/default.scss' %}" />
-        {% endcompress %} {% endcomment %}
-
+        
         {% compress css %}
             <style type="text/x-scss">
                 @import 'design/scss/nossas.scss';
