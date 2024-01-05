@@ -86,6 +86,8 @@ CMS_PLACEHOLDER_CONF = {
             "FilterCampaignListPlugin",
             "BreadcrumPlugin",
             "SliderJobsPlugin",
+            "PicturePlugin",
+            "BreaklinePlugin"
         ],
     },
     "nossas_page_navbar": {
