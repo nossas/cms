@@ -18,6 +18,12 @@ class BoxLayoutChoices(TextChoices):
 class BoxPluginForm(
     UIPaddingFormMixin, UIBackgroundFormMixin, UIBorderFormMixin, forms.ModelForm
 ):
+    class Meta:
+        model = Box
+        entangled_fields = {"attributes": []}
+
+
+class LayoutBoxPluginForm(BoxPluginForm):
     layout = forms.ChoiceField(
         choices=BoxLayoutChoices.choices, initial=BoxLayoutChoices.empty, required=False
     )
@@ -25,3 +31,4 @@ class BoxPluginForm(
     class Meta:
         model = Box
         entangled_fields = {"attributes": []}
+        untangled_fields = ["layout"]

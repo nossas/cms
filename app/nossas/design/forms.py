@@ -34,7 +34,8 @@ class UIPaddingFormMixin(EntangledModelFormMixin):
                     "spacing": {"type": "string", "choices": SPACING},
                 },
             },
-        }
+        },
+        required=False
     )
 
     class Meta:

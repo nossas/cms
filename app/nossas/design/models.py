@@ -52,10 +52,11 @@ class UIBorderPropertiesMixin:
         has_border = False
 
         for attr in ["border_top", "border_bottom", "border_start", "border_end"]:
+            if attr in self.attributes.keys() and self.attributes[attr]:
+                has_border = True
+
             if not self.attributes.get(attr, True):
                 classes.append(f"{attr.replace('_', '-')}-0")
-            else:
-                has_border = True
 
         if has_border:
             classes = ["border", "border-2", "border-dark"] + classes
