@@ -22,7 +22,7 @@ class BoxPlugin(UIBorderMixin, UIPaddingMixin, UIBackgroundMixin, CMSUIPlugin):
     fieldsets = (
         (None, {"fields": ["attributes", "layout"]}),
         ("Fundo", {"fields": ["background"]}),
-        ("Espaçamento", {"fields": [("padding_x", "padding_y")]}),
+        ("Espaçamento", {"fields": [("padding")]}),
         (
             "Borda",
             {"fields": [("border_start", "border_top", "border_end", "border_bottom")]},

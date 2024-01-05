@@ -2,8 +2,9 @@ from django import forms
 from django.conf import settings
 from django.utils.text import slugify
 
+from django_jsonform.forms.fields import JSONFormField
 from entangled.forms import EntangledModelFormMixin
-from djangocms_frontend.fields import ColoredButtonGroup
+from djangocms_frontend.fields import ButtonGroup
 from .models import UIProperties
 
 
@@ -11,32 +12,33 @@ EMPTY_CHOICES = [("", "----")]
 
 SPACING = ["0", "1", "2", "3", "4", "5", "auto"]
 
-PADDING_Y_SPACING_CHOICES = EMPTY_CHOICES + [("py-" + x, x) for x in SPACING]
-
-PADDING_X_SPACING_CHOICES = EMPTY_CHOICES + [("px-" + x, x) for x in SPACING]
-
 
 class UIPaddingFormMixin(EntangledModelFormMixin):
-    padding_x = forms.ChoiceField(choices=PADDING_X_SPACING_CHOICES, required=False)
-
-    padding_y = forms.ChoiceField(choices=PADDING_Y_SPACING_CHOICES, required=False)
+    padding = JSONFormField(
+        schema={
+            "type": "array",
+            "items": {
+                "type": "dict",
+                "keys": {
+                    "side": {
+                        "type": "string",
+                        "choices": [
+                            {"title": "*-top", "value": "t"},
+                            {"title": "*-right", "value": "r"},
+                            {"title": "*-bottom", "value": "b"},
+                            {"title": "*-left", "value": "l"},
+                            {"title": "*-left & *-right", "value": "x"},
+                            {"title": "*-top & *-bottom", "value": "y"},
+                        ],
+                    },
+                    "spacing": {"type": "string", "choices": SPACING},
+                },
+            },
+        }
+    )
 
     class Meta:
-        entangled_fields = {"attributes": ["padding_x", "padding_y"]}
-
-    # def save(self, commit=True):
-    #     self.instance = super().save(commit=commit)
-
-    #     if hasattr(self, "uiproperties_ptr"):
-    #         import ipdb;ipdb.set_trace()
-    #         self.instance.uiproperties_ptr.attributes.update({
-    #             **self.cleaned_data
-    #         })
-
-    #         if commit:
-    #             self.instance.uiproperties_ptr.save()
-
-    #     return self.instance
+        entangled_fields = {"attributes": ["padding"]}
 
 
 if hasattr(settings, "DESIGN_THEME_COLORS"):

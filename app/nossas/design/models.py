@@ -3,8 +3,9 @@ from django.db import models
 from cms.models.pluginmodel import CMSPlugin
 
 
-BOOTSTRAP_CSS_PROPERTIES = ["background", "padding_y", "padding_x"]
-
+BOOTSTRAP_CSS_PROPERTIES = [
+    "background",
+]
 
 class UIProperties(CMSPlugin):
     attributes = models.JSONField(null=True, blank=True)
@@ -13,12 +14,11 @@ class UIProperties(CMSPlugin):
         abstract = True
 
     def get_classes(self):
-        return ""
-    
+        return []
+
     @property
     def classes(self):
-        return self.get_classes()
-
+        return " ".join(self.get_classes())
 
 
 class UIDefaultPropertiesMixin:
@@ -32,7 +32,18 @@ class UIDefaultPropertiesMixin:
             )
         )
 
-        return classes + " " + " ".join(bootstrap_classes.values())
+        return classes + list(bootstrap_classes.values())
+
+
+class UIPaddingPropertiesMixin:
+    def get_classes(self):
+        classes = super().get_classes()
+
+        padding = self.attributes.get("padding")
+        if padding and len(padding) > 0:
+            classes += list(map(lambda x: f"p{x['side']}-{x['spacing']}", padding))
+
+        return classes
 
 
 class UIBorderPropertiesMixin:
@@ -42,11 +53,11 @@ class UIBorderPropertiesMixin:
 
         for attr in ["border_top", "border_bottom", "border_start", "border_end"]:
             if not self.attributes.get(attr, True):
-                classes += f" {attr.replace('_', '-')}-0"
+                classes.append(f"{attr.replace('_', '-')}-0")
             else:
                 has_border = True
-        
+
         if has_border:
-            classes = "border border-2 border-dark" + classes
+            classes = ["border", "border-2", "border-dark"] + classes
 
         return classes

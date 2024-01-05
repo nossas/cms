@@ -3,6 +3,7 @@ from project.settings import *
 # Apps
 
 INSTALLED_APPS += [
+    "django_jsonform",
     # Build Bootstrap SCSS
     "compressor",
     #

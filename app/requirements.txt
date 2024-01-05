@@ -4,6 +4,7 @@ psycopg2-binary
 django-select2
 django-formtools
 django-recaptcha==3
+django-jsonform>=2.21.2
 # Django CMS
 django-cms>=3
 djangocms-text-ckeditor
