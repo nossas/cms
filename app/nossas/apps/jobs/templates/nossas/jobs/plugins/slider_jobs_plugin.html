@@ -3,7 +3,7 @@
   <div id="carouselJobsIndicators" class="carousel carousel-dark slide">
     <div class="carousel-inner">
         {% for job in job_list %}
-        {% include 'plugins/slider_jobs_item.html' with instance=job position=forloop.counter0 %}
+        {% include 'nossas/jobs/plugins/slider_jobs_item.html' with instance=job position=forloop.counter0 %}
         {% endfor %}
     </div>
     <div class="slider-footer">

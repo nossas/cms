@@ -10,7 +10,7 @@ from .models import Job, JobStatus
 class SliderJobsPlugin(CMSPluginBase):
     name = "Slide de Vagas"
     module = "NOSSAS"
-    render_template = "plugins/slider_jobs_plugin.html"
+    render_template = "nossas/jobs/plugins/slider_jobs_plugin.html"
 
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)

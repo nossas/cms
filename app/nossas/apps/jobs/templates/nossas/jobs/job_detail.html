@@ -1,0 +1,69 @@
+{% extends 'nossas/home.html' %}
+{% load i18n %}
+
+{% block content %}
+{% include "nossas/plugins/navbar.html" with instance=navbar  %}
+<div class="bg-bege-nossas">
+    <img class="img-fluid w-100 object-fit-cover" style="height:265px;" src="{{ object.picture.url }}" alt="{{ object.title }}" />
+    <div class="px-5 pt-4">
+        <div>
+            <h1>{{ object.title }}</h1>
+            <p>{{ object.description }}</p>
+        </div>
+        <hr class="breakline" />
+        <div>
+            <h2>{% translate "Detalhes da vaga" %}</h2>
+            <h3>Faltando esse nome</h3>
+            <div class="d-flex gap-1">
+                {% include "nossas/svg/clock.svg" with line_color="#000" %}
+                <div>
+                    <strong>{% translate "Carga horária" %}</strong>
+                    <p>{{ object.workload }}</p>
+                </div>
+            </div>
+            <div class="d-flex gap-1">
+                {% include "nossas/svg/alert-circle.svg" with line_color="#000" %}
+                <div>
+                    <strong>{% translate "Condições de trabalho" %}</strong>
+                    <p>{{ object.condition }}</p>
+                </div>
+            </div>
+            <div class="d-flex gap-1">
+                {% include "nossas/svg/list.svg" with line_color="#000" %}
+                <div>
+                    <strong>{% translate "Responsabilidades da vaga" %}</strong>
+                    <p>{{ object.responsibilities }}</p>
+                </div>
+            </div>
+            <div class="d-flex gap-1">
+                {% include "nossas/svg/alert-triangle.svg" with line_color="#000" %}
+                <div>
+                    <strong>{% translate "Pré-requisitos da vaga" %}</strong>
+                    <p>{{ object.prerequisites }}</p>
+                </div>
+            </div>
+            <div class="d-flex gap-1">
+                {% include "nossas/svg/award.svg" with line_color="#000" %}
+                <div>
+                    <strong>{% translate "Benefícios" %}</strong>
+                    <p>{{ object.benefits }}</p>
+                </div>
+            </div>
+            <div class="d-flex gap-1">
+                {% include "nossas/svg/dollar-sign.svg" with line_color="#000" %}
+                <div>
+                    <strong>{% translate "Estimativa salarial" %}</strong>
+                    <p>{{ object.salary_estimate }}</p>
+                </div>
+            </div>
+        </div>
+        <hr class="breakline" />
+        <div>
+            <h2>{% translate "Veja outra vaga" %}</h2>
+        </div>
+    </div>
+    {% include "nossas/jobs/plugins/slider_jobs_plugin.html" %}
+</div>
+{% include "nossas/plugins/site_footer.html"  %}
+{% endblock %}
+
