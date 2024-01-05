@@ -13,6 +13,7 @@ from nossas.plugins.models.boxmodel import Box
 class BoxLayoutChoices(TextChoices):
     empty = "", "Vazio"
     header = "header", "Header"
+    cta = "cta", "CTA"
 
 
 class BoxPluginForm(
