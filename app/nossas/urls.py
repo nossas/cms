@@ -1,4 +1,5 @@
 from django.urls import path, include
+from .views import StyleGuideView
 
 from project.urls import urlpatterns
 
@@ -12,4 +13,5 @@ urlpatterns = [
             namespace="institutional",
         ),
     ),
+    path("styleguide/", StyleGuideView.as_view())
 ] + urlpatterns
