@@ -154,7 +154,7 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
 .breakline {
     border-top: 2px dotted #000;
     opacity: 100%;
-    margin: 0 5px ($spacer * 1.25);
+    margin: .5rem 5px;
 }
 
 @each $state in map-keys($colors) {

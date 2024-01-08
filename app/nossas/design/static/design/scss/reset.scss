@@ -2,6 +2,10 @@ figure {
     margin: 0;
 }
 
+#cms-top  + .content .navbar.fixed-top, #cms-top  + .content .navbar.fixed-top .offcanvas {
+    margin-top: 46px;
+}
+
 .cms-toolbar-left {
     display: flex;
 

@@ -1,33 +1,21 @@
 {% load menu_tags %}
 
-<div class="collapse navbar-collapse" id="navbarSupportedContent">
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+  <div class="offcanvas-header bg-azul-nossas">
+    <a class="navbar-brand" href="#">
+      {% include "nossas/svg/brand-lg.svg" %}
+    </a>
+    <button type="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      {% include "nossas/svg/circle-close.svg" %}
+    </button>
+  </div>
+  <div class="offcanvas-body bg-azul-nossas">
     <span class="px-2">
       <hr class="breakline breakline-white" />
     </span>
 
-    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <ul class="navbar-nav me-auto mb-4">
       {% show_menu 0 100 100 100 "nossas/menu.html" %}
-
-      {% comment %} <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="#">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Dropdown
-        </a>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">Action</a></li>
-          <li><a class="dropdown-item" href="#">Another action</a></li>
-          <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item" href="#">Something else here</a></li>
-        </ul>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-      </li> {% endcomment %}
     </ul>
     
     <hr class="breakline breakline-white pt-6" />
@@ -60,3 +48,44 @@
       </form>
     </div>
   </div>
+</div>
+
+{% comment %} <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <span class="px-2">
+      <hr class="breakline breakline-white" />
+    </span>
+
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      {% show_menu 0 100 100 100 "nossas/menu.html" %}
+    </ul>
+    
+    <hr class="breakline breakline-white pt-6" />
+
+    <div class="py-4">
+      <div class="d-flex justify-content-between px-4">
+        <a href="#">
+          {% include "nossas/svg/instagram.svg" %}
+        </a>
+        <a href="#">
+          {% include "nossas/svg/facebook.svg" %}
+        </a>
+        <a href="#">
+          {% include "nossas/svg/twitter.svg" %}
+        </a>
+        <a href="#">
+          {% include "nossas/svg/linkedin.svg" %}
+        </a>
+        <a href="#">
+          {% include "nossas/svg/youtube.svg" %}
+        </a>
+      </div>
+      <form class="pt-4">
+        <div class="input-group">
+          <input class="form-control" name="search" placeholder="Digite aqui o que está buscando..." />
+          <button class="input-group-text">
+            {% include "nossas/svg/search.svg" %}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div> {% endcomment %}
