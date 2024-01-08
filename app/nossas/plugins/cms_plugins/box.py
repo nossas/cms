@@ -68,7 +68,7 @@ class BoxPlugin(UIBorderMixin, UIPaddingMixin, UIBackgroundMixin, CMSUIPlugin):
         # Child plugins
 
         # Add Image inside Box
-        plugin_type = "ImagePlugin"
+        plugin_type = "PicturePlugin"
         child_attrs = {
             # Define fake image
             "external_picture": "http://via.placeholder.com/640x360",
