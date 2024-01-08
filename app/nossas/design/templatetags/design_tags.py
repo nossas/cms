@@ -41,7 +41,9 @@ $custom-colors: (
     {{COLORS}}
 );
 
+body {
 {{VARIABLES}}
+}
 
 // Merge the maps
 $theme-colors: map-merge($theme-colors, $custom-colors);
@@ -50,10 +52,12 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 @each $color, $value in $theme-colors {
     .bg-#{$color}, .tag-#{$color} {
         background-color: $value;
-        color: color-contrast($value);
+        color: var(--#{$prefix}#{$color}-content);
     }
     .btn-#{$color} {
-        color: color-contrast($value);
+        --bs-btn-color: var(--#{$prefix}#{$color}-content) !important;
+        --bs-btn-hover-color: var(--#{$prefix}#{$color}-content) !important;
+        --bs-btn-active-color: var(--#{$prefix}#{$color}-content) !important;
     }
     .text-#{$color} {
         color: $value;
@@ -79,7 +83,7 @@ def build_colors():
 
         TEXT_COLORS = ";".join(
             [
-                f'$text-{slugify(args[0])}-emphasis:{args[1]}'
+                f'--bs-{slugify(args[0])}-content:{args[1]}'
                 for args in settings.DESIGN_THEME_TEXT_COLORS
             ]
         )
