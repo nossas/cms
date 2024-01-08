@@ -436,7 +436,14 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
     }
 }
 
-// Button Group
+// Footer
+.footer-brand {
+    display: block;
+    margin: 0 auto;
+    width: 109px;
+}
+
+// Button Group (Admin)
 .widget-bg-btn-group {
     
     input[type=radio]:checked + label.widget-bg-btn {
