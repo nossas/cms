@@ -1,0 +1,30 @@
+from cms.toolbar_base import CMSToolbar
+from cms.toolbar_pool import toolbar_pool
+from cms.cms_toolbars import ADMIN_MENU_IDENTIFIER
+from cms.utils.urlutils import admin_reverse, reverse
+
+
+@toolbar_pool.register
+class InstitutionalToolbar(CMSToolbar):
+    
+    def populate(self):
+        admin_menu = self.toolbar.get_or_create_menu(
+            ADMIN_MENU_IDENTIFIER, self.current_site.name
+        )
+
+        # url = admin_reverse("institutional_institutionalinformation_add")
+
+        # try:
+        #     if self.current_site.institutionalinformation:
+        #         url = admin_reverse("institutional_institutionalinformation_change", kwargs={
+        #             "object_id": self.current_site.institutionalinformation.id
+        #         })
+        url = reverse("institutional:redirect_add_or_change")
+        # except Exception:
+        #     pass
+
+        admin_menu.add_modal_item(
+            "Informações",
+            url=url,
+            position=0,
+        )

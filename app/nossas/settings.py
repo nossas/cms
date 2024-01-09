@@ -13,6 +13,7 @@ INSTALLED_APPS += [
     "nossas.apps.campaigns",
     "nossas.apps.team",
     "nossas.apps.jobs",
+    "nossas.apps.institutional",
     # Override HTMLs
     "djangocms_frontend",
     "djangocms_frontend.contrib.utilities",
