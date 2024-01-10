@@ -3,5 +3,6 @@ from .button import *
 from .breadcrumb import *
 from .breakline import *
 from .footer import *
+from .grid import *
 from .navbar import *
 from .slider import *
