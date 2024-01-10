@@ -7,6 +7,7 @@ BOOTSTRAP_CSS_PROPERTIES = [
     "background",
 ]
 
+
 class UIProperties(CMSPlugin):
     attributes = models.JSONField(null=True, blank=True)
 
@@ -41,9 +42,19 @@ class UIPaddingPropertiesMixin:
 
         padding = self.attributes.get("padding")
         if padding and len(padding) > 0:
-            classes += list(map(lambda x: f"p{x['side']}-{x['spacing']}", padding))
+            classes += list(map(self.format_padding, padding))
 
         return classes
+
+    def format_padding(self, property):
+        if (
+            property["side"] == "x"
+            and property["spacing"] != "0"
+            and property["spacing"] != "auto"
+        ):
+            return f"p{property['side']}-sm-{property['spacing']} p{property['side']}-{int(property['spacing']) - 1}"
+
+        return f"p{property['side']}-{property['spacing']}"
 
 
 class UIBorderPropertiesMixin:
