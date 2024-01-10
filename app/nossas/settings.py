@@ -102,11 +102,10 @@ CMS_PLACEHOLDER_CONF = {
         "default_plugins": [{"plugin_type": "SiteFooterPlugin", "values": {}}],
     },
     "nossas_home_content": {
-        "name": "Conteúdo",
+        "name": "Slides",
         "plugins": [
-            "FullPageSliderPlugin",
+            "FullPageSliderContentPlugin",
         ],
-        "default_plugins": [{"plugin_type": "FullPageSliderPlugin", "values": {}}],
     },
 }
 

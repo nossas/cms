@@ -26,21 +26,10 @@ class SliderContentPlugin(CMSPluginBase):
 
 
 @plugin_pool.register_plugin
-class FullPageSliderPlugin(CMSPluginBase):
-    name = "FullPage Slider"
-    module = "NOSSAS"
-    render_template = "nossas/plugins/full_page_slider.html"
-    allow_children = True
-    child_classes = ["FullPageSliderContentPlugin"]
-
-
-@plugin_pool.register_plugin
 class FullPageSliderContentPlugin(UICMSPluginBase):
-    name = "FullPage Slider Content"
+    name = "Página / Slide"
     module = "NOSSAS"
     render_template = "nossas/plugins/full_page_slider_content.html"
     model = FullPageSlider
     form = FullPageSliderPluginForm
     allow_children = True
-    require_parent = True
-    parent_classes = ["FullPageSliderPlugin"]
