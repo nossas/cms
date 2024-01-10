@@ -120,13 +120,13 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
 @import "bootstrap/scss/accordion";
 
 // Accordion
-.accordion-item {
-    border-bottom: 1px dashed !important;
+// .accordion-item {
+//     border-bottom: 1px dashed !important;
 
-    &:last-child {
-        border-bottom: 0 !important;
-    }
-}
+//     &:last-child {
+//         border-bottom: 0 !important;
+//     }
+// }
 
 .accordion-button {
     font-size: $h3-font-size;
@@ -154,7 +154,7 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
 .breakline {
     border-top: 2px dotted #000;
     opacity: 100%;
-    margin: .5rem 5px;
+    margin: 0.5rem 5px;
 }
 
 @each $state in map-keys($colors) {
@@ -206,42 +206,21 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
 // Button Card
 .btn-card {
     cursor: pointer;
+    position: relative;
+
+    img.img-mask {
+        height: 164px;
+        width: 164px;
+    }
+
+    svg {
+        position: absolute;
+        top: calc(164px - 35px);
+        left: calc(164px - 25px)
+    }
 
     .btn-card-description {
         margin-top: ($spacer * 1);
-    }
-}
-
-// Modal
-.modal-sm {
-    .modal-header {
-        min-height: 230px;
-
-        img {
-            left: 25px;
-        }
-        .btn-close.btn-circle {
-            margin-left: ($modal-sm - 85px);
-            margin-top: -95px;
-            opacity: 100;
-            z-index: 2;
-        }
-    }
-
-    .modal-body {
-        padding-top: ($spacer * 1.75);
-    }
-}
-
-.modal-header {
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-    border-bottom: none;
-
-    img {
-        position: absolute;
-        height: 250px;
-        top: 15px;
-        z-index: 1;
     }
 }
 
@@ -395,7 +374,6 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
 }
 
 #cms-top + .content {
-    
     .full-page {
         --#{$prefix}-slider-full-height: calc(100vh - 47px);
     }
@@ -445,10 +423,62 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
 
 // Button Group (Admin)
 .widget-bg-btn-group {
-    
-    input[type=radio]:checked + label.widget-bg-btn {
+    input[type="radio"]:checked + label.widget-bg-btn {
         outline: 2px solid green;
         scale: 0.9;
+    }
+}
+
+// Accordion Team
+.accordion-team {
+    
+    .accordion-header {
+        position: relative;
+
+        .accordion-button {
+            padding: 30px 20px 30px 80px;
+
+            svg {
+                position: absolute;
+                left: 0;
+            }
+        }
+    }
+
+    // Modal
+    // <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="20" fill="#F6B7C1"/><path d="M26 14L14 26" stroke="#233D90" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 14L26 26" stroke="#233D90" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+
+    .modal-sm {
+        .modal-header {
+            min-height: 230px;
+
+            img {
+                left: 25px;
+            }
+            .btn-close-circle {
+                margin-left: ($modal-sm - 85px);
+                margin-top: -95px;
+                opacity: 100;
+                z-index: 2;
+                border-radius: 50px;
+            }
+        }
+
+        .modal-body {
+            padding-top: ($spacer * 1.75);
+        }
+    }
+
+    .modal-header {
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+        border-bottom: none;
+
+        img {
+            position: absolute;
+            height: 250px;
+            top: 15px;
+            z-index: 1;
+        }
     }
 }
 
