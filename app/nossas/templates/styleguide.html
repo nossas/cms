@@ -87,15 +87,16 @@
     </section>
 
     {% for instance in instances %}
-      <section class="my-3">
-        <h3 class="h3">{{ instance.name }}</h3>
-        <hr class="breakline" />
-        <div class="row">
-          <div class="{{ instance.css_classes }}">
-            {% render_placeholder instance.placeholder %}
-          </div>
+    <section class="my-3">
+      <h3 class="h3">{{ instance.name }}</h3>
+      <hr class="breakline" />
+      <div class="row">
+        <div class="grid" style="--bs-columns: 3;">
+          {% render_placeholder instance.placeholder %}
         </div>
-      </section>
-    {% endfor %}
+      </div>
+    </section>
+  {% endfor %}
   </main>
 {% endblock %}
+
