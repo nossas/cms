@@ -17,7 +17,7 @@ CONTEXT_COLORS = EMPTY_CHOICES + [
 ]
 
 
-class MyLinkForm(LinkForm):
+class LinkButtonForm(LinkForm):
     link_context = forms.ChoiceField(
         label=_("Context"),
         choices=CONTEXT_COLORS,
