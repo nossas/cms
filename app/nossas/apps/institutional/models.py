@@ -8,9 +8,9 @@ class InstitutionalInformation(models.Model):
     address_line = models.CharField(_("Endereço"), max_length=255)
     city = models.CharField(_("Cidade"), max_length=100)
     state = models.CharField(_("UF"), max_length=2)
-    zipcode = models.CharField(_("CEP"), max_length=7)
+    zipcode = models.CharField(_("CEP"), max_length=9)
     contact_mail = models.EmailField(_("E-mail de contato"))
-    contact_phone = models.CharField(_("Telefone de contato"), max_length=11)
+    contact_phone = models.CharField(_("Telefone de contato"), max_length=16)
 
     site = models.OneToOneField(Site, on_delete=models.CASCADE)
 

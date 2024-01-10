@@ -1,13 +1,15 @@
-<div class="bg-azul-nossas text-white px-5 pt-5 pb-2">
+<div class="bg-azul-nossas text-white px-4 px-sm-5 pt-5 pb-2">
     <a class="footer-brand text-center" href="#">
-        {% include "nossas/svg/brand.svg" %}
+        {% include "nossas/svg/brand-lg.svg" %}
     </a>
-    <p class="mt-4 text-center">
-        <span>Rua Lorem ipsum, 000, Bairro Dolor sit amet</span>
-        <span>Belo Horizonte/MG - CEP 00.000-000</span>
-        <span>contato@nossas.org  |  (00) 00000-0000</span>
+    <d class="mt-4 text-center d-flex flex-col">
+        {% if request.current_site.institutionalinformation %}
+        <span>{{ request.current_site.institutionalinformation.address_line }}</span>
+        <span>{{ request.current_site.institutionalinformation.city }}/{{ request.current_site.institutionalinformation.state }} - CEP {{ request.current_site.institutionalinformation.zipcode }}</span>
+        <span>{{ request.current_site.institutionalinformation.contact_mail }}  |  {{ request.current_site.institutionalinformation.contact_phone }}</span>
+        {% endif %}
     </p>
-    <div class="d-flex justify-content-between px-4">
+    <div class="d-flex justify-content-between px-4 m-auto" style="width: 315px;">
         <a href="#">
           {% include "nossas/svg/instagram.svg" %}
         </a>
@@ -24,13 +26,17 @@
           {% include "nossas/svg/youtube.svg" %}
         </a>
     </div>
-    <div class="d-flex flex-col py-4 gap-2">
-        <a href="#" class="btn bg-white text-azul-nossas">
-            Trabalhe conosco
-        </a>
-        <a href="#" class="btn bg-white text-azul-nossas">
-            Apoie o NOSSAS
-        </a>
+    <div class="d-flex flex-col py-4">
+        <div>
+          <a href="#" class="btn bg-white text-azul-nossas mb-2">
+              Trabalhe conosco
+          </a>
+        </div>
+        <div>
+          <a href="#" class="btn bg-white text-azul-nossas">
+              Apoie o NOSSAS
+          </a>
+        </div>
     </div>
     <p>© 2023. NOSSAS. Site desenvolvido por Amí Comunicação & Design e Nome da Empresa de Desenvolvimento</p>
 </div>
