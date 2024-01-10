@@ -2,9 +2,12 @@ django==3.2
 django-environ
 psycopg2-binary
 django-select2
+django-compressor==4.4
+django-entangled==0.5.4
 django-formtools
 django-recaptcha==3
 django-jsonform>=2.21.2
+django-libsass==0.9
 # Django CMS
 django-cms>=3
 djangocms-text-ckeditor
@@ -12,6 +15,7 @@ djangocms-picture
 django-colorfield
 djangocms_video
 djangocms_snippet
+djangocms-frontend>=1.2.1
 # Authentication all platforms
 # django-allauth
 bcrypt
