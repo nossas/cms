@@ -1,5 +1,5 @@
-from nossas.design.models import UIProperties, UIDefaultPropertiesMixin
+from nossas.design.models import UICMSPlugin, UIBackgroundMixin
 
 
-class Navbar(UIDefaultPropertiesMixin, UIProperties):
+class Navbar(UIBackgroundMixin, UICMSPlugin):
     pass

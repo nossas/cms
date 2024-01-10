@@ -4,18 +4,13 @@ from cms.api import add_plugin
 from cms.plugin_pool import plugin_pool
 from djangocms_text_ckeditor.utils import plugin_to_tag
 
-from nossas.design.cms_plugins import (
-    UIPaddingMixin,
-    UIBackgroundMixin,
-    UIBorderMixin,
-    CMSUIPlugin,
-)
+from nossas.design.cms_plugins import UICMSPluginBase
 from nossas.plugins.models.boxmodel import Box
 from nossas.plugins.forms.boxform import BoxPluginForm, LayoutBoxPluginForm
 
 
 @plugin_pool.register_plugin
-class BoxPlugin(UIBorderMixin, UIPaddingMixin, UIBackgroundMixin, CMSUIPlugin):
+class BoxPlugin(UICMSPluginBase):
     name = "Box"
     module = "NOSSAS"
     model = Box

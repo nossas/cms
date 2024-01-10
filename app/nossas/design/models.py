@@ -3,12 +3,7 @@ from django.db import models
 from cms.models.pluginmodel import CMSPlugin
 
 
-BOOTSTRAP_CSS_PROPERTIES = [
-    "background",
-]
-
-
-class UIProperties(CMSPlugin):
+class UICMSPlugin(CMSPlugin):
     attributes = models.JSONField(null=True, blank=True)
 
     class Meta:
@@ -22,13 +17,13 @@ class UIProperties(CMSPlugin):
         return " ".join(self.get_classes())
 
 
-class UIDefaultPropertiesMixin:
+class UIBackgroundMixin:
     def get_classes(self):
         classes = super().get_classes()
 
         bootstrap_classes = dict(
             filter(
-                lambda pair: pair[0] in BOOTSTRAP_CSS_PROPERTIES,
+                lambda pair: pair[0] in ["background", ],
                 self.attributes.items(),
             )
         )
@@ -36,7 +31,7 @@ class UIDefaultPropertiesMixin:
         return classes + list(bootstrap_classes.values())
 
 
-class UIPaddingPropertiesMixin:
+class UIPaddingMixin:
     def get_classes(self):
         classes = super().get_classes()
 
@@ -57,7 +52,7 @@ class UIPaddingPropertiesMixin:
         return f"p{property['side']}-{property['spacing']}"
 
 
-class UIBorderPropertiesMixin:
+class UIBorderMixin:
     def get_classes(self):
         classes = super().get_classes()
         has_border = False

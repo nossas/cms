@@ -1,8 +1,8 @@
 from nossas.design.models import (
-    UIProperties,
-    UIDefaultPropertiesMixin,
+    UICMSPlugin,
+    UIBackgroundMixin,
 )
 
 
-class FullPageSlider(UIDefaultPropertiesMixin, UIProperties):
+class FullPageSlider(UIBackgroundMixin, UICMSPlugin):
     pass

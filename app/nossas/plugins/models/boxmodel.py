@@ -1,15 +1,15 @@
 from nossas.design.models import (
-    UIProperties,
-    UIDefaultPropertiesMixin,
-    UIPaddingPropertiesMixin,
-    UIBorderPropertiesMixin,
+    UICMSPlugin,
+    UIBackgroundMixin,
+    UIPaddingMixin,
+    UIBorderMixin,
 )
 
 
 class Box(
-    UIDefaultPropertiesMixin,
-    UIPaddingPropertiesMixin,
-    UIBorderPropertiesMixin,
-    UIProperties,
+    UIBackgroundMixin,
+    UIPaddingMixin,
+    UIBorderMixin,
+    UICMSPlugin,
 ):
     pass

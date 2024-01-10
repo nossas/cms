@@ -4,8 +4,6 @@ from django.utils.text import slugify
 
 from django_jsonform.forms.fields import JSONFormField
 from entangled.forms import EntangledModelFormMixin
-from djangocms_frontend.fields import ButtonGroup
-from .models import UIProperties
 
 
 EMPTY_CHOICES = [("", "----")]
@@ -56,7 +54,7 @@ else:
     ]
 
 
-class BackgroundSelect(forms.RadioSelect):
+class UIBackgroundSelect(forms.RadioSelect):
     template_name = "design/fields/background_select.html"
     option_template_name = "design/fields/background_select_option.html"
 
@@ -66,7 +64,7 @@ class BackgroundSelect(forms.RadioSelect):
 
 class UIBackgroundFormMixin(EntangledModelFormMixin):
     background = forms.ChoiceField(
-        choices=CORES_TEMAS, required=False, widget=BackgroundSelect()
+        choices=CORES_TEMAS, required=False, widget=UIBackgroundSelect()
     )
 
     class Meta:

@@ -1,7 +1,7 @@
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
-from nossas.design.cms_plugins import UIBackgroundMixin, CMSUIPlugin
+from nossas.design.cms_plugins import UICMSPluginBase
 from nossas.plugins.models.slidermodel import FullPageSlider
 from nossas.plugins.forms.sliderform import FullPageSliderPluginForm
 
@@ -35,7 +35,7 @@ class FullPageSliderPlugin(CMSPluginBase):
 
 
 @plugin_pool.register_plugin
-class FullPageSliderContentPlugin(UIBackgroundMixin, CMSUIPlugin):
+class FullPageSliderContentPlugin(UICMSPluginBase):
     name = "FullPage Slider Content"
     module = "NOSSAS"
     render_template = "nossas/plugins/full_page_slider_content.html"
