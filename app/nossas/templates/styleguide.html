@@ -1,0 +1,100 @@
+{% extends "nossas/base.html" %}
+{% load cms_tags menu_tags %}
+
+{% block content %}
+  <main class="container">
+    <section class="my-3">
+      <h3 class="h3">Paleta de cores</h3>
+      <hr class="breakline" />
+      <div class="grid">
+        <div class="g-col-4">
+          <div class="bg-azul-nossas p-3 rounded-3">
+            <p>Azul - #233D90</p>
+          </div>
+        </div>
+        <div class="g-col-4">
+          <div class="bg-verde-claro-nossas p-3 rounded-3">
+            <p>Verde claro - #91CEC1 </p>
+          </div>
+        </div>
+        <div class="g-col-4">
+          <div class="bg-bege-nossas p-3 rounded-3">
+            <p>Bege - #F7F7ED</p>
+          </div>
+        </div>
+        <div class="g-col-4">
+          <div class="bg-vermelho-nossas p-3 rounded-3">
+            <p>Vermelho - #E02437</p>
+          </div>
+        </div>
+        <div class="g-col-4">
+          <div class="bg-amarelo-nossas p-3 rounded-3">
+            <p>Amarelo - #F8AD39</p>
+          </div>
+        </div>
+        <div class="g-col-4">
+          <div class="bg-rosa-nossas p-3 rounded-3">
+            <p>Rosa - #F6B7C1</p>
+          </div>
+        </div>
+        <div class="g-col-4">
+          <div class="bg-verde-nossas p-3 rounded-3">
+            <p>Verde - #8CAD6A</p>
+          </div>
+        </div>
+        <div class="g-col-4">
+          <div class="bg-laranja-nossas p-3 rounded-3">
+            <p>Laranja - #EB5E3B</p>
+          </div>
+        </div>
+        <div class="g-col-4">
+          <div class="bg-black p-3 rounded-3">
+            <p>Preto - #000000</p>
+          </div>
+        </div>
+        <div class="g-col-4">
+          <div class="bg-white border-2 border-gray-600 p-3 rounded-3">
+            <p>Branco - #FFFFFF</p>
+          </div>
+        </div>
+        <div class="g-col-4">
+          <div class="bg-cinza-extra-nossas p-3 rounded-3">
+            <p>Cinza extra - #433939</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="my-3">
+      <h3 class="h3">Tipografia</h3>
+      <hr class="breakline" />
+      <div class="grid">
+        <div class="g-col-6">
+          <h1 class="h1">Cabeçalho 1</h1>
+          <h2 class="h2">Cabeçalho 2</h2>
+          <h3 class="h3">Cabeçalho 3</h3>
+          <h4 class="h4">Cabeçalho 4</h4>
+          <h5 class="h5">Cabeçalho 5</h5>
+          <h6 class="h6">Cabeçalho 6</h6>
+        </div>
+        <div class="g-col-6">
+          <p class="lead">
+            Parágrafo com maior destaque para descrições.
+          </p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ex dui, aliquam non molestie eu, vehicula non sapien. Sed fringilla accumsan tristique. Nullam pretium pharetra lobortis. Donec porttitor leo placerat orci venenatis, id congue justo elementum. Sed lobortis rutrum erat. Donec nisi est, pulvinar et pharetra eu, cursus pellentesque urna. Vivamus enim risus, tristique sed arcu eu, luctus lobortis urna.</p>
+        </div>
+      </div>
+    </section>
+
+    {% for instance in instances %}
+    <section class="my-3">
+        <h3 class="h3">{{ instance.name }}</h3>
+        <hr class="breakline" />
+        <div>
+            {% render_placeholder instance.placeholder %}
+        </div>
+    </section>
+  {% endfor %}
+  </main>
+{% endblock %}
+

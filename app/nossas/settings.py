@@ -113,7 +113,7 @@ CMS_PLACEHOLDER_CONF = {
 
 DJANGOCMS_PICTURE_TEMPLATES = [
     ("full_width", "Full width"),
-    ("background", "Basckground"),
+    ("background", "Background"),
 ]
 
 # Design

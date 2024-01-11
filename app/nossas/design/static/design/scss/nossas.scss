@@ -8,6 +8,10 @@
 @import "bootstrap/scss/functions";
 @import "bootstrap/scss/variables";
 
+// Habilitar grid
+$enable-grid-classes: false;
+$enable-cssgrid: true;
+
 // Card
 $card-border-radius: none;
 $card-border-color: $dark;
