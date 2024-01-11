@@ -87,8 +87,8 @@ INSTALLED_APPS = [
     "contrib.frontend.maps",
     "contrib.ga",
     # 
-    "contrib.domains.route53",
-    "contrib.domains.traefik",
+    # "contrib.domains.route53",
+    # "contrib.domains.traefik",
     # Experimentação
     "eleicao",
     "django_social_share",
