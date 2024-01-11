@@ -119,7 +119,7 @@ services:
       - traefik.http.routers.cms.rule=${TRAEFIK_ROUTERS_RULE:-"HostRegexp(`cms.staging.bonde.org`)"}
   
   nossas:
-    image: nossas/cms:pr-154
+    image: ${NOSSAS_DOCKER_IMAGE:-nossas/cms:main}
     restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
     pull_policy: always
     # depends_on:
@@ -146,7 +146,7 @@ services:
       - traefik.http.services.nossas.loadbalancer.server.port=8000
       - traefik.http.routers.nossas.tls=true
       - traefik.http.routers.nossas.tls.certresolver=myresolver
-      - traefik.http.routers.nossas.rule=HostRegexp(`nossas.staging.bonde.org`)
+      - traefik.http.routers.nossas.rule=${NOSSAS_TRAEFIK_ROUTERS_RULE:-"HostRegexp(`nossas.staging.bonde.org`)"}
 
 # volumes:
 #   letsencrypt:
