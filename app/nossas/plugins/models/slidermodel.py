@@ -1,3 +1,6 @@
+from django.db import models
+from filer.fields.image import FilerImageField
+
 from nossas.design.models import (
     UICMSPlugin,
     UIBackgroundMixin,
@@ -5,4 +8,4 @@ from nossas.design.models import (
 
 
 class FullPageSlider(UIBackgroundMixin, UICMSPlugin):
-    pass
+    background_image = FilerImageField(on_delete=models.SET_NULL, blank=True, null=True)

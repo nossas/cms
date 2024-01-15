@@ -33,3 +33,20 @@ class FullPageSliderContentPlugin(UICMSPluginBase):
     model = FullPageSlider
     form = FullPageSliderPluginForm
     allow_children = True
+
+    def render(self, context, instance, placeholder):
+        ctx = super().render(context, instance, placeholder)
+
+        if instance.background_image:
+            styles = {
+                "background-image": f"url('{instance.background_image.url}')",
+                "background-size": "contain",
+                "background-repeat": "no-repeat",
+                "background-position": "center",
+            }
+
+            ctx["style"] = ";".join(
+                map(lambda key: f"{key}:{styles[key]}", styles.keys())
+            )
+
+        return ctx
