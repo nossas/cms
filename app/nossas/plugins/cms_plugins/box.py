@@ -141,7 +141,7 @@ class BoxPlugin(UICMSPluginBase):
         )
 
         # Adiciona link dentro do editor de texto
-        plugin_type = "MyLinkPlugin"
+        plugin_type = "LinkButtonPlugin"
         child_attrs = {"config": {"link_type": "btn", "external_link": "https://nossas.org", "name": "Call to action"}}
         text_child_1 = add_plugin(
             placeholder=placeholder,

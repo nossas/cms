@@ -1,3 +1,8 @@
+from cms.api import add_plugin
+
+# from cms.plugin_base import CMSPluginBase
+from cms.plugin_pool import plugin_pool
+
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
@@ -13,6 +18,27 @@ class BootstrapGridPlugin(CMSPluginBase):
     child_classes = [
         "BootstrapColumnPlugin"
     ]
+
+    def add_column(self, obj):
+        placeholder = obj.placeholder
+        language = obj.language
+        plugin_type = "BootstrapColumnPlugin"
+
+        obj = add_plugin(
+            placeholder=placeholder,
+            plugin_type=plugin_type,
+            language=language,
+            target=obj,
+        )
+
+
+    def save_model(self, request, obj, form, change):
+        """Change save_model to create plugins by layout"""
+        super().save_model(request, obj, form, change)
+
+        if not change:
+            for _ in range(3):
+                self.add_column(obj)
 
 
 @plugin_pool.register_plugin
