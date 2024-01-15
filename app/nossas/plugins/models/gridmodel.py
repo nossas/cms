@@ -74,26 +74,64 @@ class ColumnStartAtChoices(models.TextChoices):
     g_start_12 = "g-start-12", "Start at Col 12"
 
 
+class ColumnItemsSpacingChoices(models.TextChoices):
+    gap_0 = "gap: 0;", "Sem espaçamento"
+    gap_sm = "gap: 4px;","Pequeno"
+    gap_md = "gap: 6px;","Médio"
+    gap_lg = "gap: 8px;", "Grande"
+    gap_xl = "gap: 12px;", "Muito Grande"
+
+
+class XAlignmentChoices(models.TextChoices):
+    left = "justify-content: left;", "Esquerda"
+    center = "justify-content: center;","Centralizar"
+    right = "justify-content: right;","Direita"
+
+
+class YAlignmentChoices(models.TextChoices):
+    start = "align-items: start;", "Acima"
+    center = "align-items: center;", "Ao centro"
+    end = "align-items: end;", "Abaixo"
+
+
 class Column(CMSPlugin): 
     col = models.CharField(
         "Coluna",
         choices=ColumnChoices.choices,
         default=ColumnChoices.auto,
         max_length=15,
-        help_text="Defina manualmente o número de colunas que esta coluna ocupará.",
+        help_text="Defina manualmente o número de colunas que esta coluna ocupará."
+    )
+    alignment_x = models.CharField(
+        "Alinhamento horizontal",
+        choices=XAlignmentChoices.choices,
+        default=XAlignmentChoices.left,
+        max_length=50,
+    )
+    alignment_y = models.CharField(
+        "Alinhamento vertical",
+        choices=YAlignmentChoices.choices,
+        default=YAlignmentChoices.start,
+        max_length=50,
+    )
+    spacing = models.CharField(
+        "Espaçamento",
+        choices=ColumnItemsSpacingChoices.choices,
+        default=ColumnItemsSpacingChoices.gap_0,
+        max_length=15,
+        help_text="Selecione o espaçamento dos itens dentro da coluna."
     )
     rows = models.CharField(
         "Linhas",
         choices=RowChoices.choices,
         default=RowChoices.auto,
         max_length=15,
-        help_text="Escolha manualmente o número da linha que esta coluna ocupará.",
+        help_text="Escolha manualmente o número da linha que esta coluna ocupará."
     )
     col_start_at = models.CharField(
         "Alinhamento horizontal da coluna",
         choices=ColumnStartAtChoices.choices,
         default=ColumnStartAtChoices.auto,
         max_length=30,
-        help_text="Defina em qual coluna o elemento deve iniciar.",
-
+        help_text="Defina em qual coluna o elemento deve iniciar."
     )
