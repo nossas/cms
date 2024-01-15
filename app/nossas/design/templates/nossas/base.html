@@ -32,6 +32,7 @@
         
         {% compress css %}
             <style type="text/x-scss">
+                @import 'design/scss/typography.scss';
                 @import 'design/scss/nossas.scss';
 
                 {% build_colors %}
@@ -39,7 +40,6 @@
                     {{ request.current_site.themescss.theme }}
                 {% endif %} {% endcomment %}
 
-                {% comment %} @import 'bootstrap/scss/bootstrap.scss'; {% endcomment %}
                 @import 'design/scss/nossas.scss';
                 @import 'design/scss/reset.scss';
             </style>
