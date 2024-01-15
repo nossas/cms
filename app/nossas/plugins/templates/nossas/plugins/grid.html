@@ -1,5 +1,7 @@
-<div class="grid">
-  <div class="g-col-4">.g-col-4</div>
-  <div class="g-col-4">.g-col-4</div>
-  <div class="g-col-4">.g-col-4</div>
+{% load cms_tags %}
+
+<div class="grid" style="{{ instance.grid_gap }}">
+{% for plugin in instance.child_plugin_instances %}
+    {% render_plugin plugin %}
+{% endfor %}
 </div>
