@@ -1,5 +1,5 @@
 from django.db import models
-from nossas.design.models import UICMSPlugin, UIBackgroundMixin
+from cms.plugin_base import CMSPlugin
 
 
 class GridLayoutChoices(models.TextChoices):
@@ -7,9 +7,9 @@ class GridLayoutChoices(models.TextChoices):
     grid_1 = "g-col-12", "1 Coluna"
     grid_2 = "g-col-12 g-col-md-6", "2 Colunas"
     grid_3 = "g-col-12 g-col-md-4", "3 Colunas"
-    grid_4 = "g-col-12 g-col-sm-2 g-col-4", "4 Colunas"
-    grid_6 = "g-col-12 g-col-sm-2 g-col-2", "6 Colunas"
-    grid_12 = "g-col-12 g-col-sm-2 g-col-1", "12 Colunas"
+    grid_4 = "g-col-12 g-col-md-3", "4 Colunas"
+    grid_6 = "g-col-12 g-col-md-2", "6 Colunas"
+    grid_12 = "g-col-12 g-col-md-1", "12 Colunas"
 
 
 class GridSpacingChoices(models.TextChoices):
@@ -18,7 +18,7 @@ class GridSpacingChoices(models.TextChoices):
     gap_8 = "row-gap: 8;", "Grande"
 
 
-class Grid(UIBackgroundMixin, UICMSPlugin):
+class Grid(CMSPlugin):
     grid_layout = models.CharField(
         "Layout do Grid",
         max_length=80,
@@ -74,7 +74,7 @@ class ColumnStartAtChoices(models.TextChoices):
     g_start_12 = "g-start-12", "Start at Col 12"
 
 
-class Column(UIBackgroundMixin, UICMSPlugin):
+class Column(CMSPlugin): 
     col = models.CharField(
         "Coluna",
         choices=ColumnChoices.choices,
