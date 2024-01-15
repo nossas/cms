@@ -1,8 +1,11 @@
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
 
+from cms.models.fields import PlaceholderField
 from cms.models.pluginmodel import CMSPlugin
 from filer.fields.image import FilerImageField
 from translated_fields import TranslatedField
+from tag_fields.managers import ModelTagsManager
 
 from nossas.apps.basemodel import OnSiteBaseModel
 
@@ -14,10 +17,32 @@ class CampaignStatus(models.TextChoices):
 
 
 class Campaign(OnSiteBaseModel):
-    name = models.CharField(max_length=180)
-    description = TranslatedField(models.TextField(), {"en": {"blank": True}})
-    picture = FilerImageField(on_delete=models.SET_NULL, blank=True, null=True)
-    status = models.CharField(max_length=6, choices=CampaignStatus.choices)
+    name = models.CharField(_("Nome da campanha"), max_length=180)
+    description = TranslatedField(
+        models.TextField(_("Nome da campanha")), {"en": {"blank": True}}
+    )
+    picture = FilerImageField(
+        verbose_name=_("Imagem"), on_delete=models.SET_NULL, blank=True, null=True
+    )
+    status = models.CharField(_("Status"), max_length=6, choices=CampaignStatus.choices)
+
+    header_image = FilerImageField(
+        verbose_name=_("Cabeçalho Imagem"),
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        related_name="campaign_header_image",
+    )
+    url = models.URLField(_("Link da Campanha"), null=True, blank=True)
+    release_date = models.DateField(
+        _("Data de lançamento da Campanha"), null=True, blank=True
+    )
+    hide = models.BooleanField(_("Esconder"), default=False)
+
+    photos_placeholder = PlaceholderField("campaign_photos_placeholder")
+
+    #
+    tags = ModelTagsManager()
 
     def __str__(self):
         return self.name

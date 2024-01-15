@@ -9,6 +9,7 @@ django-recaptcha==3
 django-jsonform>=2.21.2
 django-libsass==0.9
 django-colorfield
+django-tag-fields
 # Django CMS
 django-cms==3.11.4
 djangocms-admin-style==3.2.4

@@ -4,6 +4,7 @@ from project.settings import *
 
 INSTALLED_APPS += [
     "django_jsonform",
+    "tag_fields",
     # Build Bootstrap SCSS
     "compressor",
     #

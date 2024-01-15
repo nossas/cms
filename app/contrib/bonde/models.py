@@ -138,6 +138,32 @@ class DnsHostedZone(models.Model):
         db_table = "dns_hosted_zones"
 
 
+class Theme(models.Model):
+    value = models.TextField(unique=True)
+    label = models.TextField()
+    priority = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = "themes"
+
+    def __str__(self):
+        return self.label
+
+
+class Subtheme(models.Model):
+    value = models.TextField(unique=True)
+    label = models.TextField()
+    theme = models.ForeignKey(Theme, models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = "subthemes"
+
+    def __str__(self):
+        return self.label
+
+
 class MobilizationStatus(models.TextChoices):
     archived = "archived", "Arquivada"
     active = "active", "Ativa"
@@ -168,7 +194,8 @@ class Mobilization(models.Model):
     # traefik_backend_address = models.CharField(max_length=-1, blank=True, null=True)
     language = models.CharField(max_length=5, blank=True, null=True)
     updated_at = models.DateTimeField(blank=True, null=True, auto_now=True)
-    # theme = models.ForeignKey('Themes', models.DO_NOTHING, blank=True, null=True)
+    theme = models.ForeignKey(Theme, models.DO_NOTHING, blank=True, null=True)
+    subthemes = models.ManyToManyField(Subtheme, blank=True)
 
     objects = RequestManager(lookup_field="community")
 
@@ -194,32 +221,6 @@ class Block(models.Model):
     class Meta:
         managed = False
         db_table = "blocks"
-
-
-class Theme(models.Model):
-    value = models.TextField(unique=True)
-    label = models.TextField()
-    priority = models.IntegerField(blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = "themes"
-
-    def __str__(self):
-        return self.label
-
-
-class Subtheme(models.Model):
-    value = models.TextField(unique=True)
-    label = models.TextField()
-    theme = models.ForeignKey(Theme, models.DO_NOTHING)
-
-    class Meta:
-        managed = False
-        db_table = "subthemes"
-
-    def __str__(self):
-        return self.label
 
 
 class WidgetKind(models.TextChoices):
