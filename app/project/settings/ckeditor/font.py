@@ -11,7 +11,7 @@ font_family_options = [
     "Arvo",
     "Asap",
     "Baloo Bhai",
-    "Bebas Neue",
+    "Bebas Neue Pro",
     "Bitter",
     "Bree Serif",
     "Capriola",
