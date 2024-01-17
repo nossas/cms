@@ -90,7 +90,8 @@ CMS_PLACEHOLDER_CONF = {
             "BreadcrumPlugin",
             "SliderJobsPlugin",
             "PicturePlugin",
-            "BreaklinePlugin"
+            "BreaklinePlugin",
+            "GalleryPlugin"
         ],
     },
     "nossas_page_navbar": {
@@ -109,6 +110,15 @@ CMS_PLACEHOLDER_CONF = {
             "FullPageSliderContentPlugin",
         ],
     },
+    # Modelos
+    "campaign_placeholder": {
+        "name": "Conteúdo da Página",
+        "plugins": [
+            "TextPlugin",
+            "GalleryPlugin",
+            "ContainerPlugin"
+        ]
+    }
 }
 
 # DjangoCMS Picture

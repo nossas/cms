@@ -12,6 +12,16 @@
 $enable-grid-classes: false;
 $enable-cssgrid: true;
 
+// Container
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 848px,
+//   lg: 960px,
+//   xl: 1140px,
+//   xxl: 1320px
+);
+
 // Card
 $card-border-radius: none;
 $card-border-color: $dark;
@@ -482,6 +492,50 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
             height: 250px;
             top: 15px;
             z-index: 1;
+        }
+    }
+}
+
+// Campaign
+.campaign-card {
+    position: relative;
+    width: 375px;
+    border: 1px solid #000;
+
+    img {
+        height: 224px;
+    }
+
+    .tag {
+        position: absolute;
+        top: 224px - 18px;
+        right: 12px;
+    }
+
+    .campaign-card-body {
+        height: 170px;
+
+        p {
+            height: 100px;
+            overflow: hidden;
+        }
+    }
+}
+
+.campaign-detail {
+    .campaign-detail-header {
+        position: relative;
+
+        img {
+            width: 100%;
+            height: 500px;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        svg {
+            position: absolute;
+            bottom: -48px;
         }
     }
 }

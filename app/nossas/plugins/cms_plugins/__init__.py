@@ -5,6 +5,7 @@ from .breadcrumb import *
 from .breakline import *
 from .container import *
 from .footer import *
+from .gallery import *
 from .grid import *
 from .navbar import *
 from .slider import *
