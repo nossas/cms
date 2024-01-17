@@ -83,9 +83,9 @@ class ColumnItemsSpacingChoices(models.TextChoices):
 
 
 class YAlignmentChoices(models.TextChoices):
-    left = "justify-content: left;", "Acima"
+    left = "justify-content: flex-start;", "Acima"
     center = "justify-content: center;","Ao centro"
-    right = "justify-content: right;","Abaixo"
+    right = "justify-content: flex-end;","Abaixo"
 
 
 class XAlignmentChoices(models.TextChoices):
