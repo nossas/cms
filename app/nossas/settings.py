@@ -1,5 +1,12 @@
 from project.settings import *
 
+# Databases
+DEFAULT_DB_SQLITE = BASE_DIR / "nossas.sqlite3"
+
+DATABASES.update({
+    "default": env.db_url("NOSSAS_DATABASE_URL", f"sqlite:///{DEFAULT_DB_SQLITE}"),
+})
+
 # Apps
 
 INSTALLED_APPS += [
@@ -86,11 +93,12 @@ CMS_PLACEHOLDER_CONF = {
             "ContainerPlugin",
             "SliderPlugin",
             "TeamAccordionPlugin",
-            "FilterCampaignListPlugin",
+            "CampaignListPlugin",
             "BreadcrumPlugin",
             "SliderJobsPlugin",
             "PicturePlugin",
-            "BreaklinePlugin"
+            "BreaklinePlugin",
+            "GalleryPlugin"
         ],
     },
     "nossas_page_navbar": {
@@ -109,6 +117,16 @@ CMS_PLACEHOLDER_CONF = {
             "FullPageSliderContentPlugin",
         ],
     },
+    # Modelos
+    "campaign_placeholder": {
+        "name": "Conteúdo da Página",
+        "plugins": [
+            "TextPlugin",
+            "GalleryPlugin",
+            "ContainerPlugin",
+            "SliderPlugin"
+        ]
+    }
 }
 
 # DjangoCMS Picture

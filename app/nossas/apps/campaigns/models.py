@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
 from cms.models.fields import PlaceholderField
@@ -10,6 +11,18 @@ from tag_fields.managers import ModelTagsManager
 from nossas.apps.basemodel import OnSiteBaseModel
 
 
+class CampaignGroup(OnSiteBaseModel):
+    name = models.CharField(_("Nome da grupo"), max_length=180)
+    community_id = models.IntegerField(_("ID da Comunidade BONDE"))
+
+    class Meta:
+        unique_together = ("site", "community_id")
+        verbose_name = _("Comunidade")
+
+    def __str__(self):
+        return self.name
+
+
 class CampaignStatus(models.TextChoices):
     opened = "opened", "Aberta"
     closed = "closed", "Fechada"
@@ -19,12 +32,19 @@ class CampaignStatus(models.TextChoices):
 class Campaign(OnSiteBaseModel):
     name = models.CharField(_("Nome da campanha"), max_length=180)
     description = TranslatedField(
-        models.TextField(_("Nome da campanha")), {"en": {"blank": True}}
+        models.TextField(_("Descrição")), {"en": {"blank": True}}
     )
     picture = FilerImageField(
         verbose_name=_("Imagem"), on_delete=models.SET_NULL, blank=True, null=True
     )
     status = models.CharField(_("Status"), max_length=6, choices=CampaignStatus.choices)
+
+    campaign_group = models.ForeignKey(
+        CampaignGroup, verbose_name=_("Comunidade"), on_delete=models.CASCADE, null=True
+    )
+    mobilization_id = models.IntegerField(
+        _("ID da Mobilização BONDE"), null=True, blank=True
+    )
 
     header_image = FilerImageField(
         verbose_name=_("Cabeçalho Imagem"),
@@ -35,17 +55,23 @@ class Campaign(OnSiteBaseModel):
     )
     url = models.URLField(_("Link da Campanha"), null=True, blank=True)
     release_date = models.DateField(
-        _("Data de lançamento da Campanha"), null=True, blank=True
+        _("Data de lançamento"), null=True, blank=True
     )
     hide = models.BooleanField(_("Esconder"), default=False)
 
-    photos_placeholder = PlaceholderField("campaign_photos_placeholder")
+    placeholder = PlaceholderField("campaign_placeholder")
 
     #
     tags = ModelTagsManager()
 
+    class Meta:
+        verbose_name = _("Campanha")
+
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse("campaigns:campaign-detail", kwargs={"pk": self.pk})
 
 
 class CampaignListPluginModel(CMSPlugin):

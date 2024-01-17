@@ -1,4 +1,5 @@
 from django import template
+from django.conf import settings
 # from django.conf import settings
 # from django.utils.text import slugify
 from django.utils.safestring import mark_safe
@@ -8,11 +9,11 @@ from cms.models.placeholdermodel import Placeholder
 register = template.Library()
 
 
-@register.simple_tag(takes_context=True)
-def render_slider_navigation(context):
-    request = context["request"]
-    plugins = Placeholder.objects.filter(slot="nossas_home_content").first().get_child_plugins(
-        language=request.LANGUAGE_CODE
+@register.simple_tag
+def render_slider_navigation(slotname, language=settings.LANGUAGE_CODE):
+    # request = context["request"]
+    plugins = Placeholder.objects.filter(slot=slotname).first().get_child_plugins(
+        language=language
     )
 
     html = ""
