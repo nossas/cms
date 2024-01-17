@@ -15,30 +15,28 @@ class QueryCampaignListInline(admin.StackedInline):
 
 
 @plugin_pool.register_plugin
-class FilterCampaignListPlugin(CMSPluginBase):
-    name = "Campanhas"
+class CampaignListPlugin(CMSPluginBase):
+    name = "Listagem de Campanhas"
     module = "NOSSAS"
-    model = CampaignListPluginModel
-    inlines = [
-        QueryCampaignListInline,
-    ]
+    # model = CampaignListPluginModel
+    # inlines = [
+    #     QueryCampaignListInline,
+    # ]
     render_template = "plugins/filter_campaign_list_plugin.html"
 
-    def get_filter_list(self, instance, qs):
-        queryfilters = list(
-            map(lambda x: Q(**x.get_qs_filter()), instance.queries.all())
-        )
+    # def get_filter_list(self, instance, qs):
+    #     queryfilters = list(
+    #         map(lambda x: Q(**x.get_qs_filter()), instance.queries.all())
+    #     )
 
-        if len(queryfilters) > 0:
-            return qs.filter(reduce(operator.or_, queryfilters))
+    #     if len(queryfilters) > 0:
+    #         return qs.filter(reduce(operator.or_, queryfilters))
 
-        return qs
+    #     return qs
 
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
 
-        context.update(
-            {"campaign_list": self.get_filter_list(instance, Campaign.on_site.all())}
-        )
+        context.update({"campaign_list": Campaign.on_site.filter(hide=False)})
 
         return context
