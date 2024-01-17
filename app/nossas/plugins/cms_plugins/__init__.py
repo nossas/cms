@@ -3,6 +3,7 @@ from .box import *
 from .button import *
 from .breadcrumb import *
 from .breakline import *
+from .container import *
 from .footer import *
 from .grid import *
 from .navbar import *

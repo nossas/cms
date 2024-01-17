@@ -83,6 +83,7 @@ CMS_PLACEHOLDER_CONF = {
         "plugins": [
             "TextPlugin",
             "BoxPlugin",
+            "ContainerPlugin",
             "SliderPlugin",
             "TeamAccordionPlugin",
             "FilterCampaignListPlugin",
