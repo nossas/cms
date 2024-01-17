@@ -51,6 +51,7 @@ $accordion-button-padding-y: ($spacer * 0.5);
 $headings-font-family: "Bebas Neue Pro";
 $font-family-sans-serif: "Barlow";
 $input-btn-font-family: $headings-font-family;
+$headings-font-weight: 800;
 
 // Font Size
 $font-size-base: 0.8rem;
@@ -351,7 +352,7 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
 
 // Tag
 .tag {
-    padding: ($spacer * 0.5) ($spacer * 0.8);
+    padding: ($spacer * 0.3) ($spacer * 0.8);
     border-radius: 50px;
     text-transform: uppercase;
     font-size: ($font-size-base * 0.85);
