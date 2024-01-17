@@ -116,7 +116,8 @@ CMS_PLACEHOLDER_CONF = {
         "plugins": [
             "TextPlugin",
             "GalleryPlugin",
-            "ContainerPlugin"
+            "ContainerPlugin",
+            "SliderPlugin"
         ]
     }
 }
