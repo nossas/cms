@@ -82,16 +82,16 @@ class ColumnItemsSpacingChoices(models.TextChoices):
     gap_xl = "gap: 12px;", "Muito Grande"
 
 
-class XAlignmentChoices(models.TextChoices):
-    left = "justify-content: left;", "Esquerda"
-    center = "justify-content: center;","Centralizar"
-    right = "justify-content: right;","Direita"
-
-
 class YAlignmentChoices(models.TextChoices):
-    start = "align-items: start;", "Acima"
-    center = "align-items: center;", "Ao centro"
-    end = "align-items: end;", "Abaixo"
+    left = "justify-content: left;", "Acima"
+    center = "justify-content: center;","Ao centro"
+    right = "justify-content: right;","Abaixo"
+
+
+class XAlignmentChoices(models.TextChoices):
+    start = "align-items: start;", "Esquerda"
+    center = "align-items: center;", "Centralizar"
+    end = "align-items: end;", "Direita"
 
 
 class Column(CMSPlugin): 
@@ -105,13 +105,13 @@ class Column(CMSPlugin):
     alignment_x = models.CharField(
         "Alinhamento horizontal",
         choices=XAlignmentChoices.choices,
-        default=XAlignmentChoices.left,
+        default=XAlignmentChoices.start,
         max_length=50,
     )
     alignment_y = models.CharField(
         "Alinhamento vertical",
         choices=YAlignmentChoices.choices,
-        default=YAlignmentChoices.start,
+        default=YAlignmentChoices.left,
         max_length=50,
     )
     spacing = models.CharField(
@@ -129,7 +129,7 @@ class Column(CMSPlugin):
         help_text="Escolha manualmente o número da linha que esta coluna ocupará."
     )
     col_start_at = models.CharField(
-        "Alinhamento horizontal da coluna",
+        "Inicio da coluna na linha",
         choices=ColumnStartAtChoices.choices,
         default=ColumnStartAtChoices.auto,
         max_length=30,
