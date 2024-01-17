@@ -1,3 +1,4 @@
+from .accordion import *
 from .box import *
 from .button import *
 from .breadcrumb import *
