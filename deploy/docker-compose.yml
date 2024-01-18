@@ -90,7 +90,7 @@ services:
   #     - 2380:2380
 
   cms:
-    image: ${DOCKER_IMAGE:-nossas/cms:main}
+    image: ${DOCKER_IMAGE:-nossas/cms:latest}
     restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
     pull_policy: always
     # depends_on:
@@ -119,7 +119,7 @@ services:
       - traefik.http.routers.cms.rule=${TRAEFIK_ROUTERS_RULE:-"HostRegexp(`cms.staging.bonde.org`)"}
   
   nossas:
-    image: ${NOSSAS_DOCKER_IMAGE:-nossas/cms:main}
+    image: ${NOSSAS_DOCKER_IMAGE:-nossas/cms:latest}
     restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
     pull_policy: always
     # depends_on:
