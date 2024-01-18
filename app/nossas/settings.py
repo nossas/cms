@@ -4,7 +4,7 @@ from project.settings import *
 DEFAULT_DB_SQLITE = BASE_DIR / "nossas.sqlite3"
 
 DATABASES.update({
-    "default": env.db_url("NOSSAS_DATABASE_URL", f"sqlite:///{DEFAULT_DB_SQLITE}"),
+    "default": env.db_url("CMS_DATABASE_URL", f"sqlite:///{DEFAULT_DB_SQLITE}"),
 })
 
 # Apps
