@@ -20,6 +20,21 @@ class HeaderPlugin(UICMSPluginBase):
         ("Fundo", {"fields": ["background"]})
     )
 
+    def render(self, context, instance, placeholder):
+        context = super().render(context, instance, placeholder)
+
+        picture_urls = []
+
+        for child_plugin in instance.child_plugin_instances:
+            if child_plugin.plugin_type == 'PicturePlugin':
+                picture_url = child_plugin.external_picture or (child_plugin.picture.url if child_plugin.picture else None)
+                if picture_url:
+                    picture_urls.append(picture_url)
+
+        context['picture_urls'] = picture_urls
+
+        return context
+
     def get_form(self, request, obj, change, **kwargs):
         if not change:
             self.form = HeaderPluginForm
@@ -35,7 +50,7 @@ class HeaderPlugin(UICMSPluginBase):
 
         return super().get_fieldsets(request, obj)
 
-    def create_header_box(self, obj):
+    def create_header_grid(self, obj):
         placeholder = obj.placeholder
         language = obj.language
 
@@ -46,7 +61,6 @@ class HeaderPlugin(UICMSPluginBase):
         child_attrs = {
             # Define fake image
             "external_picture": "http://via.placeholder.com/640x360",
-            "template": "background",
             "height": 360,
         }
         add_plugin(
@@ -88,3 +102,10 @@ class HeaderPlugin(UICMSPluginBase):
             target=obj,
             **child_attrs,
         )
+
+    def save_model(self, request, obj, form, change):
+        """Change save_model to create plugins by layout"""
+        super().save_model(request, obj, form, change)
+
+        if not change:
+            self.create_header_grid(obj)
