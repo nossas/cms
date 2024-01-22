@@ -2,14 +2,14 @@
 
 <header class="{{ instance.classes}}">
     <div class="grid">
-        <div class="header-row-order d-flex flex-column" style="gap: 0; align-items: end; justify-content: flex-end; ">
+        <div class="d-flex flex-column header-box-col">
             {% for plugin in instance.child_plugin_instances %}
                 {% if plugin.plugin_type == 'BoxPlugin' %}
                     {% render_plugin plugin %}
                 {% endif %}
             {% endfor %}
         </div>
-        <div class="d-flex flex-column header-background-col" style="gap: 0; align-items: start; justify-content: flex-start;">
+        <div class="header-background-col">
             {% for plugin in instance.child_plugin_instances %}
                 {% if plugin.plugin_type == 'PicturePlugin' %}
                     {% for url in picture_urls %}
@@ -23,13 +23,17 @@
 
 {% block extrastyle %}
     <style>
-        .header-row-order {
-            grid-row: 2;
+        .header-box-col {
+            align-items: end;
             grid-column: auto/span 12;
+            grid-row: 2;
+            justify-content: flex-end; 
+            padding: 0 12px;
         }
 
         .header-background-col {
             grid-column: auto/span 12;
+            margin-top: 60px;
         }
 
         .header-background-img {
@@ -37,39 +41,39 @@
         }
 
         .header-background-img {
+            background-position-x: center;
             background-repeat: no-repeat;
             background-size: 100% 100%;
-            width: 100%;
             height: 275px;
-            background-position-x: center;
+            width: 100%;
         }
 
         @media (min-width: 768px) {
-            .header-row-order {
+            .header-box-col {
+                grid-column: auto/span 5;
                 grid-row: 1;
-                grid-column: auto/span 4;
-            }
-
-            .header-background-col {
-                grid-column: auto/span 8;
-            }
-
-            .header-background-img {
-                background-repeat: no-repeat;
-                background-size: 80% 100%;
-                width: 100%;
-                height: 486px;
-                background-position-x: right;
-            }
-        }
-
-        @media (min-width: 992px) {
-            .header-row-order {
-                grid-column: 3/span 3;
             }
 
             .header-background-col {
                 grid-column: auto/span 7;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .header-box-col {
+                grid-column: 3/span 3;
+                padding: 0;
+            }
+
+            .header-background-img {
+                background-position-x: right;
+                background-size: 80% 100%;
+                height: 490px;
+            }
+
+            .header-background-col {
+                grid-column: auto/span 7;
+                margin-top: 0;
             }
         }
     </style>
