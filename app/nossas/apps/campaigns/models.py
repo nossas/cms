@@ -100,7 +100,7 @@ class Campaign(OnSiteBaseModel):
                 "padding": [{"side": "y", "spacing": "5"}],
                 "background": "bg-azul-nossas",
                 "border_top": True,
-                "border_bottom": True
+                "border_bottom": True,
             },
         )
         # # Adiciona texto dentro do Container da Chamada
@@ -136,6 +136,12 @@ class Campaign(OnSiteBaseModel):
 
         text.body = f'{text.body}<p style="text-align: center;">{plugin_to_tag(text_child_1)}</p>'
         text.save()
+
+        # Adiciona Plugin de Navegar por campanhas
+        plugin_type = "NavigateCampaignsPlugin"
+        add_plugin(
+            placeholder=self.placeholder, plugin_type=plugin_type, language=language
+        )
 
 
 class CampaignListPluginModel(CMSPlugin):

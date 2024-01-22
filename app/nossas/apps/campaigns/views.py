@@ -12,7 +12,7 @@ class CampaignDetailView(DetailView):
 
         context.update(
             {
-                "navbar": {"classes": "bg-vermelho-nossas"},
+                "navbar": {"classes": "bg-verde-nossas"},
             }
         )
 
