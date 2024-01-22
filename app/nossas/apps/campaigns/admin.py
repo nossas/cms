@@ -59,8 +59,7 @@ class CampaignAdmin(OnSiteAdmin):
             current_user = request.user
 
             if mobilization_id:
-                obj = import_mobilization(mobilization_id, current_site, current_user)
-                obj.create_default_page()
+                import_mobilization(mobilization_id, current_site, current_user)
 
                 self.message_user(request, "Campanha importada com sucesso", "SUCCESS")
 

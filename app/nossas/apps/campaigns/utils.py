@@ -62,5 +62,6 @@ def import_mobilization(mobilization_id, current_site, current_user):
 
     if updated:
         campaign.save()
+        campaign.create_default_page()
 
     return campaign
