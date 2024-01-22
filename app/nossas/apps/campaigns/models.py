@@ -120,7 +120,8 @@ class Campaign(OnSiteBaseModel):
         plugin_type = "LinkButtonPlugin"
         child_attrs = {
             "config": {
-                # "link_context": "amarelo-nossas",
+                "link_outline": False,
+                "link_context": "amarelo-nossas",
                 "link_type": "btn",
                 "external_link": self.url,
                 "name": "SAIBA MAIS",
@@ -133,7 +134,6 @@ class Campaign(OnSiteBaseModel):
             target=text,
             **child_attrs,
         )
-
         text.body = f'{text.body}<p style="text-align: center;">{plugin_to_tag(text_child_1)}</p>'
         text.save()
 

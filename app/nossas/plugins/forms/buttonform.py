@@ -25,8 +25,3 @@ class LinkButtonForm(LinkForm):
         required=False,
         widget=ColoredButtonGroup(),
     )
-
-
-#     class Meta:
-#         model = Button
-#         entangled_fields = {"attributes": []}

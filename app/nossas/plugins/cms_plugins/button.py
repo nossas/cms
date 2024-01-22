@@ -12,9 +12,3 @@ class LinkButtonPlugin(LinkPlugin):
     name = _("Link / Botão")
     module = "NOSSAS"
     form = LinkButtonForm
-    # change_form_template = 'nossas/admin/link.html'
-#     model = Button
-#     form = ButtonPluginForm
-#     render_template = "nossas/plugins/button.html"
-#     allow_children = True
-#     text_enabled = True
