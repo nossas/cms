@@ -7,7 +7,7 @@ from django.utils.safestring import mark_safe
 
 from nossas.apps.baseadmin import OnSiteAdmin
 
-from .models import Campaign
+from .models import Campaign, CampaignGroup
 from .utils import import_mobilization
 
 
@@ -66,3 +66,5 @@ class CampaignAdmin(OnSiteAdmin):
 
 
 admin.site.register(Campaign, CampaignAdmin)
+
+admin.site.register(CampaignGroup)
