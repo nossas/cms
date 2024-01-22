@@ -13,12 +13,11 @@
             {% include "nossas/graphics/group_21.svg" %}
         </div>
     </div>
-    <div class="campaign-detail-body container py-5">
-        <h2>{{ object.name }}</h2>
-
-        <div>
-        {% render_placeholder object.placeholder %}
+    <div class="campaign-detail-body py-5">
+        <div class="container">
+            <h1>{{ object.name }}</h1>
         </div>
+        {% render_placeholder object.placeholder %}
     </div>
 </div>
 

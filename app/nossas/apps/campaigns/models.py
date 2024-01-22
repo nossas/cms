@@ -2,6 +2,8 @@ from django.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
+from cms.api import add_plugin
+from djangocms_text_ckeditor.utils import plugin_to_tag
 from cms.models.fields import PlaceholderField
 from cms.models.pluginmodel import CMSPlugin
 from filer.fields.image import FilerImageField
@@ -53,9 +55,7 @@ class Campaign(OnSiteBaseModel):
         related_name="campaign_header_image",
     )
     url = models.URLField(_("Link da Campanha"), null=True, blank=True)
-    release_date = models.DateField(
-        _("Data de lançamento"), null=True, blank=True
-    )
+    release_date = models.DateField(_("Data de lançamento"), null=True, blank=True)
     hide = models.BooleanField(_("Esconder"), default=False)
 
     placeholder = PlaceholderField("campaign_placeholder")
@@ -71,6 +71,71 @@ class Campaign(OnSiteBaseModel):
 
     def get_absolute_url(self):
         return reverse("campaigns:campaign-detail", kwargs={"pk": self.pk})
+
+    def create_default_page(self):
+        language = "pt-br"
+
+        # Cria Container da primeira parte
+        plugin_type = "ContainerPlugin"
+        target = add_plugin(
+            placeholder=self.placeholder, plugin_type=plugin_type, language="pt-br"
+        )
+        # Adiciona texto dentro do Container
+        plugin_type = "TextPlugin"
+        child_attrs = {"body": self.description}
+        add_plugin(
+            placeholder=self.placeholder,
+            plugin_type=plugin_type,
+            language=language,
+            target=target,
+            **child_attrs,
+        )
+        # Cria Container da Chamada
+        plugin_type = "ContainerPlugin"
+        target = add_plugin(
+            placeholder=self.placeholder,
+            plugin_type=plugin_type,
+            language=language,
+            attributes={
+                "padding": [{"side": "y", "spacing": "5"}],
+                "background": "bg-azul-nossas",
+                "border_top": True,
+                "border_bottom": True
+            },
+        )
+        # # Adiciona texto dentro do Container da Chamada
+        plugin_type = "TextPlugin"
+        child_attrs = {
+            "body": f"""<h3 style="text-align: center;">Conheça a campanha {self.name}!</h3><p style="text-align: center;">Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur lorem ipsum dolor sit amet.</p>"""
+        }
+        text = add_plugin(
+            placeholder=self.placeholder,
+            plugin_type=plugin_type,
+            language=language,
+            target=target,
+            **child_attrs,
+        )
+
+        # Adiciona link dentro do editor de texto
+        plugin_type = "LinkButtonPlugin"
+        child_attrs = {
+            "config": {
+                # "link_context": "amarelo-nossas",
+                "link_type": "btn",
+                "external_link": self.url,
+                "name": "SAIBA MAIS",
+            }
+        }
+        text_child_1 = add_plugin(
+            placeholder=self.placeholder,
+            plugin_type=plugin_type,
+            language=language,
+            target=text,
+            **child_attrs,
+        )
+
+        text.body = f'{text.body}<p style="text-align: center;">{plugin_to_tag(text_child_1)}</p>'
+        text.save()
 
 
 class CampaignListPluginModel(CMSPlugin):

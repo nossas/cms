@@ -22,7 +22,7 @@ class CampaignAdmin(OnSiteAdmin):
     list_filter = ["hide", "campaign_group", "status", "tags"]
     search_fields = ["name", "status"]
     actions = [show]
-    ordering = ['-release_date']
+    ordering = ["-release_date"]
 
     def tag_list(self, obj):
         return mark_safe(
@@ -59,7 +59,8 @@ class CampaignAdmin(OnSiteAdmin):
             current_user = request.user
 
             if mobilization_id:
-                import_mobilization(mobilization_id, current_site, current_user)
+                obj = import_mobilization(mobilization_id, current_site, current_user)
+                obj.create_default_page()
 
                 self.message_user(request, "Campanha importada com sucesso", "SUCCESS")
 
