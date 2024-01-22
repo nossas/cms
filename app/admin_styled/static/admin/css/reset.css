@@ -1,0 +1,8 @@
+#header #branding {
+    display: flex;
+    justify-content: space-between;
+}
+
+.brand-and-menu {
+    display: flex;
+}

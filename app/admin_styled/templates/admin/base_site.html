@@ -11,6 +11,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <link rel="stylesheet" type="text/css" href="{% static 'djangocms_admin_style/css/djangocms-admin.css' %}" />
 <!-- apply admin_styled inside admin app -->
+<link rel="stylesheet" type="text/css" href="{% static 'admin/css/reset.css' %}" />
 <link rel="stylesheet" type="text/css" href="{% static 'dist/admin_styled/css/admin.css' %}" />
 {% if request.user.is_superuser %}{% render_update_notification %}{% endif %}
 <script src="{% static 'djangocms_admin_style/js/dist/bundle.adminstyle.min.js' %}"></script>
