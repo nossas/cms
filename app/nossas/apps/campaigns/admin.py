@@ -22,6 +22,7 @@ class CampaignAdmin(OnSiteAdmin):
     list_filter = ["hide", "campaign_group", "status", "tags"]
     search_fields = ["name", "status"]
     actions = [show]
+    ordering = ['-release_date']
 
     def tag_list(self, obj):
         return mark_safe(
