@@ -3,7 +3,7 @@
 
 {% block content %}
 {% include "nossas/plugins/navbar.html" with instance=navbar  %}
-<div class="campaign-detail">
+<div class="campaign-detail bg-bege-nossas text-black">
     <div class="campaign-detail-header">
         <img
             src="{% if object.header_image %}{{ object.header_image.url }}{% else %}https://placehold.co/800@2x.png{% endif %}"

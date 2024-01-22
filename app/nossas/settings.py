@@ -128,6 +128,7 @@ CMS_PLACEHOLDER_CONF = {
             "ContainerPlugin",
             "SliderPlugin",
             "ContainerPlugin",
+            "NavigateCampaignsPlugin",
         ],
     },
 }
