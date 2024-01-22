@@ -3,9 +3,11 @@ from project.settings import *
 # Databases
 DEFAULT_DB_SQLITE = BASE_DIR / "nossas.sqlite3"
 
-DATABASES.update({
-    "default": env.db_url("CMS_DATABASE_URL", f"sqlite:///{DEFAULT_DB_SQLITE}"),
-})
+DATABASES.update(
+    {
+        "default": env.db_url("CMS_DATABASE_URL", f"sqlite:///{DEFAULT_DB_SQLITE}"),
+    }
+)
 
 # Apps
 
@@ -98,7 +100,7 @@ CMS_PLACEHOLDER_CONF = {
             "SliderJobsPlugin",
             "PicturePlugin",
             "BreaklinePlugin",
-            "GalleryPlugin"
+            "GalleryPlugin",
         ],
     },
     "nossas_page_navbar": {
@@ -124,9 +126,10 @@ CMS_PLACEHOLDER_CONF = {
             "TextPlugin",
             "GalleryPlugin",
             "ContainerPlugin",
-            "SliderPlugin"
-        ]
-    }
+            "SliderPlugin",
+            "ContainerPlugin",
+        ],
+    },
 }
 
 # DjangoCMS Picture
