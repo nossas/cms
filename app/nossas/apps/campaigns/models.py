@@ -25,7 +25,6 @@ class CampaignGroup(OnSiteBaseModel):
 
 class CampaignStatus(models.TextChoices):
     opened = "opened", "Aberta"
-    closed = "closed", "Fechada"
     done = "done", "Concluída"
 
 
