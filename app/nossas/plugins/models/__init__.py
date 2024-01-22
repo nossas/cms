@@ -3,5 +3,6 @@ from .boxmodel import *
 from .buttonmodel import *
 from .containermodel import *
 from .gridmodel import *
+from .headermodel import *
 from .navbarmodel import *
 from .slidermodel import *

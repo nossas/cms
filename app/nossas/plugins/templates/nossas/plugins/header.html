@@ -1,0 +1,16 @@
+{% load cms_tags %}
+
+<header class="{{ instance.classes}}">
+  <div class="container">
+        <div class="grid cms-plugin cms-plugin-14" style="row-gap: 0;">
+            <div class="d-flex flex-column g-col-4     cms-plugin cms-plugin-15" style="gap: 0; align-items: end; justify-content: flex-end;  ">
+                {% for plugin in instance.child_plugin_instances %}
+                    {% render_plugin plugin %}
+                {% endfor %}
+            </div>
+            <div class="d-flex flex-column g-col-8     cms-plugin cms-plugin-16" style="gap: 0; align-items: start; justify-content: flex-start;  ">
+                <div style="background-image: url('/media/filer_public_thumbnails/filer_public/04/6d/046ddeea-02b7-4dab-84f1-8027124faf13/vector1.svg__683x360.svg');background-repeat:no-repeat;background-size:100% 100%;width:100%;height:360px;" title="" class="cms-plugin cms-plugin-20"></div>
+            </div>
+        </div>
+    </div>
+</header>

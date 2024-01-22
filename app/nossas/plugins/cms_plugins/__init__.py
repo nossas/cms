@@ -7,5 +7,6 @@ from .container import *
 from .footer import *
 from .gallery import *
 from .grid import *
+from .header import *
 from .navbar import *
 from .slider import *
