@@ -14,21 +14,34 @@ class ContainerPlugin(UICMSPluginBase):
     render_template = "nossas/plugins/container.html"
     allow_children = True
     fieldsets = (
-        ("Atributos", {"fields": ["attributes"]}),
-        ("Fundo", {"fields": ["background"]})
+        (None, {"fields": ["attributes"]}),
+        ("Fundo", {"fields": ["background"]}),
+        ("Espaçamento", {"fields": [("padding")]}),
+        (
+            "Borda",
+            {"fields": [("border_start", "border_top", "border_end", "border_bottom")]},
+        ),
     )
-
-    def get_form(self, request, obj, change, **kwargs):
-        if not change:
-            self.form = ContainerPluginForm
-
-        return super().get_form(request, obj, change, **kwargs)
 
     def get_fieldsets(self, request, obj=None):
         if not obj:
             self.fieldsets = (
-                (None, {"fields": ["attributes"]}),
+                (None, {"fields": ["attributes", "layout"]}),
                 ("Fundo", {"fields": ["background"]}),
+                ("Espaçamento", {"fields": [("padding")]}),
+                (
+                    "Borda",
+                    {
+                        "fields": [
+                            (
+                                "border_start",
+                                "border_top",
+                                "border_end",
+                                "border_bottom",
+                            )
+                        ]
+                    },
+                ),
             )
 
         return super().get_fieldsets(request, obj)

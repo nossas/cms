@@ -1,5 +1,5 @@
-from nossas.design.models import UICMSPlugin, UIBackgroundMixin
+from nossas.design.models import UICMSPlugin, UIBackgroundMixin, UIPaddingMixin, UIBorderMixin
 
 
-class Container(UIBackgroundMixin, UICMSPlugin):
+class Container(UIBackgroundMixin, UIPaddingMixin, UIBorderMixin, UICMSPlugin):
     pass

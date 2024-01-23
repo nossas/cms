@@ -19,7 +19,7 @@ def import_mobilization(mobilization_id, current_site, current_user):
     campaign_group, created = CampaignGroup.on_site.get_or_create(
         name=mobilization.community.name,
         community_id=mobilization.community.id,
-        site=current_site
+        site=current_site,
     )
 
     campaign = Campaign.on_site.create(
@@ -27,7 +27,7 @@ def import_mobilization(mobilization_id, current_site, current_user):
         description_pt_br=mobilization.goal,
         mobilization_id=mobilization.id,
         hide=True,
-        status=CampaignStatus.closed
+        status=CampaignStatus.done
         if mobilization.status != MobilizationStatus.active
         else CampaignStatus.opened,
         campaign_group=campaign_group,
@@ -44,15 +44,11 @@ def import_mobilization(mobilization_id, current_site, current_user):
 
     if mobilization.subthemes.exists():
         updated = True
-        campaign.tags.add(
-            *list(map(lambda x: x.label, mobilization.subthemes.all()))
-        )
+        campaign.tags.add(*list(map(lambda x: x.label, mobilization.subthemes.all())))
 
     if mobilization.facebook_share_image:
         updated = True
-        result = urllib.request.urlretrieve(
-            mobilization.facebook_share_image
-        )
+        result = urllib.request.urlretrieve(mobilization.facebook_share_image)
 
         image = create_filer_image(
             current_user, f"mobilization_{mobilization.id}_image", result[0]
@@ -66,5 +62,6 @@ def import_mobilization(mobilization_id, current_site, current_user):
 
     if updated:
         campaign.save()
+        campaign.create_default_page()
 
     return campaign

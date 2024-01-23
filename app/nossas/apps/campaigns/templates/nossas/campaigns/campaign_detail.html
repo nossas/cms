@@ -3,7 +3,7 @@
 
 {% block content %}
 {% include "nossas/plugins/navbar.html" with instance=navbar  %}
-<div class="campaign-detail">
+<div class="campaign-detail bg-bege-nossas text-black">
     <div class="campaign-detail-header">
         <img
             src="{% if object.header_image %}{{ object.header_image.url }}{% else %}https://placehold.co/800@2x.png{% endif %}"
@@ -13,13 +13,12 @@
             {% include "nossas/graphics/group_21.svg" %}
         </div>
     </div>
-    <div class="campaign-detail-body container py-5">
-        <h2>{{ object.name }}</h2>
-
-        <div>
-        {% render_placeholder object.placeholder %}
+    <div class="campaign-detail-body py-5">
+        <div class="container">
+            <h1>{{ object.name }}</h1>
         </div>
+        {% render_placeholder object.placeholder %}
     </div>
 </div>
-
+{% include "nossas/plugins/site_footer.html"  %}
 {% endblock %}
