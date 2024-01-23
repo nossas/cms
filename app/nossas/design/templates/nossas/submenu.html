@@ -1,1 +1,12 @@
-{% include "nossas/menu.html" %}
+{% load menu_tags design_tags %}
+
+{% for split_child in children|split_menu:3 %}
+<div class="split-child">
+    {% for child in split_child %}
+    <li class="child{% if child.selected %} selected{% endif %}{% if child.ancestor %} ancestor{% endif %}{% if child.sibling %} sibling{% endif %}{% if child.descendant %} descendant{% endif %}">
+        
+        <a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{{ child.get_menu_title }}</a>
+    </li>
+    {% endfor %}
+</div>
+{% endfor %}

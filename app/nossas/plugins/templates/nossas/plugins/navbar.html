@@ -1,5 +1,8 @@
+{% load menu_tags %}
+
 <nav class="navbar fixed-top{% if instance and instance.classes %} {{ instance.classes }}{% endif %}" data-bs-theme="dark">
-    <div class="container-fluid">
+    {% comment %} Visible only mobile {% endcomment %}
+    <div class="container-fluid d-sm-none">
       <a class="navbar-brand" href="#">
         {% include "nossas/svg/brand.svg" %}
       </a>
@@ -10,37 +13,21 @@
         <!-- i18n -->
         {% include "nossas/includes/i18n.html" %}
       </div>
-      {% comment %} <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-          </li>
-        </ul>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-      </div> {% endcomment %}
+
       {% include "nossas/includes/menu/content.html" %}
     </div>
-  </nav>
+    {% comment %} Visible only desktop {% endcomment %}
+    <div class="container-fluid d-none d-sm-flex align-items-start">
+      <a class="navbar-brand" href="#">
+        {% include "nossas/svg/brand.svg" %}
+      </a>
+
+      <div class="d-flex align-items-start">
+        <ul class="navbar-nav me-auto flex-row gap-4">
+          {% show_menu 0 100 100 100 "nossas/mega_menu.html" %}
+        </ul>
+        <!-- i18n -->
+        {% include "nossas/includes/i18n.html" %}
+      </div>
+    </div>
+</nav>

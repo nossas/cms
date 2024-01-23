@@ -1,0 +1,28 @@
+.navbar {
+    .dropdown-menu {
+        border-radius: 0;
+    }
+
+    .dropdown-toggle.show + .mega-menu {
+        height: 160px;
+        border-top: 1px dotted white;
+    }
+
+    .mega-menu {
+        position: relative;
+        width: 100%;
+
+        .dropdown-menu.show {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            position: absolute;
+            top: 0;
+            margin-left: 0;
+        }
+
+        .split-child {
+            min-width: 190px;
+            padding-right: 20px;
+        }
+    }
+}
