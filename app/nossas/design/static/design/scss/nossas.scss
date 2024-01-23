@@ -14,12 +14,12 @@ $enable-cssgrid: true;
 
 // Container
 $container-max-widths: (
-  sm: 540px,
-  md: 720px,
-  lg: 848px,
-//   lg: 960px,
-//   xl: 1140px,
-//   xxl: 1320px
+    sm: 540px,
+    md: 720px,
+    lg: 848px,
+    //   lg: 960px,
+    //   xl: 1140px,
+    //   xxl: 1320px
 );
 
 // Card
@@ -231,7 +231,7 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
     svg {
         position: absolute;
         top: calc(164px - 35px);
-        left: calc(164px - 25px)
+        left: calc(164px - 25px);
     }
 
     .btn-card-description {
@@ -407,7 +407,6 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
     }
 
     .slider-full {
-
         .carousel-inner {
             background: no-repeat center center scroll;
             -webkit-background-size: cover;
@@ -446,7 +445,6 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
 
 // Accordion Team
 .accordion-team {
-    
     .accordion-header {
         position: relative;
 
@@ -523,6 +521,14 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
     }
 }
 
+#cms-top + .content .navbar.fixed-top + .campaign-detail {
+    margin-top: 67.5px;
+}
+
+.navbar.fixed-top + .campaign-detail {
+    margin-top: 47.5px;
+}
+
 .campaign-detail {
     .campaign-detail-header {
         position: relative;
@@ -532,6 +538,12 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
             height: 500px;
             background-size: contain;
             background-repeat: no-repeat;
+        }
+
+        @include media-breakpoint-down(md) {
+            img {
+                height: 280px;
+            }
         }
 
         svg {
