@@ -553,6 +553,14 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
     }
 }
 
+.footer {
+    .nav-link {
+        font-family: $headings-font-family;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+}
+
 // Helpers
 @import "bootstrap/scss/helpers";
 
