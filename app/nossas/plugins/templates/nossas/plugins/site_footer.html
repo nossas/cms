@@ -1,42 +1,53 @@
-<div class="bg-azul-nossas text-white px-4 px-sm-5 pt-5 pb-2">
-    <a class="footer-brand text-center" href="#">
-        {% include "nossas/svg/brand-lg.svg" %}
-    </a>
-    <d class="mt-4 text-center d-flex flex-col">
-        {% if request.current_site.institutionalinformation %}
-        <span>{{ request.current_site.institutionalinformation.address_line }}</span>
-        <span>{{ request.current_site.institutionalinformation.city }}/{{ request.current_site.institutionalinformation.state }} - CEP {{ request.current_site.institutionalinformation.zipcode }}</span>
-        <span>{{ request.current_site.institutionalinformation.contact_mail }}  |  {{ request.current_site.institutionalinformation.contact_phone }}</span>
-        {% endif %}
-    </p>
-    <div class="d-flex justify-content-between px-4 m-auto" style="width: 315px;">
-        <a href="#">
-          {% include "nossas/svg/instagram.svg" %}
+{% load menu_tags %}
+
+<div class="footer bg-azul-nossas text-white px-4 px-sm-5 pt-5 pb-2">
+  <div class="container" style="max-width:1124px;">
+    <div class="d-flex">
+      <div>
+        <a class="footer-brand text-center" href="#">
+            {% include "nossas/svg/brand-lg.svg" %}
         </a>
-        <a href="#">
-          {% include "nossas/svg/facebook.svg" %}
-        </a>
-        <a href="#">
-          {% include "nossas/svg/twitter.svg" %}
-        </a>
-        <a href="#">
-          {% include "nossas/svg/linkedin.svg" %}
-        </a>
-        <a href="#">
-          {% include "nossas/svg/youtube.svg" %}
-        </a>
-    </div>
-    <div class="d-flex flex-col py-4">
-        <div>
-          <a href="#" class="btn bg-white text-azul-nossas mb-2">
-              Trabalhe conosco
-          </a>
+        <d class="mt-4 text-center d-flex flex-col">
+            {% if request.current_site.institutionalinformation %}
+            <span>{{ request.current_site.institutionalinformation.address_line }}</span>
+            <span>{{ request.current_site.institutionalinformation.city }}/{{ request.current_site.institutionalinformation.state }} - CEP {{ request.current_site.institutionalinformation.zipcode }}</span>
+            <span>{{ request.current_site.institutionalinformation.contact_mail }}  |  {{ request.current_site.institutionalinformation.contact_phone }}</span>
+            {% endif %}
+        </p>
+        <div class="d-flex justify-content-between px-4 m-auto" style="width: 315px;">
+            <a href="#">
+              {% include "nossas/svg/instagram.svg" %}
+            </a>
+            <a href="#">
+              {% include "nossas/svg/facebook.svg" %}
+            </a>
+            <a href="#">
+              {% include "nossas/svg/twitter.svg" %}
+            </a>
+            <a href="#">
+              {% include "nossas/svg/linkedin.svg" %}
+            </a>
+            <a href="#">
+              {% include "nossas/svg/youtube.svg" %}
+            </a>
         </div>
-        <div>
-          <a href="#" class="btn bg-white text-azul-nossas">
-              Apoie o NOSSAS
-          </a>
+        <div class="d-flex flex-col py-4">
+            <div>
+              <a href="#" class="btn bg-white text-azul-nossas mb-2">
+                  Trabalhe conosco
+              </a>
+            </div>
+            <div>
+              <a href="#" class="btn bg-white text-azul-nossas">
+                  Apoie o NOSSAS
+              </a>
+            </div>
         </div>
+      </div>
+      <div class="d-none d-sm-flex flex-col flex-wrap fs-5 pt-5 ps-5" style="height:400px;">
+        {% show_menu 0 100 100 100 "nossas/footer_menu.html" %}
+      </div>
     </div>
-    <p>© 2023. NOSSAS. Site desenvolvido por Amí Comunicação & Design e Nome da Empresa de Desenvolvimento</p>
+    <p class="text-center">© 2023. NOSSAS. Site desenvolvido por Amí Comunicação & Design e Nome da Empresa de Desenvolvimento</p>
+  </div>
 </div>

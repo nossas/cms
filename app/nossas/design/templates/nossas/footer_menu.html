@@ -1,0 +1,10 @@
+{% load menu_tags %}
+
+{% for child in children %}
+<div class="mb-3 me-5 d-flex flex-col" style="max-width:216px;">
+    <a class="nav-link text-white" href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{{ child.get_menu_title }}</a>
+    {% if child.children %}
+    {% show_menu from_level to_level extra_inactive extra_active "nossas/footer_submenu.html" "" "" child %}
+    {% endif %}
+</div>
+{% endfor %}
