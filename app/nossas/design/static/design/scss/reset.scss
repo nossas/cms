@@ -2,10 +2,6 @@ figure {
     margin: 0;
 }
 
-#cms-top  + .content .navbar.fixed-top, #cms-top  + .content .navbar.fixed-top .offcanvas {
-    margin-top: 46px;
-}
-
 .cms-toolbar-left {
     display: flex;
 
@@ -21,10 +17,10 @@ figure {
     }
 }
 
-.navbar-collapse.show {
+.accordion-collapse.collapse {
     visibility: visible;
 }
 
-.accordion-collapse.collapse {
+.navbar-collapse.show {
     visibility: visible;
 }

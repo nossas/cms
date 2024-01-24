@@ -83,7 +83,7 @@ def build_colors():
 
         TEXT_COLORS = ";".join(
             [
-                f'--bs-{slugify(args[0])}-content:{args[1]}'
+                f"--bs-{slugify(args[0])}-content:{args[1]}"
                 for args in settings.DESIGN_THEME_TEXT_COLORS
             ]
         )
@@ -96,3 +96,9 @@ def build_colors():
         )
 
     return ""
+
+
+@register.filter
+def split_menu(children, n):
+    n = 3
+    return [children[i : i + n] for i in range(0, len(children), n)]
