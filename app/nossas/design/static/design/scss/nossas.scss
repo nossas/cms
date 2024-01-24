@@ -275,67 +275,6 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
     }
 }
 
-// Navbar / Dropdown
-.navbar .navbar-toggler,
-.navbar .navbar-toggler:focus {
-    border: none;
-    box-shadow: none;
-}
-
-.child {
-    .dropdown-toggle {
-        display: flex;
-        align-items: center;
-
-        .dropdown-icon {
-            margin-left: 5px;
-            width: 24px;
-            height: 24px;
-            display: inline-block;
-            background: $dropdown-icon;
-        }
-
-        &::after {
-            display: none;
-        }
-
-        &.show {
-            .dropdown-icon {
-                rotate: 180deg;
-            }
-        }
-    }
-
-    .dropdown-menu {
-        a {
-            font-size: $h5-font-size;
-            text-transform: none;
-        }
-    }
-}
-
-.navbar-nav {
-    text-transform: uppercase;
-    font-family: $headings-font-family;
-    font-size: $h4-font-size;
-
-    a {
-        color: $navbar-dark-color;
-        text-decoration: none;
-    }
-
-    .dropdown-toggle {
-        text-transform: uppercase;
-        color: $navbar-dark-color;
-    }
-
-    .dropdown-menu {
-        background: inherit;
-        border: none;
-        margin-left: $spacer;
-    }
-}
-
 // i18n
 .i18n-form {
     margin-bottom: 0;
@@ -554,14 +493,6 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
             overflow: hidden;
         }
     }
-}
-
-#cms-top + .content .navbar.fixed-top + .campaign-detail {
-    margin-top: 67.5px;
-}
-
-.navbar.fixed-top + .campaign-detail {
-    margin-top: 47.5px;
 }
 
 .campaign-detail {
