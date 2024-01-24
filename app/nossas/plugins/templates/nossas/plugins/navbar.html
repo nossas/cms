@@ -1,6 +1,6 @@
 {% load menu_tags %}
 
-<nav class="navbar{% if instance and instance.classes %} {{ instance.classes }}{% endif %}" data-bs-theme="dark">
+<nav class="navbar px-0 px-sm-4{% if instance and instance.classes %} {{ instance.classes }}{% endif %}" data-bs-theme="dark">
     {% comment %} Visible only mobile {% endcomment %}
     <div class="container-fluid d-sm-none">
       <a class="navbar-brand" href="#">

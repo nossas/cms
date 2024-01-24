@@ -5,7 +5,11 @@
 
     .dropdown-toggle.show + .mega-menu {
         height: 160px;
-        border-top: 1px dotted white;
+        border-top: 1px dotted var(--bs-mega-menu-border-color);
+    }
+
+    .dropdown-toggle.show svg {
+        rotate: 180deg;
     }
 
     .mega-menu {
@@ -75,13 +79,13 @@
     font-size: $h4-font-size;
 
     a {
-        color: $navbar-dark-color;
+        // color: $navbar-dark-color;
         text-decoration: none;
     }
 
     .dropdown-toggle {
         text-transform: uppercase;
-        color: $navbar-dark-color;
+        // color: $navbar-dark-color;
     }
 
     .dropdown-menu {

@@ -157,15 +157,15 @@ DESIGN_THEME_COLORS = [
 ]
 
 DESIGN_THEME_TEXT_COLORS = [
-    ("Azul NOSSAS", "rgb(248,173,57)"),
+    ("Azul NOSSAS", "rgb(247,247,237)"),
     ("Verde claro NOSSAS", "rgb(0,0,0)"),
     ("Bege NOSSAS", "rgb(140,173,106)"),
     ("Vermelho NOSSAS", "rgb(246,183,193)"),
-    ("Amarelo NOSSAS", "rgb(0,0,0)"),
+    ("Amarelo NOSSAS", "rgb(67,57,57)"),
     ("Rosa NOSSAS", "rgb(224,36,55)"),
     ("Verde NOSSAS", "rgb(255,255,255)"),
     ("Laranja NOSSAS", "rgb(255,255,255)"),
-    ("Cinza extra NOSSAS", "rgb(0,0,0)"),
+    ("Cinza extra NOSSAS", "rgb(247,247,237)"),
 ]
 
 # CKEditor

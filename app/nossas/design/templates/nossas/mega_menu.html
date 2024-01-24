@@ -6,7 +6,7 @@
     {% if child.children %}
     <button class="dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false">
         {{ child.get_menu_title }}
-        <i class="dropdown-icon"></i>
+        {% include "nossas/svg/chevron-down.svg" %}
     </button>
     <div class="mega-menu">
         <ul class="dropdown-menu w-100 mt-0" aria-labelledby="navbarDropdown">
