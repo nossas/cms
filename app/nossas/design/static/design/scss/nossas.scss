@@ -429,10 +429,45 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
 }
 
 // Footer
-.footer-brand {
-    display: block;
-    margin: 0 auto;
-    width: 214px;
+.footer {
+    border-top: 2px solid $dark;
+
+    .footer-brand {
+        display: block;
+        width: 214px;
+    }
+
+    .social-media {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .footer-btn-group {
+        a {
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+    }
+}
+
+@include media-breakpoint-down(md) {
+    .footer {
+        .footer-brand {
+            margin: 0 auto;
+        }
+
+        .social-media {
+            justify-content: space-between;
+            gap: 0;
+            padding: 0 ($spacer * 2);
+        }
+
+        .footer-btn-group {
+            > div {
+                margin: 0 auto;
+            }
+        }
+    }
 }
 
 // Button Group (Admin)
