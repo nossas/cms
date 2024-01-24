@@ -56,60 +56,6 @@ class BoxPlugin(UICMSPluginBase):
 
         return super().get_fieldsets(request, obj)
 
-    def create_header_box(self, obj):
-        placeholder = obj.placeholder
-        language = obj.language
-
-        # Child plugins
-
-        # Add Image inside Box
-        plugin_type = "PicturePlugin"
-        child_attrs = {
-            # Define fake image
-            "external_picture": "http://via.placeholder.com/640x360",
-            "template": "background",
-            "height": 360,
-        }
-        add_plugin(
-            placeholder=placeholder,
-            plugin_type=plugin_type,
-            language=language,
-            target=obj,
-            **child_attrs,
-        )
-
-        # Add Box inside Box
-        plugin_type = "BoxPlugin"
-        child_attrs = {
-            "attributes": {
-                "padding": [
-                    {"side": "t", "spacing": "3"},
-                    {"side": "b", "spacing": "4"},
-                    {"side": "x", "spacing": "5"},
-                ]
-            }
-        }
-        obj = add_plugin(
-            placeholder=placeholder,
-            plugin_type=plugin_type,
-            language=language,
-            target=obj,
-            **child_attrs,
-        )
-
-        # Add Text inside new Box
-        plugin_type = "TextPlugin"
-        child_attrs = {
-            "body": """<h1>Lorem ipsum</h1><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore ut enim ad minim veniam, quis nostrud exercitation.</p>"""
-        }
-        add_plugin(
-            placeholder=placeholder,
-            plugin_type=plugin_type,
-            language=language,
-            target=obj,
-            **child_attrs,
-        )
-
     def create_cta_box(self, obj):
         placeholder = obj.placeholder
         language = obj.language

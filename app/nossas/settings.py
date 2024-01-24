@@ -97,6 +97,7 @@ CMS_PLACEHOLDER_CONF = {
             "CampaignListPlugin",
             "ContainerPlugin",
             "GalleryPlugin",
+            "HeaderPlugin",
             "PicturePlugin",
             "SliderJobsPlugin",
             "SliderPlugin",

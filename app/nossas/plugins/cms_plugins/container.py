@@ -26,7 +26,6 @@ class ContainerPlugin(UICMSPluginBase):
     def get_fieldsets(self, request, obj=None):
         if not obj:
             self.fieldsets = (
-                (None, {"fields": ["attributes", "layout"]}),
                 ("Fundo", {"fields": ["background"]}),
                 ("Espaçamento", {"fields": [("padding")]}),
                 (
