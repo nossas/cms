@@ -21,8 +21,7 @@
         }
 
         .split-child {
-            min-width: 190px;
-            padding-right: 20px;
+            min-width: 200px;
         }
     }
 
@@ -34,6 +33,10 @@
     }
 
     .child {
+        font-size: 29px;
+        font-weight: bold;
+        line-height: 31px;
+
         .dropdown-toggle {
             display: flex;
             align-items: center;
@@ -60,7 +63,7 @@
         .dropdown-menu {
             a {
                 font-size: $h5-font-size;
-                text-transform: none;
+                // text-transform: none;
             }
         }
     }
