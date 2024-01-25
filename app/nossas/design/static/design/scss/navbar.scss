@@ -25,7 +25,11 @@
         }
 
         .split-child {
-            min-width: 200px;
+            min-width: 220px;
+
+            > .child {
+                padding-bottom: 11px;
+            }
         }
     }
 
@@ -63,20 +67,12 @@
                 }
             }
         }
-
-        .dropdown-menu {
-            a {
-                font-size: $h5-font-size;
-                // text-transform: none;
-            }
-        }
     }
 }
 
 .navbar-nav {
     text-transform: uppercase;
     font-family: $headings-font-family;
-    font-size: $h4-font-size;
 
     a {
         // color: $navbar-dark-color;
