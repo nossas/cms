@@ -34,3 +34,16 @@ button, input[type="submit"], input[type="reset"] {
 	cursor: pointer;
 	outline: inherit;
 }
+
+figcaption {
+    line-height: 25px;
+}
+
+figure + p, figure + div > p {
+    margin-top: 1.25rem;
+}
+
+p {
+    margin-bottom: 1.25rem;
+    line-height: 27.5px;
+}
