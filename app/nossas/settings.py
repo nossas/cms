@@ -145,7 +145,6 @@ DJANGOCMS_PICTURE_TEMPLATES = [
 # Design
 
 DESIGN_THEME_COLORS = [
-    ("Azul NOSSAS", "rgb(35,61,144)", "233D90"),
     ("Verde claro NOSSAS", "rgb(145,206,193)", "91CEC1"),
     ("Bege NOSSAS", "rgb(247,247,237)", "F7F7ED"),
     ("Vermelho NOSSAS", "rgb(224,36,55)", "E02437"),
@@ -154,10 +153,11 @@ DESIGN_THEME_COLORS = [
     ("Verde NOSSAS", "rgb(140,173,106)", "8CAD6A"),
     ("Laranja NOSSAS", "rgb(235,94,59)", "EB5E3B"),
     ("Cinza extra NOSSAS", "rgb(67,57,57)", "433939"),
+    # Obrigatoriamente precisa ser o ultimo da lista para sobrescrever outras cores
+    ("Azul NOSSAS", "rgb(35,61,144)", "233D90"),
 ]
 
 DESIGN_THEME_TEXT_COLORS = [
-    ("Azul NOSSAS", "rgb(247,247,237)"),
     ("Verde claro NOSSAS", "rgb(0,0,0)"),
     ("Bege NOSSAS", "rgb(140,173,106)"),
     ("Vermelho NOSSAS", "rgb(246,183,193)"),
@@ -166,6 +166,8 @@ DESIGN_THEME_TEXT_COLORS = [
     ("Verde NOSSAS", "rgb(255,255,255)"),
     ("Laranja NOSSAS", "rgb(255,255,255)"),
     ("Cinza extra NOSSAS", "rgb(247,247,237)"),
+    # Obrigatoriamente precisa ser o ultimo da lista para sobrescrever outras cores
+    ("Azul NOSSAS", "rgb(247,247,237)"),
 ]
 
 # CKEditor

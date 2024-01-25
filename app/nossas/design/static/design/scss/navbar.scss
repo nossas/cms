@@ -94,3 +94,25 @@
         margin-left: $spacer;
     }
 }
+
+.offcanvas-body {
+    .navbar-nav {
+        .child {
+            padding: 0 0 22px;
+            font-size: 42px;
+        }
+
+        .dropdown-menu {
+            max-width: 200px;
+
+            .child {
+                padding: 0 0 12px;
+                text-transform: none;
+                
+                a {
+                    font-size: 28px;
+                }
+            }
+        }
+    }
+}

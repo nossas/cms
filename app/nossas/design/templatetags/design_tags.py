@@ -64,7 +64,7 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
             fill: var(--#{$prefix}#{$color}-content);
         }
 
-        .dropdown-toggle > svg path {
+        .dropdown-toggle > svg path, .navbar-toggler > svg path {
             stroke: var(--#{$prefix}#{$color}-content);
         }
     }
