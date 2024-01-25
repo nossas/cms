@@ -162,7 +162,7 @@ DESIGN_THEME_TEXT_COLORS = [
     ("Bege NOSSAS", "rgb(140,173,106)"),
     ("Vermelho NOSSAS", "rgb(246,183,193)"),
     ("Amarelo NOSSAS", "rgb(67,57,57)"),
-    ("Rosa NOSSAS", "rgb(224,36,55)"),
+    ("Rosa NOSSAS", "rgb(67,57,57)"),
     ("Verde NOSSAS", "rgb(255,255,255)"),
     ("Laranja NOSSAS", "rgb(255,255,255)"),
     ("Cinza extra NOSSAS", "rgb(247,247,237)"),
