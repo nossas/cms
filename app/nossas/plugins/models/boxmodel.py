@@ -1,13 +1,15 @@
 from nossas.design.models import (
-    UICMSPlugin,
     UIBackgroundMixin,
     UIBorderMixin,
+    UIPaddingMixin,
+    UICMSPlugin
 )
 
 
 class Box(
     UIBackgroundMixin,
     UIBorderMixin,
-    UICMSPlugin,
+    UIPaddingMixin,
+    UICMSPlugin
 ):
     pass

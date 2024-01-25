@@ -76,7 +76,7 @@ class BoxPlugin(UICMSPluginBase):
         # Text Plugin
         plugin_type = "TextPlugin"
         child_attrs = {
-            "body": """<h1 style="text-align: center;">Lorem ipsum</h1><p style="text-align: center;">Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur.</p>"""
+            "body": """<h2 style="text-align: center;">Lorem ipsum</h2><p style="text-align: center;">Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur.</p>"""
         }
         text = add_plugin(
             placeholder=placeholder,
