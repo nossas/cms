@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils.translation import ugettext_lazy as _
 
 from filer.fields.image import FilerImageField
 from translated_fields import TranslatedField
@@ -8,6 +8,9 @@ from nossas.apps.basemodel import OnSiteBaseModel
 
 class MemberGroup(OnSiteBaseModel):
     name = TranslatedField(models.CharField(max_length=120), {"en": {"blank": True}})
+
+    class Meta:
+        verbose_name = _("Equipe")
 
     def __str__(self):
         return self.name
@@ -24,3 +27,6 @@ class Member(OnSiteBaseModel):
     member_group = models.ForeignKey(
         MemberGroup, on_delete=models.SET_NULL, blank=True, null=True
     )
+
+    class Meta:
+        verbose_name = _("Colaborador")
