@@ -1,0 +1,31 @@
+<!-- Button trigger modal -->
+<div class="btn-card d-flex gap-3" data-bs-toggle="modal" data-bs-target="#exampleModal{{instance.id}}">
+  <img src="{{ instance.picture.url }}" class="img-mask" />
+  {% include "nossas/graphics/group_30.svg" %}
+  <div class="btn-card-description">
+    <h4>{{ instance.full_name }}</h4>
+    <p>{{ instance.short_description }}</p>
+  </div>
+</div>
+  
+  <!-- Modal -->
+  <div class="modal modal-sm fade" id="exampleModal{{instance.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-verde-nossas">
+          <button type="button" class="btn-close-circle bg-rosa-nossas" data-bs-dismiss="modal" aria-label="Close">
+            {% include "nossas/graphics/group_30_90deg.svg" %}
+          </button>
+          <img src="{{ instance.picture.url }}" class="img-fluid img-mask" />
+        </div>
+        <div class="modal-body bg-bege-nossas text-black">
+          <div class="">
+            <h4>{{ instance.full_name }}</h4>
+            <p>{{ instance.short_description }}</p>
+            <hr class="breakline" />
+            <p>{{ instance.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
