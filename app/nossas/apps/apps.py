@@ -4,4 +4,4 @@ from django.utils.translation import ugettext_lazy as _
 
 class CampaignsConfig(AppConfig):
     name = "nossas.apps"
-    verbose_name = _("Aplicativos NOSSAS")
+    verbose_name = _("Aplicativos | NOSSAS")
