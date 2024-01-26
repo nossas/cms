@@ -273,16 +273,79 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
 }
 
 // i18n
+$height: 30;
+
 .i18n-form {
-    margin-bottom: 0;
 
-    .form-select {
-        border: none;
-        background-color: transparent !important;
+    label {
+        position: relative;
+        display: inline-block;
+        margin-left: $spacer * 2;
+        
+        &:before {
+            content: "";
+            height: ($height - 5) + px;
+            position: absolute;
+            right: 7px;
+            top: 3px;
+            width: 22px;
 
-        option {
-            color: $dark;
+            //background: -webkit-linear-gradient(#fff, #f0f0f0);
+            //background: -moz-linear-gradient(#fff, #f0f0f0);
+            //background: linear-gradient(#f5f5f5, #e0e0e0);
+            background: transparent; //for Firefox in Android
+
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+            pointer-events: none;
+            display: block;
         }
+        
+        &:after {
+            content: " ";
+            position: absolute;
+            right: 15px;
+            top: 46%;
+            margin-top: 2px;
+            z-index: 2;
+            pointer-events: none;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 6.9px 4px 0 4px;
+            border-color: var(--bs-dropdown-color) transparent transparent transparent;
+            pointer-events: none;
+        }
+        select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            padding: 0 30px 0 0;
+
+            font-family: $headings-font-family;
+            font-weight: bold;
+            border-radius: 3px;
+            line-height: $height + px;
+            height: $height + px;
+            //box-shadow: inset 1px 1px 1px 0px rgba(0, 0, 0, 0.2);
+            background: transparent;
+
+            //min-width: 200px;
+            margin: 10px 0 0 0;
+
+            &:focus-visible {
+                border: none;
+                outline: none;
+            }
+
+            option {
+                background: var(--bs-mega-menu-background);
+            }
+        }
+    }
+    //fix for ie 10 later
+    select::-ms-expand {
+        display: none;
     }
 }
 
