@@ -31,6 +31,10 @@ class InstitutionalInformationAdmin(admin.ModelAdmin):
             obj.site = request.current_site
 
         return super().save_model(request, obj, form, change)
+    
+    def has_module_permission(self, request) -> bool:
+        # Remove from index admin page
+        return False
 
 
 admin.site.register(InstitutionalInformation, InstitutionalInformationAdmin)
