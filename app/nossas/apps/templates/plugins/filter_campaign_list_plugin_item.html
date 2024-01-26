@@ -1,0 +1,11 @@
+{% load sekizai_tags %}
+<a href="{{ instance.get_absolute_url }}" class="text-reset text-decoration-none">
+    <div class="campaign-card d-flex flex-column">
+        <img src="{{ instance.picture.url }}" class="img-fluid" />
+        <span class="tag {% if instance.status == 'opened' %}bg-verde-nossas{% elif instance.status == 'closed' %}bg-vermelho-nossas{% endif %}">{{ instance.get_status_display }}</span>
+        <div class="campaign-card-body px-3 py-3">
+            <h4>{{ instance.name }}</h4>
+            <p>{{ instance.description }}</p>
+        </div>
+    </div>
+</a>

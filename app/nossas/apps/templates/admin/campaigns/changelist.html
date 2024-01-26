@@ -1,0 +1,18 @@
+{% extends 'admin/change_list.html' %}
+{% load static %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static "campaigns/css/admin.css" %}" />
+{% endblock %}
+
+{% block object-tools-items %}
+    <li class="campaign-object-tools-import">
+        <form action="import/" method="POST">
+            {% csrf_token %}
+            <input type="number" name="mobilization_id" />
+            <button type="submit">Importar</button>
+        </form>
+    </li>
+    {{ block.super }}
+{% endblock %}
