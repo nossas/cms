@@ -7,7 +7,10 @@ from nossas.apps.basemodel import OnSiteBaseModel
 
 
 class MemberGroup(OnSiteBaseModel):
-    name = TranslatedField(models.CharField(max_length=120), {"en": {"blank": True}})
+    name = TranslatedField(
+        models.CharField(verbose_name=_("Nome da equipe"), max_length=120),
+        {"en": {"blank": True}},
+    )
 
     class Meta:
         verbose_name = _("Equipe")
@@ -17,16 +20,30 @@ class MemberGroup(OnSiteBaseModel):
 
 
 class Member(OnSiteBaseModel):
-    picture = FilerImageField(on_delete=models.SET_NULL, blank=True, null=True)
-    short_name = models.CharField(max_length=80, blank=True, null=True)
-    full_name = models.CharField(max_length=150)
-    short_description = TranslatedField(
-        models.CharField(max_length=255), {"en": {"blank": True}}
+    picture = FilerImageField(
+        verbose_name=_("Foto"), on_delete=models.SET_NULL, blank=True, null=True
     )
-    description = TranslatedField(models.TextField(), {"en": {"blank": True}})
+    short_name = models.CharField(
+        verbose_name=_("Nome"), max_length=80, blank=True, null=True
+    )
+    full_name = models.CharField(verbose_name=_("Nome completo"), max_length=150)
+    short_description = TranslatedField(
+        models.CharField(verbose_name=_("Descrição curta"), max_length=255),
+        {"en": {"blank": True}},
+    )
+    description = TranslatedField(
+        models.TextField(verbose_name=_("Descrição completa")), {"en": {"blank": True}}
+    )
     member_group = models.ForeignKey(
-        MemberGroup, on_delete=models.SET_NULL, blank=True, null=True
+        MemberGroup,
+        verbose_name=_("Equipe"),
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
     )
 
     class Meta:
         verbose_name = _("Colaborador")
+    
+    def __str__(self):
+        return self.short_name
