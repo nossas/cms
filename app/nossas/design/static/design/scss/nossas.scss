@@ -466,56 +466,6 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
     }
 }
 
-// Campaign
-.campaign-card {
-    position: relative;
-    width: 375px;
-    // border: 1px solid #000;
-
-    img {
-        height: 224px;
-    }
-
-    .tag {
-        position: absolute;
-        top: 224px - 18px;
-        right: 12px;
-    }
-
-    .campaign-card-body {
-        height: 170px;
-
-        p {
-            height: 100px;
-            overflow: hidden;
-        }
-    }
-}
-
-.campaign-detail {
-    .campaign-detail-header {
-        position: relative;
-
-        img {
-            width: 100%;
-            height: 500px;
-            background-size: contain;
-            background-repeat: no-repeat;
-        }
-
-        @include media-breakpoint-down(md) {
-            img {
-                height: 280px;
-            }
-        }
-
-        svg {
-            position: absolute;
-            bottom: -48px;
-        }
-    }
-}
-
 .footer {
     .institutional {
         font-size: 21px;
@@ -538,6 +488,7 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
 }
 
 @import "design/scss/navbar";
+@import "design/scss/campaign";
 
 // Helpers
 @import "bootstrap/scss/helpers";
