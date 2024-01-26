@@ -18,12 +18,9 @@ INSTALLED_APPS += [
     "compressor",
     #
     "nossas",
+    "nossas.apps",
     "nossas.design",
     "nossas.plugins",
-    "nossas.apps.campaigns",
-    "nossas.apps.team",
-    "nossas.apps.jobs",
-    "nossas.apps.institutional",
     # Override HTMLs
     "djangocms_frontend",
     "djangocms_frontend.contrib.utilities",
@@ -80,6 +77,22 @@ ROOT_URLCONF = "nossas.urls"
 
 # CMS
 
+NOSSAS_CONTENT_PLUGINS = [
+    "AccordionPlugin",
+    # "BoxPlugin",
+    "BreadcrumbPlugin",
+    "BreaklinePlugin",
+    "CampaignListPlugin",
+    # "ContainerPlugin",
+    "GalleryPlugin",
+    "HeaderPlugin",
+    "PicturePlugin",
+    "SliderJobsPlugin",
+    "SliderPlugin",
+    "TeamAccordionPlugin",
+    "TextPlugin",
+]
+
 CMS_TEMPLATES = [
     ("nossas/page.html", "NOSSAS Página"),
     ("nossas/home.html", "NOSSAS Home Full Page"),
@@ -89,21 +102,7 @@ CMS_PLACEHOLDER_CONF = {
     **CMS_PLACEHOLDER_CONF,
     "nossas_page_content": {
         "name": "Corpo da página",
-        "plugins": [
-            "AccordionPlugin",
-            "BoxPlugin",
-            "BreadcrumbPlugin",
-            "BreaklinePlugin",
-            "CampaignListPlugin",
-            "ContainerPlugin",
-            "GalleryPlugin",
-            "HeaderPlugin",
-            "PicturePlugin",
-            "SliderJobsPlugin",
-            "SliderPlugin",
-            "TeamAccordionPlugin",
-            "TextPlugin",
-        ],
+        "plugins": NOSSAS_CONTENT_PLUGINS + ["ContainerPlugin"],
     },
     "nossas_page_navbar": {
         "name": "Navegação",

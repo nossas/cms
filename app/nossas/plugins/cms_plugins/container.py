@@ -1,9 +1,12 @@
+from django.conf import settings
+
 from cms.plugin_pool import plugin_pool
 
 from nossas.design.cms_plugins import UICMSPluginBase
 
 from nossas.plugins.models.containermodel import Container
 from nossas.plugins.forms.containerform import ContainerPluginForm
+
 
 @plugin_pool.register_plugin
 class ContainerPlugin(UICMSPluginBase):
@@ -13,6 +16,7 @@ class ContainerPlugin(UICMSPluginBase):
     form = ContainerPluginForm
     render_template = "nossas/plugins/container.html"
     allow_children = True
+    child_classes = settings.NOSSAS_CONTENT_PLUGINS or []
     fieldsets = (
         (None, {"fields": ["attributes"]}),
         ("Fundo", {"fields": ["background"]}),
