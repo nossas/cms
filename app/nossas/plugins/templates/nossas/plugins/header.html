@@ -1,96 +1,18 @@
 {% load cms_tags %}
 
 <header class="header {{ instance.classes}}">
-    <div class="container" style="max-width:1124px;">
+    <div class="container">
         <div class="grid">
             <div class="header-box-col g-col-lg-4 g-col-md-6 g-col-12">
-                {% for plugin in instance.child_plugin_instances %}
-                    {% if plugin.plugin_type == 'BoxPlugin' %}
-                        {% render_plugin plugin %}
-                    {% endif %}
-                {% endfor %}
+            {% for plugin in instance.child_plugin_instances %}
+                {% render_plugin plugin %}
+            {% endfor %}
             </div>
         </div>
     </div>
+    {% if instance.picture %}
     <div class="header-background-col">
-        {% for plugin in instance.child_plugin_instances %}
-            {% if plugin.plugin_type == 'PicturePlugin' %}
-                {% for url in picture_urls %}
-                    <div class="header-background-img" style="background-image: url('{{ url }}');"></div>
-                {% endfor %}
-            {% endif %}
-        {% endfor %}
+        <div class="header-background-img" style="background-image: url('{{ instance.picture.url }}');"></div>
     </div>
+    {% endif %}
 </header>
-
-{% block extrastyle %}
-    <style>
-        .header {
-            display: flex;
-            min-height: 24rem;
-            position: relative;
-        }
-
-        .header .container {
-            position: relative;
-            z-index: 1;
-        }
-
-        .header .grid {
-            height: 100%;
-        }
-
-        .header-box-col {
-            display: flex;
-            align-items: end;
-            padding-bottom: 0;
-        }
-
-        .header-background-col {
-            margin-top: 0;
-            position: absolute;
-            right: 0;
-            top: 0;
-            width: 100%;
-        }
-
-        .header-background-img {
-            background-position-x: center;
-            background-repeat: no-repeat;
-            background-size: 100%;
-            height: 275px;
-            width: 100%;
-        }
-
-        @media (min-width: 768px) {
-            .header {
-                min-height: 35rem;
-            }
-
-            .header-box-col {
-                padding-bottom: 4rem;
-            }
-
-            .header-background-col {
-                width: 70%;
-            }
-
-            .header-background-img {
-                height: 350px;
-            }
-        }
-
-        @media (min-width: 992px) {
-            .header-background-img {
-                background-position-x: right;
-                background-size: 95%;
-                height: 500px;
-            }
-
-            .header-background-col {
-                width: 50%;
-                margin-top: 0;
-            }
-        }
-    </style>
-{% endblock %}
