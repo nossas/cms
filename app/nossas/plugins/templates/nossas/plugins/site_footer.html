@@ -1,13 +1,13 @@
 {% load menu_tags %}
 
 <div class="footer bg-azul-nossas text-white px-4 pt-5 pb-2">
-  <div class="container" style="max-width:1124px;">
+  <div class="container-fluid">
     <div class="d-flex justify-content-center">
       <div>
         <a class="footer-brand" href="#">
             {% include "nossas/svg/brand-lg.svg" %}
         </a>
-        <p class="mt-4 text-center text-md-start d-flex flex-col">
+        <p class="institutional mt-4 text-center text-md-start d-flex flex-col">
             {% if request.current_site.institutionalinformation %}
             <span>{{ request.current_site.institutionalinformation.address_line }}</span>
             <span>{{ request.current_site.institutionalinformation.city }}/{{ request.current_site.institutionalinformation.state }} - CEP {{ request.current_site.institutionalinformation.zipcode }}</span>
@@ -44,10 +44,10 @@
             </div>
         </div>
       </div>
-      <div class="d-none d-sm-flex flex-col flex-wrap fs-5 pt-5 ps-5" style="height:400px;">
+      <div class="d-none d-sm-flex flex-col flex-wrap pt-5 ps-5" style="height:450px;">
         {% show_menu 0 100 100 100 "nossas/footer_menu.html" %}
       </div>
     </div>
-    <p class="text-center">© 2023. NOSSAS. Site desenvolvido por Amí Comunicação & Design e Nome da Empresa de Desenvolvimento</p>
+    <p class="footer-line">© 2023. NOSSAS. Site desenvolvido por Amí Comunicação & Design e Nome da Empresa de Desenvolvimento</p>
   </div>
 </div>

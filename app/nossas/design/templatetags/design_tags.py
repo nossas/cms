@@ -53,6 +53,20 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
     .bg-#{$color}, .tag-#{$color} {
         background-color: $value;
         color: var(--#{$prefix}#{$color}-content);
+
+        a, a:hover, .dropdown-menu, .mega-menu {
+            --bs-mega-menu-border-color: var(--#{$prefix}#{$color}-content);
+            --bs-dropdown-color: var(--#{$prefix}#{$color}-content);
+            --bs-link-color-rgb: var(--#{$prefix}#{$color}-content);
+        }
+
+        .navbar-brand > svg path {
+            fill: var(--#{$prefix}#{$color}-content);
+        }
+
+        .dropdown-toggle > svg path, .navbar-toggler > svg path {
+            stroke: var(--#{$prefix}#{$color}-content);
+        }
     }
     .btn-#{$color} {
         --bs-btn-color: var(--#{$prefix}#{$color}-content) !important;

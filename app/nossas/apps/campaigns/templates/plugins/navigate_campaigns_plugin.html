@@ -1,5 +1,5 @@
 {% load i18n %}
-<div class="py-5">
+<div class="navigate-campaigns-plugin py-5">
     <div class="container d-flex gap-2 align-items-end mb-4">
         {% include "nossas/graphics/group_18.svg" %}
         <h2>{% translate "Navegue por outras campanhas" %}
@@ -9,7 +9,7 @@
         {% include 'plugins/filter_campaign_list_plugin_item.html' with instance=campaign %}
         {% endfor %}
     </div>
-    <div class="container d-flex justify-content-center mt-2">
-        <a class="btn btn-dark text-white" href="/o-que-fazemos/campanhas/">Ver todas as campanhas</a>
+    <div class="container d-flex justify-content-center mt-4">
+        <a class="btn btn-dark" href="/o-que-fazemos/campanhas/">Ver todas as campanhas</a>
     </div>
 </div>
