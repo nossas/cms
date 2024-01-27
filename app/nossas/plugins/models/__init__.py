@@ -4,5 +4,6 @@ from .buttonmodel import *
 from .containermodel import *
 from .gridmodel import *
 from .headermodel import *
+from .headlinemodel import *
 from .navbarmodel import *
 from .slidermodel import *
