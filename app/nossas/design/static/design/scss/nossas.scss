@@ -483,8 +483,12 @@ $height: 30;
     .accordion-header {
         position: relative;
 
+        strong {
+            margin-left: 1.5rem;
+        }
+
         .accordion-button {
-            padding: 30px 20px 30px 80px;
+            padding: 30px 20px 30px 72px;
 
             svg {
                 position: absolute;
