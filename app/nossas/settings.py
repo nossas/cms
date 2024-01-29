@@ -91,6 +91,7 @@ NOSSAS_CONTENT_PLUGINS = [
     "SliderPlugin",
     "TeamAccordionPlugin",
     "TextPlugin",
+    "BootstrapGridPlugin",
 ]
 
 CMS_TEMPLATES = [

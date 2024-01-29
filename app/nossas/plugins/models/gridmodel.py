@@ -1,6 +1,15 @@
 from django.db import models
 from cms.plugin_base import CMSPlugin
 
+layout_dict = {
+    "g-col-12": 1,
+    "g-col-12 g-col-md-6": 2,
+    "g-col-12 g-col-md-4": 3,
+    "g-col-12 g-col-md-3": 4,
+    "g-col-12 g-col-md-2": 6,
+    "g-col-12 g-col-md-1": 12,
+}
+
 
 class GridLayoutChoices(models.TextChoices):
     grid_auto = " ", "Auto"
@@ -76,16 +85,16 @@ class ColumnStartAtChoices(models.TextChoices):
 
 class ColumnItemsSpacingChoices(models.TextChoices):
     gap_0 = "gap: 0;", "Sem espaçamento"
-    gap_sm = "gap: 4px;","Pequeno"
-    gap_md = "gap: 6px;","Médio"
+    gap_sm = "gap: 4px;", "Pequeno"
+    gap_md = "gap: 6px;", "Médio"
     gap_lg = "gap: 8px;", "Grande"
     gap_xl = "gap: 12px;", "Muito Grande"
 
 
 class YAlignmentChoices(models.TextChoices):
     left = "justify-content: flex-start;", "Acima"
-    center = "justify-content: center;","Ao centro"
-    right = "justify-content: flex-end;","Abaixo"
+    center = "justify-content: center;", "Ao centro"
+    right = "justify-content: flex-end;", "Abaixo"
 
 
 class XAlignmentChoices(models.TextChoices):
@@ -94,13 +103,13 @@ class XAlignmentChoices(models.TextChoices):
     end = "align-items: end;", "Direita"
 
 
-class Column(CMSPlugin): 
+class Column(CMSPlugin):
     col = models.CharField(
         "Coluna",
         choices=ColumnChoices.choices,
         default=ColumnChoices.auto,
         max_length=15,
-        help_text="Defina manualmente o número de colunas que esta coluna ocupará."
+        help_text="Defina manualmente o número de colunas que esta coluna ocupará.",
     )
     alignment_x = models.CharField(
         "Alinhamento horizontal",
@@ -119,19 +128,19 @@ class Column(CMSPlugin):
         choices=ColumnItemsSpacingChoices.choices,
         default=ColumnItemsSpacingChoices.gap_0,
         max_length=15,
-        help_text="Selecione o espaçamento dos itens dentro da coluna."
+        help_text="Selecione o espaçamento dos itens dentro da coluna.",
     )
     rows = models.CharField(
         "Linhas",
         choices=RowChoices.choices,
         default=RowChoices.auto,
         max_length=15,
-        help_text="Escolha manualmente o número da linha que esta coluna ocupará."
+        help_text="Escolha manualmente o número da linha que esta coluna ocupará.",
     )
     col_start_at = models.CharField(
         "Inicio da coluna na linha",
         choices=ColumnStartAtChoices.choices,
         default=ColumnStartAtChoices.auto,
         max_length=30,
-        help_text="Defina em qual coluna o elemento deve iniciar."
+        help_text="Defina em qual coluna o elemento deve iniciar.",
     )
