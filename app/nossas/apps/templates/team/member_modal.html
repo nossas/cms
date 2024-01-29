@@ -1,5 +1,5 @@
 <!-- Button trigger modal -->
-<div class="btn-card d-flex gap-3" data-bs-toggle="modal" data-bs-target="#exampleModal{{instance.id}}">
+<div class="g-col-12 g-col-md-6 btn-card d-flex gap-3" data-bs-toggle="modal" data-bs-target="#teamModal{{instance.id}}">
   <img src="{{ instance.picture.url }}" class="img-mask" />
   {% include "nossas/graphics/group_30.svg" %}
   <div class="btn-card-description">
@@ -9,11 +9,11 @@
 </div>
   
   <!-- Modal -->
-  <div class="modal modal-sm fade" id="exampleModal{{instance.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal modal-sm fade" id="teamModal{{instance.id}}" tabindex="-1" aria-labelledby="teamModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header bg-verde-nossas">
-          <button type="button" class="btn-close-circle bg-rosa-nossas" data-bs-dismiss="modal" aria-label="Close">
+          <button type="button" class="btn-close-circle bg-rosa-nossas" data-bs-dismiss="modal" aria-label="Fechar">
             {% include "nossas/graphics/group_30_90deg.svg" %}
           </button>
           <img src="{{ instance.picture.url }}" class="img-fluid img-mask" />

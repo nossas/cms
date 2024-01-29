@@ -9,9 +9,11 @@
         </h2>
         <div id="collapse{{member_group.id}}" class="accordion-collapse collapse" data-bs-parent="#accordion{{ instance.id }}">
             <div class="accordion-body">
-                {% for member in member_group.member_set.all %}
-                {% include 'team/member_modal.html' with instance=member %}
-                {% endfor %}
+                <div class="grid">
+                    {% for member in member_group.member_set.all %}
+                        {% include 'team/member_modal.html' with instance=member %}
+                    {% endfor %}
+                </div>
             </div>
           </div>
     </div>

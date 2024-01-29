@@ -522,8 +522,9 @@ $height: 30;
         border-bottom: none;
 
         img {
-            position: absolute;
             height: 250px;
+            max-width: 290px;
+            position: absolute;
             top: 15px;
             z-index: 1;
         }
@@ -570,6 +571,12 @@ $height: 30;
 
 .headline img {
     margin-right: 1.5rem;
+}
+
+@include media-breakpoint-down(lg) {
+    .headline-content {
+        position: unset;
+    }
 }
 
 @import "design/scss/navbar";
