@@ -51,11 +51,13 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 // Create constrast
 @each $color, $value in $theme-colors {
     .bg-#{$color}, .tag-#{$color} {
+        --bs-mega-menu-background: var(--#{$prefix}#{$color});
+        --bs-mega-menu-border-color: var(--#{$prefix}#{$color}-content);
+
         background-color: $value;
         color: var(--#{$prefix}#{$color}-content);
 
-        a, a:hover, .dropdown-menu, .mega-menu {
-            --bs-mega-menu-border-color: var(--#{$prefix}#{$color}-content);
+        a, a:hover, .dropdown-menu, .mega-menu, label, select {
             --bs-dropdown-color: var(--#{$prefix}#{$color}-content);
             --bs-link-color-rgb: var(--#{$prefix}#{$color}-content);
         }
@@ -74,7 +76,7 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
         --bs-btn-active-color: var(--#{$prefix}#{$color}-content) !important;
     }
     .text-#{$color} {
-        color: $value;
+        color: $value !important;
 
         &.btn {
             color: $value;

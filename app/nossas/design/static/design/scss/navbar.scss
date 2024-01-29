@@ -4,7 +4,6 @@
     }
 
     .dropdown-toggle.show + .mega-menu {
-        height: 160px;
         border-top: 1px dotted var(--bs-mega-menu-border-color);
     }
 
@@ -20,7 +19,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             position: absolute;
-            top: 0;
+            top: 15px;
             margin-left: 0;
         }
 

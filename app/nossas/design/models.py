@@ -1,6 +1,16 @@
 from django.db import models
+from django.utils.html import strip_tags
 
 from cms.models.pluginmodel import CMSPlugin
+
+
+class NamingPluginMixin:
+    def __str__(self):
+        text = self.get_children().filter(plugin_type="TextPlugin").first()
+        if text:
+            return strip_tags(text.get_bound_plugin().body)
+
+        return super().__str__()
 
 
 class UICMSPlugin(CMSPlugin):

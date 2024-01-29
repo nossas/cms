@@ -18,33 +18,27 @@ class ContainerPlugin(UICMSPluginBase):
     allow_children = True
     child_classes = settings.NOSSAS_CONTENT_PLUGINS or []
     fieldsets = (
-        (None, {"fields": ["attributes"]}),
-        ("Fundo", {"fields": ["background"]}),
-        ("Espaçamento", {"fields": [("padding")]}),
+        (None, {"fields": ["attributes", "background"]}),
+        (
+            "Espaçamento",
+            {
+                "fields": [("padding")],
+                "classes": ["collapse"],
+            },
+        ),
         (
             "Borda",
-            {"fields": [("border_start", "border_top", "border_end", "border_bottom")]},
+            {
+                "fields": [
+                    ("border_start", "border_top", "border_end", "border_bottom")
+                ],
+                "classes": ["collapse"],
+            },
         ),
     )
 
-    def get_fieldsets(self, request, obj=None):
-        if not obj:
-            self.fieldsets = (
-                ("Fundo", {"fields": ["background"]}),
-                ("Espaçamento", {"fields": [("padding")]}),
-                (
-                    "Borda",
-                    {
-                        "fields": [
-                            (
-                                "border_start",
-                                "border_top",
-                                "border_end",
-                                "border_bottom",
-                            )
-                        ]
-                    },
-                ),
-            )
+    def save_model(self, request, obj, form, change):
+        if not change and "padding" in obj.attributes.keys():
+            obj.attributes.update({"padding": [{"side": "y", "spacing": "4"}]})
 
-        return super().get_fieldsets(request, obj)
+        return super().save_model(request, obj, form, change)

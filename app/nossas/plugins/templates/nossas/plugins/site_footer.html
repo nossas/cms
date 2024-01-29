@@ -4,7 +4,7 @@
   <div class="container-fluid">
     <div class="d-flex justify-content-center">
       <div>
-        <a class="footer-brand" href="#">
+        <a class="footer-brand" href="{{ request.scheme|add:'://'|add:request.current_site.domain }}">
             {% include "nossas/svg/brand-lg.svg" %}
         </a>
         <p class="institutional mt-4 text-center text-md-start d-flex flex-col">
@@ -15,30 +15,30 @@
             {% endif %}
         </p>
         <div class="social-media" style="width: 315px;">
-            <a href="#">
+            <a href="https://instagram.com/_nossas">
               {% include "nossas/svg/instagram.svg" %}
             </a>
-            <a href="#">
+            <a href="https://www.facebook.com/nossasorg/">
               {% include "nossas/svg/facebook.svg" %}
             </a>
-            <a href="#">
+            <a href="https://www.twitter.com/_nossas">
               {% include "nossas/svg/twitter.svg" %}
             </a>
-            <a href="#">
+            <a href="https://www.linkedin.com/company/nossas/">
               {% include "nossas/svg/linkedin.svg" %}
             </a>
-            <a href="#">
+            <a href="https://www.youtube.com/nossas">
               {% include "nossas/svg/youtube.svg" %}
             </a>
         </div>
         <div class="footer-btn-group d-flex flex-col py-4">
             <div>
-              <a href="#" class="btn bg-white text-azul-nossas mb-2">
+              <a href="/quem-somos/trabalhe-conosco" class="btn bg-white text-azul-nossas mb-2">
                   Trabalhe conosco
               </a>
             </div>
             <div>
-              <a href="#" class="btn bg-white text-azul-nossas">
+              <a href="/apoie" class="btn bg-white text-azul-nossas">
                   Apoie o NOSSAS
               </a>
             </div>

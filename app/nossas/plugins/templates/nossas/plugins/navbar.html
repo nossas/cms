@@ -3,7 +3,7 @@
 <nav class="navbar px-0 px-sm-4{% if instance and instance.classes %} {{ instance.classes }}{% endif %}" data-bs-theme="dark">
     {% comment %} Visible only mobile {% endcomment %}
     <div class="container-fluid d-sm-none">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="{{ request.scheme|add:'://'|add:request.current_site.domain }}">
         {% include "nossas/svg/brand.svg" %}
       </a>
 
@@ -18,7 +18,7 @@
     </div>
     {% comment %} Visible only desktop {% endcomment %}
     <div class="container-fluid d-none d-sm-flex align-items-start">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="{{ request.scheme|add:'://'|add:request.current_site.domain }}">
         {% include "nossas/svg/brand.svg" %}
       </a>
 

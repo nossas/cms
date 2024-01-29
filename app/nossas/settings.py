@@ -10,8 +10,8 @@ DATABASES.update(
 )
 
 # Apps
-
-INSTALLED_APPS += [
+# Used to override plugins template
+INSTALLED_APPS =  ["nossas.design"] + INSTALLED_APPS + [
     "django_jsonform",
     "tag_fields",
     # Build Bootstrap SCSS
@@ -19,7 +19,6 @@ INSTALLED_APPS += [
     #
     "nossas",
     "nossas.apps",
-    "nossas.design",
     "nossas.plugins",
     # Override HTMLs
     "djangocms_frontend",
@@ -92,6 +91,7 @@ NOSSAS_CONTENT_PLUGINS = [
     "SliderPlugin",
     "TeamAccordionPlugin",
     "TextPlugin",
+    "BootstrapGridPlugin",
 ]
 
 CMS_TEMPLATES = [
@@ -103,7 +103,7 @@ CMS_PLACEHOLDER_CONF = {
     **CMS_PLACEHOLDER_CONF,
     "nossas_page_content": {
         "name": "Corpo da página",
-        "plugins": NOSSAS_CONTENT_PLUGINS + ["ContainerPlugin"],
+        "plugins": NOSSAS_CONTENT_PLUGINS + ["ContainerPlugin", "BoxPlugin"],
     },
     "nossas_page_navbar": {
         "name": "Navegação",
