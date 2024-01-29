@@ -1,6 +1,7 @@
 from django.db import models
 from cms.plugin_base import CMSPlugin
 
+
 class HeadlineIconChoices(models.TextChoices):
     icon_rosa = "icon-rosa.svg", "Rosa"
     icon_azul = "icon-azul.svg", "Azul"
@@ -11,8 +12,10 @@ class HeadlineIconChoices(models.TextChoices):
 
 
 class Headline(CMSPlugin):
-    title = models.TextField(verbose_name="Título")
-    icon = models.CharField(choices=HeadlineIconChoices.choices, max_length=120, blank=True, null=True)
+    title = models.CharField(verbose_name="Título", max_length=180)
+    icon = models.CharField(
+        choices=HeadlineIconChoices.choices, max_length=120, blank=True, null=True
+    )
 
     @property
     def get_full_path_icon(self):
