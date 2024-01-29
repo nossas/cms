@@ -86,6 +86,7 @@ NOSSAS_CONTENT_PLUGINS = [
     # "ContainerPlugin",
     "GalleryPlugin",
     "HeaderPlugin",
+    "HeadlinePlugin",
     "PicturePlugin",
     "SliderJobsPlugin",
     "SliderPlugin",

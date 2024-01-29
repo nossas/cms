@@ -487,6 +487,27 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
     }
 }
 
+// Headline
+.headline {
+    position: relative;
+    height: 5rem;
+}
+
+.headline-content {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: -30px;
+}
+
+.headline h2 {
+    margin: 0;
+}
+
+.headline img {
+    margin-right: 1.5rem;
+}
+
 @import "design/scss/navbar";
 @import "design/scss/campaign";
 
