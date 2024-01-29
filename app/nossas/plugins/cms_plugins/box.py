@@ -51,6 +51,9 @@ class BoxPlugin(UICMSPluginBase):
                 "link_type": "btn",
                 "external_link": "https://nossas.org",
                 "name": "Call to action",
+                "attributes": {
+                    "class": obj.attributes.get("background").replace("bg-", "text-")
+                },
             }
         }
         add_plugin(
