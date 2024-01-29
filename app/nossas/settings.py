@@ -10,8 +10,8 @@ DATABASES.update(
 )
 
 # Apps
-
-INSTALLED_APPS += [
+# Used to override plugins template
+INSTALLED_APPS =  ["nossas.design"] + INSTALLED_APPS + [
     "django_jsonform",
     "tag_fields",
     # Build Bootstrap SCSS
@@ -19,7 +19,6 @@ INSTALLED_APPS += [
     #
     "nossas",
     "nossas.apps",
-    "nossas.design",
     "nossas.plugins",
     # Override HTMLs
     "djangocms_frontend",
