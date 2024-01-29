@@ -3,15 +3,17 @@
     <div class="accordion-item">
         <h2 class="accordion-header">
             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{member_group.id}}" aria-expanded="true" aria-controls="collapse{{member_group.id}}">
-                {% include "nossas/graphics/group_18.svg" %}
-                {{ member_group.name }}
+                {% include "nossas/graphics/cobogo_rosa.svg" %}
+                <strong>{{ member_group.name }}</strong>
             </button>
         </h2>
         <div id="collapse{{member_group.id}}" class="accordion-collapse collapse" data-bs-parent="#accordion{{ instance.id }}">
             <div class="accordion-body">
-                {% for member in member_group.member_set.all %}
-                {% include 'team/member_modal.html' with instance=member %}
-                {% endfor %}
+                <div class="grid">
+                    {% for member in member_group.member_set.all %}
+                        {% include 'team/member_modal.html' with instance=member %}
+                    {% endfor %}
+                </div>
             </div>
           </div>
     </div>

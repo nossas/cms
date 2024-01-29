@@ -46,6 +46,7 @@ $accordion-button-focus-box-shadow: none;
 $accordion-button-active-bg: none;
 $accordion-button-active-color: none;
 $accordion-button-padding-y: ($spacer * 0.5);
+$accordion-header-padding: 1.5rem 0;
 
 // Font Family
 $headings-font-family: "Bebas Neue Pro";
@@ -482,8 +483,12 @@ $height: 30;
     .accordion-header {
         position: relative;
 
+        strong {
+            margin-left: 1.5rem;
+        }
+
         .accordion-button {
-            padding: 30px 20px 30px 80px;
+            padding: 30px 20px 30px 72px;
 
             svg {
                 position: absolute;
@@ -521,8 +526,9 @@ $height: 30;
         border-bottom: none;
 
         img {
-            position: absolute;
             height: 250px;
+            max-width: 290px;
+            position: absolute;
             top: 15px;
             z-index: 1;
         }
@@ -569,6 +575,12 @@ $height: 30;
 
 .headline img {
     margin-right: 1.5rem;
+}
+
+@include media-breakpoint-down(lg) {
+    .headline-content {
+        position: unset;
+    }
 }
 
 @import "design/scss/navbar";
