@@ -1,7 +1,9 @@
 {% load cms_tags %}
 
-<div class="box {{ instance.classes }}">
+<div class="box text-center py-4 {{ instance.classes }}">
+    <div class="container">
     {% for plugin in instance.child_plugin_instances %}
         {% render_plugin plugin %}
     {% endfor %}
+    </div>
 </div>
