@@ -86,6 +86,13 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
             }
         }
     }
+    .text-#{$color}-content {
+        color: var(--#{$prefix}#{$color}-content);
+
+        .navbar-nav a {
+            color: var(--#{$prefix}#{$color}-content);
+        }
+    }
 }
 """
 
