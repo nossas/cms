@@ -5,10 +5,12 @@
 {% include "nossas/plugins/navbar.html" with instance=navbar  %}
 <div class="campaign-detail bg-bege-nossas text-black">
     <div class="campaign-detail-header">
+        {% if request.toolbar.edit_mode_active %}<a href="{% url 'admin:apps_campaign_change' object.id %}" class="campaign-edit-image-header"><div class="drop-editable"><h4>Clique para editar a Campanha</h4></div>{% endif %}
         <img
             src="{% if object.header_image %}{{ object.header_image.url }}{% else %}https://placehold.co/800@2x.png{% endif %}"
             class="img-fluid"
         />
+        {% if request.toolbar.edit_mode_active %}</a>{% endif %}
         <div class="container">
             {% include "nossas/graphics/group_21.svg" %}
         </div>

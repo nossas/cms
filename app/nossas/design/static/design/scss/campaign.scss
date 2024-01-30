@@ -21,6 +21,30 @@
             bottom: -48px;
         }
     }
+
+    .campaign-edit-image-header {
+        position: relative;
+
+        .drop-editable {
+            display: none;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,.5);
+            align-items: center;
+            justify-content: center;
+
+            h4 {
+                color: white;
+            }
+        }
+
+        &:hover {
+            .drop-editable {
+                display: flex;
+                position: absolute;
+            }
+        }
+    }
 }
 
 .navigate-campaigns-plugin {
