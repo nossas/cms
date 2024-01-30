@@ -1,6 +1,7 @@
 from .accordionmodel import *
 from .boxmodel import *
 from .buttonmodel import *
+from .cardmodel import *
 from .containermodel import *
 from .gridmodel import *
 from .headermodel import *

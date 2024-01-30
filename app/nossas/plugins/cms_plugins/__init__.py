@@ -3,6 +3,7 @@ from .box import *
 from .breadcrumb import *
 from .breakline import *
 from .button import *
+from .card import *
 from .container import *
 from .footer import *
 from .gallery import *

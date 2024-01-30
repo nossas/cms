@@ -583,10 +583,11 @@ $height: 30;
     }
 }
 
-@import "design/scss/navbar";
+@import "design/scss/box";
+@import "design/scss/card";
 @import "design/scss/campaign";
 @import "design/scss/header";
-@import "design/scss/box";
+@import "design/scss/navbar";
 @import "design/scss/paginator";
 
 // Helpers
