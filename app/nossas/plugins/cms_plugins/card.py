@@ -23,7 +23,7 @@ class CardPlugin(CMSPluginBase):
 
     def get_fields(self, request, obj=None):
         if obj:
-            return ["image"]
+            return ["image", "tag"]
         return super().get_fields(request, obj)
 
     def save_model(self, request, obj, form, change):

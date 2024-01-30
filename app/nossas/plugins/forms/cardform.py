@@ -9,4 +9,4 @@ class CreateCardPluginForm(forms.ModelForm):
 
     class Meta:
         model = Card
-        fields = ["image", "title", "description"]
+        fields = ["image", "tag", "title", "description"]

@@ -352,10 +352,11 @@ $height: 30;
 
 // Tag
 .tag {
-    padding: ($spacer * 0.3) ($spacer * 0.8);
+    padding: 6px;
     border-radius: 50px;
     text-transform: uppercase;
-    font-size: ($font-size-base * 0.85);
+    font-size: 16px;
+    line-height: 24px;
     font-weight: bold;
 }
 

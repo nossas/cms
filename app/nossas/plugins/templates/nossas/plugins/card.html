@@ -5,6 +5,7 @@
     <img src="{{instance.image.url}}" class="card-img-top" alt="{{instance.image.alt}}">
     {% endif %}
     <div class="card-body">
+        {% if instance.tag %}<span class="tag bg-amarelo-nossas">{{ instance.tag }}</span>{% endif %}
         {% for plugin in instance.child_plugin_instances %}
         {% render_plugin plugin %}
         {% endfor %}
