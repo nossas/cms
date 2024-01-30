@@ -1,5 +1,26 @@
-<div class="container d-flex gap-5 flex-wrap justify-content-center py-5">
+<div class="container d-flex flex-col align-items-center py-5">
+    <div class="d-flex gap-5 flex-wrap justify-content-center">
     {% for campaign in campaign_list %}
     {% include 'plugins/filter_campaign_list_plugin_item.html' with instance=campaign %}
     {% endfor %}
+    </div>
+    <ul class="paginator">
+        <li class="control-indicator active">
+            <{% if page.has_previous %}a href="?page={{ page.previous_page_number }}" target="_self"{% else %}span{% endif %}>
+                {% include "design/svg/page-previous.svg" %}
+            </{% if page.has_previous %}a{% else %}span{% endif %}>
+        </li>
+        {% for page_number in paginator.page_range %}
+        <li class="control-indicator{% if page_number == page.number %} active{% endif %}">
+            <a href="?page={{ page_number }}" target="_self">
+                {% include "design/svg/page-indicator.svg" %}
+            </a>
+        </li>
+        {% endfor %}
+        <li class="control-indicator active">
+            <{% if page.has_next %}a href="?page={{ page.next_page_number }}" target="_self"{% else %}span{% endif %}>
+                {% include "design/svg/page-next.svg" %}
+            </{% if page.has_next %}a{% else %}span{% endif %}>
+        </li>
+    </ul>
 </div>

@@ -1,3 +1,5 @@
+from django.core.paginator import Paginator
+
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
@@ -13,7 +15,18 @@ class CampaignListPlugin(CMSPluginBase):
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
 
-        context.update({"campaign_list": Campaign.on_site.filter(hide=False)})
+        
+        queryset = Campaign.on_site.filter(hide=False)
+        paginator = Paginator(queryset, 10)
+        page = paginator.page(context["request"].GET.get("page", 1))
+
+        context.update(
+            {
+                "campaign_list": page.object_list,
+                "paginator": paginator,
+                "page": page,
+            }
+        )
 
         return context
 
