@@ -1,35 +1,4 @@
 // Campaign
-.campaign-card {
-    position: relative;
-    width: 375px;
-    // border: 1px solid #000;
-
-    img {
-        height: 224px;
-    }
-
-    .tag {
-        position: absolute;
-        top: 200px;
-        right: 12px;
-    }
-
-    .campaign-card-body {
-        height: 220px;
-
-        h4 {
-            text-transform: uppercase;
-        }
-
-        p {
-            font-size: 16px;
-            height: 115px;
-            overflow: hidden;
-            line-height: 22.5px;
-        }
-    }
-}
-
 .campaign-detail {
     .campaign-detail-header {
         position: relative;

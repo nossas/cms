@@ -1,7 +1,9 @@
 <div class="container d-flex flex-col align-items-center py-5">
-    <div class="d-flex gap-5 flex-wrap justify-content-center">
+    <div class="grid">
     {% for campaign in campaign_list %}
-    {% include 'plugins/filter_campaign_list_plugin_item.html' with instance=campaign %}
+    <div class="g-col-12 g-col-md-6">
+        {% include 'plugins/filter_campaign_list_plugin_item.html' with instance=campaign %}
+    </div>
     {% endfor %}
     </div>
     <ul class="paginator d-none d-sm-flex">
