@@ -64,3 +64,19 @@
         }
     }
 }
+
+
+.header-image {
+    > img.img-fluid {
+        margin: 0 auto;
+    }
+
+    .container {
+        position: relative;
+
+        img {
+            position: absolute;
+            top: -48px;
+        }
+    }
+}

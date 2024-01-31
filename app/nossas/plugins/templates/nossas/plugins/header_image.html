@@ -1,0 +1,11 @@
+{% load static %}
+
+<div class="header-image">
+    <img
+        src="{% if instance.picture %}{{ instance.picture.url }}{% else %}https://placehold.co/800@2x.png{% endif %}"
+        class="img-fluid"
+    />
+    <div class="container">
+        <img src="{% static 'design/svg/'|add:instance.graphic_icon|add:'-icon.svg' %}" />
+    </div>
+</div>

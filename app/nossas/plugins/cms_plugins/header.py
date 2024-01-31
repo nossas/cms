@@ -1,11 +1,12 @@
 from cms.api import add_plugin
 
+from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
 from nossas.design.cms_plugins import UICMSPluginBase
 
-from nossas.plugins.models.headermodel import Header
-from nossas.plugins.forms.headerform import HeaderPluginForm
+from nossas.plugins.models.headermodel import Header, HeaderImage
+from nossas.plugins.forms.headerform import HeaderPluginForm, HeaderImagePluginForm
 
 
 @plugin_pool.register_plugin
@@ -51,3 +52,12 @@ class HeaderPlugin(UICMSPluginBase):
 
         if not change:
             self.create_header_grid(obj)
+
+
+@plugin_pool.register_plugin
+class HeaderImagePlugin(UICMSPluginBase):
+    name = "Header Imagem + Icone"
+    module = "NOSSAS"
+    model = HeaderImage
+    form = HeaderImagePluginForm
+    render_template = "nossas/plugins/header_image.html"

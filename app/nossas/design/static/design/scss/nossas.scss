@@ -480,6 +480,8 @@ $height: 30;
 }
 
 .graphic-element-select {
+    display: flex;
+    gap: 10px;
     align-items: center;
 
     .graphic-element-select-option {
