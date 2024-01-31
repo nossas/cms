@@ -1,18 +1,17 @@
-{% load cms_tags %}
+{% load cms_tags static %}
 
 <header class="header {{ instance.classes}}">
     <div class="container">
         <div class="grid">
-            <div class="header-box-col g-col-lg-4 g-col-md-6 g-col-12">
+            <div class="header-box-col g-col-lg-6 g-col-md-6 g-col-12">
             {% for plugin in instance.child_plugin_instances %}
                 {% render_plugin plugin %}
             {% endfor %}
             </div>
+            <div class="header-background-col svg-{{ instance.graphic_element }} g-col-lg-6 g-col-md-6 g-col-12">
+                <img class="img-fluid d-none d-md-block" src="{% static 'design/svg/'|add:instance.graphic_element|add:'-header-desktop.svg' %}" />
+                <img class="img-fluid d-block d-md-none" src="{% static 'design/svg/'|add:instance.graphic_element|add:'-header-mobile.svg' %}" />
+            </div>
         </div>
     </div>
-    {% if instance.picture %}
-    <div class="header-background-col">
-        <div class="header-background-img" style="background-image: url('{{ instance.picture.url }}');"></div>
-    </div>
-    {% endif %}
 </header>

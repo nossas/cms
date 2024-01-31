@@ -1,6 +1,7 @@
 from django import forms
 from django.conf import settings
 from django.utils.text import slugify
+from django.utils.translation import ugettext_lazy as _
 
 from django_jsonform.forms.fields import JSONFormField
 from entangled.forms import EntangledModelFormMixin
@@ -33,7 +34,7 @@ class UIPaddingFormMixin(EntangledModelFormMixin):
                 },
             },
         },
-        required=False
+        required=False,
     )
 
     class Meta:
@@ -64,7 +65,10 @@ class UIBackgroundSelect(forms.RadioSelect):
 
 class UIBackgroundFormMixin(EntangledModelFormMixin):
     background = forms.ChoiceField(
-        choices=CORES_TEMAS, required=False, widget=UIBackgroundSelect()
+        label=_("Cor de fundo"),
+        choices=CORES_TEMAS,
+        required=False,
+        widget=UIBackgroundSelect(),
     )
 
     class Meta:

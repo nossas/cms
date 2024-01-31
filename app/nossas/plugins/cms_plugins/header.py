@@ -19,7 +19,7 @@ class HeaderPlugin(UICMSPluginBase):
     child_classes = [
         "TextPlugin",
     ]
-    fieldsets = ((None, {"fields": ["attributes", "background", "picture"]}),)
+    fieldsets = ((None, {"fields": ["attributes", "background", "graphic_element"]}),)
 
     def get_form(self, request, obj, change, **kwargs):
         if not change:
