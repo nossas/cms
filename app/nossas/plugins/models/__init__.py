@@ -7,4 +7,5 @@ from .gridmodel import *
 from .headermodel import *
 from .headlinemodel import *
 from .navbarmodel import *
+from .pdfmodel import *
 from .slidermodel import *
