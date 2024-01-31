@@ -18,6 +18,7 @@
         flex-direction: column;
         justify-content: flex-end;
         padding-bottom: 0;
+        z-index: 1;
     }
 
     .header-background-col {
@@ -46,6 +47,7 @@
 
         .header-background-col {
             img {
+                width: 100%;
                 top: 0;
                 left: 0;
             }
