@@ -604,12 +604,22 @@ $height: 30;
     }
 }
 
+.btn {
+    font-weight: bold;
+}
+
+.container-fluid {
+    max-width: 1175px;
+}
+
 @import "design/scss/box";
-@import "design/scss/card";
 @import "design/scss/campaign";
+@import "design/scss/card";
+@import "design/scss/graphics";
 @import "design/scss/header";
 @import "design/scss/navbar";
 @import "design/scss/paginator";
+@import "design/scss/pdfviewer.scss";
 
 // Helpers
 @import "bootstrap/scss/helpers";

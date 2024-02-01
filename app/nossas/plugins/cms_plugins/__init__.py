@@ -11,4 +11,5 @@ from .grid import *
 from .header import *
 from .headline import *
 from .navbar import *
+from .pdf import *
 from .slider import *

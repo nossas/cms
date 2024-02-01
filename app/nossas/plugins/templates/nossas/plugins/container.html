@@ -1,7 +1,7 @@
 {% load cms_tags %}
 
 <div class="{{ instance.classes }}">
-    <div class="container">
+    <div class="container{% if instance.fluid %}-fluid{% endif %}">
       {% for plugin in instance.child_plugin_instances %}
           {% render_plugin plugin %}
       {% endfor %}

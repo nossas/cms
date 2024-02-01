@@ -78,11 +78,10 @@ ROOT_URLCONF = "nossas.urls"
 
 NOSSAS_CONTENT_PLUGINS = [
     "AccordionPlugin",
-    # "BoxPlugin",
     "BreadcrumbPlugin",
     "BreaklinePlugin",
     "CampaignListPlugin",
-    # "ContainerPlugin",
+    "ContainerPlugin",
     "GalleryPlugin",
     "HeaderPlugin",
     "HeadlinePlugin",
@@ -93,6 +92,7 @@ NOSSAS_CONTENT_PLUGINS = [
     "TextPlugin",
     "BootstrapGridPlugin",
     "CardPlugin",
+    "PdfViewerPlugin",
 ]
 
 CMS_TEMPLATES = [
@@ -104,7 +104,7 @@ CMS_PLACEHOLDER_CONF = {
     **CMS_PLACEHOLDER_CONF,
     "nossas_page_content": {
         "name": "Corpo da página",
-        "plugins": NOSSAS_CONTENT_PLUGINS + ["ContainerPlugin", "BoxPlugin", "HeaderImagePlugin"],
+        "plugins": NOSSAS_CONTENT_PLUGINS + ["BoxPlugin", "HeaderImagePlugin"],
     },
     "nossas_page_navbar": {
         "name": "Navegação",
