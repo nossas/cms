@@ -38,7 +38,7 @@ class ContainerPlugin(UICMSPluginBase):
     )
 
     def save_model(self, request, obj, form, change):
-        if not change and "padding" in obj.attributes.keys():
+        if not change and "padding" not in obj.attributes.keys():
             obj.attributes.update({"padding": [{"side": "y", "spacing": "4"}]})
 
         return super().save_model(request, obj, form, change)
