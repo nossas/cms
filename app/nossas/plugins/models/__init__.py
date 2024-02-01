@@ -1,5 +1,6 @@
 from .accordionmodel import *
 from .boxmodel import *
+from .breadcrumbmodel import *
 from .buttonmodel import *
 from .cardmodel import *
 from .containermodel import *
