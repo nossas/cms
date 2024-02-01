@@ -15,3 +15,4 @@ class ContainerPluginForm(
     class Meta:
         model = Container
         entangled_fields = {"attributes": []}
+        untangled_fields = ["fluid"]

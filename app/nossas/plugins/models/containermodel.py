@@ -1,3 +1,6 @@
+from django.db import models
+from django.utils.translation import ugettext_lazy as _
+
 from nossas.design.models import (
     UICMSPlugin,
     UIBackgroundMixin,
@@ -10,4 +13,8 @@ from nossas.design.models import (
 class Container(
     UIBackgroundMixin, UIPaddingMixin, UIBorderMixin, NamingPluginMixin, UICMSPlugin
 ):
-    pass
+    fluid = models.BooleanField(
+        verbose_name=_("Conteúdo fluído"),
+        default=False,
+        help_text=_("Permite o conteúdo interno avançar os limites padrões da página"),
+    )

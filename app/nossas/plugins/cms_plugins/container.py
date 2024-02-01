@@ -18,7 +18,7 @@ class ContainerPlugin(UICMSPluginBase):
     allow_children = True
     child_classes = settings.NOSSAS_CONTENT_PLUGINS or []
     fieldsets = (
-        (None, {"fields": ["attributes", "background"]}),
+        (None, {"fields": ["attributes", "background", "fluid"]}),
         (
             "Espaçamento",
             {
@@ -38,7 +38,7 @@ class ContainerPlugin(UICMSPluginBase):
     )
 
     def save_model(self, request, obj, form, change):
-        if not change and "padding" not in obj.attributes.keys():
+        if not change and len(obj.attributes.get("padding", [])) == 0:
             obj.attributes.update({"padding": [{"side": "y", "spacing": "4"}]})
 
         return super().save_model(request, obj, form, change)
