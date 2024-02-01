@@ -26,7 +26,6 @@
   --#{$prefix}accordion-body-padding-y: #{$accordion-body-padding-y};
   --#{$prefix}accordion-active-color: #{$accordion-button-active-color};
   --#{$prefix}accordion-active-bg: #{$accordion-button-active-bg};
-  --#{$prefix}accordion-header-padding: #{$accordion-header-padding};
   // scss-docs-end accordion-css-vars
 }
 
@@ -82,7 +81,6 @@
 }
 
 .accordion-header {
-  padding: var(--#{$prefix}accordion-header-padding);
   margin-bottom: 0;
 }
 

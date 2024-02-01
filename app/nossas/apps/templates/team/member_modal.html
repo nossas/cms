@@ -1,29 +1,39 @@
 <!-- Button trigger modal -->
-<div class="g-col-12 g-col-md-6 btn-card d-flex gap-3" data-bs-toggle="modal" data-bs-target="#teamModal{{instance.id}}">
-  <img src="{{ instance.picture.url }}" class="img-mask" />
-  {% include "nossas/graphics/group_30.svg" %}
-  <div class="btn-card-description">
-    <h4>{{ instance.full_name }}</h4>
-    <p>{{ instance.short_description }}</p>
+<div class="g-col-12 g-col-md-6 btn-card" data-bs-toggle="modal" data-bs-target="#teamModal{{instance.id}}">
+  <div class="grid gap-0">
+    <div class="btn-card-img g-col-6 g-col-md-5">
+      <img src="{{ instance.picture.url }}" class="img-mask" />
+      {% include "nossas/graphics/group_30.svg" %}
+    </div>
+    <div class="btn-card-description g-col-6 g-col-md-7">
+      <h4>{{ instance.full_name }}</h4>
+      <p>{{ instance.short_description }}</p>
+    </div>
   </div>
 </div>
   
   <!-- Modal -->
-  <div class="modal modal-sm fade" id="teamModal{{instance.id}}" tabindex="-1" aria-labelledby="teamModalLabel" aria-hidden="true">
+  <div class="modal modal-lg fade" id="teamModal{{instance.id}}" tabindex="-1" aria-labelledby="teamModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-        <div class="modal-header bg-verde-nossas">
-          <button type="button" class="btn-close-circle bg-rosa-nossas" data-bs-dismiss="modal" aria-label="Fechar">
-            {% include "nossas/graphics/group_30_90deg.svg" %}
-          </button>
-          <img src="{{ instance.picture.url }}" class="img-fluid img-mask" />
-        </div>
-        <div class="modal-body bg-bege-nossas text-black">
-          <div class="">
-            <h4>{{ instance.full_name }}</h4>
-            <p>{{ instance.short_description }}</p>
-            <hr class="breakline" />
-            <p>{{ instance.description }}</p>
+        <div class="grid modal-body">
+          <div class="modal-header g-col-12 justify-content-end">
+            <button type="button" class="btn-close-circle" data-bs-dismiss="modal" aria-label="Fechar">
+              {% include "nossas/graphics/group_30_90deg.svg" %}
+            </button>
+          </div>
+          <div class="g-col-12 g-col-lg-6">
+            <div class="modal-box-img">
+              <img src="{{ instance.picture.url }}" class="img-fluid img-mask" />
+            </div>
+          </div>
+          <div class="g-col-12 g-col-lg-6">
+            <div class="modal-box-text text-black">
+              <h4>{{ instance.full_name }}</h4>
+              <h5>{{ instance.short_description }}</h5>
+              <hr class="breakline" />
+              <p>{{ instance.description }}</p>
+            </div>
           </div>
         </div>
       </div>
