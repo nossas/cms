@@ -36,14 +36,15 @@ class CardPlugin(CMSPluginBase):
             # Child plugins
 
             title = form.cleaned_data.get("title", "TÍTULO EM ATÉ 2 LINHAS")
-            description = form.cleaned_data.get(
-                "description",
-                "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur.",
-            )
+            description = form.cleaned_data.get("description")
 
             # Text Plugin
             plugin_type = "TextPlugin"
-            child_attrs = {"body": f"""<h2>{title}</h2><p>{description}</p>"""}
+            if description:
+                child_attrs = {"body": f"""<h2>{title}</h2><p>{description}</p>"""}
+            else:
+                child_attrs = {"body": f"""<h2>{title}</h2>"""}
+
             add_plugin(
                 placeholder=placeholder,
                 plugin_type=plugin_type,
