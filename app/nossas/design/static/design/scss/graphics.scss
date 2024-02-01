@@ -26,7 +26,9 @@
         }
     }
     .icon-bg-#{$state} {
-        path.background, circle.background, rect.background {
+        path.background,
+        circle.background,
+        rect.background {
             fill: var(--#{$prefix}#{$state});
         }
     }
