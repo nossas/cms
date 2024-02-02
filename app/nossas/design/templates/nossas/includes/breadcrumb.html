@@ -4,8 +4,7 @@
 {% for ance in ancestors %}
 {% if forloop.first %}
 <a href="{{ ance.get_absolute_url }}" title="{{ ance.get_menu_title }}">
-    {% comment %} {% include "nossas/svg/group_20.svg" %} {% endcomment %}
-    <img src="{% static 'design/svg/'|add:instance.graphic_icon|add:'-icon.svg' %}" width="40" height="40" />
+    {% include 'design/icones/'|add:instance.graphic_icon|add:'-circle.svg' %}
 </a>
 {% elif not forloop.last %}
 <a class="btn" href="{{ ance.get_absolute_url }}" title="{{ ance.get_menu_title }}">{{ ance.get_menu_title }}</a>

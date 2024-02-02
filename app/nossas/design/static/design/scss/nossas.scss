@@ -482,7 +482,7 @@ $height: 30;
 .graphic-element-select {
     display: flex;
     gap: 10px;
-    align-items: center;
+    // align-items: center;
 
     .graphic-element-select-option {
         input[type="radio"]:checked + label {
@@ -495,6 +495,11 @@ $height: 30;
             max-width: 50px;
             width: 50px;
             height: 50px;
+
+            svg {
+                width: 50px;
+                height: 50px;
+            }
         }
     }
 }
@@ -612,7 +617,9 @@ $height: 30;
     max-width: 1175px;
 }
 
-@import "design/scss/box";
+@import "design/scss/box";  
+@import "design/scss/card";
+@import "design/scss/graphics";
 @import "design/scss/campaign";
 @import "design/scss/card";
 @import "design/scss/graphics";
