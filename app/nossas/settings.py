@@ -154,19 +154,23 @@ DESIGN_THEME_COLORS = [
     ("Verde NOSSAS", "rgb(140,173,106)", "8CAD6A"),
     ("Laranja NOSSAS", "rgb(235,94,59)", "EB5E3B"),
     ("Cinza extra NOSSAS", "rgb(67,57,57)", "433939"),
+    ("Preto NOSSAS", "rgb(29,29,27)", "1D1D1B"),
+    ("Branco NOSSAS", "rgb(255,255,255)", "FFFFFF"),
     # Obrigatoriamente precisa ser o ultimo da lista para sobrescrever outras cores
     ("Azul NOSSAS", "rgb(35,61,144)", "233D90"),
 ]
 
 DESIGN_THEME_TEXT_COLORS = [
-    ("Verde claro NOSSAS", "rgb(0,0,0)"),
-    ("Bege NOSSAS", "rgb(0,0,0)"),
+    ("Verde claro NOSSAS", "rgb(29,29,27)"),
+    ("Bege NOSSAS", "rgb(29,29,27)"),
     ("Vermelho NOSSAS", "rgb(246,183,193)"),
     ("Amarelo NOSSAS", "rgb(67,57,57)"),
     ("Rosa NOSSAS", "rgb(67,57,57)"),
     ("Verde NOSSAS", "rgb(255,255,255)"),
     ("Laranja NOSSAS", "rgb(255,255,255)"),
     ("Cinza extra NOSSAS", "rgb(247,247,237)"),
+    ("Preto NOSSAS", "rgb(255,255,255)"),
+    ("Branco NOSSAS", "rgb(29,29,27)"),
     # Obrigatoriamente precisa ser o ultimo da lista para sobrescrever outras cores
     ("Azul NOSSAS", "rgb(247,247,237)"),
 ]
