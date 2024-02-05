@@ -244,8 +244,9 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
 
 // Forms
 .form-label {
-    text-transform: uppercase;
+    font-family: "Bebas Neue Pro", sans-serif;
     font-weight: bold;
+    text-transform: uppercase;
 }
 
 [data-bs-theme="dark"] {

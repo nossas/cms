@@ -10,7 +10,7 @@ class NewsletterPluginModel(CMSPlugin):
         max_length=255,
         null=True,
         blank=True,
-        default="Inscreva-se na Newsletter!",
+        default="Fique por dentro!",
     )
     description = models.TextField(_("Descrição"), null=True, blank=True)
     button_text = models.CharField(
@@ -18,5 +18,5 @@ class NewsletterPluginModel(CMSPlugin):
         max_length=100,
         null=True,
         blank=True,
-        default="Inscrever-se",
+        default="Enviar",
     )
