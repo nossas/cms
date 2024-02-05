@@ -1,4 +1,18 @@
+{% load sekizai_tags %}
+
+{% addtoblock "css" %}{{ form.media.css }}{% endaddtoblock %}
+{% addtoblock "js" %}
+{% comment %} <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> {% endcomment %}
+{{ form.media.js }}
+{% endaddtoblock %}
+
 <div class="container d-flex flex-col align-items-center py-5">
+    <div class="">
+        <form method="GET">
+            {{ form.as_p }}
+            <input type="submit">
+        </form>
+    </div>
     <div class="grid">
     {% for campaign in campaign_list %}
     <div class="g-col-12 g-col-md-6">
