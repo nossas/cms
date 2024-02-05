@@ -57,6 +57,10 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
         background-color: $value;
         color: var(--#{$prefix}#{$color}-content);
 
+        .form-control {
+            --bs-border-color: var(--#{$prefix}#{$color}-content);
+        }
+
         a, a:hover, .dropdown-menu, .mega-menu, label, select {
             --bs-dropdown-color: var(--#{$prefix}#{$color}-content);
             --bs-link-color-rgb: var(--#{$prefix}#{$color}-content);
