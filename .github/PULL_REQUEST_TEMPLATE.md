@@ -18,6 +18,12 @@
 [insira o screenshot aqui]
 <!-- Insira o screenshot + link do Figma, caso necessário. -->
 
+## Como testar?
+<!-- Descreva passo a passo como testar seu PR -->
+- Passo 1
+- Passo 2
+- Passo 3
+
 ## Notas de Deploy
 <!-- Quais dependencias, scripts, etc foram adicionados a esse PR? Insira tudo que for útil para o Deploy -->
 
