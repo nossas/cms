@@ -2,7 +2,122 @@
 {% load cms_tags menu_tags %}
 
 {% block content %}
-  <main class="container">
+  <main class="container-fluid" style="background:rgba(0,0,0,.1);">
+    <section class="my-3">
+      <h3 class="h3">Gráficos Padronizados</h3>
+      <hr class="breakline" />
+      <div class="grid gap-4 flex-wrap">
+        <div class="grid-col-6">
+          {% include 'section-icons.html' with icon_name="questionador" %}
+          {% include 'section-icons.html' with icon_name="hub" %}
+          {% include 'section-icons.html' with icon_name="ativista" %}
+          {% include 'section-icons.html' with icon_name="impulsionador" %}
+        </div>
+        <div class="grid-col-6">
+          {% include 'section-icons.html' with icon_name="coletivo" %}
+          {% include 'section-icons.html' with icon_name="mobilizador" %}
+          {% include 'section-icons.html' with icon_name="impacto" %}
+          {% comment %} {% include 'section-icons.html' with icon_name="empatico" %} {% endcomment %}
+          <div class="mb-4">
+            <p>Empatico</p>
+            <div class="flex gap-2">
+              {% include "design/icones/empatico.svg" with classnames="icon icon-sm icon-bege-nossas icon-secondary-azul-nossas" %}
+              {% include "design/icones/empatico.svg" with classnames="icon icon-sm icon-azul-nossas icon-secondary-amarelo-nossas" %}
+              {% include "design/icones/empatico.svg" with classnames="icon icon-sm icon-rosa-nossas icon-secondary-vermelho-nossas" %}
+              {% include "design/icones/empatico.svg" with classnames="icon icon-sm icon-amarelo-nossas icon-secondary-laranja-nossas" %}
+              {% include "design/icones/empatico.svg" with classnames="icon icon-sm icon-verde-claro-nossas icon-secondary-azul-nossas" %}
+              {% include "design/icones/empatico.svg" with classnames="icon icon-sm icon-laranja-nossas icon-secondary-verde-claro-nossas" %}
+              {% include "design/icones/empatico.svg" with classnames="icon icon-sm icon-azul-nossas icon-secondary-verde-nossas" %}
+              {% include "design/icones/empatico.svg" with classnames="icon icon-sm icon-vermelho-nossas icon-secondary-rosa-nossas" %}
+              {% include "design/icones/empatico.svg" with classnames="icon icon-sm icon-preto-nossas icon-secondary-bege-nossas" %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="my-3">
+      <h3 class="h3">Gráficos Extras</h3>
+      <hr class="breakline" />
+      <div class="grid gap-4 flex-wrap">
+        <div class="grid-col-3">
+          <div class="mb-4">
+            <p>Questionador</p>
+            <div class="flex gap-2">
+              {% include 'design/icones/questionador-rect.svg' with classnames="icon icon-sm icon-bg-azul-nossas" %}
+              {% include 'design/icones/questionador-rect.svg' with classnames="icon icon-sm icon-bg-verde-nossas" %}
+              {% include 'design/icones/questionador-rect.svg' with classnames="icon icon-sm icon-rosa-nossas icon-bg-verde-nossas" %}
+            </div>
+          </div>
+          <div class="mb-4">
+            <p>Hub</p>
+            <div class="flex gap-2">
+              {% include 'design/icones/hub-rect.svg' with classnames="icon icon-sm icon-bg-azul-nossas" %}
+              {% include 'design/icones/hub-rect.svg' with classnames="icon icon-sm icon-bg-vermelho-nossas" %}
+              {% include 'design/icones/hub-rect.svg' with classnames="icon icon-sm icon-vermelho-nossas icon-bg-rosa-nossas" %}
+              {% include 'design/icones/hub-rect.svg' with classnames="icon icon-sm icon-bg-rosa-nossas" %}
+              {% include 'design/icones/hub-circle.svg' with classnames="icon icon-sm icon-azul-nossas icon-bg-verde-nossas" %}
+              {% include 'design/icones/hub-circle.svg' with classnames="icon icon-sm icon-rosa-nossas icon-bg-vermelho-nossas" %}
+            </div>
+          </div>
+        </div>
+        <div class="grid-col-3">
+          <div class="mb-4">
+            <p>Ativista</p>
+            <div class="flex gap-2">
+              {% include 'design/icones/ativista-rect.svg' with classnames="icon icon-sm icon-bg-azul-nossas" %}
+              {% include 'design/icones/ativista-rect.svg' with classnames="icon icon-sm icon-bg-rosa-nossas" %}
+              {% include 'design/icones/ativista-rect.svg' with classnames="icon icon-sm icon-laranja-nossas icon-bg-verde-claro-nossas" %}
+              {% include 'design/icones/ativista-rect.svg' with classnames="icon icon-sm icon-bg-verde-claro-nossas" %}
+            </div>
+          </div>
+          <div class="mb-4">
+            <p>Impulsionador</p>
+            <div class="flex gap-2">
+              {% include 'design/icones/impulsionador-rect.svg' with classnames="icon icon-sm icon-bg-azul-nossas" %}
+              {% include 'design/icones/impulsionador-rect.svg' with classnames="icon icon-sm icon-azul-nossas icon-bg-laranja-nossas" %}
+              {% include 'design/icones/impulsionador-rect.svg' with classnames="icon icon-sm icon-bg-laranja-nossas" %}
+            </div>
+          </div>
+        </div>
+        <div class="grid-col-3">
+          <div class="mb-4">
+            <p>Coletivo</p>
+            <div class="flex gap-2">
+              {% include 'design/icones/coletivo-rect.svg' with classnames="icon icon-sm icon-azul-nossas" %}
+              {% include 'design/icones/coletivo-rect.svg' with classnames="icon icon-sm icon-vermelho-nossas" %}
+            </div>
+          </div>
+          <div class="mb-4">
+            <p>Mobilizador</p>
+            <div class="flex gap-2">
+              {% include 'design/icones/mobilizador-rect.svg' with classnames="icon icon-sm icon-bg-azul-nossas" %}
+              {% include 'design/icones/mobilizador-rect.svg' with classnames="icon icon-sm icon-bg-laranja-nossas" %}
+              {% include 'design/icones/mobilizador-rect.svg' with classnames="icon icon-sm icon-amarelo-nossas icon-secondary-preto-nossas icon-bg-bege-nossas" %}
+              {% include 'design/icones/mobilizador-rect.svg' with classnames="icon icon-sm icon-bg-bege-nossas" %}
+            </div>
+          </div>
+        </div>
+        <div class="grid-col-3">
+          <div class="mb-4">
+            <p>Impacto</p>
+            <div class="flex gap-2">
+              {% include 'design/icones/impacto-rect.svg' with classnames="icon icon-sm icon-bg-azul-nossas" %}
+              {% include 'design/icones/impacto-rect.svg' with classnames="icon icon-sm icon-bg-amarelo-nossas" %}
+              {% include 'design/icones/impacto-rect.svg' with classnames="icon icon-sm icon-bege-nossas icon-bg-amarelo-nossas" %}
+            </div>
+          </div>
+          <div class="mb-4">
+            <p>Empatico</p>
+            <div class="flex gap-2">
+              {% include 'design/icones/empatico-rect.svg' with classnames="icon icon-sm icon-bg-azul-nossas" %}
+              {% include 'design/icones/empatico-rect.svg' with classnames="icon icon-sm icon-rosa-nossas icon-secondary-verde-nossas icon-bg-azul-nossas" %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="my-3">
       <h3 class="h3">Paleta de cores</h3>
       <hr class="breakline" />
@@ -48,12 +163,12 @@
           </div>
         </div>
         <div class="g-col-4">
-          <div class="bg-black p-3 rounded-3">
-            <p>Preto - #000000</p>
+          <div class="bg-preto-nossas p-3 rounded-3">
+            <p>Preto - #1D1D1B</p>
           </div>
         </div>
         <div class="g-col-4">
-          <div class="bg-white border-2 border-gray-600 p-3 rounded-3">
+          <div class="bg-branco-nossas border-2 border-gray-600 p-3 rounded-3">
             <p>Branco - #FFFFFF</p>
           </div>
         </div>
