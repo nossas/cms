@@ -4,9 +4,11 @@ from .breadcrumbmodel import *
 from .buttonmodel import *
 from .cardmodel import *
 from .containermodel import *
+from .donationmodel import *
 from .gridmodel import *
 from .headermodel import *
 from .headlinemodel import *
 from .navbarmodel import *
+from .newslettermodel import *
 from .pdfmodel import *
 from .slidermodel import *

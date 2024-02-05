@@ -78,21 +78,23 @@ ROOT_URLCONF = "nossas.urls"
 
 NOSSAS_CONTENT_PLUGINS = [
     "AccordionPlugin",
+    "BootstrapGridPlugin",
     "BreadcrumbPlugin",
     "BreaklinePlugin",
     "CampaignListPlugin",
+    "CardPlugin",
     "ContainerPlugin",
+    "DonationFormPlugin",
     "GalleryPlugin",
     "HeaderPlugin",
     "HeadlinePlugin",
+    "NewsletterFormPlugin",
+    "PdfViewerPlugin",
     "PicturePlugin",
     "SliderJobsPlugin",
     "SliderPlugin",
     "TeamAccordionPlugin",
     "TextPlugin",
-    "BootstrapGridPlugin",
-    "CardPlugin",
-    "PdfViewerPlugin",
 ]
 
 CMS_TEMPLATES = [

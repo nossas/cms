@@ -1,0 +1,11 @@
+{% load cms_tags %}
+
+<div class="newsletter-form">
+  <h2>{{ instance.title }}</h2>
+  <p>{{ instance.description }}</p>
+  <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">{{ instance.button_text }}</button>
+  </form>
+</div>

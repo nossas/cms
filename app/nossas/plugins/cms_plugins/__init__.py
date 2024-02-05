@@ -5,11 +5,13 @@ from .breakline import *
 from .button import *
 from .card import *
 from .container import *
+from .donation import *
 from .footer import *
 from .gallery import *
 from .grid import *
 from .header import *
 from .headline import *
 from .navbar import *
+from .newsletter import *
 from .pdf import *
 from .slider import *
