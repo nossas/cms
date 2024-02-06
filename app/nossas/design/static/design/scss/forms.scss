@@ -1,0 +1,96 @@
+.filter-form {
+    .filter-form-input-group {
+        display: flex;
+        border-bottom: 2px solid var(--bs-preto-nossas);
+
+        label {
+            font-family: "Bebas Neue Pro";
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .select2-container--default .select2-selection--multiple,
+        .select2-container--default .select2-selection--single {
+            border: none;
+        }
+
+        // .select2-container--default .select2-selection--multiple .select2-selection__choice {
+        //     margin-top: 0;
+        // }
+
+        .select2-container--default .select2-selection--multiple .select2-selection__rendered li {
+            font-family: "Bebas Neue Pro";
+            font-size: 15px;
+            line-height: 22px;
+            text-transform: uppercase;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .select2-container--default .select2-selection--multiple .select2-selection__clear {
+            margin-top: 0;
+            padding: 0;
+        }
+
+        .select2-container--default .select2-selection--multiple {
+            .select2-selection__choice {
+                background-color: var(--bs-verde-nossas);
+                color: var(--bs-white);
+                border-radius: 20px;
+                padding: 2px 8px;
+            }
+
+            .select2-selection__choice__remove {
+                color: var(--bs-white);
+                font-size: 33px;
+                line-height: 11px;
+                padding-right: 5px;
+            }
+        }
+
+        .select2-container .select2-selection--single .select2-selection__rendered {
+            font-family: "Bebas Neue Pro";
+            background-color: var(--bs-verde-nossas);
+            display: inline-flex;
+            color: var(--bs-white);
+            font-size: 15px;
+            text-transform: uppercase;
+            font-weight: bold;
+            border-radius: 20px;
+            line-height: 26px;
+            padding-right: 10px;
+
+            .select2-selection__clear {
+                font-size: 33px;
+                padding-right: 5px;
+            }
+        }
+
+        .select2-container--default .select2-selection--single {
+            padding-left: 5px;
+            min-height: 32px;
+            margin-top: 5px;
+            
+            &:focus-visible {
+                outline: none;
+            }
+        }
+    }
+    
+    .filter-form-footer {
+        border-bottom: 2px dotted var(--bs-preto-nossas);
+    }
+}
+
+.select2-results__option {
+    font-family: "Bebas Neue Pro";
+    font-size: 15px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.select2-dropdown--below {
+    top: 50px;
+}

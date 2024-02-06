@@ -8,40 +8,41 @@ from ..models.campaigns import CampaignGroup, Campaign
 
 
 def get_tags():
-    return [("", "Selecionar"), ] + list(ModelTag.objects.values_list("slug", "name"))
+    return list(ModelTag.objects.values_list("slug", "name"))
 
 
 def get_campaign_groups():
-    return [("", "Selecionar"), ] + list(CampaignGroup.on_site.values_list("id", "name"))
+    return list(CampaignGroup.on_site.values_list("id", "name"))
 
 
 def get_release_years():
-    return [("", "Selecionar"), ] + list(Campaign.on_site.dates("release_date", "year").values_list(
-        "release_date__year", "release_date__year"
-    ))
-
-
-class TagsWidget(s2forms.Select2MultipleWidget):
-    search_fields = ["name__icontains"]
-    queryset = ModelTag.objects.all()
+    return list(
+        Campaign.on_site.dates("release_date", "year").values_list(
+            "release_date__year", "release_date__year"
+        )
+    )
 
 
 class CampaignFilterForm(forms.Form):
     tags = forms.MultipleChoiceField(
-        label=_("Temáticas"),
+        label=_("Temática"),
         choices=lazy(get_tags, tuple)(),
-        widget=s2forms.Select2MultipleWidget,
-        required=False
+        widget=s2forms.Select2MultipleWidget(
+            # attrs={
+            #     "data-minimum-input-length": 3
+            # }
+        ),
+        required=False,
     )
     campaign_group_id = forms.ChoiceField(
         label=_("Cidade"),
         choices=lazy(get_campaign_groups, tuple)(),
         widget=s2forms.Select2Widget,
-        required=False
+        required=False,
     )
     release_year = forms.ChoiceField(
-        label=_("Ano de lançamento"),
+        label=_("Ano"),
         choices=lazy(get_release_years, tuple)(),
         widget=s2forms.Select2Widget,
-        required=False
+        required=False,
     )
