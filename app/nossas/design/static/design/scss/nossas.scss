@@ -519,6 +519,18 @@ $height: 30;
         }
     }
 
+    // Newsletter
+    .newsletter-success-message {
+        h4 {
+            font-size: 2rem;
+            text-transform: uppercase;
+        }
+
+        p {
+            font-size: 1.25rem;
+        }
+    }
+
     // Modal
     // <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="20" fill="#F6B7C1"/><path d="M26 14L14 26" stroke="#233D90" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 14L26 26" stroke="#233D90" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
 

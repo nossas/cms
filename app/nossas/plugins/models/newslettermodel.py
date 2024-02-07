@@ -20,3 +20,5 @@ class NewsletterPluginModel(CMSPlugin):
         blank=True,
         default="Enviar",
     )
+    config = models.JSONField(null=True, blank=True)
+

@@ -3,10 +3,20 @@
 # ID da Widget Candidatura: 76494
 import json
 from datetime import datetime
+from django.utils.translation import ugettext as _
 from contrib.bonde.models import FormEntry, Activist
 
 
-def create_form_entry(settings, **form_data):
+def create_form_entry(settings: dict, **form_data):
+    if not settings.get("widget_id"):
+        raise Exception(_("Erro de configuração widget_id"))
+
+    if not settings.get("mobilization_id"):
+        raise Exception(_("Erro de configuração mobilization_id"))
+
+    if not settings.get("cached_community_id"):
+        raise Exception(_("Erro de configuração cached_community_id"))
+
     email = form_data.get("email")
     name = form_data.get("name")
   
@@ -28,9 +38,9 @@ def create_form_entry(settings, **form_data):
     # Montando o FormEntry
     fe = FormEntry()
     fe.activist = activist
-    fe.widget_id = settings.get("widget_id", 76494)
-    fe.mobilization_id = settings.get("mobilization_id", 7302)
-    fe.cached_community_id = settings.get("cached_community_id", 263)
+    fe.widget_id = settings.get("widget_id")
+    fe.mobilization_id = settings.get("mobilization_id")
+    fe.cached_community_id = settings.get("cached_community_id")
 
     # Fields mapping
     fields = []
@@ -46,7 +56,6 @@ def create_form_entry(settings, **form_data):
             }
         )
 
-    # import ipdb;ipdb.set_trace()
     fe.fields = fields
     fe.save()
 
