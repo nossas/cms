@@ -1,11 +1,11 @@
-{% load static cms_tags %}
+{% load cms_tags %}
 
 {% if template %}
     {% include template %}
 {% else %}
   <div class="newsletter-form">
     <h2>{{ instance.title }}</h2>
-    <p class="mb-1">{{ instance.description }}</p>
+    <p>{{ instance.description }}</p>
     <form method="post">
       {% csrf_token %}
       {% for field in form %}
@@ -22,9 +22,7 @@
               {% endfor %}
           </div>
         {% endfor %}
-        <button class="text-uppercase btn bg-black text-verde-claro-nossas d-flex m-auto mt-4" type="submit">{{ instance.button_text }}</button>
+        <button class="btn bg-black text-verde-claro-nossas mt-4" type="submit">{{ instance.button_text }}</button>
     </form>
   </div>
 {% endif %}
-
-<script src="{% static 'js/newsletter_form.js' %}"></script>

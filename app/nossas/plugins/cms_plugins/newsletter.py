@@ -38,5 +38,4 @@ class NewsletterFormPlugin(CMSPluginBase):
             form = NewsletterSignUpForm()
         
         context.update({"form": form})
-
         return super().render(context, instance, placeholder)

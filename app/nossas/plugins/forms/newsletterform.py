@@ -13,16 +13,11 @@ class NewsletterPluginForm(forms.ModelForm):
         schema={
             "type": "dict",
             "keys": {
-                "cached_community_id": {
-                    "type": "integer"
-                },
-                "mobilization_id": {
-                    "type": "integer"
-                },
-                "widget_id": {
-                    "type": "integer"
-                }
-            }
+                "cached_community_id": {"type": "integer"},
+                "mobilization_id": {"type": "integer"},
+                "widget_id": {"type": "integer"}
+            },
+            "required": ["cached_community_id", "mobilization_id", "widget_id"]
         }
     )
 
