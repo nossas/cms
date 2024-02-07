@@ -1,4 +1,5 @@
 from django.core.paginator import Paginator
+from django.conf import settings
 
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
@@ -37,7 +38,10 @@ class CampaignListPlugin(CMSPluginBase):
                 if campaign_group_id:
                     filters["campaign_group__id"] = campaign_group_id
 
-                queryset = queryset.filter(**filters)
+                if settings.DATABASES.get("default").get("ENGINE") == 'django.db.backends.sqlite3':
+                    queryset = queryset.filter(**filters)
+                else:
+                    queryset = queryset.filter(**filters).order_by("id").distinct("id")
 
         paginator = Paginator(queryset, 10)
         page = paginator.page(context["request"].GET.get("page", 1))
