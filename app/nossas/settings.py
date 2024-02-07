@@ -84,7 +84,6 @@ NOSSAS_CONTENT_PLUGINS = [
     "CampaignListPlugin",
     "CardPlugin",
     "ContainerPlugin",
-    "DonationFormPlugin",
     "GalleryPlugin",
     "HeaderPlugin",
     "HeadlinePlugin",

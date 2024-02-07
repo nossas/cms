@@ -5,7 +5,6 @@ from .breakline import *
 from .button import *
 from .card import *
 from .container import *
-from .donation import *
 from .footer import *
 from .gallery import *
 from .grid import *

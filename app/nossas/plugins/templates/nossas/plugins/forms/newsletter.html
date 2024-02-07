@@ -1,4 +1,4 @@
-{% load cms_tags %}
+{% load static cms_tags %}
 
 <div class="newsletter-form">
   <h2>{{ instance.title }}</h2>
@@ -22,3 +22,5 @@
       <button class="text-uppercase btn bg-black text-verde-claro-nossas d-flex m-auto mt-4" type="submit">{{ instance.button_text }}</button>
   </form>
 </div>
+
+<script src="{% static 'js/newsletter_form.js' %}"></script>
