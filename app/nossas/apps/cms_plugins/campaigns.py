@@ -1,3 +1,4 @@
+import re
 from django.core.paginator import Paginator
 from django.conf import settings
 
@@ -38,7 +39,10 @@ class CampaignListPlugin(CMSPluginBase):
                 if campaign_group_id:
                     filters["campaign_group__id"] = campaign_group_id
 
-                if settings.DATABASES.get("default").get("ENGINE") == 'django.db.backends.sqlite3':
+                if (
+                    settings.DATABASES.get("default").get("ENGINE")
+                    == "django.db.backends.sqlite3"
+                ):
                     queryset = queryset.filter(**filters)
                 else:
                     queryset = queryset.filter(**filters).order_by("id").distinct("id")
@@ -66,7 +70,16 @@ class NavigateCampaignsPlugin(CMSPluginBase):
 
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
+        request = context["request"]
+        pattern = re.compile(r"/(campanhas|campaigns)/([0-9]+)/")
 
-        context.update({"campaign_list": Campaign.on_site.filter(hide=False)[:3]})
+        queryset = Campaign.on_site.filter(hide=False)
+
+        campaign_id = pattern.search(request.path_info).group(2)
+
+        if campaign_id:
+            queryset = queryset.exclude(id=campaign_id)
+
+        context.update({"campaign_list": queryset[:3]})
 
         return context
