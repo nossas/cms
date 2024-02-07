@@ -687,11 +687,12 @@ $height: 30;
 @import "design/scss/box";
 @import "design/scss/campaign";
 @import "design/scss/card";
+@import "design/scss/forms";
 @import "design/scss/graphics";
 @import "design/scss/header";
 @import "design/scss/navbar";
 @import "design/scss/paginator";
-@import "design/scss/pdfviewer.scss";
+@import "design/scss/pdfviewer";
 
 // Helpers
 @import "bootstrap/scss/helpers";
