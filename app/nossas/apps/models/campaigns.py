@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
 from cms.api import add_plugin
+from cms.plugin_base import CMSPlugin
 from cms.models.fields import PlaceholderField
 from djangocms_text_ckeditor.utils import plugin_to_tag
 from filer.fields.image import FilerImageField
@@ -141,3 +142,17 @@ class Campaign(OnSiteBaseModel):
         add_plugin(
             placeholder=self.placeholder, plugin_type=plugin_type, language=language
         )
+
+
+class NavigateCampaigns(CMSPlugin):
+    related_campaign = models.ForeignKey(
+        Campaign,
+        verbose_name=_("Campanha Relacionada"),
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+    filter_tags = models.BooleanField(verbose_name=_("Filtrar por tags?"), default=True)
+    filter_campaign_group = models.BooleanField(
+        verbose_name=_("Filtrar por comunidade?"), default=False
+    )
