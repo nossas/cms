@@ -68,6 +68,7 @@ class NavigateCampaignsPlugin(CMSPluginBase):
     module = "NOSSAS"
     model = NavigateCampaigns
     render_template = "plugins/navigate_campaigns_plugin.html"
+    fields = ("filter_tags", "filter_campaign_group")
 
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
