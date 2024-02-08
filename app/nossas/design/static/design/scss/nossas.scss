@@ -50,7 +50,6 @@ $accordion-body-padding-y: 1rem;
 $accordion-body-padding-x: 1.25rem;
 $accordion-item-padding: 1.5rem 0;
 
-
 // Font Family
 $headings-font-family: "Bebas Neue Pro";
 $font-family-sans-serif: "Barlow";
@@ -146,21 +145,20 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
 .accordion-plugin {
     .accordion-header {
         margin-bottom: 0;
-      }
-      
+    }
+
     .accordion-item {
         padding: $accordion-item-padding;
 
         .accordion-body {
             padding: $accordion-body-padding-y $accordion-body-padding-x;
-
         }
 
         p {
             margin-bottom: 0;
         }
     }
-    
+
     .accordion-button {
         font-size: $h3-font-size;
         padding: 0;
@@ -239,39 +237,7 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
 
 // Imagem Mask
 .img-mask {
-    clip-path: polygon(0px 22%, 88% 5%, 93% 80%, 11% 82%)
-}
-
-// Button Card
-.btn-card {
-    cursor: pointer;
-    position: relative;
-
-    img.img-mask {
-        height: 164px;
-        width: 164px;
-    }
-
-    svg {
-        position: absolute;
-        top: calc(164px - 55px);
-        left: calc(164px - 35px);
-    }
-
-    .btn-card-description {
-        margin-top: ($spacer * 1);
-        padding-left: 0.25rem;
-
-        h4 {
-            font-size: 1.25rem;
-            text-transform: uppercase;
-        }
-
-        p {
-            font-weight: 500;
-            line-height: 25px;
-        }
-    }
+    clip-path: polygon(0px 22%, 88% 5%, 93% 80%, 11% 82%);
 }
 
 // Button
@@ -542,91 +508,6 @@ $height: 30;
     }
 }
 
-// Accordion Team
-.accordion-team {
-    .accordion-header {
-        position: relative;
-
-        strong {
-
-            margin-left: 1.5rem;
-        }
-
-        .accordion-button {
-            padding: 30px 0 30px 72px;
-
-            svg {
-                position: absolute;
-                left: 0;
-            }
-        }
-    }
-
-    // Modal
-    .modal-sm {
-        .modal-header {
-            min-height: 230px;
-
-                & > div:last-child {
-                    padding: 1.75rem;
-                }
-            }
-        }
-    }
-
-    .modal-header {
-        border-bottom: none;
-        padding: 0;
-    }
-
-    @include media-breakpoint-down(lg) {
-        .modal-header {
-            position: absolute;
-            top: 0;
-            z-index: 1;
-            right: 0;
-        }
-    }
-
-    .modal-box-img {
-        background-color: var(--bs-rosa-nossas);
-        height: 271px;
-        position: relative;
-
-        img {
-            margin-left: 16px;
-        }
-    }
-
-    @include media-breakpoint-down(lg) {
-        .modal-box-img {
-            margin-bottom: 2rem;
-        }
-    }
-
-    .modal-box-text {
-        h4 {
-            font-size: 2rem;
-            margin-bottom: 0;
-            text-transform: uppercase;
-        }
-
-        h5 {
-            font-family: 'Oswald', sans-serif;
-            font-size: 1.25rem;
-            font-weight: 400;
-            margin-bottom: 18px;
-            text-transform: uppercase;
-        }
-
-        p {
-            font-size: 1.25rem;
-            line-height: 27.5px;
-            margin-top: 18px;
-        }
-    }
-}
-
 // Newsletter
 
 .newsletter-form {
@@ -725,6 +606,7 @@ input.form-control {
 @import "design/scss/navbar";
 @import "design/scss/paginator";
 @import "design/scss/pdfviewer";
+@import "design/scss/team";
 
 // Helpers
 @import "bootstrap/scss/helpers";
