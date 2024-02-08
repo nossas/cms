@@ -3,16 +3,26 @@ from cms.api import add_plugin
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
-from nossas.plugins.models.accordionmodel import Accordion
+from nossas.plugins.models.accordionmodel import AccordionItem
 
 
 @plugin_pool.register_plugin
 class AccordionPlugin(CMSPluginBase):
-    name = "Acordeon"
+    name = "Acordeão"
     module = "NOSSAS"
-    model = Accordion
     render_template = "nossas/plugins/accordion.html"
     allow_children = True
+    child_classes = ["AccordionItemPlugin"]
+
+
+@plugin_pool.register_plugin
+class AccordionItemPlugin(CMSPluginBase):
+    name = "Acordeão Item"
+    module = "NOSSAS"
+    model = AccordionItem
+    render_template = "nossas/plugins/accordion_item.html"
+    allow_children = True
+    parent_classes = ["AccordionPlugin"]
 
     def add_default_text(self, obj):
         placeholder = obj.placeholder
