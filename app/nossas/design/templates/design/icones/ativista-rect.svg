@@ -1,0 +1,4 @@
+<svg{% if classnames %} class="{{ classnames }}"{% endif %} width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M23.9119 60.9067L44.9172 159.659H44.9199H175.757L165.307 40.0054L23.9119 60.9067Z" fill="#EB5E3B"/>
+    <path class="background" d="M0 0V200H200V0H0ZM44.9173 159.659L23.912 60.9067L165.307 40.0053L175.757 159.659H44.92H44.9173Z" fill="#91CEC1"/>
+</svg>    

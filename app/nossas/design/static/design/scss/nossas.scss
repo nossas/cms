@@ -46,7 +46,10 @@ $accordion-button-focus-box-shadow: none;
 $accordion-button-active-bg: none;
 $accordion-button-active-color: none;
 $accordion-button-padding-y: ($spacer * 0.5);
-$accordion-header-padding: 1.5rem 0;
+$accordion-body-padding-y: 1rem;
+$accordion-body-padding-x: 1.25rem;
+$accordion-item-padding: 1.5rem 0;
+
 
 // Font Family
 $headings-font-family: "Bebas Neue Pro";
@@ -58,6 +61,9 @@ $headings-font-weight: 800;
 $modal-sm: 375px;
 $modal-content-border-radius: none;
 $modal-content-inner-border-radius: $modal-content-border-radius;
+$modal-inner-padding: 3rem;
+$modal-header-padding-y: 1.5rem;
+$modal-lg: 944px;
 
 // Forms
 $input-font-family: $font-family-sans-serif;
@@ -137,16 +143,32 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
 @import "bootstrap/scss/accordion";
 
 // Accordion
-// .accordion-item {
-//     border-bottom: 1px dashed !important;
+.accordion-plugin {
+    .accordion-header {
+        margin-bottom: 0;
+      }
+      
+    .accordion-item {
+        padding: $accordion-item-padding;
 
-//     &:last-child {
-//         border-bottom: 0 !important;
-//     }
-// }
+        .accordion-body {
+            padding: $accordion-body-padding-y $accordion-body-padding-x;
 
-.accordion-button {
-    font-size: $h3-font-size;
+        }
+
+        p {
+            margin-bottom: 0;
+        }
+    }
+    
+    .accordion-button {
+        font-size: $h3-font-size;
+        padding: 0;
+
+        strong {
+            margin-right: 1rem;
+        }
+    }
 }
 
 @import "bootstrap/scss/breadcrumb";
@@ -217,7 +239,7 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
 
 // Imagem Mask
 .img-mask {
-    clip-path: polygon(0 22%, 93% 5%, 100% 94%, 11% 94%);
+    clip-path: polygon(0px 22%, 88% 5%, 93% 80%, 11% 82%)
 }
 
 // Button Card
@@ -232,12 +254,23 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
 
     svg {
         position: absolute;
-        top: calc(164px - 35px);
-        left: calc(164px - 25px);
+        top: calc(164px - 55px);
+        left: calc(164px - 35px);
     }
 
     .btn-card-description {
         margin-top: ($spacer * 1);
+        padding-left: 0.25rem;
+
+        h4 {
+            font-size: 1.25rem;
+            text-transform: uppercase;
+        }
+
+        p {
+            font-weight: 500;
+            line-height: 25px;
+        }
     }
 }
 
@@ -487,7 +520,7 @@ $height: 30;
 .graphic-element-select {
     display: flex;
     gap: 10px;
-    align-items: center;
+    // align-items: center;
 
     .graphic-element-select-option {
         input[type="radio"]:checked + label {
@@ -500,6 +533,11 @@ $height: 30;
             max-width: 50px;
             width: 50px;
             height: 50px;
+
+            svg {
+                width: 50px;
+                height: 50px;
+            }
         }
     }
 }
@@ -510,11 +548,12 @@ $height: 30;
         position: relative;
 
         strong {
+
             margin-left: 1.5rem;
         }
 
         .accordion-button {
-            padding: 30px 20px 30px 72px;
+            padding: 30px 0 30px 72px;
 
             svg {
                 position: absolute;
@@ -528,37 +567,65 @@ $height: 30;
         .modal-header {
             min-height: 230px;
 
-            img {
-                left: 25px;
+                & > div:last-child {
+                    padding: 1.75rem;
+                }
             }
-            .btn-close-circle {
-                margin-left: ($modal-sm - 85px);
-                margin-top: -95px;
-                opacity: 100;
-                z-index: 2;
-                border-radius: 50px;
-            }
-        }
-
-        .modal-body {
-            padding-top: ($spacer * 1.75);
         }
     }
 
     .modal-header {
-        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
         border-bottom: none;
+        padding: 0;
+    }
+
+    @include media-breakpoint-down(lg) {
+        .modal-header {
+            position: absolute;
+            top: 0;
+            z-index: 1;
+            right: 0;
+        }
+    }
+
+    .modal-box-img {
+        background-color: var(--bs-rosa-nossas);
+        height: 271px;
+        position: relative;
 
         img {
-            height: 250px;
-            max-width: 290px;
-            position: absolute;
-            top: 15px;
-            z-index: 1;
+            margin-left: 16px;
+        }
+    }
+
+    @include media-breakpoint-down(lg) {
+        .modal-box-img {
+            margin-bottom: 2rem;
+        }
+    }
+
+    .modal-box-text {
+        h4 {
+            font-size: 2rem;
+            margin-bottom: 0;
+            text-transform: uppercase;
+        }
+
+        h5 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 400;
+            margin-bottom: 18px;
+            text-transform: uppercase;
+        }
+
+        p {
+            font-size: 1.25rem;
+            line-height: 27.5px;
+            margin-top: 18px;
         }
     }
 }
-
 
 // Newsletter
 
@@ -652,11 +719,12 @@ input.form-control {
 @import "design/scss/box";
 @import "design/scss/campaign";
 @import "design/scss/card";
+@import "design/scss/forms";
 @import "design/scss/graphics";
 @import "design/scss/header";
 @import "design/scss/navbar";
 @import "design/scss/paginator";
-@import "design/scss/pdfviewer.scss";
+@import "design/scss/pdfviewer";
 
 // Helpers
 @import "bootstrap/scss/helpers";

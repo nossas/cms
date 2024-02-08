@@ -3,7 +3,46 @@
     text-transform: uppercase;
 }
 
-.breadcrumb-hub .btn {
+.breadcrumb svg {
+    width: 40px;
+    height: 40px;
+}
+
+.breadcrumb-hub .btn, .breadcrumb-hub .btn:hover {
     background: var(--bs-verde-nossas);
     color: var(--bs-azul-nossas);
+}
+
+.breadcrumb-questionador .btn, .breadcrumb-questionador .btn:hover {
+    background: var(--bs-rosa-nossas);
+    color: var(--bs-vermelho-nossas);
+}
+
+.icon {
+    path {
+        fill: transparent;
+    }
+}
+
+.icon-sm {
+    width: 40px;
+    height: 40px;
+}
+
+@each $state in map-keys($theme-colors) {
+    .icon-#{$state} {
+        path {
+            fill: var(--#{$prefix}#{$state});
+        }
+    }
+    .icon-bg-#{$state} {
+        path.background, circle.background, rect.background {
+            fill: var(--#{$prefix}#{$state});
+        }
+    }
+    .icon-secondary-#{$state} {
+        path.secondary {
+            fill: var(--#{$prefix}#{$state});
+        }
+    }
 }
