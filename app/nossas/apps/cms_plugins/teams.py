@@ -6,7 +6,7 @@ from ..models.teams import MemberGroup
 
 @plugin_pool.register_plugin
 class TeamAccordionPlugin(CMSPluginBase):
-    name = "Acordeon de Equipe"
+    name = "Acordeão de Equipe"
     module = "NOSSAS"
     render_template = "plugins/team_accordion_plugin.html"
 

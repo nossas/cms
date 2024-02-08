@@ -139,36 +139,6 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
     }
 }
 
-@import "bootstrap/scss/accordion";
-
-// Accordion
-.accordion-plugin {
-    .accordion-header {
-        margin-bottom: 0;
-    }
-
-    .accordion-item {
-        padding: $accordion-item-padding;
-
-        .accordion-body {
-            padding: $accordion-body-padding-y $accordion-body-padding-x;
-        }
-
-        p {
-            margin-bottom: 0;
-        }
-    }
-
-    .accordion-button {
-        font-size: $h3-font-size;
-        padding: 0;
-
-        strong {
-            margin-right: 1rem;
-        }
-    }
-}
-
 @import "bootstrap/scss/breadcrumb";
 @import "bootstrap/scss/pagination";
 @import "bootstrap/scss/badge";
@@ -598,6 +568,7 @@ input.form-control {
     border-color: var(--bs-border-color);
 }
 
+@import "design/scss/accordion";
 @import "design/scss/box";
 @import "design/scss/campaign";
 @import "design/scss/card";

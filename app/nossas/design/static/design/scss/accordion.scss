@@ -1,0 +1,34 @@
+@import "bootstrap/scss/accordion";
+
+// Accordion
+.accordion {
+
+    .accordion-item {
+        border-bottom: 2px dotted var(--bs-preto-nossas);
+    }
+
+    .accordion-item:last-child {
+        border: none;
+    }
+
+    .accordion-header {
+        font-family: 'Oswald';
+        font-size: 22px;
+        line-height: 29px;
+
+        .accordion-button {
+            padding: 25px 25px 25px 0;
+
+            &::after {
+                margin-left: 47px;
+            }
+        }
+    }
+
+    .accordion-body {
+        border: 2px solid var(--bs-preto-nossas);
+        border-radius: 5px;
+        padding: 8px 16px 0;
+        margin-bottom: 25px;
+    }
+}
