@@ -10,3 +10,4 @@ from .headlinemodel import *
 from .navbarmodel import *
 from .pdfmodel import *
 from .slidermodel import *
+from .socialsharemodel import *

@@ -1,0 +1,31 @@
+{% load social_share %}
+{% load static %}
+
+<div class="social-share">
+  <div class="social-share-title">
+    <h2>{{ instance.title }}</h2>
+  </div>
+  <div class="social-share-icons">
+    <div class="social-share-link" data-href="{{ link_url }}" data-layout="" data-size="">
+      <a href="https://www.facebook.com/sharer/sharer.php?u={{ url_facebook_modal }}" class="fb-xfb ml-parse-ignore" target="_blank" >
+        {% include 'design/icons/social-media/facebook.svg' %}
+      </a>
+    </div>
+    <div class="social-share-link">
+      <a href="https://web.whatsapp.com/send?text={% if is_alternative_msg %}{{ msg_whatsapp_modal }}{% else %}{{ msg_whatsapp }}{% endif %}" target="_blank">
+        {% include 'design/icons/social-media/whatsapp.svg' %}
+      </a>
+    </div>
+    <div class="social-share-link">
+      <a href="https://twitter.com/intent/tweet?text={% if is_alternative_msg %}{{ msg_twitter_modal }}{% else %}{{ msg_twitter }}{% endif %}" target="_blank">
+        {% include 'design/icons/social-media/twitter.svg' %}
+      </a>
+    </div>
+    <div class="social-share-link">
+      <a href="https://linkedin.com/in/{% if is_alternative_msg %}{{ msg_linkedin_modal }}{% else %}{{ msg_linkedin }}{% endif %}" target="_blank">
+        {% include 'design/icons/social-media/linkedin.svg' %}
+      </a>
+    </div>
+  </div>
+  <button class="btn bg-white text-laranja-nossas d-flex mx-auto text-uppercase">Fazer download do Edital</button>
+</div>
