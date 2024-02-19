@@ -1,0 +1,3 @@
+[submodule "djangocms-forms"]
+	path = djangocms-forms
+	url = git@github.com:igr-santos/djangocms-forms.git

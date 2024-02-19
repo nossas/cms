@@ -11,20 +11,27 @@ DATABASES.update(
 
 # Apps
 # Used to override plugins template
-INSTALLED_APPS =  ["nossas.design"] + INSTALLED_APPS + [
-    "django_jsonform",
-    "tag_fields",
-    # Build Bootstrap SCSS
-    "compressor",
-    #
-    "nossas",
-    "nossas.apps",
-    "nossas.plugins",
-    # Override HTMLs
-    "djangocms_frontend",
-    "djangocms_frontend.contrib.utilities",
-    "djangocms_frontend.contrib.link",
-]
+INSTALLED_APPS = (
+    [
+        "nossas.design",
+    ]
+    + INSTALLED_APPS
+    + [
+        "django_jsonform",
+        "djangocms_forms",
+        "tag_fields",
+        # Build Bootstrap SCSS
+        "compressor",
+        #
+        "nossas",
+        "nossas.apps",
+        "nossas.plugins",
+        # Override HTMLs
+        "djangocms_frontend",
+        "djangocms_frontend.contrib.utilities",
+        "djangocms_frontend.contrib.link",
+    ]
+)
 
 
 # Static files
@@ -94,6 +101,7 @@ NOSSAS_CONTENT_PLUGINS = [
     "SliderPlugin",
     "TeamAccordionPlugin",
     "TextPlugin",
+    "FormPlugin",
 ]
 
 CMS_TEMPLATES = [

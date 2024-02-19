@@ -6,6 +6,7 @@ from .button import *
 from .card import *
 from .container import *
 from .footer import *
+from .form import *
 from .gallery import *
 from .grid import *
 from .header import *

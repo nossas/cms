@@ -115,3 +115,55 @@
         margin-right: 5px;
     }
 }
+
+.forms {
+    .form-wrapper {
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .field-wrapper {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 11px;
+
+            label {
+                font-family: "Bebas Neue Pro";
+                text-transform: uppercase;
+                font-weight: bold;
+                font-size: 22px;
+            }
+
+            input, textarea, select {
+                background-color: transparent;
+                border: 2px solid var(--bs-preto-nossas);
+                border-radius: 5px;
+                font-size: 21px;
+                padding: 0 18px;
+            }
+
+            input, select {
+                min-height: 32px;
+            }
+        }
+
+        .button-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        [type="submit"] {
+            font-family: "Bebas Neue Pro";
+            font-weight: bold;
+            font-size: 22px;
+            line-height: 29px;
+            text-transform: uppercase;
+            background-color: var(--bs-preto-nossas);
+            color: var(--bs-bege-nossas);
+            border-radius: 50px;
+            padding: 5px 38px 2px;
+        }
+    }
+}

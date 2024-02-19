@@ -13,5 +13,6 @@ urlpatterns = [
             namespace="institutional",
         ),
     ),
-    path("styleguide/", StyleGuideView.as_view())
+    path("styleguide/", StyleGuideView.as_view()),
+    path("", include("djangocms_forms.urls")),
 ] + urlpatterns
