@@ -1,31 +1,32 @@
-{% load social_share %}
-{% load static %}
+{% load social_share cms_tags static %}
 
-<div class="social-share">
-  <div class="social-share-title">
-    <h2>{{ instance.title }}</h2>
-  </div>
+<div class="social-share {{ instance.classes }}">
+  <h2>{{ instance.title }}</h2>
   <div class="social-share-icons">
     <div class="social-share-link" data-href="{{ link_url }}" data-layout="" data-size="">
       <a href="https://www.facebook.com/sharer/sharer.php?u={{ url_facebook_modal }}" class="fb-xfb ml-parse-ignore" target="_blank" >
-        {% include 'design/icons/social-media/facebook.svg' %}
+        <img src="{% static 'design/icons/social-media/facebook.svg' %}" alt="Facebook">
       </a>
     </div>
     <div class="social-share-link">
       <a href="https://web.whatsapp.com/send?text={% if is_alternative_msg %}{{ msg_whatsapp_modal }}{% else %}{{ msg_whatsapp }}{% endif %}" target="_blank">
-        {% include 'design/icons/social-media/whatsapp.svg' %}
+        <img src="{% static 'design/icons/social-media/whatsapp.svg' %}" alt="WhatsApp">
       </a>
     </div>
     <div class="social-share-link">
       <a href="https://twitter.com/intent/tweet?text={% if is_alternative_msg %}{{ msg_twitter_modal }}{% else %}{{ msg_twitter }}{% endif %}" target="_blank">
-        {% include 'design/icons/social-media/twitter.svg' %}
+        <img src="{% static 'design/icons/social-media/twitter.svg' %}" alt="Twitter">
       </a>
     </div>
     <div class="social-share-link">
       <a href="https://linkedin.com/in/{% if is_alternative_msg %}{{ msg_linkedin_modal }}{% else %}{{ msg_linkedin }}{% endif %}" target="_blank">
-        {% include 'design/icons/social-media/linkedin.svg' %}
+        <img src="{% static 'design/icons/social-media/linkedin.svg' %}" alt="LinkedIn">
       </a>
     </div>
   </div>
-  <button class="btn bg-white text-laranja-nossas d-flex mx-auto text-uppercase">Fazer download do Edital</button>
+  <div class="social-share-button">
+    {% for plugin in instance.child_plugin_instances %}
+      {% render_plugin plugin %}
+    {% endfor %}
+  </div>
 </div>
