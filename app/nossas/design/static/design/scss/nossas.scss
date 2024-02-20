@@ -50,7 +50,6 @@ $accordion-body-padding-y: 1rem;
 $accordion-body-padding-x: 1.25rem;
 $accordion-item-padding: 1.5rem 0;
 
-
 // Font Family
 $headings-font-family: "Bebas Neue Pro";
 $font-family-sans-serif: "Barlow";
@@ -136,37 +135,6 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
     }
 }
 
-@import "bootstrap/scss/accordion";
-
-// Accordion
-.accordion-plugin {
-    .accordion-header {
-        margin-bottom: 0;
-      }
-      
-    .accordion-item {
-        padding: $accordion-item-padding;
-
-        .accordion-body {
-            padding: $accordion-body-padding-y $accordion-body-padding-x;
-
-        }
-
-        p {
-            margin-bottom: 0;
-        }
-    }
-    
-    .accordion-button {
-        font-size: $h3-font-size;
-        padding: 0;
-
-        strong {
-            margin-right: 1rem;
-        }
-    }
-}
-
 @import "bootstrap/scss/breadcrumb";
 @import "bootstrap/scss/pagination";
 @import "bootstrap/scss/badge";
@@ -235,39 +203,7 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
 
 // Imagem Mask
 .img-mask {
-    clip-path: polygon(0px 22%, 88% 5%, 93% 80%, 11% 82%)
-}
-
-// Button Card
-.btn-card {
-    cursor: pointer;
-    position: relative;
-
-    img.img-mask {
-        height: 164px;
-        width: 164px;
-    }
-
-    svg {
-        position: absolute;
-        top: calc(164px - 55px);
-        left: calc(164px - 35px);
-    }
-
-    .btn-card-description {
-        margin-top: ($spacer * 1);
-        padding-left: 0.25rem;
-
-        h4 {
-            font-size: 1.25rem;
-            text-transform: uppercase;
-        }
-
-        p {
-            font-weight: 500;
-            line-height: 25px;
-        }
-    }
+    clip-path: polygon(0px 22%, 88% 5%, 93% 80%, 11% 82%);
 }
 
 // Button
@@ -310,12 +246,11 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
 $height: 30;
 
 .i18n-form {
-
     label {
         position: relative;
         display: inline-block;
         margin-left: $spacer * 2;
-        
+
         &:before {
             content: "";
             height: ($height - 5) + px;
@@ -334,7 +269,7 @@ $height: 30;
             pointer-events: none;
             display: block;
         }
-        
+
         &:after {
             content: " ";
             position: absolute;
@@ -354,6 +289,7 @@ $height: 30;
             -webkit-appearance: none;
             -moz-appearance: none;
             appearance: none;
+            border: none;
             padding: 0 30px 0 0;
 
             font-family: $headings-font-family;
@@ -363,6 +299,7 @@ $height: 30;
             height: $height + px;
             //box-shadow: inset 1px 1px 1px 0px rgba(0, 0, 0, 0.2);
             background: transparent;
+            color: var(--bs-link-color-rgb);
 
             //min-width: 200px;
             margin: 10px 0 0 0;
@@ -684,6 +621,12 @@ $height: 30;
     max-width: 1175px;
 }
 
+// Forms
+input.form-control {
+    border-color: var(--bs-border-color);
+}
+
+@import "design/scss/accordion";
 @import "design/scss/box";
 @import "design/scss/campaign";
 @import "design/scss/card";
@@ -693,6 +636,7 @@ $height: 30;
 @import "design/scss/navbar";
 @import "design/scss/paginator";
 @import "design/scss/pdfviewer";
+@import "design/scss/team";
 
 // Helpers
 @import "bootstrap/scss/helpers";
