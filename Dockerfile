@@ -37,6 +37,7 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
     libcairo2 \
     libcairo2-dev \
     python3-dev \
+    git \
 && rm -rf /var/lib/apt/lists/*
 
 # Install the application server.
