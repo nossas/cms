@@ -12,7 +12,7 @@ from django.http import JsonResponse
 
 from formtools.wizard.views import SessionWizardView
 
-from .bonde_utils import create_form_entry
+from contrib.bonde.api import create_form_entry
 from .forms.candidate import (
     IntroForm,
     Commitment1Form,
