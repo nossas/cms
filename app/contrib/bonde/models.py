@@ -10,6 +10,7 @@ from django.conf import settings
 from django.contrib.sites.models import Site
 
 from cms.models import CMSPlugin
+from djangocms_form_builder.models import Form
 
 
 class User(models.Model):
@@ -297,7 +298,7 @@ class Activist(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'activists'
+        db_table = "activists"
 
 
 class FormEntry(models.Model):
@@ -317,19 +318,19 @@ class FormEntry(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'form_entries'
-    
+        db_table = "form_entries"
+
     def __str__(self):
-        return f'ID: {self.id} / WidgetID: {self.widget_id}'
+        return f"ID: {self.id} / WidgetID: {self.widget_id}"
 
 
 class BondeBasePluginModel(CMSPlugin):
-    """
-    """
+    """ """
+
     reference_id = models.IntegerField(
         null=True,
         blank=True,
-        help_text="ID de referência da widget na plataforma Bonde"
+        help_text="ID de referência da widget na plataforma Bonde",
     )
 
     class Meta:
@@ -344,3 +345,16 @@ class BondeBasePluginModel(CMSPlugin):
     @property
     def widget(self) -> Widget | None:
         return self.get_widget()
+
+
+class FormProxy(Form):
+
+    class Meta:
+        proxy = True
+        managed = False
+        app_label = "djangocms_form_builder"
+
+    @property
+    def form_submit_message(self):
+        if "submit_text" in self.extra_config:
+            return self.extra_config.get("submit_text")
