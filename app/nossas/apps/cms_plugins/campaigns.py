@@ -1,10 +1,11 @@
+import re
 from django.core.paginator import Paginator
 from django.conf import settings
 
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
-from ..models.campaigns import Campaign
+from ..models.campaigns import Campaign, NavigateCampaigns
 from ..forms.campaigns import CampaignFilterForm
 
 
@@ -38,7 +39,10 @@ class CampaignListPlugin(CMSPluginBase):
                 if campaign_group_id:
                     filters["campaign_group__id"] = campaign_group_id
 
-                if settings.DATABASES.get("default").get("ENGINE") == 'django.db.backends.sqlite3':
+                if (
+                    settings.DATABASES.get("default").get("ENGINE")
+                    == "django.db.backends.sqlite3"
+                ):
                     queryset = queryset.filter(**filters)
                 else:
                     queryset = queryset.filter(**filters).order_by("id").distinct("id")
@@ -62,11 +66,42 @@ class CampaignListPlugin(CMSPluginBase):
 class NavigateCampaignsPlugin(CMSPluginBase):
     name = "Navegue por Campanhas"
     module = "NOSSAS"
+    model = NavigateCampaigns
     render_template = "plugins/navigate_campaigns_plugin.html"
+    fields = ("filter_tags", "filter_campaign_group")
 
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
+        request = context["request"]
+        pattern = re.compile(r"/(campanhas|campaigns)/([0-9]+)/")
 
-        context.update({"campaign_list": Campaign.on_site.filter(hide=False)[:3]})
+        campaign_id = pattern.search(request.path_info).group(2)
+        campaign = None
+
+        if campaign_id:
+            campaign = Campaign.on_site.get(id=campaign_id)
+        elif instance.related_campaign:
+            campaign = instance.related_campaign
+
+        queryset = Campaign.on_site.filter(hide=False)
+
+        if campaign:
+            queryset = queryset.exclude(id=campaign.id)
+
+            if instance.filter_tags:
+                queryset = queryset.filter(
+                    tags__slug__in=list(map(lambda x: x.slug, campaign.tags.all()))
+                )
+
+            if instance.filter_campaign_group:
+                queryset = queryset.filter(campaign_group=campaign.campaign_group)
+
+        if (
+            settings.DATABASES.get("default").get("ENGINE")
+            != "django.db.backends.sqlite3"
+        ):
+            queryset = queryset.order_by("id").distinct("id")
+
+        context.update({"campaign_list": queryset[:3]})
 
         return context
