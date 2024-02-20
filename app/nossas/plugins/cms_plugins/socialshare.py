@@ -1,14 +1,15 @@
 from cms.api import add_plugin
 
 from cms.plugin_pool import plugin_pool
+from cms.plugin_base import CMSPluginBase
+
 from django.utils.translation import gettext_lazy as _
-from nossas.design.cms_plugins import UICMSPluginBase
 
 from ..models.socialsharemodel import SocialSharePluginModel
 from ..forms.socialshareform import SocialSharePluginForm
 
 @plugin_pool.register_plugin
-class SocialSharePlugin(UICMSPluginBase):
+class SocialSharePlugin(CMSPluginBase):
     module = "NOSSAS"
     name = _("Social Share Plugin")
     model = SocialSharePluginModel
@@ -16,6 +17,13 @@ class SocialSharePlugin(UICMSPluginBase):
     render_template = "nossas/plugins/social_share.html"
     allow_children = True
     child_classes = ["LinkButtonPlugin"]
+    
+    def render(self, context, instance, placeholder):
+        context.update({
+            'instance': instance,
+            'selected_social_media': instance.get_selected_social_media_list(),
+        })
+        return context
 
     def create_social_share(self, obj):
         placeholder = obj.placeholder
@@ -30,7 +38,7 @@ class SocialSharePlugin(UICMSPluginBase):
                 "link_outline": False,
                 "link_context": obj.attributes.get("color").replace("bg-", ""),
                 "link_type": "btn",
-                "name": "Fazer Download do Documento",
+                "name": "Call to Action",
                 # "attributes": {
                 #     "class": obj.attributes.get("background").replace("bg-", "text-")
                 # },

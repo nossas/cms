@@ -1,0 +1,11 @@
+{% load static %}
+
+<div id="{{ widget.attrs.id }}" class="social-media-select">
+  oieee
+  {% for value, name in widget.choices %}
+      <label for="id_{{ widget.name }}_{{ forloop.counter0 }}">
+          <input type="checkbox" name="{{ widget.name }}" value="{{ value }}" id="id_{{ widget.name }}_{{ forloop.counter0 }}" class="social-media-checkbox">
+          <img src="{% static 'design/icons/social-media/'|add:value|add:'.svg' %}" alt="{{ name }}" class="social-media-icon">
+      </label>
+  {% endfor %}
+</div>
