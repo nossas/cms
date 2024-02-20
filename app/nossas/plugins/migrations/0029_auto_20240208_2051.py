@@ -8,7 +8,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('cms', '0022_auto_20180620_1551'),
-        ('plugins', '0028_newsletterpluginmodel_config'),
+        ('plugins', '0024_container_fluid'),
     ]
 
     operations = [
