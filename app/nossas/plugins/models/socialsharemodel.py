@@ -1,17 +1,11 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from nossas.design.models import UIBackgroundMixin, NamingPluginMixin, UICMSPlugin
+from cms.plugin_base import CMSPlugin
 
-class SocialSharePluginModel(UIBackgroundMixin, NamingPluginMixin, UICMSPlugin):
-    selected_social_media = models.CharField(max_length=255, blank=True, verbose_name="Redes Sociais Selecionadas")
+class SocialSharePluginModel(CMSPlugin):
+    selected_social_media = models.CharField(max_length=255, blank=True, verbose_name=_("Selecione as redes sociais"))
+    title = models.TextField(verbose_name=_("Titulo"), default="Título")
 
     def get_selected_social_media_list(self):
         return self.selected_social_media.split(',') if self.selected_social_media else []
-
-    def get_classes(self):
-        classes = super().get_classes()
-
-        color = self.attributes.get("color", "").replace("bg-", "text-")
-
-        return classes + [color]

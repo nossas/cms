@@ -11,19 +11,12 @@ from ..forms.socialshareform import SocialSharePluginForm
 @plugin_pool.register_plugin
 class SocialSharePlugin(CMSPluginBase):
     module = "NOSSAS"
-    name = _("Social Share Plugin")
+    name = _("Compartilhamento em Rede Sociais")
     model = SocialSharePluginModel
     form = SocialSharePluginForm
     render_template = "nossas/plugins/social_share.html"
     allow_children = True
     child_classes = ["LinkButtonPlugin"]
-    
-    def render(self, context, instance, placeholder):
-        context.update({
-            'instance': instance,
-            'selected_social_media': instance.get_selected_social_media_list(),
-        })
-        return context
 
     def create_social_share(self, obj):
         placeholder = obj.placeholder
@@ -36,12 +29,10 @@ class SocialSharePlugin(CMSPluginBase):
         child_attrs = {
             "config": {
                 "link_outline": False,
-                "link_context": obj.attributes.get("color").replace("bg-", ""),
+                "link_context": "branco-nossas",
                 "link_type": "btn",
                 "name": "Call to Action",
-                # "attributes": {
-                #     "class": obj.attributes.get("background").replace("bg-", "text-")
-                # },
+                "external_link": "https://nossas.org"
             }
         }
         add_plugin(
@@ -58,3 +49,10 @@ class SocialSharePlugin(CMSPluginBase):
 
         if not change:
             self.create_social_share(obj)
+
+    def render(self, context, instance, placeholder):
+        context.update({
+            'instance': instance,
+            'selected_social_media': instance.get_selected_social_media_list(),
+        })
+        return context

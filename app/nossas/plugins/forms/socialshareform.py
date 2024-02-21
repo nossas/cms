@@ -4,6 +4,11 @@ from nossas.plugins.models.socialsharemodel import SocialSharePluginModel
 
 class SocialShareIconSelect(forms.CheckboxSelectMultiple):
     template_name = "design/fields/multiple_svg_select.html"
+    option_template_name = "design/fields/multiple_svg_select_option.html"
+
+    class Media:
+        css = {"all": ("djangocms_frontend/css/button_group.css",)}
+
 
 class SocialSharePluginForm(forms.ModelForm):
     selected_social_media = forms.MultipleChoiceField(choices=[
@@ -15,7 +20,7 @@ class SocialSharePluginForm(forms.ModelForm):
 
     class Meta:
         model = SocialSharePluginModel
-        fields = ['selected_social_media']
+        fields = ['title', 'selected_social_media']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

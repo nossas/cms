@@ -6,14 +6,14 @@
     {% for network in instance.get_selected_social_media_list %}
         {% if network == "whatsapp" %}
             <div class="social-share-link">
-                <a href="https://web.whatsapp.com/send?text={{ msg_whatsapp }}" target="_blank">
+                <a href="https://web.whatsapp.com/send?text={{ request.build_absolute_uri }}" target="_blank">
                     <img src="{% static 'design/icons/social-media/whatsapp.svg' %}" alt="WhatsApp">
                 </a>
             </div>
         {% endif %}
         {% if network == "twitter" %}
             <div class="social-share-link">
-                <a href="https://twitter.com/intent/tweet?text={{ msg_twitter }}" target="_blank">
+                <a href="https://twitter.com/intent/tweet?text={{ request.build_absolute_uri }}" target="_blank">
                     <img src="{% static 'design/icons/social-media/twitter.svg' %}" alt="Twitter">
                 </a>
             </div>
@@ -33,27 +33,6 @@
             </div>
         {% endif %}
     {% endfor %}
-  
-    {% comment %} <div class="social-share-link" data-href="{{ link_url }}" data-layout="" data-size="">
-      <a href="https://www.facebook.com/sharer/sharer.php?u={{ url_facebook_modal }}" class="fb-xfb ml-parse-ignore" target="_blank" >
-        <img src="{% static 'design/icons/social-media/facebook.svg' %}" alt="Facebook">
-      </a>
-    </div>
-    <div class="social-share-link">
-      <a href="https://web.whatsapp.com/send?text={% if is_alternative_msg %}{{ msg_whatsapp_modal }}{% else %}{{ msg_whatsapp }}{% endif %}" target="_blank">
-        <img src="{% static 'design/icons/social-media/whatsapp.svg' %}" alt="WhatsApp">
-      </a>
-    </div>
-    <div class="social-share-link">
-      <a href="https://twitter.com/intent/tweet?text={% if is_alternative_msg %}{{ msg_twitter_modal }}{% else %}{{ msg_twitter }}{% endif %}" target="_blank">
-        <img src="{% static 'design/icons/social-media/twitter.svg' %}" alt="Twitter">
-      </a>
-    </div>
-    <div class="social-share-link">
-      <a href="https://linkedin.com/in/{% if is_alternative_msg %}{{ msg_linkedin_modal }}{% else %}{{ msg_linkedin }}{% endif %}" target="_blank">
-        <img src="{% static 'design/icons/social-media/linkedin.svg' %}" alt="LinkedIn">
-      </a>
-    </div> {% endcomment %}
   </div>
   <div class="social-share-button">
     {% for plugin in instance.child_plugin_instances %}
