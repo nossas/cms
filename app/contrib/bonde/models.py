@@ -358,3 +358,7 @@ class FormProxy(Form):
     def form_submit_message(self):
         if "submit_text" in self.extra_config:
             return self.extra_config.get("submit_text")
+
+    @property
+    def render_success(self):
+        return "forms/success.html"

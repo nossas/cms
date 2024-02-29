@@ -7,6 +7,7 @@ from cms.plugin_pool import plugin_pool
 from djangocms_form_builder.models import Form
 from djangocms_form_builder.cms_plugins import FormPlugin as FormPluginBase
 from djangocms_form_builder.forms import FormsForm as FormsFormBase
+from djangocms_text_ckeditor.fields import HTMLFormField
 
 from .models import FormProxy
 
@@ -18,6 +19,7 @@ class FormsForm(FormsFormBase):
     submit_text = forms.CharField(
         label=_("Botão enviar"), required=False, initial=_("Enviar")
     )
+    success_message = HTMLFormField()
 
     class Meta:
         model = Form
@@ -35,7 +37,10 @@ class FormsForm(FormsFormBase):
             "captcha_requirement",
             "captcha_config",
         ]
-        entangled_fields = {"action_parameters": [], "extra_config": ["submit_text"]}
+        entangled_fields = {
+            "action_parameters": [],
+            "extra_config": ["submit_text", "success_message"],
+        }
 
 
 @plugin_pool.register_plugin
@@ -56,6 +61,7 @@ class FormPlugin(FormPluginBase):
                     "form_floating_labels",
                     "form_spacing",
                     "submit_text",
+                    "success_message",
                 ],
             },
         ),
