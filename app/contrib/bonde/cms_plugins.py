@@ -60,12 +60,6 @@ class FormPlugin(FormPluginBase):
                 "fields": [
                     "form_selection",
                     "form_name",
-                    (
-                        "form_login_required",
-                        "form_unique",
-                    ),
-                    "form_floating_labels",
-                    "form_spacing",
                     "submit_text",
                     "success_message",
                 ],
