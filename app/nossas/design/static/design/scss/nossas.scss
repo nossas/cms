@@ -479,7 +479,7 @@ $height: 30;
     display: flex;
 
     .multiple-svg-select-option {
-        input[type="input"]:checked + label {
+        input[type="checkbox"]:checked + label {
             outline: 2px solid green;
             scale: 0.9;
         }
@@ -488,9 +488,11 @@ $height: 30;
             background-color: #233d90;
             border-radius: 50px;
             display: flex;
-            height: 25px;
-            max-width: 25px;
-            width: 25px;
+            margin-right: 10px;
+        }
+
+        img {
+            padding: 24px;
         }
     }
 }
@@ -508,7 +510,7 @@ $height: 30;
         justify-content: center;
 
         .social-share-link {
-            padding: 21px;
+            padding: 16px;
         }
     }
     .social-share-button {

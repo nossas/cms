@@ -1,8 +1,8 @@
 {% load social_share cms_tags static %}
 
 <div class="social-share {{ instance.classes }}">
-  <h2>{{ instance.title }}</h2>
   <div class="social-share-icons">
+    {% comment %} Texto configurado no metadata + link {% endcomment %}
     {% for network in instance.get_selected_social_media_list %}
         {% if network == "whatsapp" %}
             <div class="social-share-link">

@@ -17,7 +17,7 @@ class BoxPlugin(UICMSPluginBase):
     form = BoxPluginForm
     render_template = "nossas/plugins/box.html"
     allow_children = True
-    child_classes = ["TextPlugin", "LinkButtonPlugin"]
+    child_classes = ["TextPlugin", "SocialSharePlugin", "LinkButtonPlugin"]
     fieldsets = (
         (None, {"fields": ["attributes"]}),
         ("Cores", {"fields": ["background", "color"]}),

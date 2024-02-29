@@ -20,7 +20,7 @@ class SocialSharePluginForm(forms.ModelForm):
 
     class Meta:
         model = SocialSharePluginModel
-        fields = ['title', 'selected_social_media']
+        fields = ['selected_social_media']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

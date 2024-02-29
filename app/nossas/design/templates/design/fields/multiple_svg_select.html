@@ -1,4 +1,4 @@
-<div id="{{ widget.attrs.id }}" class="widget-bg-btn-group d-flex">
+<div id="{{ widget.attrs.id }}" class="widget-bg-btn-group d-flex multiple-svg-select">
     {% for group, options, index in widget.optgroups %}
         {% for option in options %}
             {% include option.template_name with widget=option %}
