@@ -138,5 +138,11 @@
         background-color: var(--bs-color-content);
         display: block;
         margin: auto;
+
+        &:active {
+            color: var(--bs-color-background);
+            background-color: var(--bs-color-content);
+            opacity: 0.7;
+        }
     }
 }

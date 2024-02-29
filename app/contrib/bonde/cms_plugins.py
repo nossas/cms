@@ -1,6 +1,7 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
-from django_jsonform.forms.fields import JSONFormField
+
+# from django_jsonform.forms.fields import JSONFormField
 
 from cms.plugin_pool import plugin_pool
 
@@ -19,7 +20,7 @@ class FormsForm(FormsFormBase):
     submit_text = forms.CharField(
         label=_("Botão enviar"), required=False, initial=_("Enviar")
     )
-    success_message = HTMLFormField()
+    success_message = HTMLFormField(label=_("Mensagem de sucesso"))
 
     class Meta:
         model = Form
@@ -42,9 +43,14 @@ class FormsForm(FormsFormBase):
             "extra_config": ["submit_text", "success_message"],
         }
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["captcha_widget"].initial = ""
+
 
 @plugin_pool.register_plugin
 class FormPlugin(FormPluginBase):
+    name = _("Formulário")
     model = FormProxy
     form = FormsForm
     fieldsets = [

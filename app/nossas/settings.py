@@ -99,6 +99,7 @@ NOSSAS_CONTENT_PLUGINS = [
     "BootstrapGridPlugin",
     "CardPlugin",
     "PdfViewerPlugin",
+    "FormPlugin",
 ]
 
 CMS_TEMPLATES = [
