@@ -51,6 +51,8 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 // Create constrast
 @each $color, $value in $theme-colors {
     .bg-#{$color}, .tag-#{$color} {
+        --bs-color-background: var(--#{$prefix}#{$color});
+        --bs-color-content: var(--#{$prefix}#{$color}-content);
         --bs-mega-menu-background: var(--#{$prefix}#{$color});
         --bs-mega-menu-border-color: var(--#{$prefix}#{$color}-content);
 

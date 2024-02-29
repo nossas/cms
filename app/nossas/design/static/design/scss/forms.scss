@@ -115,3 +115,28 @@
         margin-right: 5px;
     }
 }
+
+.djangocms-form-builder-ajax-form {
+
+    .form-control {
+        border-color: var(--bs-color-content);
+        color: var(--bs-color-content);
+
+        &::placeholder {
+            color: var(--bs-color-content);
+            opacity: .5;
+        }
+    }
+
+    input[type="submit"] {
+        min-width: 228px;
+        padding: 5px 54px;
+        font-family: "Bebas Neue Pro";
+        font-size: 22px;
+        font-weight: bold;
+        color: var(--bs-color-background);
+        background-color: var(--bs-color-content);
+        display: block;
+        margin: auto;
+    }
+}
