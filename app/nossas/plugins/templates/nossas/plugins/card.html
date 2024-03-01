@@ -6,8 +6,10 @@
     {% endif %}
     <div class="card-body">
         {% if instance.tag %}<span class="tag bg-amarelo-nossas">{{ instance.tag }}</span>{% endif %}
+        <div class="card-body-content">
         {% for plugin in instance.child_plugin_instances %}
         {% render_plugin plugin %}
         {% endfor %}
+        </div>
     </div>
   </div>

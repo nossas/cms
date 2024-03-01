@@ -5,8 +5,10 @@
     {% endif %}
     <div class="card-body">
         <span class="tag {% if instance.status == 'opened' %}bg-verde-nossas{% elif instance.status == 'closed' %}bg-vermelho-nossas{% else %}bg-amarelo-nossas{% endif %}">{{ instance.get_status_display }}</span>
-        <h3>{{ instance.name }}</h3>
-        <p>{{ instance.description }}</p>
+        <div class="card-body-content">
+          <h3>{{ instance.name }}</h3>
+          <p>{{ instance.description }}</p>
+        </div>
     </div>
   </div>
 </a>
