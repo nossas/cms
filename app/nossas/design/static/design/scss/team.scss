@@ -78,14 +78,32 @@
         }
     }
 
+    .modal-body {
+        display: flex;
+        gap: 32px;
+    }
+
     .modal-box-img {
         background-color: var(--bs-rosa-nossas);
         height: 271px;
         position: relative;
+        padding: 0 15px;
 
         img {
-            margin-left: 16px;
+            clip-path: polygon(0 16%, 93% 0, 100% 100%, 13% 100%);
         }
+    }
+
+    @include media-breakpoint-up(md) {
+        .modal-box-img {
+            min-width: 413px;
+        }
+    }
+
+    @include media-breakpoint-down(md) {
+        .modal-body {
+            flex-direction: column;
+        }   
     }
 
     @include media-breakpoint-down(lg) {
