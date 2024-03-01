@@ -32,3 +32,33 @@
         margin-bottom: 25px;
     }
 }
+
+// Accordion Team
+.accordion-team {
+    .accordion-header {
+        position: relative;
+
+        strong {
+            margin-left: 1.5rem;
+        }
+
+        .accordion-button {
+            font-family: "Bebas Neue Pro";
+            padding: 45px 0 45px 85px;
+            font-size: 33px;
+            text-transform: uppercase;
+            display: flex;
+            justify-content: space-between;
+
+            svg {
+                position: absolute;
+                left: 0;
+            }
+        }
+    }
+
+    .accordion-body {
+        padding: 0;
+        border: none;
+    }
+}
