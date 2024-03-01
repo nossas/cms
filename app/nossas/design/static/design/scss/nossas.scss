@@ -135,7 +135,6 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
     }
 }
 
-@import "bootstrap/scss/breadcrumb";
 @import "bootstrap/scss/pagination";
 @import "bootstrap/scss/badge";
 @import "bootstrap/scss/alert";
@@ -538,6 +537,7 @@ $height: 30;
 
 @import "design/scss/accordion";
 @import "design/scss/box";
+@import "design/scss/breadcrumb";
 @import "design/scss/campaign";
 @import "design/scss/card";
 @import "design/scss/forms";
