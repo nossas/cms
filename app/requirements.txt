@@ -15,7 +15,7 @@ django-cms==3.11.4
 djangocms-admin-style==3.2.4
 djangocms-text-ckeditor
 djangocms-picture
-djangocms_video
+djangocms-video
 djangocms_snippet
 djangocms-frontend>=1.2.1
 # Authentication all platforms
