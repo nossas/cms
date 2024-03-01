@@ -118,19 +118,56 @@
 
 .djangocms-form-builder-ajax-form {
 
-    .form-control {
-        border-color: var(--bs-color-content);
+    .form-group {
+        margin-bottom: 11px;
+
+        .form-label, > label {
+            font-family: "Bebas Neue Pro";
+            font-size: 22px;
+            line-height: 29px;
+            margin-bottom: 0;
+
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+    }
+
+    .form-control, .form-select {
+        font-family: "Barlow";
+        font-size: 21px;
+        line-height: 27.5px;
+        background-color: transparent;
+        height: 32px;
+        border: 2px solid var(--bs-color-content);
         color: var(--bs-color-content);
 
         &::placeholder {
             color: var(--bs-color-content);
             opacity: .5;
         }
+
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .form-check {
+        font-family: "Barlow";
+        font-size: 21px;
+        line-height: 27.5px;
+        
+        label, input[type="checkbox"] {
+            cursor: pointer;
+        }
+
+        input[type="checkbox"]:not(:checked) {
+            background-color: transparent;
+        }
     }
 
     input[type="submit"] {
         min-width: 228px;
-        padding: 5px 54px;
+        padding: 1px 47px;
+        height: 32px;
         font-family: "Bebas Neue Pro";
         font-size: 22px;
         font-weight: bold;
