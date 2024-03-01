@@ -100,6 +100,7 @@ NOSSAS_CONTENT_PLUGINS = [
     "CardPlugin",
     "PdfViewerPlugin",
     "FormPlugin",
+    "VideoPlayerPlugin",
 ]
 
 CMS_TEMPLATES = [
