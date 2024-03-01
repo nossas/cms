@@ -65,22 +65,22 @@
     }
 
     .modal-header {
+        position: relative;
         border-bottom: none;
         padding: 0;
-    }
 
-    @include media-breakpoint-down(lg) {
-        .modal-header {
+        .btn-close-circle {
             position: absolute;
-            top: 0;
+            right: 48px;
+            top: 48px;
             z-index: 1;
-            right: 0;
         }
     }
 
     .modal-body {
         display: flex;
         gap: 32px;
+        padding:  89px 48px 48px;
     }
 
     .modal-box-img {
@@ -90,17 +90,19 @@
         padding: 0 15px;
 
         img {
+            display: block;
+            margin: 0 auto;
             clip-path: polygon(0 16%, 93% 0, 100% 100%, 13% 100%);
         }
     }
 
-    @include media-breakpoint-up(md) {
+    @include media-breakpoint-up(lg) {
         .modal-box-img {
             min-width: 413px;
         }
     }
 
-    @include media-breakpoint-down(md) {
+    @include media-breakpoint-down(lg) {
         .modal-body {
             flex-direction: column;
         }   
