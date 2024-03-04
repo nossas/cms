@@ -12,8 +12,16 @@ class MemberGroup(OnSiteBaseModel):
         {"en": {"blank": True}},
     )
 
+    my_order = models.PositiveIntegerField(
+        verbose_name=_("Posição"),
+        default=0,
+        blank=False,
+        null=False,
+    )
+
     class Meta:
         verbose_name = _("Equipe")
+        ordering = ("my_order", "id")
 
     def __str__(self):
         return self.name
@@ -42,8 +50,16 @@ class Member(OnSiteBaseModel):
         null=True,
     )
 
+    my_order = models.PositiveIntegerField(
+        verbose_name=_("Posição"),
+        default=0,
+        blank=False,
+        null=False,
+    )
+
     class Meta:
         verbose_name = _("Colaborador")
+        ordering = ("my_order", "full_name")
     
     def __str__(self):
         return self.short_name

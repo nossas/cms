@@ -18,9 +18,9 @@ class TeamAccordionPlugin(CMSPluginBase):
             {
                 "membergroup_list": MemberGroup.on_site.prefetch_related(
                     Prefetch(
-                        "member_set", queryset=Member.on_site.order_by("full_name")
+                        "member_set", queryset=Member.on_site.order_by("my_order", "full_name")
                     )
-                ).all()
+                ).order_by("my_order", "id").all()
             }
         )
 
