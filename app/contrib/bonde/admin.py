@@ -4,7 +4,7 @@ from django import forms
 
 # Register your models here.
 
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from djangocms_form_builder import actions
 
 from .api import create_form_entry

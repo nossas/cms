@@ -1,4 +1,4 @@
-django==3.2
+django==4.2
 django-environ
 psycopg2-binary
 django-select2
@@ -11,7 +11,7 @@ django-libsass==0.9
 django-colorfield
 django-tag-fields
 # Django CMS
-django-cms==3.11.4
+django-cms==3.11.5
 djangocms-admin-style==3.2.4
 djangocms-text-ckeditor
 djangocms-picture

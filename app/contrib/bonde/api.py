@@ -1,6 +1,6 @@
 # import json
 # from datetime import datetime
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from contrib.bonde.models import FormEntry, Activist
 
 

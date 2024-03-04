@@ -1,6 +1,6 @@
 from django import forms
 from django.utils.functional import lazy
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from django_select2 import forms as s2forms
 from tag_fields.models import ModelTag
