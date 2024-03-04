@@ -13,3 +13,5 @@ from .headline import *
 from .navbar import *
 from .pdf import *
 from .slider import *
+from .socialshare import *
+

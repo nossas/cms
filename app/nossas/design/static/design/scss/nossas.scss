@@ -365,6 +365,7 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
 
 // Button Group (Admin)
 .widget-bg-btn-group {
+    input[type="input"]:checked + label.widget-bg-btn,
     input[type="radio"]:checked + label.widget-bg-btn {
         outline: 2px solid green;
         scale: 0.9;
@@ -392,6 +393,137 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
                 width: 50px;
                 height: 50px;
             }
+        }
+    }
+}
+
+.multiple-svg-select {
+    display: flex;
+
+    .multiple-svg-select-option {
+        input[type="checkbox"]:checked + label {
+            outline: 4px solid green;
+            scale: 0.9;
+        }
+
+        label {
+            background-color: #888888;
+            border-radius: 50px;
+            display: flex;
+            margin-right: 10px;
+            padding: 24px !important;
+        }
+    }
+}
+
+// Social Share
+.social-share {
+    padding: 16px 0;
+
+    h2 {
+        text-align: center;
+        text-transform: uppercase;
+    }
+    .social-share-icons {
+        display: flex;
+        justify-content: center;
+
+        .social-share-link {
+            padding: 16px;
+        }
+    }
+    .social-share-button {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+// Accordion Team
+.accordion-team {
+    .accordion-header {
+        position: relative;
+
+        strong {
+
+            margin-left: 1.5rem;
+        }
+
+        .accordion-button {
+            padding: 30px 0 30px 72px;
+
+            svg {
+                position: absolute;
+                left: 0;
+            }
+        }
+    }
+
+    .accordion-body {
+        padding: 0;
+    }
+
+    // Modal Team
+    .modal-lg {
+        @include media-breakpoint-down(lg) {
+            .modal-body {
+                padding: 0;
+
+                & > div:last-child {
+                    padding: 1.75rem;
+                }
+            }
+        }
+    }
+
+    .modal-header {
+        border-bottom: none;
+        padding: 0;
+    }
+
+    @include media-breakpoint-down(lg) {
+        .modal-header {
+            position: absolute;
+            top: 0;
+            z-index: 1;
+            right: 0;
+        }
+    }
+
+    .modal-box-img {
+        background-color: var(--bs-rosa-nossas);
+        height: 271px;
+        position: relative;
+
+        img {
+            margin-left: 16px;
+        }
+    }
+
+    @include media-breakpoint-down(lg) {
+        .modal-box-img {
+            margin-bottom: 2rem;
+        }
+    }
+
+    .modal-box-text {
+        h4 {
+            font-size: 2rem;
+            margin-bottom: 0;
+            text-transform: uppercase;
+        }
+
+        h5 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 400;
+            margin-bottom: 18px;
+            text-transform: uppercase;
+        }
+
+        p {
+            font-size: 1.25rem;
+            line-height: 27.5px;
+            margin-top: 18px;
         }
     }
 }
