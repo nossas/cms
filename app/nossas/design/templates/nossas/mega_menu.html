@@ -2,12 +2,12 @@
 
 {% for child in children %}
 {% if forloop.counter != 1 %}
-<li class="child{% if child.selected %} selected{% endif %}{% if child.ancestor %} ancestor{% endif %}{% if child.sibling %} sibling{% endif %}{% if child.descendant %} descendant{% endif %}">
+<li class="child px-2{% if child.selected %} selected{% endif %}{% if child.ancestor %} ancestor{% endif %}{% if child.sibling %} sibling{% endif %}{% if child.descendant %} descendant{% endif %}">
     {% if child.children %}
-    <button class="dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false">
+    <a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
         {{ child.get_menu_title }}
         {% include "nossas/svg/chevron-down.svg" %}
-    </button>
+    </a>
     <div class="mega-menu">
         <ul class="dropdown-menu w-100 mt-0" aria-labelledby="navbarDropdown">
             {% show_menu from_level to_level extra_inactive extra_active "nossas/submenu.html" "" "" child %}

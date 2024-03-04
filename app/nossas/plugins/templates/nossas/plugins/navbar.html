@@ -1,6 +1,6 @@
 {% load menu_tags %}
 
-<nav class="navbar px-0 px-sm-4{% if instance and instance.classes %} {{ instance.classes }}{% else %} text-azul-nossas-content{% endif %}" data-bs-theme="dark">
+<nav class="navbar px-0 px-sm-4{% if instance and instance.classes %} {{ instance.classes }}{% endif %}" data-bs-theme="dark">
     {% comment %} Visible only mobile {% endcomment %}
     <div class="container-fluid d-sm-none">
       <a class="navbar-brand" href="{{ request.scheme|add:'://'|add:request.current_site.domain }}">
@@ -23,7 +23,7 @@
       </a>
 
       <div class="d-flex align-items-start">
-        <ul class="navbar-nav me-auto flex-row gap-4 mt-2">
+        <ul class="navbar-nav me-auto flex-row mt-2">
           {% show_menu 0 100 100 100 "nossas/mega_menu.html" %}
         </ul>
         <!-- i18n -->
