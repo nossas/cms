@@ -11,7 +11,7 @@ from ..forms.socialshareform import SocialSharePluginForm
 @plugin_pool.register_plugin
 class SocialSharePlugin(UICMSPluginBase):
     module = "NOSSAS"
-    name = _("Compartilhamento em Rede Sociais")
+    name = _("Compartilhar em Rede Social")
     model = SocialSharePluginModel
     form = SocialSharePluginForm
     render_template = "nossas/plugins/social_share.html"

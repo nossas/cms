@@ -71,6 +71,11 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
         .dropdown-toggle > svg path, .navbar-toggler > svg path {
             stroke: var(--#{$prefix}#{$color}-content);
         }
+
+        .social-share-link svg path {
+            fill: var(--#{$prefix}#{$color}-content);
+            stroke: var(--#{$prefix}#{$color}-content);
+        }
     }
     .btn-#{$color} {
         --bs-btn-color: var(--#{$prefix}#{$color}-content) !important;
@@ -86,6 +91,11 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
             &:hover {
                 color: $value;
             }
+        }
+
+        .social-share-link svg path {
+            fill: $value;
+            stroke: $value;
         }
     }
     .text-#{$color}-content {
@@ -134,3 +144,7 @@ def add_class(field, class_name):
     return field.as_widget(attrs={
         "class": " ".join((field.css_classes(), class_name))
     })
+
+@register.simple_tag
+def multiple_svg_icon(icon):
+    return f'nossas/svg/{icon}.svg'

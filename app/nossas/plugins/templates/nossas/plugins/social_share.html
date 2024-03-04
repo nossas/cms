@@ -6,28 +6,28 @@
         {% if network == "whatsapp" %}
             <div class="social-share-link">
                 <a href="https://web.whatsapp.com/send?text={{ request.current_page.metadataextension.subtitle }} {{ request.build_absolute_uri }}" target="_blank">
-                    <img src="{% static 'design/icons/social-media/whatsapp.svg' %}" alt="WhatsApp">
+                    {% include "nossas/plugins/social-media/whatsapp.svg" %}
                 </a>
             </div>
         {% endif %}
         {% if network == "twitter" %}
             <div class="social-share-link">
                 <a href="https://twitter.com/intent/tweet?text={{ request.current_page.metadataextension.subtitle }} {{ request.build_absolute_uri }}" target="_blank">
-                    <img src="{% static 'design/icons/social-media/twitter.svg' %}" alt="Twitter">
+                    {% include "nossas/plugins/social-media/twitter.svg" %}
                 </a>
             </div>
         {% endif %}
         {% if network == "facebook" %}
             <div class="social-share-link">
                 <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}&amp;t={{ request.current_page.metadataextension.title }}&amp;src=sdkpreparse" target="_blank">
-                    <img src="{% static 'design/icons/social-media/facebook.svg' %}" alt="Facebook">
+                    {% include "nossas/plugins/social-media/facebook.svg" %}
                 </a>
             </div>
         {% endif %}
         {% if network == "linkedin" %}
             <div class="social-share-link">
                 <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.build_absolute_uri }}" target="_blank">
-                    <img src="{% static 'design/icons/social-media/linkedin.svg' %}" alt="LinkedIn">
+                    {% include "nossas/plugins/social-media/linkedin.svg" %}
                 </a>
             </div>
         {% endif %}

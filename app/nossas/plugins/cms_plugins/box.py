@@ -102,12 +102,7 @@ class BoxPlugin(UICMSPluginBase):
         # SocialShare Plugin
         plugin_type = "SocialSharePlugin"
         child_attrs = {
-            "selected_social_media": [
-                "facebook",
-                "linkedin",
-                "twitter",
-                "whatsapp",
-            ]
+            "selected_social_media": "facebook,linkedin,twitter,whatsapp"
         }
         add_plugin(
             placeholder=placeholder,

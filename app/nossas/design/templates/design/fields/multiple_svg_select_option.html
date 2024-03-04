@@ -1,10 +1,11 @@
-{% load static %}
+{% load design_tags %}
 
 <div class="multiple-svg-select-option">
   {% if widget.wrap_label %}
       <input style="display: none;" type="checkbox" class="btn-check {{ widget.value|default:"no-selection" }}" name="{{ widget.name }}" value="{{ widget.value|stringformat:'s' }}" {% include "django/forms/widgets/attrs.html" %}/>
       <label for="{{ widget.attrs.id|safe }}" class="widget-bg-btn">
-          <img src="{% static 'design/icons/social-media/'|add:widget.value|add:'.svg' %}" alt="{{ widget.label }}" />
+          {% multiple_svg_icon widget.value as icon %}
+          {% include icon %}
       </label>
   {% endif %}
 </div>

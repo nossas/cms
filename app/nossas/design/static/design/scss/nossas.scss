@@ -480,19 +480,16 @@ $height: 30;
 
     .multiple-svg-select-option {
         input[type="checkbox"]:checked + label {
-            outline: 2px solid green;
+            outline: 4px solid green;
             scale: 0.9;
         }
 
         label {
-            background-color: #233d90;
+            background-color: #888888;
             border-radius: 50px;
             display: flex;
             margin-right: 10px;
-        }
-
-        img {
-            padding: 24px;
+            padding: 24px !important;
         }
     }
 }
