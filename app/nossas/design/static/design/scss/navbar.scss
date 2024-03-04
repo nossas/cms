@@ -45,8 +45,9 @@
         line-height: 31px;
 
         .dropdown-toggle {
-            display: flex;
+            display: inline-flex;
             align-items: center;
+            padding: 0 10px;
 
             .dropdown-icon {
                 margin-left: 5px;
