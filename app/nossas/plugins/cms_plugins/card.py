@@ -2,12 +2,14 @@ from cms.api import add_plugin
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
+from nossas.design.cms_plugins import UICMSPluginBase
+
 from ..models.cardmodel import Card
-from ..forms.cardform import CreateCardPluginForm
+from ..forms.cardform import CreateCardPluginForm, CardPluginForm
 
 
 @plugin_pool.register_plugin
-class CardPlugin(CMSPluginBase):
+class CardPlugin(UICMSPluginBase):
     name = "Card"
     module = "NOSSAS"
     model = Card
@@ -19,12 +21,29 @@ class CardPlugin(CMSPluginBase):
         if not change:
             return CreateCardPluginForm
         else:
-            return super().get_form(request, obj, change, **kwargs)
+            return CardPluginForm
 
-    def get_fields(self, request, obj=None):
+    def get_fieldsets(self, request, obj=None):
         if obj:
-            return ["image", "tag"]
-        return super().get_fields(request, obj)
+            return (
+                (None, {
+                    "fields": ["image", "tag"],
+                }),
+                ("Link", {
+                    "fields": ["internal_link", "external_link", "target"],
+                    "classes": ["collapse"]
+                })
+            )
+
+        return (
+            (None, {
+                "fields": ["image", "tag", "title", "description"],
+            }),
+            ("Link", {
+                "fields": ["internal_link", "external_link", "target"],
+                "classes": ["collapse"]
+            })
+        )
 
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
@@ -52,3 +71,7 @@ class CardPlugin(CMSPluginBase):
                 target=obj,
                 **child_attrs,
             )
+
+    def render(self, context, instance, placeholder):
+        context['link'] = instance.get_link()
+        return super().render(context, instance, placeholder)
