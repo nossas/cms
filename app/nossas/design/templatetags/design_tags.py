@@ -73,7 +73,6 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
         }
 
         .social-share-link svg path {
-            fill: var(--#{$prefix}#{$color}-content);
             stroke: var(--#{$prefix}#{$color}-content);
         }
     }
@@ -94,7 +93,6 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
         }
 
         .social-share-link svg path {
-            fill: $value;
             stroke: $value;
         }
     }
