@@ -33,7 +33,7 @@ class GraphicIconCircleChoices(models.TextChoices):
     # empatico = "empatico", "Empático"
 
 class GraphicIconChoices(models.TextChoices):
-    # questionador = "questionador", "Questionador"
+    questionador = "questionador", "Questionador"
     hub = "hub", "Hub, Eixo"
     # impulsionador = "impulsionador", "Impulsionador"
     # impacto = "impacto", "Impacto"
