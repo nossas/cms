@@ -1,11 +1,11 @@
-{% load menu_tags %}
+{% load menu_tags i18n_tags %}
 
 {% for child in children %}
 {% if forloop.counter != 1 %}
 <li class="child px-2{% if child.selected %} selected{% endif %}{% if child.ancestor %} ancestor{% endif %}{% if child.sibling %} sibling{% endif %}{% if child.descendant %} descendant{% endif %}">
     {% if child.children %}
     <a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-        {{ child.get_menu_title }}
+        {% get_i18n_menu_title child %}
         {% include "nossas/svg/chevron-down.svg" %}
     </a>
     <div class="mega-menu">
@@ -14,7 +14,7 @@
         </ul>
     </div>
     {% else %}
-    <a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{{ child.get_menu_title }}</a>
+    <a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{% get_i18n_menu_title child %}</a>
     {% endif %}
 </li>
 {% endif %}
