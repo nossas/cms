@@ -14,4 +14,4 @@ from .navbar import *
 from .pdf import *
 from .slider import *
 from .socialshare import *
-
+from .video import *
