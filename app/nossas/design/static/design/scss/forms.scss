@@ -134,7 +134,7 @@
 
     .form-control, .form-select {
         font-family: "Barlow";
-        font-size: 21px;
+        font-size: 20px;
         line-height: 27.5px;
         background-color: transparent;
         height: 32px;
@@ -152,7 +152,7 @@
 
     .form-check {
         font-family: "Barlow";
-        font-size: 21px;
+        font-size: 20px;
         line-height: 27.5px;
         
         label, input[type="checkbox"] {
@@ -174,7 +174,7 @@
         color: var(--bs-color-background);
         background-color: var(--bs-color-content);
         display: block;
-        margin: auto;
+        margin: 16px auto 0;
 
         &:active {
             color: var(--bs-color-background);
