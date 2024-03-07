@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 
 from django_select2 import forms as s2forms
 from tag_fields.models import ModelTag
-from ..models.campaigns import CampaignGroup, Campaign
+from ..models.campaigns import CampaignGroup, Campaign, OurCitiesProject
 
 
 def get_tags():

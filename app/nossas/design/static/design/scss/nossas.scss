@@ -590,6 +590,17 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
     margin-bottom: 25px;
 }
 
+.our-cities-project-plugin {
+
+    .clearfix {
+        padding-top: 62px;
+    }
+
+    .divider {
+        border-bottom: 2px dotted var(--bs-preto-nossas);
+    }
+}
+
 // Forms
 // input.form-control {
 //     border-color: var(--bs-border-color);

@@ -1,17 +1,18 @@
 import re
 from django.core.paginator import Paginator
 from django.conf import settings
+from django.utils.translation import gettext_lazy as _
 
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
-from ..models.campaigns import Campaign, NavigateCampaigns
+from ..models.campaigns import Campaign, NavigateCampaigns, OurCitiesProject
 from ..forms.campaigns import CampaignFilterForm
 
 
 @plugin_pool.register_plugin
 class CampaignListPlugin(CMSPluginBase):
-    name = "Listagem de Campanhas"
+    name = _("Listagem de Campanhas")
     module = "NOSSAS"
     render_template = "plugins/filter_campaign_list_plugin.html"
 
@@ -64,7 +65,7 @@ class CampaignListPlugin(CMSPluginBase):
 
 @plugin_pool.register_plugin
 class NavigateCampaignsPlugin(CMSPluginBase):
-    name = "Navegue por Campanhas"
+    name = _("Navegue por Campanhas")
     module = "NOSSAS"
     model = NavigateCampaigns
     render_template = "plugins/navigate_campaigns_plugin.html"
@@ -105,3 +106,14 @@ class NavigateCampaignsPlugin(CMSPluginBase):
         context.update({"campaign_list": queryset[:3]})
 
         return context
+
+
+@plugin_pool.register_plugin
+class OurCitiesProjectPlugin(CMSPluginBase):
+    name = _("Projeto Nossas Cidades")
+    module = "NOSSAS"
+    model = OurCitiesProject
+    render_template = "plugins/our_cities_plugin.html"
+    allow_children = True
+    child_classes = ["TextPlugin"]
+    autocomplete_fields = ["related_campaigns"]

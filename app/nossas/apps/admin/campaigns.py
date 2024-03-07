@@ -20,7 +20,7 @@ class CampaignAdmin(OnSiteAdmin):
     list_display = ("name", "release_date", "status", "tag_list", "get_picture", "hide")
     change_list_template = "admin/campaigns/changelist.html"
     list_filter = ["hide", "campaign_group", "status", "tags"]
-    search_fields = ["name", "status"]
+    search_fields = ["name", "status", "campaign_group__name"]
     actions = [show]
     ordering = ["-release_date"]
 

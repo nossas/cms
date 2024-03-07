@@ -156,3 +156,15 @@ class NavigateCampaigns(CMSPlugin):
     filter_campaign_group = models.BooleanField(
         verbose_name=_("Filtrar por comunidade?"), default=False
     )
+
+
+class OurCitiesProject(CMSPlugin):
+    name = models.CharField(verbose_name=_("Nome do projeto"), max_length=100)
+    picture = FilerImageField(
+        verbose_name=_("Imagem"), on_delete=models.SET_NULL, blank=True, null=True
+    )
+    related_campaigns = models.ManyToManyField(
+        Campaign, verbose_name=_("Campanhas relacionadas"), blank=True
+    )
+    url = models.URLField(verbose_name=_("URL do Projeto"), blank=True, null=True)
+    hide_border = models.BooleanField(verbose_name=_("Remover borda"), default=False)
