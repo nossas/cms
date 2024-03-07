@@ -8,10 +8,10 @@ from nossas.design.models import NamingPluginMixin
 
 
 TARGET_CHOICES = (
-    ('_blank', _('Open in new window')),
-    ('_self', _('Open in same window')),
-    ('_parent', _('Delegate to parent')),
-    ('_top', _('Delegate to top')),
+    ('_blank', _('Abrir em nova janela')),
+    ('_self', _('Abrir na mesma janela')),
+    # ('_parent', _('Delegate to parent')),
+    # ('_top', _('Delegate to top')),
 )
 
 class AbstractLink(models.Model):
@@ -21,19 +21,19 @@ class AbstractLink(models.Model):
 
     # re: max_length, see: http://stackoverflow.com/questions/417142/
     external_link = models.CharField(
-        verbose_name=_('External link'),
+        verbose_name=_('Link externo'),
         blank=True,
         max_length=2040,
         # validators=url_validators,
-        help_text=_('Provide a link to an external source.'),
+        help_text=_('Forneça um link para uma fonte externa.'),
     )
     internal_link = models.ForeignKey(
         Page,
-        verbose_name=_('Internal link'),
+        verbose_name=_('Link interno'),
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
-        help_text=_('If provided, overrides the external link.'),
+        help_text=_('Se fornecido, substitui o link externo.'),
     )
 
     # advanced options

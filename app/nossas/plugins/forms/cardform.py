@@ -51,7 +51,7 @@ class Select2PageSearchField(forms.ModelChoiceField):
 
 class CardPluginForm(forms.ModelForm):
     internal_link = Select2PageSearchField(
-        label=_('Internal link'),
+        label=_('Link interno'),
         required=False,
     )
 
