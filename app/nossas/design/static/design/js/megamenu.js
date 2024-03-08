@@ -18,7 +18,7 @@
         });
 
         // Open Dropdown on Navbar with hover
-        $('.d-none .navbar-nav > .child').hover(function() {
+        $('.d-none .navbar-nav > .sibling').hover(function() {
             const dropdownBtn = $(this).find('.dropdown-toggle');
             const dropdownEl = new bootstrap.Dropdown(dropdownBtn);
             dropdownEl.show();
