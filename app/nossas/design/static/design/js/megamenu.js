@@ -1,7 +1,12 @@
 (function ($) {
     "use strict";
-  
+
     $(function () {
+        // Setup dropdown-menu-end to last has children navbar menu
+        $('nav.navbar').each((i, element) => {
+            $(element).find('.d-none .navbar-nav > .has-children').last().find('.mega-menu > .dropdown-menu').addClass('dropdown-menu-end');
+        });
+
         $('[data-bs-toggle="dropdown"]').on('show.bs.dropdown', (evt) => {
             const limitHeight = 125.966;
             let height = $(evt.target).next().children('ul').height();
@@ -18,21 +23,21 @@
         });
 
         // Open Dropdown on Navbar with hover
-        $('.d-none .navbar-nav > .sibling').hover(function() {
+        $('.d-none .navbar-nav > .has-children').hover(function () {
             const dropdownBtn = $(this).find('.dropdown-toggle');
             const dropdownEl = new bootstrap.Dropdown(dropdownBtn);
             dropdownEl.show();
-            
-          }, function() {
+
+        }, function () {
             const dropdownBtn = $(this).find('.dropdown-toggle');
             const dropdownEl = new bootstrap.Dropdown(dropdownBtn);
             dropdownEl.hide();
         });
 
         // Enable click on Dropdown
-        $('.d-none a.dropdown-toggle').on("click", function() {
+        $('.d-none a.dropdown-toggle').on("click", function () {
             // $(this).attr.href
-            
+
             console.log("clicked", $(this).attr('href'));
             window.location.href = $(this).attr('href')
         });
