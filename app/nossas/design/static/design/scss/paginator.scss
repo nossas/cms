@@ -6,9 +6,14 @@
 
     .control-indicator {
         opacity: 0.3;
+        padding: 30px 5px;
 
         &.active {
             opacity: 1;
+        }
+
+        a, span {
+            padding: 20px 5px;
         }
     }
 }
