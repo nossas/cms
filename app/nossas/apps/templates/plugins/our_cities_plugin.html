@@ -16,7 +16,7 @@
     {% if instance.related_campaigns.count > 0 %}
     <div class="container-fluid grid text-start">
     {% for campaign in instance.related_campaigns.all %}
-        <div class="g-col-4">
+        <div class="g-col-12 g-col-md-4">
             {% include 'plugins/filter_campaign_list_plugin_item.html' with instance=campaign %}
         </div>
     {% endfor %}
