@@ -33,12 +33,7 @@
             <style type="text/x-scss">
                 @import 'design/scss/typography.scss';
                 @import 'design/scss/nossas.scss';
-
                 {% build_colors %}
-                {% comment %} {% if request.current_site.themescss.theme %}
-                    {{ request.current_site.themescss.theme }}
-                {% endif %} {% endcomment %}
-
                 @import 'design/scss/nossas.scss';
                 @import 'design/scss/reset.scss';
             </style>
@@ -58,5 +53,6 @@
             {% endblock content %}
         </div>
         {% render_block "js" %}
+        {% if ga %}{% include "ga/snippets/ga.html" with GTAG_ID=ga.uuid %}{% endif %}
     </body>
 </html>
