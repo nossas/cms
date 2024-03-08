@@ -21,6 +21,10 @@
             position: absolute;
             top: 15px;
             margin-left: 0;
+
+            &.dropdown-menu-end {
+                right: 190px;
+            }
         }
 
         .split-child {

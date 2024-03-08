@@ -8,7 +8,7 @@
         {% include "nossas/svg/chevron-down.svg" %}
     </a>
     <div class="mega-menu">
-        <ul class="dropdown-menu w-100 mt-0" aria-labelledby="navbarDropdown">
+        <ul class="dropdown-menu w-100 mt-0{% if forloop.last %} dropdown-menu-end{% endif %}" aria-labelledby="navbarDropdown">
             {% show_menu from_level to_level extra_inactive extra_active "nossas/submenu.html" "" "" child %}
         </ul>
     </div>
