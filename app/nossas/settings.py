@@ -1,4 +1,8 @@
+from pathlib import Path
 from project.settings import *
+
+# Root folder to this site config
+SITE_DIR = Path(__file__).resolve().parent
 
 # Databases
 DEFAULT_DB_SQLITE = BASE_DIR / "nossas.sqlite3"
@@ -74,6 +78,9 @@ LANGUAGES = [
     ("en", "Inglês"),
 ]
 
+LOCALE_PATHS = (
+    SITE_DIR / 'locale',
+)
 
 # URLs
 
@@ -113,7 +120,8 @@ CMS_PLACEHOLDER_CONF = {
     **CMS_PLACEHOLDER_CONF,
     "nossas_page_content": {
         "name": "Corpo da página",
-        "plugins": NOSSAS_CONTENT_PLUGINS + ["BoxPlugin", "HeaderImagePlugin", "OurCitiesProjectPlugin"],
+        "plugins": NOSSAS_CONTENT_PLUGINS
+        + ["BoxPlugin", "HeaderImagePlugin", "OurCitiesProjectPlugin"],
     },
     "nossas_page_navbar": {
         "name": "Navegação",

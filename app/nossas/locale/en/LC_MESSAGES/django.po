@@ -1,0 +1,828 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-03-11 17:57+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: admin_styled/cms_toolbars.py:30
+msgid "Help"
+msgstr ""
+
+#: admin_styled/cms_wizards.py:15
+msgid "New page"
+msgstr ""
+
+#: admin_styled/cms_wizards.py:19
+msgid "Create a new page next to the current page."
+msgstr ""
+
+#: admin_styled/templates/admin/base.html:40
+msgid "Welcome,"
+msgstr ""
+
+#: admin_styled/templates/admin/base.html:45
+msgid "View site"
+msgstr ""
+
+#: admin_styled/templates/admin/base.html:50
+#: admin_styled/templates/admin_styled/items/branding.html:13
+#: admin_styled/templates/cms/welcome.html:62
+msgid "Documentation"
+msgstr ""
+
+#: admin_styled/templates/admin/base.html:54
+#: admin_styled/templates/admin_styled/items/branding.html:20
+msgid "Change password"
+msgstr ""
+
+#: admin_styled/templates/admin/base.html:56
+#: admin_styled/templates/admin_styled/items/branding.html:26
+msgid "Log out"
+msgstr ""
+
+#: admin_styled/templates/admin/base.html:66
+#: admin_styled/templates/admin/delete_confirmation.html:16
+msgid "Home"
+msgstr ""
+
+#: admin_styled/templates/admin/delete_confirmation.html:11
+msgid "Deseja remover este plugin?"
+msgstr ""
+
+#: admin_styled/templates/admin/delete_confirmation.html:20
+msgid "Delete"
+msgstr ""
+
+#: admin_styled/templates/admin/delete_confirmation.html:28
+#, python-format
+msgid ""
+"Deleting the %(object_name)s '%(escaped_object)s' would result in deleting "
+"related objects, but your account doesn't have permission to delete the "
+"following types of objects:"
+msgstr ""
+
+#: admin_styled/templates/admin/delete_confirmation.html:36
+#, python-format
+msgid ""
+"Deleting the %(object_name)s '%(escaped_object)s' would require deleting the "
+"following protected related objects:"
+msgstr ""
+
+#: admin_styled/templates/admin/delete_confirmation.html:44
+#: admin_styled/templates/admin/delete_confirmation.html:64
+msgid "Mostrar itens relacionados"
+msgstr ""
+
+#: admin_styled/templates/admin/delete_confirmation.html:56
+#, python-format
+msgid ""
+"Are you sure you want to delete the %(object_name)s \"%(escaped_object)s\"? "
+"All of the following related items will be deleted:"
+msgstr ""
+
+#: admin_styled/templates/admin/delete_confirmation.html:75
+msgid "Remove"
+msgstr ""
+
+#: admin_styled/templates/admin_styled/forms/pressure_change_form.html:42
+msgid "Please correct the error below."
+msgstr ""
+
+#: admin_styled/templates/admin_styled/forms/pressure_change_form.html:42
+msgid "Please correct the errors below."
+msgstr ""
+
+#: admin_styled/templates/admin_styled/forms/pressure_change_form.html:99
+#: admin_styled/templates/admin_styled/forms/pressure_change_form.html:101
+msgid "History"
+msgstr ""
+
+#: admin_styled/templates/admin_styled/forms/pressure_change_form.html:106
+#: admin_styled/templates/admin_styled/forms/pressure_change_form.html:108
+msgid "View on site"
+msgstr ""
+
+#: admin_styled/templates/admin_styled/items/branding.html:7
+msgid "Django Administration"
+msgstr ""
+
+#: admin_styled/templates/admin_styled/items/branding.html:35
+msgid "Open"
+msgstr ""
+
+#: admin_styled/templates/cms/toolbar/toolbar.html:27
+msgid "More"
+msgstr ""
+
+#: admin_styled/templates/cms/toolbar/toolbar_javascript.html:33
+#, python-format
+msgid ""
+"Development version using django CMS %(cms_version)s, Django "
+"%(django_version)s, Python %(python_version)s"
+msgstr ""
+
+#: admin_styled/templates/cms/toolbar/toolbar_javascript.html:35
+msgid "Cancel"
+msgstr ""
+
+#: admin_styled/templates/cms/toolbar/toolbar_javascript.html:36
+msgid "The following error occurred:"
+msgstr ""
+
+#: admin_styled/templates/cms/toolbar/toolbar_javascript.html:37
+msgid "Action successful."
+msgstr ""
+
+#: admin_styled/templates/cms/toolbar/toolbar_javascript.html:38
+msgid "Are you sure you want to delete this plugin?"
+msgstr ""
+
+#: admin_styled/templates/cms/toolbar/toolbar_javascript.html:39
+msgid "Are you sure you want to publish this page?"
+msgstr ""
+
+#: admin_styled/templates/cms/toolbar/toolbar_javascript.html:40
+msgid "Plugin will be added here"
+msgstr ""
+
+#: admin_styled/templates/cms/toolbar/toolbar_javascript.html:41
+msgid "You have unsaved changes."
+msgstr ""
+
+#: admin_styled/templates/cms/toolbar/toolbar_javascript.html:42
+msgid "Loading"
+msgstr ""
+
+#: admin_styled/templates/cms/toolbar/toolbar_javascript.html:43
+msgid "Are you sure you want to abandon these changes?"
+msgstr ""
+
+#: admin_styled/templates/cms/toolbar/toolbar_javascript.html:44
+msgid ""
+"The form could not be loaded. Please check that the server is running "
+"correctly."
+msgstr ""
+
+#: admin_styled/templates/cms/toolbar/toolbar_javascript.html:45
+msgid "Most used"
+msgstr ""
+
+#: admin_styled/templates/cms/toolbar/toolbar_javascript.html:46
+msgid "Shortcuts"
+msgstr ""
+
+#: admin_styled/templates/cms/toolbar/toolbar_javascript.html:47
+msgid "The page was changed in the meantime, reloading..."
+msgstr ""
+
+#: admin_styled/templates/cms/toolbar/toolbar_javascript.html:50
+msgid "CMS-wide Shortcuts"
+msgstr ""
+
+#: admin_styled/templates/cms/toolbar/toolbar_javascript.html:54
+msgid "Bring up this help dialog"
+msgstr ""
+
+#: admin_styled/templates/cms/toolbar/toolbar_javascript.html:58
+msgid "Close/cancel"
+msgstr ""
+
+#: admin_styled/templates/cms/toolbar/toolbar_javascript.html:62
+msgid "Toggle structure mode"
+msgstr ""
+
+#: admin_styled/templates/cms/toolbar/toolbar_javascript.html:66
+msgid "Toggle structure mode and highlight hovered-over plugin"
+msgstr ""
+
+#: admin_styled/templates/cms/toolbar/toolbar_javascript.html:70
+msgid "Open \"Create\" dialog"
+msgstr ""
+
+#: admin_styled/templates/cms/toolbar/toolbar_javascript.html:74
+msgid "Focus on Toolbar"
+msgstr ""
+
+#: admin_styled/templates/cms/toolbar/toolbar_javascript.html:79
+msgid "Structureboard"
+msgstr ""
+
+#: admin_styled/templates/cms/toolbar/toolbar_javascript.html:83
+msgid "Focus on placeholders"
+msgstr ""
+
+#: admin_styled/templates/cms/toolbar/toolbar_javascript.html:87
+msgid "Move to next/previous element"
+msgstr ""
+
+#: admin_styled/templates/cms/toolbar/toolbar_javascript.html:91
+msgid "Focus on plugins of placeholder"
+msgstr ""
+
+#: admin_styled/templates/cms/toolbar/toolbar_javascript.html:95
+msgid "Edit plugin"
+msgstr ""
+
+#: admin_styled/templates/cms/toolbar/toolbar_javascript.html:99
+msgid "Add plugin"
+msgstr ""
+
+#: admin_styled/templates/cms/toolbar/toolbar_javascript.html:103
+msgid "Open actions menu"
+msgstr ""
+
+#: admin_styled/templates/cms/toolbar/toolbar_javascript.html:107
+msgid "Expand/collapse"
+msgstr ""
+
+#: admin_styled/templates/cms/toolbar/toolbar_javascript.html:134
+msgid ""
+"<strong>Login failed.</strong> Please check your credentials and try again."
+msgstr ""
+
+#: admin_styled/templates/cms/toolbar/toolbar_javascript.html:135
+msgid "This page has unpublished changes."
+msgstr ""
+
+#: admin_styled/templates/cms/toolbar/toolbar_with_structure.html:5
+msgid "Double-click to edit"
+msgstr ""
+
+#: admin_styled/templates/cms/toolbar/toolbar_with_structure.html:6
+msgid "Tap to edit"
+msgstr ""
+
+#: admin_styled/templates/cms/toolbar/toolbar_with_structure.html:12
+#: admin_styled/templates/cms/toolbar/toolbar_with_structure.html:47
+msgid "Close"
+msgstr ""
+
+#: admin_styled/templates/cms/toolbar/toolbar_with_structure.html:25
+msgid "Click to go back"
+msgstr ""
+
+#: admin_styled/templates/cms/toolbar/toolbar_with_structure.html:26
+msgid "Click to go forward"
+msgstr ""
+
+#: admin_styled/templates/cms/toolbar/toolbar_with_structure.html:45
+msgid "Minimize"
+msgstr ""
+
+#: admin_styled/templates/cms/toolbar/toolbar_with_structure.html:46
+msgid "Maximize"
+msgstr ""
+
+#: admin_styled/templates/cms/toolbar/toolbar_with_structure.html:68
+msgid "Drop a plugin here"
+msgstr ""
+
+#: admin_styled/templates/cms/toolbar/toolbar_with_structure.html:83
+msgid "This page has no preview!"
+msgstr ""
+
+#: admin_styled/templates/cms/toolbar/toolbar_with_structure.html:84
+msgid "It is being redirected to:"
+msgstr ""
+
+#: admin_styled/templates/cms/welcome.html:6
+#: admin_styled/templates/cms/welcome.html:24
+#: admin_styled/templates/cms/welcome.html:60
+msgid "django CMS"
+msgstr ""
+
+#: admin_styled/templates/cms/welcome.html:21
+msgid "Installation successful!"
+msgstr ""
+
+#: admin_styled/templates/cms/welcome.html:32
+msgid "Add your first page"
+msgstr ""
+
+#: admin_styled/templates/cms/welcome.html:34
+msgid "Please log in"
+msgstr ""
+
+#: admin_styled/templates/cms/welcome.html:38
+#, python-format
+msgid ""
+"\n"
+"                    Welcome to django CMS version <strong>%(cms_version)s</"
+"strong>.\n"
+"                "
+msgstr ""
+
+#: admin_styled/templates/cms/welcome.html:45
+#, python-format
+msgid ""
+"\n"
+"                        <a href=\"%(admin_add_page)s\" class=\"js-welcome-"
+"add\">Add the first page</a> to the system to continue.\n"
+"                    "
+msgstr ""
+
+#: admin_styled/templates/cms/welcome.html:49
+#, python-format
+msgid ""
+"\n"
+"                        JavaScript seems to be disabled so please\n"
+"                        <a href=\"%(admin_add_page)s\" class=\"js-welcome-"
+"add\">add a page</a> manually.\n"
+"                    "
+msgstr ""
+
+#: admin_styled/templates/cms/welcome.html:58
+msgid "Installation Notes"
+msgstr ""
+
+#: admin_styled/templates/cms/welcome.html:61
+msgid "Support"
+msgstr ""
+
+#: admin_styled/templates/cms/welcome.html:64
+msgid ""
+"\n"
+"                <p class=\"cms-welcome-notes\">If you don't see the django "
+"CMS logo at the top, make sure\n"
+"                    you linked the <code>static/cms</code> folder to your\n"
+"                    static files.</p>\n"
+"            "
+msgstr ""
+
+#: admin_styled/templates/cms/welcome.html:70
+msgid ""
+"\n"
+"                    <p class=\"cms-welcome-notes\">You're seeing this "
+"message because you have\n"
+"                        <code>DEBUG = True</code> in your django settings "
+"file and\n"
+"                        haven't added any pages yet.\n"
+"                    </p>\n"
+"                "
+msgstr ""
+
+#: admin_styled/templates/cms/welcome.html:92
+msgid "Welcome to django CMS"
+msgstr ""
+
+#: contrib/bonde/admin.py:15
+msgid "Integração com o BONDE"
+msgstr ""
+
+#: contrib/bonde/api.py:9
+msgid "Erro de configuração widget_id"
+msgstr ""
+
+#: contrib/bonde/api.py:12
+msgid "Erro de configuração mobilization_id"
+msgstr ""
+
+#: contrib/bonde/api.py:15
+msgid "Erro de configuração cached_community_id"
+msgstr ""
+
+#: contrib/bonde/cms_plugins.py:21
+msgid "Botão enviar"
+msgstr ""
+
+#: contrib/bonde/cms_plugins.py:21
+msgid "Enviar"
+msgstr ""
+
+#: contrib/bonde/cms_plugins.py:23
+msgid "Mensagem de sucesso"
+msgstr ""
+
+#: contrib/bonde/cms_plugins.py:53
+msgid "Formulário"
+msgstr ""
+
+#: contrib/campaign/cms_toolbars.py:22
+msgid "Page Icon"
+msgstr ""
+
+#: contrib/campaign/cms_toolbars.py:36
+msgid "Sharing"
+msgstr ""
+
+#: contrib/frontend/cms_plugins.py:15
+msgid "External picture"
+msgstr ""
+
+#: contrib/frontend/cms_plugins.py:63
+msgid "Link settings"
+msgstr ""
+
+#: contrib/frontend/cms_plugins.py:74
+msgid "Cropping settings"
+msgstr ""
+
+#: eleicao/forms/candidate.py:228
+#, python-format
+msgid "Por favor, escolha um video com tamanho de até %s. Tamanho Atual %s"
+msgstr ""
+
+#: eleicao/forms/candidate.py:233
+msgid "Tipo de arquivo não suportado."
+msgstr ""
+
+#: nossas/apps/admin/campaigns.py:14
+msgid "Mostrar todas as campanhas selecionadas"
+msgstr ""
+
+#: nossas/apps/admin/campaigns.py:34
+msgid "Marcadores"
+msgstr ""
+
+#: nossas/apps/admin/campaigns.py:44 nossas/apps/admin/teams.py:23
+#: nossas/apps/models/campaigns.py:39 nossas/apps/models/campaigns.py:164
+#: nossas/apps/models/jobs.py:22 nossas/plugins/models/cardmodel.py:55
+msgid "Imagem"
+msgstr "Image"
+
+#: nossas/apps/apps.py:7
+msgid "Aplicativos | NOSSAS"
+msgstr "Applications | NOSSAS"
+
+#: nossas/apps/cms_apps/campaigns.py:10
+msgid "Campanhas"
+msgstr "Campaigns"
+
+#: nossas/apps/cms_apps/jobs.py:10 nossas/apps/models/jobs.py:48
+msgid "Vagas"
+msgstr ""
+
+#: nossas/apps/cms_plugins/campaigns.py:15
+msgid "Listagem de Campanhas"
+msgstr "List of Campaigns"
+
+#: nossas/apps/cms_plugins/campaigns.py:68
+msgid "Navegue por Campanhas"
+msgstr "Navigate to Campaigns"
+
+#: nossas/apps/cms_plugins/campaigns.py:113
+msgid "Projeto Nossas Cidades"
+msgstr "Project Nossas Cidades"
+
+#: nossas/apps/forms/campaigns.py:28
+msgid "Temática"
+msgstr "Theme"
+
+#: nossas/apps/forms/campaigns.py:34 nossas/apps/models/institutional.py:9
+msgid "Cidade"
+msgstr "City"
+
+#: nossas/apps/forms/campaigns.py:40
+msgid "Ano"
+msgstr "Year"
+
+#: nossas/apps/models/campaigns.py:17
+msgid "Nome da grupo"
+msgstr ""
+
+#: nossas/apps/models/campaigns.py:18
+msgid "ID da Comunidade BONDE"
+msgstr ""
+
+#: nossas/apps/models/campaigns.py:22 nossas/apps/models/campaigns.py:44
+#, fuzzy
+#| msgid "Cidade"
+msgid "Comunidade"
+msgstr "City"
+
+#: nossas/apps/models/campaigns.py:29
+#, fuzzy
+#| msgid "Aberto"
+msgid "Aberta"
+msgstr "Opened"
+
+#: nossas/apps/models/campaigns.py:30
+msgid "Concluída"
+msgstr "Done"
+
+#: nossas/apps/models/campaigns.py:34
+msgid "Nome da campanha"
+msgstr "Name of campaign"
+
+#: nossas/apps/models/campaigns.py:36 nossas/plugins/cms_plugins/video.py:15
+#: nossas/plugins/forms/cardform.py:72
+msgid "Descrição"
+msgstr "Description"
+
+#: nossas/apps/models/campaigns.py:41
+msgid "Status"
+msgstr ""
+
+#: nossas/apps/models/campaigns.py:47
+msgid "ID da Mobilização BONDE"
+msgstr ""
+
+#: nossas/apps/models/campaigns.py:51
+msgid "Cabeçalho Imagem"
+msgstr ""
+
+#: nossas/apps/models/campaigns.py:57
+#, fuzzy
+#| msgid "Listagem de Campanhas"
+msgid "Link da Campanha"
+msgstr "List of Campaigns"
+
+#: nossas/apps/models/campaigns.py:58
+msgid "Data de lançamento"
+msgstr ""
+
+#: nossas/apps/models/campaigns.py:59
+msgid "Esconder"
+msgstr ""
+
+#: nossas/apps/models/campaigns.py:67
+#, fuzzy
+#| msgid "Campanhas"
+msgid "Campanha"
+msgstr "Campaigns"
+
+#: nossas/apps/models/campaigns.py:150
+msgid "Campanha Relacionada"
+msgstr ""
+
+#: nossas/apps/models/campaigns.py:155
+msgid "Filtrar por tags?"
+msgstr ""
+
+#: nossas/apps/models/campaigns.py:157
+msgid "Filtrar por comunidade?"
+msgstr ""
+
+#: nossas/apps/models/campaigns.py:162
+#, fuzzy
+#| msgid "Visite o site do projeto"
+msgid "Nome do projeto"
+msgstr "Visit the project website"
+
+#: nossas/apps/models/campaigns.py:167
+msgid "Campanhas relacionadas"
+msgstr ""
+
+#: nossas/apps/models/campaigns.py:169
+msgid "URL do Projeto"
+msgstr ""
+
+#: nossas/apps/models/campaigns.py:170
+msgid "Remover borda"
+msgstr ""
+
+#: nossas/apps/models/institutional.py:8
+msgid "Endereço"
+msgstr ""
+
+#: nossas/apps/models/institutional.py:10
+msgid "UF"
+msgstr ""
+
+#: nossas/apps/models/institutional.py:11
+msgid "CEP"
+msgstr ""
+
+#: nossas/apps/models/institutional.py:12
+msgid "E-mail de contato"
+msgstr ""
+
+#: nossas/apps/models/institutional.py:13
+msgid "Telefone de contato"
+msgstr ""
+
+#: nossas/apps/models/institutional.py:20
+msgid "Informações Institucionais"
+msgstr ""
+
+#: nossas/apps/models/jobs.py:12
+msgid "Aberto"
+msgstr "Opened"
+
+#: nossas/apps/models/jobs.py:13
+msgid "Fechado"
+msgstr "Closed"
+
+#: nossas/apps/models/jobs.py:17
+msgid "Título da vaga"
+msgstr ""
+
+#: nossas/apps/models/jobs.py:19
+msgid "Descrição da vaga"
+msgstr ""
+
+#: nossas/apps/models/jobs.py:24
+#: nossas/apps/templates/nossas/jobs/job_detail.html:20
+msgid "Carga horária"
+msgstr ""
+
+#: nossas/apps/models/jobs.py:25
+#: nossas/apps/templates/nossas/jobs/job_detail.html:27
+msgid "Condições de trabalho"
+msgstr ""
+
+#: nossas/apps/models/jobs.py:27
+#: nossas/apps/templates/nossas/jobs/job_detail.html:34
+msgid "Responsabilidades da vaga"
+msgstr ""
+
+#: nossas/apps/models/jobs.py:30
+#: nossas/apps/templates/nossas/jobs/job_detail.html:41
+msgid "Pré-requisitos da vaga"
+msgstr ""
+
+#: nossas/apps/models/jobs.py:32
+#: nossas/apps/templates/nossas/jobs/job_detail.html:48
+msgid "Benefícios"
+msgstr ""
+
+#: nossas/apps/models/jobs.py:33
+#: nossas/apps/templates/nossas/jobs/job_detail.html:55
+msgid "Estimativa salarial"
+msgstr ""
+
+#: nossas/apps/models/jobs.py:36
+msgid "Status da vaga"
+msgstr ""
+
+#: nossas/apps/models/jobs.py:43
+msgid "Data de criação"
+msgstr ""
+
+#: nossas/apps/models/jobs.py:47
+msgid "Vaga"
+msgstr ""
+
+#: nossas/apps/models/teams.py:11
+msgid "Nome da equipe"
+msgstr ""
+
+#: nossas/apps/models/teams.py:16 nossas/apps/models/teams.py:54
+msgid "Posição"
+msgstr ""
+
+#: nossas/apps/models/teams.py:23 nossas/apps/models/teams.py:47
+msgid "Equipe"
+msgstr ""
+
+#: nossas/apps/models/teams.py:32
+msgid "Foto"
+msgstr ""
+
+#: nossas/apps/models/teams.py:35
+msgid "Nome"
+msgstr ""
+
+#: nossas/apps/models/teams.py:37
+msgid "Nome completo"
+msgstr ""
+
+#: nossas/apps/models/teams.py:39
+msgid "Descrição curta"
+msgstr ""
+
+#: nossas/apps/models/teams.py:43
+msgid "Descrição completa"
+msgstr ""
+
+#: nossas/apps/models/teams.py:61
+msgid "Colaborador"
+msgstr ""
+
+#: nossas/apps/templates/nossas/jobs/job_detail.html:15
+msgid "Detalhes da vaga"
+msgstr ""
+
+#: nossas/apps/templates/nossas/jobs/job_detail.html:62
+msgid "Veja outra vaga"
+msgstr ""
+
+#: nossas/apps/templates/plugins/filter_campaign_list_plugin.html:7
+msgid "ENCONTRE UMA CAMPANHA"
+msgstr "FIND A CAMPAIGN"
+
+#: nossas/apps/templates/plugins/filter_campaign_list_plugin.html:28
+msgid "Buscar"
+msgstr "Search"
+
+#: nossas/apps/templates/plugins/navigate_campaigns_plugin.html:5
+msgid "Navegue por outras campanhas"
+msgstr "Browse other campaigns"
+
+#: nossas/apps/templates/plugins/our_cities_plugin.html:26
+msgid "Visite o site do projeto"
+msgstr "Visit the project website"
+
+#: nossas/design/forms.py:68
+msgid "Cor de fundo"
+msgstr ""
+
+#: nossas/design/templates/djangocms_video/default/video_player.html:19
+msgid "Your browser doesn't support this video format."
+msgstr ""
+
+#: nossas/plugins/cms_plugins/button.py:12
+msgid "Link / Botão"
+msgstr ""
+
+#: nossas/plugins/cms_plugins/socialshare.py:14
+msgid "Compartilhar em Rede Social"
+msgstr "Share on Social Network"
+
+#: nossas/plugins/cms_plugins/video.py:23
+msgid ""
+"Utilize este campo para incorporar vídeos de serviços externos como YouTube, "
+"Vimeo ou outros. Deixe em branco para fazer upload de arquivos de vídeo "
+"adicionando plug-ins de \"Source\" aninhados."
+msgstr ""
+
+#: nossas/plugins/cms_plugins/video.py:30
+msgid "Video player"
+msgstr ""
+
+#: nossas/plugins/cms_plugins/video.py:36
+msgid "Advanced settings"
+msgstr ""
+
+#: nossas/plugins/forms/buttonform.py:22
+msgid "Context"
+msgstr ""
+
+#: nossas/plugins/forms/cardform.py:54 nossas/plugins/models/cardmodel.py:32
+msgid "Link interno"
+msgstr ""
+
+#: nossas/plugins/forms/cardform.py:71
+msgid "Título"
+msgstr ""
+
+#: nossas/plugins/models/breadcrumbmodel.py:10
+#: nossas/plugins/models/headermodel.py:23
+msgid "Ícone gráfico"
+msgstr ""
+
+#: nossas/plugins/models/cardmodel.py:11
+msgid "Abrir em nova janela"
+msgstr ""
+
+#: nossas/plugins/models/cardmodel.py:12
+msgid "Abrir na mesma janela"
+msgstr ""
+
+#: nossas/plugins/models/cardmodel.py:24
+msgid "Link externo"
+msgstr ""
+
+#: nossas/plugins/models/cardmodel.py:28
+msgid "Forneça um link para uma fonte externa."
+msgstr ""
+
+#: nossas/plugins/models/cardmodel.py:36
+msgid "Se fornecido, substitui o link externo."
+msgstr ""
+
+#: nossas/plugins/models/cardmodel.py:41
+msgid "Target"
+msgstr ""
+
+#: nossas/plugins/models/cardmodel.py:56
+msgid "Tag"
+msgstr ""
+
+#: nossas/plugins/models/containermodel.py:17
+msgid "Conteúdo fluído"
+msgstr ""
+
+#: nossas/plugins/models/containermodel.py:19
+msgid "Permite o conteúdo interno avançar os limites padrões da página"
+msgstr ""
+
+#: nossas/plugins/models/headermodel.py:13
+msgid "Elemento gráfico"
+msgstr ""
+
+#: nossas/plugins/models/headermodel.py:31
+msgid "Imagem de Fundo"
+msgstr ""
+
+#: nossas/plugins/models/socialsharemodel.py:7
+msgid "Selecione as redes sociais"
+msgstr ""
+
+#: nossas/plugins/templates/nossas/admin/link.html:27
+msgid "Preview"
+msgstr ""
