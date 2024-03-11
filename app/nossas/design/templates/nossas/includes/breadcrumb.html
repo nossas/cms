@@ -6,7 +6,7 @@
 <a href="{{ ance.get_absolute_url }}" title="{{ ance.get_menu_title }}">
     {% include 'design/icones/'|add:instance.graphic_icon|add:'-circle.svg' %}
 </a>
-{% elif not forloop.last %}
+{% else %}
 <a class="btn" href="{{ ance.get_absolute_url }}" title="{{ ance.get_menu_title }}">{{ ance.get_menu_title }}</a>
 {% endif %}
 {% endfor %}
