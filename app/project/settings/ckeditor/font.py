@@ -73,5 +73,20 @@ font_family_options = [
 
 config = {
     "extraPlugins": "font",
-    "font_names": ";".join(font_family_options)
+    "font_names": ";".join(font_family_options),
+    "fontSize_sizes": ";".join([
+        '14/14px',
+        '16/16px',
+        '18/18px',
+        '20/20px',
+        '22/22px',
+        '24/24px',
+        '26/26px',
+        '28/28px',
+        '36/36px',
+        '48/48px',
+        '56/56px',
+        '64/64px',
+        '72/72px',
+    ])
 }
