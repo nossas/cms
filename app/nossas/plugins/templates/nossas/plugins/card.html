@@ -1,7 +1,7 @@
 {% load cms_tags %}
 
 <div class="card">
-{% if link %}<a href="{{link}}" target="{% if instance.target %}{{instance.target}}{% else %}_self{% endif %}">{% endif %}
+{% if link and not request.toolbar.edit_mode_active %}<a href="{{link}}" target="{% if instance.target %}{{instance.target}}{% else %}_self{% endif %}">{% endif %}
     {% if instance.image %}
     <img src="{{instance.image.url}}" class="card-img-top" alt="{{instance.image.alt}}">
     {% endif %}
@@ -13,5 +13,5 @@
         {% endfor %}
         </div>
     </div>
-{% if link %}</a>{% endif %}
+{% if link and not request.toolbar.edit_mode_active %}</a>{% endif %}
 </div>
