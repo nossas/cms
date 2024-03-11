@@ -27,11 +27,7 @@ class CampaignFilterForm(forms.Form):
     tags = forms.MultipleChoiceField(
         label=_("Temática"),
         choices=lazy(get_tags, tuple)(),
-        widget=s2forms.Select2MultipleWidget(
-            # attrs={
-            #     "data-minimum-input-length": 3
-            # }
-        ),
+        widget=s2forms.Select2MultipleWidget(),
         required=False,
     )
     campaign_group_id = forms.ChoiceField(
