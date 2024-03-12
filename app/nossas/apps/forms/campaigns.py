@@ -33,12 +33,12 @@ class CampaignFilterForm(forms.Form):
     campaign_group_id = forms.ChoiceField(
         label=_("Cidade"),
         choices=lazy(get_campaign_groups, tuple)(),
-        widget=s2forms.Select2Widget,
+        widget=s2forms.Select2MultipleWidget,
         required=False,
     )
     release_year = forms.ChoiceField(
         label=_("Ano"),
         choices=lazy(get_release_years, tuple)(),
-        widget=s2forms.Select2Widget,
+        widget=s2forms.Select2MultipleWidget,
         required=False,
     )

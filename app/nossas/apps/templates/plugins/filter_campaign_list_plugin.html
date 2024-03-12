@@ -1,7 +1,10 @@
-{% load sekizai_tags design_tags i18n %}
+{% load sekizai_tags design_tags static i18n %}
 
 {% addtoblock "css" %}{{ form.media.css }}{% endaddtoblock %}
-{% addtoblock "js" %}{{ form.media.js }}{% endaddtoblock %}
+{% addtoblock "js" %}
+    {{ form.media.js }}
+    <script src={% static 'campaigns/js/campaign-select2.js' %}></script>
+{% endaddtoblock %}
 
 <div class="container d-flex flex-column align-items-center py-5 filter-campaigns-plugin">
     <h5>{% trans 'ENCONTRE UMA CAMPANHA' %}</h5>
