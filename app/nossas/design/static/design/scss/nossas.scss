@@ -311,6 +311,10 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
         .carousel-item {
             height: var(--#{$prefix}-slider-full-height);
             min-height: 350px;
+
+            .grid .g-col-md-6 {
+                max-height: 80vh;
+            }
         }
 
         .slider-footer {
