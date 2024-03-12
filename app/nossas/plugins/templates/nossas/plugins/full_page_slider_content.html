@@ -1,7 +1,7 @@
 {% load cms_tags %}
 <div class="carousel-item{% if instance.position == 0 %} active{% endif %} {{ instance.classes }}"{% if instance.background_image %} style="{{ style }}"{% endif %}>
     {% include "nossas/plugins/navbar.html" %}
-    <div class="w-100 px-4 px-sm-5 py-4 py-sm-5 mt-5">
+    <div class="w-100 px-4 px-sm-5 py-4 py-sm-5 mt-5"{% if instance.x_and_y_center %} style="height:100vh;display:flex;align-items:center;justify-content:center;"{% endif %}>
     {% for plugin in instance.child_plugin_instances %}
         {% render_plugin plugin %}
     {% endfor %}
