@@ -1,0 +1,12 @@
+<svg{% if classnames %} class="{{ classnames }}"{% endif %} width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_128_1733)">
+    <circle cx="48" cy="48" r="48" fill="#F7F7ED"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M45.1985 35H42.3992V46.1908H45.1985V35ZM22.7994 46.1908H20V35H22.7994V46.1908ZM28.3998 46.1908H25.5996V35H28.3998V46.1908ZM33.9994 46.1908H31.2V35H33.9994V46.1908ZM39.599 46.1908H36.7996V35H39.599V46.1908ZM76 46.1908H47.9996V35H76V46.1908Z" fill="#F8AD39"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M20 60.5921H48.0004V49.3921H20V60.5921ZM50.8006 60.5921H53.6V49.3921H50.8006V60.5921ZM56.4002 60.5921H59.2004V49.3921H56.4002V60.5921ZM62.0006 60.5921H64.8V49.3921H62.0006V60.5921ZM67.6002 60.5921H70.3996V49.3921H67.6002V60.5921ZM73.1998 60.5921H76V49.3921H73.1998V60.5921Z" fill="#1D1D1B"/>
+    </g>
+    <defs>
+    <clipPath id="clip0_128_1733">
+    <rect width="96" height="96" fill="white"/>
+    </clipPath>
+    </defs>
+</svg>

@@ -28,13 +28,13 @@ class GraphicElementChoices(models.TextChoices):
 class GraphicIconCircleChoices(models.TextChoices):
     questionador = "questionador", "Questionador"
     hub = "hub", "Hub, Eixo"
-    # impulsionador = "impulsionador", "Impulsionador"
-    # impacto = "impacto", "Impacto"
-    # empatico = "empatico", "Empático"
+    impulsionador = "impulsionador", "Impulsionador"
+    impacto = "impacto", "Impacto"
+    empatico = "empatico", "Empático"
 
 class GraphicIconChoices(models.TextChoices):
     questionador = "questionador", "Questionador"
     hub = "hub", "Hub, Eixo"
-    # impulsionador = "impulsionador", "Impulsionador"
-    # impacto = "impacto", "Impacto"
-    # empatico = "empatico", "Empático"
+    impulsionador = "impulsionador", "Impulsionador"
+    impacto = "impacto", "Impacto"
+    empatico = "empatico", "Empático"

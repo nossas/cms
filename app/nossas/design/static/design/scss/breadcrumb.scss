@@ -23,3 +23,18 @@
     background: var(--bs-rosa-nossas);
     color: var(--bs-vermelho-nossas);
 }
+
+.breadcrumb-impulsionador .btn, .breadcrumb-impulsionador .btn:hover {
+    background: var(--bs-laranja-nossas);
+    color: var(--bs-azul-nossas);
+}
+
+.breadcrumb-impacto .btn, .breadcrumb-impacto .btn:hover {
+    background: var(--bs-amarelo-nossas);
+    color: var(--bs-azul-nossas);
+}
+
+.breadcrumb-empatico .btn, .breadcrumb-empatico .btn:hover {
+    background: var(--bs-azul-nossas);
+    color: #fff;
+}

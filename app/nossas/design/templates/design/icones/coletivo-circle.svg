@@ -1,0 +1,11 @@
+<svg{% if classnames %} class="{{ classnames }}"{% endif %} width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_128_1728)">
+    <circle cx="48" cy="48" r="48" fill="#F6B7C1"/>
+    <path d="M48 20C32.5361 20 20 32.5361 20 48C20 63.4639 32.5361 76 48 76C63.4639 76 76 63.4639 76 48C76 32.5361 63.4639 20 48 20ZM48 67.8125C37.0577 67.8125 28.1875 58.9423 28.1875 48C28.1875 37.0577 37.0577 28.1875 48 28.1875C58.9423 28.1875 67.8125 37.0577 67.8125 48C67.8125 58.9423 58.9423 67.8125 48 67.8125Z" fill="#E02437"/>
+    </g>
+    <defs>
+    <clipPath id="clip0_128_1728">
+    <rect width="96" height="96" fill="white"/>
+    </clipPath>
+    </defs>
+</svg>    
