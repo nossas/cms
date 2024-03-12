@@ -149,12 +149,20 @@ class NavigateCampaigns(CMSPlugin):
         Campaign,
         verbose_name=_("Campanha Relacionada"),
         on_delete=models.SET_NULL,
+        related_name="related_campaign_navigate_campaigns_plugin",
         null=True,
         blank=True,
     )
     filter_tags = models.BooleanField(verbose_name=_("Filtrar por tags?"), default=True)
     filter_campaign_group = models.BooleanField(
         verbose_name=_("Filtrar por comunidade?"), default=False
+    )
+    related_campaigns = models.ManyToManyField(
+        Campaign,
+        verbose_name=_("Campanhas relacionadas"),
+        related_name="related_campaigns_navigate_campaigns_plugin",
+        blank=True,
+        help_text=_("Caso não queira o preenchimento automático das Campanhas, você deve selecionar nesse campo as Campanhas que deseja mostrar.")
     )
 
 
