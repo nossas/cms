@@ -7,7 +7,7 @@
         <a class="footer-brand" href="{{ request.scheme|add:'://'|add:request.current_site.domain }}">
             {% include "nossas/svg/brand-lg.svg" %}
         </a>
-        <p class="institutional mt-4 text-center text-md-start d-flex flex-col">
+        <p class="institutional mt-4 text-center text-md-start d-flex flex-column">
             {% if request.current_site.institutionalinformation %}
             <span>{{ request.current_site.institutionalinformation.address_line }}</span>
             <span>{{ request.current_site.institutionalinformation.city }}/{{ request.current_site.institutionalinformation.state }} - CEP {{ request.current_site.institutionalinformation.zipcode }}</span>
@@ -31,7 +31,7 @@
               {% include "nossas/svg/youtube.svg" %}
             </a>
         </div>
-        <div class="footer-btn-group d-flex flex-col py-4">
+        <div class="footer-btn-group d-flex flex-column py-4">
             <div>
               <a href="/quem-somos/trabalhe-conosco" class="btn bg-white text-azul-nossas mb-2">
                   Trabalhe conosco
@@ -44,7 +44,7 @@
             </div>
         </div>
       </div>
-      <div class="d-none d-sm-flex flex-col flex-wrap pt-5 ps-5" style="height:450px;">
+      <div class="d-none d-sm-flex flex-column flex-wrap pt-5 ps-5" style="height:450px;">
         {% show_menu 0 100 100 100 "nossas/footer_menu.html" %}
       </div>
     </div>
