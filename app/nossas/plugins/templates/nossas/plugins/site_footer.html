@@ -1,20 +1,20 @@
 {% load menu_tags %}
 
-<div class="footer bg-azul-nossas text-white px-4 pt-5 pb-2">
+<div class="footer bg-azul-nossas text-white">
   <div class="container-fluid">
-    <div class="d-flex justify-content-center">
-      <div>
+    <div class="footer-content">
+      <div class="footer-info">
         <a class="footer-brand" href="{{ request.scheme|add:'://'|add:request.current_site.domain }}">
             {% include "nossas/svg/brand-lg.svg" %}
         </a>
-        <p class="institutional mt-4 text-center text-md-start d-flex flex-column">
+        <p class="footer-institutional">
             {% if request.current_site.institutionalinformation %}
             <span>{{ request.current_site.institutionalinformation.address_line }}</span>
             <span>{{ request.current_site.institutionalinformation.city }}/{{ request.current_site.institutionalinformation.state }} - CEP {{ request.current_site.institutionalinformation.zipcode }}</span>
             <span>{{ request.current_site.institutionalinformation.contact_mail }}  |  {{ request.current_site.institutionalinformation.contact_phone }}</span>
             {% endif %}
         </p>
-        <div class="social-media" style="width: 315px;">
+        <div class="footer-social-media">
             <a href="https://instagram.com/_nossas">
               {% include "nossas/svg/instagram.svg" %}
             </a>
@@ -31,9 +31,9 @@
               {% include "nossas/svg/youtube.svg" %}
             </a>
         </div>
-        <div class="footer-btn-group d-flex flex-column py-4">
+        <div class="footer-btn-group">
             <div>
-              <a href="/quem-somos/trabalhe-conosco" class="btn bg-white text-azul-nossas mb-2">
+              <a href="/quem-somos/trabalhe-conosco" class="btn bg-white text-azul-nossas mb-3">
                   Trabalhe conosco
               </a>
             </div>
@@ -44,7 +44,7 @@
             </div>
         </div>
       </div>
-      <div class="d-none d-sm-flex flex-column flex-wrap pt-5 ps-5" style="height:450px;">
+      <div class="footer-menu">
         {% show_menu 0 100 100 100 "nossas/footer_menu.html" %}
       </div>
     </div>
