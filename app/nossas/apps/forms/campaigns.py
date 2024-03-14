@@ -30,15 +30,15 @@ class CampaignFilterForm(forms.Form):
         widget=s2forms.Select2MultipleWidget(),
         required=False,
     )
-    campaign_group_id = forms.ChoiceField(
+    campaign_group_id = forms.MultipleChoiceField(
         label=_("Cidade"),
         choices=lazy(get_campaign_groups, tuple)(),
-        widget=s2forms.Select2MultipleWidget,
+        widget=s2forms.Select2MultipleWidget(),
         required=False,
     )
-    release_year = forms.ChoiceField(
+    release_year = forms.MultipleChoiceField(
         label=_("Ano"),
         choices=lazy(get_release_years, tuple)(),
-        widget=s2forms.Select2MultipleWidget,
+        widget=s2forms.Select2MultipleWidget(),
         required=False,
     )
