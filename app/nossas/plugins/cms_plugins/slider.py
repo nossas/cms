@@ -37,6 +37,11 @@ class FullPageSliderContentPlugin(UICMSPluginBase):
     form = FullPageSliderPluginForm
     allow_children = True
     child_classes = settings.NOSSAS_CONTENT_PLUGINS
+    fields = (
+        "background",
+        "background_image",
+        "x_and_y_center"
+    )
 
     def render(self, context, instance, placeholder):
         ctx = super().render(context, instance, placeholder)
