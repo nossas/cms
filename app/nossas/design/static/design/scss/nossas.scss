@@ -435,6 +435,7 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
     .footer-menu-item {
         display: flex;
         flex-direction: column;
+        max-width: 240px;
     
         .nav-link {
             font-family: $headings-font-family;
