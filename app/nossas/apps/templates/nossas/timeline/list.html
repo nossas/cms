@@ -1,0 +1,12 @@
+{% extends 'nossas/home.html' %}
+
+{% load static sekizai_tags %}
+
+{% block content %}
+  {% for event in events %}
+    <div>
+      <h2>{{ event.title }}</h2>
+      <p>{{ event.month }} {{ event.year }}</p>
+    </div>
+  {% endfor %}
+{% endblock %}
