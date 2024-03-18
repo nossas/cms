@@ -29,6 +29,8 @@ INSTALLED_APPS = (
         "nossas",
         "nossas.apps",
         "nossas.plugins",
+        # 
+        "nossas.publications",
         # Override HTMLs
         "djangocms_frontend",
         "djangocms_frontend.contrib.utilities",
