@@ -51,8 +51,30 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 // Create constrast
 @each $color, $value in $theme-colors {
     .bg-#{$color}, .tag-#{$color} {
+        --bs-color-background: var(--#{$prefix}#{$color});
+        --bs-color-content: var(--#{$prefix}#{$color}-content);
+        --bs-mega-menu-background: var(--#{$prefix}#{$color});
+        --bs-mega-menu-border-color: var(--#{$prefix}#{$color}-content);
+
         background-color: $value;
         color: var(--#{$prefix}#{$color}-content);
+
+        a, a:hover, .dropdown-menu, .mega-menu, label, select {
+            --bs-dropdown-color: var(--#{$prefix}#{$color}-content);
+            --bs-link-color-rgb: var(--#{$prefix}#{$color}-content);
+        }
+
+        .navbar-brand > svg path {
+            fill: var(--#{$prefix}#{$color}-content);
+        }
+
+        .dropdown-toggle > svg path, .navbar-toggler > svg path {
+            stroke: var(--#{$prefix}#{$color}-content);
+        }
+
+        .social-share-link svg path {
+            stroke: var(--#{$prefix}#{$color}-content);
+        }
     }
     .btn-#{$color} {
         --bs-btn-color: var(--#{$prefix}#{$color}-content) !important;
@@ -60,7 +82,7 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
         --bs-btn-active-color: var(--#{$prefix}#{$color}-content) !important;
     }
     .text-#{$color} {
-        color: $value;
+        color: $value !important;
 
         &.btn {
             color: $value;
@@ -68,6 +90,17 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
             &:hover {
                 color: $value;
             }
+        }
+
+        .social-share-link svg path {
+            stroke: $value;
+        }
+    }
+    .text-#{$color}-content {
+        color: var(--#{$prefix}#{$color}-content);
+
+        .navbar-nav a {
+            color: var(--#{$prefix}#{$color}-content);
         }
     }
 }
@@ -83,7 +116,7 @@ def build_colors():
 
         TEXT_COLORS = ";".join(
             [
-                f'--bs-{slugify(args[0])}-content:{args[1]}'
+                f"--bs-{slugify(args[0])}-content:{args[1]}"
                 for args in settings.DESIGN_THEME_TEXT_COLORS
             ]
         )
@@ -96,3 +129,20 @@ def build_colors():
         )
 
     return ""
+
+
+@register.filter
+def split_menu(children, n):
+    n = 3
+    return [children[i : i + n] for i in range(0, len(children), n)]
+
+
+@register.filter
+def add_class(field, class_name):
+    return field.as_widget(attrs={
+        "class": " ".join((field.css_classes(), class_name))
+    })
+
+@register.simple_tag
+def multiple_svg_icon(icon):
+    return f'nossas/svg/{icon}.svg'

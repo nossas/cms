@@ -33,18 +33,18 @@
             <style type="text/x-scss">
                 @import 'design/scss/typography.scss';
                 @import 'design/scss/nossas.scss';
-
                 {% build_colors %}
-                {% comment %} {% if request.current_site.themescss.theme %}
-                    {{ request.current_site.themescss.theme }}
-                {% endif %} {% endcomment %}
-
                 @import 'design/scss/nossas.scss';
                 @import 'design/scss/reset.scss';
             </style>
         {% endcompress %}
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+  integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+  
+        <script src="{% static 'pdf.js/build/pdf.mjs' %}" type="module"></script>
+        <script src="{% static 'design/js/megamenu.js' %}"></script>
     </head>
     <body>
         {% cms_toolbar %}
@@ -53,5 +53,6 @@
             {% endblock content %}
         </div>
         {% render_block "js" %}
+        {% if ga %}{% include "ga/snippets/ga.html" with GTAG_ID=ga.uuid %}{% endif %}
     </body>
 </html>

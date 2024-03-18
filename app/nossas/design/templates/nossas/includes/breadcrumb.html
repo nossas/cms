@@ -1,11 +1,13 @@
-<div class="d-flex gap-2 mb-4">
+{% load static %}
+
+<div class="d-flex gap-2 mb-4 breadcrumb breadcrumb-{{instance.graphic_icon}}">
 {% for ance in ancestors %}
 {% if forloop.first %}
 <a href="{{ ance.get_absolute_url }}" title="{{ ance.get_menu_title }}">
-    {% include "nossas/svg/group_20.svg" %}
+    {% include 'design/icones/'|add:instance.graphic_icon|add:'-circle.svg' %}
 </a>
-{% elif not forloop.last %}
-<a class="btn btn-verde-nossas text-white" href="{{ ance.get_absolute_url }}" title="{{ ance.get_menu_title }}">{{ ance.get_menu_title }}</a>
+{% else %}
+<a class="btn" href="{{ ance.get_absolute_url }}" title="{{ ance.get_menu_title }}">{{ ance.get_menu_title }}</a>
 {% endif %}
 {% endfor %}
 </div>

@@ -1,0 +1,185 @@
+.filter-form {
+    .filter-form-input-group {
+        display: flex;
+        border-bottom: 2px solid var(--bs-preto-nossas);
+
+        label {
+            font-family: "Bebas Neue Pro";
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .select2-container--default .select2-selection--multiple,
+        .select2-container--default .select2-selection--single {
+            border: none;
+        }
+
+        // .select2-container--default .select2-selection--multiple .select2-selection__choice {
+        //     margin-top: 0;
+        // }
+
+        .select2-container--default .select2-selection--multiple .select2-selection__rendered li {
+            font-family: "Bebas Neue Pro";
+            font-size: 15px;
+            line-height: 22px;
+            text-transform: uppercase;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .select2-container--default .select2-selection--multiple .select2-selection__clear {
+            margin-top: 0;
+            padding: 0;
+        }
+
+        .select2-container--default .select2-selection--multiple {
+            .select2-selection__choice {
+                background-color: var(--bs-verde-nossas);
+                color: var(--bs-white);
+                border-radius: 20px;
+                padding: 2px 8px;
+            }
+
+            .select2-selection__choice__remove {
+                color: var(--bs-white);
+                font-size: 33px;
+                line-height: 11px;
+                padding-right: 5px;
+            }
+        }
+
+        .select2-container .select2-selection--single .select2-selection__rendered {
+            font-family: "Bebas Neue Pro";
+            background-color: var(--bs-verde-nossas);
+            display: inline-flex;
+            color: var(--bs-white);
+            font-size: 15px;
+            text-transform: uppercase;
+            font-weight: bold;
+            border-radius: 20px;
+            line-height: 26px;
+            padding-right: 10px;
+
+            .select2-selection__clear {
+                font-size: 33px;
+                padding-right: 5px;
+            }
+        }
+
+        .select2-container--default .select2-selection--single {
+            padding-left: 5px;
+            min-height: 32px;
+            margin-top: 5px;
+            
+            &:focus-visible {
+                outline: none;
+            }
+        }
+    }
+    
+    .filter-form-footer {
+        border-bottom: 2px dotted var(--bs-preto-nossas);
+    }
+}
+
+.select2-results__option {
+    font-family: "Bebas Neue Pro";
+    font-size: 15px;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding-left: 30px;
+}
+
+.select2-dropdown--below {
+    top: 50px;
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: #E7E7E4 !important;
+    color: var(--bs-preto-nossas);
+}
+
+.select2-container--default .select2-results__option[aria-selected=true] {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    padding-left: 10px;
+
+    &::before {
+        content: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTciIHZpZXdCb3g9IjAgMCAxNiAxNyIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyLjIzNTUgNC40NzAyNEMxMi4zMDM3IDQuNDAwNjEgMTIuMzg1MiA0LjM0NTI5IDEyLjQ3NTEgNC4zMDc1MkMxMi41NjUgNC4yNjk3NiAxMi42NjE1IDQuMjUwMzEgMTIuNzU5IDQuMjUwMzFDMTIuODU2NSA0LjI1MDMxIDEyLjk1MyA0LjI2OTc2IDEzLjA0MjkgNC4zMDc1MkMxMy4xMzI4IDQuMzQ1MjkgMTMuMjE0MiA0LjQwMDYxIDEzLjI4MjUgNC40NzAyNEMxMy41Njg1IDQuNzU5MjQgMTMuNTcyNSA1LjIyNjI0IDEzLjI5MjUgNS41MjAyNEw3LjM3OTQ5IDEyLjUxMDJDNy4zMTIzNiAxMi41ODQgNy4yMzA4OSAxMi42NDMyIDcuMTQwMDcgMTIuNjg0NEM3LjA0OTI1IDEyLjcyNTUgNi45NTA5OSAxMi43NDc3IDYuODUxMyAxMi43NDk2QzYuNzUxNjEgMTIuNzUxNSA2LjY1MjU4IDEyLjczMyA2LjU2MDI4IDEyLjY5NTNDNi40Njc5OCAxMi42NTc1IDYuMzg0MzUgMTIuNjAxNCA2LjMxNDQ5IDEyLjUzMDJMMi43MTY0OSA4Ljg4NDI0QzIuNTc3NzMgOC43NDI3MiAyLjUgOC41NTI0MyAyLjUgOC4zNTQyNEMyLjUgOC4xNTYwNCAyLjU3NzczIDcuOTY1NzUgMi43MTY0OSA3LjgyNDI0QzIuNzg0NzQgNy43NTQ2MSAyLjg2NjE5IDcuNjk5MjkgMi45NTYwOCA3LjY2MTUyQzMuMDQ1OTcgNy42MjM3NiAzLjE0MjQ5IDcuNjA0MzEgMy4yMzk5OSA3LjYwNDMxQzMuMzM3NDkgNy42MDQzMSAzLjQzNDAxIDcuNjIzNzYgMy41MjM5IDcuNjYxNTJDMy42MTM3OSA3LjY5OTI5IDMuNjk1MjUgNy43NTQ2MSAzLjc2MzQ5IDcuODI0MjRMNi44MTU0OSAxMC45MTcyTDEyLjIxNTUgNC40OTIyNEMxMi4yMjE3IDQuNDg0NTEgMTIuMjI4NCA0LjQ3NzE2IDEyLjIzNTUgNC40NzAyNFoiIGZpbGw9IiM4Q0FENkEiLz4KPC9zdmc+Cg==');
+        width: 16px;
+        height: 17px;
+        display: inline-block;
+        margin-right: 5px;
+    }
+}
+
+.djangocms-form-builder-ajax-form {
+
+    .form-group {
+        margin-bottom: 11px;
+
+        .form-label, > label {
+            font-family: "Bebas Neue Pro";
+            font-size: 22px;
+            line-height: 29px;
+            margin-bottom: 0;
+
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+    }
+
+    .form-control, .form-select {
+        font-family: "Barlow";
+        font-size: 20px;
+        line-height: 27.5px;
+        background-color: transparent;
+        height: 32px;
+        border: 2px solid var(--bs-color-content);
+        color: var(--bs-color-content);
+
+        &::placeholder {
+            color: var(--bs-color-content);
+            opacity: .5;
+        }
+
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .form-check {
+        font-family: "Barlow";
+        font-size: 20px;
+        line-height: 27.5px;
+        
+        label, input[type="checkbox"] {
+            cursor: pointer;
+        }
+
+        input[type="checkbox"]:not(:checked) {
+            background-color: transparent;
+        }
+    }
+
+    input[type="submit"] {
+        min-width: 228px;
+        padding: 1px 47px;
+        height: 32px;
+        font-family: "Bebas Neue Pro";
+        font-size: 22px;
+        font-weight: bold;
+        color: var(--bs-color-background);
+        background-color: var(--bs-color-content);
+        display: block;
+        margin: 16px auto 0;
+
+        &:active {
+            color: var(--bs-color-background);
+            background-color: var(--bs-color-content);
+            opacity: 0.7;
+        }
+    }
+}

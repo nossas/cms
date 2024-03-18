@@ -2,4 +2,7 @@ from nossas.design.models import UICMSPlugin, UIBackgroundMixin
 
 
 class Navbar(UIBackgroundMixin, UICMSPlugin):
-    pass
+    def get_classes(self):
+        classes = super().get_classes()
+
+        return ["sticky-top"] + classes

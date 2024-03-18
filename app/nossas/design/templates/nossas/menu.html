@@ -4,21 +4,14 @@
 <li class="child{% if child.selected %} selected{% endif %}{% if child.ancestor %} ancestor{% endif %}{% if child.sibling %} sibling{% endif %}{% if child.descendant %} descendant{% endif %}">
     {% if child.children %}
     <button class="dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false">
-        {{ child.get_menu_title }}
-        <i class="dropdown-icon"></i>
+        {{ child.attr.i18n_menu_title }}
+        {% include "nossas/svg/chevron-down.svg" %}
     </button>
-    <ul class="dropdown-menu">
-		{% show_menu from_level to_level extra_inactive extra_active "nossas/submenu.html" "" "" child %}
-	</ul>
+    <ul class="dropdown-menu w-100 mt-0" aria-labelledby="navbarDropdown">
+        {% show_menu from_level to_level extra_inactive extra_active "nossas/menu.html" "" "" child %}
+    </ul>
     {% else %}
-    <a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{{ child.get_menu_title }}</a>
+    <a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{{ child.attr.i18n_menu_title }}</a>
     {% endif %}
-
-	{% comment %} <a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{{ child.get_menu_title }}</a>
-	{% if child.children %}
-	<ul>
-		{% show_menu from_level to_level extra_inactive extra_active "nossas/submenu.html" "" "" child %}
-	</ul>
-	{% endif %} {% endcomment %}
 </li>
 {% endfor %}

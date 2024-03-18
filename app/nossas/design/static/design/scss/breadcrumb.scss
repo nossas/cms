@@ -1,0 +1,40 @@
+@import "bootstrap/scss/breadcrumb";
+
+.breadcrumb .btn {
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 6px 21px;
+    font-size: 22px;
+    line-height: 29px;
+    height: 39px;
+}
+
+.breadcrumb svg {
+    width: 39px;
+    height: 39px;
+}
+
+.breadcrumb-hub .btn, .breadcrumb-hub .btn:hover {
+    background: var(--bs-verde-nossas);
+    color: var(--bs-azul-nossas);
+}
+
+.breadcrumb-questionador .btn, .breadcrumb-questionador .btn:hover {
+    background: var(--bs-rosa-nossas);
+    color: var(--bs-vermelho-nossas);
+}
+
+.breadcrumb-impulsionador .btn, .breadcrumb-impulsionador .btn:hover {
+    background: var(--bs-laranja-nossas);
+    color: var(--bs-azul-nossas);
+}
+
+.breadcrumb-impacto .btn, .breadcrumb-impacto .btn:hover {
+    background: var(--bs-amarelo-nossas);
+    color: var(--bs-azul-nossas);
+}
+
+.breadcrumb-empatico .btn, .breadcrumb-empatico .btn:hover {
+    background: var(--bs-azul-nossas);
+    color: #fff;
+}

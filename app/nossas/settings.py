@@ -1,32 +1,40 @@
+from pathlib import Path
 from project.settings import *
+
+# Root folder to this site config
+SITE_DIR = Path(__file__).resolve().parent
 
 # Databases
 DEFAULT_DB_SQLITE = BASE_DIR / "nossas.sqlite3"
 
-DATABASES.update({
-    "default": env.db_url("CMS_DATABASE_URL", f"sqlite:///{DEFAULT_DB_SQLITE}"),
-})
+DATABASES.update(
+    {
+        "default": env.db_url("CMS_DATABASE_URL", f"sqlite:///{DEFAULT_DB_SQLITE}"),
+    }
+)
 
 # Apps
-
-INSTALLED_APPS += [
-    "django_jsonform",
-    "tag_fields",
-    # Build Bootstrap SCSS
-    "compressor",
-    #
-    "nossas",
-    "nossas.design",
-    "nossas.plugins",
-    "nossas.apps.campaigns",
-    "nossas.apps.team",
-    "nossas.apps.jobs",
-    "nossas.apps.institutional",
-    # Override HTMLs
-    "djangocms_frontend",
-    "djangocms_frontend.contrib.utilities",
-    "djangocms_frontend.contrib.link",
-]
+# Used to override plugins template
+INSTALLED_APPS = (
+    [
+        "nossas.design",
+    ]
+    + INSTALLED_APPS
+    + [
+        "django_jsonform",
+        "tag_fields",
+        # Build Bootstrap SCSS
+        "compressor",
+        #
+        "nossas",
+        "nossas.apps",
+        "nossas.plugins",
+        # Override HTMLs
+        "djangocms_frontend",
+        "djangocms_frontend.contrib.utilities",
+        "djangocms_frontend.contrib.link",
+    ]
+)
 
 
 # Static files
@@ -70,6 +78,9 @@ LANGUAGES = [
     ("en", "Inglês"),
 ]
 
+LOCALE_PATHS = (
+    SITE_DIR / 'locale',
+)
 
 # URLs
 
@@ -77,6 +88,28 @@ ROOT_URLCONF = "nossas.urls"
 
 
 # CMS
+
+NOSSAS_CONTENT_PLUGINS = [
+    "AccordionPlugin",
+    "BootstrapGridPlugin",
+    "BreadcrumbPlugin",
+    "BreaklinePlugin",
+    "CampaignListPlugin",
+    "CardPlugin",
+    "ContainerPlugin",
+    "FormPlugin",
+    "GalleryPlugin",
+    "HeaderPlugin",
+    "HeadlinePlugin",
+    "PdfViewerPlugin",
+    "PicturePlugin",
+    "SliderJobsPlugin",
+    "SliderPlugin",
+    "SocialSharePlugin",
+    "TeamAccordionPlugin",
+    "TextPlugin",
+    "VideoPlayerPlugin",
+]
 
 CMS_TEMPLATES = [
     ("nossas/page.html", "NOSSAS Página"),
@@ -87,19 +120,8 @@ CMS_PLACEHOLDER_CONF = {
     **CMS_PLACEHOLDER_CONF,
     "nossas_page_content": {
         "name": "Corpo da página",
-        "plugins": [
-            "TextPlugin",
-            "BoxPlugin",
-            "ContainerPlugin",
-            "SliderPlugin",
-            "TeamAccordionPlugin",
-            "CampaignListPlugin",
-            "BreadcrumPlugin",
-            "SliderJobsPlugin",
-            "PicturePlugin",
-            "BreaklinePlugin",
-            "GalleryPlugin"
-        ],
+        "plugins": NOSSAS_CONTENT_PLUGINS
+        + ["BoxPlugin", "HeaderImagePlugin", "OurCitiesProjectPlugin"],
     },
     "nossas_page_navbar": {
         "name": "Navegação",
@@ -124,9 +146,11 @@ CMS_PLACEHOLDER_CONF = {
             "TextPlugin",
             "GalleryPlugin",
             "ContainerPlugin",
-            "SliderPlugin"
-        ]
-    }
+            "SliderPlugin",
+            "ContainerPlugin",
+            "NavigateCampaignsPlugin",
+        ],
+    },
 }
 
 # DjangoCMS Picture
@@ -139,7 +163,6 @@ DJANGOCMS_PICTURE_TEMPLATES = [
 # Design
 
 DESIGN_THEME_COLORS = [
-    ("Azul NOSSAS", "rgb(35,61,144)", "233D90"),
     ("Verde claro NOSSAS", "rgb(145,206,193)", "91CEC1"),
     ("Bege NOSSAS", "rgb(247,247,237)", "F7F7ED"),
     ("Vermelho NOSSAS", "rgb(224,36,55)", "E02437"),
@@ -148,18 +171,25 @@ DESIGN_THEME_COLORS = [
     ("Verde NOSSAS", "rgb(140,173,106)", "8CAD6A"),
     ("Laranja NOSSAS", "rgb(235,94,59)", "EB5E3B"),
     ("Cinza extra NOSSAS", "rgb(67,57,57)", "433939"),
+    ("Preto NOSSAS", "rgb(29,29,27)", "1D1D1B"),
+    ("Branco NOSSAS", "rgb(255,255,255)", "FFFFFF"),
+    # Obrigatoriamente precisa ser o ultimo da lista para sobrescrever outras cores
+    ("Azul NOSSAS", "rgb(35,61,144)", "233D90"),
 ]
 
 DESIGN_THEME_TEXT_COLORS = [
-    ("Azul NOSSAS", "rgb(248,173,57)"),
-    ("Verde claro NOSSAS", "rgb(0,0,0)"),
-    ("Bege NOSSAS", "rgb(140,173,106)"),
+    ("Verde claro NOSSAS", "rgb(29,29,27)"),
+    ("Bege NOSSAS", "rgb(29,29,27)"),
     ("Vermelho NOSSAS", "rgb(246,183,193)"),
-    ("Amarelo NOSSAS", "rgb(0,0,0)"),
-    ("Rosa NOSSAS", "rgb(224,36,55)"),
+    ("Amarelo NOSSAS", "rgb(67,57,57)"),
+    ("Rosa NOSSAS", "rgb(67,57,57)"),
     ("Verde NOSSAS", "rgb(255,255,255)"),
     ("Laranja NOSSAS", "rgb(255,255,255)"),
-    ("Cinza extra NOSSAS", "rgb(0,0,0)"),
+    ("Cinza extra NOSSAS", "rgb(247,247,237)"),
+    ("Preto NOSSAS", "rgb(255,255,255)"),
+    ("Branco NOSSAS", "rgb(29,29,27)"),
+    # Obrigatoriamente precisa ser o ultimo da lista para sobrescrever outras cores
+    ("Azul NOSSAS", "rgb(247,247,237)"),
 ]
 
 # CKEditor

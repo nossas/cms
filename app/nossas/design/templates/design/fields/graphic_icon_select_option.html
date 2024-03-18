@@ -1,0 +1,10 @@
+{% load static %}
+
+<div class="graphic-element-select-option">
+{% if widget.wrap_label %}
+<input style="display: none;" type="{{ widget.type }}" class="d-none" name="{{ widget.name }}"{% if widget.value != None %} value="{{ widget.value|stringformat:'s' }}"{% endif %}{% include "django/forms/widgets/attrs.html" %}/><label{% if widget.attrs.id %} title="{{ widget.label }}" class="{{ widget.value|default:"no-selection" }}" for="{{ widget.attrs.id|safe }}"{% endif %}>{% endif %}
+{% if widget.wrap_label %}
+    {% if widget.value %}{% include "design/icones/"|add:widget.value|add:'-circle.svg' %}{% else %}{% include "design/icones/empty.svg" %}{% endif %}
+</label>
+{% endif %}
+</div>

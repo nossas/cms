@@ -4,7 +4,7 @@ from django.core.paginator import Paginator
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
-from .bonde_utils import create_form_entry
+from contrib.bonde.api import create_form_entry
 
 from .places.views import get_choices, get_choices_places
 

@@ -1,0 +1,17 @@
+{% load cms_tags %}
+
+<div class="card">
+{% if link and not request.toolbar.edit_mode_active %}<a href="{{link}}" target="{% if instance.target %}{{instance.target}}{% else %}_self{% endif %}">{% endif %}
+    {% if instance.image %}
+    <img src="{{instance.image.url}}" class="card-img-top" alt="{{instance.image.alt}}">
+    {% endif %}
+    <div class="card-body">
+        {% if instance.tag %}<span class="tag bg-amarelo-nossas">{{ instance.tag }}</span>{% endif %}
+        <div class="card-body-content">
+        {% for plugin in instance.child_plugin_instances %}
+        {% render_plugin plugin %}
+        {% endfor %}
+        </div>
+    </div>
+{% if link and not request.toolbar.edit_mode_active %}</a>{% endif %}
+</div>

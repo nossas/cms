@@ -1,0 +1,138 @@
+// Button Card
+.btn-card {
+    cursor: pointer;
+    display: flex;
+
+    .btn-card-img {
+        position: relative;
+        width: 164px;
+        height: auto;
+
+        img {
+            width: 152px;
+            height: 120px;
+            margin: auto;
+            clip-path: polygon(0 16%, 93% 0, 100% 100%, 13% 100%);
+        }
+
+        svg {
+            position: absolute;
+            top: calc(164px - 70px);
+            right: 0;
+        }
+    }
+
+    .btn-card-description {
+        --bs-btn-card-font-size: 20px;
+        flex: 1;
+        padding: 8px 0 0 8px;
+
+        h4 {
+            font-size: var(--bs-btn-card-font-size);
+            line-height: 24px;
+            text-transform: uppercase;
+            margin-bottom: 0;
+        }
+
+        p {
+            font-size: 15px;
+            font-weight: 500;
+            line-height: 25px;
+            margin-bottom: 0;
+        }
+
+        @include media-breakpoint-up(md) {
+            p {
+                font-size: var(--bs-btn-card-font-size);
+            }
+        }
+    }
+}
+
+.accordion-team {
+
+    // Modal Team
+    .modal-lg {
+        @include media-breakpoint-down(lg) {
+            .modal-body {
+                padding: 0;
+
+                & > div:last-child {
+                    padding: 1.75rem;
+                }
+            }
+        }
+    }
+
+    .modal-header {
+        position: relative;
+        border-bottom: none;
+        padding: 0;
+
+        .btn-close-circle {
+            position: absolute;
+            right: 48px;
+            top: 48px;
+            z-index: 1;
+        }
+    }
+
+    .modal-body {
+        display: flex;
+        gap: 32px;
+        padding:  89px 48px 48px;
+    }
+
+    .modal-box-img {
+        background-color: var(--bs-rosa-nossas);
+        height: 271px;
+        position: relative;
+        padding: 0 15px;
+
+        img {
+            display: block;
+            margin: 0 auto;
+            clip-path: polygon(0 16%, 93% 0, 100% 100%, 13% 100%);
+        }
+    }
+
+    @include media-breakpoint-up(lg) {
+        .modal-box-img {
+            min-width: 413px;
+        }
+    }
+
+    @include media-breakpoint-down(lg) {
+        .modal-body {
+            flex-direction: column;
+        }   
+    }
+
+    @include media-breakpoint-down(lg) {
+        .modal-box-img {
+            margin-bottom: 2rem;
+        }
+    }
+
+    .modal-box-text {
+        h4 {
+            font-size: 2rem;
+            margin-bottom: 0;
+            text-transform: uppercase;
+        }
+
+        h5 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 400;
+            margin-bottom: 18px;
+            text-transform: uppercase;
+        }
+
+        p {
+            font-size: 1.25rem;
+            line-height: 27.5px;
+            margin-top: 18px;
+        }
+    }
+}

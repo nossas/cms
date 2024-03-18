@@ -1,6 +1,16 @@
 from django.db import models
+from django.utils.html import strip_tags
 
 from cms.models.pluginmodel import CMSPlugin
+
+
+class NamingPluginMixin:
+    def __str__(self):
+        text = self.get_children().filter(plugin_type="TextPlugin").first()
+        if text:
+            return strip_tags(text.get_bound_plugin().body)
+
+        return super().__str__()
 
 
 class UICMSPlugin(CMSPlugin):
@@ -21,23 +31,30 @@ class UIBackgroundMixin:
     def get_classes(self):
         classes = super().get_classes()
 
-        bootstrap_classes = dict(
-            filter(
-                lambda pair: pair[0] in ["background", ],
-                self.attributes.items(),
+        if self.attributes:
+            bootstrap_classes = dict(
+                filter(
+                    lambda pair: pair[0]
+                    in [
+                        "background",
+                    ],
+                    self.attributes.items(),
+                )
             )
-        )
 
-        return classes + list(bootstrap_classes.values())
+            return classes + list(bootstrap_classes.values())
+
+        return classes
 
 
 class UIPaddingMixin:
     def get_classes(self):
         classes = super().get_classes()
 
-        padding = self.attributes.get("padding")
-        if padding and len(padding) > 0:
-            classes += list(map(self.format_padding, padding))
+        if self.attributes:
+            padding = self.attributes.get("padding")
+            if padding and len(padding) > 0:
+                classes += list(map(self.format_padding, padding))
 
         return classes
 
@@ -57,14 +74,15 @@ class UIBorderMixin:
         classes = super().get_classes()
         has_border = False
 
-        for attr in ["border_top", "border_bottom", "border_start", "border_end"]:
-            if attr in self.attributes.keys() and self.attributes[attr]:
-                has_border = True
+        if self.attributes:
+            for attr in ["border_top", "border_bottom", "border_start", "border_end"]:
+                if attr in self.attributes.keys() and self.attributes[attr]:
+                    has_border = True
 
-            if not self.attributes.get(attr, True):
-                classes.append(f"{attr.replace('_', '-')}-0")
+                if not self.attributes.get(attr, True):
+                    classes.append(f"{attr.replace('_', '-')}-0")
 
-        if has_border:
-            classes = ["border", "border-2", "border-dark"] + classes
+            if has_border:
+                classes = ["border", "border-2", "border-dark"] + classes
 
         return classes

@@ -1,0 +1,18 @@
+.djangocms-video-plugin {
+    iframe {
+        width: 100%;
+        min-height: 264px;
+    }
+
+    @include media-breakpoint-up(md) {
+        iframe {
+            min-height: 432px;
+        }
+    }
+
+    @include media-breakpoint-up(lg) {
+        iframe {
+            min-height: 558px;
+        }
+    }
+}

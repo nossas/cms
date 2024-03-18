@@ -1,0 +1,3 @@
+<svg{% if classnames %} class="{{ classnames }}"{% endif %} width="154" height="120" viewBox="0 0 154 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M142.582 0.0732422L0.95166 21.0099L21.9917 119.927H153.048L142.582 0.0732422Z" fill="#233D90"/>
+</svg>    

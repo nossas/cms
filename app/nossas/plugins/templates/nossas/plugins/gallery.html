@@ -1,30 +1,29 @@
 {% load cms_tags %}
 <div class="slider">
-    <div id="sliderGalleryIndicators" class="slide carousel carousel-dark">
-      <div class="carousel-inner">
-        {% for plugin in instance.child_plugin_instances %}
-        <div class="carousel-item{% if forloop.counter0 == 0 %} active{% endif %}">
-            <div class="d-block w-100">
-                {% render_plugin plugin %}
-            </div>
-        </div>
-        {% endfor %}
+  <div id="sliderGalleryIndicators" class="slide carousel carousel-dark">
+    <div class="carousel-inner">
+      {% for plugin in instance.child_plugin_instances %}
+      <div class="carousel-item{% if forloop.counter0 == 0 %} active{% endif %}">
+          <div class="d-block w-100">
+              {% render_plugin plugin %}
+          </div>
       </div>
-      <div class="slider-footer">
-          <button type="button" data-bs-target="#sliderGalleryIndicators" data-bs-slide="prev">
+      {% endfor %}
+    </div>
+    <div class="slider-footer">
+        <button type="button" data-bs-target="#sliderGalleryIndicators" data-bs-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Previous</span>
-          </button>
-          <div class="slider-indicatiors carousel-indicators">
-            {% for plugin in instance.child_plugin_instances %}
-            <button type="button" data-bs-target="#sliderGalleryIndicators" data-bs-slide-to="{{ forloop.counter0 }}"{% if forloop.counter0 == 0 %} class="active"{% endif %} aria-current="true" aria-label="Slide {{ forloop.counter }}"></button>
-            {% endfor %}
-          </div>
-          <button type="button" data-bs-target="#sliderGalleryIndicators" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-          </button>
-      </div>
+        </button>
+        <div class="slider-indicatiors carousel-indicators">
+          {% for plugin in instance.child_plugin_instances %}
+          <button type="button" data-bs-target="#sliderGalleryIndicators" data-bs-slide-to="{{ forloop.counter0 }}"{% if forloop.counter0 == 0 %} class="active"{% endif %} aria-current="true" aria-label="Slide {{ forloop.counter }}"></button>
+          {% endfor %}
+        </div>
+        <button type="button" data-bs-target="#sliderGalleryIndicators" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
   </div>
-  </div>
+</div>

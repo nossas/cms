@@ -1,6 +1,7 @@
 from django import forms
 from django.conf import settings
 from django.utils.text import slugify
+from django.utils.translation import gettext_lazy as _
 
 from django_jsonform.forms.fields import JSONFormField
 from entangled.forms import EntangledModelFormMixin
@@ -33,7 +34,7 @@ class UIPaddingFormMixin(EntangledModelFormMixin):
                 },
             },
         },
-        required=False
+        required=False,
     )
 
     class Meta:
@@ -64,7 +65,10 @@ class UIBackgroundSelect(forms.RadioSelect):
 
 class UIBackgroundFormMixin(EntangledModelFormMixin):
     background = forms.ChoiceField(
-        choices=CORES_TEMAS, required=False, widget=UIBackgroundSelect()
+        label=_("Cor de fundo"),
+        choices=CORES_TEMAS,
+        required=False,
+        widget=UIBackgroundSelect(),
     )
 
     class Meta:
@@ -80,4 +84,40 @@ class UIBorderFormMixin(EntangledModelFormMixin):
     class Meta:
         entangled_fields = {
             "attributes": ["border_start", "border_end", "border_top", "border_bottom"]
+        }
+
+
+CORES = [slugify(args[0], args[0]) for args in settings.DESIGN_THEME_COLORS]
+
+
+class UIGraphicIconMixin(EntangledModelFormMixin):
+    icon = JSONFormField(
+        schema={
+            "type": "dict",
+            "keys": {
+                "name": {
+                    "type": "string",
+                    "choices": [
+                        "ativista",
+                        "coletivo",
+                        "empatico",
+                        "hub",
+                        "impacto",
+                        "impulsionador",
+                        "mobilizador",
+                        "questionador",
+                    ],
+                    "required": True,
+                },
+                "shape": {"type": "string", "choices": ["rect", "circle"]},
+                "color": {"type": "string", "choices": CORES, "required": True},
+                "secondary": {"type": "string", "choices": [""] + CORES},
+                "background": {"type": "string", "choices": [""] + CORES},
+            },
+        }
+    )
+
+    class Meta:
+        entangled_fields = {
+            "attributes": ["icon"]
         }

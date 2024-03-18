@@ -1,0 +1,41 @@
+{% load social_share cms_tags static %}
+
+<div class="social-share {{ instance.classes }}">
+  <div class="social-share-icons">
+    {% for network in instance.get_selected_social_media_list %}
+        {% if network == "whatsapp" %}
+            <div class="social-share-link">
+                <a href="https://web.whatsapp.com/send?text={{ request.current_page.metadataextension.subtitle }} {{ request.build_absolute_uri }}" target="_blank">
+                    {% include "nossas/plugins/social-media/whatsapp.svg" %}
+                </a>
+            </div>
+        {% endif %}
+        {% if network == "twitter" %}
+            <div class="social-share-link">
+                <a href="https://twitter.com/intent/tweet?text={{ request.current_page.metadataextension.subtitle }} {{ request.build_absolute_uri }}" target="_blank">
+                    {% include "nossas/plugins/social-media/twitter.svg" %}
+                </a>
+            </div>
+        {% endif %}
+        {% if network == "facebook" %}
+            <div class="social-share-link">
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}&amp;t={{ request.current_page.metadataextension.title }}&amp;src=sdkpreparse" target="_blank">
+                    {% include "nossas/plugins/social-media/facebook.svg" %}
+                </a>
+            </div>
+        {% endif %}
+        {% if network == "linkedin" %}
+            <div class="social-share-link">
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.build_absolute_uri }}" target="_blank">
+                    {% include "nossas/plugins/social-media/linkedin.svg" %}
+                </a>
+            </div>
+        {% endif %}
+    {% endfor %}
+  </div>
+  <div class="social-share-button">
+    {% for plugin in instance.child_plugin_instances %}
+      {% render_plugin plugin %}
+    {% endfor %}
+  </div>
+</div>

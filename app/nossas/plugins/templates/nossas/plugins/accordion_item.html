@@ -1,0 +1,16 @@
+{% load cms_tags %}
+
+<div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#colapse-{{instance.id}}" aria-expanded="true" aria-controls="colapse-{{instance.id}}">
+        {{ instance.title }}
+      </button>
+    </h2>
+    <div id="colapse-{{instance.id}}" class="accordion-collapse collapse" data-bs-parent="#accordion-{{parent_instance.id}}">
+      <div class="accordion-body">
+        {% for plugin in instance.child_plugin_instances %}
+            {% render_plugin plugin %}
+        {% endfor %}
+      </div>
+    </div>
+</div>

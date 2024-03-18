@@ -1,0 +1,24 @@
+.pdf-viewer {
+    max-width: 848px;
+    display: flex;
+    flex-direction: column;
+    border-top: 15px solid #000;
+    
+    .pdf-viewer-controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #000;
+        height: 90px;
+        padding: 0 60px;
+        color: white;
+
+        svg path {
+            stroke: white;
+        }
+
+        p {
+            margin-bottom: 0;
+        }
+    }
+}

@@ -2,10 +2,6 @@ figure {
     margin: 0;
 }
 
-#cms-top  + .content .navbar.fixed-top, #cms-top  + .content .navbar.fixed-top .offcanvas {
-    margin-top: 46px;
-}
-
 .cms-toolbar-left {
     display: flex;
 
@@ -21,10 +17,33 @@ figure {
     }
 }
 
+.accordion-collapse.collapse {
+    visibility: visible;
+}
+
 .navbar-collapse.show {
     visibility: visible;
 }
 
-.accordion-collapse.collapse {
-    visibility: visible;
+button, input[type="submit"], input[type="reset"] {
+	background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
+
+figcaption {
+    line-height: 25px;
+}
+
+figure + p, figure + div > p {
+    margin-top: 1.25rem;
+}
+
+p {
+    margin-bottom: 1.25rem;
+    line-height: 27.5px;
 }

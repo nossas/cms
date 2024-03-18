@@ -1,0 +1,8 @@
+{% load cms_tags static %}
+
+<div class="headline {{ instance.classes}}">
+  <div class="headline-content">
+    <img src="{% static instance.get_full_path_icon %}" alt="{{ instance.title }}" />
+    <h2>{{ instance.title }}</h2>
+  </div>
+</div>

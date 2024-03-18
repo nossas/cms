@@ -1,0 +1,3 @@
+[submodule "submodules/djangocms-form-builder"]
+	path = submodules/djangocms-form-builder
+	url = git@github.com:nossas/djangocms-form-builder.git

@@ -14,12 +14,12 @@ $enable-cssgrid: true;
 
 // Container
 $container-max-widths: (
-  sm: 540px,
-  md: 720px,
-  lg: 848px,
-//   lg: 960px,
-//   xl: 1140px,
-//   xxl: 1320px
+    sm: 540px,
+    md: 720px,
+    lg: 848px,
+    //   lg: 960px,
+    //   xl: 1140px,
+    //   xxl: 1320px
 );
 
 // Card
@@ -46,6 +46,9 @@ $accordion-button-focus-box-shadow: none;
 $accordion-button-active-bg: none;
 $accordion-button-active-color: none;
 $accordion-button-padding-y: ($spacer * 0.5);
+$accordion-body-padding-y: 1rem;
+$accordion-body-padding-x: 1.25rem;
+$accordion-item-padding: 1.5rem 0;
 
 // Font Family
 $headings-font-family: "Bebas Neue Pro";
@@ -53,13 +56,13 @@ $font-family-sans-serif: "Barlow";
 $input-btn-font-family: $headings-font-family;
 $headings-font-weight: 800;
 
-// Font Size
-$font-size-base: 0.8rem;
-
 // Modal
 $modal-sm: 375px;
 $modal-content-border-radius: none;
 $modal-content-inner-border-radius: $modal-content-border-radius;
+$modal-inner-padding: 3rem;
+$modal-header-padding-y: 1.5rem;
+$modal-lg: 944px;
 
 // Forms
 $input-font-family: $font-family-sans-serif;
@@ -85,8 +88,8 @@ $dropdown-icon: url("data:image/svg+xml,<svg width='24' height='24' viewBox='0 0
 
 // Navbar
 $navbar-dark-color: $white;
-$navbar-dark-icon-color: $navbar-dark-color;
-$navbar-dark-toggler-icon-bg: url("data:image/svg+xml,<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M3 12H21' stroke='#{$navbar-dark-icon-color}' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/><path d='M3 6H21' stroke='#{$navbar-dark-icon-color}' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/><path d='M3 18H21' stroke='#{$navbar-dark-icon-color}' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+// $navbar-dark-icon-color: $navbar-dark-color;
+// $navbar-dark-toggler-icon-bg: url("data:image/svg+xml,<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M3 12H21' stroke='#{$navbar-dark-icon-color}' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/><path d='M3 6H21' stroke='#{$navbar-dark-icon-color}' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/><path d='M3 18H21' stroke='#{$navbar-dark-icon-color}' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
 
 // Carousel / Slider
 $carousel-control-prev-icon-bg: url("data:image/svg+xml,<svg width='41' height='12' viewBox='0 0 41 12' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M40 5.91895H2' stroke='#{$carousel-control-color}' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/><path d='M8 10.8379L1 5.91894L8 1' stroke='#{$carousel-control-color}' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
@@ -132,22 +135,6 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
     }
 }
 
-@import "bootstrap/scss/accordion";
-
-// Accordion
-// .accordion-item {
-//     border-bottom: 1px dashed !important;
-
-//     &:last-child {
-//         border-bottom: 0 !important;
-//     }
-// }
-
-.accordion-button {
-    font-size: $h3-font-size;
-}
-
-@import "bootstrap/scss/breadcrumb";
 @import "bootstrap/scss/pagination";
 @import "bootstrap/scss/badge";
 @import "bootstrap/scss/alert";
@@ -215,28 +202,7 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
 
 // Imagem Mask
 .img-mask {
-    clip-path: polygon(0 22%, 93% 5%, 100% 94%, 11% 94%);
-}
-
-// Button Card
-.btn-card {
-    cursor: pointer;
-    position: relative;
-
-    img.img-mask {
-        height: 164px;
-        width: 164px;
-    }
-
-    svg {
-        position: absolute;
-        top: calc(164px - 35px);
-        left: calc(164px - 25px)
-    }
-
-    .btn-card-description {
-        margin-top: ($spacer * 1);
-    }
+    clip-path: polygon(0px 22%, 88% 5%, 93% 80%, 11% 82%);
 }
 
 // Button
@@ -275,88 +241,15 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
     }
 }
 
-// Navbar / Dropdown
-.navbar .navbar-toggler,
-.navbar .navbar-toggler:focus {
-    border: none;
-    box-shadow: none;
-}
-
-.child {
-    .dropdown-toggle {
-        display: flex;
-        align-items: center;
-
-        .dropdown-icon {
-            margin-left: 5px;
-            width: 24px;
-            height: 24px;
-            display: inline-block;
-            background: $dropdown-icon;
-        }
-
-        &::after {
-            display: none;
-        }
-
-        &.show {
-            .dropdown-icon {
-                rotate: 180deg;
-            }
-        }
-    }
-
-    .dropdown-menu {
-        a {
-            font-size: $h5-font-size;
-            text-transform: none;
-        }
-    }
-}
-
-.navbar-nav {
-    text-transform: uppercase;
-    font-family: $headings-font-family;
-    font-size: $h4-font-size;
-
-    a {
-        color: $navbar-dark-color;
-        text-decoration: none;
-    }
-
-    .dropdown-toggle {
-        text-transform: uppercase;
-        color: $navbar-dark-color;
-    }
-
-    .dropdown-menu {
-        background: inherit;
-        border: none;
-        margin-left: $spacer;
-    }
-}
-
-// i18n
-.i18n-form {
-    margin-bottom: 0;
-
-    .form-select {
-        border: none;
-        background-color: transparent !important;
-
-        option {
-            color: $dark;
-        }
-    }
-}
-
 // Tag
 .tag {
-    padding: ($spacer * 0.3) ($spacer * 0.8);
+    padding: 5px 12px;
     border-radius: 50px;
     text-transform: uppercase;
-    font-size: ($font-size-base * 0.85);
+    font-size: 17px;
+    line-height: 24px;
     font-weight: bold;
+    font-family: 'Bebas Neue Pro';
 }
 
 // Carousel / Slider
@@ -407,7 +300,6 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
     }
 
     .slider-full {
-
         .carousel-inner {
             background: no-repeat center center scroll;
             -webkit-background-size: cover;
@@ -419,6 +311,10 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
         .carousel-item {
             height: var(--#{$prefix}-slider-full-height);
             min-height: 350px;
+
+            .grid .g-col-md-6 {
+                max-height: 80vh;
+            }
         }
 
         .slider-footer {
@@ -430,28 +326,134 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
 }
 
 // Footer
-.footer-brand {
-    display: block;
-    margin: 0 auto;
-    width: 214px;
+.footer {
+    border-top: 2px solid $dark;
+
+    .footer-brand {
+        display: block;
+        width: 214px;
+    }
+
+    .social-media {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .footer-btn-group {
+        a {
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+    }
+}
+
+@include media-breakpoint-down(md) {
+    .footer {
+        .footer-brand {
+            margin: 0 auto;
+        }
+
+        .social-media {
+            justify-content: space-between;
+            gap: 0;
+            padding: 0 ($spacer * 2);
+        }
+
+        .footer-btn-group {
+            > div {
+                margin: 0 auto;
+            }
+        }
+    }
 }
 
 // Button Group (Admin)
 .widget-bg-btn-group {
+    input[type="input"]:checked + label.widget-bg-btn,
     input[type="radio"]:checked + label.widget-bg-btn {
         outline: 2px solid green;
         scale: 0.9;
     }
 }
 
+.graphic-element-select {
+    display: flex;
+    gap: 10px;
+    // align-items: center;
+
+    .graphic-element-select-option {
+        input[type="radio"]:checked + label {
+            outline: 2px solid green;
+            scale: 0.9;
+        }
+
+        label {
+            display: flex;
+            max-width: 50px;
+            width: 50px;
+            height: 50px;
+
+            svg {
+                width: 50px;
+                height: 50px;
+            }
+        }
+    }
+}
+
+.multiple-svg-select {
+    display: flex;
+
+    .multiple-svg-select-option {
+        input[type="checkbox"]:checked + label {
+            outline: 4px solid green;
+            scale: 0.9;
+        }
+
+        label {
+            background-color: #888888;
+            border-radius: 50px;
+            display: flex;
+            margin-right: 10px;
+            padding: 24px !important;
+        }
+    }
+}
+
+// Social Share
+.social-share {
+    padding: 16px 0;
+
+    h2 {
+        text-align: center;
+        text-transform: uppercase;
+    }
+    .social-share-icons {
+        display: flex;
+        justify-content: center;
+
+        .social-share-link {
+            padding: 16px;
+        }
+    }
+    .social-share-button {
+        display: flex;
+        justify-content: center;
+    }
+}
+
 // Accordion Team
 .accordion-team {
-    
     .accordion-header {
         position: relative;
 
+        strong {
+
+            margin-left: 1.5rem;
+        }
+
         .accordion-button {
-            padding: 30px 20px 30px 80px;
+            padding: 30px 0 30px 72px;
 
             svg {
                 position: absolute;
@@ -460,86 +462,168 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
         }
     }
 
-    // Modal
-    // <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="20" fill="#F6B7C1"/><path d="M26 14L14 26" stroke="#233D90" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 14L26 26" stroke="#233D90" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    .accordion-body {
+        padding: 0;
+    }
 
-    .modal-sm {
-        .modal-header {
-            min-height: 230px;
+    // Modal Team
+    .modal-lg {
+        @include media-breakpoint-down(lg) {
+            .modal-body {
+                padding: 0;
 
-            img {
-                left: 25px;
+                & > div:last-child {
+                    padding: 1.75rem;
+                }
             }
-            .btn-close-circle {
-                margin-left: ($modal-sm - 85px);
-                margin-top: -95px;
-                opacity: 100;
-                z-index: 2;
-                border-radius: 50px;
-            }
-        }
-
-        .modal-body {
-            padding-top: ($spacer * 1.75);
         }
     }
 
     .modal-header {
-        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
         border-bottom: none;
+        padding: 0;
+    }
 
-        img {
+    @include media-breakpoint-down(lg) {
+        .modal-header {
             position: absolute;
-            height: 250px;
-            top: 15px;
+            top: 0;
             z-index: 1;
+            right: 0;
         }
     }
-}
 
-// Campaign
-.campaign-card {
-    position: relative;
-    width: 375px;
-    border: 1px solid #000;
-
-    img {
-        height: 224px;
-    }
-
-    .tag {
-        position: absolute;
-        top: 224px - 18px;
-        right: 12px;
-    }
-
-    .campaign-card-body {
-        height: 170px;
-
-        p {
-            height: 100px;
-            overflow: hidden;
-        }
-    }
-}
-
-.campaign-detail {
-    .campaign-detail-header {
+    .modal-box-img {
+        background-color: var(--bs-rosa-nossas);
+        height: 271px;
         position: relative;
 
         img {
-            width: 100%;
-            height: 500px;
-            background-size: contain;
-            background-repeat: no-repeat;
+            margin-left: 16px;
+        }
+    }
+
+    @include media-breakpoint-down(lg) {
+        .modal-box-img {
+            margin-bottom: 2rem;
+        }
+    }
+
+    .modal-box-text {
+        h4 {
+            font-size: 2rem;
+            margin-bottom: 0;
+            text-transform: uppercase;
         }
 
-        svg {
-            position: absolute;
-            bottom: -48px;
+        h5 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 400;
+            margin-bottom: 18px;
+            text-transform: uppercase;
+        }
+
+        p {
+            font-size: 1.25rem;
+            line-height: 27.5px;
+            margin-top: 18px;
         }
     }
 }
+
+// Footer
+.footer {
+    .institutional {
+        font-size: 21px;
+        line-height: 27.5px;
+    }
+
+    .nav-link {
+        font-family: $headings-font-family;
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 29px;
+        line-height: 31px;
+        padding-bottom: 10px;
+    }
+
+    .footer-line {
+        font-size: 16px;
+        text-align: center;
+    }
+}
+
+// Headline
+.headline {
+    position: relative;
+    height: 72px;
+    margin-bottom: 32px;
+}
+
+.headline-content {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: -30px;
+}
+
+.headline h2 {
+    margin: 0;
+}
+
+.headline img {
+    margin-right: 23px;
+}
+
+@include media-breakpoint-down(lg) {
+    .headline-content {
+        position: unset;
+    }
+}
+
+.btn {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.container-fluid {
+    max-width: 1175px;
+}
+
+.djangocms-video-plugin {
+    margin-bottom: 25px;
+}
+
+.our-cities-project-plugin {
+
+    .clearfix {
+        padding-top: 62px;
+    }
+
+    .divider {
+        border-bottom: 2px dotted var(--bs-preto-nossas);
+    }
+}
+
+// Forms
+// input.form-control {
+//     border-color: var(--bs-border-color);
+// }
+
+@import "design/scss/accordion";
+@import "design/scss/box";
+@import "design/scss/breadcrumb";
+@import "design/scss/campaign";
+@import "design/scss/card";
+@import "design/scss/forms";
+@import "design/scss/graphics";
+@import "design/scss/header";
+@import "design/scss/navbar";
+@import "design/scss/paginator";
+@import "design/scss/pdfviewer";
+@import "design/scss/team";
+@import "design/scss/video";
 
 // Helpers
 @import "bootstrap/scss/helpers";

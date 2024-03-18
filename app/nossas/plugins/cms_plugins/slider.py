@@ -1,3 +1,5 @@
+from django.conf import settings
+
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
@@ -23,6 +25,7 @@ class SliderContentPlugin(CMSPluginBase):
     allow_children = True
     require_parent = True
     parent_classes = ["SliderPlugin"]
+    child_classes = settings.NOSSAS_CONTENT_PLUGINS
 
 
 @plugin_pool.register_plugin
@@ -33,6 +36,12 @@ class FullPageSliderContentPlugin(UICMSPluginBase):
     model = FullPageSlider
     form = FullPageSliderPluginForm
     allow_children = True
+    child_classes = settings.NOSSAS_CONTENT_PLUGINS
+    fields = (
+        "background",
+        "background_image",
+        "x_and_y_center"
+    )
 
     def render(self, context, instance, placeholder):
         ctx = super().render(context, instance, placeholder)

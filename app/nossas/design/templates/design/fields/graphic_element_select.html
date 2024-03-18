@@ -1,0 +1,13 @@
+<div{% if widget.attrs.id %} id="{{ widget.attrs.id|safe }}"{% endif %} class="graphic-element-select{% if widget.attrs.class %} {{ widget.attrs.class }}{% endif %}">
+  {% for group, options, index in widget.optgroups %}
+  {% if group %}
+  <div class="optgroup fieldBox"><label>{{ group }}</label>
+  {% endif %}
+  {% for option in options %}
+  {% include option.template_name with widget=option %}
+  {% endfor %}
+  {% if group %}
+  </div>
+  {% endif %}
+  {% endfor %}
+</div>

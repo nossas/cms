@@ -1,0 +1,30 @@
+{% load cms_tags i18n %}
+
+<div class="our-cities-project-plugin text-center bg-bege-nossas">
+    {% if instance.picture %}
+    <img src="{{instance.picture.url}}" title="{{instance.name}}" class="img-fluid mx-auto"/>
+    {% endif %}
+
+    {% if instance.child_plugin_instances|length %}
+    <div class="container">
+    {% for plugin in instance.child_plugin_instances %}
+        {% render_plugin plugin %}
+    {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if instance.related_campaigns.count > 0 %}
+    <div class="container-fluid grid text-start">
+    {% for campaign in instance.related_campaigns.all %}
+        <div class="g-col-12 g-col-md-4">
+            {% include 'plugins/filter_campaign_list_plugin_item.html' with instance=campaign %}
+        </div>
+    {% endfor %}
+    </div>
+    {% endif %}
+    {% if instance.url %}
+    <a class="btn btn-preto-nossas mt-2" href="{{instance.url}}" title="{{instance.name}}" target="_blank">{% trans 'Visite o site do projeto' %}</a>
+    {% endif %}
+    
+    <div class="container w-100 clearfix{% if not instance.hide_border %} divider{% endif %}"></div>
+</div>

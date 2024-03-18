@@ -1,0 +1,19 @@
+{% load menu_tags %}
+
+{% for child in children %}
+<li class="child px-2{% if child.selected %} selected{% endif %}{% if child.ancestor %} ancestor{% endif %}{% if child.sibling %} sibling{% endif %}{% if child.descendant %} descendant{% endif %}{% if child.children %} has-children{% endif %}">
+    {% if child.children %}
+    <a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        {{ child.attr.i18n_menu_title }}
+        {% include "nossas/svg/chevron-down.svg" %}
+    </a>
+    <div class="mega-menu">
+        <ul class="dropdown-menu w-100 mt-0" aria-labelledby="navbarDropdown">
+            {% show_menu from_level to_level extra_inactive extra_active "nossas/submenu.html" "" "" child %}
+        </ul>
+    </div>
+    {% else %}
+    <a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{{ child.attr.i18n_menu_title }}</a>
+    {% endif %}
+</li>
+{% endfor %}
