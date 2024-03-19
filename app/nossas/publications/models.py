@@ -28,10 +28,10 @@ class Publication(OnSiteBaseModel):
         models.CharField(_("Título"), max_length=180), {"en": {"blank": True}}
     )
     slug = models.SlugField(null=True, blank=True)
-
     description = TranslatedField(
         models.TextField(_("Descrição")), {"en": {"blank": True}}
     )
+
     content = PlaceholderField("publication_content")
 
     # Classifação / Agrupamento
@@ -54,4 +54,3 @@ class Publication(OnSiteBaseModel):
         if self.parent.application_namespace:
             return reverse(self.parent.application_namespace + ":detail", kwargs={"slug": self.slug})
         return ''
-    
