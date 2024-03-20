@@ -13,6 +13,6 @@ class TimelinePlugin(CMSPluginBase):
     # def render(self, context, instance, placeholder):
     #     context = super().render(context, instance, placeholder)
 
-    #     context.update({"event_list": TimelineEvent.on_site.filter(~Q(status=JobStatus.closed))})
+    #     context.update({"event_list": TimelineEvent.on_site.filter()})
 
     #     return context

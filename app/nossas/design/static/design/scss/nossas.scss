@@ -682,6 +682,13 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
     }
 }
 
+// Timeline
+.timeline {
+    background-color: var(--bs-azul-nossas);
+    padding: 72px 0;
+    color: var(--bs-branco-nossas);
+}
+
 // Forms
 // input.form-control {
 //     border-color: var(--bs-border-color);
