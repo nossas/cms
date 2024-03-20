@@ -1,30 +1,33 @@
 {% load static cms_tags %}
 
-<section class="scroll-timeline">
+<section class="timeline">
   {% comment %} Headline {% endcomment %}
-  <div class="scroll-timeline-description">
+  <div class="timeline-description">
     <div class="headline">
-      <img src="" alt="icon">
-      <h2>LINHA DO TEMPO </h2>
-      <p>Siga a linha do tempo e entenda a atuação do NOSSAS ao longo dos anos. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut a quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae.</p>
-      <select>
-        SELECIONE UM ANO
-      </select>
+      <div class="headline-content">
+        <img src="" alt="ícone" />
+        <h2>Linha do Tempo</h2>
+      </div>
     </div>
-    <div class="scroll-timeline-params">7
-      <div class="scroll-timeline-param">
+
+    <p>
+      Siga a linha do tempo e entenda a atuação do NOSSAS ao longo dos anos. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut a quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae.
+    </p>
+    
+    <div class="timeline-params">7
+      <div class="timeline-param">
         <span>O MUNDO AO REDOR</span>
       </div>
-      <div class="scroll-timeline-param">
+      <div class="timeline-param">
         <span>AÇÕES NO NOSSAS</span>
       </div>
     </div>
   </div>
   {% comment %} Eventos {% endcomment %}
-  <div class="scroll-timeline-content">
+  <div class="timeline-content">
     {% include "nossas/timeline/list.html" %}
   </div>
-  <div class="scroll-timeline-event-detail">
+  <div class="timeline-event-detail">
     {% include "nossas/timeline/detail.html" %}
   </div>
 </section>
