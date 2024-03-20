@@ -50,7 +50,15 @@ class Publication(OnSiteBaseModel):
         unique_together = ("slug", "parent", "site")
     
 
+    def __str__(self):
+        return self.title
+    
+
     def get_absolute_url(self):
         if self.parent.application_namespace:
             return reverse(self.parent.application_namespace + ":detail", kwargs={"slug": self.slug})
         return ''
+
+    @property
+    def get_pub_date(self):
+        return self.created_at

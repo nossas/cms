@@ -72,6 +72,10 @@ class Campaign(OnSiteBaseModel):
     def get_absolute_url(self):
         return reverse("campaigns:campaign-detail", kwargs={"pk": self.pk})
 
+    @property
+    def get_pub_date(self):
+        return self.release_date
+
     def create_default_page(self):
         language = "pt-br"
 

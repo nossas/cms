@@ -8,7 +8,7 @@ from .forms import PublicationForm
 
 
 class PublicationAdmin(OnSiteAdmin):
-    list_display = ("title", "slug", "parent", "created_at", "updated_at")
+    list_display = ("slug", "title", "parent", "created_at", "updated_at")
     form = PublicationForm
     prepopulated_fields = {'slug': ('title_pt_br',), }
 

@@ -1,0 +1,42 @@
+{% extends 'nossas/base.html' %}
+{% load cms_tags i18n design_tags %}
+
+{% block content %}
+{% include 'nossas/plugins/navbar.html' %}
+<div class="container py-5">
+    <h2>{% translate 'Busca' %}</h2>
+
+    <form method="get" action=".">
+        <div class="input-group mb-3">
+            {{ form.q|add_attr:"form-control,placeholder:Digite aqui o que está buscando..." }}
+            <button class="btn btn-outline-secondary" type="submit">{% trans "Buscar" %}</button>
+        </div>
+    </form>
+
+    {% if query %}
+        <p>{% blocktranslate with count=paginator.count value=form.q.value %}Foram encontrados {{ count }} resultados para "{{ value }}"{% endblocktranslate %}</p>
+        <div class="grid search-results">
+        {% for result in page.object_list %}
+            <div class="g-col-12 g-col-md-6">
+                <a href="{{ result.object.get_absolute_url }}">
+                    <h3>{{ result.object }}</h3>
+                    <p>{{ result.object.get_pub_date|date:"d \d\e F \d\e o" }}</p>
+                    <p>{{ result.object.description|truncatechars:160 }}</p>
+                </a>
+            </div>
+        {% endfor %}
+        </div>
+
+        {% if page.has_previous or page.has_next %}
+            <div>
+                {% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
+                |
+                {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
+            </div>
+        {% endif %}
+    {% else %}
+        {# Show some example queries to run, maybe query syntax, something else? #}
+    {% endif %}
+</div>
+{% include 'nossas/plugins/site_footer.html' %}
+{% endblock %}

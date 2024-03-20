@@ -11,3 +11,13 @@ class PublicationsApphook(CMSApp):
 
     def get_urls(self, page=None, language=None, **kwargs):
         return ["nossas.publications.urls"]
+
+
+
+@apphook_pool.register
+class SearchApphook(CMSApp):
+    app_name = "haystack"
+    name = _("Buscador")
+
+    def get_urls(self, page=None, language=None, **kwargs):
+        return ["nossas.urls_search"]
