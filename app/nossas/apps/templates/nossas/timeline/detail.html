@@ -1,12 +1,10 @@
 {% load static sekizai_tags %}
 
-{% block content %}
-  <div class="timeline-event-detail">
-      <h3>{{ event.title }}</h3>
-      <p>{{ event.month }} {{ event.year }}</p>
-      <p>{{ event.description }}</p>
-      {% if event.image %}
-        <img src="{{ event.image.url }}" alt="{{ event.title }}">
-      {% endif %}
-  </div>
-{% endblock %}
+<div class="timeline-event-detail">
+    <h3>{{ event.title }}</h3>
+    <p>{{ event.month }} {{ event.year }}</p>
+    <p>{{ event.description }}</p>
+    {% if event.image %}
+      <img src="{{ event.image.url }}" alt="{{ event.title }}">
+    {% endif %}
+</div>

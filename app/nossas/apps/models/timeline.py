@@ -35,6 +35,5 @@ class TimelineEvent(OnSiteBaseModel):
         verbose_name = _("Evento da Timeline")
         verbose_name_plural = _("Eventos da Timeline")
 
-    # TODO: python date parse
     def get_event_date(self):
         return date(self.year, self.month, self.day)

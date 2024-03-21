@@ -10,9 +10,15 @@ class TimelinePlugin(CMSPluginBase):
     module = "NOSSAS"
     render_template = "nossas/timeline/plugins/timeline_plugin.html"
 
-    # def render(self, context, instance, placeholder):
-    #     context = super().render(context, instance, placeholder)
+    def render(self, context, instance, placeholder):
+        context = super().render(context, instance, placeholder)
 
-    #     context.update({"event_list": TimelineEvent.on_site.filter()})
+        events_world = TimelineEvent.on_site.filter(event_context="mundo")
+        events_nossas = TimelineEvent.on_site.filter(event_context="nossas")
 
-    #     return context
+        context.update({
+            "events_world": events_world,
+            "events_nossas": events_nossas
+        })
+
+        return context
