@@ -28,9 +28,10 @@ class CampaignListPlugin(CMSPluginBase):
 
             if form.is_valid():
                 filters = {}
+
                 release_year = form.cleaned_data.get("release_year")
                 if release_year:
-                    filters["release_date__year"] = release_year
+                    filters["release_date__year__in"] = release_year
 
                 tags = form.cleaned_data.get("tags")
                 if tags:
@@ -38,7 +39,7 @@ class CampaignListPlugin(CMSPluginBase):
 
                 campaign_group_id = form.cleaned_data.get("campaign_group_id")
                 if campaign_group_id:
-                    filters["campaign_group__id"] = campaign_group_id
+                    filters["campaign_group__id__in"] = campaign_group_id
 
                 if (
                     settings.DATABASES.get("default").get("ENGINE")

@@ -1,6 +1,7 @@
 .filter-form {
     .filter-form-input-group {
         display: flex;
+        align-items: center;
         border-bottom: 2px solid var(--bs-preto-nossas);
 
         label {
@@ -9,7 +10,6 @@
             font-weight: bold;
             font-size: 18px;
         }
-
         .select2-container--default .select2-selection--multiple,
         .select2-container--default .select2-selection--single {
             border: none;
@@ -21,7 +21,7 @@
 
         .select2-container--default .select2-selection--multiple .select2-selection__rendered li {
             font-family: "Bebas Neue Pro";
-            font-size: 15px;
+            font-size: 18px;
             line-height: 22px;
             text-transform: uppercase;
             font-weight: bold;
@@ -50,12 +50,20 @@
             }
         }
 
+        .select2-container--default .select2-selection--multiple .select2-selection__rendered {
+            padding: 0 8px;
+        }
+
+        .select2-container--default .select2-selection--multiple .select2-selection__clear {
+            margin-right: 0;
+        }
+
         .select2-container .select2-selection--single .select2-selection__rendered {
             font-family: "Bebas Neue Pro";
             background-color: var(--bs-verde-nossas);
             display: inline-flex;
             color: var(--bs-white);
-            font-size: 15px;
+            font-size: 18px;
             text-transform: uppercase;
             font-weight: bold;
             border-radius: 20px;
@@ -86,7 +94,7 @@
 
 .select2-results__option {
     font-family: "Bebas Neue Pro";
-    font-size: 15px;
+    font-size: 18px;
     text-transform: uppercase;
     font-weight: bold;
     padding-left: 30px;
@@ -99,6 +107,7 @@
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
     background-color: #E7E7E4 !important;
     color: var(--bs-preto-nossas);
+    font-size: 18px;
 }
 
 .select2-container--default .select2-results__option[aria-selected=true] {
