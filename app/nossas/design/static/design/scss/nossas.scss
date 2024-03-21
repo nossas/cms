@@ -684,9 +684,27 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
 
 // Timeline
 .timeline {
+    align-items: center;
     background-color: var(--bs-azul-nossas);
-    padding: 72px 0;
     color: var(--bs-branco-nossas);
+    padding: 72px 0;
+
+    .timeline-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        overflow-x: scroll;
+    }
+
+    .timeline-events {
+        display: flex;
+        gap: 1rem;
+
+        .timeline-events-item {
+            width: 200px;
+            min-width: 200px;
+        }
+    }
 }
 
 // Forms

@@ -1,12 +1,23 @@
-{% extends 'nossas/home.html' %}
-
 {% load static sekizai_tags %}
 
-{% block content %}
-  {% for event in events %}
-    <div>
-      <h2>{{ event.title }}</h2>
-      <p>{{ event.month }} {{ event.year }}</p>
-    </div>
-  {% endfor %}
-{% endblock %}
+<div class="timeline-events">
+{% for event in events_world %}
+  <div class="timeline-events-item">
+    <p>{{ event.get_event_date}}</p>
+    <h2>{{ event.title }}</h2>
+    <p>{{ event.description}}</p>
+  </div>
+{% endfor %}
+</div>
+
+<div class="container w-100 clearfix divider"></div>
+
+<div class="timeline-events">
+{% for event in events_nossas %}
+  <div class="timeline-events-item">
+    <p>{{ event.get_event_date }}</p>
+    <h2>{{ event.title }}</h2>
+    <p>{{ event.description}}</p>
+  </div>
+{% endfor %}
+</div>
