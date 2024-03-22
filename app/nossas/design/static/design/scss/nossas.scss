@@ -687,22 +687,113 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
     align-items: center;
     background-color: var(--bs-azul-nossas);
     color: var(--bs-branco-nossas);
+    gap: 0;
     padding: 72px 0;
+
+    .timeline-description {
+        .headline-content {
+            left: unset;
+
+            & img {
+                background-color: var(--bs-branco-nossas);
+            }
+
+            & h2 {
+                font-size: 42px;
+            }
+        }
+
+        & > div {
+            & p {
+                font-size: 21px;
+                margin-left: 96px;
+            }
+        }
+    }
+
+    .timeline-labels {
+        display: flex;
+        border-right: solid 2px var(--bs-branco-nossas);
+        flex-direction: column;
+        font-family: 'Bebas Neue Pro';
+        font-size: 24px;
+        height: 100%;
+        justify-content: space-around;
+        padding-left: 24px;
+        text-transform: uppercase;
+
+        .timeline-label {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            line-height: 25px;
+            overflow: hidden;
+            width: 25px;
+
+            &:last-child {
+                border-top: solid 2px var(--bs-branco-nossas);
+            }
+    
+            .timeline-label-text {
+                display: inline-block;
+                transform-origin: 0 0;
+                transform: translate(0,100%) rotate(-90deg);
+                vertical-align: top;
+                white-space: nowrap;
+    
+                &:after {
+                    content: "";
+                    float: left;
+                    margin-top: 100%;
+                }
+            }
+        }
+    }
 
     .timeline-content {
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: space-between;
+        min-height: 624px;
         overflow-x: scroll;
-    }
 
-    .timeline-events {
-        display: flex;
-        gap: 1rem;
 
-        .timeline-events-item {
-            width: 200px;
-            min-width: 200px;
+        .divider {
+            border: solid 1px var(--bs-branco-nossas);
+            margin: 32px 0;
+        }
+
+        .timeline-events {
+            display: flex;
+            height: 319px;
+
+            .timeline-events-item {
+                max-height: 278px;
+                min-width: 200px;
+                margin-left: 48px;
+                width: 200px;
+    
+                & span {
+                    font-size: 14px;
+                    font-weight: 700;
+                    margin-bottom: 16px;
+                }
+
+                & img {
+                    width: 200px;
+                }
+
+                & h4 {
+                    font-size: 16px;
+                    margin-top: 16px;
+                }
+
+                & p {
+                    font-size: 13px;
+                    line-height: 16px;
+                    margin: 0;
+                }
+            }
         }
     }
 }
