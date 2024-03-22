@@ -40,7 +40,8 @@ class FullPageSliderContentPlugin(UICMSPluginBase):
     fields = (
         "background",
         "background_image",
-        "x_and_y_center"
+        "x_and_y_center",
+        "background_size",
     )
 
     def render(self, context, instance, placeholder):
@@ -49,7 +50,7 @@ class FullPageSliderContentPlugin(UICMSPluginBase):
         if instance.background_image:
             styles = {
                 "background-image": f"url('{instance.background_image.url}')",
-                "background-size": "contain",
+                "background-size": instance.background_size,
                 "background-repeat": "no-repeat",
                 "background-position": "center",
             }

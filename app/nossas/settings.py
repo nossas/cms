@@ -181,7 +181,7 @@ DESIGN_THEME_COLORS = [
 DESIGN_THEME_TEXT_COLORS = [
     ("Verde claro NOSSAS", "rgb(29,29,27)"),
     ("Bege NOSSAS", "rgb(29,29,27)"),
-    ("Vermelho NOSSAS", "rgb(246,183,193)"),
+    ("Vermelho NOSSAS", "rgb(247,247,237)"),
     ("Amarelo NOSSAS", "rgb(67,57,57)"),
     ("Rosa NOSSAS", "rgb(67,57,57)"),
     ("Verde NOSSAS", "rgb(255,255,255)"),
