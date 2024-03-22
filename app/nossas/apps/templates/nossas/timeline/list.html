@@ -3,20 +3,20 @@
 <div class="timeline-events">
 {% for event in events_world %}
   <div class="timeline-events-item">
-    <p>{{ event.get_event_date}}</p>
-    <h2>{{ event.title }}</h2>
+    <span>{{ event.get_event_date}}</span>
+    <h4>{{ event.title }}</h4>
     <p>{{ event.description}}</p>
   </div>
 {% endfor %}
 </div>
 
-<div class="container w-100 clearfix divider"></div>
+<div class="w-100 clearfix divider"></div>
 
 <div class="timeline-events">
 {% for event in events_nossas %}
   <div class="timeline-events-item">
-    <p>{{ event.get_event_date }}</p>
-    <h2>{{ event.title }}</h2>
+    <span>{{ event.get_event_date }}</span>
+    <h4>{{ event.title }}</h4>
     <p>{{ event.description}}</p>
   </div>
 {% endfor %}

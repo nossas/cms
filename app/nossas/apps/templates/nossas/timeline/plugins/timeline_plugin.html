@@ -1,30 +1,33 @@
 {% load static cms_tags %}
 
 <section class="timeline grid">
-  {% comment %} Headline {% endcomment %}
-  <div class="timeline-description g-col-md-4">
-    <div class="headline">
-      <div class="headline-content">
-        <img src="" alt="ícone" />
-        <h2>Linha do Tempo</h2>
+  <div class="timeline-description d-flex g-col-md-4 g-col-12 h-100 align-items-center">
+    <div>
+      <div class="headline">
+        <div class="headline-content">
+          <img src="{% static "timeline/icons/cobogo-branco.svg" %}" alt="ícone" />
+          <h2>Linha do Tempo</h2>
+        </div>
       </div>
-    </div>
 
-    <p>
-      Siga a linha do tempo e entenda a atuação do NOSSAS ao longo dos anos. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut a quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae.
-    </p>
-    
-    <div class="timeline-labels">7
+      <p>
+        Siga a linha do tempo e entenda a atuação do NOSSAS ao longo dos anos. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut a quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae.
+      </p>
+    </div>
+    <div class="timeline-labels">
       <div class="timeline-label">
-        <span>O MUNDO AO REDOR</span>
+        <div class="timeline-label-text">
+          <span>O MUNDO AO REDOR</span>
+        </div>
       </div>
       <div class="timeline-label">
-        <span>AÇÕES NO NOSSAS</span>
+        <div class="timeline-label-text">
+          <span>AÇÕES NO NOSSAS</span>
+        </div>
       </div>
     </div>
   </div>
-  {% comment %} Eventos {% endcomment %}
-  <div class="timeline-content g-col-md-8">
+  <div class="timeline-content g-col-md-8 g-col-12">
     {% include "nossas/timeline/list.html" %}
   </div>
   {% comment %} <div class="timeline-event-detail">
