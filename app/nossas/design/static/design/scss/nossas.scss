@@ -794,6 +794,13 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
                     margin: 0;
                 }
             }
+
+            .timeline-event-item-empty {
+                max-height: 278px;
+                min-width: 200px;
+                margin-left: 48px;
+                width: 200px;
+            }
         }
     }
 }
