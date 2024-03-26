@@ -1,7 +1,7 @@
 {% load static cms_tags %}
 
 <section class="timeline grid">
-  <div class="timeline-description d-flex g-col-md-4 g-col-12 h-100 align-items-center">
+  <div class="timeline-description">
     <div>
       <div class="headline">
         <div class="headline-content">
@@ -20,6 +20,7 @@
           <span>O MUNDO AO REDOR</span>
         </div>
       </div>
+      <div class="timeline-divider"></div>
       <div class="timeline-label">
         <div class="timeline-label-text">
           <span>AÇÕES NO NOSSAS</span>
@@ -27,7 +28,7 @@
       </div>
     </div>
   </div>
-  <div class="timeline-content g-col-md-8 g-col-12">
+  <div class="timeline-content">
     {% include "nossas/timeline/list.html" %}
   </div>
   {% comment %} <div class="timeline-event-detail">
