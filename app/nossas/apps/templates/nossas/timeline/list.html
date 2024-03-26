@@ -4,7 +4,7 @@
   {% for year, month, events in aligned_events_world %}
     {% if events %}
       {% for event in events %}
-        <div class="timeline-events-item">
+        <div class="timeline-events-item event-world">
           <span>{{ event.get_event_date }}</span>
           {% if event.image %}
             <img src="{{ event.image.url }}" alt="{{ event.title }}">
@@ -19,11 +19,13 @@
   {% endfor %}
 </div>
 
+<div class="timeline-divider"></div>
+
 <div class="timeline-events">
   {% for year, month, events in aligned_events_nossas %}
     {% if events %}
       {% for event in events %}
-        <div class="timeline-events-item">
+        <div class="timeline-events-item event-nossas">
           <span>{{ event.get_event_date }}</span>
           {% if event.image %}
             <img src="{{ event.image.url }}" alt="{{ event.title }}">
