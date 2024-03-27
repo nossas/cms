@@ -1,4 +1,18 @@
-{% load static cms_tags %}
+{% load sekizai_tags design_tags static i18n %}
+
+{% block page_head %}
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+      integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+  <!-- Select2 -->
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+{% endblock %}
+
+{% addtoblock "css" %}{{ form.media.css }}{% endaddtoblock %}
+{% addtoblock "js" %}
+  {{ form.media.js }}
+  <script src={% static "timeline/js/timeline-filter-select.js" %}></script>
+{% endaddtoblock %}
 
 <section class="timeline grid">
   <div class="timeline-description">
@@ -13,8 +27,16 @@
       <p>
         Siga a linha do tempo e entenda a atuação do NOSSAS ao longo dos anos. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut a quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae.
       </p>
+
+      <form class="timeline-year-filter" method="GET">
+        <div class="filter-form-input-group">
+            {{ form.year }}
+        </div>
+      </form>
     </div>
-    <div class="timeline-labels">
+  </div>
+  <div class="timeline-labels">
+    <div class="timeline-labels-items">
       <div class="timeline-label">
         <div class="timeline-label-text">
           <span>O MUNDO AO REDOR</span>
