@@ -4,6 +4,7 @@ from collections import defaultdict
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
+from ..forms.timeline import TimelineFilterForm
 from ..models.timeline import TimelineEvent
 
 
@@ -52,15 +53,24 @@ class TimelinePlugin(CMSPluginBase):
 
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
+        request = context.get("request")
+        form = TimelineFilterForm(request.GET)
+        event_filter = {}
 
-        events_world = TimelineEvent.on_site.filter(event_context="mundo").order_by('year', 'month', 'day')
-        events_nossas = TimelineEvent.on_site.filter(event_context="nossas").order_by('year', 'month', 'day')
+        if form.is_valid():
+            year = form.cleaned_data['year']
+            if year:
+                event_filter.update({"year": year})
+
+        events_world = TimelineEvent.on_site.filter(event_context="mundo", **event_filter).order_by("year", "month", "day")
+        events_nossas = TimelineEvent.on_site.filter(event_context="nossas", **event_filter).order_by("year", "month", "day")
 
         aligned_events_world, aligned_events_nossas = self.prepare_timeline_events(events_world, events_nossas)
 
         context.update({
-            'aligned_events_world': aligned_events_world,
-            'aligned_events_nossas': aligned_events_nossas,
+            "aligned_events_world": aligned_events_world,
+            "aligned_events_nossas": aligned_events_nossas,
+            "form": form,
         })
 
         return context

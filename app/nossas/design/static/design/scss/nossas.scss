@@ -712,60 +712,106 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
                 font-size: 21px;
                 margin-left: 96px;
             }
+
+            .timeline-year-filter {
+                display: flex;
+                justify-content: center;
+
+                button {
+                    background-color: var(--bs-azul-nossas);
+                    border: solid var(--bs-branco-nossas) 2px;
+                    color: var(--bs-branco-nossas);
+                    padding: 5px 10px;
+                    margin-bottom: 32px;
+                    width: 127px;
+
+                    &:hover {
+                        color: var(--bs-branco-nossas);
+                    }
+                }
+            }
+
         }
     }
 
     @include media-breakpoint-down(lg) {
         .timeline-description {
             grid-column: auto/span 12;
-        }
-    }
 
-    .timeline-labels {
-        border-right: solid 2px var(--bs-branco-nossas);
-        display: flex;
-        flex-direction: column;
-        font-family: 'Bebas Neue Pro';
-        font-size: 24px;
-        height: 100%;
-        margin-left: 24px;
-        text-transform: uppercase;
+            & > div {
+                .headline {
+                    margin-left: 24px;
+                    margin-right: 24px;
+                }
 
-        .timeline-divider {
-            border-bottom: solid 2px var(--bs-branco-nossas);
-            height: 2px;
-            margin: 24px 0;
-            width: 100%;
+                & p {
+                    margin-left: 24px;
+                    margin-right: 24px;
+                }
 
-            &::after {
-                content: "";
-                border-bottom: 2px solid white;
-                display: inline-block;
-                transform: translate(-4px, 0) rotate(-90deg);
-                vertical-align: top;
-                width: 8px;
+                .timeline-year-filter {
+                    margin: 0 24px;
+                    & > div.bootstrap-select.fit-width {
+                        width: 100% !important;
+                    }
+                    button {
+                        width: 100%;
+                    }
+                }
             }
         }
+    }
+    .timeline-labels {
+        display: flex;
+        justify-content: right;
 
-        .timeline-label {
-            align-items: center;
+        .timeline-labels-items {
+            border-right: solid 2px var(--bs-branco-nossas);
             display: flex;
-            line-height: 25px;
-            min-height: 319px;
-            overflow: hidden;
-            width: 25px;
-    
-            .timeline-label-text {
-                display: inline-block;
-                transform-origin: 0 0;
-                transform: translate(0,100%) rotate(-90deg);
-                vertical-align: top;
-                white-space: nowrap;
-    
-                &:after {
+            flex-direction: column;
+            font-family: 'Bebas Neue Pro';
+            font-size: 24px;
+            height: 100%;
+            max-width: 40px;
+            text-transform: uppercase;
+            grid-column: auto/span 1;
+
+            .timeline-divider {
+                border-bottom: solid 2px var(--bs-branco-nossas);
+                height: 2px;
+                margin: 24px 0;
+                width: 100%;
+
+                &::after {
                     content: "";
-                    float: left;
-                    margin-top: 100%;
+                    border-bottom: 2px solid white;
+                    display: inline-block;
+                    transform: translate(-4px, 0) rotate(-90deg);
+                    vertical-align: top;
+                    width: 8px;
+                }
+            }
+
+            .timeline-label {
+                align-items: center;
+                display: flex;
+                line-height: 25px;
+                min-height: 319px;
+                overflow: hidden;
+                width: 25px;
+        
+                .timeline-label-text {
+                    display: inline-block;
+                    transform-origin: 0 0;
+                    transform: translate(0,100%) rotate(-90deg);
+                    vertical-align: top;
+                    white-space: nowrap;
+        
+                    &:after {
+                        content: "";
+                        float: left;
+                        margin-top: 100%;
+                    }
                 }
             }
         }
@@ -776,7 +822,7 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
         grid-auto-flow: row;
         overflow-x: auto;
         min-height: 624px;
-        grid-column: auto/span 8;
+        grid-column: auto/span 7;
 
         .timeline-divider {
             border-bottom: solid 2px var(--bs-branco-nossas);
@@ -834,7 +880,7 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
 
     @include media-breakpoint-down(lg) {
         .timeline-content {
-            grid-column: auto/span 12;
+            grid-column: auto/span 11;
         }
     }
 
