@@ -110,6 +110,7 @@ NOSSAS_CONTENT_PLUGINS = [
     "TeamAccordionPlugin",
     "TextPlugin",
     "VideoPlayerPlugin",
+    "PublicationListPlugin"
 ]
 
 CMS_TEMPLATES = [

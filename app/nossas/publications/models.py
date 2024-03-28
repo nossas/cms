@@ -2,7 +2,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 
-from cms.models import Page
+from cms.models import Page, CMSPlugin
 from cms.models.fields import PlaceholderField
 from filer.fields.image import FilerImageField
 from tag_fields.managers import ModelTagsManager
@@ -70,3 +70,14 @@ class Publication(OnSiteBaseModel):
     @property
     def get_pub_date(self):
         return self.created_at
+
+
+
+class PublicationList(CMSPlugin):
+    category = models.ForeignKey(
+        Page,
+        verbose_name=_("Página Relacionada"),
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
