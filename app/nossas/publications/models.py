@@ -16,7 +16,7 @@ class Publication(OnSiteBaseModel):
     # Temporalidade
     created_at = models.DateTimeField(_("Data de criação"), auto_now_add=True)
     updated_at = models.DateTimeField(_("Última atualização"), auto_now=True)
-    
+
     # Conteúdo
     image_default = FilerImageField(
         verbose_name=_("Imagem Padrão"),
@@ -30,6 +30,9 @@ class Publication(OnSiteBaseModel):
     slug = models.SlugField(null=True, blank=True)
     description = TranslatedField(
         models.TextField(_("Descrição")), {"en": {"blank": True}}
+    )
+    external_link = models.URLField(
+        verbose_name=_("Link externo"), null=True, blank=True
     )
 
     content = PlaceholderField("publication_content")
@@ -48,16 +51,21 @@ class Publication(OnSiteBaseModel):
         verbose_name = _("Publicação")
         verbose_name_plural = _("Publicações")
         unique_together = ("slug", "parent", "site")
-    
 
     def __str__(self):
         return self.title
-    
 
     def get_absolute_url(self):
+        if self.external_link:
+            return self.external_link
+
         if self.parent.application_namespace:
-            return reverse(self.parent.application_namespace + ":detail", kwargs={"slug": self.slug})
-        return ''
+            return reverse(
+                self.parent.application_namespace + ":detail",
+                kwargs={"slug": self.slug},
+            )
+
+        return ""
 
     @property
     def get_pub_date(self):
