@@ -32,5 +32,6 @@ requests
 etcd3-py>=0.1.6
 dnspython>=2.4.2
 # Nossas
+django-haystack==3.2.1
 django-translated-fields>=0.12.0
 git+https://github.com/nossas/djangocms-form-builder.git@feature/add-input-fields-on-form-plugin

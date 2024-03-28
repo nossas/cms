@@ -18,6 +18,7 @@ DATABASES.update(
 INSTALLED_APPS = (
     [
         "nossas.design",
+        "haystack",
     ]
     + INSTALLED_APPS
     + [
@@ -29,6 +30,8 @@ INSTALLED_APPS = (
         "nossas",
         "nossas.apps",
         "nossas.plugins",
+        #
+        "nossas.publications",
         # Override HTMLs
         "djangocms_frontend",
         "djangocms_frontend.contrib.utilities",
@@ -78,9 +81,7 @@ LANGUAGES = [
     ("en", "Inglês"),
 ]
 
-LOCALE_PATHS = (
-    SITE_DIR / 'locale',
-)
+LOCALE_PATHS = (SITE_DIR / "locale",)
 
 # URLs
 
@@ -109,6 +110,7 @@ NOSSAS_CONTENT_PLUGINS = [
     "TeamAccordionPlugin",
     "TextPlugin",
     "VideoPlayerPlugin",
+    "PublicationListPlugin"
 ]
 
 CMS_TEMPLATES = [
@@ -221,4 +223,12 @@ CKEDITOR_SETTINGS_JOB_MODEL = {
         ],
         ["NumberedList", "BulletedList"],
     ]
+}
+
+# Haystack Search Engine
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
+    },
 }

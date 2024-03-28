@@ -1,0 +1,19 @@
+<div class="grid">
+    {% for p in publication_list %}
+    <div class="g-col-12 g-col-md-6">
+        <a href="{{ p.get_absolute_url }}" class="text-reset text-decoration-none">
+            <div class="card">
+            {% if p.image_default %}
+            <img src="{{ p.image_default.url }}" class="card-img-top" alt="{{ p.name }}">
+            {% endif %}
+            <div class="card-body">
+                <div class="card-body-content">
+                    <h3>{{ p.title }}</h3>
+                    <p>{{ p.description }}</p>
+                </div>
+            </div>
+            </div>
+        </a>
+    </div>
+    {% endfor %}
+</div>

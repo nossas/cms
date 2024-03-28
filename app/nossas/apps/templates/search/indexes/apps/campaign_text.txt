@@ -1,0 +1,4 @@
+{{ object.name }}
+{{ object.campaign_group.name }}
+{{ object.description }}
+{{ object.tags.all|join:" " }}

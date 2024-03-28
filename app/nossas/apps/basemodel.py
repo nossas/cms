@@ -7,6 +7,8 @@ class OnSiteBaseModel(models.Model):
     site = models.ForeignKey(Site, on_delete=models.CASCADE)
 
     on_site = CurrentSiteManager()
+    # Force objects queryset
+    objects = CurrentSiteManager()
 
     class Meta:
         abstract = True

@@ -615,6 +615,17 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
     }
 }
 
+.search-results {
+    a {
+        color: inherit;
+        text-decoration: none;
+
+        &:hover {
+            color: var(--bs-azul-nossas);
+        }
+    }
+}
+
 // Forms
 // input.form-control {
 //     border-color: var(--bs-border-color);

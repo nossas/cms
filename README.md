@@ -1,3 +1,5 @@
+[![Publish Bonde CMS docker image](https://github.com/nossas/cms/actions/workflows/publish.yml/badge.svg?branch=main)](https://github.com/nossas/cms/actions/workflows/publish.yml)
+
 Bonde CMS
 ----------
 
