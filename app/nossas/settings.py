@@ -109,6 +109,7 @@ NOSSAS_CONTENT_PLUGINS = [
     "SocialSharePlugin",
     "TeamAccordionPlugin",
     "TextPlugin",
+    "TimelinePlugin",
     "VideoPlayerPlugin",
     "PublicationListPlugin"
 ]
