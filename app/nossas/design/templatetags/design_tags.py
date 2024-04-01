@@ -143,6 +143,20 @@ def add_class(field, class_name):
         "class": " ".join((field.css_classes(), class_name))
     })
 
+@register.filter
+def add_attr(field, css):
+    attrs = {}
+    definition = css.split(',')
+
+    for d in definition:
+        if ':' not in d:
+            attrs['class'] = d
+        else:
+            key, val = d.split(':')
+            attrs[key] = val
+
+    return field.as_widget(attrs=attrs)
+
 @register.simple_tag
 def multiple_svg_icon(icon):
     return f'nossas/svg/{icon}.svg'
