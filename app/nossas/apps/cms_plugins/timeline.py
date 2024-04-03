@@ -65,7 +65,10 @@ class TimelinePlugin(CMSPluginBase):
         events_world = TimelineEvent.on_site.filter(event_context="mundo", **event_filter).order_by("year", "month", "day")
         events_nossas = TimelineEvent.on_site.filter(event_context="nossas", **event_filter).order_by("year", "month", "day")
 
-        aligned_events_world, aligned_events_nossas = self.prepare_timeline_events(events_world, events_nossas)
+        if len(events_nossas) > 0 and len(events_world) > 0:
+            aligned_events_world, aligned_events_nossas = self.prepare_timeline_events(events_world, events_nossas)
+        else:
+            aligned_events_world, aligned_events_nossas = [], []
 
         context.update({
             "aligned_events_world": aligned_events_world,

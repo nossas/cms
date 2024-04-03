@@ -10,7 +10,7 @@
             <img src="{{ event.image.url }}" alt="{{ event.title }}">
           {% endif %}
           <h4>{{ event.title }}</h4>
-          <p>{{ event.description }}</p>
+          <p>{{ event.description|truncatechars:200 }}</p>
         </div>
       {% endfor %}
     {% else %}
@@ -31,7 +31,7 @@
             <img src="{{ event.image.url }}" alt="{{ event.title }}">
           {% endif %}
           <h4>{{ event.title }}</h4>
-          <p>{{ event.description }}</p>
+          <p>{{ event.description|truncatechars:200 }}</p>
         </div>
       {% endfor %}
     {% else %}

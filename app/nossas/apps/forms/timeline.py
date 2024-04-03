@@ -2,6 +2,8 @@ from django import forms
 from django.utils.functional import lazy
 from django.utils.translation import gettext_lazy as _
 
+from nossas.design.widgets import CharsLeftTextInput, CharsLeftTextarea
+
 from ..models.timeline import TimelineEvent
 
 def get_events_year_choices():
@@ -20,3 +22,14 @@ class TimelineFilterForm(forms.Form):
             }),
         required=False,
     )
+
+
+
+class TimelineEventForm(forms.ModelForm):
+
+    class Meta:
+        model = TimelineEvent
+        fields = "__all__"
+        widgets = {
+            "description": CharsLeftTextarea(attrs={"maxlength": 200})
+        }
