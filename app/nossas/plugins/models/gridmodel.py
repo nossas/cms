@@ -35,6 +35,13 @@ class Grid(CMSPlugin):
         choices=GridLayoutChoices.choices,
         help_text="Escolha 'Auto' para um layout responsivo automático ou para selecionar o número de colunas manualmente.",
     )
+    grid_layout_mobile = models.CharField(
+        "Layout do Grid Mobile",
+        max_length=80,
+        default=GridLayoutChoices.grid_1,
+        choices=GridLayoutChoices.choices,
+        # help_text="Escolha 'Auto' para um layout responsivo automático ou para selecionar o número de colunas manualmente.",
+    )
     grid_gap = models.CharField(
         "Espaçamento do Grid",
         default=GridSpacingChoices.gap_0,
@@ -42,6 +49,16 @@ class Grid(CMSPlugin):
         max_length=15,
         help_text="Selecione o espaço entre colunas do Grid.",
     )
+
+    @property
+    def responsive_sizes(self):
+        if self.grid_layout_mobile == 'g-col-12':
+            classes = self.grid_layout_mobile
+        else:
+            classes = self.grid_layout_mobile.replace("g-col-12", "").replace("-md", "")
+        classes += self.grid_layout.replace("g-col-12", "")
+
+        return classes
 
 
 class ColumnChoices(models.TextChoices):

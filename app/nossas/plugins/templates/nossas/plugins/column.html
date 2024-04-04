@@ -1,6 +1,6 @@
 {% load cms_tags %}
 
-<div class="d-flex flex-column {{ instance.col }} {{ parent_instance.grid_layout }} {{ instance.col_start_at }}" style="{{ instance.spacing }} {{ instance.alignment_x }} {{ instance.alignment_y }} {{ instance.rows }}">
+<div class="d-flex flex-column {{ instance.col }} {{ parent_instance.responsive_sizes }} {{ instance.col_start_at }}" style="{{ instance.spacing }} {{ instance.alignment_x }} {{ instance.alignment_y }} {{ instance.rows }}">
   {% for plugin in instance.child_plugin_instances %}
       {% render_plugin plugin %}
   {% endfor %}
