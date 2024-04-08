@@ -5,36 +5,29 @@ from cms.models import Page
 from nossas.design.fields import Select2PageSearchField
 
 from .models import Publication, PublicationList
+from .widgets import Select2CategorySelectWidget
 
 
 class PublicationForm(forms.ModelForm):
     parent = Select2PageSearchField(
-        label=_("Página Relacionada"),
+        label=_("Categoria"),
         required=False,
+        widget=Select2CategorySelectWidget(),
+        help_text=_(
+            "Atualmente, apenas as categorias pré-definidas estão disponíveis. Para adicionar uma nova categoria, entre em contato com o administrador do sistema através do canal de suporte."
+        ),
     )
 
     class Meta:
         model = Publication
         fields = "__all__"
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        self.fields["parent"].queryset = Page.objects.drafts().on_site()
-
-
 
 class PublicationListForm(forms.ModelForm):
     category = Select2PageSearchField(
-        label=_("Página Relacionada"),
-        required=False,
+        label=_("Categoria"), required=False, widget=Select2CategorySelectWidget()
     )
 
     class Meta:
         model = PublicationList
         fields = "__all__"
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        self.fields["category"].queryset = Page.objects.drafts().on_site()
