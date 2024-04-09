@@ -31,23 +31,23 @@ class Grid(CMSPlugin):
     grid_layout = models.CharField(
         "Layout do Grid",
         max_length=80,
-        default=GridLayoutChoices.grid_auto,
+        default=GridLayoutChoices.grid_4,
         choices=GridLayoutChoices.choices,
-        help_text="Escolha 'Auto' para um layout responsivo automático ou para selecionar o número de colunas manualmente.",
+        help_text="Defina o número de colunas para a visualização da página.",
     )
     grid_layout_mobile = models.CharField(
         "Layout do Grid Mobile",
         max_length=80,
         default=GridLayoutChoices.grid_1,
         choices=GridLayoutChoices.choices,
-        # help_text="Escolha 'Auto' para um layout responsivo automático ou para selecionar o número de colunas manualmente.",
+        help_text="Selecione o número de colunas para exibição da página em dispositivos móveis.",
     )
     grid_gap = models.CharField(
         "Espaçamento do Grid",
-        default=GridSpacingChoices.gap_0,
+        default=GridSpacingChoices.gap_4,
         choices=GridSpacingChoices.choices,
         max_length=15,
-        help_text="Selecione o espaço entre colunas do Grid.",
+        help_text="Selecione o espaço entre linhas e colunas do Grid.",
     )
 
     @property
