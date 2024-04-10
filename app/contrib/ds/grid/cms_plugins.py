@@ -16,26 +16,30 @@ class GridPlugin(CMSPluginBase):
     child_classes = ["ColumnPlugin"]
 
     def render(self, context, instance, placeholder):
-        context["styles"] = (
-            f"--bs-gap:{instance.gap}rem;"
-        )
+        css_styles = [f"--bs-gap:{instance.gap}rem"]
+        css_classes = ["grid"]
 
+        if instance.alignment:
+            css_classes.append(f"align-items-{instance.alignment}")
+
+        context["styles"] = ";".join(css_styles)
+        context["classes"] = " ".join(css_classes)
         return super().render(context, instance, placeholder)
-    
+
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
 
-        if not change and form.cleaned_data['columns']:
-            columns = form.cleaned_data['columns']
+        if not change and form.cleaned_data["columns"]:
+            columns = form.cleaned_data["columns"]
 
             for x in range(columns):
                 add_plugin(
                     placeholder=obj.placeholder,
-                    language='pt-br',
+                    language="pt-br",
                     plugin_type="ColumnPlugin",
                     target=obj,
-                    span=12/columns,
-                    span_mobile=12
+                    span=12 / columns,
+                    span_mobile=12,
                 )
 
     def get_form(self, request, obj=None, change=False, **kwargs):
@@ -54,8 +58,16 @@ class ColumnPlugin(CMSPluginBase):
     parent_classes = ["GridPlugin"]
 
     def render(self, context, instance, placeholder):
-        parent_instance = instance.parent.get_plugin_instance()[0]
+        css_classes = []
+        css_classes.append(f"g-col-{instance.span_mobile}")
+        css_classes.append(f"g-col-md-{instance.span}")
 
-        context["classes"] = f"g-col-{instance.span_mobile} g-col-md-{instance.span}"
+        css_styles = []
+        if instance.start:
+            css_classes.append(f"g-start-md-{instance.start}")
+
+        context["classes"] = " ".join(css_classes)
+        if len(css_styles) > 0:
+            context["styles"] = ";".join(css_styles)
 
         return super().render(context, instance, placeholder)

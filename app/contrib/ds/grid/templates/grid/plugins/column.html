@@ -1,6 +1,6 @@
 {% load cms_tags %}
 
-<div class="{{classes}}">
+<div class="{{classes}}"{% if styles %} styles="{{styles}}"{% endif %}>
   {% for plugin in instance.child_plugin_instances %}
     {% render_plugin plugin %}
   {% endfor %}
