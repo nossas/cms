@@ -1,0 +1,7 @@
+{% load cms_tags %}
+
+<div class="g-col-12 g-col-md-6">
+  {% for plugin in instance.child_plugin_instances %}
+    {% render_plugin plugin %}
+  {% endfor %}
+</div>

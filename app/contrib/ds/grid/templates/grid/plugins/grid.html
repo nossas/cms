@@ -1,0 +1,11 @@
+{% load cms_tags sekizai_tags sass_tags %}
+
+<div class="grid">
+  {% for plugin in instance.child_plugin_instances %}
+    {% render_plugin plugin %}
+  {% endfor %}
+</div>
+
+{% addtoblock "css" %}
+<link href="{% sass_src 'grid/css/grid.scss' %}" rel="stylesheet" type="text/css" />
+{% endaddtoblock %}
