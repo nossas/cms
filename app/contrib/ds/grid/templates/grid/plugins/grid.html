@@ -1,6 +1,6 @@
 {% load cms_tags sekizai_tags sass_tags %}
 
-<div class="grid">
+<div class="grid" style="{{styles}}">
   {% for plugin in instance.child_plugin_instances %}
     {% render_plugin plugin %}
   {% endfor %}
