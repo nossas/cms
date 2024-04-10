@@ -2,7 +2,7 @@
 # https://docs.django-cms.org/en/latest/how_to/install.html#templates
 
 CMS_TEMPLATES = [
-    # ("app/home.html", "Home"),
+    ("ga/base.html", "Base Google Analytics"),
     ("frontend/landpage/page.html", "Landpage"),
     ("eleicao/eleicao_template.html", "A Eleição do Ano"),
 ]
