@@ -10,7 +10,7 @@ class GridPluginsTestCase(CMSTestCase):
     def setUp(self):
         self.language = "pt-br"
         self.home = create_page(
-            title="home", template="ga/base.html", language=self.language
+            title="home", template="ds/base.html", language=self.language
         )
         self.home.publish(self.language)
         self.placeholder = self.home.placeholders.get(slot="content")
@@ -53,3 +53,14 @@ class GridPluginsTestCase(CMSTestCase):
 
     def test_add_column_plugin_only_grid(self):
         self.assertEqual(ColumnPlugin.parent_classes, [GridPlugin.__name__])
+
+    def test_add_columns_by_grid(self):
+        plugin = add_plugin(
+            placeholder=self.placeholder,
+            plugin_type=GridPlugin.__name__,
+            language=self.language,
+            columns=2
+        )
+        plugin.full_clean()
+
+        self.assertEqual(plugin.get)
