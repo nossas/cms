@@ -55,7 +55,7 @@ class ColumnPlugin(CMSPluginBase):
     model = Column
     render_template = "grid/plugins/column.html"
     allow_children = True
-    parent_classes = ["GridPlugin"]
+    parent_classes = ["GridPlugin", "BlockPlugin"]
 
     def render(self, context, instance, placeholder):
         css_classes = []

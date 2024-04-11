@@ -80,6 +80,7 @@ INSTALLED_APPS = [
     "captcha",
     "colorfield",
     "django_select2",
+    "django_jsonform",
     "djangocms_form_builder",
     # My Apps
     "contrib.actions.pressure",
