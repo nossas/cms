@@ -2,7 +2,7 @@ from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
 from .forms import BlockForm
-from .models import Block, BlockElement
+from .models import Block, BlockElement, BlockLayout
 from .utils import to_padding_css
 
 
@@ -36,8 +36,8 @@ class BlockPlugin(CMSPluginBase):
             else:
                 css_classes.append("container")
 
-        if block_layout == "grid":
-            css_classes.append("grid")
+        if block_layout == BlockLayout.grid or block_layout == BlockLayout.flex:
+            css_classes.append(block_layout)
 
             if instance.attributes and instance.attributes.get("gap"):
                 gap = instance.attributes.get("gap")
@@ -46,6 +46,15 @@ class BlockPlugin(CMSPluginBase):
             if instance.attributes and instance.attributes.get("alignment"):
                 alignment = instance.attributes.get("alignment")
                 css_classes.append(f"align-items-{alignment}")
+
+        if block_layout == BlockLayout.flex:
+            if instance.attributes and instance.attributes.get("direction"):
+                direction = instance.attributes.get("direction")
+                css_classes.append(f"flex-{direction}")
+
+            if instance.attributes and instance.attributes.get("wrap"):
+                wrap = instance.attributes.get("wrap")
+                css_classes.append(f"flex-{wrap}")
 
         background_color = (
             instance.attributes.get("background_color", None)

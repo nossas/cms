@@ -2,3 +2,8 @@ $enable-grid-classes: false;
 $enable-cssgrid: true;
 
 @import "../../bootstrap/scss/bootstrap.scss";
+
+.d-flex {
+    // reuse in flex gap to setup grid
+    gap: var(--bs-gap);
+}

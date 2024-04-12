@@ -4,7 +4,7 @@ from colorfield.widgets import ColorWidget
 from django_jsonform.forms.fields import JSONFormField
 from entangled.forms import EntangledModelFormMixin
 
-from .models import Block, ContainerSize, AlignmentItems
+from .models import Block, ContainerSize, AlignmentItems, FlexWrap, FlexDirection
 
 
 class ContainerFormMixin(EntangledModelFormMixin):
@@ -67,8 +67,19 @@ class GridFormMixin(EntangledModelFormMixin):
         entangled_fields = {"attributes": ["gap", "alignment"]}
 
 
+class FlexFormMixin(EntangledModelFormMixin):
+    direction = forms.ChoiceField(
+        choices=[("", "----")] + FlexDirection.choices, required=False
+    )
+    wrap = forms.ChoiceField(choices=[("", "----")] + FlexWrap.choices, required=False)
+
+    class Meta:
+        entangled_fields = {"attributes": ["direction", "wrap"]}
+
+
 class BlockForm(
     GridFormMixin,
+    FlexFormMixin,
     BackgroundFormMixin,
     SpacingFormMixin,
     ContainerFormMixin,

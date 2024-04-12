@@ -214,3 +214,39 @@ class BlockPluginsTestCase(CMSTestCase):
         expected_html = "<div class='grid align-items-center'></div>"
 
         self.assertHTMLEqual(html, expected_html)
+
+    def test_flex_block_render_html(self):
+        model_instance = add_plugin(
+            placeholder=self.placeholder,
+            plugin_type="BlockPlugin",
+            language=self.language,
+            layout=BlockLayout.flex
+        )
+        model_instance.full_clean()
+
+        renderer = ContentRenderer(request=RequestFactory())
+
+        html = renderer.render_plugin(model_instance, {})
+        expected_html = "<div class='d-flex'></div>"
+
+        self.assertHTMLEqual(html, expected_html)
+
+    def test_flex_attrs_block_render_html(self):
+        model_instance = add_plugin(
+            placeholder=self.placeholder,
+            plugin_type="BlockPlugin",
+            language=self.language,
+            layout=BlockLayout.flex,
+            attributes={
+                "direction": "column",
+                "wrap": "wrap"
+            }
+        )
+        model_instance.full_clean()
+
+        renderer = ContentRenderer(request=RequestFactory())
+
+        html = renderer.render_plugin(model_instance, {})
+        expected_html = "<div class='d-flex flex-wrap flex-column'></div>"
+
+        self.assertHTMLEqual(html, expected_html)

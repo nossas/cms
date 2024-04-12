@@ -8,6 +8,17 @@ class AlignmentItems(models.TextChoices):
     center = "center", "Center"
     end = "end", "End"
 
+class FlexWrap(models.TextChoices):
+    wrap = "wrap", "wrap"
+    nowrap = "nowrap", "nowrap"
+    wrapreverse = "wrap-reverse", "wrap-reverse"
+
+class FlexDirection(models.TextChoices):
+    row = "row", "row"
+    column = "column", "column"
+    rowreverse = "row-reverse", "row-reverse"
+    columnreverse = "column-reverse", "column-reverse"
+
 class ContainerSize(models.TextChoices):
     sm = "sm", "sm"
     md = "md", "md"
@@ -25,7 +36,7 @@ class BlockElement(models.TextChoices):
 class BlockLayout(models.TextChoices):
     block = "block", "block"
     grid = "grid", "grid"
-    flex = "flex", "flex"
+    flex = "d-flex", "flex"
 
 
 class BlockAbstractModel(models.Model):
@@ -47,7 +58,7 @@ class BlockAbstractModel(models.Model):
         max_length=9, choices=BlockElement.choices, default=BlockElement.div
     )
     layout = models.CharField(
-        max_length=5, choices=BlockLayout.choices, default=BlockLayout.block
+        max_length=6, choices=BlockLayout.choices, default=BlockLayout.block
     )
     attributes = models.JSONField(null=True, blank=True)
 
