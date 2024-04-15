@@ -12,6 +12,13 @@ class BlockPlugin(CMSPluginBase):
     model = Block
     form = BlockForm
     allow_children = True
+    change_form_template = "blocks/plugin/change_form.html"
+    fieldsets = (
+        (None, {"fields": ("attributes", ("element", "layout", "background_color"), "padding")}),
+        ("Attributes", {
+            "fields": ("size", "gap", "alignment", "direction", "wrap")
+        })
+    )
 
     def get_render_template(self, context, instance, placeholder):
         """Container styles parent HTML element"""
