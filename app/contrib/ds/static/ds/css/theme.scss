@@ -7,3 +7,9 @@ $enable-cssgrid: true;
     // reuse in flex gap to setup grid
     gap: var(--bs-gap);
 }
+
+.d-flex-fill {
+    > * {
+        flex: 1 1 auto;
+    }
+}

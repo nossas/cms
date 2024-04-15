@@ -3,7 +3,7 @@
 {% block admin_change_form_document_ready %}
 {{ block.super }}
 <script>
-["field-size", "field-direction", "field-wrap", "field-gap", "field-alignment"].forEach((name, i) => {
+["field-size", "field-direction", "field-wrap", "field-gap", "field-alignment", "field-fill"].forEach((name, i) => {
     $("." + name).addClass("hidden");
 })
 
@@ -13,16 +13,19 @@ function changeLayout(value) {
     $(".field-gap").removeClass("hidden");
     $(".field-direction").addClass("hidden");
     $(".field-wrap").addClass("hidden");
+    $(".field-fill").addClass("hidden");
   } else if (value === "d-flex") {
     $(".field-alignment").removeClass("hidden");
     $(".field-gap").removeClass("hidden");
     $(".field-direction").removeClass("hidden");
     $(".field-wrap").removeClass("hidden");
+    $(".field-fill").removeClass("hidden");
   } else {
     $(".field-alignment").addClass("hidden");
     $(".field-gap").addClass("hidden");
     $(".field-direction").addClass("hidden");
     $(".field-wrap").addClass("hidden");
+    $(".field-fill").addClass("hidden");
   }
 }
 

@@ -250,3 +250,22 @@ class BlockPluginsTestCase(CMSTestCase):
         expected_html = "<div class='d-flex flex-wrap flex-column'></div>"
 
         self.assertHTMLEqual(html, expected_html)
+
+    def test_flex_attrs_fill_block_render_html(self):
+        model_instance = add_plugin(
+            placeholder=self.placeholder,
+            plugin_type="BlockPlugin",
+            language=self.language,
+            layout=BlockLayout.flex,
+            attributes={
+                "fill": True
+            }
+        )
+        model_instance.full_clean()
+
+        renderer = ContentRenderer(request=RequestFactory())
+
+        html = renderer.render_plugin(model_instance, {})
+        expected_html = "<div class='d-flex d-flex-fill'></div>"
+
+        self.assertHTMLEqual(html, expected_html)

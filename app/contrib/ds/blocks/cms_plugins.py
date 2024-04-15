@@ -14,10 +14,17 @@ class BlockPlugin(CMSPluginBase):
     allow_children = True
     change_form_template = "blocks/plugin/change_form.html"
     fieldsets = (
-        (None, {"fields": ("attributes", ("element", "layout", "background_color"), "padding")}),
-        ("Attributes", {
-            "fields": ("size", "gap", "alignment", "direction", "wrap")
-        })
+        (
+            None,
+            {
+                "fields": (
+                    "attributes",
+                    ("element", "layout", "background_color"),
+                    "padding",
+                )
+            },
+        ),
+        ("Attributes", {"fields": ("size", "gap", "alignment", "direction", "wrap", "fill")}),
     )
 
     def get_render_template(self, context, instance, placeholder):
@@ -62,6 +69,9 @@ class BlockPlugin(CMSPluginBase):
             if instance.attributes and instance.attributes.get("wrap"):
                 wrap = instance.attributes.get("wrap")
                 css_classes.append(f"flex-{wrap}")
+
+            if instance.attributes and instance.attributes.get("fill"):
+                css_classes.append(f"d-flex-fill")
 
         background_color = (
             instance.attributes.get("background_color", None)

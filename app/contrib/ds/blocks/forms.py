@@ -72,9 +72,10 @@ class FlexFormMixin(EntangledModelFormMixin):
         choices=[("", "----")] + FlexDirection.choices, required=False
     )
     wrap = forms.ChoiceField(choices=[("", "----")] + FlexWrap.choices, required=False)
+    fill = forms.BooleanField(required=False)
 
     class Meta:
-        entangled_fields = {"attributes": ["direction", "wrap"]}
+        entangled_fields = {"attributes": ["direction", "wrap", "fill"]}
 
 
 class BlockForm(
