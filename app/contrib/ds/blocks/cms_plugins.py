@@ -24,7 +24,10 @@ class BlockPlugin(CMSPluginBase):
                 )
             },
         ),
-        ("Attributes", {"fields": ("size", "gap", "alignment", "direction", "wrap", "fill")}),
+        (
+            "Attributes",
+            {"fields": ("size", "gap", "alignment", "direction", "wrap", "fill")},
+        ),
     )
 
     def get_render_template(self, context, instance, placeholder):
@@ -64,7 +67,18 @@ class BlockPlugin(CMSPluginBase):
         if block_layout == BlockLayout.flex:
             if instance.attributes and instance.attributes.get("direction"):
                 direction = instance.attributes.get("direction")
-                css_classes.append(f"flex-{direction}")
+
+                if direction == "row":
+                    css_classes.append("flex-column")
+                    css_classes.append(f"flex-md-row")
+                elif direction == "row-reverse":
+                    css_classes.append("flex-column-reverse")
+                    css_classes.append(f"flex-md-row-reverse")
+                else:
+                    css_classes.append(f"flex-{direction}")
+            else:
+                css_classes.append("flex-column")
+                css_classes.append("flex-md-row")
 
             if instance.attributes and instance.attributes.get("wrap"):
                 wrap = instance.attributes.get("wrap")

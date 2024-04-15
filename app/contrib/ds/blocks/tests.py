@@ -215,7 +215,7 @@ class BlockPluginsTestCase(CMSTestCase):
 
         self.assertHTMLEqual(html, expected_html)
 
-    def test_flex_block_render_html(self):
+    def test_flex_default_block_render_html(self):
         model_instance = add_plugin(
             placeholder=self.placeholder,
             plugin_type="BlockPlugin",
@@ -227,7 +227,7 @@ class BlockPluginsTestCase(CMSTestCase):
         renderer = ContentRenderer(request=RequestFactory())
 
         html = renderer.render_plugin(model_instance, {})
-        expected_html = "<div class='d-flex'></div>"
+        expected_html = "<div class='d-flex flex-column flex-md-row'></div>"
 
         self.assertHTMLEqual(html, expected_html)
 
@@ -266,6 +266,44 @@ class BlockPluginsTestCase(CMSTestCase):
         renderer = ContentRenderer(request=RequestFactory())
 
         html = renderer.render_plugin(model_instance, {})
-        expected_html = "<div class='d-flex d-flex-fill'></div>"
+        expected_html = "<div class='d-flex d-flex-fill flex-column flex-md-row'></div>"
+
+        self.assertHTMLEqual(html, expected_html)
+
+    def test_flex_responsive_block_render_html(self):
+        model_instance = add_plugin(
+            placeholder=self.placeholder,
+            plugin_type="BlockPlugin",
+            language=self.language,
+            layout=BlockLayout.flex,
+            attributes={
+                "direction": "row"
+            }
+        )
+        model_instance.full_clean()
+
+        renderer = ContentRenderer(request=RequestFactory())
+
+        html = renderer.render_plugin(model_instance, {})
+        expected_html = "<div class='d-flex flex-column flex-md-row'></div>"
+
+        self.assertHTMLEqual(html, expected_html)
+
+    def test_flex_responsive_row_reverse_block_render_html(self):
+        model_instance = add_plugin(
+            placeholder=self.placeholder,
+            plugin_type="BlockPlugin",
+            language=self.language,
+            layout=BlockLayout.flex,
+            attributes={
+                "direction": "row-reverse"
+            }
+        )
+        model_instance.full_clean()
+
+        renderer = ContentRenderer(request=RequestFactory())
+
+        html = renderer.render_plugin(model_instance, {})
+        expected_html = "<div class='d-flex flex-column-reverse flex-md-row-reverse'></div>"
 
         self.assertHTMLEqual(html, expected_html)
