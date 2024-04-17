@@ -175,3 +175,25 @@ class CarouselPluginsTestCase(CMSTestCase):
         expected_html = "<div class='carousel-item active'></div>"
 
         self.assertHTMLEqual(html, expected_html)
+
+    def test_carousel_content_plugin_caption(self):
+        plugin = add_plugin(
+            placeholder=self.placeholder,
+            plugin_type="CarouselContentPlugin",
+            language=self.language,
+            caption_html="""<h2>Title</h2><p>Lorem ipsum</p>"""
+        )
+        plugin.full_clean()
+        
+        renderer = ContentRenderer(request=RequestFactory())
+
+        html = renderer.render_plugin(plugin, {})
+        expected_html = """
+        <div class="carousel-item active">
+            <div class="carousel-caption d-none d-md-block">
+                <h2>Title</h2><p>Lorem ipsum</p>
+            </div>
+        </div>
+        """
+
+        self.assertHTMLEqual(html, expected_html)
