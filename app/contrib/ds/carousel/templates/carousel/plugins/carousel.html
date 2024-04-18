@@ -1,5 +1,4 @@
-{% load cms_tags sekizai_tags static %}
-{% comment %} {% addtoblock "js" %}<script src="{% static "bootstrap/js/dist/carousel.js" %}"></script>{% endaddtoblock %} {% endcomment %}
+{% load cms_tags %}
 <div id="carousel-{{instance.id}}" class="carousel slide">
     {% if instance.enable_indicators %}
     <div class="carousel-indicators">
