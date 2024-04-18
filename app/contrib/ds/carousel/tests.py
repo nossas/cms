@@ -197,3 +197,35 @@ class CarouselPluginsTestCase(CMSTestCase):
         """
 
         self.assertHTMLEqual(html, expected_html)
+
+    def test_carousel_plugin_indicators_render_html(self):
+        target = add_plugin(
+            placeholder=self.placeholder,
+            plugin_type="CarouselPlugin",
+            language=self.language,
+            enable_indicators=True,
+        )
+        add_plugin(
+            placeholder=self.placeholder,
+            plugin_type="CarouselContentPlugin",
+            language=self.language,
+            target=target,
+        )
+        add_plugin(
+            placeholder=self.placeholder,
+            plugin_type="CarouselContentPlugin",
+            language=self.language,
+            target=target,
+        )
+
+        renderer = ContentRenderer(request=RequestFactory())
+
+        html = renderer.render_plugin(target, {})
+        expected_html = f"""
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carousel-{target.id}" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 0"></button>
+            <button type="button" data-bs-target="#carousel-{target.id}" data-bs-slide-to="1" aria-current="true" aria-label="Slide 1"></button>
+        </div>
+        """
+
+        self.assertInHTML(expected_html, html)
