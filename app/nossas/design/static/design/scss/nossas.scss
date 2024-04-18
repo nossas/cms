@@ -686,7 +686,8 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
     align-items: center;
     background-color: var(--bs-azul-nossas);
     color: var(--bs-branco-nossas);
-    gap: 0;
+    display: grid;
+    gap: 20px;
     padding: 72px 0;
 
     .timeline-description {
@@ -761,153 +762,185 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
             }
         }
     }
-    .timeline-labels {
+
+    .timeline-plugin {
+        grid-column: auto/span 8;
+        margin-right: 20px;
         display: flex;
-        justify-content: right;
+        overflow-x: auto;
+    
+        // Estilos do scroll no Chrome/Safari/Edge
+        &::-webkit-scrollbar {
+            max-width: 8px;
+            max-height: 8px;
+        }
 
-        .timeline-labels-items {
-            border-right: solid 2px var(--bs-branco-nossas);
+        &::-webkit-scrollbar-track {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+         
+        &::-webkit-scrollbar-thumb {
+          background-color: var(--bs-rosa-nossas);
+          outline: 1px solid #888888;
+          border-radius: 5px;
+        }
+
+        .timeline-labels {
             display: flex;
-            flex-direction: column;
-            font-family: 'Bebas Neue Pro';
-            font-size: 24px;
-            height: 100%;
-            max-width: 40px;
-            text-transform: uppercase;
-            grid-column: auto/span 1;
-
-            .timeline-divider {
-                border-bottom: solid 2px var(--bs-branco-nossas);
-                height: 2px;
-                margin: 24px 0;
-                width: 100%;
-
-                &::after {
-                    content: "";
-                    border-bottom: 2px solid white;
-                    display: inline-block;
-                    transform: translate(-4px, 0) rotate(-90deg);
-                    vertical-align: top;
-                    width: 8px;
-                }
-            }
-
-            .timeline-label {
-                align-items: center;
+            position: absolute;
+            background-color: var(--bs-azul-nossas);
+            z-index: 1;
+    
+            .timeline-labels-items {
+                border-right: solid 2px var(--bs-branco-nossas);
                 display: flex;
-                line-height: 25px;
-                min-height: 319px;
-                overflow: hidden;
-                width: 25px;
-        
-                .timeline-label-text {
-                    display: inline-block;
-                    transform-origin: 0 0;
-                    transform: translate(0,100%) rotate(-90deg);
-                    vertical-align: top;
-                    white-space: nowrap;
-        
-                    &:after {
+                flex-direction: column;
+                font-family: 'Bebas Neue Pro';
+                font-size: 24px;
+                height: 692px;
+                justify-content: space-between;
+                max-width: 40px;
+                text-transform: uppercase;
+    
+                .timeline-divider {
+                    border-bottom: solid 2px var(--bs-branco-nossas);
+                    height: 3px;
+                    width: 100%;
+    
+                    &::after {
                         content: "";
-                        float: left;
-                        margin-top: 100%;
+                        border-bottom: 2px solid white;
+                        display: inline-block;
+                        transform: translate(-5px, 2px) rotate(-90deg);
+                        vertical-align: top;
+                        width: 9px;
+                    }
+                }
+    
+                .timeline-label {
+                    align-items: center;
+                    display: flex;
+                    line-height: 25px;
+                    min-height: 319px;
+                    overflow: hidden;
+                    width: 25px;
+            
+                    .timeline-label-text {
+                        display: inline-block;
+                        transform-origin: 0 0;
+                        transform: translate(0,100%) rotate(-90deg);
+                        vertical-align: top;
+                        white-space: nowrap;
+            
+                        &:after {
+                            content: "";
+                            float: left;
+                            margin-top: 100%;
+                        }
                     }
                 }
             }
         }
-    }
-
-    .timeline-content {
-        display: grid;
-        grid-auto-flow: row;
-        overflow-x: auto;
-        min-height: 624px;
-        grid-column: auto/span 7;
-
-        .timeline-divider {
-            border-bottom: solid 2px var(--bs-branco-nossas);
-            margin: 24px 0;
-            width: 100%;
-        }
-
-        .timeline-events {
+    
+        .timeline-content {
             display: flex;
-            height: 319px;
-            flex-wrap: nowrap;
-            width: max-content;
-
-            .timeline-events-item {
-                flex: 0 0 auto;
-                min-width: 200px;
-                margin: 0 24px;
+            flex-direction: column;
+            height: 692px;
+            justify-content: space-between;
+            position: relative;
+            
+            .timeline-divider {
+                border-bottom: solid 2px var(--bs-branco-nossas);
+                height: 3px;
+                width: 100%;
                 position: relative;
-                width: 200px;
-
-                & span {
-                    display: block;
-                    font-size: 14px;
-                    font-weight: 700;
-                    margin-bottom: 8px;
+            }
+    
+            .timeline-events {
+                display: flex;
+                height: 319px;
+                flex-wrap: nowrap;
+                width: max-content;
+                margin-left: 25px;
+    
+                .timeline-events-item {
+                    flex: 0 0 auto;
+                    min-width: 200px;
+                    margin: 0 24px;
+                    position: relative;
+                    width: 200px;
+    
+                    & span {
+                        display: block;
+                        font-size: 14px;
+                        font-weight: 700;
+                        margin-bottom: 8px;
+                    }
+    
+                    & img {
+                        height: 130px;
+                        object-fit: cover;
+                        width: 200px;
+                    }
+    
+                    & h4 {
+                        font-size: 16px;
+                        margin-top: 16px;
+                    }
+    
+                    & p {
+                        font-size: 13px;
+                        line-height: 16px;
+                        margin: 0;
+                        word-wrap: break-word;
+                    }
                 }
-
-                & img {
-                    height: 130px;
-                    object-fit: cover;
+    
+                .timeline-event-item-empty {
+                    margin-left: 48px;
+                    max-height: 278px;
+                    min-width: 200px;
                     width: 200px;
                 }
-
-                & h4 {
-                    font-size: 16px;
-                    margin-top: 16px;
-                }
-
-                & p {
-                    font-size: 13px;
-                    line-height: 16px;
-                    margin: 0;
-                    word-wrap: break-word;
-                }
             }
-
-            .timeline-event-item-empty {
-                margin-left: 48px;
-                max-height: 278px;
-                min-width: 200px;
-                width: 200px;
+        }
+    
+        // Pontos na Timeline
+        .event-world {
+            &::after {
+                content: "";
+                display: block;
+                width: 8px;
+                height: 8px;
+                border-radius: 15px;
+                background-color: var(--bs-branco-nossas);
+                position: absolute;
+                bottom: -31px;
+            }
+        }
+    
+        .event-nossas {
+            &::after {
+                content: "";
+                display: block;
+                width: 8px;
+                height: 8px;
+                border-radius: 15px;
+                background-color: var(--bs-branco-nossas);
+                position: absolute;
+                top: -31px;
             }
         }
     }
 
     @include media-breakpoint-down(lg) {
-        .timeline-content {
-            grid-column: auto/span 11;
-        }
-    }
+        .timeline-plugin {
+            grid-column: auto/span 12;
+            margin-right: 0;
 
-    // Pontos na Timeline
-    .event-world {
-        &::after {
-            content: "";
-            display: block;
-            width: 8px;
-            height: 8px;
-            border-radius: 15px;
-            background-color: var(--bs-branco-nossas);
-            position: absolute;
-            bottom: -29px;
-        }
-    }
-
-    .event-nossas {
-        &::after {
-            content: "";
-            display: block;
-            width: 8px;
-            height: 8px;
-            border-radius: 15px;
-            background-color: var(--bs-branco-nossas);
-            position: absolute;
-            top: -29px;
+            .timeline-labels {
+                padding-left: 8px;
+            }
         }
     }
 
