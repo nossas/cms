@@ -5,7 +5,14 @@ from colorfield.widgets import ColorWidget
 from django_jsonform.forms.fields import JSONFormField
 from entangled.forms import EntangledModelFormMixin
 
-from .models import Block, ContainerSize, AlignmentItems, FlexWrap, FlexDirection
+from .models import (
+    Block,
+    ContainerSize,
+    AlignmentItems,
+    FlexWrap,
+    FlexDirection,
+    BlockElement,
+)
 
 
 class ContainerFormMixin(EntangledModelFormMixin):
@@ -108,3 +115,10 @@ class BlockTemplateForm(BlockForm):
         model = Block
         untangled_fields = ["template", "element", "layout", "is_container"]
         entangled_fields = {"attributes": []}
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields["element"].initial = BlockElement.section
+        self.fields["is_container"].initial = True
+        self.fields["padding"].initial = [{"side": "y", "spacing": "4"}]

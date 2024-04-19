@@ -347,3 +347,12 @@ class BlockPluginsTestCase(CMSTestCase):
         form = plugin.get_form(None, obj, change=True, **{})
 
         self.assertEqual(form.__name__, BlockForm.__name__)
+
+    def test_setup_initial_fields_on_template_block_form(self):
+        form = BlockTemplateForm()
+
+        self.assertEqual(form.fields["element"].initial, BlockElement.section)
+        self.assertEqual(form.fields["is_container"].initial, True)
+        self.assertListEqual(
+            form.fields["padding"].initial, [{"side": "y", "spacing": "4"}]
+        )
