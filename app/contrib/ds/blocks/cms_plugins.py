@@ -19,7 +19,8 @@ class BlockPlugin(CMSPluginBase):
             {
                 "fields": (
                     "attributes",
-                    ("element", "layout", "background_color"),
+                    ("element", "layout", "is_container"),
+                    "background_color",
                     "padding",
                 )
             },
@@ -32,7 +33,7 @@ class BlockPlugin(CMSPluginBase):
 
     def get_render_template(self, context, instance, placeholder):
         """Container styles parent HTML element"""
-        if instance.element == BlockElement.container:
+        if instance.is_container:
             return "blocks/container_plugin.html"
 
         return "blocks/block_plugin.html"
@@ -43,8 +44,7 @@ class BlockPlugin(CMSPluginBase):
         css_classes = []
         css_styles = []
 
-        if html_element == "container":
-            html_element = "div"
+        if instance.is_container:
             container_size = (
                 instance.attributes.get("size", None) if instance.attributes else None
             )

@@ -30,7 +30,7 @@ function changeLayout(value) {
 }
 
 function changeElement(value) {
-  if (value === "container") {
+  if (value) {
     $(".field-size").removeClass("hidden");
   } else {
     $(".field-size").addClass("hidden");
@@ -41,11 +41,11 @@ $('form [name="layout"]').on("change", function(evt) {
   changeLayout(evt.target.value);
 });
 
-$('form [name="element"]').on("change", function(evt) {
-  changeElement(evt.target.value)
+$('form [name="is_container"]').on("change", function(evt) {
+  changeElement($(evt.target).prop("checked"));
 });
 
-changeElement($('form [name="element"]').val());
+changeElement($('form [name="is_container"]').prop("checked"));
 changeLayout($('form [name="layout"]').val());
 </script>
 {% endblock %}

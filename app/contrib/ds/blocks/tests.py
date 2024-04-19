@@ -86,7 +86,7 @@ class BlockPluginsTestCase(CMSTestCase):
             placeholder=self.placeholder,
             plugin_type="BlockPlugin",
             language=self.language,
-            element=BlockElement.container,
+            is_container=True
         )
         model_instance.full_clean()
 
@@ -102,7 +102,7 @@ class BlockPluginsTestCase(CMSTestCase):
             placeholder=self.placeholder,
             plugin_type="BlockPlugin",
             language=self.language,
-            element=BlockElement.container,
+            is_container=True,
             attributes={"size": "fluid"},
         )
         model_instance.full_clean()
@@ -135,7 +135,7 @@ class BlockPluginsTestCase(CMSTestCase):
             placeholder=self.placeholder,
             plugin_type="BlockPlugin",
             language=self.language,
-            element=BlockElement.container,
+            is_container=True,
             attributes={"background_color": "#c7c7c7"},
         )
         model_instance.full_clean()

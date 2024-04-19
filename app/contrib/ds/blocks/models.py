@@ -29,7 +29,6 @@ class ContainerSize(models.TextChoices):
 
 class BlockElement(models.TextChoices):
     section = "section", "section"
-    container = "container", "container"
     div = "div", "div"
 
 
@@ -45,7 +44,6 @@ class BlockAbstractModel(models.Model):
 
     Tipos de elementos:
         - section
-        - container
         - div
 
     Tipos de layouts:
@@ -60,6 +58,7 @@ class BlockAbstractModel(models.Model):
     layout = models.CharField(
         max_length=6, choices=BlockLayout.choices, default=BlockLayout.block
     )
+    is_container = models.BooleanField(default=False)
     attributes = models.JSONField(null=True, blank=True)
 
     class Meta:
