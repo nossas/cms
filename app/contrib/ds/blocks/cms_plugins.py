@@ -1,7 +1,7 @@
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
-from .forms import BlockForm
+from .forms import BlockForm, BlockTemplateForm
 from .models import Block, BlockElement, BlockLayout
 from .utils import to_padding_css
 
@@ -10,7 +10,6 @@ from .utils import to_padding_css
 class BlockPlugin(CMSPluginBase):
     name = "Bloco"
     model = Block
-    form = BlockForm
     allow_children = True
     change_form_template = "blocks/plugin/change_form.html"
     fieldsets = (
@@ -19,8 +18,16 @@ class BlockPlugin(CMSPluginBase):
             {
                 "fields": (
                     "attributes",
-                    ("element", "layout", "is_container"),
-                    "background_color",
+                    "template",
+                )
+            },
+        ),
+        (
+            "Setup",
+            {
+                "fields": (
+                    ("element", "layout", "background_color"),
+                    "is_container",
                     "padding",
                 )
             },
@@ -30,6 +37,12 @@ class BlockPlugin(CMSPluginBase):
             {"fields": ("size", "gap", "alignment", "direction", "wrap", "fill")},
         ),
     )
+
+    def get_form(self, request, obj=None, change=False, **kwargs):
+        if not change and (not obj or not obj.parent):
+            return BlockTemplateForm
+
+        return BlockForm
 
     def get_render_template(self, context, instance, placeholder):
         """Container styles parent HTML element"""

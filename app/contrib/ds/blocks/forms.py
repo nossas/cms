@@ -1,4 +1,5 @@
 from django import forms
+from django.db import models
 
 from colorfield.widgets import ColorWidget
 from django_jsonform.forms.fields import JSONFormField
@@ -86,8 +87,24 @@ class BlockForm(
     ContainerFormMixin,
     forms.ModelForm,
 ):
+    template = forms.CharField(widget=forms.HiddenInput(), required=False)
 
     class Meta:
         model = Block
-        untangled_fields = ["element", "layout", "is_container"]
+        untangled_fields = ["template", "element", "layout", "is_container"]
+        entangled_fields = {"attributes": []}
+
+
+class BlockTemplate(models.TextChoices):
+    empty = "", "empty"
+
+
+class BlockTemplateForm(BlockForm):
+    template = forms.ChoiceField(
+        choices=BlockTemplate.choices, initial=BlockTemplate.empty, required=False
+    )
+
+    class Meta:
+        model = Block
+        untangled_fields = ["template", "element", "layout", "is_container"]
         entangled_fields = {"attributes": []}

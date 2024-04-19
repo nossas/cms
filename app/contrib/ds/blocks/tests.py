@@ -5,6 +5,7 @@ from cms.test_utils.testcases import CMSTestCase
 from cms.plugin_rendering import ContentRenderer
 
 from .cms_plugins import BlockPlugin
+from .forms import BlockForm, BlockTemplateForm
 from .models import BlockElement, BlockLayout
 
 
@@ -86,7 +87,7 @@ class BlockPluginsTestCase(CMSTestCase):
             placeholder=self.placeholder,
             plugin_type="BlockPlugin",
             language=self.language,
-            is_container=True
+            is_container=True,
         )
         model_instance.full_clean()
 
@@ -220,7 +221,7 @@ class BlockPluginsTestCase(CMSTestCase):
             placeholder=self.placeholder,
             plugin_type="BlockPlugin",
             language=self.language,
-            layout=BlockLayout.flex
+            layout=BlockLayout.flex,
         )
         model_instance.full_clean()
 
@@ -237,10 +238,7 @@ class BlockPluginsTestCase(CMSTestCase):
             plugin_type="BlockPlugin",
             language=self.language,
             layout=BlockLayout.flex,
-            attributes={
-                "direction": "column",
-                "wrap": "wrap"
-            }
+            attributes={"direction": "column", "wrap": "wrap"},
         )
         model_instance.full_clean()
 
@@ -257,9 +255,7 @@ class BlockPluginsTestCase(CMSTestCase):
             plugin_type="BlockPlugin",
             language=self.language,
             layout=BlockLayout.flex,
-            attributes={
-                "fill": True
-            }
+            attributes={"fill": True},
         )
         model_instance.full_clean()
 
@@ -276,9 +272,7 @@ class BlockPluginsTestCase(CMSTestCase):
             plugin_type="BlockPlugin",
             language=self.language,
             layout=BlockLayout.flex,
-            attributes={
-                "direction": "row"
-            }
+            attributes={"direction": "row"},
         )
         model_instance.full_clean()
 
@@ -295,15 +289,61 @@ class BlockPluginsTestCase(CMSTestCase):
             plugin_type="BlockPlugin",
             language=self.language,
             layout=BlockLayout.flex,
-            attributes={
-                "direction": "row-reverse"
-            }
+            attributes={"direction": "row-reverse"},
         )
         model_instance.full_clean()
 
         renderer = ContentRenderer(request=RequestFactory())
 
         html = renderer.render_plugin(model_instance, {})
-        expected_html = "<div class='d-flex flex-column-reverse flex-md-row-reverse'></div>"
+        expected_html = (
+            "<div class='d-flex flex-column-reverse flex-md-row-reverse'></div>"
+        )
 
         self.assertHTMLEqual(html, expected_html)
+
+    def test_change_form_to_block_create_block(self):
+        target = add_plugin(
+            placeholder=self.placeholder,
+            plugin_type="BlockPlugin",
+            language=self.language,
+        )
+
+        obj = add_plugin(
+            placeholder=self.placeholder,
+            plugin_type="BlockPlugin",
+            language=self.language,
+            target=target,
+        )
+
+        instance, plugin = obj.get_plugin_instance()
+
+        form = plugin.get_form(None, obj, change=False, **{})
+
+        self.assertEqual(form.__name__, BlockForm.__name__)
+
+    def test_change_form_to_template_create_root_block(self):
+        obj = add_plugin(
+            placeholder=self.placeholder,
+            plugin_type="BlockPlugin",
+            language=self.language,
+        )
+
+        instance, plugin = obj.get_plugin_instance()
+
+        form = plugin.get_form(None, None, change=False, **{})
+
+        self.assertEqual(form.__name__, BlockTemplateForm.__name__)
+
+    def test_change_form_to_block_edit_root_block(self):
+        obj = add_plugin(
+            placeholder=self.placeholder,
+            plugin_type="BlockPlugin",
+            language=self.language,
+        )
+
+        instance, plugin = obj.get_plugin_instance()
+
+        form = plugin.get_form(None, obj, change=True, **{})
+
+        self.assertEqual(form.__name__, BlockForm.__name__)
