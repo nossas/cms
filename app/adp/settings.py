@@ -82,8 +82,8 @@ STATICFILES_FINDERS += [
 # Configurações inicials
 
 CMS_TEMPLATES = [
-    ("ga/base.html", "Base Google Analytics"),
     ("ds/base.html", "Base Design System"),
+    # ("ga/base.html", "Base Google Analytics"),
 ]
 
 CMS_PLACEHOLDER_CONF = {}
