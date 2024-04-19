@@ -6,67 +6,69 @@
     <script src={% static 'campaigns/js/campaign-select2.js' %}></script>
 {% endaddtoblock %}
 
-<div class="container d-flex flex-column align-items-center py-5 filter-campaigns-plugin">
-    <h5>{% trans 'ENCONTRE UMA CAMPANHA' %}</h5>
-    <form class="grid w-100 filter-form" method="GET">
-        <div class="g-col-12">
-            <div class="filter-form-input-group">
-                <label>{{ form.tags.label }}</label>
-                {{ form.tags|add_class:"form-select" }}
+<div class="filter-campaigns-plugin">
+    <div class="container">
+        <h5>{% trans 'ENCONTRE UMA CAMPANHA' %}</h5>
+        <form class="grid w-100 filter-form" method="GET">
+            <div class="g-col-12">
+                <div class="filter-form-input-group">
+                    <label>{{ form.tags.label }}</label>
+                    {{ form.tags|add_class:"form-select" }}
+                </div>
             </div>
-        </div>
+            <div class="g-col-12 g-col-md-6">
+                <div class="filter-form-input-group">
+                    <label>{{ form.campaign_group_id.label }}</label>
+                    {{ form.campaign_group_id|add_class:"form-select" }}
+                </div>
+            </div>
+            <div class="g-col-12 g-col-md-6">
+                <div class="filter-form-input-group">
+                    <label>{{ form.release_year.label }}</label>
+                    {{ form.release_year|add_class:"form-select" }}
+                </div>
+            </div>
+            <div class="filter-form-footer g-col-12 d-flex justify-content-center pb-4 mb-5">
+                <button class="btn btn-azul-nossas" type='submit'>{% trans 'Buscar' %}</button>
+            </div>
+        </form>
+        <div class="grid">
+        {% for campaign in campaign_list %}
         <div class="g-col-12 g-col-md-6">
-            <div class="filter-form-input-group">
-                <label>{{ form.campaign_group_id.label }}</label>
-                {{ form.campaign_group_id|add_class:"form-select" }}
-            </div>
+            {% include 'plugins/filter_campaign_list_plugin_item.html' with instance=campaign %}
         </div>
-        <div class="g-col-12 g-col-md-6">
-            <div class="filter-form-input-group">
-                <label>{{ form.release_year.label }}</label>
-                {{ form.release_year|add_class:"form-select" }}
-            </div>
-        </div>
-        <div class="filter-form-footer g-col-12 d-flex justify-content-center pb-4 mb-5">
-            <button class="btn btn-azul-nossas" type='submit'>{% trans 'Buscar' %}</button>
-        </div>
-    </form>
-    <div class="grid">
-    {% for campaign in campaign_list %}
-    <div class="g-col-12 g-col-md-6">
-        {% include 'plugins/filter_campaign_list_plugin_item.html' with instance=campaign %}
-    </div>
-    {% endfor %}
-    </div>
-    <ul class="paginator d-none d-sm-flex">
-        <li class="control-indicator active">
-            <{% if page.has_previous %}a href="?page={{ page.previous_page_number }}" target="_self"{% else %}span{% endif %}>
-                {% include "design/svg/page-previous.svg" %}
-            </{% if page.has_previous %}a{% else %}span{% endif %}>
-        </li>
-        {% for page_number in paginator.page_range %}
-        <li class="control-indicator{% if page_number == page.number %} active{% endif %}">
-            <a href="?page={{ page_number }}" target="_self">
-                {% include "design/svg/page-indicator.svg" %}
-            </a>
-        </li>
         {% endfor %}
-        <li class="control-indicator active">
-            <{% if page.has_next %}a href="?page={{ page.next_page_number }}" target="_self"{% else %}span{% endif %}>
-                {% include "design/svg/page-next.svg" %}
-            </{% if page.has_next %}a{% else %}span{% endif %}>
-        </li>
-    </ul>
-    <ul class="paginator d-flex d-sm-none">
-        <li class="control-indicator active">
-            <{% if page.has_previous %}a href="?page={{ page.previous_page_number }}" target="_self"{% else %}span{% endif %}>
-                {% include "design/svg/page-previous.svg" %}
-            </{% if page.has_previous %}a{% else %}span{% endif %}>
-        </li>
-        <li class="control-indicator active">
-            <{% if page.has_next %}a href="?page={{ page.next_page_number }}" target="_self"{% else %}span{% endif %}>
-                {% include "design/svg/page-next.svg" %}
-            </{% if page.has_next %}a{% else %}span{% endif %}>
-        </li>
-    </ul>
+        </div>
+        <ul class="paginator d-none d-sm-flex justify-content-center">
+            <li class="control-indicator active">
+                <{% if page.has_previous %}a href="?page={{ page.previous_page_number }}" target="_self"{% else %}span{% endif %}>
+                    {% include "design/svg/page-previous.svg" %}
+                </{% if page.has_previous %}a{% else %}span{% endif %}>
+            </li>
+            {% for page_number in paginator.page_range %}
+            <li class="control-indicator{% if page_number == page.number %} active{% endif %}">
+                <a href="?page={{ page_number }}" target="_self">
+                    {% include "design/svg/page-indicator.svg" %}
+                </a>
+            </li>
+            {% endfor %}
+            <li class="control-indicator active">
+                <{% if page.has_next %}a href="?page={{ page.next_page_number }}" target="_self"{% else %}span{% endif %}>
+                    {% include "design/svg/page-next.svg" %}
+                </{% if page.has_next %}a{% else %}span{% endif %}>
+            </li>
+        </ul>
+        <ul class="paginator d-flex d-sm-none">
+            <li class="control-indicator active">
+                <{% if page.has_previous %}a href="?page={{ page.previous_page_number }}" target="_self"{% else %}span{% endif %}>
+                    {% include "design/svg/page-previous.svg" %}
+                </{% if page.has_previous %}a{% else %}span{% endif %}>
+            </li>
+            <li class="control-indicator active">
+                <{% if page.has_next %}a href="?page={{ page.next_page_number }}" target="_self"{% else %}span{% endif %}>
+                    {% include "design/svg/page-next.svg" %}
+                </{% if page.has_next %}a{% else %}span{% endif %}>
+            </li>
+        </ul>
+    </div>
 </div>
