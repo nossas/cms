@@ -176,7 +176,12 @@ class OurCitiesProject(CMSPlugin):
         verbose_name=_("Imagem"), on_delete=models.SET_NULL, blank=True, null=True
     )
     related_campaigns = models.ManyToManyField(
-        Campaign, verbose_name=_("Campanhas relacionadas"), blank=True
+        Campaign, 
+        verbose_name=_("Campanhas relacionadas"), 
+        blank=True
     )
     url = models.URLField(verbose_name=_("URL do Projeto"), blank=True, null=True)
     hide_border = models.BooleanField(verbose_name=_("Remover borda"), default=False)
+
+    def copy_relations(self, oldinstance):
+        self.related_campaigns.set(oldinstance.related_campaigns.all())
