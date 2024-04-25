@@ -11,4 +11,6 @@ class HeadlinePlugin(UICMSPluginBase):
     module = "NOSSAS"
     model = Headline
     form = HeadlineForm
+    allow_children = True
+    child_classes = ["TextPlugin"]
     render_template = "nossas/plugins/headline.html"
