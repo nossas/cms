@@ -59,7 +59,7 @@ services:
     restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
     pull_policy: always
     environment:
-      - DJANGO_SETTINGS_MODULE=adp.settings_prod
+      - DJANGO_SETTINGS_MODULE=adp.settings.production
       - DEBUG=${DEBUG:-True}
       - ALLOWED_HOSTS=${ALLOWED_HOSTS:-"docker.localhost"}
       - CMS_DATABASE_URL=${ADP_DATABASE_URL}

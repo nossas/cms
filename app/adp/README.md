@@ -52,13 +52,13 @@ Each module and submodule may have its own installation and usage instructions. 
 - Run tests
 
     ```bash
-    pytest --ds=adp.settings_test
+    pytest --ds=adp.settings.test
     ```
 
 - Run tests with converage
 
     ```bash
-    pytest --ds=adp.settings_test --cov
+    pytest --ds=adp.settings.test --cov
     ```
 
 ## Contributing
