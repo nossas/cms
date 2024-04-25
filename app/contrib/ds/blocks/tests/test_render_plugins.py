@@ -4,9 +4,9 @@ from cms.api import add_plugin, create_page
 from cms.test_utils.testcases import CMSTestCase
 from cms.plugin_rendering import ContentRenderer
 
-from .cms_plugins import BlockPlugin
-from .forms import BlockForm, BlockTemplateForm
-from .models import BlockElement, BlockLayout
+from ..cms_plugins import BlockPlugin
+from ..forms import BlockForm, BlockTemplateForm
+from ..models import BlockElement, BlockLayout
 
 
 # Create your tests here.

@@ -1,0 +1,3 @@
+[run]
+omit = tests/*, */settings*, tests*
+include = contrib/ds/*

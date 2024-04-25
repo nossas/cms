@@ -16,6 +16,19 @@ def to_padding_css(padding):
     return css_classes
 
 
+def block_factory(schema: any, obj: any, placeholder: any):
+    from cms.api import add_plugin
+
+    for item_schema in schema:
+        add_plugin(
+            placeholder=obj.placeholder,
+            plugin_type=item_schema["plugin_type"],
+            language=obj.language,
+            target=obj,
+            **item_schema.get("attrs", {}),
+        )
+
+
 # def get_classes(self):
 #         classes = super().get_classes()
 
