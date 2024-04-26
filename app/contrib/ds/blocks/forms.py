@@ -104,6 +104,11 @@ class BlockForm(
 
 class BlockTemplate(models.TextChoices):
     empty = "", "empty"
+    content_one_col = "content_one_col", "Conteúdo 1 coluna"
+    content_three_cols = "content_three_cols", "Conteúdo 3 colunas"
+    content_two_cols_6x6 = "content_two_cols_6x6", "Conteúdo 2 colunas (6x6)"
+    content_two_cols_4x8 = "content_two_cols_4x8", "Conteúdo 2 colunas (4x8)"
+    content_four_cols = "content_four_cols", "Conteúdo 4 colunas"
 
 
 class BlockTemplateForm(BlockForm):

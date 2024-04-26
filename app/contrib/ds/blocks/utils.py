@@ -17,6 +17,14 @@ def to_padding_css(padding):
 
 
 def template_plugin_generator(obj, schema):
+    """Generator child plugins by schema
+
+    Schema Properties:
+
+        - attrs?: dict with field values of root plugin
+        - children?: array of schema type
+        - plugin_type: required only childs schema
+    """
     from cms.api import add_plugin
 
     attrs = schema.get("attrs", None)
@@ -43,24 +51,3 @@ def template_plugin_generator(obj, schema):
 
         if len(item_schema.get("children", [])) > 0:
             yield from template_plugin_generator(plugin, item_schema)
-
-
-# def get_classes(self):
-#         classes = super().get_classes()
-
-#         if self.attributes:
-#             padding = self.attributes.get("padding")
-#             if padding and len(padding) > 0:
-#                 classes += list(map(self.format_padding, padding))
-
-#         return classes
-
-#     def format_padding(self, property):
-#         if (
-#             property["side"] == "x"
-#             and property["spacing"] != "0"
-#             and property["spacing"] != "auto"
-#         ):
-#             return f"p{property['side']}-sm-{property['spacing']} p{property['side']}-{int(property['spacing']) - 1}"
-
-#         return f"p{property['side']}-{property['spacing']}"

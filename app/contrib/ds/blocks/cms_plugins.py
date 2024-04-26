@@ -1,9 +1,10 @@
+from importlib import import_module
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
 from .forms import BlockForm, BlockTemplateForm
-from .models import Block, BlockElement, BlockLayout
-from .utils import to_padding_css
+from .models import Block, BlockLayout
+from .utils import to_padding_css, template_plugin_generator
 
 
 @plugin_pool.register_plugin
@@ -119,3 +120,13 @@ class BlockPlugin(CMSPluginBase):
         context["css_styles"] = ";".join(css_styles)
 
         return super().render(context, instance, placeholder)
+
+    def save_model(self, request, obj, form, change):
+        super().save_model(request, obj, form, change)
+
+        if not change and form.cleaned_data["template"]:
+            module_template = import_module(
+                f"contrib.ds.blocks.schemas.{form.cleaned_data['template']}"
+            )
+
+            all(template_plugin_generator(obj, module_template.schema))
