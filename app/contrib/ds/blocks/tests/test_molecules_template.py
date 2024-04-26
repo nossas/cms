@@ -181,11 +181,38 @@ def test_utils_template_by_schema_with_complex_children(mocker, plugin):
         ),
     ]
 
+
 @pytest.mark.django_db
-@mock.patch.object(Block, 'save')
+@mock.patch.object(Block, "save")
 def test_utils_template_update_objects(block_save_mock, plugin):
     from ..utils import template_plugin_generator
 
-    all(template_plugin_generator(obj=plugin, schema={"attrs": {"layout": BlockLayout.flex}}))
+    all(
+        template_plugin_generator(
+            obj=plugin, schema={"attrs": {"layout": BlockLayout.flex}}
+        )
+    )
 
     assert block_save_mock.called == True
+
+
+@pytest.mark.django_db
+def test_utils_template_keep_attributes_when_update_object(plugin):
+    from ..utils import template_plugin_generator
+
+    plugin.attributes = {"background_color": "#c7c7c7"}
+    plugin.save()
+
+    all(
+        template_plugin_generator(
+            obj=plugin,
+            schema={
+                "attrs": {
+                    "layout": BlockLayout.flex,
+                    "attributes": {"alignment": "center"},
+                }
+            },
+        )
+    )
+
+    assert plugin.attributes == {"background_color": "#c7c7c7", "alignment": "center"}

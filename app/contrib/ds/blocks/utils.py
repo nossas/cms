@@ -22,7 +22,10 @@ def template_plugin_generator(obj, schema):
     attrs = schema.get("attrs", None)
     if attrs and len(attrs.keys()) > 0:
         for field_name in attrs.keys():
-            setattr(obj, field_name, attrs[field_name])
+            if field_name == "attributes":
+                obj.attributes.update(attrs[field_name])
+            else:
+                setattr(obj, field_name, attrs[field_name])
         obj.save()
 
     children = schema.pop("children", [])
