@@ -19,7 +19,13 @@ def to_padding_css(padding):
 def template_plugin_generator(obj, schema):
     from cms.api import add_plugin
 
-    children = schema.pop("children")
+    attrs = schema.get("attrs", None)
+    if attrs and len(attrs.keys()) > 0:
+        for field_name in attrs.keys():
+            setattr(obj, field_name, attrs[field_name])
+        obj.save()
+
+    children = schema.pop("children", [])
 
     for item_schema in children:
         plugin = add_plugin(

@@ -1,5 +1,6 @@
 # from unittest.mock import patch
 import pytest
+import mock
 from unittest.mock import call
 
 # from django.test.client import RequestFactory
@@ -9,7 +10,7 @@ from cms import api
 # from cms.test_utils.testcases import CMSTestCase
 # from cms.plugin_rendering import ContentRenderer
 
-# from ..cms_plugins import BlockPlugin
+from ..models import Block, BlockLayout
 
 
 @pytest.fixture()
@@ -179,3 +180,12 @@ def test_utils_template_by_schema_with_complex_children(mocker, plugin):
             **item2_child["attrs"],
         ),
     ]
+
+@pytest.mark.django_db
+@mock.patch.object(Block, 'save')
+def test_utils_template_update_objects(block_save_mock, plugin):
+    from ..utils import template_plugin_generator
+
+    all(template_plugin_generator(obj=plugin, schema={"attrs": {"layout": BlockLayout.flex}}))
+
+    assert block_save_mock.called == True
