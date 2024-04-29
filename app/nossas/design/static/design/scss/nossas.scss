@@ -253,6 +253,16 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
 }
 
 // Carousel / Slider
+
+.slider {
+    .carousel-item {
+        img.img-fluid {
+            margin: 0 auto;
+            object-fit: cover;
+        }
+    }
+}
+
 .slider-footer {
     display: flex;
     justify-content: center;
