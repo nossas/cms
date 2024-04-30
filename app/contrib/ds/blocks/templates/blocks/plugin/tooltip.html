@@ -1,0 +1,8 @@
+{% load static %}
+
+<div class="tooltip">{% include "blocks/plugin/tooltip.svg" %}
+    <div class="tooltip-content{% if direction %} tooltip-content-{{direction}}{% endif %}">
+      <p>{{ message }}</p>
+      <img src="{% static 'ds/imgs/tooltips/'|add:image|add:'.png' %}" />
+    </div>
+</div>

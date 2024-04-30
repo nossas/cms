@@ -1,4 +1,6 @@
 from importlib import import_module
+from django.utils.translation import gettext_lazy as _
+
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
@@ -24,17 +26,25 @@ class BlockPlugin(CMSPluginBase):
             },
         ),
         (
-            "Setup",
+            _("Estrutura"),
+            {"fields": (("element", "layout", "is_container"),)},
+        ),
+        (
+            None,
             {
                 "fields": (
-                    ("element", "layout", "background_color"),
-                    "is_container",
-                    "padding",
+                    (
+                        "background_color",
+                        "padding_top",
+                        "padding_bottom",
+                        "padding_left",
+                        "padding_right",
+                    ),
                 )
             },
         ),
         (
-            "Attributes",
+            _("Atributos"),
             {"fields": ("size", "gap", "alignment", "direction", "wrap", "fill")},
         ),
     )

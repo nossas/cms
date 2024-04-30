@@ -1,0 +1,229 @@
+// @import "./typography.scss";
+
+.colM > h2 {
+    display: none;
+}
+
+form {
+    // --ds-font-family-body: "Helvetica Neue";
+    --ds-color-gray-200: rgba(233, 236, 239, 1);
+    --ds-color-gray-400: rgba(206, 212, 218, 1);
+    --ds-color-gray-600: rgba(108, 117, 125, 1);
+    --ds-color-gray-700: rgba(73, 80, 87, 1);
+
+    --ds-font-size-xs: 14px;
+    --ds-font-size-sm: 16px;
+}
+
+fieldset.module {
+    padding-bottom: 8px !important;
+    margin-bottom: 40px;
+    border-bottom: 1px solid var(--ds-color-gray-400);
+
+    &:last-child {
+        border: none;
+    }
+
+    h2 {
+        font-size: var(--ds-font-size-xs);
+        color: var(--ds-color-gray-600);
+        font-weight: 400;
+        border: none;
+    }
+}
+
+.form-row-flex {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    padding-bottom: 32px;
+    margin-bottom: 32px;
+    border-bottom: 1px solid var(--ds-color-gray-200);
+
+    &:last-child {
+        border: none;
+        margin-bottom: 0;
+    }
+
+    .field-padding {
+        grid-column: 2 / span 2;
+    }
+}
+
+.form-radio, .field-custom-radio-widget, .field-padding-widget {
+    margin-top: 12px;
+}
+
+.form-check {
+    display: flex;
+
+    .form-check-label {
+        font-size: var(--ds-font-size-sm);
+        text-transform: none;
+    }
+
+    .form-check-input:checked + .form-check-label {
+        svg {
+            rect[fill="#ADB5BD"], path[fill="#ADB5BD"] {
+                fill: rgba(108, 117, 125, 1);
+            }
+            rect[stroke="#DEE2E6"] {
+                stroke: rgba(108, 117, 125, 1);
+            }
+        }
+    }
+}
+
+.help-text {
+    // font-family: var(--ds-font-family-body);
+    color: var(--ds-color-gray-700);
+    font-size: var(--ds-font-size-xs);
+    display: block;
+}
+
+.field {
+    flex: 1;
+
+    .form-label {
+        font-size: var(--ds-font-size-sm);
+        text-transform: none;
+        color: var(--dca-gray-darker) !important;
+        font-weight: 700 !important;
+    }
+
+    .form-control, input[type="number"], select {
+        margin-top: 12px !important;
+    }
+
+    input[type="number"] {
+        width: 63px !important;
+        min-width: 63px !important;
+    }
+}
+
+.field-custom-radio-widget {
+    display: flex;
+    gap: 10px;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+
+    .tooltip-content {
+        gap: 8px;
+        display: none;
+        min-width: 320px;
+        padding: 12px;
+        border-radius: 6px;
+        background-color: white;
+        box-shadow: 0px 1.25px 4px 0px rgba(16, 24, 40, 0.25);
+
+        /* Position the tooltip text - see examples below! */
+        position: absolute;
+        z-index: 1;
+    }
+
+    .tooltip-content-right {
+        top: -5px;
+        right: 105%;
+    }
+
+    &:hover {
+        .tooltip-content {
+            display: flex;
+        }
+    }
+}
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: flex !important;
+    margin-left: 0 !important;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+    width: 32px;
+    height: 16px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 12px;
+    width: 12px;
+    left: 4px;
+    bottom: 2px;
+    background-color: white;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+}
+
+input:checked + .slider {
+    background-color: #2196f3;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(12px);
+    -ms-transform: translateX(12px);
+    transform: translateX(12px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.switch-label {
+    font-size: var(--ds-font-size-sm);
+    font-weight: normal;
+    margin-left: 15px;
+    line-height: 20px;
+    font-weight: 400;
+}
+
+.field-padding-widget {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    max-width: 300px;
+
+    select {
+        width: 63px !important;
+        min-width: 63px !important;
+        margin-top: 0 !important;
+    }
+
+    .field-padding-widget-middle {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+}

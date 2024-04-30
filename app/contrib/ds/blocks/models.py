@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 from cms.models import CMSPlugin
 
@@ -8,16 +9,19 @@ class AlignmentItems(models.TextChoices):
     center = "center", "Center"
     end = "end", "End"
 
+
 class FlexWrap(models.TextChoices):
     wrap = "wrap", "wrap"
     nowrap = "nowrap", "nowrap"
     wrapreverse = "wrap-reverse", "wrap-reverse"
+
 
 class FlexDirection(models.TextChoices):
     row = "row", "row"
     column = "column", "column"
     rowreverse = "row-reverse", "row-reverse"
     columnreverse = "column-reverse", "column-reverse"
+
 
 class ContainerSize(models.TextChoices):
     sm = "sm", "sm"
@@ -27,15 +31,16 @@ class ContainerSize(models.TextChoices):
     xxl = "xxl", "xxl"
     fluid = "fluid", "fluid"
 
+
 class BlockElement(models.TextChoices):
-    section = "section", "section"
-    div = "div", "div"
+    section = "section", _("Seção")
+    div = "div", _("Conteúdo")
 
 
 class BlockLayout(models.TextChoices):
-    block = "block", "block"
-    grid = "grid", "grid"
-    flex = "d-flex", "flex"
+    block = "block", _("Caixa")
+    grid = "grid", _("Em grade")
+    flex = "d-flex", _("Flexível")
 
 
 class BlockAbstractModel(models.Model):
@@ -53,12 +58,23 @@ class BlockAbstractModel(models.Model):
     """
 
     element = models.CharField(
-        max_length=9, choices=BlockElement.choices, default=BlockElement.div
+        verbose_name=_("Tipo de elemento"),
+        help_text=_("Escolha a estrutura do bloco"),
+        max_length=9,
+        choices=BlockElement.choices,
+        default=BlockElement.div,
     )
     layout = models.CharField(
-        max_length=6, choices=BlockLayout.choices, default=BlockLayout.block
+        verbose_name=_("Layout"),
+        help_text=_("Defina como o conteúdo será disposto"),
+        max_length=6,
+        choices=BlockLayout.choices,
+        default=BlockLayout.block,
     )
-    is_container = models.BooleanField(default=False)
+    is_container = models.BooleanField(
+        verbose_name=_("Container"),
+        default=False,
+    )
     attributes = models.JSONField(null=True, blank=True)
 
     class Meta:
@@ -66,6 +82,9 @@ class BlockAbstractModel(models.Model):
 
 
 class Block(BlockAbstractModel, CMSPlugin):
-    
+
+    class Meta:
+        verbose_name = _("Bloco")
+
     def __str__(self):
         return f"{self.element}/{self.layout}"

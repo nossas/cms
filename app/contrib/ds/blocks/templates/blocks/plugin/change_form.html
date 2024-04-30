@@ -1,51 +1,238 @@
 {% extends "admin/cms/page/plugin/change_form.html" %}
+{% load i18n admin_urls static admin_modify sass_tags %}
 
-{% block admin_change_form_document_ready %}
+{% block extrastyle %}
 {{ block.super }}
-<script>
-["field-size", "field-direction", "field-wrap", "field-gap", "field-alignment", "field-fill"].forEach((name, i) => {
-    $("." + name).addClass("hidden");
-})
+<link href="{% sass_src 'ds/css/change_form.scss' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
 
-function changeLayout(value) {
-  if (value === "grid") {
-    $(".field-alignment").removeClass("hidden");
-    $(".field-gap").removeClass("hidden");
-    $(".field-direction").addClass("hidden");
-    $(".field-wrap").addClass("hidden");
-    $(".field-fill").addClass("hidden");
-  } else if (value === "d-flex") {
-    $(".field-alignment").removeClass("hidden");
-    $(".field-gap").removeClass("hidden");
-    $(".field-direction").removeClass("hidden");
-    $(".field-wrap").removeClass("hidden");
-    $(".field-fill").removeClass("hidden");
-  } else {
-    $(".field-alignment").addClass("hidden");
-    $(".field-gap").addClass("hidden");
-    $(".field-direction").addClass("hidden");
-    $(".field-wrap").addClass("hidden");
-    $(".field-fill").addClass("hidden");
-  }
-}
+{% block content %}
+<div id="content-main">
+  {% block object-tools %}
+  {% if change and not is_popup %}
+    <ul class="object-tools">
+      {% block object-tools-items %}
+        {% change_form_object_tools %}
+      {% endblock %}
+    </ul>
+  {% endif %}
+  {% endblock %}
+  <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}{% if form_url %}action="{{ form_url }}" {% endif %}method="post" id="{{ opts.model_name }}_form" novalidate>{% csrf_token %}{% block form_top %}{% endblock %}
+    <div>
+    {% if is_popup %}<input type="hidden" name="{{ is_popup_var }}" value="1">{% endif %}
+    {% if to_field %}<input type="hidden" name="{{ to_field_var }}" value="{{ to_field }}">{% endif %}
+    {% if save_on_top %}{% block submit_buttons_top %}{% submit_row %}{% endblock %}{% endif %}
+    {% if errors %}
+        <p class="errornote">
+        {% blocktranslate count counter=errors|length %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktranslate %}
+        </p>
+        {{ adminform.form.non_field_errors }}
+    {% endif %}
 
-function changeElement(value) {
-  if (value) {
-    $(".field-size").removeClass("hidden");
-  } else {
-    $(".field-size").addClass("hidden");
-  }
-}
+    {% comment %} <fieldset class="fieldset module aligned">
+      <div class="form-row-flex">
+        {% with field=adminform.form.template %}
+        <div class="field field-{{field.name}}">
+          <label class="form-label">{{ field.label }}</label>
+          <span class="help-text">{{ field.help_text }}</span>
+          {{field}}
+        </div>
+        {% endwith %}
+      </div>
+    </fieldset> {% endcomment %}
 
-$('form [name="layout"]').on("change", function(evt) {
-  changeLayout(evt.target.value);
-});
+    {% comment %} Estrutura {% endcomment %}
+    <fieldset class="fieldset module aligned border">
+      <h2>Estrutura</h2>
+      <div class="form-row-flex">
+        {% with field=adminform.form.element %}
+        <div class="field field-{{field.name}}">
+          <label class="form-label">{{ field.label }}</label>
+          <span class="help-text">{{ field.help_text }}</span>
+          {% include "blocks/plugin/radio_field.html" with field=field %}
+        </div>
+        {% endwith %}
+        {% with field=adminform.form.layout %}
+        <div class="field field-{{field.name}}">
+          <label class="form-label">{{ field.label }}</label>
+          <span class="help-text">{{ field.help_text }}</span>
+          {% include "blocks/plugin/radio_field.html" with field=field %}
+        </div>
+        {% endwith %}
+        {% with field=adminform.form.is_container field2=adminform.form.size %}
+        <div class="field field-{{field.name}}">
+          <label class="form-label">{{ field.label }} {% include "blocks/plugin/tooltip.html" with message="Ative esta opção para definir a largura máxima do conteúdo nesta seção. Se desativado, o conteúdo ocupará toda largura." image="container" direction="right" %}</label>
+          <label class="switch">
+            <input type="checkbox" name="{{field.name}}"{% if field.value %} checked{% endif %}>
+            <span class="slider round"></span>
+            <span class="switch-label">Limitar largura da página</span>
+          </label>
 
-$('form [name="is_container"]').on("change", function(evt) {
-  changeElement($(evt.target).prop("checked"));
-});
+          <div class="field-{{field2.name}}">
+            {{field2}}
+          </div>
+        </div>
+        {% endwith %}
+      </div>
+      <div class="form-row-flex">
+        {% with field=adminform.form.background_color %}
+        <div class="field field-{{field.name}}">
+          <label class="form-label">{{ field.label }}</label>
+          <span class="help-text">{{ field.help_text }}</span>
+          {{field}}
+        </div>
+        {% endwith %}
+        {% comment %} Espaçamento {% endcomment %}
+        <div class="field field-padding">
+          <label class="form-label">Espaçamentos</label>
+          <span class="help-text">Defina os espaçamentos internos ou use o padrão</span>
+          <div class="field-padding-widget">
+            {{ adminform.form.padding_top }}
+            <div class="field-padding-widget-middle">
+              {{ adminform.form.padding_left }}
+              <img src="{% static 'ds/imgs/padding.png' %}" />
+              {{ adminform.form.padding_right }}
+            </div>
+            {{ adminform.form.padding_bottom }}
+          </div>
+        </div>
+      </div>
+    </fieldset>
+    
+    <fieldset class="fieldset module aligned">
+      <h2>Atributos</h2>
+      <div class="form-row-flex">
+        {% with field=adminform.form.gap %}
+        <div class="field field-{{field.name}}">
+          <label class="form-label">{{ field.label }}</label>
+          <span class="help-text">{{ field.help_text }}</span>
+          {{field}}
+        </div>
+        {% endwith %}
+        {% with field=adminform.form.alignment %}
+        <div class="field field-{{field.name}}">
+          <label class="form-label">{{ field.label }}</label>
+          <span class="help-text">{{ field.help_text }}</span>
+          <div class="field-custom-radio-widget">
+            {% for choice in field.field.choices %}
+            <div class="form-check">
+              <input class="form-check-input hidden" type="radio" id="{{field.name}}_{{choice.0}}" name="{{field.name}}" value="{{choice.0}}"{% if field.value == choice.0 %} checked{% endif %} />
+              <label class="form-check-label" for="{{field.name}}_{{choice.0}}">
+                {% if choice.0 %}{% include 'blocks/plugin/align_'|add:choice.0|add:'.svg' %}{% else %}{% include 'blocks/plugin/none.svg' %}{% endif %}
+              </label>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        {% endwith %}
+      </div>
+      <div class="form-row-flex">
+        {% with field=adminform.form.direction %}
+        <div class="field field-{{field.name}}">
+          <label class="form-label">{{ field.label }}</label>
+          <span class="help-text">{{ field.help_text }}</span>
+          <div class="field-custom-radio-widget">
+          {% for choice in field.field.choices %}
+          <div class="form-check">
+            <input class="form-check-input hidden" type="radio" id="{{field.name}}_{{choice.0}}" name="{{field.name}}" value="{{choice.0}}"{% if field.value == choice.0 %} checked{% endif %} />
+            <label class="form-check-label" for="{{field.name}}_{{choice.0}}">
+              {% if choice.0 %}{% include 'blocks/plugin/direction_'|add:choice.0|add:'.svg' %}{% else %}{% include 'blocks/plugin/none.svg' %}{% endif %}
+            </label>
+          </div>
+          {% endfor %}
+          </div>
+        </div>
+        {% endwith %}
+        {% with field=adminform.form.wrap %}
+        <div class="field field-{{field.name}}">
+          <label class="form-label">{{ field.label }}</label>
+          <span class="help-text">{{ field.help_text }}</span>
+          <div class="field-custom-radio-widget">
+          {% for choice in field.field.choices %}
+          <div class="form-check">
+            <input class="form-check-input hidden" type="radio" id="{{field.name}}_{{choice.0}}" name="{{field.name}}" value="{{choice.0}}"{% if field.value == choice.0 %} checked{% endif %} />
+            <label class="form-check-label" for="{{field.name}}_{{choice.0}}">
+              {% if choice.0 %}{% include 'blocks/plugin/'|add:choice.0|add:'.svg' %}{% else %}{% include 'blocks/plugin/none.svg' %}{% endif %}
+            </label>
+          </div>
+          {% endfor %}
+          </div>
+        </div>
+        {% endwith %}
+      </div>
+    </fieldset>
 
-changeElement($('form [name="is_container"]').prop("checked"));
-changeLayout($('form [name="layout"]').val());
-</script>
+    {% comment %} {% block field_sets %}
+    {% for fieldset in adminform %}
+      {% include "admin/includes/fieldset.html" %}
+    {% endfor %}
+    {% endblock %}
+    {% block after_field_sets %}{% endblock %}
+
+    {% block inline_field_sets %}
+    {% for inline_admin_formset in inline_admin_formsets %}
+        {% include inline_admin_formset.opts.template %}
+    {% endfor %}
+    {% endblock %}
+
+    {% block after_related_objects %}{% endblock %} {% endcomment %}
+
+    {% block submit_buttons_bottom %}{% submit_row %}{% endblock %}
+
+    {% block admin_change_form_document_ready %}
+    {{ block.super }}
+    <script>
+    ["field-size", "field-direction", "field-wrap", "field-gap", "field-alignment", "field-fill"].forEach((name, i) => {
+        $("." + name).addClass("hidden");
+    })
+    
+    function changeLayout(value) {
+      if (value === "grid") {
+        $(".field-alignment").removeClass("hidden");
+        $(".field-gap").removeClass("hidden");
+        $(".field-direction").addClass("hidden");
+        $(".field-wrap").addClass("hidden");
+        $(".field-fill").addClass("hidden");
+      } else if (value === "d-flex") {
+        $(".field-alignment").removeClass("hidden");
+        $(".field-gap").removeClass("hidden");
+        $(".field-direction").removeClass("hidden");
+        $(".field-wrap").removeClass("hidden");
+        $(".field-fill").removeClass("hidden");
+      } else {
+        $(".field-alignment").addClass("hidden");
+        $(".field-gap").addClass("hidden");
+        $(".field-direction").addClass("hidden");
+        $(".field-wrap").addClass("hidden");
+        $(".field-fill").addClass("hidden");
+      }
+    }
+    
+    function changeElement(value) {
+      if (value) {
+        $(".field-size").removeClass("hidden");
+      } else {
+        $(".field-size").addClass("hidden");
+      }
+    }
+    
+    $('form [name="layout"]').on("change", function(evt) {
+      changeLayout(evt.target.value);
+    });
+    
+    $('form [name="is_container"]').on("change", function(evt) {
+      changeElement($(evt.target).prop("checked"));
+    });
+    
+    changeElement($('form [name="is_container"]').prop("checked"));
+    changeLayout($('form [name="layout"]:checked').val());
+    </script>
+    {% endblock %}
+
+    {# JavaScript for prepopulated fields #}
+    {% prepopulated_fields_js %}
+
+    </div>
+  </form>
+</div>
 {% endblock %}
