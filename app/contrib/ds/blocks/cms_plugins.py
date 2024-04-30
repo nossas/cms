@@ -119,11 +119,13 @@ class BlockPlugin(CMSPluginBase):
         if background_color:
             css_styles.append(f"background-color:{background_color}")
 
-        padding = (
-            instance.attributes.get("padding", None) if instance.attributes else None
-        )
-        if padding:
-            css_classes.extend(to_padding_css(padding))
+        padding_attrs = [("padding_top", "pt"), ("padding_bottom", "pb"), ("padding_left", "pl"), ("padding_right", "pr")]
+
+        for key, attr in padding_attrs:
+            p = instance.attributes.get(key, None) if instance.attributes else None
+            if p:
+                css_classes.append(f"{attr}-{p}")
+
 
         context["html_element"] = html_element
         context["css_classes"] = " ".join(css_classes)

@@ -37,36 +37,32 @@ class BackgroundFormMixin(EntangledModelFormMixin):
         entangled_fields = {"attributes": ["background_color"]}
 
 
+SPACINGS = [
+    ("0", "0", ),
+    ("1", "1", ),
+    ("2", "2", ),
+    ("3", "3", ),
+    ("4", "4", ),
+    ("5", "5", ),
+    ("auto", "auto", ),
+]
+
+
 class SpacingFormMixin(EntangledModelFormMixin):
-    padding = JSONFormField(
-        schema={
-            "type": "array",
-            "items": {
-                "type": "dict",
-                "keys": {
-                    "side": {
-                        "type": "string",
-                        "choices": [
-                            {"title": "*-top", "value": "t"},
-                            {"title": "*-right", "value": "r"},
-                            {"title": "*-bottom", "value": "b"},
-                            {"title": "*-left", "value": "l"},
-                            {"title": "*-left & *-right", "value": "x"},
-                            {"title": "*-top & *-bottom", "value": "y"},
-                        ],
-                    },
-                    "spacing": {
-                        "type": "string",
-                        "choices": ["0", "1", "2", "3", "4", "5", "auto"],
-                    },
-                },
-            },
-        },
-        required=False,
-    )
+    padding_top = forms.ChoiceField(choices=SPACINGS)
+    padding_bottom = forms.ChoiceField(choices=SPACINGS)
+    padding_right = forms.ChoiceField(choices=SPACINGS)
+    padding_left = forms.ChoiceField(choices=SPACINGS)
 
     class Meta:
-        entangled_fields = {"attributes": ["padding"]}
+        entangled_fields = {
+            "attributes": [
+                "padding_top",
+                "padding_bottom",
+                "padding_right",
+                "padding_left",
+            ]
+        }
 
 
 class GridFormMixin(EntangledModelFormMixin):
@@ -147,4 +143,5 @@ class BlockTemplateForm(BlockForm):
 
         self.fields["element"].initial = BlockElement.section
         self.fields["is_container"].initial = True
-        self.fields["padding"].initial = [{"side": "y", "spacing": "4"}]
+        self.fields["padding_top"].initial = '4'
+        self.fields["padding_bottom"].initial = '4'

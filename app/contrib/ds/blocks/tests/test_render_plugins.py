@@ -155,14 +155,14 @@ class BlockPluginsTestCase(CMSTestCase):
             placeholder=self.placeholder,
             plugin_type="BlockPlugin",
             language=self.language,
-            attributes={"padding": [{"side": "y", "spacing": "2"}]},
+            attributes={"padding_top": "2", "padding_bottom": "2"},
         )
         model_instance.full_clean()
 
         renderer = ContentRenderer(request=RequestFactory())
 
         html = renderer.render_plugin(model_instance, {})
-        expected_html = "<div class='py-2'></div>"
+        expected_html = "<div class='pt-2 pb-2'></div>"
 
         self.assertHTMLEqual(html, expected_html)
 
@@ -353,6 +353,9 @@ class BlockPluginsTestCase(CMSTestCase):
 
         self.assertEqual(form.fields["element"].initial, BlockElement.section)
         self.assertEqual(form.fields["is_container"].initial, True)
-        self.assertListEqual(
-            form.fields["padding"].initial, [{"side": "y", "spacing": "4"}]
+        self.assertEqual(
+            form.fields["padding_top"].initial, "4"
+        )
+        self.assertEqual(
+            form.fields["padding_bottom"].initial, "4"
         )
