@@ -29,7 +29,8 @@
         {{ adminform.form.non_field_errors }}
     {% endif %}
 
-    {% comment %} <fieldset class="fieldset module aligned">
+    {% if not change and not adminform.form.template.is_hidden %}
+    <fieldset class="fieldset module aligned">
       <div class="form-row-flex">
         {% with field=adminform.form.template %}
         <div class="field field-{{field.name}}">
@@ -39,10 +40,11 @@
         </div>
         {% endwith %}
       </div>
-    </fieldset> {% endcomment %}
+    </fieldset>
+    {% endif %}
 
     {% comment %} Estrutura {% endcomment %}
-    <fieldset class="fieldset module aligned border">
+    <fieldset class="fieldset module aligned">
       <h2>Estrutura</h2>
       <div class="form-row-flex">
         {% with field=adminform.form.element %}

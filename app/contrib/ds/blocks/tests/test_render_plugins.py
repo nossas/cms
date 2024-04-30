@@ -316,9 +316,14 @@ class BlockPluginsTestCase(CMSTestCase):
             target=target,
         )
 
+        request = RequestFactory()
+        get_request = request.get(
+            "/admin/cms/page/add-plugin/?placeholder_id=3&plugin_type=BlockPlugin&cms_path=/&plugin_language=pt-br&plugin_parent=1"
+        )
+
         instance, plugin = obj.get_plugin_instance()
 
-        form = plugin.get_form(None, obj, change=False, **{})
+        form = plugin.get_form(get_request, None, change=False, **{})
 
         self.assertEqual(form.__name__, BlockForm.__name__)
 
@@ -329,9 +334,14 @@ class BlockPluginsTestCase(CMSTestCase):
             language=self.language,
         )
 
+        request = RequestFactory()
+        get_request = request.get(
+            "/admin/cms/page/add-plugin/?placeholder_id=3&plugin_type=BlockPlugin&cms_path=/&plugin_language=pt-br"
+        )
+
         instance, plugin = obj.get_plugin_instance()
 
-        form = plugin.get_form(None, None, change=False, **{})
+        form = plugin.get_form(get_request, None, change=False, **{})
 
         self.assertEqual(form.__name__, BlockTemplateForm.__name__)
 
@@ -353,9 +363,5 @@ class BlockPluginsTestCase(CMSTestCase):
 
         self.assertEqual(form.fields["element"].initial, BlockElement.section)
         self.assertEqual(form.fields["is_container"].initial, True)
-        self.assertEqual(
-            form.fields["padding_top"].initial, "4"
-        )
-        self.assertEqual(
-            form.fields["padding_bottom"].initial, "4"
-        )
+        self.assertEqual(form.fields["padding_top"].initial, "4")
+        self.assertEqual(form.fields["padding_bottom"].initial, "4")

@@ -50,7 +50,7 @@ class BlockPlugin(CMSPluginBase):
     )
 
     def get_form(self, request, obj=None, change=False, **kwargs):
-        if not change and (not obj or not obj.parent):
+        if not change and not request.GET.get("plugin_parent"):
             return BlockTemplateForm
 
         return BlockForm
