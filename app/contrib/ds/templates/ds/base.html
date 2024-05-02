@@ -4,6 +4,10 @@
 {% block head_css %}
 {% compress css %}
 <style type="text/x-scss">
+    {% if request.current_site.theme.scss %}
+    {{request.current_site.theme.scss|safe}}
+    {% endif %}
+
     @import 'ds/css/theme.scss';
 </style>
 {% endcompress %}
