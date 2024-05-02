@@ -47,12 +47,12 @@ INSTALLED_APPS = [
     "djangocms_video",
     "djangocms_snippet",
     # Third apps
-    "captcha",
     "colorfield",
+    "compressor",
+    "captcha",
     "django_select2",
     "django_jsonform",
     "djangocms_form_builder",
-    "sass_processor",
     # My Apps
     "contrib.bonde",
     "contrib.ga",
@@ -74,9 +74,11 @@ ROOT_URLCONF = "adp.urls"
 # Static files
 
 STATICFILES_FINDERS += [
-    "sass_processor.finders.CssFinder",
+    #
+    "compressor.finders.CompressorFinder",
 ]
 
+COMPRESS_PRECOMPILERS = (("text/x-scss", "django_libsass.SassCompiler"),)
 
 # DjangoCMS
 # Configurações inicials

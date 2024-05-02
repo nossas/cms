@@ -1,8 +1,12 @@
 {% extends "ga/base.html" %}
-{% load sass_tags %}
+{% load static compress %}
 
 {% block head_css %}
-<link href="{% sass_src 'ds/css/theme.scss' %}" rel="stylesheet" type="text/css" />
+{% compress css %}
+<style type="text/x-scss">
+    @import 'ds/css/theme.scss';
+</style>
+{% endcompress %}
 {% endblock head_css %}
 {% block head_js %}
 {% comment %} TODO: Change to split modules bootstrap {% endcomment %}

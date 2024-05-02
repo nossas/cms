@@ -1,9 +1,13 @@
 {% extends "admin/cms/page/plugin/change_form.html" %}
-{% load i18n admin_urls static admin_modify sass_tags %}
+{% load i18n admin_urls static admin_modify compress %}
 
 {% block extrastyle %}
 {{ block.super }}
-<link href="{% sass_src 'ds/css/change_form.scss' %}" rel="stylesheet" type="text/css" />
+{% compress css %}
+<style type="text/x-scss">
+  @import 'ds/css/change_form.scss';
+</style>
+{% endcompress %}
 {% endblock %}
 
 {% block content %}
