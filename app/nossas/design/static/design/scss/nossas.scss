@@ -253,6 +253,16 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
 }
 
 // Carousel / Slider
+
+.slider {
+    .carousel-item {
+        img.img-fluid {
+            margin: 0 auto;
+            object-fit: cover;
+        }
+    }
+}
+
 .slider-footer {
     display: flex;
     justify-content: center;
@@ -621,13 +631,8 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
 
 // Headline
 .headline {
-    position: relative;
     height: 72px;
     margin-bottom: 32px;
-
-    & h2 {
-        margin: 0;
-    }
 
     & img {
         margin-right: 23px;
@@ -636,8 +641,31 @@ $carousel-control-next-icon-bg: url("data:image/svg+xml,<svg width='41' height='
     .headline-content {
         display: flex;
         align-items: center;
-        position: absolute;
-        left: -30px;
+
+        .headline-content-text {
+            & h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+                margin: 0;
+                padding-top: 13px;
+            }
+
+            & h1:only-child, 
+            h2:only-child,
+            h3:only-child,
+            h4:only-child,
+            h5:only-child,
+            h6:only-child {
+                padding-top: 0;
+            }
+
+            & p {
+                margin: 0;
+            }
+        }
     }
 }
 

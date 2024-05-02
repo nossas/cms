@@ -3,6 +3,10 @@
 <div class="headline {{ instance.classes}}">
   <div class="headline-content">
     <img src="{% static instance.get_full_path_icon %}" alt="{{ instance.title }}" />
-    <h2>{{ instance.title }}</h2>
+    <div class="headline-content-text">
+      {% for plugin in instance.child_plugin_instances %}
+        {% render_plugin plugin %}
+      {% endfor %}
+    </div>
   </div>
 </div>
