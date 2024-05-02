@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.sites.models import Site
 
-from colorfield.widgets import ColorWidget
 from django_jsonform.models.fields import JSONField
 
 COLORS = [
@@ -28,12 +27,90 @@ THEME_COLORS = [
     "warning",
     "info",
     "light",
-    "dark"
+    "dark",
+]
+
+FONT_FAMILIES = [
+    "Abel",
+    "Anton",
+    "Archivo Narrow",
+    "Arvo",
+    "Asap",
+    "Baloo Bhai",
+    "Bebas Neue Pro",
+    "Bitter",
+    "Bree Serif",
+    "Capriola",
+    "Cabin",
+    "Catamaran",
+    "Crimson Text",
+    "Cuprum",
+    "David Libre",
+    "Dosis",
+    "Droid Sans",
+    "Exo",
+    "Exo 2",
+    "Fira Sans",
+    "Fjalla One",
+    "Francois One",
+    "Gidugu",
+    "Hind",
+    "Inconsolata",
+    "Indie Flower",
+    "Josefin Sans",
+    "Karla",
+    "Lalezar",
+    "Lato",
+    "Libre Baskerville",
+    "Lobster",
+    "Lora",
+    "Merriweather Sans",
+    "Montserrat",
+    "Muli",
+    "Noto Serif",
+    "Nunito Sans",
+    "Open Sans",
+    "Open Sans Condensed",
+    "Oswald",
+    "Oxygen",
+    "PT Sans",
+    "PT Serif",
+    "Pacifico",
+    "Playfair Display",
+    "Poiret One",
+    "Poppins",
+    "Quicksand",
+    "Raleway",
+    "Roboto",
+    "Roboto Condensed",
+    "Roboto Mono",
+    "Roboto Slab",
+    "Ruslan Display",
+    "Signika",
+    "Slabo 27px",
+    "Source Sans Pro",
+    "Titillium Web",
+    "Ubuntu",
+    "Ubuntu Condensed",
+    "Varela Round",
+    "Yanone Kaffeesatz",
 ]
 
 SCSS_SCHEMA = {
     "type": "dict",
     "keys": {
+        "typography": {
+            "type": "dict",
+            "keys": {
+                "heading": {
+                    "type": "string",
+                    "choices": FONT_FAMILIES,
+                    "required": False,
+                },
+                "body": {"type": "string", "choices": FONT_FAMILIES, "required": False},
+            },
+            "required": False,
+        },
         "colors": {
             "type": "array",
             "items": {
@@ -43,6 +120,7 @@ SCSS_SCHEMA = {
                     "value": {"type": "string", "format": "color"},
                 },
             },
+            "required": False,
         },
         "themeColors": {
             "type": "array",
@@ -50,10 +128,11 @@ SCSS_SCHEMA = {
                 "type": "dict",
                 "keys": {
                     "themeColorName": {"type": "string", "choices": THEME_COLORS},
-                    "value": {"type": "string", "choices": COLORS}
-                }
-            }
-        }
+                    "value": {"type": "string", "choices": COLORS},
+                },
+            },
+            "required": False,
+        },
     },
 }
 
@@ -83,11 +162,20 @@ class Theme(models.Model):
             f"${x['themeColorName']}: {x['value']};"
             for x in self.scss_json.get("themeColors", [])
         ]
-        
+
         # merge colors
         scss_text += "\n".join(colors)
         # merge theme colors
         scss_text += "\n".join(theme_colors)
-        
-        print(scss_text)
+
+        # typography
+        typography = self.scss_json.get("typography", {})
+        if typography.get("heading"):
+            scss_text += (
+                "\n" + "$headings-font-family: " + typography.get("heading") + ";"
+            )
+
+        if typography.get("body"):
+            scss_text += "\n" + "$font-family-base: " + typography.get("body") + ";"
+
         return scss_text
