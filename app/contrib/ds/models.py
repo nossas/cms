@@ -1,7 +1,23 @@
 from django.db import models
 from django.contrib.sites.models import Site
+from django.utils.html import mark_safe
 
 from django_jsonform.models.fields import JSONField
+
+DEFAULT_COLORS = {
+    "blue": "#0d6efd",
+    "indigo": "#6610f2",
+    "purple": "#6f42c1",
+    "pink": "#d63384",
+    "red": "#dc3545",
+    "orange": "#fd7e14",
+    "yellow": "#ffc107",
+    "green": "#198754",
+    "teal": "#20c997",
+    "cyan": "#0dcaf0",
+    "black": "#000",
+    "white": "#fff"
+}
 
 COLORS = [
     "blue",
@@ -152,30 +168,35 @@ class Theme(models.Model):
         scss_text = ""
 
         # define colors
-        colors = [
-            f"${x['colorName']}: {x['value']};"
-            for x in self.scss_json.get("colors", [])
-        ]
+        colors = {}
+        for x in self.scss_json.get("colors", []):
+            colors[x.get("colorName")] = x.get("value")
 
+        colors = {
+            **DEFAULT_COLORS,
+            **colors
+        }
+        
+        scss_text += "\n".join([f"${colorName}: {colors[colorName]} !default;" for colorName in colors.keys()])
+        
         # define theme colors
         theme_colors = [
-            f"${x['themeColorName']}: {x['value']};"
+            f"${x['themeColorName']}: ${x['value']} !default;"
             for x in self.scss_json.get("themeColors", [])
         ]
 
-        # merge colors
-        scss_text += "\n".join(colors)
         # merge theme colors
-        scss_text += "\n".join(theme_colors)
+        if len(theme_colors) > 0:
+            scss_text += "\n" + "\n".join(theme_colors)
 
         # typography
         typography = self.scss_json.get("typography", {})
         if typography.get("heading"):
             scss_text += (
-                "\n" + "$headings-font-family: " + typography.get("heading") + ";"
+                "\n" + "$headings-font-family: " + typography.get("heading") + " !default;"
             )
 
         if typography.get("body"):
-            scss_text += "\n" + "$font-family-base: " + typography.get("body") + ";"
+            scss_text += "\n" + "$font-family-base: " + typography.get("body") + " !default;"
 
-        return scss_text
+        return mark_safe(scss_text)

@@ -1,11 +1,11 @@
 {% extends "ga/base.html" %}
-{% load static compress %}
+{% load static compress ds_tags %}
 
 {% block head_css %}
 {% compress css %}
 <style type="text/x-scss">
-    {% if request.current_site.theme.scss %}
-    {{request.current_site.theme.scss|safe}}
+    {% if request.current_site.theme.scss_json %}
+    {{ request.current_site.theme.scss }}
     {% endif %}
 
     @import 'ds/css/theme.scss';
