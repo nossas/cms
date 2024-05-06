@@ -1,0 +1,160 @@
+@font-face {
+    font-family: 'Linear Grotesk';
+    src: local('Linear Grotesk SemiBold'), local('LinearGrotesk-SemiBold'),
+        url('/static/ds/fonts/LinearGrotesk/LinearGrotesk-SemiBold.woff2') format('woff2'),
+        url('/static/ds/fonts/LinearGrotesk/LinearGrotesk-SemiBold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Linear Grotesk';
+    src: local('Linear Grotesk Regular'), local('LinearGrotesk-Regular'),
+        url('/static/ds/fonts/LinearGrotesk/LinearGrotesk-Regular.woff2') format('woff2'),
+        url('/static/ds/fonts/LinearGrotesk/LinearGrotesk-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Linear Grotesk';
+    src: local('Linear Grotesk Black'), local('LinearGrotesk-Black'),
+        url('/static/ds/fonts/LinearGrotesk/LinearGrotesk-Black.woff2') format('woff2'),
+        url('/static/ds/fonts/LinearGrotesk/LinearGrotesk-Black.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Linear Grotesk';
+    src: local('Linear Grotesk Medium'), local('LinearGrotesk-Medium'),
+        url('/static/ds/fonts/LinearGrotesk/LinearGrotesk-Medium.woff2') format('woff2'),
+        url('/static/ds/fonts/LinearGrotesk/LinearGrotesk-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Linear Grotesk';
+    src: local('Linear Grotesk Light Italic'), local('LinearGrotesk-LightItalic'),
+        url('/static/ds/fonts/LinearGrotesk/LinearGrotesk-LightItalic.woff2') format('woff2'),
+        url('/static/ds/fonts/LinearGrotesk/LinearGrotesk-LightItalic.woff') format('woff');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Linear Grotesk';
+    src: local('Linear Grotesk Thin'), local('LinearGrotesk-Thin'),
+        url('/static/ds/fonts/LinearGrotesk/LinearGrotesk-Thin.woff2') format('woff2'),
+        url('/static/ds/fonts/LinearGrotesk/LinearGrotesk-Thin.woff') format('woff');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Linear Grotesk';
+    src: local('Linear Grotesk Black Italic'), local('LinearGrotesk-BlackItalic'),
+        url('/static/ds/fonts/LinearGrotesk/LinearGrotesk-BlackItalic.woff2') format('woff2'),
+        url('/static/ds/fonts/LinearGrotesk/LinearGrotesk-BlackItalic.woff') format('woff');
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Linear Grotesk';
+    src: local('Linear Grotesk Medium Italic'), local('LinearGrotesk-MediumItalic'),
+        url('/static/ds/fonts/LinearGrotesk/LinearGrotesk-MediumItalic.woff2') format('woff2'),
+        url('/static/ds/fonts/LinearGrotesk/LinearGrotesk-MediumItalic.woff') format('woff');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Linear Grotesk ExLight';
+    src: local('Linear Grotesk ExtraLight Italic'), local('LinearGrotesk-ExtraLightItalic'),
+        url('/static/ds/fonts/LinearGrotesk/LinearGrotesk-ExtraLightItalic.woff2') format('woff2'),
+        url('/static/ds/fonts/LinearGrotesk/LinearGrotesk-ExtraLightItalic.woff') format('woff');
+    font-weight: 200;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Linear Grotesk';
+    src: local('Linear Grotesk Italic'), local('LinearGrotesk-Italic'),
+        url('/static/ds/fonts/LinearGrotesk/LinearGrotesk-Italic.woff2') format('woff2'),
+        url('/static/ds/fonts/LinearGrotesk/LinearGrotesk-Italic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Linear Grotesk';
+    src: local('Linear Grotesk Thin Italic'), local('LinearGrotesk-ThinItalic'),
+        url('/static/ds/fonts/LinearGrotesk/LinearGrotesk-ThinItalic.woff2') format('woff2'),
+        url('/static/ds/fonts/LinearGrotesk/LinearGrotesk-ThinItalic.woff') format('woff');
+    font-weight: 100;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Linear Grotesk';
+    src: local('Linear Grotesk SemiBold Italic'), local('LinearGrotesk-SemiBoldItalic'),
+        url('/static/ds/fonts/LinearGrotesk/LinearGrotesk-SemiBoldItalic.woff2') format('woff2'),
+        url('/static/ds/fonts/LinearGrotesk/LinearGrotesk-SemiBoldItalic.woff') format('woff');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Linear Grotesk';
+    src: local('Linear Grotesk ExtraLight'), local('LinearGrotesk-ExtraLight'),
+        url('/static/ds/fonts/LinearGrotesk/LinearGrotesk-ExtraLight.woff2') format('woff2'),
+        url('/static/ds/fonts/LinearGrotesk/LinearGrotesk-ExtraLight.woff') format('woff');
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Linear Grotesk';
+    src: local('Linear Grotesk Bold'), local('LinearGrotesk-Bold'),
+        url('/static/ds/fonts/LinearGrotesk/LinearGrotesk-Bold.woff2') format('woff2'),
+        url('/static/ds/fonts/LinearGrotesk/LinearGrotesk-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Linear Grotesk';
+    src: local('Linear Grotesk Bold Italic'), local('LinearGrotesk-BoldItalic'),
+        url('/static/ds/fonts/LinearGrotesk/LinearGrotesk-BoldItalic.woff2') format('woff2'),
+        url('/static/ds/fonts/LinearGrotesk/LinearGrotesk-BoldItalic.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Linear Grotesk';
+    src: local('Linear Grotesk Light'), local('LinearGrotesk-Light'),
+        url('/static/ds/fonts/LinearGrotesk/LinearGrotesk-Light.woff2') format('woff2'),
+        url('/static/ds/fonts/LinearGrotesk/LinearGrotesk-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
