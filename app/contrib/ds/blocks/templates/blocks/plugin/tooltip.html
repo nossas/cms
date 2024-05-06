@@ -3,6 +3,6 @@
 <div class="tooltip">{% include "blocks/plugin/tooltip.svg" %}
     <div class="tooltip-content{% if direction %} tooltip-content-{{direction}}{% endif %}">
       <p>{{ message }}</p>
-      <img src="{% static 'ds/imgs/tooltips/'|add:image|add:'.png' %}" />
+      {% if image %}<img src="{% static 'ds/imgs/tooltips/'|add:image|add:'.png' %}" />{% endif %}
     </div>
 </div>

@@ -65,14 +65,46 @@
         <div class="field field-{{field.name}}">
           <label class="form-label">{{ field.label }}</label>
           <span class="help-text">{{ field.help_text }}</span>
-          {% include "blocks/plugin/radio_field.html" with field=field %}
+          <div class="form-radio">
+            {% with choice=field.field.choices.0 %}
+            <div class="form-check">
+              <input class="form-check-input" type="radio" id="{{field.name}}_{{choice.0}}" name="{{field.name}}" value="{{choice.0}}"{% if field.value == choice.0 %} checked{% endif %} />
+              <label class="form-check-label" for="{{field.name}}_{{choice.0}}">{{ choice.1 }} {% include "blocks/plugin/tooltip.html" with message="Organize seu conteúdo em blocos lógicos e distintos. Use seções para criar grandes segmentos na sua página." direction="left" image="section" %}</label>
+            </div>
+            {% endwith %}
+            {% with choice=field.field.choices.1 %}
+            <div class="form-check">
+              <input class="form-check-input" type="radio" id="{{field.name}}_{{choice.0}}" name="{{field.name}}" value="{{choice.0}}"{% if field.value == choice.0 %} checked{% endif %} />
+              <label class="form-check-label" for="{{field.name}}_{{choice.0}}">{{ choice.1 }} {% include "blocks/plugin/tooltip.html" with message="Crie partes específicas dentro de suas seções. Use para delinear espaços para textos, imagens ou outros tipos de elementos." direction="left" image="content" %}</label>
+            </div>
+            {% endwith %}
+          </div>
         </div>
         {% endwith %}
         {% with field=adminform.form.layout %}
         <div class="field field-{{field.name}}">
           <label class="form-label">{{ field.label }}</label>
           <span class="help-text">{{ field.help_text }}</span>
-          {% include "blocks/plugin/radio_field.html" with field=field %}
+          <div class="form-radio">
+            {% with choice=field.field.choices.0 %}
+            <div class="form-check">
+              <input class="form-check-input" type="radio" id="{{field.name}}_{{choice.0}}" name="{{field.name}}" value="{{choice.0}}"{% if field.value == choice.0 %} checked{% endif %} />
+              <label class="form-check-label" for="{{field.name}}_{{choice.0}}">{{ choice.1 }} {% include "blocks/plugin/tooltip.html" with message="Utilize para empilhar conteúdos verticalmente, um após o outro. Ideal para seções com fluxo de leitura contínuo, como artigos." direction="left" image="box" %}</label>
+            </div>
+            {% endwith %}
+            {% with choice=field.field.choices.1 %}
+            <div class="form-check">
+              <input class="form-check-input" type="radio" id="{{field.name}}_{{choice.0}}" name="{{field.name}}" value="{{choice.0}}"{% if field.value == choice.0 %} checked{% endif %} />
+              <label class="form-check-label" for="{{field.name}}_{{choice.0}}">{{ choice.1 }} {% include "blocks/plugin/tooltip.html" with message="Organize conteúdos de forma alinhada em linhas e colunas. Perfeito conteúdos em uma disposição estruturada." direction="left" image="grid" %}</label>
+            </div>
+            {% endwith %}
+            {% with choice=field.field.choices.2 %}
+            <div class="form-check">
+              <input class="form-check-input" type="radio" id="{{field.name}}_{{choice.0}}" name="{{field.name}}" value="{{choice.0}}"{% if field.value == choice.0 %} checked{% endif %} />
+              <label class="form-check-label" for="{{field.name}}_{{choice.0}}">{{ choice.1 }} {% include "blocks/plugin/tooltip.html" with message="Ative para um layout dinâmico que se adapta ao espaço disponível. " direction="left" image="flex" %}</label>
+            </div>
+            {% endwith %}
+            </div>
         </div>
         {% endwith %}
         {% with field=adminform.form.is_container field2=adminform.form.size %}
@@ -100,7 +132,7 @@
         {% endwith %}
         {% comment %} Espaçamento {% endcomment %}
         <div class="field field-padding">
-          <label class="form-label">Espaçamentos</label>
+          <label class="form-label">Espaçamentos {% include "blocks/plugin/tooltip.html" with message="Ajuste o 'Espaçamento Interno' para controlar o espaço entre o conteúdo de um elemento e suas bordas." direction="left" image="padding" %}</label>
           <span class="help-text">Defina os espaçamentos internas ou utilize o padrão automático</span>
           <div class="field-padding-widget">
             {{ adminform.form.padding_top }}
@@ -120,7 +152,7 @@
       <div class="form-row-flex">
         {% with field=adminform.form.gap %}
         <div class="field field-{{field.name}}">
-          <label class="form-label">{{ field.label }}</label>
+          <label class="form-label">{{ field.label }} {% include "blocks/plugin/tooltip.html" with message="Define o espaço entre os elementos dentro do bloco. Aumentar o 'gap' cria mais distância entre os elementos." image="gap" direction="left" %}</label>
           <span class="help-text">{{ field.help_text }}</span>
           <div class="field-gap-widget">
             {{field}}
@@ -130,7 +162,7 @@
         {% endwith %}
         {% with field=adminform.form.alignment %}
         <div class="field field-{{field.name}}">
-          <label class="form-label">{{ field.label }}</label>
+          <label class="form-label">{{ field.label }} {% include "blocks/plugin/tooltip.html" with message="Controla como os elementos são alinhados dentro do bloco. Funciona de acordo com a direção 'Coluna' e 'Linha'" direction="left" %}</label>
           <span class="help-text">{{ field.help_text }}</span>
           <div class="field-custom-radio-widget">
             {% for choice in field.field.choices %}
@@ -148,7 +180,7 @@
       <div class="form-row-flex">
         {% with field=adminform.form.direction %}
         <div class="field field-{{field.name}}">
-          <label class="form-label">{{ field.label }}</label>
+          <label class="form-label">{{ field.label }} {% include "blocks/plugin/tooltip.html" with message="Escolha a direção na qual os elementos serão organizados dentro do bloco." direction="left" %}</label>
           <span class="help-text">{{ field.help_text }}</span>
           <div class="field-custom-radio-widget">
           {% for choice in field.field.choices %}
@@ -164,7 +196,7 @@
         {% endwith %}
         {% with field=adminform.form.wrap %}
         <div class="field field-{{field.name}}">
-          <label class="form-label">{{ field.label }}</label>
+          <label class="form-label">{{ field.label }} {% include "blocks/plugin/tooltip.html" with message="Define se os elementos devem permanecer em uma única linha ou podem ser quebrados em várias linhas. Ative para permitir que os elementos se ajustem automaticamente ao espaço disponível." direction="left" %}</label>
           <span class="help-text">{{ field.help_text }}</span>
           <div class="field-custom-radio-widget">
           {% for choice in field.field.choices %}
