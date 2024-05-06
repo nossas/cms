@@ -3,6 +3,7 @@ django-environ
 psycopg2-binary
 django-select2
 django-compressor==4.4
+django-sass-processor==1.4
 django-entangled==0.5.4
 django-formtools
 django-recaptcha==3
@@ -35,3 +36,8 @@ dnspython>=2.4.2
 django-haystack==3.2.1
 django-translated-fields>=0.12.0
 git+https://github.com/nossas/djangocms-form-builder.git@feature/add-input-fields-on-form-plugin
+# Tests
+pytest
+pytest-django
+pytest-cov
+mock

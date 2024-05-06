@@ -1,0 +1,8 @@
+{% load cms_tags %}
+<div class="card">
+    {% if instance.image %}<img src={{instance.image.url}} class="card-img-top" alt="{{instance.image}}" />{% endif %}
+    {% if instance.header_title %}<div class="card-header">{{instance.header_title}}</div>{% endif %}
+    <div class="card-body">
+        {% for plugin in instance.child_plugin_instances %}{% render_plugin plugin %}{% endfor %}
+    </div>
+</div>

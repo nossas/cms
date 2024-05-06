@@ -1,0 +1,44 @@
+{% load cms_tags sekizai_tags static %}
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        {% block meta %}
+        <meta name="description" content="{{ request.current_page.metadataextension.subtitle }}" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="{{ request.current_page.metadataextension.title }}" />
+        <meta property="og:description" content="{{ request.current_page.metadataextension.subtitle }}" />
+        {% comment %} TODO: Testar compartilhamento de imagem {% endcomment %}
+        {% comment %} <meta property="og:image" content="{{ request.current_page.metadataextension.image.url }}" /> {% endcomment %}
+        {% endblock meta %}
+        {% block canonical_url %}
+        <link rel="canonical" href="{{ request.build_absolute_uri }}" />
+        <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+        {% endblock canonical_url %}
+        {% block fb_meta %}{% endblock fb_meta %}
+      
+        {% block favicon %}
+        {% if request.current_page.iconextension %}
+        <link rel="shortcut icon" href="{{ request.current_page.iconextension.favicon.url }}" type="image/x-icon">
+        {% else %}
+        <link rel="shortcut icon" href="{% static 'images/favicon-32.png' %}" type="image/x-icon">
+        {% endif %}
+        {% endblock %}
+        <title>{% block title %}{% page_attribute "page_title" %}{% endblock %}</title>
+
+        {% block head_css %}{% endblock %}
+        {% block head_js %}{% endblock %}
+
+        {% render_block "css" %}
+    </head>
+    <body>
+        {% cms_toolbar %}
+        {% block navbar %}{% placeholder navbar %}{% endblock navbar %}
+        {% block content %}{% placeholder content %}{% endblock content %}
+        {% block footer %}{% placeholder footer %}{% endblock footer %}
+        {% render_block "js" %}
+        {% block footer_js %}{% endblock %}
+        {% if ga %}{% include "ga/snippets/ga.html" with GTAG_ID=ga.uuid %}{% endif %}
+    </body>
+</html>

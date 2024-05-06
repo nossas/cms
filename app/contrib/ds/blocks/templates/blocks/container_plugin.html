@@ -1,0 +1,6 @@
+{% load cms_tags %}
+{% if css_styles %}<div style="{{css_styles}}">{% endif %}
+<{{html_element}}{% if css_classes %} class="{{css_classes}}"{% endif %}>
+  {% for plugin in instance.child_plugin_instances %}{% render_plugin plugin %}{% endfor %}
+</{{html_element}}>
+{% if css_styles %}</div>{% endif %}

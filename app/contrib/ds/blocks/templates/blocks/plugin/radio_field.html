@@ -1,0 +1,8 @@
+<div class="form-radio">
+{% for choice in field.field.choices %}
+<div class="form-check">
+  <input class="form-check-input" type="radio" id="{{field.name}}_{{choice.0}}" name="{{field.name}}" value="{{choice.0}}"{% if field.value == choice.0 %} checked{% endif %} />
+  <label class="form-check-label" for="{{field.name}}_{{choice.0}}">{{ choice.1 }}</label>
+</div>
+{% endfor %}
+</div>

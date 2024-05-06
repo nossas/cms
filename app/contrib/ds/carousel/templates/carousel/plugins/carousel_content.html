@@ -1,0 +1,9 @@
+{% load cms_tags %}
+<div class="carousel-item{% if is_active %} active{% endif %}">
+    {% for plugin in instance.child_plugin_instances %}{% render_plugin plugin %}{% endfor %}
+    {% if instance.caption_html %}
+    <div class="carousel-caption d-md-block d-none">
+        {{ instance.caption_html|safe }}
+    </div>
+    {% endif %}
+</div>

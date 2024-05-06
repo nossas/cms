@@ -22,7 +22,6 @@ INSTALLED_APPS = (
     ]
     + INSTALLED_APPS
     + [
-        "django_jsonform",
         "tag_fields",
         # Build Bootstrap SCSS
         "compressor",
