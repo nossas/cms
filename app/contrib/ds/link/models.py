@@ -22,6 +22,12 @@ class Target(models.TextChoices):
     _top = "_top"
 
 
+class Styled(models.TextChoices):
+    default = "", "Default"
+    outline = "outline", "Outline"
+    inverted = "inverted", "Inverted"
+
+
 class Button(CMSPlugin):
     label = models.CharField(max_length=100)
     link_target = models.CharField(
@@ -29,6 +35,9 @@ class Button(CMSPlugin):
     )
     context = models.CharField(
         max_length=30, choices=Context.choices, null=True, blank=True
+    )
+    styled = models.CharField(
+        max_length=30, choices=Styled.choices, null=True, blank=True
     )
     external_link = models.CharField(
         # verbose_name=_('Link externo'),

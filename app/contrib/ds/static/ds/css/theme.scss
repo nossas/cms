@@ -12,19 +12,25 @@ $navbar-dark-color: rgba($white, 1);
 
 @import "../../bootstrap/scss/bootstrap.scss";
 
+@each $color, $value in $theme-colors {
+  .btn-inverted-#{$color} {
+    @include button-variant(color-contrast($value), color-contrast($value), $value);
+  }
+}
+
 .d-flex {
-    // reuse in flex gap to setup grid
-    gap: var(--bs-gap);
+  // reuse in flex gap to setup grid
+  gap: var(--bs-gap);
 }
 
 .d-flex-fill {
-    > * {
-        flex: 1 1 auto;
-    }
+  > * {
+    flex: 1 1 auto;
+  }
 }
 
 img {
-    display: flex;
+  display: flex;
 }
 
 #cms-top + nav {

@@ -16,8 +16,16 @@ class ButtonPlugin(CMSPluginBase):
         css_classes = ["btn"]
         # css_styles = []
 
+        styled = "btn"
+
+        if instance.styled:
+            styled += f"-{instance.styled}"
+
         if instance.context:
-            css_classes.append(f"btn-{instance.context}")
+            styled += f"-{instance.context}"
+
+        if styled != "btn":
+            css_classes.append(styled)
 
         context["css_classes"] = " ".join(css_classes)
         # context["css_styles"] = ";".join(css_styles)

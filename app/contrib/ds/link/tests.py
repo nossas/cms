@@ -5,7 +5,7 @@ from cms.plugin_rendering import ContentRenderer
 from cms.test_utils.testcases import CMSTestCase
 
 # from .cms_plugins import GridPlugin, ColumnPlugin
-from .models import Context, Target
+from .models import Context, Target, Styled
 
 
 # Create your tests here.
@@ -120,6 +120,84 @@ class LinkPluginsTestCase(CMSTestCase):
         html = renderer.render_plugin(plugin, {})
         expected_html = (
             f"<a class='btn' href='{self.home.get_absolute_url()}'>Enviar</a>"
+        )
+
+        self.assertHTMLEqual(html, expected_html)
+
+    def test_button_styled_outline(self):
+        plugin = add_plugin(
+            placeholder=self.placeholder,
+            plugin_type="ButtonPlugin",
+            language=self.language,
+            label="Enviar",
+            styled=Styled.outline
+        )
+        plugin.full_clean()
+
+        renderer = ContentRenderer(request=RequestFactory())
+
+        html = renderer.render_plugin(plugin, {})
+        expected_html = (
+            f"<a class='btn btn-outline'>Enviar</a>"
+        )
+
+        self.assertHTMLEqual(html, expected_html)
+
+    def test_button_context_styled_outline(self):
+        plugin = add_plugin(
+            placeholder=self.placeholder,
+            plugin_type="ButtonPlugin",
+            language=self.language,
+            label="Enviar",
+            context=Context.primary,
+            styled=Styled.outline
+        )
+        plugin.full_clean()
+
+        renderer = ContentRenderer(request=RequestFactory())
+
+        html = renderer.render_plugin(plugin, {})
+        expected_html = (
+            f"<a class='btn btn-outline-primary'>Enviar</a>"
+        )
+
+        self.assertHTMLEqual(html, expected_html)
+
+    def test_button_styled_inverted(self):
+        plugin = add_plugin(
+            placeholder=self.placeholder,
+            plugin_type="ButtonPlugin",
+            language=self.language,
+            label="Enviar",
+            styled=Styled.inverted
+        )
+        plugin.full_clean()
+
+        renderer = ContentRenderer(request=RequestFactory())
+
+        html = renderer.render_plugin(plugin, {})
+        expected_html = (
+            f"<a class='btn btn-inverted'>Enviar</a>"
+        )
+
+        self.assertHTMLEqual(html, expected_html)
+
+    def test_button_context_styled_inverted(self):
+        plugin = add_plugin(
+            placeholder=self.placeholder,
+            plugin_type="ButtonPlugin",
+            language=self.language,
+            label="Enviar",
+            context=Context.primary,
+            styled=Styled.inverted
+        )
+        plugin.full_clean()
+
+        renderer = ContentRenderer(request=RequestFactory())
+
+        html = renderer.render_plugin(plugin, {})
+        expected_html = (
+            f"<a class='btn btn-inverted-primary'>Enviar</a>"
         )
 
         self.assertHTMLEqual(html, expected_html)
