@@ -34,21 +34,31 @@
     {% endif %}
 
     {% if not change and not adminform.form.template.is_hidden %}
-    <fieldset class="fieldset module aligned">
-      <div class="form-row-flex">
+    <fieldset class="fieldset module aligned border">
         {% with field=adminform.form.template %}
         <div class="field field-{{field.name}}">
           <label class="form-label">{{ field.label }}</label>
           <span class="help-text">{{ field.help_text }}</span>
-          {{field}}
+          <div class="field-radio-inline-widget">
+            {% for choice in field.field.choices %}
+            <div class="form-check">
+              <div class="form-check-text">
+                <input class="form-check-input" type="radio" id="{{field.name}}_{{choice.0}}" name="{{field.name}}" value="{{choice.0}}"{% if field.value == choice.0 %} checked{% endif %} />
+                {{ choice.1 }}
+              </div>
+              <label class="form-check-label" for="{{field.name}}_{{choice.0}}">
+                {% include 'blocks/plugin/template_'|add:choice.0|add:'.svg' %}
+              </label>
+            </div>
+            {% endfor %}
+          </div>
         </div>
         {% endwith %}
-      </div>
     </fieldset>
     {% endif %}
 
     {% comment %} Estrutura {% endcomment %}
-    <fieldset class="fieldset module aligned">
+    <fieldset class="fieldset module aligned border">
       <h2>Estrutura</h2>
       <div class="form-row-flex">
         {% with field=adminform.form.element %}
@@ -91,7 +101,7 @@
         {% comment %} Espaçamento {% endcomment %}
         <div class="field field-padding">
           <label class="form-label">Espaçamentos</label>
-          <span class="help-text">Defina os espaçamentos internos ou use o padrão</span>
+          <span class="help-text">Defina os espaçamentos internas ou utilize o padrão automático</span>
           <div class="field-padding-widget">
             {{ adminform.form.padding_top }}
             <div class="field-padding-widget-middle">
@@ -112,7 +122,10 @@
         <div class="field field-{{field.name}}">
           <label class="form-label">{{ field.label }}</label>
           <span class="help-text">{{ field.help_text }}</span>
-          {{field}}
+          <div class="field-gap-widget">
+            {{field}}
+            <img src="{% static 'ds/imgs/gap.png' %}" />
+          </div>
         </div>
         {% endwith %}
         {% with field=adminform.form.alignment %}
