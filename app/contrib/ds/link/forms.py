@@ -14,3 +14,8 @@ class ButtonForm(forms.ModelForm):
     class Meta:
         model = Button
         fields = "__all__"
+    
+    class Media:
+        js = [
+            "ds/js/btnpreview.js"
+        ]
