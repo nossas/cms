@@ -17,5 +17,5 @@ class ButtonForm(forms.ModelForm):
     
     class Media:
         js = [
-            "ds/js/btnpreview.js"
+            "ds/link/js/preview.js"
         ]

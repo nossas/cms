@@ -5,6 +5,7 @@ $(function () {
         const label = $('[name="label"]').val();
         const context = $('[name="context"]').val();
         const styled = $('[name="styled"]').val();
+        const size = $('[name="size"]').val();
 
         let newClass = "btn"
 
@@ -14,6 +15,10 @@ $(function () {
 
         if (context !== "") {
             newClass += "-" + context
+        }
+
+        if (size !== "") {
+            newClass += " btn-" + size
         }
 
         return '<div class="btn ' + newClass + '">' + label + '</div>'
@@ -28,6 +33,10 @@ $(function () {
     });
 
     $('[name="styled"]').on("change", function (evt) {
+        $('#btn-preview').html(mountPreviewHtml());
+    });
+
+    $('[name="size"]').on("change", function (evt) {
         $('#btn-preview').html(mountPreviewHtml());
     });
 

@@ -11,7 +11,7 @@ class ButtonPlugin(CMSPluginBase):
     model = Button
     form = ButtonForm
     render_template = "link/plugins/button.html"
-    change_form_template = "ds/plugin/change_form.html"
+    change_form_template = "link/admin/plugin/change_form.html"
     fieldsets = (
         (
             None,
@@ -30,7 +30,7 @@ class ButtonPlugin(CMSPluginBase):
             "Estilização",
             {
                 "fields": (
-                    ("context", "styled",),
+                    ("context", "styled", "size"),
                 )
             },
         ),
@@ -39,6 +39,9 @@ class ButtonPlugin(CMSPluginBase):
     def render(self, context, instance, placeholder):
         css_classes = ["btn"]
         # css_styles = []
+
+        if instance.size:
+            css_classes.append(f"btn-{instance.size}")
 
         styled = "btn"
 
