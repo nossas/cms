@@ -11,6 +11,30 @@ class ButtonPlugin(CMSPluginBase):
     model = Button
     form = ButtonForm
     render_template = "link/plugins/button.html"
+    change_form_template = "ds/plugin/change_form.html"
+    fieldsets = (
+        (
+            None,
+            {
+                "fields": (
+                    "label",
+                    (
+                        "internal_link",
+                        "external_link",
+                        "link_target"
+                    ),
+                )
+            },
+        ),
+        (
+            "Estilização",
+            {
+                "fields": (
+                    ("context", "styled",),
+                )
+            },
+        ),
+    )
 
     def render(self, context, instance, placeholder):
         css_classes = ["btn"]
