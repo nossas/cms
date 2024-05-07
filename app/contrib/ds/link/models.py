@@ -28,6 +28,12 @@ class Styled(models.TextChoices):
     inverted = "inverted", "Inverted"
 
 
+class Size(models.TextChoices):
+    small = "sm", "Small"
+    default = "", "Medium"
+    large = "lg", "Large"
+
+
 class Button(CMSPlugin):
     label = models.CharField(max_length=100)
     link_target = models.CharField(
@@ -38,6 +44,9 @@ class Button(CMSPlugin):
     )
     styled = models.CharField(
         max_length=30, choices=Styled.choices, null=True, blank=True
+    )
+    size = models.CharField(
+        max_length=30, choices=Size.choices, null=True, blank=True,
     )
     external_link = models.CharField(
         # verbose_name=_('Link externo'),

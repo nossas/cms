@@ -5,7 +5,7 @@ from cms.plugin_rendering import ContentRenderer
 from cms.test_utils.testcases import CMSTestCase
 
 # from .cms_plugins import GridPlugin, ColumnPlugin
-from .models import Context, Target, Styled
+from .models import Context, Target, Styled, Size
 
 
 # Create your tests here.
@@ -198,6 +198,25 @@ class LinkPluginsTestCase(CMSTestCase):
         html = renderer.render_plugin(plugin, {})
         expected_html = (
             f"<a class='btn btn-inverted-primary'>Enviar</a>"
+        )
+
+        self.assertHTMLEqual(html, expected_html)
+
+    def test_button_change_size(self):
+        plugin = add_plugin(
+            placeholder=self.placeholder,
+            plugin_type="ButtonPlugin",
+            language=self.language,
+            label="Enviar",
+            size=Size.small
+        )
+        plugin.full_clean()
+
+        renderer = ContentRenderer(request=RequestFactory())
+
+        html = renderer.render_plugin(plugin, {})
+        expected_html = (
+            f"<a class='btn btn-sm'>Enviar</a>"
         )
 
         self.assertHTMLEqual(html, expected_html)
