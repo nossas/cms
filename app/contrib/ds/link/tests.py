@@ -5,7 +5,7 @@ from cms.plugin_rendering import ContentRenderer
 from cms.test_utils.testcases import CMSTestCase
 
 # from .cms_plugins import GridPlugin, ColumnPlugin
-from .models import Context, Target, Styled, Size
+from .models import Context, Target, Styled, Size, IconPosition
 
 
 # Create your tests here.
@@ -220,3 +220,45 @@ class LinkPluginsTestCase(CMSTestCase):
         )
 
         self.assertHTMLEqual(html, expected_html)
+    
+    def test_render_icon_button(self):
+        plugin = add_plugin(
+            placeholder=self.placeholder,
+            plugin_type="ButtonPlugin",
+            language=self.language,
+            label="Enviar",
+            icon="map-fill"
+        )
+        plugin.full_clean()
+
+        renderer = ContentRenderer(request=RequestFactory())
+
+        html = renderer.render_plugin(plugin, {})
+        expected_html = (
+            f"<a class='btn'><i class='bi bi-map-fill'></i> Enviar</a>"
+        )
+
+        self.assertHTMLEqual(html, expected_html)
+
+    def test_render_icon_button_position(self):
+        plugin = add_plugin(
+            placeholder=self.placeholder,
+            plugin_type="ButtonPlugin",
+            language=self.language,
+            label="Enviar",
+            icon="map-fill",
+            icon_position=IconPosition.right
+        )
+        plugin.full_clean()
+
+        renderer = ContentRenderer(request=RequestFactory())
+
+        html = renderer.render_plugin(plugin, {})
+        expected_html = (
+            f"<a class='btn'>Enviar <i class='bi bi-map-fill'></i></a>"
+        )
+
+        self.assertHTMLEqual(html, expected_html)
+
+
+# <i class="bi bi-map-fill"></i>
