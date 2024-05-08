@@ -121,6 +121,7 @@ class BlockForm(
 
 class BlockTemplate(models.TextChoices):
     empty = "", "Vazio"
+    content_call_to_action = "content_call_to_action", "CTA"
     content_one_col = "content_one_col", "1 coluna"
     content_three_cols = "content_three_cols", "3 colunas"
     content_two_cols_6x6 = "content_two_cols_6x6", "2 colunas (6x6)"
