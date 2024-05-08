@@ -18,11 +18,7 @@ class ButtonPlugin(CMSPluginBase):
             {
                 "fields": (
                     "label",
-                    (
-                        "internal_link",
-                        "external_link",
-                        "link_target"
-                    ),
+                    ("internal_link", "external_link", "link_target"),
                 )
             },
         ),
@@ -31,6 +27,7 @@ class ButtonPlugin(CMSPluginBase):
             {
                 "fields": (
                     ("context", "styled", "size"),
+                    ("icon", "icon_position"),
                 )
             },
         ),

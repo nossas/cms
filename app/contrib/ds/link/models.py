@@ -34,6 +34,11 @@ class Size(models.TextChoices):
     large = "lg", "Large"
 
 
+class IconPosition(models.TextChoices):
+    left = "left", "Left"
+    right = "right", "Right"
+
+
 class Button(CMSPlugin):
     label = models.CharField(max_length=100)
     link_target = models.CharField(
@@ -46,7 +51,10 @@ class Button(CMSPlugin):
         max_length=30, choices=Styled.choices, null=True, blank=True
     )
     size = models.CharField(
-        max_length=30, choices=Size.choices, null=True, blank=True,
+        max_length=30,
+        choices=Size.choices,
+        null=True,
+        blank=True,
     )
     external_link = models.CharField(
         # verbose_name=_('Link externo'),
@@ -63,6 +71,14 @@ class Button(CMSPlugin):
         null=True,
         on_delete=models.SET_NULL,
         # help_text=_('Se fornecido, substitui o link externo.'),
+    )
+
+    icon = models.CharField(max_length=30, blank=True, null=True)
+    icon_position = models.CharField(
+        max_length=10,
+        choices=IconPosition.choices,
+        default=IconPosition.left,
+        blank=True,
     )
 
     @property
