@@ -40,4 +40,5 @@ git+https://github.com/nossas/djangocms-form-builder.git@feature/add-input-field
 pytest
 pytest-django
 pytest-cov
+pytest-mock
 mock
