@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.sites.models import Site
 from django.utils.html import mark_safe
 
+from cms.models import CMSPlugin
+from filer.fields.image import FilerImageField
 from django_jsonform.models.fields import JSONField
 
 DEFAULT_COLORS = {
@@ -16,7 +18,7 @@ DEFAULT_COLORS = {
     "teal": "#20c997",
     "cyan": "#0dcaf0",
     "black": "#000",
-    "white": "#fff"
+    "white": "#fff",
 }
 
 COLORS = [
@@ -172,13 +174,15 @@ class Theme(models.Model):
         for x in self.scss_json.get("colors", []):
             colors[x.get("colorName")] = x.get("value")
 
-        colors = {
-            **DEFAULT_COLORS,
-            **colors
-        }
-        
-        scss_text += "\n".join([f"${colorName}: {colors[colorName]} !default;" for colorName in colors.keys()])
-        
+        colors = {**DEFAULT_COLORS, **colors}
+
+        scss_text += "\n".join(
+            [
+                f"${colorName}: {colors[colorName]} !default;"
+                for colorName in colors.keys()
+            ]
+        )
+
         # define theme colors
         theme_colors = [
             f"${x['themeColorName']}: ${x['value']} !default;"
@@ -193,10 +197,21 @@ class Theme(models.Model):
         typography = self.scss_json.get("typography", {})
         if typography.get("heading"):
             scss_text += (
-                "\n" + "$headings-font-family: " + typography.get("heading") + " !default;"
+                "\n"
+                + "$headings-font-family: "
+                + typography.get("heading")
+                + " !default;"
             )
 
         if typography.get("body"):
-            scss_text += "\n" + "$font-family-base: " + typography.get("body") + " !default;"
+            scss_text += (
+                "\n" + "$font-family-base: " + typography.get("body") + " !default;"
+            )
 
         return mark_safe(scss_text)
+
+
+class Navbar(CMSPlugin):
+    brand = FilerImageField(on_delete=models.SET_NULL, null=True, blank=True)
+    title = models.CharField(max_length=120, null=True, blank=True)
+    context = models.CharField(max_length=30, choices=[(x, x) for x in THEME_COLORS])

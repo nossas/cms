@@ -5,6 +5,11 @@
 $enable-grid-classes: false;
 $enable-cssgrid: true;
 
+$spacer: 1.5rem;
+
+$navbar-padding-y: $spacer * .3;
+$navbar-dark-color: rgba($white, 1);
+
 @import "../../bootstrap/scss/bootstrap.scss";
 
 .d-flex {
@@ -20,4 +25,8 @@ $enable-cssgrid: true;
 
 img {
     display: flex;
+}
+
+#cms-top + nav {
+  margin-top: 46px;
 }
