@@ -84,7 +84,8 @@ COMPRESS_PRECOMPILERS = (("text/x-scss", "django_libsass.SassCompiler"),)
 # Configurações inicials
 
 CMS_TEMPLATES = [
-    ("ds/base.html", "Base Design System"),
+    ("ds/base.html", "[DS] Padrão"),
+    ("ds/base_navbar_footer.html", "[DS] Navbar + Footer"),
     # ("ga/base.html", "Base Google Analytics"),
 ]
 
