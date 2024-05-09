@@ -3,7 +3,7 @@ from django.utils.translation import gettext_lazy as _
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
-from .models import Navbar
+from .models import Navbar, Menu
 
 
 @plugin_pool.register_plugin
@@ -30,3 +30,25 @@ class FooterPlugin(CMSPluginBase):
     # model = Navbar
     render_template = "ds/plugins/footer.html"
     allow_children = True
+
+
+@plugin_pool.register_plugin
+class MenuPlugin(CMSPluginBase):
+    name = _("Menu")
+    model = Menu
+    render_template = "ds/plugins/menu.html"
+
+    def render(self, context, instance, placeholder):
+        context = super().render(context, instance, placeholder)
+        css_styles = []
+
+        if instance.color:
+            h = instance.color.lstrip("#")
+            rgba = "rgba(" + ",".join(tuple(str(int(h[i:i+2], 16)) for i in (0, 2, 4)))
+
+            css_styles.append(f"--bs-nav-link-color:{rgba},1)")
+            css_styles.append(f"--bs-nav-link-hover-color:{rgba},.75)")
+        
+        context["css_styles"] = ";".join(css_styles)
+        
+        return context

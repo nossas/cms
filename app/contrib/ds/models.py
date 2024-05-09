@@ -3,8 +3,9 @@ from django.contrib.sites.models import Site
 from django.utils.html import mark_safe
 
 from cms.models import CMSPlugin
-from filer.fields.image import FilerImageField
+from colorfield.fields import ColorField
 from django_jsonform.models.fields import JSONField
+from filer.fields.image import FilerImageField
 
 DEFAULT_COLORS = {
     "blue": "#0d6efd",
@@ -213,7 +214,17 @@ class Theme(models.Model):
         return mark_safe(scss_text)
 
 
+class NavbarAlignment(models.TextChoices):
+    start = "", "start"
+    center = "center", "center"
+    end = "flex-end", "end"
+
 class Navbar(CMSPlugin):
     brand = FilerImageField(on_delete=models.SET_NULL, null=True, blank=True)
     title = models.CharField(max_length=120, null=True, blank=True)
-    context = models.CharField(max_length=30, choices=[(x, x) for x in THEME_COLORS])
+    context = models.CharField(max_length=30, choices=[(x, x) for x in THEME_COLORS], null=True, blank=True)
+    alignment = models.CharField(max_length=30, choices=NavbarAlignment.choices, null=True, blank=True)
+
+
+class Menu(CMSPlugin):
+    color = ColorField(null=True, blank=True)

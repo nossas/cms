@@ -1,0 +1,4 @@
+{% load menu_tags %}
+<ul class="navbar-nav"{% if css_styles %} style="{{css_styles}}"{% endif %}>
+  {% show_menu 0 100 100 100 "ds/menu/bootstrap.html" %}
+</ul>
