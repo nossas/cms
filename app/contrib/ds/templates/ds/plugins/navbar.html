@@ -1,17 +1,15 @@
-{% load menu_tags %}
+{% load cms_tags %}
 
 <nav class="navbar navbar-expand-lg fixed-top {% if request.current_page.is_home %}bg-primary" style="--bs-bg-opacity: .75;" data-bs-theme="dark"{% else %}bg-primary" data-bs-theme="dark"{% endif %}>
     <div class="container">
       <a class="navbar-brand" href="/">
-          <img src="{% if instance.brand %}{{instance.brand.url}}{% else %}https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo.svg{% endif %}" alt="Logo" height="24" class="d-inline-block align-text-top">{% if instance.title %} Bootstrap{% endif %}
+          <img src="{% if instance.brand %}{{instance.brand.url}}{% else %}https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo.svg{% endif %}" alt="Logo" height="24" class="d-inline-block align-text-top">{% if instance.title %} {{ instance.title }}{% endif %}
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-          {% show_menu 0 100 100 100 "ds/menu/bootstrap.html" %}
-          </ul>
+      <div class="collapse navbar-collapse" id="navbarNav"{% if css_styles %} style="{{css_styles}}"{% endif %}>
+          {% for plugin in instance.child_plugin_instances %}{% render_plugin plugin %}{% endfor %}
       </div>
     </div>
 </nav>
