@@ -232,5 +232,10 @@ class Navbar(CMSPlugin):
     placement = models.CharField(max_length=30, choices=NavbarPlacement.choices, null=True, blank=True)
 
 
+class ActiveStyled(models.TextChoices):
+    default = "", "default"
+    underline = "underline", "underline"
+
 class Menu(CMSPlugin):
     color = ColorField(null=True, blank=True)
+    active_styled = models.CharField(max_length=30, choices=ActiveStyled.choices, null=True, blank=True)

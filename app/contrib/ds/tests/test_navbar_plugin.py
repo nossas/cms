@@ -54,7 +54,7 @@ class NavbarPluginTestCase(CMSTestCase):
         renderer = ContentRenderer(request=RequestFactory())
 
         html = renderer.render_plugin(plugin, {})
-        expected_html = f'<nav class="navbar navbar-expand-lg {NavbarPlacement.fix} bg-primary" data-bs-theme="dark">'
+        expected_html = f'<nav class="navbar navbar-expand-lg {NavbarPlacement.fixed} bg-primary" data-bs-theme="dark">'
 
         assert expected_html in html
 

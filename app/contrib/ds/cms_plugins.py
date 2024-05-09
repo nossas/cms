@@ -53,6 +53,10 @@ class MenuPlugin(CMSPluginBase):
 
             css_styles.append(f"--bs-nav-link-color:{rgba},1)")
             css_styles.append(f"--bs-nav-link-hover-color:{rgba},.75)")
+            if instance.active_styled:
+                css_styles.append(f"--bs-navbar-active-color:{rgba},1)")
+            else:
+                css_styles.append(f"--bs-navbar-active-color:{rgba},.75)")
         
         context["css_styles"] = ";".join(css_styles)
         

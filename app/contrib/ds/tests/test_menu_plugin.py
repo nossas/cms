@@ -1,4 +1,6 @@
 from django.test.client import RequestFactory
+from django.template import Context, Template
+from django.contrib.auth.models import AnonymousUser
 
 from cms.api import add_plugin, create_page
 from cms.plugin_rendering import ContentRenderer
@@ -11,11 +13,14 @@ class MenuPluginTestCase(CMSTestCase):
     def setUp(self):
         self.language = "pt-br"
         self.home = create_page(
-            title="home", template="ds/base.html", language=self.language
+            title="home",
+            template="ds/base.html",
+            language=self.language,
+            soft_root=True,
         )
         self.home.is_home = True
         self.home.save()
-        
+
         self.home.publish(self.language)
         self.placeholder = self.home.placeholders.get(slot="content")
         self.superuser = self.get_superuser()
@@ -36,6 +41,6 @@ class MenuPluginTestCase(CMSTestCase):
         renderer = ContentRenderer(request=RequestFactory())
 
         html = renderer.render_plugin(plugin, {})
-        expected_html = '<ul class="navbar-nav" style="--bs-nav-link-color:rgba(255,255,255,1);--bs-nav-link-hover-color:rgba(255,255,255,.75)"></ul>'
+        expected_html = '<ul id="menu-1" class="navbar-nav" style="--bs-nav-link-color:rgba(255,255,255,1);--bs-nav-link-hover-color:rgba(255,255,255,.75);--bs-navbar-active-color:rgba(255,255,255,.75)"></ul>'
 
         self.assertInHTML(expected_html, html)
