@@ -16,11 +16,16 @@ class NavbarPlugin(CMSPluginBase):
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
         css_styles = []
+        css_classes = ['navbar', 'navbar-expand-lg']
+
+        if instance.placement:
+            css_classes.append(f"{instance.placement}")
 
         if instance.alignment:
             css_styles.append(f"justify-content:{instance.alignment}")
 
         context["css_styles"] = ";".join(css_styles)
+        context["css_classes"] = " ".join(css_classes)
         return context
 
 

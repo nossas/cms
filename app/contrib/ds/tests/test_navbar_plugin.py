@@ -4,7 +4,7 @@ from cms.api import add_plugin, create_page
 from cms.plugin_rendering import ContentRenderer
 from cms.test_utils.testcases import CMSTestCase
 
-from ..models import NavbarAlignment
+from ..models import NavbarAlignment, NavbarPlacement
 
 
 # Create your tests here.
@@ -41,3 +41,51 @@ class NavbarPluginTestCase(CMSTestCase):
         expected_html = '<div class="collapse navbar-collapse" id="navbarNav" style="justify-content:flex-end"></div>'
 
         self.assertInHTML(expected_html, html)
+
+    def test_fixed_navbar(self):
+        plugin = add_plugin(
+            placeholder=self.placeholder,
+            plugin_type="NavbarPlugin",
+            language=self.language,
+            placement=NavbarPlacement.fixed
+        )
+        plugin.full_clean()
+
+        renderer = ContentRenderer(request=RequestFactory())
+
+        html = renderer.render_plugin(plugin, {})
+        expected_html = f'<nav class="navbar navbar-expand-lg {NavbarPlacement.fix} bg-primary" data-bs-theme="dark">'
+
+        assert expected_html in html
+
+    def test_default_navbar(self):
+        plugin = add_plugin(
+            placeholder=self.placeholder,
+            plugin_type="NavbarPlugin",
+            language=self.language,
+        )
+        plugin.full_clean()
+
+        renderer = ContentRenderer(request=RequestFactory())
+
+        html = renderer.render_plugin(plugin, {})
+        expected_html = '<nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">'
+
+        assert expected_html in html
+
+    def test_sticky_navbar(self):
+        plugin = add_plugin(
+            placeholder=self.placeholder,
+            plugin_type="NavbarPlugin",
+            language=self.language,
+            placement=NavbarPlacement.sticky,
+        )
+        plugin.full_clean()
+
+        renderer = ContentRenderer(request=RequestFactory())
+
+        html = renderer.render_plugin(plugin, {})
+        expected_html = '<nav class="navbar navbar-expand-lg sticky-top bg-primary" data-bs-theme="dark">'
+
+        assert expected_html in html
+

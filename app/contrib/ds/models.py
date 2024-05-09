@@ -219,11 +219,17 @@ class NavbarAlignment(models.TextChoices):
     center = "center", "center"
     end = "flex-end", "end"
 
+class NavbarPlacement(models.TextChoices):
+    default = "", "default"
+    fixed = "fixed-top", "fixed"
+    sticky = "sticky-top", "sticky"
+
 class Navbar(CMSPlugin):
     brand = FilerImageField(on_delete=models.SET_NULL, null=True, blank=True)
     title = models.CharField(max_length=120, null=True, blank=True)
     context = models.CharField(max_length=30, choices=[(x, x) for x in THEME_COLORS], null=True, blank=True)
     alignment = models.CharField(max_length=30, choices=NavbarAlignment.choices, null=True, blank=True)
+    placement = models.CharField(max_length=30, choices=NavbarPlacement.choices, null=True, blank=True)
 
 
 class Menu(CMSPlugin):
