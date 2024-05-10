@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     "contrib.ds.blocks",
     "contrib.ds.card",
     "contrib.ds.carousel",
+    "contrib.ds.counter",
     "contrib.ds.grid",
     "contrib.ds.link",
     # Aplicativos por site

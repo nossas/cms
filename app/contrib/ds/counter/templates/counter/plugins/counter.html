@@ -1,0 +1,13 @@
+{% load cms_tags static %}
+
+{% block js %}
+  <script src="{% static '/ds/js/lib/countUp.min.js' %}" type="module"></script>
+  <script src="{% static "/ds/js/counter.js" %}" type="module"></script>
+{% endblock %}
+
+<div>
+  <span id="counter" data-start-num="{{ instance.start_number }}" data-end-num="{{ instance.end_number }}"></span>
+  <span>{{ instance.measurement }}</span>
+  <span>{{ instance.description }}</span>
+  <span>{{ instance.tooltip_text }}</span>
+</div>
