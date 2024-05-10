@@ -27,7 +27,7 @@ class BlockPlugin(CMSPluginBase):
         ),
         (
             _("Estrutura"),
-            {"fields": (("element", "layout", "is_container"),)},
+            {"fields": (("element", "layout", "is_container", "background_image"),)},
         ),
         (
             None,
@@ -116,6 +116,7 @@ class BlockPlugin(CMSPluginBase):
             if instance.attributes
             else None
         )
+        
         if background_color:
             css_styles.append(f"background-color:{background_color}")
 

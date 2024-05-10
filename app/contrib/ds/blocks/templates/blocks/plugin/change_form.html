@@ -121,7 +121,13 @@
           </div>
         </div>
         {% endwith %}
-      </div>
+        {% with field=adminform.form.backgound_image %}
+        <div class="field field-{{field.name}}">
+          <label class="form-label">{{ field.label }} </label>
+          <span class="help-text">{{ field.help_text }}</span>
+          {{field}}    
+        </div>
+        {% endwith %}
       <div class="form-row-flex">
         {% with field=adminform.form.background_color %}
         <div class="field field-{{field.name}}">

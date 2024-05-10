@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from cms.models import CMSPlugin
+from filer.fields.image import FilerImageField
 
 
 class AlignmentItems(models.TextChoices):
@@ -74,6 +75,12 @@ class BlockAbstractModel(models.Model):
     is_container = models.BooleanField(
         verbose_name=_("Container"),
         default=False,
+    )
+    background_image = FilerImageField(
+            verbose_name=("Imagem de fundo"),
+            blank=True,
+            null=True,
+            on_delete=models.SET_NULL,
     )
     attributes = models.JSONField(null=True, blank=True)
 
