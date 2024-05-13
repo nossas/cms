@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     "django_select2",
     "django_jsonform",
     "djangocms_form_builder",
+    "sass_processor",
     # My Apps
     "contrib.bonde",
     "contrib.ga",
@@ -68,7 +69,6 @@ INSTALLED_APPS = [
     "contrib.ds.link",
     # Aplicativos por site
     "adp.plugins.counter",
-
 ]
 
 # URLs
