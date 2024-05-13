@@ -3,6 +3,7 @@ from cms.plugin_pool import plugin_pool
 
 from .models import Counter
 
+
 @plugin_pool.register_plugin
 class CounterPlugin(CMSPluginBase):
   name = "Counter"
