@@ -90,3 +90,12 @@ CMS_TEMPLATES = [
 ]
 
 CMS_PLACEHOLDER_CONF = {}
+
+# DjangoCMS Form Builder Submodule
+
+DJANGOCMS_FORMS_REQUIRED_CSS_CLASS = "required"
+
+DJANGOCMS_FORMS_FORM_PLUGIN_CHILD_CLASSES = [
+    "BlockPlugin",
+    "ButtonPlugin",
+]

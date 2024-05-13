@@ -17,9 +17,6 @@ plugin_pool.unregister_plugin(FormPluginBase)
 
 
 class FormsForm(FormsFormBase):
-    submit_text = forms.CharField(
-        label=_("Botão enviar"), required=False, initial=_("Enviar")
-    )
     success_message = HTMLFormField(label=_("Mensagem de sucesso"))
 
     class Meta:
@@ -40,7 +37,7 @@ class FormsForm(FormsFormBase):
         ]
         entangled_fields = {
             "action_parameters": [],
-            "extra_config": ["submit_text", "success_message"],
+            "extra_config": ["success_message"],
         }
 
     def __init__(self, *args, **kwargs):
@@ -60,7 +57,6 @@ class FormPlugin(FormPluginBase):
                 "fields": [
                     "form_selection",
                     "form_name",
-                    "submit_text",
                     "success_message",
                 ],
             },

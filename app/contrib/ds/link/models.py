@@ -20,6 +20,7 @@ class Context(models.TextChoices):
 class Target(models.TextChoices):
     _self = "_self", _("Abrir na mesma aba")
     _blank = "_blank", _("Abrir em nova aba")
+    submit = "submit", _("Enviar formulário")
 
 
 class Styled(models.TextChoices):

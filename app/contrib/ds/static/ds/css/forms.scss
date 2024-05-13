@@ -1,0 +1,10 @@
+label {
+    color: $dark;
+    font-weight: 800;
+    font-size: $font-size-sm;
+}
+
+label.required::after {
+    content: ' *';
+    color: $danger;
+}

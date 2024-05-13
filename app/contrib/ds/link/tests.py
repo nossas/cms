@@ -259,6 +259,25 @@ class LinkPluginsTestCase(CMSTestCase):
         )
 
         self.assertHTMLEqual(html, expected_html)
+    
+    def test_render_submit_button(self):
+        plugin = add_plugin(
+            placeholder=self.placeholder,
+            plugin_type="ButtonPlugin",
+            language=self.language,
+            label="Enviar",
+            link_target=Target.submit
+        )
+        plugin.full_clean()
+
+        renderer = ContentRenderer(request=RequestFactory())
+
+        html = renderer.render_plugin(plugin, {})
+        expected_html = (
+            f"<button class='btn btn-primary' type='submit'>Enviar</button>"
+        )
+
+        self.assertHTMLEqual(html, expected_html)
 
 
 # <i class="bi bi-map-fill"></i>

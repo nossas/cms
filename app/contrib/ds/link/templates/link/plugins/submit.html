@@ -1,0 +1,3 @@
+<button class="{{css_classes}}" type="submit">
+    {% if instance.icon and instance.icon_position == 'left' %}<i class='bi bi-{{instance.icon}}'></i> {% endif %}{{instance.label}}{% if instance.icon and instance.icon_position == 'right' %} <i class='bi bi-{{instance.icon}}'></i>{% endif %}
+</button>
