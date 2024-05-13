@@ -1,0 +1,96 @@
+form {
+    --ds-font-size-xs: 14px;
+    --ds-font-size-sm: 16px;
+
+    --ds-color-dark: #000;
+    --ds-color-gray-100: rgba(248, 249, 250, 1);
+    --ds-color-gray-200: rgba(233, 236, 239, 1);
+    --ds-color-gray-400: rgba(206, 212, 218, 1);
+    --ds-color-gray-500: rgba(173, 181, 189, 1);
+    --ds-color-gray-600: rgba(108, 117, 125, 1);
+    --ds-color-gray-700: rgba(73, 80, 87, 1);
+
+    label {
+        display: flex !important;
+        align-items: flex-end;
+        gap: 6px;
+    }
+
+    .module {
+        padding-bottom: 40px !important;
+
+        h2 {
+            font-size: var(--ds-font-size-xs) !important;
+            border: none;
+        }
+    }
+
+    .form-label {
+        text-transform: none;
+        font-weight: bold !important;
+        font-size: var(--ds-font-size-sm);
+        color: var(--ds-color-dark);
+        margin-bottom: 12px;
+    }
+
+    .help-text {
+        font-size: var(--ds-font-size-xs);
+        color: var(--ds-color-gray-700);
+    }
+
+    .radio {
+        display: flex;
+        align-items: center;
+
+        label {
+            text-transform: none;
+        }
+    }
+
+    .radio-group {
+        margin-top: 12px;
+    }
+
+    .field {
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .border-bottom {
+        border-bottom: 1px solid var(--ds-color-gray-400);
+        margin-bottom: 40px;
+    }
+
+    .icon-widget {
+        .radio {
+            label .btn {
+                --bs-btn-color: var(--ds-color-gray-500);
+            }
+            input:checked + label .btn {
+                --bs-btn-color: var(--ds-color-gray-600);
+                --bs-btn-border-color: var(--ds-color-gray-600);
+            }
+        }
+    }
+    
+    .select2 {
+        width: 100%!important;
+    }
+
+    .preview {
+        display: flex;
+        justify-content: center;
+        background-color: var(--ds-color-gray-100);
+        gap: 10px;
+
+        label {
+            text-transform: none;
+            font-weight: bold;
+        }
+    }
+}
+
+@import "./tooltip.scss";

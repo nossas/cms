@@ -49,7 +49,7 @@ class LinkPluginsTestCase(CMSTestCase):
         renderer = ContentRenderer(request=RequestFactory())
 
         html = renderer.render_plugin(plugin, {})
-        expected_html = "<a class='btn'>Enviar</a>"
+        expected_html = "<a class='btn btn-primary' target='_self'>Enviar</a>"
 
         self.assertHTMLEqual(html, expected_html)
 
@@ -59,14 +59,14 @@ class LinkPluginsTestCase(CMSTestCase):
             plugin_type="ButtonPlugin",
             language=self.language,
             label="Enviar",
-            context=Context.primary,
+            context=Context.success,
         )
         plugin.full_clean()
 
         renderer = ContentRenderer(request=RequestFactory())
 
         html = renderer.render_plugin(plugin, {})
-        expected_html = "<a class='btn btn-primary'>Enviar</a>"
+        expected_html = "<a class='btn btn-success' target='_self'>Enviar</a>"
 
         self.assertHTMLEqual(html, expected_html)
 
@@ -83,7 +83,7 @@ class LinkPluginsTestCase(CMSTestCase):
         renderer = ContentRenderer(request=RequestFactory())
 
         html = renderer.render_plugin(plugin, {})
-        expected_html = "<a class='btn' target='_blank'>Enviar</a>"
+        expected_html = "<a class='btn btn-primary' target='_blank'>Enviar</a>"
 
         self.assertHTMLEqual(html, expected_html)
 
@@ -100,7 +100,7 @@ class LinkPluginsTestCase(CMSTestCase):
         renderer = ContentRenderer(request=RequestFactory())
 
         html = renderer.render_plugin(plugin, {})
-        expected_html = "<a class='btn' href='https://nossas.org'>Enviar</a>"
+        expected_html = "<a class='btn btn-primary' href='https://nossas.org' target='_self'>Enviar</a>"
 
         self.assertHTMLEqual(html, expected_html)
 
@@ -119,7 +119,7 @@ class LinkPluginsTestCase(CMSTestCase):
 
         html = renderer.render_plugin(plugin, {})
         expected_html = (
-            f"<a class='btn' href='{self.home.get_absolute_url()}'>Enviar</a>"
+            f"<a class='btn btn-primary' href='{self.home.get_absolute_url()}' target='_self'>Enviar</a>"
         )
 
         self.assertHTMLEqual(html, expected_html)
@@ -138,7 +138,7 @@ class LinkPluginsTestCase(CMSTestCase):
 
         html = renderer.render_plugin(plugin, {})
         expected_html = (
-            f"<a class='btn btn-outline'>Enviar</a>"
+            f"<a class='btn btn-outline-primary' target='_self'>Enviar</a>"
         )
 
         self.assertHTMLEqual(html, expected_html)
@@ -149,7 +149,7 @@ class LinkPluginsTestCase(CMSTestCase):
             plugin_type="ButtonPlugin",
             language=self.language,
             label="Enviar",
-            context=Context.primary,
+            context=Context.secondary,
             styled=Styled.outline
         )
         plugin.full_clean()
@@ -158,7 +158,7 @@ class LinkPluginsTestCase(CMSTestCase):
 
         html = renderer.render_plugin(plugin, {})
         expected_html = (
-            f"<a class='btn btn-outline-primary'>Enviar</a>"
+            f"<a class='btn btn-outline-secondary' target='_self'>Enviar</a>"
         )
 
         self.assertHTMLEqual(html, expected_html)
@@ -177,7 +177,7 @@ class LinkPluginsTestCase(CMSTestCase):
 
         html = renderer.render_plugin(plugin, {})
         expected_html = (
-            f"<a class='btn btn-inverted'>Enviar</a>"
+            f"<a class='btn btn-inverted-primary' target='_self'>Enviar</a>"
         )
 
         self.assertHTMLEqual(html, expected_html)
@@ -188,7 +188,7 @@ class LinkPluginsTestCase(CMSTestCase):
             plugin_type="ButtonPlugin",
             language=self.language,
             label="Enviar",
-            context=Context.primary,
+            context=Context.secondary,
             styled=Styled.inverted
         )
         plugin.full_clean()
@@ -197,7 +197,7 @@ class LinkPluginsTestCase(CMSTestCase):
 
         html = renderer.render_plugin(plugin, {})
         expected_html = (
-            f"<a class='btn btn-inverted-primary'>Enviar</a>"
+            f"<a class='btn btn-inverted-secondary' target='_self'>Enviar</a>"
         )
 
         self.assertHTMLEqual(html, expected_html)
@@ -216,7 +216,7 @@ class LinkPluginsTestCase(CMSTestCase):
 
         html = renderer.render_plugin(plugin, {})
         expected_html = (
-            f"<a class='btn btn-sm'>Enviar</a>"
+            f"<a class='btn btn-primary btn-sm' target='_self'>Enviar</a>"
         )
 
         self.assertHTMLEqual(html, expected_html)
@@ -235,7 +235,7 @@ class LinkPluginsTestCase(CMSTestCase):
 
         html = renderer.render_plugin(plugin, {})
         expected_html = (
-            f"<a class='btn'><i class='bi bi-map-fill'></i> Enviar</a>"
+            f"<a class='btn btn-primary' target='_self'><i class='bi bi-map-fill'></i> Enviar</a>"
         )
 
         self.assertHTMLEqual(html, expected_html)
@@ -255,7 +255,7 @@ class LinkPluginsTestCase(CMSTestCase):
 
         html = renderer.render_plugin(plugin, {})
         expected_html = (
-            f"<a class='btn'>Enviar <i class='bi bi-map-fill'></i></a>"
+            f"<a class='btn btn-primary' target='_self'>Enviar <i class='bi bi-map-fill'></i></a>"
         )
 
         self.assertHTMLEqual(html, expected_html)
