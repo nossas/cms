@@ -1,3 +1,23 @@
 .counter {
-  background-color: var(--bs-gray-500);
+  font-family: Exo, sans-serif;
+
+  .counterDate,
+  .counterNumber {
+    color: var(--bs-gray-800);
+    font-size: 64px;
+    font-weight: 600;
+    line-height: 72px;
+  }
+
+  .counter-measurement {
+    color: var(--bs-gray-500);
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .counter-description {
+    color: var(--bs-gray-600);
+    font-size: 22px;
+    font-weight: 600; 
+  }
 }
