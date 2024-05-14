@@ -146,3 +146,43 @@ class AccordionPluginsTestCase(CMSTestCase):
         """
 
         self.assertHTMLEqual(html, expected_html)
+
+    def test_accordion_grid_layout(self):
+        plugin = add_plugin(
+            placeholder=self.placeholder,
+            plugin_type="AccordionPlugin",
+            language=self.language,
+            grid_columns=3
+        )
+        plugin.full_clean()
+
+        renderer = ContentRenderer(request=RequestFactory())
+
+        html = renderer.render_plugin(plugin, {})
+        expected_html = f"""
+        <div class="accordion grid" id="accordion-{plugin.id}" style="--bs-columns:3;">
+        </div>
+        """
+
+        self.assertHTMLEqual(html, expected_html)
+    
+
+    def test_accordion_custom_text_colors_and_bacground_colors(self):
+        plugin = add_plugin(
+            placeholder=self.placeholder,
+            plugin_type="AccordionPlugin",
+            language=self.language,
+            text_color="#000",
+            bg_color="#fff"
+        )
+        plugin.full_clean()
+
+        renderer = ContentRenderer(request=RequestFactory())
+
+        html = renderer.render_plugin(plugin, {})
+        expected_html = f"""
+        <div class="accordion" id="accordion-{plugin.id}" style="--bs-body-bg:#fff;--bs-body-color:#000;">
+        </div>
+        """
+
+        self.assertHTMLEqual(html, expected_html)

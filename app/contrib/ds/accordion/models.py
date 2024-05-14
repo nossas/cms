@@ -1,6 +1,7 @@
 from django.db import models
 
 from cms.models import CMSPlugin
+from colorfield.fields import ColorField
 
 
 class AccordionStyle(models.TextChoices):
@@ -15,6 +16,9 @@ class Accordion(CMSPlugin):
         default=AccordionStyle.default,
         blank=True,
     )
+    grid_columns = models.PositiveSmallIntegerField(default=0)
+    text_color = ColorField(null=True, blank=True)
+    bg_color = ColorField(null=True, blank=True)
 
 
 class AccordionItem(CMSPlugin):
