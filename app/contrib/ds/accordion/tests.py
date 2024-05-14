@@ -186,3 +186,23 @@ class AccordionPluginsTestCase(CMSTestCase):
         """
 
         self.assertHTMLEqual(html, expected_html)
+
+
+    def test_accordion_use_context_colors(self):
+        plugin = add_plugin(
+            placeholder=self.placeholder,
+            plugin_type="AccordionPlugin",
+            language=self.language,
+            context="secondary"
+        )
+        plugin.full_clean()
+
+        renderer = ContentRenderer(request=RequestFactory())
+
+        html = renderer.render_plugin(plugin, {})
+        expected_html = f"""
+        <div class="accordion accordion-secondary" id="accordion-{plugin.id}">
+        </div>
+        """
+
+        self.assertHTMLEqual(html, expected_html)

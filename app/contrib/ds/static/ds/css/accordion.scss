@@ -53,3 +53,10 @@
         }
     }
 }
+
+@each $state in map-keys($theme-colors) {
+    .accordion-#{$state} {
+        --bs-body-bg: var(--#{$prefix}#{$state}-bg-subtle);
+        --bs-body-color: var(--#{$prefix}#{$state}-text-emphasis);
+    }
+}
