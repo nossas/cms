@@ -65,6 +65,14 @@
             </label>
           </div>
           {% endwith %}
+          {% with choice=field.field.choices.2 %}
+          <div class="radio">
+            <input type="radio" id="{{field.name}}_{{choice.0}}" name="{{field.name}}" value="{{choice.0}}"{% if field.value == choice.0 %} checked{% endif %} />
+            <label for="{{field.name}}_{{choice.0}}">
+              {{ choice.1 }} {% include "blocks/plugin/tooltip.html" with message="Usado em formulários para enviar os dados preenchidos" direction="right" %}
+            </label>
+          </div>
+          {% endwith %}
         </div>
         {{ field.errors }}
       </div>
