@@ -141,6 +141,9 @@ class BlockTemplateForm(BlockForm):
         model = Block
         untangled_fields = ["template", "element", "layout", "is_container", "background_image"]
         entangled_fields = {"attributes": []}
+        help_texts = {
+            'background_image': 'Selecione uma imagem para o background do bloco.'
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

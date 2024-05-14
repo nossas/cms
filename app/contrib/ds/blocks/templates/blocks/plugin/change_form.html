@@ -121,19 +121,11 @@
           </div>
         </div>
         {% endwith %}
-        {% with field=adminform.form.backgound_image %}
+        {% with field=adminform.form.background_image %}
         <div class="field field-{{field.name}}">
           <label class="form-label">{{ field.label }} </label>
           <span class="help-text">{{ field.help_text }}</span>
           {{field}}    
-        </div>
-        {% endwith %}
-      <div class="form-row-flex">
-        {% with field=adminform.form.background_color %}
-        <div class="field field-{{field.name}}">
-          <label class="form-label">{{ field.label }}</label>
-          <span class="help-text">{{ field.help_text }}</span>
-          {{field}}
         </div>
         {% endwith %}
         {% comment %} Espaçamento {% endcomment %}
@@ -150,7 +142,13 @@
             {{ adminform.form.padding_bottom }}
           </div>
         </div>
-      </div>
+        {% with field=adminform.form.background_color %}
+          <div class="field field-{{field.name}}">
+            <label class="form-label">{{ field.label }}</label>
+            <span class="help-text">{{ field.help_text }}</span>
+            {{field}}
+          </div>
+        {% endwith %}
     </fieldset>
     
     <fieldset class="fieldset module aligned">
