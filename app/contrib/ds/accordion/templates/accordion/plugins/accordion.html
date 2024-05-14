@@ -1,4 +1,4 @@
 {% load cms_tags %}
-<div class="accordion{% if instance.style %} accordion-{{instance.style}}{% endif %}" id="accordion-{{instance.id}}">
+<div class="accordion{% if instance.context %} accordion-{{instance.context}}{% endif %}{% if is_grid %} grid{% endif %}{% if instance.style %} accordion-{{instance.style}}{% endif %}" id="accordion-{{instance.id}}"{% if css_styles %} style="{{css_styles}}"{% endif %}>
     {% for plugin in instance.child_plugin_instances %}{% render_plugin plugin %}{% endfor %}
 </div>
