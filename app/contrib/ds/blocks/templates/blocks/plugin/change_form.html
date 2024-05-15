@@ -128,6 +128,20 @@
           {{field}}    
         </div>
         {% endwith %}
+        {% with field=adminform.form.background_size %}
+        <div class="field field-{{field.name}}">
+          <label class="form-label">{{ field.label }} </label>
+          <span class="help-text">{{ field.help_text }}</span>
+          {{field}}
+        </div>
+        {% endwith %}
+        {% with field=adminform.form.background_color %}
+          <div class="field field-{{field.name}}">
+            <label class="form-label">{{ field.label }}</label>
+            <span class="help-text">{{ field.help_text }}</span>
+            {{field}}
+          </div>
+        {% endwith %}
         {% comment %} Espaçamento {% endcomment %}
         <div class="field field-padding">
           <label class="form-label">Espaçamentos {% include "blocks/plugin/tooltip.html" with message="Ajuste o 'Espaçamento Interno' para controlar o espaço entre o conteúdo de um elemento e suas bordas." direction="left" image="padding" %}</label>
@@ -142,13 +156,6 @@
             {{ adminform.form.padding_bottom }}
           </div>
         </div>
-        {% with field=adminform.form.background_color %}
-          <div class="field field-{{field.name}}">
-            <label class="form-label">{{ field.label }}</label>
-            <span class="help-text">{{ field.help_text }}</span>
-            {{field}}
-          </div>
-        {% endwith %}
     </fieldset>
     
     <fieldset class="fieldset module aligned">

@@ -43,6 +43,11 @@ class BlockLayout(models.TextChoices):
     grid = "grid", _("Em grade")
     flex = "d-flex", _("Flexível")
 
+class BackgroundSize(models.TextChoices):
+    contain = "contain"
+    cover = "cover"
+    initial = "initial"
+
 
 class BlockAbstractModel(models.Model):
     """
@@ -81,6 +86,11 @@ class BlockAbstractModel(models.Model):
             blank=True,
             null=True,
             on_delete=models.SET_NULL,
+    )
+    background_size = models.CharField(
+        choices=BackgroundSize.choices,
+        max_length=8,
+        default=BackgroundSize.contain
     )
     attributes = models.JSONField(null=True, blank=True)
 

@@ -139,7 +139,7 @@ class BlockTemplateForm(BlockForm):
 
     class Meta:
         model = Block
-        untangled_fields = ["template", "element", "layout", "is_container", "background_image"]
+        untangled_fields = ["template", "element", "layout", "is_container", "background_image", "background_size"]
         entangled_fields = {"attributes": []}
         help_texts = {
             'background_image': 'Selecione uma imagem para o background do bloco.'
