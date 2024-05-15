@@ -119,6 +119,9 @@ class BlockPlugin(CMSPluginBase):
         
         if background_color:
             css_styles.append(f"background-color:{background_color}")
+        
+        if instance.background_image:
+            css_styles.append(f"background-image:url('{instance.background_image.url}')")
 
         padding_attrs = [("padding_top", "pt"), ("padding_bottom", "pb"), ("padding_left", "pl"), ("padding_right", "pr")]
 

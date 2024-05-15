@@ -7,6 +7,7 @@ from cms.plugin_rendering import ContentRenderer
 from ..cms_plugins import BlockPlugin
 from ..forms import BlockForm, BlockTemplateForm
 from ..models import BlockElement, BlockLayout
+from contrib.ds.tests.helpers import get_filer_image
 
 
 # Create your tests here.
@@ -21,9 +22,17 @@ class BlockPluginsTestCase(CMSTestCase):
         self.placeholder = self.home.placeholders.get(slot="content")
         self.superuser = self.get_superuser()
 
+        self.image = get_filer_image()
+
     def tearDown(self):
         self.home.delete()
         self.superuser.delete()
+
+        if self.image:
+            self.image.delete()
+            del self.image
+            with self.assertRaises(AttributeError):
+                print(self.image)
 
     def test_block_plugin(self):
         plugin = add_plugin(
@@ -365,3 +374,19 @@ class BlockPluginsTestCase(CMSTestCase):
         self.assertEqual(form.fields["is_container"].initial, True)
         self.assertEqual(form.fields["padding_top"].initial, "4")
         self.assertEqual(form.fields["padding_bottom"].initial, "4")
+
+    def test_background_image_block_render_html(self):
+        model_instance = add_plugin(
+            placeholder=self.placeholder,
+            plugin_type="BlockPlugin",
+            language=self.language,
+            background_image=self.image,
+        )
+        model_instance.full_clean()
+
+        renderer = ContentRenderer(request=RequestFactory())
+
+        html = renderer.render_plugin(model_instance, {})
+        expected_html = f"""<div style="background-image:url('{self.image.url}')"></div>"""
+
+        self.assertHTMLEqual(html, expected_html)
