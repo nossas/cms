@@ -1,0 +1,32 @@
+.filer-dropzone * {
+    &.related-lookup:before, .replace-file .fa-search:before {
+        display: none;
+    }
+
+    &.related-lookup {
+        width: auto;
+        height: 35px;
+    }
+}
+
+.file-edit-area {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    a {
+        display: flex;
+        align-items: flex-start;
+    }
+}
+
+.file-controls {
+    display: flex;
+    flex-direction: row;
+}
+
+.file-desc-object {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}

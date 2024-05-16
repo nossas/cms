@@ -21,6 +21,8 @@ DATABASES.update(
 INSTALLED_APPS = [
     # "admin_styled",
     # "tailwind",
+    # Override third apps templates
+    "contrib.ds.admin_style",
     "djangocms_admin_style",
     "django.contrib.admin",
     "django.contrib.auth",
