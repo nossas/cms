@@ -23,7 +23,7 @@ class BlockPluginsTestCase(CMSTestCase):
         self.superuser = self.get_superuser()
 
         self.image = get_filer_image()
-        self.background_size = "contain"
+        self.background_size = "cover"
 
     def tearDown(self):
         self.home.delete()

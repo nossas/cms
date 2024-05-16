@@ -90,7 +90,7 @@ class BlockAbstractModel(models.Model):
     background_size = models.CharField(
         choices=BackgroundSize.choices,
         max_length=8,
-        default=BackgroundSize.contain
+        default=BackgroundSize.cover
     )
     attributes = models.JSONField(null=True, blank=True)
 
