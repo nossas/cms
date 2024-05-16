@@ -9,9 +9,6 @@ from sekizai.context import SekizaiContext
 
 from .cms_plugins import CounterPlugin
 
-# from .models import Context, Target
-
-
 # Create your tests here.
 class CounterPluginTestCase(CMSTestCase):
 
@@ -31,7 +28,6 @@ class CounterPluginTestCase(CMSTestCase):
     def tearDown(self):
         self.home.delete()
         self.superuser.delete()
-
 
 
     def test_counter_plugin(self):
