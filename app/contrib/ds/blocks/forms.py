@@ -5,6 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from colorfield.widgets import ColorWidget
 from django_jsonform.forms.fields import JSONFormField
 from entangled.forms import EntangledModelFormMixin
+from filer.fields.image import FilerImageField
 
 from .models import (
     Block,
@@ -111,11 +112,12 @@ class BlockForm(
     ContainerFormMixin,
     forms.ModelForm,
 ):
+
     template = forms.CharField(widget=forms.HiddenInput(), required=False)
 
     class Meta:
         model = Block
-        untangled_fields = ["template", "element", "layout", "is_container"]
+        untangled_fields = ["template", "element", "layout", "is_container", "background_image", "background_size"]
         entangled_fields = {"attributes": []}
 
 
@@ -137,8 +139,11 @@ class BlockTemplateForm(BlockForm):
 
     class Meta:
         model = Block
-        untangled_fields = ["template", "element", "layout", "is_container"]
+        untangled_fields = ["template", "element", "layout", "is_container", "background_image", "background_size"]
         entangled_fields = {"attributes": []}
+        help_texts = {
+            'background_image': 'Selecione uma imagem para o background do bloco.'
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

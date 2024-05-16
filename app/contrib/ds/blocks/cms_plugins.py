@@ -27,7 +27,7 @@ class BlockPlugin(CMSPluginBase):
         ),
         (
             _("Estrutura"),
-            {"fields": (("element", "layout", "is_container"),)},
+            {"fields": (("element", "layout", "is_container", "background_image"),)},
         ),
         (
             None,
@@ -116,8 +116,15 @@ class BlockPlugin(CMSPluginBase):
             if instance.attributes
             else None
         )
+        
         if background_color:
             css_styles.append(f"background-color:{background_color}")
+        
+        if instance.background_image:
+            css_styles.append(f"background-image:url('{instance.background_image.url}')")
+            css_styles.append(f"background-size:{instance.background_size}") 
+            css_styles.append("background-repeat:no-repeat")
+            css_styles.append("background-position:center")
 
         padding_attrs = [("padding_top", "pt"), ("padding_bottom", "pb"), ("padding_left", "pl"), ("padding_right", "pr")]
 

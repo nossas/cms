@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from cms.models import CMSPlugin
+from filer.fields.image import FilerImageField
 
 
 class AlignmentItems(models.TextChoices):
@@ -42,6 +43,11 @@ class BlockLayout(models.TextChoices):
     grid = "grid", _("Em grade")
     flex = "d-flex", _("Flexível")
 
+class BackgroundSize(models.TextChoices):
+    contain = "contain"
+    cover = "cover"
+    initial = "initial"
+
 
 class BlockAbstractModel(models.Model):
     """
@@ -74,6 +80,17 @@ class BlockAbstractModel(models.Model):
     is_container = models.BooleanField(
         verbose_name=_("Container"),
         default=False,
+    )
+    background_image = FilerImageField(
+            verbose_name=("Imagem de fundo"),
+            blank=True,
+            null=True,
+            on_delete=models.SET_NULL,
+    )
+    background_size = models.CharField(
+        choices=BackgroundSize.choices,
+        max_length=8,
+        default=BackgroundSize.cover
     )
     attributes = models.JSONField(null=True, blank=True)
 

@@ -43,10 +43,12 @@ fieldset.module {
         border: none;
         margin-bottom: 0;
     }
+}
 
-    .field-padding {
-        grid-column: 2 / span 2;
-    }
+.form-col-flex {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .form-radio, .field-custom-radio-widget, .field-padding-widget, .field-radio-inline-widget, .field-gap-widget {
@@ -248,3 +250,5 @@ input:checked + .slider:before {
     gap: 10px;
     align-items: start;
 }
+
+@import "./input_file.scss";
