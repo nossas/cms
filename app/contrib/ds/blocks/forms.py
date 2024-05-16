@@ -117,7 +117,7 @@ class BlockForm(
 
     class Meta:
         model = Block
-        untangled_fields = ["template", "element", "layout", "is_container"]
+        untangled_fields = ["template", "element", "layout", "is_container", "background_image", "background_size"]
         entangled_fields = {"attributes": []}
 
 
