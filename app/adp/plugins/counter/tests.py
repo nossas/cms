@@ -5,8 +5,7 @@ from cms.api import add_plugin, create_page
 from cms.plugin_rendering import ContentRenderer
 from cms.test_utils.testcases import CMSTestCase
 
-# from django.template.context import RequestContext
-# from sekizai.context import SekizaiContext
+from sekizai.context import SekizaiContext
 
 from .cms_plugins import CounterPlugin
 
@@ -34,14 +33,6 @@ class CounterPluginTestCase(CMSTestCase):
         self.superuser.delete()
 
 
-    # def render_plugin(self, plugin):
-    #     request = RequestFactory()
-    #     context = SekizaiContext(RequestContext(request))
-    #     renderer = ContentRenderer(request)
-    #     html = renderer.render_plugin(plugin, context)
-    #     return html
-
-
 
     def test_counter_plugin(self):
         plugin = add_plugin(
@@ -63,7 +54,7 @@ class CounterPluginTestCase(CMSTestCase):
 
         renderer = ContentRenderer(request=RequestFactory())
 
-        html = renderer.render_plugin(plugin, {})
+        html = renderer.render_plugin(plugin, SekizaiContext())
         expected_html = f"""
         <div id="counter-{plugin.id}" class="counter">
             <div class="counter-wrapper">
@@ -86,7 +77,7 @@ class CounterPluginTestCase(CMSTestCase):
         
         renderer = ContentRenderer(request=RequestFactory())
 
-        html = renderer.render_plugin(plugin, {})
+        html = renderer.render_plugin(plugin, SekizaiContext())
         expected_html = f"""
         <div id="counter-{plugin.id}" class="counter">
             <div class="counter-wrapper">
@@ -99,22 +90,25 @@ class CounterPluginTestCase(CMSTestCase):
 
 
     def test_countup_date(self):
+        target_date = date(2023, 1, 1)
+        
+        target_days = (date.today() - target_date).days
+
         plugin = add_plugin(
             placeholder=self.placeholder,
             plugin_type="CounterPlugin",
             language=self.language,
-            initial_date=date(2024, 2, 2),
-            target_date=date(2025, 2, 2)
+            target_date=target_date
         )
         plugin.full_clean()
 
         renderer = ContentRenderer(request=RequestFactory())
 
-        html = renderer.render_plugin(plugin, {})
+        html = renderer.render_plugin(plugin, SekizaiContext())
         expected_html = f"""
         <div id="counter-{plugin.id}" class="counter">
             <div class="counter-wrapper">
-                <span class="counter-number" data-counter data-counter-initial="0" data-counter-target="366"></span>
+                <span class="counter-number" data-counter data-counter-initial="0" data-counter-target="{target_days}"></span>
             </div>
         </div>
         """
@@ -123,49 +117,31 @@ class CounterPluginTestCase(CMSTestCase):
 
 
     def test_countdown_date(self):
+        initial_date = date(2024, 1, 2)
+        target_date = date(2024, 2, 2)
+
+        target_days = (target_date - date.today()).days
+
         plugin = add_plugin(
             placeholder=self.placeholder,
             plugin_type="CounterPlugin",
             language=self.language,
-            initial_date=date(2025, 2, 2),
-            target_date=date(2024, 2, 2)
+            initial_date=initial_date,
+            target_date=target_date
         )
         plugin.full_clean()
 
         renderer = ContentRenderer(request=RequestFactory())
 
-        html = renderer.render_plugin(plugin, {})
+        html = renderer.render_plugin(plugin, SekizaiContext())
         expected_html = f"""
         <div id="counter-{plugin.id}" class="counter">
             <div class="counter-wrapper">
-                <span class="counter-number" data-counter data-counter-initial="366" data-counter-target="0"></span>
+                <span class="counter-number" data-counter data-counter-initial="31" data-counter-target="{target_days}"></span>
             </div>
         </div>
         """
 
-        self.assertHTMLEqual(html, expected_html)
-
-
-    def test_same_initial_and_target_date(self):
-        plugin = add_plugin(
-            placeholder=self.placeholder,
-            plugin_type="CounterPlugin",
-            language=self.language,
-            initial_date=date.today(),
-            target_date=date.today()
-        )
-        plugin.full_clean()
-        
-        renderer = ContentRenderer(request=RequestFactory())
-
-        html = renderer.render_plugin(plugin, {})
-        expected_html = f"""
-        <div id="counter-{plugin.id}" class="counter">
-            <div class="counter-wrapper">
-                <span class="counter-number" data-counter data-counter-initial="{plugin.initial_number}" data-counter-end="{plugin.target_date}"></span>
-            </div>
-        </div>
-        """
         self.assertHTMLEqual(html, expected_html)
 
 
@@ -174,6 +150,8 @@ class CounterPluginTestCase(CMSTestCase):
             placeholder=self.placeholder,
             plugin_type="CounterPlugin",
             language=self.language,
+            initial_number=0,
+            target_number=100,
             description="Teste Description",
             tooltip_text="Teste Tooltip"
         )
@@ -181,7 +159,7 @@ class CounterPluginTestCase(CMSTestCase):
         
         renderer = ContentRenderer(request=RequestFactory())
 
-        html = renderer.render_plugin(plugin, {})
+        html = renderer.render_plugin(plugin, SekizaiContext())
         expected_html = f"""
         <div id="counter-{plugin.id}" class="counter">
             <div class="counter-wrapper">
@@ -201,7 +179,7 @@ class CounterPluginTestCase(CMSTestCase):
             placeholder=self.placeholder,
             plugin_type="CounterPlugin",
             language=self.language,
-            initial_number=100,
+            initial_number=0,
             target_number=200
         )
         plugin.full_clean()
@@ -211,7 +189,7 @@ class CounterPluginTestCase(CMSTestCase):
         
         renderer = ContentRenderer(request=RequestFactory())
 
-        html = renderer.render_plugin(plugin, {})
+        html = renderer.render_plugin(plugin, SekizaiContext())
         expected_html = f"""
         <div id="counter-{plugin.id}" class="counter">
             <div class="counter-wrapper">

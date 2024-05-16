@@ -1,4 +1,4 @@
-{% load compress cms_tags static sekizai_tags %}
+{% load compress sekizai_tags %}
 
 {% addtoblock "css" %}
   {% compress css %}
@@ -13,17 +13,23 @@
     <span class="counter-number" data-counter data-counter-initial="{{ counter_initial_number }}" data-counter-target="{{ counter_target_number }}"></span>
 
     {% if instance.measurement %}
-      <span>{{ instance.measurement }}</span>
+      <span class="counter-measurement">{{ instance.measurement }}</span>
     {% endif %}
   </div>
+  <div class="counter-content">
+    <div class="counter-content-text">
+      {% if instance.description %}
+        <p class="counter-description">{{ instance.description }}</p>
+      {% endif %}
 
-  {% if instance.description %}
-    <p class="counter-description">{{ instance.description }}</p>
-  {% endif %}
-
-  {% if instance.tooltip_text %}
-  <div class="counter-tooltip">
-    <span class="counter-tooltip-text">{{ instance.tooltip_text }}</span>
+      {% if instance.tooltip_text %}
+      <div class="counter-tooltip">
+        {% include "blocks/plugin/tooltip.html" with message=instance.tooltip_text %}
+      </div>
+      {% endif %}
+    </div>
+    {% if instance.description %}
+      <span class="counter-line"></span>
+    {% endif %}
   </div>
-  {% endif %}
 </div>

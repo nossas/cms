@@ -6,7 +6,7 @@
 
 config = {
     "toolbar_CMS": [
-        # ['cmsplugins', 'cmswidget', '-', 'ShowBlocks'],
+        ['cmsplugins', 'cmswidget', '-', 'ShowBlocks'],
         [
             "Bold",
             "Italic",

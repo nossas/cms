@@ -22,8 +22,13 @@ class CounterPlugin(CMSPluginBase):
           delta = instance.target_date - instance.initial_date
           context["counter_target_number"] = delta.days
 
-          if instance.initial_date > instance.target_date:
-            context["counter_target_number"] = (date.today() - instance.initial_date) * -1
-            context["counter_initial_number"] = delta.days * -1
+          if instance.target_date > instance.initial_date:
+              context["counter_target_number"] = (instance.target_date - date.today()).days
+              context["counter_initial_number"] = (instance.target_date - instance.initial_date).days
+
+      elif instance.target_date:
+          delta = (date.today() - instance.target_date)
+          context["counter_initial_number"] = 0
+          context["counter_target_number"] = delta.days
       
       return context
