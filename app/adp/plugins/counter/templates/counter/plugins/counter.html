@@ -1,3 +1,29 @@
+{% load compress cms_tags static sekizai_tags %}
+
+{% addtoblock "css" %}
+  {% compress css %}
+  <style type="text/x-scss">
+    @import 'counter/css/counter.scss';
+  </style>
+  {% endcompress %}
+{% endaddtoblock %}
+
 <div id="counter-{{ instance.id }}" class="counter">
-  <div class="counter-number" data-counter data-counter-start="{{ counter_start_number }}" data-counter-end="{{ counter_end_number }}"></div>
+  <div class="counter-wrapper">
+    <span class="counter-number" data-counter data-counter-initial="{{ counter_initial_number }}" data-counter-target="{{ counter_target_number }}"></span>
+
+    {% if instance.measurement %}
+      <span>{{ instance.measurement }}</span>
+    {% endif %}
+  </div>
+
+  {% if instance.description %}
+    <p class="counter-description">{{ instance.description }}</p>
+  {% endif %}
+
+  {% if instance.tooltip_text %}
+  <div class="counter-tooltip">
+    <span class="counter-tooltip-text">{{ instance.tooltip_text }}</span>
+  </div>
+  {% endif %}
 </div>

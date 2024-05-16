@@ -1,11 +1,11 @@
 import { CountUp } from './lib/countUp.min.js';
 
 document.querySelectorAll("[data-counter]").forEach(counter => {
-  const startNum = parseInt(counter.dataset.counterStart, 10);
-  const endNum = parseInt(counter.dataset.counterEnd, 10);
+  const initialNumber = parseInt(counter.dataset.counterInitial, 10);
+  const targetNumber = parseInt(counter.dataset.counterTarget, 10);
 
-  const countUp = new CountUp(counter, endNum, {
-    startVal: startNum,
+  const countUp = new CountUp(counter, targetNumber, {
+    startVal: initialNumber,
     decimalPlaces: 0,
     duration: 2,
     useEasing: true,

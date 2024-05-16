@@ -85,7 +85,7 @@ STATICFILES_FINDERS += [
 COMPRESS_PRECOMPILERS = (("text/x-scss", "django_libsass.SassCompiler"),)
 
 # DjangoCMS
-# Configurações inicials
+# Configurações initials
 
 CMS_TEMPLATES = [
     ("ds/base.html", "[DS] Padrão"),
