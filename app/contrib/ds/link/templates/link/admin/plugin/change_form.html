@@ -11,5 +11,161 @@
   
   @import 'ds/css/theme.scss';
 </style>
+<style type="text/x-scss">
+  @import 'ds/css/change_form2.scss';
+</style>
 {% endcompress %}
 {% endblock %}
+
+{% block field_sets %}
+<fieldset class="fieldset module aligned border-bottom">
+  <div class="grid form-group">
+    <div class="g-col-6">
+      {% with field=adminform.form.label %}
+      <div class="field field-{{field.name}}">
+        <label class="form-label">{{ field.label }} {% include "blocks/plugin/tooltip.html" with message="Escolha o texto do botão, utilizando um texto curto e claro que defina sua ação. Seja direto para facilitar a compreensão dos usuários." direction="left" %}</label>
+        {{field}}
+        {{ field.errors }}
+      </div>
+      {% endwith %}
+      {% with field=adminform.form.internal_link %}
+      <div class="field field-{{field.name}}">
+        <label class="form-label">{{ field.label }} {% include "blocks/plugin/tooltip.html" with message="Escolha uma página dentro do site. Você pode buscar a página pelo seu título." direction="left" %}</label>
+        {{field}}
+        {{ field.errors }}
+      </div>
+      {% endwith %}
+      {% with field=adminform.form.external_link %}
+      <div class="field field-{{field.name}}">
+        <label class="form-label">{{ field.label }} {% include "blocks/plugin/tooltip.html" with message="Insira o URL completo para o qual o botão deve redirecionar, incluindo o 'http://' ou 'https://'. Utilize este campo para links que apontam para fora do seu site." direction="left" %}</label>
+        {{field}}
+        {{ field.errors }}
+      </div>
+      {% endwith %}
+    </div>
+    <div class="g-col-6">
+      {% with field=adminform.form.link_target %}
+      <div class="field field-{{field.name}}">
+        <label class="form-label">{{ field.label }}</label>
+        <span class="help-text">{{ field.help_text }}</span>
+        <div class="radio-group">
+          {% with choice=field.field.choices.0 %}
+          <div class="radio">
+            <input type="radio" id="{{field.name}}_{{choice.0}}" name="{{field.name}}" value="{{choice.0}}"{% if field.value == choice.0 %} checked{% endif %} />
+            <label for="{{field.name}}_{{choice.0}}">
+              {{ choice.1 }} {% include "blocks/plugin/tooltip.html" with message="Abre o link na mesma aba, substituindo o conteúdo atual." direction="right" %}
+            </label>
+          </div>
+          {% endwith %}
+          {% with choice=field.field.choices.1 %}
+          <div class="radio">
+            <input type="radio" id="{{field.name}}_{{choice.0}}" name="{{field.name}}" value="{{choice.0}}"{% if field.value == choice.0 %} checked{% endif %} />
+            <label for="{{field.name}}_{{choice.0}}">
+              {{ choice.1 }} {% include "blocks/plugin/tooltip.html" with message="Abre o link em uma nova aba do navegador." direction="right" %}
+            </label>
+          </div>
+          {% endwith %}
+          {% with choice=field.field.choices.2 %}
+          <div class="radio">
+            <input type="radio" id="{{field.name}}_{{choice.0}}" name="{{field.name}}" value="{{choice.0}}"{% if field.value == choice.0 %} checked{% endif %} />
+            <label for="{{field.name}}_{{choice.0}}">
+              {{ choice.1 }} {% include "blocks/plugin/tooltip.html" with message="Usado em formulários para enviar os dados preenchidos" direction="right" %}
+            </label>
+          </div>
+          {% endwith %}
+        </div>
+        {{ field.errors }}
+      </div>
+      {% endwith %}
+    </div>
+  </div>
+</fieldset>
+<fieldset class="fieldset module aligned border-bottom">
+  <h2>Estilização</h2>
+  <div class="grid form-group">
+    <div class="g-col-4">
+      {% with field=adminform.form.context %}
+      <div class="field field-{{field.name}}">
+        <label class="form-label">{{ field.label }} {% include "blocks/plugin/tooltip.html" with message="Escolha a cor do botão conforme as cores disponíveis no tema. A cor do texto já está pré-definida pelo tema." direction="left" %}</label>
+        <div class="d-flex flex-wrap" style="gap:10px;max-width:332px;">
+        {% for choice in field.field.choices %}
+        <div class="radio">
+          <input type="radio" id="{{field.name}}_{{choice.0}}" name="{{field.name}}" value="{{choice.0}}"{% if field.value == choice.0 %} checked{% endif %} />
+          <label for="{{field.name}}_{{choice.0}}">
+            <span class="btn btn-{{choice.0}}">Texto</span>
+          </label>
+        </div>
+        {% endfor %}
+        </div>
+        {{ field.errors }}
+      </div>
+      {% endwith %}
+    </div>
+    <div class="g-col-4">
+      {% with field=adminform.form.styled %}
+      <div class="field field-{{field.name}}">
+        <label class="form-label">{{ field.label }}</label>
+        <div class="">
+        {% for choice in field.field.choices %}
+        <div class="radio">
+          <input type="radio" id="{{field.name}}_{{choice.0}}" name="{{field.name}}" value="{{choice.0}}"{% if field.value == choice.0 %} checked{% endif %} />
+          <label for="{{field.name}}_{{choice.0}}">
+            <span class="btn btn-{% if choice.0 %}{{choice.0}}-{% endif %}primary" style="width:85px;">{{choice.1}}</span>
+          </label>
+        </div>
+        {% endfor %}
+        </div>
+      </div>
+      {% endwith %}
+    </div>
+    <div class="g-col-4">
+      {% with field=adminform.form.size %}
+      <div class="field field-{{field.name}}">
+        <label class="form-label">{{ field.label }}</label>
+        <div class="">
+        {% for choice in field.field.choices %}
+        <div class="radio">
+          <input type="radio" id="{{field.name}}_{{choice.0}}" name="{{field.name}}" value="{{choice.0}}"{% if field.value == choice.0 %} checked{% endif %} />
+          <label for="{{field.name}}_{{choice.0}}">
+            <span class="btn btn-{{choice.0}} btn-primary">{{choice.1}}</span>
+          </label>
+        </div>
+        {% endfor %}
+        </div>
+        {{ field.errors }}
+      </div>
+      {% endwith %}
+    </div>
+  </div>
+</fieldset>
+<fieldset class="fieldset module aligned">
+  <div class="grid form-group">
+    <div class="g-col-4">
+      {% with field=adminform.form.icon %}
+      <div class="field field-{{field.name}}">
+        <label class="form-label">{{ field.label }} {% include "blocks/plugin/tooltip.html" with message="Escolha o texto do botão, utilizando um texto curto e claro que defina sua ação. Seja direto para facilitar a compreensão dos usuários." direction="left" %}</label>
+        {{ field }}
+        {{ field.errors }}
+      </div>
+      {% endwith %}
+    </div>
+    <div class="g-col-4">
+      {% with field=adminform.form.icon_position %}
+      <div class="field field-{{field.name}}">
+        <label class="form-label">{{ field.label }}</label>
+        {{ field }}
+        {{ field.errors }}
+      </div>
+      {% endwith %}
+    </div>
+  </div>
+
+</fieldset>
+
+<div class="preview p-4">
+  <label class="bold">Prévia do Botão:</label>
+  <div id="preview"></div>
+</div>
+{% endblock %}
+
+{% comment %} {% include "blocks/plugin/tooltip.html" with message="Escolha o texto do botão, utilizando um texto curto e claro que defina sua ação. Seja direto para facilitar a compreensão dos usuários." direction="left" %} {% endcomment %}

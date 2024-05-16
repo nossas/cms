@@ -1,0 +1,62 @@
+.accordion {
+    .accordion-item {
+        // border-radius: var(--bs-accordion-border-radius);
+
+        .accordion-button {
+            // border-radius: var(--bs-accordion-border-radius);
+            font-weight: bold;
+
+            &:not(.collapsed) {
+                // color: var(--bs-accordion-active-color);
+                color: var(--bs-body-color);
+                // background-color: var(--bs-accordion-active-bg);
+                background-color: var(--bs-body-bg);
+            }
+
+            &:focus {
+                border: none;
+                box-shadow: none;
+            }
+
+            &::after {
+                margin-left: 10px;
+            }
+        }
+    }
+
+    // Responsive if used grid
+    &.grid {
+        align-items: flex-start;
+
+        @include media-breakpoint-down(lg) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include media-breakpoint-down(md) {
+            grid-template-columns: repeat(1, 1fr);
+        }
+
+        // .accordion-item:not(:first-of-type) {
+        //     border-top: var(--bs-accordion-border-width) solid var(--bs-accordion-border-color);
+        // }
+
+        .accordion-item {
+            border-radius: var(--bs-accordion-border-radius);
+
+            &:not(:first-of-type) {
+                border-top: var(--bs-accordion-border-width) solid var(--bs-accordion-border-color);
+            }
+
+            .accordion-button {
+                border-radius: var(--bs-accordion-border-radius);
+            }
+        }
+    }
+}
+
+@each $state in map-keys($theme-colors) {
+    .accordion-#{$state} {
+        --bs-body-bg: var(--#{$prefix}#{$state}-bg-subtle);
+        --bs-body-color: var(--#{$prefix}#{$state}-text-emphasis);
+    }
+}

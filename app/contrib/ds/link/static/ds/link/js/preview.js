@@ -3,11 +3,13 @@ $(function () {
     function mountPreviewHtml() {
         //here goes your code
         const label = $('[name="label"]').val();
-        const context = $('[name="context"]').val();
-        const styled = $('[name="styled"]').val();
-        const size = $('[name="size"]').val();
+        const context = $('[name="context"]:checked').val();
+        const styled = $('[name="styled"]:checked').val();
+        const size = $('[name="size"]:checked').val();
         const icon = $('[name="icon"]').val();
         const icon_position = $('[name="icon_position"]').val();
+
+        // console.log("Settings: ", { label, context, styled, size, icon, icon_position });
 
         let newClass = "btn"
 
@@ -34,35 +36,41 @@ $(function () {
         if (icon !== "" && icon_position == "right") {
             html += ' <i class="bi bi-' + icon + '"></i>'
         }
-        
+
         html += '</div>'
 
         return html
     }
 
     $('[name="label"]').on("change", function (evt) {
-        $('#btn-preview').html(mountPreviewHtml());
+        // console.log("change label: ", evt);
+        $('#preview').html(mountPreviewHtml());
     });
 
     $('[name="context"]').on("change", function (evt) {
-        $('#btn-preview').html(mountPreviewHtml());
+        // console.log("change context: ", evt);
+        $('#preview').html(mountPreviewHtml());
     });
 
     $('[name="styled"]').on("change", function (evt) {
-        $('#btn-preview').html(mountPreviewHtml());
+        // console.log("change styled: ", evt);
+        $('#preview').html(mountPreviewHtml());
     });
 
     $('[name="size"]').on("change", function (evt) {
-        $('#btn-preview').html(mountPreviewHtml());
+        // console.log("change size: ", evt);
+        $('#preview').html(mountPreviewHtml());
     });
 
     $('[name="icon"]').on("change", function (evt) {
-        $('#btn-preview').html(mountPreviewHtml());
+        // console.log("change icon: ", evt);
+        $('#preview').html(mountPreviewHtml());
     });
 
     $('[name="icon_position"]').on("change", function (evt) {
-        $('#btn-preview').html(mountPreviewHtml());
+        // console.log("change icon_position: ", evt);
+        $('#preview').html(mountPreviewHtml());
     });
 
-    $('#content-main').append('<div id="btn-preview" style="background-color:#c7c7c7;padding:10px;">' + mountPreviewHtml() + '</div>');
+    $('#preview').append(mountPreviewHtml());
 });
