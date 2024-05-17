@@ -23,6 +23,7 @@
 .file-controls {
     display: flex;
     flex-direction: row;
+    --dca-primary: blue;
 }
 
 .file-desc-object {
@@ -30,3 +31,11 @@
     flex-direction: row;
     gap: 10px;
 }
+
+.text-input-file {
+    max-width: 100%;
+    font-size: 1em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }

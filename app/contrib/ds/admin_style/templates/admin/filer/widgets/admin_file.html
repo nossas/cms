@@ -20,7 +20,7 @@
          {% if max_filesize %}}data-max-filesize="{{ max_filesize|safe }}"{% endif %}>
         <div class="z-index-fix"></div>
         <div class="dz-default dz-message js-filer-dropzone-message{% if object %} hidden{% endif %}">
-            <span class="icon filer-icon filer-icon-arrow-down fa fa-arrow-down"></span><span>{% translate "or drop your file here" %}</span>
+            <span class="icon filer-icon filer-icon-arrow-down fa fa-upload"></span><span> Selecione um arquivo ou arraste-o para cá</span>
         </div>
 
         <span class="filerFile js-file-selector">
@@ -51,14 +51,16 @@
                 </div>
 
                 <div class="file-controls">
+                    {% if object.file.exists %}
                     <a href="{{ change_url }}?_edit_from_widget=1" class="js-related-edit related-lookup {% if object %}related-lookup-change{% endif %} edit" id="{{ id }}_change"
                         title="{% translate 'Edit' %}">
                         <span class="edit-file"><span class="fa fa-pencil cms-icon cms-icon-settings"></span></span>
                     </a>
+                    {% endif %}
 
                     <a href="{{ lookup_url }}" class="js-related-lookup related-lookup {% if object %}related-lookup-change{% endif %} lookup" id="{{ id }}_lookup"
                     title="{% translate 'Lookup' %}">
-                        <span class="choose-file"><span class="fa fa-search cms-icon cms-icon-search"></span>{% translate 'Choose File' %}</span>
+                        <span class="choose-file text-input-file"><span class="fa fa-search cms-icon cms-icon-search"></span>Selecione arquivo</span>
                         <span class="replace-file"><span class="fa fa-search cms-icon cms-icon-search"></span></span>
                     </a>
                 </div>

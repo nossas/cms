@@ -128,15 +128,34 @@
           <div class="field field-{{field.name}}">
             <label class="form-label">{{ field.label }} </label>
             <span class="help-text">{{ field.help_text }}</span>
-            {{field}}    
+            {{field}}
           </div>
           {% endwith %}
           {% with field=adminform.form.background_size %}
-          <div class="field field-{{field.name}}">
-            <label class="form-label">{{ field.label }} </label>
-            <span class="help-text">{{ field.help_text }}</span>
-            {{field}}
-          </div>
+            <div class="field field-{{field.name}}">
+              <label class="form-label">{{ field.label }} </label>
+              <span class="help-text">{{ field.help_text }}</span>
+              <div class="form-radio">
+                {% with choice=field.field.choices.0 %}
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" id="{{field.name}}_{{choice.0}}" name="{{field.name}}" value="{{choice.0}}"{% if field.value == choice.0 %} checked{% endif %} />
+                  <label class="form-check-label" for="{{field.name}}_{{choice.0}}">{{ choice.1 }} {% include "blocks/plugin/tooltip.html" with message="Ajusta a imagem para cobrir toda a área podendo cortar partes da imagem." direction="left" %}</label>
+                </div>
+                {% endwith %}
+                {% with choice=field.field.choices.1 %}
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" id="{{field.name}}_{{choice.0}}" name="{{field.name}}" value="{{choice.0}}"{% if field.value == choice.0 %} checked{% endif %} />
+                  <label class="form-check-label" for="{{field.name}}_{{choice.0}}">{{ choice.1 }} {% include "blocks/plugin/tooltip.html" with message="Ajusta a imagem para caber inteiramente no container, sem cortes." direction="left" %}</label>
+                </div>
+                {% endwith %}
+                {% with choice=field.field.choices.2 %}
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" id="{{field.name}}_{{choice.0}}" name="{{field.name}}" value="{{choice.0}}"{% if field.value == choice.0 %} checked{% endif %} />
+                  <label class="form-check-label" for="{{field.name}}_{{choice.0}}">{{ choice.1 }} {% include "blocks/plugin/tooltip.html" with message="Mantém o tamanho original da imagem." direction="left" %}</label>
+                </div>
+                {% endwith %}
+                </div>
+            </div>
           {% endwith %}
           {% with field=adminform.form.background_color %}
             <div class="field field-{{field.name}}">
