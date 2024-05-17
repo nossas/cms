@@ -1,0 +1,10 @@
+{% load static %}
+{% comment %} <span class="tooltip">{% include "blocks/plugin/tooltip.svg" %}
+    <div class="tooltip-content{% if instance.direction %} tooltip-content-{{instance.direction}}{% endif %}">
+      <p>{{ instance.message }}</p>
+    </div>
+</span> {% endcomment %}
+<span class="tooltip-plugin">
+{% include "blocks/plugin/tooltip.svg" %}
+<span>{{instance.message}}</span>
+</span>
