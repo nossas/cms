@@ -68,6 +68,7 @@ INSTALLED_APPS = [
     "contrib.ds.counter",
     "contrib.ds.grid",
     "contrib.ds.link",
+    "contrib.ds.tooltip",
 ]
 
 # URLs
