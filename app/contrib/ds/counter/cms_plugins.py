@@ -1,4 +1,5 @@
 from datetime import date
+from django.utils.translation import gettext_lazy as _
 
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
@@ -8,9 +9,11 @@ from .models import Counter
 
 @plugin_pool.register_plugin
 class CounterPlugin(CMSPluginBase):
-  name = "Counter"
+  name = _("Contador")
   model = Counter
   render_template = "counter/plugins/counter.html"
+  text_enabled = True
+  allow_children = True
 
   def render(self, context, instance, placeholder):
       context = super().render(context, instance, placeholder)

@@ -1,0 +1,2 @@
+{% load cms_tags %}
+<span data-counter data-counter-initial="{{ counter_initial_number }}" data-counter-target="{{ counter_target_number }}">{% for plugin in instance.child_plugin_instances %}{% render_plugin plugin %}{% empty %}0{% endfor %}</span>

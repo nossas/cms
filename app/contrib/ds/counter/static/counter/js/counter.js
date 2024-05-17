@@ -1,4 +1,4 @@
-import { CountUp } from './lib/countUp.min.js';
+import { CountUp } from './countUp.min.js';
 
 document.querySelectorAll("[data-counter]").forEach(counter => {
   const initialNumber = parseInt(counter.dataset.counterInitial, 10);
