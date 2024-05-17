@@ -55,7 +55,6 @@ INSTALLED_APPS = [
     "django_select2",
     "django_jsonform",
     "djangocms_form_builder",
-    "sass_processor",
     # My Apps
     "contrib.bonde",
     "contrib.ga",
