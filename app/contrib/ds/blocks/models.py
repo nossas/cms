@@ -44,9 +44,9 @@ class BlockLayout(models.TextChoices):
     flex = "d-flex", _("Flexível")
 
 class BackgroundSize(models.TextChoices):
-    contain = "contain"
-    cover = "cover"
-    initial = "initial"
+    cover = "cover", _("Preencher Área")
+    contain = "contain", _("Redimensionar")
+    initial = "initial", _("Tamanho Original")
 
 
 class BlockAbstractModel(models.Model):
@@ -88,6 +88,8 @@ class BlockAbstractModel(models.Model):
             on_delete=models.SET_NULL,
     )
     background_size = models.CharField(
+        verbose_name=_("Tamanho"),
+        help_text=_("Escolha como a imagem de fundo deve ser exibida"),
         choices=BackgroundSize.choices,
         max_length=8,
         default=BackgroundSize.cover
