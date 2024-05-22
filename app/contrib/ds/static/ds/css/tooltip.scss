@@ -49,6 +49,20 @@
         z-index: 1;
     }
 
+    &:not(.tooltip-plugin-right) {
+        > span {
+            top: -5px;
+            right: 105%;
+        }
+    }
+
+    &.tooltip-plugin-right {
+        > span {
+            top: -5px;
+            left: 105%;
+        }
+    }
+
     &:hover {
         > span {
             display: flex;

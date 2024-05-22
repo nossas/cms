@@ -4,7 +4,7 @@
       <p>{{ instance.message }}</p>
     </div>
 </span> {% endcomment %}
-<span class="tooltip-plugin">
+<span class="tooltip-plugin{% if instance.direction == 'right' %} tooltip-plugin-right{% endif %}">
 {% include "blocks/plugin/tooltip.svg" %}
 <span>{{instance.message}}</span>
 </span>
