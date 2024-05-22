@@ -13,6 +13,7 @@
 $enable-grid-classes: false;
 $enable-cssgrid: true;
 
+// Spacing
 $spacer: 1.5rem;
 
 $spacers: (
@@ -27,6 +28,13 @@ $spacers: (
   8: $spacer * 5,
 ) !default;
 
+// Button
+$btn-padding-x: $spacer * 1.5;
+$btn-padding-x-sm: $spacer * 1;
+$btn-padding-x-lg: $spacer * 1.5;
+$btn-font-weight: 600;
+
+// Navbar
 $navbar-padding-y: $spacer * .3;
 $navbar-dark-color: rgba($white, 1);
 
