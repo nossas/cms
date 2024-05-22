@@ -195,40 +195,76 @@
           </div>
         </div>
         {% endwith %}
-        {% with field=adminform.form.alignment %}
-        <div class="field field-{{field.name}}">
-          <label class="form-label">{{ field.label }} {% include "blocks/plugin/tooltip.html" with message="Controla como os elementos são alinhados dentro do bloco. Funciona de acordo com a direção 'Coluna' e 'Linha'" direction="left" %}</label>
-          <span class="help-text">{{ field.help_text }}</span>
-          <div class="field-custom-radio-widget">
+        <div class="form-col-flex">
+          {% with field=adminform.form.alignment %}
+          <div class="field field-{{field.name}}">
+            <label class="form-label">{{ field.label }} {% include "blocks/plugin/tooltip.html" with message="Controla como os elementos são alinhados dentro do bloco. Funciona de acordo com a direção 'Coluna' e 'Linha'" direction="left" %}</label>
+            <span class="help-text">{{ field.help_text }}</span>
+            <div class="field-custom-radio-widget">
+              {% for choice in field.field.choices %}
+              <div class="form-check">
+                <input class="form-check-input hidden" type="radio" id="{{field.name}}_{{choice.0}}" name="{{field.name}}" value="{{choice.0}}"{% if field.value == choice.0 %} checked{% endif %} />
+                <label class="form-check-label" for="{{field.name}}_{{choice.0}}">
+                  {% if choice.0 %}{% include 'blocks/plugin/align_'|add:choice.0|add:'.svg' %}{% else %}{% include 'blocks/plugin/none.svg' %}{% endif %}
+                </label>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          {% endwith %}
+          {% with field=adminform.form.alignment_mobile %}
+          <div class="field field-{{field.name}}">
+            <label class="form-label">{{ field.label }} {% include "blocks/plugin/tooltip.html" with message="Controla como os elementos são alinhados dentro do bloco. Funciona de acordo com a direção 'Coluna' e 'Linha'" direction="left" %}</label>
+            <span class="help-text">{{ field.help_text }}</span>
+            <div class="field-custom-radio-widget">
+              {% for choice in field.field.choices %}
+              <div class="form-check">
+                <input class="form-check-input hidden" type="radio" id="{{field.name}}_{{choice.0}}" name="{{field.name}}" value="{{choice.0}}"{% if field.value == choice.0 %} checked{% endif %} />
+                <label class="form-check-label" for="{{field.name}}_{{choice.0}}">
+                  {% if choice.0 %}{% include 'blocks/plugin/align_'|add:choice.0|add:'.svg' %}{% else %}{% include 'blocks/plugin/none.svg' %}{% endif %}
+                </label>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          {% endwith %}
+        </div>
+      </div>
+      <div class="form-row-flex">
+        <div class="form-col-flex">
+          {% with field=adminform.form.direction %}
+          <div class="field field-{{field.name}}">
+            <label class="form-label">{{ field.label }} {% include "blocks/plugin/tooltip.html" with message="Escolha a direção na qual os elementos serão organizados dentro do bloco." direction="left" %}</label>
+            <span class="help-text">{{ field.help_text }}</span>
+            <div class="field-custom-radio-widget">
             {% for choice in field.field.choices %}
             <div class="form-check">
               <input class="form-check-input hidden" type="radio" id="{{field.name}}_{{choice.0}}" name="{{field.name}}" value="{{choice.0}}"{% if field.value == choice.0 %} checked{% endif %} />
               <label class="form-check-label" for="{{field.name}}_{{choice.0}}">
-                {% if choice.0 %}{% include 'blocks/plugin/align_'|add:choice.0|add:'.svg' %}{% else %}{% include 'blocks/plugin/none.svg' %}{% endif %}
+                {% if choice.0 %}{% include 'blocks/plugin/direction_'|add:choice.0|add:'.svg' %}{% else %}{% include 'blocks/plugin/none.svg' %}{% endif %}
               </label>
             </div>
             {% endfor %}
+            </div>
           </div>
+          {% endwith %}
+          {% with field=adminform.form.direction_mobile %}
+          <div class="field field-{{field.name}}">
+            <label class="form-label">{{ field.label }} {% include "blocks/plugin/tooltip.html" with message="Escolha a direção na qual os elementos serão organizados dentro do bloco." direction="left" %}</label>
+            <span class="help-text">{{ field.help_text }}</span>
+            <div class="field-custom-radio-widget">
+            {% for choice in field.field.choices %}
+            <div class="form-check">
+              <input class="form-check-input hidden" type="radio" id="{{field.name}}_{{choice.0}}" name="{{field.name}}" value="{{choice.0}}"{% if field.value == choice.0 %} checked{% endif %} />
+              <label class="form-check-label" for="{{field.name}}_{{choice.0}}">
+                {% if choice.0 %}{% include 'blocks/plugin/direction_'|add:choice.0|add:'.svg' %}{% else %}{% include 'blocks/plugin/none.svg' %}{% endif %}
+              </label>
+            </div>
+            {% endfor %}
+            </div>
+          </div>
+          {% endwith %}
         </div>
-        {% endwith %}
-      </div>
-      <div class="form-row-flex">
-        {% with field=adminform.form.direction %}
-        <div class="field field-{{field.name}}">
-          <label class="form-label">{{ field.label }} {% include "blocks/plugin/tooltip.html" with message="Escolha a direção na qual os elementos serão organizados dentro do bloco." direction="left" %}</label>
-          <span class="help-text">{{ field.help_text }}</span>
-          <div class="field-custom-radio-widget">
-          {% for choice in field.field.choices %}
-          <div class="form-check">
-            <input class="form-check-input hidden" type="radio" id="{{field.name}}_{{choice.0}}" name="{{field.name}}" value="{{choice.0}}"{% if field.value == choice.0 %} checked{% endif %} />
-            <label class="form-check-label" for="{{field.name}}_{{choice.0}}">
-              {% if choice.0 %}{% include 'blocks/plugin/direction_'|add:choice.0|add:'.svg' %}{% else %}{% include 'blocks/plugin/none.svg' %}{% endif %}
-            </label>
-          </div>
-          {% endfor %}
-          </div>
-        </div>
-        {% endwith %}
         {% with field=adminform.form.wrap %}
         <div class="field field-{{field.name}}">
           <label class="form-label">{{ field.label }} {% include "blocks/plugin/tooltip.html" with message="Define se os elementos devem permanecer em uma única linha ou podem ser quebrados em várias linhas. Ative para permitir que os elementos se ajustem automaticamente ao espaço disponível." direction="left" %}</label>
@@ -277,18 +313,23 @@
         $(".field-alignment").removeClass("hidden");
         $(".field-gap").removeClass("hidden");
         $(".field-direction").addClass("hidden");
+        $(".field-direction_mobile").addClass("hidden");
         $(".field-wrap").addClass("hidden");
         $(".field-fill").addClass("hidden");
       } else if (value === "d-flex") {
         $(".field-alignment").removeClass("hidden");
+        $(".field-alignment_mobile").removeClass("hidden");
         $(".field-gap").removeClass("hidden");
         $(".field-direction").removeClass("hidden");
+        $(".field-direction_mobile").removeClass("hidden");
         $(".field-wrap").removeClass("hidden");
         $(".field-fill").removeClass("hidden");
       } else {
         $(".field-alignment").addClass("hidden");
+        $(".field-alignment_mobile").addClass("hidden");
         $(".field-gap").addClass("hidden");
         $(".field-direction").addClass("hidden");
+        $(".field-direction_mobile").addClass("hidden");
         $(".field-wrap").addClass("hidden");
         $(".field-fill").addClass("hidden");
       }

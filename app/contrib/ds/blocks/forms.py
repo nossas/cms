@@ -80,9 +80,16 @@ class GridFormMixin(EntangledModelFormMixin):
         help_text=_("Como os elementos são alinhados"),
         widget=forms.RadioSelect(attrs={"class": "hidden"}),
     )
+    alignment_mobile = forms.ChoiceField(
+        choices=[("", "----")] + AlignmentItems.choices,
+        required=False,
+        label=_("Alinhamento (Mobile)"),
+        help_text=_("Como os elementos são alinhados"),
+        widget=forms.RadioSelect(attrs={"class": "hidden"}),
+    )
 
     class Meta:
-        entangled_fields = {"attributes": ["gap", "alignment"]}
+        entangled_fields = {"attributes": ["gap", "alignment", "alignment_mobile"]}
 
 
 class FlexFormMixin(EntangledModelFormMixin):
@@ -90,6 +97,12 @@ class FlexFormMixin(EntangledModelFormMixin):
         choices=[("", "----")] + FlexDirection.choices,
         required=False,
         label=_("Direção"),
+        help_text=_("Escolha como os elementos se alinharão"),
+    )
+    direction_mobile = forms.ChoiceField(
+        choices=[("", "----")] + FlexDirection.choices,
+        required=False,
+        label=_("Direção (Mobile)"),
         help_text=_("Escolha como os elementos se alinharão"),
     )
     wrap = forms.ChoiceField(
@@ -101,7 +114,7 @@ class FlexFormMixin(EntangledModelFormMixin):
     fill = forms.BooleanField(required=False)
 
     class Meta:
-        entangled_fields = {"attributes": ["direction", "wrap", "fill"]}
+        entangled_fields = {"attributes": ["direction", "direction_mobile", "wrap", "fill"]}
 
 
 class BlockForm(

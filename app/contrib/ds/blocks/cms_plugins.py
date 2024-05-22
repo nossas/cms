@@ -5,7 +5,7 @@ from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
 from .forms import BlockForm, BlockTemplateForm
-from .models import Block, BlockLayout
+from .models import Block, BlockLayout, FlexDirection
 from .utils import to_padding_css, template_plugin_generator
 
 
@@ -45,7 +45,7 @@ class BlockPlugin(CMSPluginBase):
         ),
         (
             _("Atributos"),
-            {"fields": ("size", "gap", "alignment", "direction", "wrap", "fill")},
+            {"fields": ("size", "gap", "alignment", "alignment_mobile", "direction", "direction_mobile", "wrap", "fill")},
         ),
     )
 
@@ -91,13 +91,17 @@ class BlockPlugin(CMSPluginBase):
         if block_layout == BlockLayout.flex:
             if instance.attributes and instance.attributes.get("direction"):
                 direction = instance.attributes.get("direction")
+                direction_mobile = instance.attributes.get("direction_mobile")
 
-                if direction == "row":
+                if direction == FlexDirection.row:
                     css_classes.append("flex-column")
                     css_classes.append(f"flex-md-row")
-                elif direction == "row-reverse":
+                elif direction == FlexDirection.rowreverse:
                     css_classes.append("flex-column-reverse")
                     css_classes.append(f"flex-md-row-reverse")
+                elif direction and direction_mobile:
+                    css_classes.append(f"flex-md-{direction}")
+                    css_classes.append(f"flex-{direction_mobile}")
                 else:
                     css_classes.append(f"flex-{direction}")
             else:
@@ -116,23 +120,29 @@ class BlockPlugin(CMSPluginBase):
             if instance.attributes
             else None
         )
-        
+
         if background_color:
             css_styles.append(f"background-color:{background_color}")
-        
+
         if instance.background_image:
-            css_styles.append(f"background-image:url('{instance.background_image.url}')")
-            css_styles.append(f"background-size:{instance.background_size}") 
+            css_styles.append(
+                f"background-image:url('{instance.background_image.url}')"
+            )
+            css_styles.append(f"background-size:{instance.background_size}")
             css_styles.append("background-repeat:no-repeat")
             css_styles.append("background-position:center")
 
-        padding_attrs = [("padding_top", "pt"), ("padding_bottom", "pb"), ("padding_left", "pl"), ("padding_right", "pr")]
+        padding_attrs = [
+            ("padding_top", "pt"),
+            ("padding_bottom", "pb"),
+            ("padding_left", "pl"),
+            ("padding_right", "pr"),
+        ]
 
         for key, attr in padding_attrs:
             p = instance.attributes.get(key, None) if instance.attributes else None
             if p:
                 css_classes.append(f"{attr}-{p}")
-
 
         context["html_element"] = html_element
         context["css_classes"] = " ".join(css_classes)

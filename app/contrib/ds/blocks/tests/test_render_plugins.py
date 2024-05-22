@@ -6,7 +6,7 @@ from cms.plugin_rendering import ContentRenderer
 
 from ..cms_plugins import BlockPlugin
 from ..forms import BlockForm, BlockTemplateForm
-from ..models import BlockElement, BlockLayout
+from ..models import BlockElement, BlockLayout, FlexDirection
 from contrib.ds.tests.helpers import get_filer_image
 
 
@@ -389,5 +389,25 @@ class BlockPluginsTestCase(CMSTestCase):
 
         html = renderer.render_plugin(model_instance, {})
         expected_html = f"""<div style="background-image:url('{self.image.url}');background-size:{self.background_size};background-repeat:no-repeat;background-position:center"></div>"""
+
+        self.assertHTMLEqual(html, expected_html)
+
+    def test_direction_change_mobile(self):
+        model_instance = add_plugin(
+            placeholder=self.placeholder,
+            plugin_type="BlockPlugin",
+            language=self.language,
+            layout=BlockLayout.flex,
+            attributes={
+                "direction": FlexDirection.column,
+                "direction_mobile": FlexDirection.row,
+            },
+        )
+        model_instance.full_clean()
+
+        renderer = ContentRenderer(request=RequestFactory())
+
+        html = renderer.render_plugin(model_instance, {})
+        expected_html = f"""<div class="d-flex flex-md-column flex-row"></div>"""
 
         self.assertHTMLEqual(html, expected_html)
