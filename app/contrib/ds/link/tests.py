@@ -259,6 +259,26 @@ class LinkPluginsTestCase(CMSTestCase):
         )
 
         self.assertHTMLEqual(html, expected_html)
+
+    def test_render_only_icon_button(self):
+        plugin = add_plugin(
+            placeholder=self.placeholder,
+            plugin_type="ButtonPlugin",
+            language=self.language,
+            label="Enviar",
+            icon="map-fill",
+            icon_position=IconPosition.only
+        )
+        plugin.full_clean()
+
+        renderer = ContentRenderer(request=RequestFactory())
+
+        html = renderer.render_plugin(plugin, {})
+        expected_html = (
+            f"<a class='btn btn-primary' target='_self' title='Enviar'><i class='bi bi-map-fill'></i></a>"
+        )
+
+        self.assertHTMLEqual(html, expected_html)
     
     def test_render_submit_button(self):
         plugin = add_plugin(

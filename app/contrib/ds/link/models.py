@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.core.exceptions import ValidationError
 
 from cms.models import CMSPlugin, Page
 from contrib.ds.bs_icons import ICONS_CHOICES
@@ -38,10 +39,11 @@ class Size(models.TextChoices):
 class IconPosition(models.TextChoices):
     left = "left", _("Esquerda")
     right = "right", _("Direita")
+    only = "only", _("Somente Ícone")
 
 
 class Button(CMSPlugin):
-    label = models.CharField(max_length=100)
+    label = models.CharField(max_length=100, blank=True)
     link_target = models.CharField(
         verbose_name=_("Comportamento do link"),
         help_text=_("Escolha como o link será aberto ao ser clicado"),
@@ -100,6 +102,10 @@ class Button(CMSPlugin):
         choices=IconPosition.choices,
         default=IconPosition.left
     )
+
+    def clean(self):
+        if self.icon_position != 'only' and not self.label:
+            raise ValidationError(_('O Label é obrigatório, exceto quando a posição do ícone é "somente ícone".'))
 
     @property
     def url(self):
