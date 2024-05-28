@@ -1,6 +1,5 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from django.core.exceptions import ValidationError
 
 from cms.models import CMSPlugin, Page
 from contrib.ds.bs_icons import ICONS_CHOICES
