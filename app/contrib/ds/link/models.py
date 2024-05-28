@@ -43,7 +43,7 @@ class IconPosition(models.TextChoices):
 
 
 class Button(CMSPlugin):
-    label = models.CharField(max_length=100, blank=True)
+    label = models.CharField(max_length=100)
     link_target = models.CharField(
         verbose_name=_("Comportamento do link"),
         help_text=_("Escolha como o link será aberto ao ser clicado"),
@@ -102,10 +102,6 @@ class Button(CMSPlugin):
         choices=IconPosition.choices,
         default=IconPosition.left
     )
-
-    def clean(self):
-        if self.icon_position != 'only' and not self.label:
-            raise ValidationError(_('O Label é obrigatório, exceto quando a posição do ícone é "somente ícone".'))
 
     @property
     def url(self):
