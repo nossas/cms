@@ -82,6 +82,24 @@ services:
       - traefik.http.routers.adp.tls.certresolver=myresolver
       - traefik.http.routers.adp.rule=${ADP_TRAEFIK_ROUTERS_RULE:-"HostRegexp(`adp.staging.bonde.org`)"}
 
+  adp-mapa:
+    image: ${ADP_MAPA_DOCKER_IMAGE:-nossas/fpnd-mapa:v1.0}
+    restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
+    pull_policy: always
+    environment:
+      - MY_APP_URL_AJUDA=https://google.com
+      - MY_APP_URL_COMO_AGIR=https://google.com
+      - MY_APP_URL_INFO_DATA=${ADP_MAPA_URL_INFO_DATA}
+      - MY_APP_URL_MAP_DATA=${ADP_MAPA_URL_MAP_DATA}
+      - MY_APP_URL_MVT=${ADP_MAPA_URL_MVT}
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.adp.priority=10
+      - traefik.http.services.adp.loadbalancer.server.port=80
+      - traefik.http.routers.adp.tls=true
+      - traefik.http.routers.adp.tls.certresolver=myresolver
+      - traefik.http.routers.adp.rule=${ADP_MAPA_TRAEFIK_ROUTERS_RULE:-"HostRegexp(`adp-mapa.staging.bonde.org`)"}
+
 networks:
   default:
     name: bonde
