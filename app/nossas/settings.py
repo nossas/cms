@@ -54,7 +54,6 @@ COMPRESS_PRECOMPILERS = (("text/x-scss", "django_libsass.SassCompiler"),)
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "project.middleware.WwwRedirectMiddleware",
-    "eleicao.middleware.EleicaoRedirectMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     # Add i18n middleware
