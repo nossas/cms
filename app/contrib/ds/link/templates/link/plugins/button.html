@@ -1,4 +1,4 @@
-<a class="{{css_classes}}"{% if instance.url %} href="{{instance.url}}"{% endif %}{% if instance.link_target %} target="{{instance.link_target}}"{% endif %} {% if instance.icon_position == 'only' %} title="{{instance.label}}" {% endif %}>
+<a class="{{css_classes}}"{% if instance.url %} href="{{instance.url}}"{% endif %}{% if instance.link_target %} target="{{instance.link_target}}"{% endif %}{% if instance.icon_position == 'only' %} title="{{instance.label}}"{% endif %}>
     {% if instance.icon and instance.icon_position != 'right' %}
         <i class='bi bi-{{instance.icon}}'></i>
     {% endif %}

@@ -2,7 +2,7 @@ from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
 from .forms import ButtonForm
-from .models import Button, Target
+from .models import Button, Target, IconPosition
 
 
 @plugin_pool.register_plugin
@@ -55,6 +55,9 @@ class ButtonPlugin(CMSPluginBase):
 
         if styled != "btn":
             css_classes.append(styled)
+        
+        if instance.icon_position == IconPosition.only:
+            css_classes.append("btn-icon")
 
         context["css_classes"] = " ".join(css_classes)
         # context["css_styles"] = ";".join(css_styles)

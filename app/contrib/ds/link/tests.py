@@ -275,7 +275,7 @@ class LinkPluginsTestCase(CMSTestCase):
 
         html = renderer.render_plugin(plugin, {})
         expected_html = (
-            f"<a class='btn btn-primary' target='_self' title='Enviar'><i class='bi bi-map-fill'></i></a>"
+            f"<a class='btn btn-primary btn-icon' target='_self' title='Enviar'><i class='bi bi-map-fill'></i></a>"
         )
 
         self.assertHTMLEqual(html, expected_html)
