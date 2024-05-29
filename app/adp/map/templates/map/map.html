@@ -1,3 +1,4 @@
-<div style="width: 100%; height: 100%; overflow: hidden;">
-    <iframe src="{{ instance.url }}" width="{{ instance.width }}" height="{{ instance.height }}" frameborder="0" style="border:0; width: 100%; height: 100%;" allowfullscreen></iframe>
+{% load cms_tags menu_tags %}
+<div{% if css_styles %} style="{{css_styles}}"{% endif %}>
+    <iframe src="{{ instance.url }}" width="{{ instance.width }}" height="{{ instance.height }}" frameborder="0" allowfullscreen></iframe>
 </div>
