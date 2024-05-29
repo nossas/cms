@@ -94,11 +94,11 @@ services:
       - MY_APP_URL_MVT=${ADP_MAPA_URL_MVT}
     labels:
       - traefik.enable=true
-      - traefik.http.routers.adp.priority=10
-      - traefik.http.services.adp.loadbalancer.server.port=80
-      - traefik.http.routers.adp.tls=true
-      - traefik.http.routers.adp.tls.certresolver=myresolver
-      - traefik.http.routers.adp.rule=${ADP_MAPA_TRAEFIK_ROUTERS_RULE:-"HostRegexp(`adp-mapa.staging.bonde.org`)"}
+      - traefik.http.routers.adp-mapa.priority=10
+      - traefik.http.services.adp-mapa.loadbalancer.server.port=80
+      - traefik.http.routers.adp-mapa.tls=true
+      - traefik.http.routers.adp-mapa.tls.certresolver=myresolver
+      - traefik.http.routers.adp-mapa.rule=${ADP_MAPA_TRAEFIK_ROUTERS_RULE:-"HostRegexp(`adp-mapa.staging.bonde.org`)"}
 
 networks:
   default:
