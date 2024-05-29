@@ -68,6 +68,8 @@ INSTALLED_APPS = [
     "contrib.ds.grid",
     "contrib.ds.link",
     "contrib.ds.tooltip",
+
+    "adp.map"
 ]
 
 # URLs
