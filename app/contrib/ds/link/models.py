@@ -38,6 +38,7 @@ class Size(models.TextChoices):
 class IconPosition(models.TextChoices):
     left = "left", _("Esquerda")
     right = "right", _("Direita")
+    only = "only", _("Somente Ícone")
 
 
 class Button(CMSPlugin):

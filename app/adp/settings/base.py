@@ -67,7 +67,10 @@ INSTALLED_APPS = [
     "contrib.ds.counter",
     "contrib.ds.grid",
     "contrib.ds.link",
+    "contrib.ds.picture",
     "contrib.ds.tooltip",
+
+    "adp.map"
 ]
 
 # URLs
@@ -93,6 +96,8 @@ CMS_TEMPLATES = [
 ]
 
 CMS_PLACEHOLDER_CONF = {}
+
+DJANGOCMS_PICTURE_RESPONSIVE_IMAGES = True
 
 # DjangoCMS Form Builder Submodule
 
