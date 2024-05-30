@@ -1,4 +1,33 @@
-{% load cms_tags menu_tags %}
-<div{% if css_styles %} style="{{css_styles}}"{% endif %}>
+{% load cms_tags menu_tags sekizai_tags %}
+
+{% addtoblock 'css' %}
+<style>
+html, body {
+    height: 100%;
+}
+nav.fixed-top {
+    position: relative;
+}
+#cms-top + nav.fixed-top {
+    margin-top: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.map-wrapper {
+    flex: 1;
+    overflow: hidden;
+}
+
+footer {
+    display: none;
+}
+</style>
+{% endaddtoblock %}
+
+<div class="map-wrapper">
     <iframe src="{{ instance.url }}" width="{{ instance.width }}" height="{{ instance.height }}" frameborder="0" allowfullscreen></iframe>
 </div>
