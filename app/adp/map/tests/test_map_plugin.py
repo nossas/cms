@@ -1,7 +1,10 @@
 from django.test.client import RequestFactory
+
 from cms.api import add_plugin, create_page
 from cms.plugin_rendering import ContentRenderer
 from cms.test_utils.testcases import CMSTestCase
+from sekizai.context import SekizaiContext
+
 
 class MapPluginTestCase(CMSTestCase):
 
@@ -40,10 +43,10 @@ class MapPluginTestCase(CMSTestCase):
 
         request = RequestFactory().get('/')
         renderer = ContentRenderer(request=request)
-        html = renderer.render_plugin(plugin, {})
+        html = renderer.render_plugin(plugin, SekizaiContext())
 
         expected_html = f'''
-        <div style="height:100vh;overflow:hidden">
+        <div class="map-wrapper">
             <iframe src="https://mapa.deolhonasflorestaspublicas.org.br" width={self.width} height={self.height} frameborder="0" allowfullscreen></iframe>
         </div>'''
 
