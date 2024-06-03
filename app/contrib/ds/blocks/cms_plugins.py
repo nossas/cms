@@ -93,7 +93,7 @@ class BlockPlugin(CMSPluginBase):
                 direction = instance.attributes.get("direction")
                 direction_mobile = instance.attributes.get("direction_mobile")
 
-                if direction == FlexDirection.row:
+                if direction == FlexDirection.row and not direction_mobile:
                     css_classes.append("flex-column")
                     css_classes.append(f"flex-md-row")
                 elif direction == FlexDirection.rowreverse:

@@ -411,3 +411,24 @@ class BlockPluginsTestCase(CMSTestCase):
         expected_html = f"""<div class="d-flex flex-md-column flex-row"></div>"""
 
         self.assertHTMLEqual(html, expected_html)
+
+
+    def test_change_mobile_direction_row(self):
+        model_instance = add_plugin(
+            placeholder=self.placeholder,
+            plugin_type="BlockPlugin",
+            language=self.language,
+            layout=BlockLayout.flex,
+            attributes={
+                "direction": FlexDirection.row,
+                "direction_mobile": FlexDirection.row,
+            },
+        )
+        model_instance.full_clean()
+
+        renderer = ContentRenderer(request=RequestFactory())
+
+        html = renderer.render_plugin(model_instance, {})
+        expected_html = f"""<div class="d-flex flex-md-row flex-row"></div>"""
+
+        self.assertHTMLEqual(html, expected_html)
