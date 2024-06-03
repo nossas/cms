@@ -1,6 +1,6 @@
 {% load cms_tags %}
 
-<nav class="{{css_classes}} {% if request.current_page.is_home %}bg-primary" style="--bs-bg-opacity: .75;" data-bs-theme="dark"{% else %}bg-primary" data-bs-theme="dark"{% endif %}>
+<nav class="{{css_classes}} {% if request.current_page.is_home %}is-home bg-primary" data-bs-theme="dark"{% else %}bg-primary" data-bs-theme="dark"{% endif %}>
     <div class="container">
       <a class="navbar-brand" href="/">
           <img src="{% if instance.brand %}{{instance.brand.url}}{% else %}https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo.svg{% endif %}" alt="Logo" height="24" class="d-inline-block align-text-top">{% if instance.title %} {{ instance.title }}{% endif %}
