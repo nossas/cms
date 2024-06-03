@@ -87,8 +87,8 @@ services:
     restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
     pull_policy: always
     environment:
-      - MY_APP_URL_AJUDA=https://google.com
-      - MY_APP_URL_COMO_AGIR=https://google.com
+      - MY_APP_URL_AJUDA=${ADP_MAPA_URL_AJUDA}
+      - MY_APP_URL_COMO_AGIR=${ADP_MAPA_URL_COMO_AGIR}
       - MY_APP_URL_INFO_DATA=${ADP_MAPA_URL_INFO_DATA}
       - MY_APP_URL_MAP_DATA=${ADP_MAPA_URL_MAP_DATA}
       - MY_APP_URL_MVT=${ADP_MAPA_URL_MVT}
