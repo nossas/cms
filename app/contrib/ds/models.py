@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 from django.contrib.sites.models import Site
 from django.utils.html import mark_safe
 
@@ -160,10 +161,19 @@ SCSS_SCHEMA = {
 
 class Theme(models.Model):
     scss_json = JSONField(schema=SCSS_SCHEMA, blank=True, null=True)
+
+    favicon = FilerImageField(
+        verbose_name=_("Favicon"),
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="+"
+    )
+
     site = models.OneToOneField(Site, primary_key=True, on_delete=models.CASCADE)
 
     class Meta:
-        verbose_name = "Design System"
+        verbose_name = _("Design System")
 
     def __str__(self):
         return self.site.name
