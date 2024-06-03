@@ -288,3 +288,4 @@ class Menu(CMSPlugin):
     active_styled = models.CharField(
         max_length=30, choices=ActiveStyled.choices, null=True, blank=True
     )
+    attributes = models.JSONField(blank=True, null=True)

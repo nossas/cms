@@ -4,6 +4,7 @@ from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
 from .models import Navbar, Menu
+from .forms import MenuForm
 
 
 @plugin_pool.register_plugin
@@ -41,11 +42,14 @@ class FooterPlugin(CMSPluginBase):
 class MenuPlugin(CMSPluginBase):
     name = _("Menu")
     model = Menu
+    form = MenuForm
     render_template = "ds/plugins/menu.html"
 
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
         css_styles = []
+        ul_styles = []
+        ul_styles_mobile = []
 
         if instance.color:
             h = instance.color.lstrip("#")
@@ -57,7 +61,18 @@ class MenuPlugin(CMSPluginBase):
                 css_styles.append(f"--bs-navbar-active-color:{rgba},1)")
             else:
                 css_styles.append(f"--bs-navbar-active-color:{rgba},.75)")
-        
+
+        attributes = instance.attributes or {}
+        gap = attributes.get("gap")
+        if gap:
+            ul_styles.append(f"gap:{gap}rem")
+
+        gap_mobile = attributes.get("gap_mobile")
+        if gap_mobile:
+            ul_styles_mobile.append(f"gap:{gap_mobile}rem")
+
         context["css_styles"] = ";".join(css_styles)
-        
+        context["ul_styles"] = ";".join(ul_styles)
+        context["ul_styles_mobile"] = ";".join(ul_styles_mobile)
+
         return context

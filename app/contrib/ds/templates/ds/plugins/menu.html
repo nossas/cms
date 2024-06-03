@@ -1,16 +1,32 @@
 {% load menu_tags sekizai_tags %}
 
 {% if instance.active_styled %}
-{% addtoblock 'css' %}
-<style>
-#menu-{{instance.id}} .nav-link.active {
-  text-decoration: underline;
-  text-decoration-line: underline;
-  text-underline-position: under;
-  text-underline-offset: 2px;
-}
-</style>
-{% endaddtoblock %}
+  {% addtoblock 'css' %}
+  <style>
+    #menu-{{ instance.id }} .nav-link.active {
+      text-decoration: underline;
+      text-decoration-line: underline;
+      text-underline-position: under;
+      text-underline-offset: 2px;
+    }
+  </style>
+  {% endaddtoblock %}
+{% endif %}
+
+{% if instance.attributes %}
+  {% addtoblock 'css' %}
+  <style>
+    #menu-{{ instance.id }}.navbar-nav {
+      {{ul_styles}}
+    }
+
+    @media (max-width: 768px) {
+      #menu-{{ instance.id }}.navbar-nav {
+          {{ul_styles_mobile}}
+      }
+    }
+  </style>
+  {% endaddtoblock %}
 {% endif %}
 
 <ul id="menu-{{instance.id}}" class="navbar-nav"{% if css_styles %} style="{{css_styles}}"{% endif %}>
