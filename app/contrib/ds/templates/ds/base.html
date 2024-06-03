@@ -1,6 +1,14 @@
 {% extends "ga/base.html" %}
 {% load static compress %}
 
+{% block favicon %}
+{% if request.current_site.theme.favicon %}
+<link rel="shortcut icon" href="{{ request.current_site.theme.favicon.url }}" type="image/x-icon">
+{% else %}
+<link rel="shortcut icon" href="{% static 'images/favicon-32.png' %}" type="image/x-icon">
+{% endif %}
+{% endblock %}
+
 {% block head_css %}
 {% compress css %}
 <style type="text/x-scss">
