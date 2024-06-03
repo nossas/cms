@@ -81,6 +81,12 @@ img {
   }
 }
 
+.is-home {
+  @include media-breakpoint-up(sm) {
+    --bs-bg-opacity: .75;
+  }
+}
+
 @import "./accordion.scss";
 @import "./forms.scss";
 @import "./tooltip.scss";
