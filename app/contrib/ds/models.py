@@ -167,7 +167,7 @@ class Theme(models.Model):
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
-        related_name="+"
+        related_name="+",
     )
 
     site = models.OneToOneField(Site, primary_key=True, on_delete=models.CASCADE)
@@ -224,28 +224,67 @@ class Theme(models.Model):
         return mark_safe(scss_text)
 
 
+class SEO(models.Model):
+    title = models.CharField(
+        verbose_name=_("Título"),
+        help_text=_("Limite de 60 caracteres"),
+        max_length=60,
+        null=True,
+        blank=True,
+    )
+    description = models.CharField(
+        verbose_name=_("Descrição"),
+        help_text=_("Limite de 155 caracteres"),
+        max_length=155,
+        null=True,
+        blank=True,
+    )
+    image = FilerImageField(
+        verbose_name=_("Imagem de compartilhamento"),
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+
+    site = models.OneToOneField(Site, primary_key=True, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = _("Metadados SEO")
+
+
 class NavbarAlignment(models.TextChoices):
     start = "", "start"
     center = "center", "center"
     end = "flex-end", "end"
+
 
 class NavbarPlacement(models.TextChoices):
     default = "", "default"
     fixed = "fixed-top", "fixed"
     sticky = "sticky-top", "sticky"
 
+
 class Navbar(CMSPlugin):
     brand = FilerImageField(on_delete=models.SET_NULL, null=True, blank=True)
     title = models.CharField(max_length=120, null=True, blank=True)
-    context = models.CharField(max_length=30, choices=[(x, x) for x in THEME_COLORS], null=True, blank=True)
-    alignment = models.CharField(max_length=30, choices=NavbarAlignment.choices, null=True, blank=True)
-    placement = models.CharField(max_length=30, choices=NavbarPlacement.choices, null=True, blank=True)
+    context = models.CharField(
+        max_length=30, choices=[(x, x) for x in THEME_COLORS], null=True, blank=True
+    )
+    alignment = models.CharField(
+        max_length=30, choices=NavbarAlignment.choices, null=True, blank=True
+    )
+    placement = models.CharField(
+        max_length=30, choices=NavbarPlacement.choices, null=True, blank=True
+    )
 
 
 class ActiveStyled(models.TextChoices):
     default = "", "default"
     underline = "underline", "underline"
 
+
 class Menu(CMSPlugin):
     color = ColorField(null=True, blank=True)
-    active_styled = models.CharField(max_length=30, choices=ActiveStyled.choices, null=True, blank=True)
+    active_styled = models.CharField(
+        max_length=30, choices=ActiveStyled.choices, null=True, blank=True
+    )
