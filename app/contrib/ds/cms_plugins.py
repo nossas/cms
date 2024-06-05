@@ -1,9 +1,11 @@
+from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
-from .models import Navbar, Menu
+from .models import Navbar, Menu, MenuExtraLink
+from .forms import MenuExtraLinkForm
 
 
 @plugin_pool.register_plugin
@@ -37,11 +39,17 @@ class FooterPlugin(CMSPluginBase):
     allow_children = True
 
 
+class LinkInlineAdmin(admin.StackedInline):
+    model = MenuExtraLink
+    form = MenuExtraLinkForm
+
+
 @plugin_pool.register_plugin
 class MenuPlugin(CMSPluginBase):
     name = _("Menu")
     model = Menu
     render_template = "ds/plugins/menu.html"
+    inlines = (LinkInlineAdmin,)
 
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
@@ -59,5 +67,6 @@ class MenuPlugin(CMSPluginBase):
                 css_styles.append(f"--bs-navbar-active-color:{rgba},.75)")
         
         context["css_styles"] = ";".join(css_styles)
+        context["extra_links"] = MenuExtraLink.objects.filter(menu_plugin=instance)
         
         return context

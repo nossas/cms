@@ -3,7 +3,7 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.sites.models import Site
 from django.utils.html import mark_safe
 
-from cms.models import CMSPlugin
+from cms.models import CMSPlugin, Page
 from colorfield.fields import ColorField
 from django_jsonform.models.fields import JSONField
 from filer.fields.image import FilerImageField
@@ -246,6 +246,23 @@ class ActiveStyled(models.TextChoices):
     default = "", "default"
     underline = "underline", "underline"
 
+
 class Menu(CMSPlugin):
     color = ColorField(null=True, blank=True)
     active_styled = models.CharField(max_length=30, choices=ActiveStyled.choices, null=True, blank=True)
+
+
+class MenuExtraLink(models.Model):
+    internal_link = models.ForeignKey(
+        Page,
+        verbose_name=_("Link interno"),
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+    menu_plugin = models.ForeignKey(
+        Menu,
+        related_name="associated_link",
+        null=True,
+        on_delete=models.SET_NULL
+    )

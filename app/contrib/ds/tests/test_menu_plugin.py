@@ -1,10 +1,10 @@
 from django.test.client import RequestFactory
-from django.template import Context, Template
-from django.contrib.auth.models import AnonymousUser
 
 from cms.api import add_plugin, create_page
 from cms.plugin_rendering import ContentRenderer
 from cms.test_utils.testcases import CMSTestCase
+
+from ..models import MenuExtraLink
 
 
 # Create your tests here.
@@ -44,3 +44,38 @@ class MenuPluginTestCase(CMSTestCase):
         expected_html = '<ul id="menu-1" class="navbar-nav" style="--bs-nav-link-color:rgba(255,255,255,1);--bs-nav-link-hover-color:rgba(255,255,255,.75);--bs-navbar-active-color:rgba(255,255,255,.75)"></ul>'
 
         self.assertInHTML(expected_html, html)
+
+    def test_render_menu_with_internal_links(self):
+        plugin = add_plugin(
+            placeholder=self.placeholder,
+            plugin_type="MenuPlugin",
+            language=self.language,
+            color="#ffffff",
+        )
+
+        self.home.in_navigation = False
+        self.home.save()
+
+        internal_link = self.home
+        MenuExtraLink.objects.create(internal_link=internal_link, menu_plugin=plugin)
+
+        renderer = ContentRenderer(request=RequestFactory())
+        html = renderer.render_plugin(plugin, {})
+        
+        self.assertIn(internal_link.get_absolute_url(), html)
+
+    def test_render_menu_without_internal_links(self):
+        plugin = add_plugin(
+            placeholder=self.placeholder,
+            plugin_type="MenuPlugin",
+            language=self.language,
+            color="#ffffff",
+        )
+
+        self.home.in_navigation = True
+        self.home.save()
+
+        renderer = ContentRenderer(request=RequestFactory())
+        html = renderer.render_plugin(plugin, {})
+        
+        self.assertNotIn('<a href="', html)
