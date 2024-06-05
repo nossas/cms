@@ -3,6 +3,7 @@ from django.utils.translation import gettext_lazy as _
 
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
+from cms.models import Page
 
 from .models import Navbar, Menu, MenuExtraLink
 from .forms import MenuExtraLinkForm
@@ -67,6 +68,16 @@ class MenuPlugin(CMSPluginBase):
                 css_styles.append(f"--bs-navbar-active-color:{rgba},.75)")
         
         context["css_styles"] = ";".join(css_styles)
-        context["extra_links"] = MenuExtraLink.objects.filter(menu_plugin=instance)
+
+        edit_mode = context["request"].toolbar.edit_mode_active
+
+        if edit_mode:
+            extra_links = MenuExtraLink.objects.filter(menu_plugin=instance)
+        else:
+            extra_links = []
+            for link in MenuExtraLink.objects.filter(menu_plugin=instance):
+                if link.internal_link.publisher_public and link.internal_link.publisher_public.is_published("pt-br"):
+                    extra_links.append(link)
+        context["extra_links"] = extra_links
         
         return context
