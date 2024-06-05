@@ -4,7 +4,7 @@ from entangled.forms import EntangledModelFormMixin
 
 from .models import Menu
 
-GAP_CHOICES = [
+SPACING = [
     ("0", "0"),
     ("1", "1"),
     ("2", "2"),
@@ -17,9 +17,11 @@ GAP_CHOICES = [
     ("auto", "auto"),
 ]
 
-class GapFormMixin(EntangledModelFormMixin):
-    gap = forms.ChoiceField(choices=GAP_CHOICES, required=False)
-    gap_mobile = forms.ChoiceField(choices=GAP_CHOICES, required=False)
+class SpacingFormMixin(EntangledModelFormMixin):
+    gap = forms.ChoiceField(choices=SPACING, required=False)
+    gap_mobile = forms.ChoiceField(choices=SPACING, required=False)
+    padding_top = forms.ChoiceField(choices=SPACING, required=False)
+    padding_bottom = forms.ChoiceField(choices=SPACING, required=False)
 
     class Meta:
         untangled_fields = ["color"]
@@ -27,10 +29,12 @@ class GapFormMixin(EntangledModelFormMixin):
             "attributes": [
                 "gap",
                 "gap_mobile",
+                "padding_top",
+                "padding_bottom"
             ]
         }
 
-class MenuForm(GapFormMixin, forms.ModelForm):
+class MenuForm(SpacingFormMixin, forms.ModelForm):
     class Meta:
         model = Menu
         fields = "__all__"

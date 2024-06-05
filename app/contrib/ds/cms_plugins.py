@@ -71,6 +71,14 @@ class MenuPlugin(CMSPluginBase):
         if gap_mobile:
             ul_styles_mobile.append(f"gap:{gap_mobile}rem")
 
+        padding_top = attributes.get("padding_top")
+        if padding_top:
+            css_styles.append(f"padding-top:{padding_top}rem;")
+
+        padding_bottom = attributes.get("padding_bottom")
+        if padding_bottom:
+            css_styles.append(f"padding-bottom:{padding_bottom}rem;")
+
         context["css_styles"] = ";".join(css_styles)
         context["ul_styles"] = ";".join(ul_styles)
         context["ul_styles_mobile"] = ";".join(ul_styles_mobile)
