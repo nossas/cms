@@ -251,6 +251,19 @@ class Menu(CMSPlugin):
     color = ColorField(null=True, blank=True)
     active_styled = models.CharField(max_length=30, choices=ActiveStyled.choices, null=True, blank=True)
 
+    def copy_relations(self, oldinstance):
+        # Before copying related objects from the old instance, the ones
+        # on the current one need to be deleted. Otherwise, duplicates may
+        # appear on the public version of the page
+        self.associated_link.all().delete()
+
+        for associated_link in oldinstance.associated_link.all():
+            # instance.pk = None; instance.pk.save() is the slightly odd but
+            # standard Django way of copying a saved model instance
+            associated_link.pk = None
+            associated_link.menu_plugin = self
+            associated_link.save()
+
 
 class MenuExtraLink(models.Model):
     internal_link = models.ForeignKey(
