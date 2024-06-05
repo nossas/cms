@@ -17,7 +17,7 @@ class NavbarPlugin(CMSPluginBase):
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
         css_styles = []
-        css_classes = ['navbar', 'navbar-expand-lg']
+        css_classes = ["navbar", "navbar-expand-lg"]
 
         if instance.placement:
             css_classes.append(f"{instance.placement}")
@@ -73,7 +73,7 @@ class MenuPlugin(CMSPluginBase):
 
         padding_top = attributes.get("padding_top")
         if padding_top:
-            css_styles.append(f"padding-top:{padding_top}rem;")
+            css_styles.append(f"padding-top:{padding_top}rem")
 
         padding_bottom = attributes.get("padding_bottom")
         if padding_bottom:
