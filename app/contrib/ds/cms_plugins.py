@@ -3,9 +3,8 @@ from django.utils.translation import gettext_lazy as _
 
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
-from cms.models import Page
 
-from .models import Navbar, Menu
+from .models import Navbar, Menu, MenuExtraLink
 from .forms import MenuForm, MenuExtraLinkForm
 
 
