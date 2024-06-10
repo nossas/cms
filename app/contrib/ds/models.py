@@ -3,7 +3,7 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.sites.models import Site
 from django.utils.html import mark_safe
 
-from cms.models import CMSPlugin
+from cms.models import CMSPlugin, Page
 from colorfield.fields import ColorField
 from django_jsonform.models.fields import JSONField
 from filer.fields.image import FilerImageField
@@ -285,6 +285,33 @@ class ActiveStyled(models.TextChoices):
 
 class Menu(CMSPlugin):
     color = ColorField(null=True, blank=True)
-    active_styled = models.CharField(
-        max_length=30, choices=ActiveStyled.choices, null=True, blank=True
+    active_styled = models.CharField(max_length=30, choices=ActiveStyled.choices, null=True, blank=True)
+
+    def copy_relations(self, oldinstance):
+        # Before copying related objects from the old instance, the ones
+        # on the current one need to be deleted. Otherwise, duplicates may
+        # appear on the public version of the page
+        self.associated_link.all().delete()
+
+        for associated_link in oldinstance.associated_link.all():
+            # instance.pk = None; instance.pk.save() is the slightly odd but
+            # standard Django way of copying a saved model instance
+            associated_link.pk = None
+            associated_link.menu_plugin = self
+            associated_link.save()
+
+
+class MenuExtraLink(models.Model):
+    internal_link = models.ForeignKey(
+        Page,
+        verbose_name=_("Link interno"),
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+    menu_plugin = models.ForeignKey(
+        Menu,
+        related_name="associated_link",
+        null=True,
+        on_delete=models.SET_NULL
     )
