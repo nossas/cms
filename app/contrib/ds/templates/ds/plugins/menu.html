@@ -1,4 +1,4 @@
-{% load menu_tags sekizai_tags %}
+{% load menu_tags sekizai_tags cms_tags %}
 
 {% if instance.active_styled %}
   {% addtoblock 'css' %}
@@ -31,4 +31,11 @@
 
 <ul id="menu-{{instance.id}}" class="navbar-nav"{% if css_styles %} style="{{css_styles}}"{% endif %}>
   {% show_menu 0 100 100 100 "ds/menu/bootstrap.html" %}
+  {% for link in extra_links %}
+    <li class="nav-item">
+      <a class="nav-link" href="{% page_url link.internal_link %}">
+        {{ link.internal_link.get_menu_title }}
+      </a>
+    </li>
+  {% endfor %}
 </ul>

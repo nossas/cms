@@ -1,10 +1,12 @@
+from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
+from cms.models import Page
 
 from .models import Navbar, Menu
-from .forms import MenuForm
+from .forms import MenuForm, MenuExtraLinkForm
 
 
 @plugin_pool.register_plugin
@@ -38,15 +40,23 @@ class FooterPlugin(CMSPluginBase):
     allow_children = True
 
 
+class LinkInlineAdmin(admin.StackedInline):
+    model = MenuExtraLink
+    form = MenuExtraLinkForm
+
+
 @plugin_pool.register_plugin
 class MenuPlugin(CMSPluginBase):
     name = _("Menu")
     model = Menu
     form = MenuForm
     render_template = "ds/plugins/menu.html"
+    inlines = (LinkInlineAdmin,)
 
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
+        
+        # Prepare menu styles
         css_styles = []
         ul_styles = []
         ul_styles_mobile = []
@@ -83,4 +93,19 @@ class MenuPlugin(CMSPluginBase):
         context["ul_styles"] = ";".join(ul_styles)
         context["ul_styles_mobile"] = ";".join(ul_styles_mobile)
 
+        # Check edit mode for render extra links
+        request = context.get('request', None)
+        if request:
+            edit_mode = request.toolbar.edit_mode_active
+
+            if edit_mode:
+                extra_links = MenuExtraLink.objects.filter(menu_plugin=instance)
+            else:
+                extra_links = []
+                for link in MenuExtraLink.objects.filter(menu_plugin=instance):
+                    if link.internal_link.publisher_public and link.internal_link.publisher_public.is_published("pt-br"):
+                        extra_links.append(link)
+            context["extra_links"] = extra_links
+        
         return context
+

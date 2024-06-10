@@ -1,8 +1,10 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
+
+from cms.models.pagemodel import Page
 from entangled.forms import EntangledModelFormMixin
 
-from .models import Menu
+from .models import Menu, MenuExtraLink
 
 SPACING = [
     ("0.5", "1"),
@@ -40,3 +42,13 @@ class MenuForm(SpacingFormMixin, forms.ModelForm):
             "color",
             "active_styled"
         ]
+
+class MenuExtraLinkForm(forms.ModelForm):
+    class Meta:
+        model = MenuExtraLink
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        default_menu_pages = Page.objects.filter(in_navigation=True)
+        self.fields['internal_link'].queryset = Page.objects.exclude(pk__in=default_menu_pages)
