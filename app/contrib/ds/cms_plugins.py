@@ -69,15 +69,18 @@ class MenuPlugin(CMSPluginBase):
         
         context["css_styles"] = ";".join(css_styles)
 
-        edit_mode = context["request"].toolbar.edit_mode_active
+        request = context.get('request', None)
+        if request:
+            edit_mode = request.toolbar.edit_mode_active
 
-        if edit_mode:
-            extra_links = MenuExtraLink.objects.filter(menu_plugin=instance)
-        else:
-            extra_links = []
-            for link in MenuExtraLink.objects.filter(menu_plugin=instance):
-                if link.internal_link.publisher_public and link.internal_link.publisher_public.is_published("pt-br"):
-                    extra_links.append(link)
-        context["extra_links"] = extra_links
+            if edit_mode:
+                extra_links = MenuExtraLink.objects.filter(menu_plugin=instance)
+            else:
+                extra_links = []
+                for link in MenuExtraLink.objects.filter(menu_plugin=instance):
+                    if link.internal_link.publisher_public and link.internal_link.publisher_public.is_published("pt-br"):
+                        extra_links.append(link)
+            context["extra_links"] = extra_links
         
         return context
+
