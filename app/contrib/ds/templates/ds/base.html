@@ -1,6 +1,22 @@
 {% extends "ga/base.html" %}
 {% load static compress %}
 
+{% block meta %}
+<meta property="og:type" content="website" />
+{% if request.current_site.seo.title %}
+<meta property="og:title" content="{{ request.current_site.seo.title }}" />
+{% endif %}
+{% if request.current_site.seo.description %}
+<meta name="description" content="{{ request.current_site.seo.description }}" />
+<meta property="og:description" content="{{ request.current_site.seo.description }}" />
+{% endif %}
+{% if request.current_site.seo.image %}
+{% with url_image=request.scheme|add:"://"|add:request.get_host|add:request.current_site.seo.image.url %}
+<meta property="og:image" content="{{ url_image }}" />
+{% endwith %}
+{% endif %}
+{% endblock meta %}
+
 {% block favicon %}
 {% if request.current_site.theme.favicon %}
 <link rel="shortcut icon" href="{{ request.current_site.theme.favicon.url }}" type="image/x-icon">
