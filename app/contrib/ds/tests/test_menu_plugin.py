@@ -1,10 +1,13 @@
 from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
+
 from cms.api import add_plugin, create_page
 from cms.plugin_rendering import ContentRenderer
 from cms.test_utils.testcases import CMSTestCase
 from cms.toolbar.toolbar import CMSToolbar
 from cms.toolbar.utils import get_toolbar_from_request
+from sekizai.context import SekizaiContext
+
 from ..models import MenuExtraLink
 
 class MenuPluginTestCase(CMSTestCase):
@@ -50,14 +53,45 @@ class MenuPluginTestCase(CMSTestCase):
             plugin_type="MenuPlugin",
             language=self.language,
             color="#ffffff",
+            attributes={
+                "gap": "2",
+                "gap_mobile": "1",
+                "padding_top": "3",
+                "padding_bottom": "4",
+            }
         )
         plugin.full_clean()
 
         request = self.get_request()
         renderer = ContentRenderer(request=request)
 
-        html = renderer.render_plugin(plugin, {})
-        expected_html = '<ul id="menu-1" class="navbar-nav" style="--bs-nav-link-color:rgba(255,255,255,1);--bs-nav-link-hover-color:rgba(255,255,255,.75);--bs-navbar-active-color:rgba(255,255,255,.75)"></ul>'
+        html = renderer.render_plugin(plugin, SekizaiContext())
+        expected_html = (
+            '<ul id="menu-1" class="navbar-nav" style="--bs-nav-link-color:rgba(255,255,255,1);--bs-nav-link-hover-color:rgba(255,255,255,.75);--bs-navbar-active-color:rgba(255,255,255,.75);padding-top:3rem;padding-bottom:4rem;"></ul>'
+        )
+
+        self.assertInHTML(expected_html, html)
+
+    def test_menu_plugin_with_gap_and_padding(self):
+        plugin = add_plugin(
+            placeholder=self.placeholder,
+            plugin_type="MenuPlugin",
+            language=self.language,
+            attributes={
+                "gap": "2",
+                "gap_mobile": "1",
+                "padding_top": "3",
+                "padding_bottom": "4",
+            }
+        )
+        plugin.full_clean()
+
+        renderer = ContentRenderer(request=RequestFactory())
+
+        html = renderer.render_plugin(plugin, SekizaiContext())
+        expected_html = (
+            '<ul id="menu-1" class="navbar-nav" style="padding-top:3rem;padding-bottom:4rem;"></ul>'
+        )
 
         self.assertInHTML(expected_html, html)
 

@@ -5,8 +5,8 @@ from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 from cms.models import Page
 
-from .models import Navbar, Menu, MenuExtraLink
-from .forms import MenuExtraLinkForm
+from .models import Navbar, Menu
+from .forms import MenuForm, MenuExtraLinkForm
 
 
 @plugin_pool.register_plugin
@@ -19,7 +19,7 @@ class NavbarPlugin(CMSPluginBase):
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
         css_styles = []
-        css_classes = ['navbar', 'navbar-expand-lg']
+        css_classes = ["navbar", "navbar-expand-lg"]
 
         if instance.placement:
             css_classes.append(f"{instance.placement}")
@@ -49,12 +49,17 @@ class LinkInlineAdmin(admin.StackedInline):
 class MenuPlugin(CMSPluginBase):
     name = _("Menu")
     model = Menu
+    form = MenuForm
     render_template = "ds/plugins/menu.html"
     inlines = (LinkInlineAdmin,)
 
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
+        
+        # Prepare menu styles
         css_styles = []
+        ul_styles = []
+        ul_styles_mobile = []
 
         if instance.color:
             h = instance.color.lstrip("#")
@@ -66,9 +71,29 @@ class MenuPlugin(CMSPluginBase):
                 css_styles.append(f"--bs-navbar-active-color:{rgba},1)")
             else:
                 css_styles.append(f"--bs-navbar-active-color:{rgba},.75)")
-        
-        context["css_styles"] = ";".join(css_styles)
 
+        attributes = instance.attributes or {}
+        gap = attributes.get("gap")
+        if gap:
+            ul_styles.append(f"gap:{gap}rem")
+
+        gap_mobile = attributes.get("gap_mobile")
+        if gap_mobile:
+            ul_styles_mobile.append(f"gap:{gap_mobile}rem")
+
+        padding_top = attributes.get("padding_top")
+        if padding_top:
+            css_styles.append(f"padding-top:{padding_top}rem")
+
+        padding_bottom = attributes.get("padding_bottom")
+        if padding_bottom:
+            css_styles.append(f"padding-bottom:{padding_bottom}rem;")
+
+        context["css_styles"] = ";".join(css_styles)
+        context["ul_styles"] = ";".join(ul_styles)
+        context["ul_styles_mobile"] = ";".join(ul_styles_mobile)
+
+        # Check edit mode for render extra links
         request = context.get('request', None)
         if request:
             edit_mode = request.toolbar.edit_mode_active

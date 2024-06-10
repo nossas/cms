@@ -286,6 +286,7 @@ class ActiveStyled(models.TextChoices):
 class Menu(CMSPlugin):
     color = ColorField(null=True, blank=True)
     active_styled = models.CharField(max_length=30, choices=ActiveStyled.choices, null=True, blank=True)
+    attributes = models.JSONField(blank=True, null=True)
 
     def copy_relations(self, oldinstance):
         # Before copying related objects from the old instance, the ones
