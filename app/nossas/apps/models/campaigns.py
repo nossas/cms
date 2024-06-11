@@ -65,6 +65,7 @@ class Campaign(OnSiteBaseModel):
 
     class Meta:
         verbose_name = _("Campanha")
+        unique_together = ("mobilization_id", "site")
 
     def __str__(self):
         return self.name

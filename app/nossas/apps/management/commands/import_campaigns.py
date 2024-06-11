@@ -1,10 +1,12 @@
 import itertools
 from django.core.management.base import BaseCommand, CommandError, CommandParser
+from django.db.utils import IntegrityError
 from django.db.models import Q, Prefetch
 from django.contrib.sites.models import Site
 from django.contrib.auth.models import User
 
 from contrib.bonde.models import Community, Mobilization
+
 from nossas.apps.utils import import_mobilization
 
 
@@ -13,6 +15,7 @@ class Command(BaseCommand):
         parser.add_argument("--period", type=str)
 
     def handle(self, *args, **options):
+        
         q = Q()
         for name in [
             "Mobilizações NOSSAS",
@@ -34,7 +37,6 @@ class Command(BaseCommand):
             filters.update(
                 {
                     "created_at__year__gte": int(year_start),
-                    "created_at__year__lte": int(year_end),
                 }
             )
 
@@ -55,8 +57,9 @@ class Command(BaseCommand):
         for m in mobilizations:
             try:
                 import_mobilization(m.id, site, user)
+            except IntegrityError:
+                pass
             except Exception as err:
-                import ipdb;ipdb.set_trace()
                 self.stdout.write(
                     self.style.ERROR(
                         f"Falha ao tentar importar a Mobilização[{m.id}]: {m.name}."
