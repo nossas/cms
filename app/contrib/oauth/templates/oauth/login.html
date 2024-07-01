@@ -1,0 +1,11 @@
+{% extends 'ds/base.html' %}
+{% block content %}
+<div class="container mx-auto py-5">
+    <h2>OAuth Login</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-primary" type="submit">Entrar</button>
+    </form>
+</div>
+{% endblock %}

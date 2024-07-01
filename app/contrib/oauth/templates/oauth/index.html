@@ -1,0 +1,8 @@
+{% extends 'ds/base.html' %}
+{% block content %}
+<div class="container mx-auto py-5">
+    <h2>OAuth Index</h2>
+    <p>Hello {{ request.user.first_name }}</p>
+    <a href="{% url 'oauth:logout' %}?next={% url 'oauth:login' %}">Sair</a>
+</div>
+{% endblock %}
