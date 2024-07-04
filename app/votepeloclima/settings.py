@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     "django_select2",
     "django_jsonform",
     "djangocms_form_builder",
+    "formtools",
     # My Apps
     "contrib.bonde",
     "contrib.ga",
@@ -70,9 +71,9 @@ INSTALLED_APPS = [
     "contrib.ds.link",
     "contrib.ds.picture",
     "contrib.ds.tooltip",
-
+    # Project Apps
     "contrib.oauth",
-    # "adp.map"
+    "votepeloclima.candidature",
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,23 @@
+{% for step in checkout_steps %}
+{% if step.name == 'checkout' %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ wizard.form.media }}
+    {{ wizard.management_form }}
+    {% if wizard.form.forms %}
+        {{ wizard.form.management_form }}
+        {% for form in wizard.form.forms %}
+            {{ form.as_p }}
+        {% endfor %}
+    {% else %}
+        {{ wizard.form.as_p }}
+    {% endif %}
+    <button type="submit">Concluir</button>
+</form>
+{% else %}
+<div>
+    <a href="{{ step.edit_url }}">Editar</a>
+    {{ step.form.as_p }}
+</div>
+{% endif %}
+{% endfor %}
