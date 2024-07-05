@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from formtools.wizard.views import NamedUrlCookieWizardView
+from formtools.wizard.views import NamedUrlSessionWizardView
 
 from .forms import register_form_list
 
 
-class RegisterView(NamedUrlCookieWizardView):
+class RegisterView(NamedUrlSessionWizardView):
     form_list = register_form_list
     steps_hide_on_checkout = ['captcha']
 
@@ -26,11 +26,7 @@ class RegisterView(NamedUrlCookieWizardView):
         checkout_steps = []
         if self.steps.current == "checkout":
             for step, form_class in self.get_form_list().items():
-                if step in ('sobre-sua-trajetoria', 'bandeiras-da-sua-candidatura', 'compromissos'):
-                    import ipdb;ipdb.set_trace()
-
                 if step not in self.steps_hide_on_checkout:
-                    
                     data = self.get_cleaned_data_for_step(step)
                     checkout_steps.append(
                         dict(
