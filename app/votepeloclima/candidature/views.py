@@ -2,16 +2,11 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from formtools.wizard.views import NamedUrlCookieWizardView
 
-from .forms import EmailForm, PasswordForm, CheckoutForm, CaptchaForm
+from .forms import register_form_list
 
 
 class RegisterView(NamedUrlCookieWizardView):
-    form_list = [
-        ("captcha", CaptchaForm),
-        ("email", EmailForm),
-        ("password", PasswordForm),
-        ("checkout", CheckoutForm),
-    ]
+    form_list = register_form_list
     steps_hide_on_checkout = ['captcha']
 
     def render_done(self, form, **kwargs):
@@ -31,7 +26,11 @@ class RegisterView(NamedUrlCookieWizardView):
         checkout_steps = []
         if self.steps.current == "checkout":
             for step, form_class in self.get_form_list().items():
+                if step in ('sobre-sua-trajetoria', 'bandeiras-da-sua-candidatura', 'compromissos'):
+                    import ipdb;ipdb.set_trace()
+
                 if step not in self.steps_hide_on_checkout:
+                    
                     data = self.get_cleaned_data_for_step(step)
                     checkout_steps.append(
                         dict(
