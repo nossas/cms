@@ -9,7 +9,7 @@ class CaptchaForm(forms.Form):
 
 
 class InitialForm(forms.Form):
-    name = forms.CharField(label="Nome")
+    legal_name = forms.CharField(label="Nome")
     ballot_name = forms.CharField(label="Nome na urna")
     birth_date = forms.DateField(label="Data de nascimento")
     email = forms.EmailField(label="E-mail")

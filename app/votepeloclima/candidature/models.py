@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.serializers.json import DjangoJSONEncoder
 
 
 # Acompanhar validação da candidatura
@@ -36,40 +37,49 @@ class Candidature(models.Model):
     # Step 6
     appointments = models.JSONField(blank=True)
 
+    @property
+    def status(self):
+        if self.candidatureflow:
+            return self.candidatureflow.status
 
-class CandidatureStatus(models.TextChoices):
-    draft = "draft", "Rascunhando"
+        return CandidatureFlowStatus.draft
+
+
+class CandidatureFlowStatus(models.TextChoices):
+    draft = "draft", "Editando"
     submitted = "submitted", "Enviado"
     invalid = "invalid", "Inválido"
-    is_valid = "is_valid", "Validado"
+    is_valid = "is_valid", "Válido"
     draft_requested = "draft_requested", "Edição Requisitada"
 
-# class UserStatus(models.TextChoices):
-#     validating = "validating", "Validando"
-#     active = "active", "Ativo"
 
-
-class CandidatureState(models.Model):
+class CandidatureFlow(models.Model):
     # Propriedades só podem ser editadas quando status for `draft`
-    properties = models.JSONField(blank=True)
-    status = models.CharField(max_length=50)
+    properties = models.JSONField(blank=True, encoder=DjangoJSONEncoder, default=dict)
+    status = models.CharField(
+        max_length=50,
+        choices=CandidatureFlowStatus.choices,
+        default=CandidatureFlowStatus.draft,
+    )
 
     # Registro das etapas de validação
     # Quem validou? Manual, Bot
     # Quando foi validado? Data da ação
     # Validado ou não
     # Comentário sobre
-    validations = models.JSONField(blank=True)
+    validations = models.JSONField(blank=True, null=True)
 
     # Etapa 2
     # - Preenchimento da Candidatura
     # - Envio da Candidatura para avaliação
     # - Validadores automatizados
     # - Validatores manuais
-    candidature = models.ForeignKey(Candidature, null=True, on_delete=models.SET_NULL)
+    candidature = models.OneToOneField(
+        Candidature, null=True, on_delete=models.SET_NULL
+    )
 
     # Etapa 1
     # - Criar usuário desabilitado `is_active=False`
     # - Enviar e-mail para validar o usuário e criar uma senha de acesso
     # - Habilitar usuário `is_active=True`
-    user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+    user = models.OneToOneField(User, null=True, on_delete=models.SET_NULL)
