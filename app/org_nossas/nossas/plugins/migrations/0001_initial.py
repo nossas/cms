@@ -2,7 +2,7 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
-import nossas.design.models
+import org_nossas.nossas.design.models
 
 
 class Migration(migrations.Migration):
@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
             options={
                 'abstract': False,
             },
-            bases=(nossas.design.models.UIBackgroundMixin, nossas.design.models.UIPaddingMixin, nossas.design.models.UIBorderMixin, 'cms.cmsplugin'),
+            bases=(org_nossas.nossas.design.models.UIBackgroundMixin, org_nossas.nossas.design.models.UIPaddingMixin, org_nossas.nossas.design.models.UIBorderMixin, 'cms.cmsplugin'),
         ),
         migrations.CreateModel(
             name='Button',
@@ -34,7 +34,7 @@ class Migration(migrations.Migration):
             options={
                 'abstract': False,
             },
-            bases=(nossas.design.models.UIBackgroundMixin, 'cms.cmsplugin'),
+            bases=(org_nossas.nossas.design.models.UIBackgroundMixin, 'cms.cmsplugin'),
         ),
         migrations.CreateModel(
             name='FullPageSlider',
@@ -45,7 +45,7 @@ class Migration(migrations.Migration):
             options={
                 'abstract': False,
             },
-            bases=(nossas.design.models.UIBackgroundMixin, 'cms.cmsplugin'),
+            bases=(org_nossas.nossas.design.models.UIBackgroundMixin, 'cms.cmsplugin'),
         ),
         migrations.CreateModel(
             name='Navbar',
@@ -56,6 +56,6 @@ class Migration(migrations.Migration):
             options={
                 'abstract': False,
             },
-            bases=(nossas.design.models.UIBackgroundMixin, 'cms.cmsplugin'),
+            bases=(org_nossas.nossas.design.models.UIBackgroundMixin, 'cms.cmsplugin'),
         ),
     ]

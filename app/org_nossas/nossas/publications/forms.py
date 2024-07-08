@@ -2,7 +2,7 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 
 from cms.models import Page
-from nossas.design.fields import Select2PageSearchField
+from org_nossas.nossas.design.fields import Select2PageSearchField
 
 from .models import Publication, PublicationList
 from .widgets import Select2CategorySelectWidget

@@ -9,7 +9,7 @@ urlpatterns = [
     path(
         "institutional/",
         include(
-            ("nossas.apps.urls.institutional", "institutional"),
+            ("org_nossas.nossas.apps.urls.institutional", "institutional"),
             namespace="institutional",
         ),
     ),

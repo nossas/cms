@@ -4,7 +4,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
 from adminsortable2.admin import SortableStackedInline, SortableAdminBase
-from nossas.apps.baseadmin import OnSiteAdmin
+from org_nossas.nossas.apps.baseadmin import OnSiteAdmin
 
 from ..models.teams import MemberGroup, Member
 

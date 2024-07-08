@@ -10,4 +10,4 @@ class JobsApphook(CMSApp):
     name = _("Vagas")
 
     def get_urls(self, page=None, language=None, **kwargs):
-        return ["nossas.apps.urls.jobs"]
+        return ["org_nossas.nossas.apps.urls.jobs"]

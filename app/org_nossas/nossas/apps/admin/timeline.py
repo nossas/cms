@@ -1,7 +1,7 @@
 from django.contrib import admin
 from ..models.timeline import TimelineEvent
 
-from nossas.apps.baseadmin import OnSiteAdmin
+from org_nossas.nossas.apps.baseadmin import OnSiteAdmin
 from ..forms.timeline import TimelineEventForm
 
 

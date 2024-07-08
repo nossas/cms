@@ -10,4 +10,4 @@ class CampaignsApphook(CMSApp):
     name = _("Campanhas")
 
     def get_urls(self, page=None, language=None, **kwargs):
-        return ["nossas.apps.urls.campaigns"]
+        return ["org_nossas.nossas.apps.urls.campaigns"]

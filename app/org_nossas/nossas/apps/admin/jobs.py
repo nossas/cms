@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from nossas.apps.baseadmin import OnSiteAdmin
+from org_nossas.nossas.apps.baseadmin import OnSiteAdmin
 from ..models.jobs import Job
 
 

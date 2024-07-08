@@ -2,7 +2,7 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
-import nossas.design.models
+import org_nossas.nossas.design.models
 
 
 class Migration(migrations.Migration):
@@ -22,6 +22,6 @@ class Migration(migrations.Migration):
             options={
                 'abstract': False,
             },
-            bases=(nossas.design.models.UIBackgroundMixin, 'cms.cmsplugin'),
+            bases=(org_nossas.nossas.design.models.UIBackgroundMixin, 'cms.cmsplugin'),
         ),
     ]
