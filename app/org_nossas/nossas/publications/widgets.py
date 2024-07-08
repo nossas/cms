@@ -3,7 +3,7 @@
 
 from cms.models import Page
 from django_select2.forms import ModelSelect2Widget
-from nossas.design.fields import Select2PageSearchFieldMixin
+from org_nossas.nossas.design.fields import Select2PageSearchFieldMixin
 
 
 class Select2CategorySelectWidget(Select2PageSearchFieldMixin, ModelSelect2Widget):

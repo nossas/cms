@@ -113,8 +113,8 @@ NOSSAS_CONTENT_PLUGINS = [
 ]
 
 CMS_TEMPLATES = [
-    ("org_nossas/nossas/page.html", "NOSSAS Página"),
-    ("org_nossas/nossas/home.html", "NOSSAS Home Full Page"),
+    ("nossas/page.html", "NOSSAS Página"),
+    ("nossas/home.html", "NOSSAS Home Full Page"),
 ] + CMS_TEMPLATES
 
 CMS_PLACEHOLDER_CONF = {

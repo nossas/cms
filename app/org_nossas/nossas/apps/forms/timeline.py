@@ -2,7 +2,7 @@ from django import forms
 from django.utils.functional import lazy
 from django.utils.translation import gettext_lazy as _
 
-from nossas.design.widgets import CharsLeftTextInput, CharsLeftTextarea
+from org_nossas.nossas.design.widgets import CharsLeftTextInput, CharsLeftTextarea
 
 from ..models.timeline import TimelineEvent
 

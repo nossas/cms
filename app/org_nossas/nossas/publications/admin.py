@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # TODO: Mover esses imports para base de aplicativos e plugins
-from nossas.apps.baseadmin import OnSiteAdmin
+from org_nossas.nossas.apps.baseadmin import OnSiteAdmin
 
 from .models import Publication
 from .forms import PublicationForm
