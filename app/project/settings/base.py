@@ -95,7 +95,6 @@ INSTALLED_APPS = [
     # "contrib.domains.route53",
     # "contrib.domains.traefik",
     # Experimentação
-    "eleicao",
     "django_social_share",
     #
     # "django_prometheus"
@@ -106,7 +105,6 @@ MIDDLEWARE = [
     #
     "django.middleware.security.SecurityMiddleware",
     "project.middleware.WwwRedirectMiddleware",
-    "eleicao.middleware.EleicaoRedirectMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
