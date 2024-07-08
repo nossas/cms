@@ -10,7 +10,7 @@ from filer.fields.image import FilerImageField
 from tag_fields.managers import ModelTagsManager
 from translated_fields import TranslatedField
 
-from nossas.apps.basemodel import OnSiteBaseModel
+from org_nossas.nossas.apps.basemodel import OnSiteBaseModel
 
 
 class CampaignGroup(OnSiteBaseModel):

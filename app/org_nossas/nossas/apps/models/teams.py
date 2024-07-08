@@ -3,7 +3,7 @@ from django.utils.translation import gettext_lazy as _
 
 from filer.fields.image import FilerImageField
 from translated_fields import TranslatedField
-from nossas.apps.basemodel import OnSiteBaseModel
+from org_nossas.nossas.apps.basemodel import OnSiteBaseModel
 
 
 class MemberGroup(OnSiteBaseModel):

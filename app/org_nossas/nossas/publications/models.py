@@ -9,7 +9,7 @@ from tag_fields.managers import ModelTagsManager
 from translated_fields import TranslatedField
 
 # TODO: Mover esses imports para base de aplicativos e plugins
-from nossas.apps.basemodel import OnSiteBaseModel
+from org_nossas.nossas.apps.basemodel import OnSiteBaseModel
 
 
 class Publication(OnSiteBaseModel):

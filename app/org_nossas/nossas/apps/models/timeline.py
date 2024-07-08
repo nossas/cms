@@ -4,7 +4,7 @@ from datetime import date
 
 from filer.fields.image import FilerImageField
 
-from nossas.apps.basemodel import OnSiteBaseModel
+from org_nossas.nossas.apps.basemodel import OnSiteBaseModel
 
 
 class TimelineEventContext(models.TextChoices):
