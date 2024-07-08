@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from djangocms_text_ckeditor.fields import HTMLField
 from filer.fields.image import FilerImageField
 
-from nossas.apps.basemodel import OnSiteBaseModel
+from org_nossas.nossas.apps.basemodel import OnSiteBaseModel
 
 
 class JobStatus(models.TextChoices):
