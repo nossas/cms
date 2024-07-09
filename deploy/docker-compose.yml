@@ -26,12 +26,41 @@ services:
       - traefik.http.routers.cms.tls.certresolver=myresolver
       - traefik.http.routers.cms.rule=${TRAEFIK_ROUTERS_RULE:-"HostRegexp(`cms.staging.bonde.org`)"}
   
+  eleicaodoano:
+    image: ${ELEICAO_DO_ANO_DOCKER_IMAGE:-nossas/cms:latest}
+    restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
+    pull_policy: always
+    environment:
+      - DJANGO_SETTINGS_MODULE=eleicoes.eleicao.settings.base
+      - DEBUG=${DEBUG:-True}
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS:-"docker.localhost"}
+      - CMS_DATABASE_URL=${CMS_DATABASE_URL}
+      - BONDE_DATABASE_URL=${BONDE_DATABASE_URL}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_STORAGE_BUCKET_NAME=${AWS_STORAGE_BUCKET_NAME}
+      - RECAPTCHA_PUBLIC_KEY=${RECAPTCHA_PUBLIC_KEY}
+      - RECAPTCHA_PRIVATE_KEY=${RECAPTCHA_PRIVATE_KEY}
+      - DISABLE_RECAPTCHA=${DISABLE_RECAPTCHA}
+      - BONDE_ACTION_API_URL=${BONDE_ACTION_API_URL}
+      - BONDE_ACTION_SECRET_KEY=${BONDE_ACTION_SECRET_KEY}
+      - ETCD_HOST=${ETCD_HOST:-"etcd"}
+      - ETCD_PORT=${ETCD_PORT:-2379}
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.cms.priority=10
+      - traefik.http.services.cms.loadbalancer.server.port=8000
+      - traefik.http.routers.cms.tls=true
+      - traefik.http.routers.cms.tls.certresolver=myresolver
+      - traefik.http.routers.cms.rule=${TRAEFIK_ROUTERS_RULE:-"HostRegexp(`cms.staging.bonde.org`)"}
+  
+
   nossas:
     image: ${NOSSAS_DOCKER_IMAGE:-nossas/cms:latest}
     restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
     pull_policy: always
     environment:
-      - DJANGO_SETTINGS_MODULE=nossas.settings_prod
+      - DJANGO_SETTINGS_MODULE=nossas.settings.production
       - DEBUG=${DEBUG:-True}
       - ALLOWED_HOSTS=${ALLOWED_HOSTS:-"docker.localhost"}
       - CMS_DATABASE_URL=${NOSSAS_DATABASE_URL}
