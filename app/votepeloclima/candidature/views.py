@@ -1,10 +1,9 @@
-import datetime
-
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from django.urls import reverse
-from django.contrib.auth.models import User, AnonymousUser
+from django.contrib.auth.models import User
 from formtools.wizard.views import NamedUrlSessionWizardView
 
+from contrib.oauth.utils import send_confirmation_email
 from .models import CandidatureFlow, CandidatureFlowStatus, Candidature
 from .forms import register_form_list, InitialForm, FlagForm, AppointmentForm
 
@@ -49,7 +48,13 @@ class RegisterView(NamedUrlSessionWizardView):
             if created:
                 user.is_active = False
                 user.save()
-                print("Enviar e-mail")
+
+                send_confirmation_email(
+                    user,
+                    self.request,
+                    email_template_name="candidature/activation_email.html",
+                )
+                # print("Enviar e-mail")
 
         if user:
             flow, created = CandidatureFlow.objects.get_or_create(user=user)
@@ -108,7 +113,7 @@ class RegisterView(NamedUrlSessionWizardView):
         values = {}
 
         for step, form in form_dict.items():
-            if step not in self.steps_hide_on_checkout and step != 'checkout':
+            if step not in self.steps_hide_on_checkout and step != "checkout":
                 if isinstance(form, FlagForm):
                     values.update({"flags": form.cleaned_data})
                 elif isinstance(form, AppointmentForm):
