@@ -98,6 +98,8 @@ INSTALLED_APPS = [
     "django_social_share",
     #
     # "django_prometheus"
+
+    'project',
 ]
 
 MIDDLEWARE = [
