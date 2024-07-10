@@ -2,6 +2,7 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+from django.http import HttpResponseForbidden
 from django.urls import reverse_lazy
 
 from formtools.wizard.views import NamedUrlSessionWizardView
@@ -138,9 +139,17 @@ class RegisterView(NamedUrlSessionWizardView):
         return redirect("/")
 
 
-
 class EditRegisterView(LoginRequiredMixin, RegisterView):
     login_url = reverse_lazy("oauth:login")
+
+    def has_permission(self):
+        return self.request.user.candidatureflow and self.request.user.candidatureflow.status == CandidatureFlowStatus.draft
+    
+    def dispatch(self, request, *args, **kwargs):
+        if not self.has_permission():
+            return HttpResponseForbidden("You do not have permission to edit Candidature")
+        return super().dispatch(request, *args, **kwargs)
+        
 
     def get_form_initial(self, step):
         """
