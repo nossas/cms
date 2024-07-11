@@ -103,10 +103,10 @@ MIDDLEWARE = [
 ROOT_URLCONF = "votepeloclima.urls"
 
 
-AUTHENTICATION_BACKENDS = (
+AUTHENTICATION_BACKENDS = [
     'contrib.oauth.backends.OAuthBackend',
     'django.contrib.auth.backends.ModelBackend',
-)
+ ] + AUTHENTICATION_BACKENDS
 
 # Static files
 
