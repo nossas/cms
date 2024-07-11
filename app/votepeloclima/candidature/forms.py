@@ -1,7 +1,12 @@
 from django import forms
 from captcha.widgets import ReCaptchaV2Checkbox
 
+from django_select2.forms import Select2Widget
+from django.utils.functional import lazy
+from django.urls import reverse_lazy
+
 from .fields import ValidateOnceReCaptchaField
+from .utils import get_ufs, get_choices
 
 
 class CaptchaForm(forms.Form):
@@ -20,12 +25,37 @@ class InitialForm(forms.Form):
 class ApplicationForm(forms.Form):
     number_id = forms.IntegerField(label="Número de identificação", min_value=1)
     intended_position = forms.CharField(label="Cargo pretendido")
-    state = forms.CharField(label="Estado")
-    city = forms.CharField(label="Cidade")
+    state = forms.ChoiceField(
+        label="Estado",
+        choices=lazy(get_ufs, list)(),
+        widget=Select2Widget(
+            attrs={
+                "data-address-fields": "state",
+                "data-address-url": reverse_lazy("address"),
+            }
+        )
+    )
+    city = forms.ChoiceField(
+        choices=[],
+        label="Cidade",
+        widget=Select2Widget(
+            attrs={
+                "data-address-fields": "city",
+                "data-address-url": reverse_lazy("address"),
+            }
+        )
+    )
     is_collective_mandate = forms.BooleanField(
         label="É um mandato coletivo?", required=False
     )
     political_party = forms.CharField(label="Partido político")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if 'state' in self.data:
+            self.fields['city'].choices = get_choices(self.data.get('state'))
+        elif self.initial.get('state'):
+            self.fields['city'].choices = get_choices(self.initial.get('state'))
 
 
 class ProfileForm(forms.Form):
@@ -57,7 +87,7 @@ class CheckoutForm(forms.Form):
 
 
 register_form_list = [
-    ("captcha", CaptchaForm),
+    # ("captcha", CaptchaForm),
     ("informacoes-iniciais", InitialForm),
     ("informacoes-de-candidatura", ApplicationForm),
     ("complemente-seu-perfil", ProfileForm),
