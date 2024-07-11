@@ -336,14 +336,14 @@ class BondeBasePluginModel(CMSPlugin):
     class Meta:
         abstract = True
 
-    def get_widget(self) -> Widget | None:
+    def get_widget(self):
         if not self.reference_id:
             return None
 
         return Widget.objects.get(id=self.reference_id)
 
     @property
-    def widget(self) -> Widget | None:
+    def widget(self):
         return self.get_widget()
 
 
