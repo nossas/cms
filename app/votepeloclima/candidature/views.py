@@ -1,9 +1,9 @@
 from django.shortcuts import redirect
-from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+from django.views.generic import TemplateView
 from django.http import HttpResponseForbidden
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy,reverse
 
 from formtools.wizard.views import NamedUrlSessionWizardView
 
@@ -167,3 +167,17 @@ class EditRegisterView(LoginRequiredMixin, RegisterView):
                     initial_data[copyKey] = value[0]
 
         return self.initial_dict.get(step, initial_data)
+
+
+class DashboardView(LoginRequiredMixin, TemplateView):
+    template_name = "candidature/dashboard.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        if not self.request.user.is_staff:
+            context.update({
+                "candidature_flow": self.request.user.candidatureflow
+            })
+
+        return context
