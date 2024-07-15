@@ -73,7 +73,7 @@ INSTALLED_APPS = [
     "contrib.ds.tooltip",
     # Project Apps
     "contrib.oauth",
-    "votepeloclima.candidature",
+    "eleicoes.votepeloclima.candidature",
 ]
 
 MIDDLEWARE = [
