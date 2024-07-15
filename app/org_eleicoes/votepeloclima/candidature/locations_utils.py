@@ -3,7 +3,7 @@ from pathlib import Path
 import csv
 from typing import List, Tuple, Set
 
-csv_filename = Path(settings.BASE_DIR) / "votepeloclima/candidature/csv/places.csv"
+csv_filename = Path(settings.BASE_DIR) / "org_eleicoes/votepeloclima/candidature/csv/places.csv"
 
 def read_csv_file(file_path: Path) -> List[dict]:
     with open(file_path) as f:
