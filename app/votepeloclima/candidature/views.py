@@ -1,6 +1,10 @@
 from django.shortcuts import redirect
-from django.urls import reverse
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+from django.views.generic import TemplateView
+from django.http import HttpResponseForbidden
+from django.urls import reverse_lazy,reverse
+
 from formtools.wizard.views import NamedUrlSessionWizardView
 
 from contrib.oauth.utils import send_confirmation_email
@@ -28,8 +32,7 @@ class RegisterView(NamedUrlSessionWizardView):
 
     def process_step(self, form):
         form_data = super().process_step(form)
-
-        step_name = form_data["register_view-current_step"]
+        step_name = form_data[f"{self.get_prefix(self.request)}-current_step"]
         user = self.get_current_user()
 
         if isinstance(form, InitialForm) and not user:
@@ -97,7 +100,7 @@ class RegisterView(NamedUrlSessionWizardView):
                     checkout_steps.append(
                         dict(
                             name=step,
-                            edit_url=reverse("register_step", kwargs={"step": step}),
+                            edit_url=reverse(self.url_name, kwargs={"step": step}),
                             form=form_class(data=data),
                             data=data,
                         )
@@ -134,3 +137,47 @@ class RegisterView(NamedUrlSessionWizardView):
         print("Enviar e-mail de cadastro enviado")
 
         return redirect("/")
+
+
+class EditRegisterView(LoginRequiredMixin, RegisterView):
+    login_url = reverse_lazy("oauth:login")
+
+    def has_permission(self):
+        return self.request.user.candidatureflow and self.request.user.candidatureflow.status == CandidatureFlowStatus.draft
+    
+    def dispatch(self, request, *args, **kwargs):
+        if not self.has_permission():
+            return HttpResponseForbidden("You do not have permission to edit Candidature")
+        return super().dispatch(request, *args, **kwargs)
+        
+
+    def get_form_initial(self, step):
+        """
+        Returns a dictionary which will be passed to the form for `step`
+        as `initial`. If no initial data was provided while initializing the
+        form wizard, an empty dictionary will be returned.
+        """
+        initial_data = {}
+        if step not in self.steps_hide_on_checkout:
+            cflow = self.request.user.candidatureflow
+
+            for key, value in cflow.properties.items():
+                if key.startswith(step):
+                    copyKey = key.replace(f'{step}-', '')
+                    initial_data[copyKey] = value[0]
+
+        return self.initial_dict.get(step, initial_data)
+
+
+class DashboardView(LoginRequiredMixin, TemplateView):
+    template_name = "candidature/dashboard.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        if not self.request.user.is_staff:
+            context.update({
+                "candidature_flow": self.request.user.candidatureflow
+            })
+
+        return context

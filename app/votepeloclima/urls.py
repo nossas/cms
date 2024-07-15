@@ -20,18 +20,26 @@ from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path, include, re_path
 
-from .candidature.views import RegisterView
+from .candidature.views import RegisterView, EditRegisterView, DashboardView
 
 register_view = RegisterView.as_view(url_name="register_step", done_step_name="concluir")
+register_edit_view = EditRegisterView.as_view(url_name="register_edit_step", done_step_name="concluir")
 
 urlpatterns = [
     # path("monitoring/", include("django_prometheus.urls")),
+    re_path(
+        r"^register/edit/(?P<step>.+)/$",
+        register_edit_view,
+        name="register_edit_step",
+    ),
+    path("register/edit/", register_edit_view, name="register_edit"),
     re_path(
         r"^register/(?P<step>.+)/$",
         register_view,
         name="register_step",
     ),
     path("register/", register_view, name="register"),
+    path("oauth/", DashboardView.as_view()),
     path("admin/", admin.site.urls),
     path("select2/", include("django_select2.urls")),
     path("", include("cms.urls")),

@@ -19,7 +19,7 @@ class OAuthLoginView(LoginView):
     template_name = "oauth/login.html"
 
     def get_success_url(self):
-        return reverse("oauth:index")
+        return self.get_redirect_url() or reverse("oauth:index")
 
 
 class OAuthChangePasswordView(PasswordResetConfirmView):
