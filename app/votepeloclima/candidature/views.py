@@ -1,5 +1,8 @@
 from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse
+from django.http import JsonResponse
+from django.views import View
 from django.contrib.auth.models import User
 from django.views.generic import TemplateView
 from django.http import HttpResponseForbidden
@@ -10,6 +13,7 @@ from formtools.wizard.views import NamedUrlSessionWizardView
 from contrib.oauth.utils import send_confirmation_email
 from .models import CandidatureFlow, CandidatureFlowStatus, Candidature
 from .forms import register_form_list, InitialForm, FlagForm, AppointmentForm
+from .locations_utils import get_choices
 
 
 class RegisterView(NamedUrlSessionWizardView):
@@ -181,3 +185,10 @@ class DashboardView(LoginRequiredMixin, TemplateView):
             })
 
         return context
+
+
+class AddressView(View):
+    def get(self, request, *args, **kwargs):
+        state = request.GET.get('state')
+        cities = get_choices(state)
+        return JsonResponse([{'code': code, 'name': name} for code, name in cities], safe=False)
