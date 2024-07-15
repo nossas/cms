@@ -22,7 +22,6 @@ djangocms_snippet
 djangocms-frontend>=1.2.1
 django-prometheus
 # Authentication all platforms
-# django-allauth
 bcrypt
 whitenoise
 svglib
