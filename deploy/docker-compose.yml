@@ -56,11 +56,11 @@ services:
   
 
   nossas:
-    image: ${NOSSAS_DOCKER_IMAGE:-nossas/cms:latest}
+    image: ${NOSSAS_DOCKER_IMAGE:-nossas/nossas-cms:latest}
     restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
     pull_policy: always
     environment:
-      - DJANGO_SETTINGS_MODULE=nossas.settings.production
+      - DJANGO_SETTINGS_MODULE=org_nossas.settings.production
       - DEBUG=${DEBUG:-True}
       - ALLOWED_HOSTS=${ALLOWED_HOSTS:-"docker.localhost"}
       - CMS_DATABASE_URL=${NOSSAS_DATABASE_URL}
