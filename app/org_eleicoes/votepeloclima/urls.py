@@ -20,7 +20,7 @@ from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path, include, re_path
 
-from .candidature.views import RegisterView, EditRegisterView, DashboardView
+from .candidature.views import RegisterView, EditRegisterView, DashboardView, AddressView
 
 register_view = RegisterView.as_view(url_name="register_step", done_step_name="concluir")
 register_edit_view = EditRegisterView.as_view(url_name="register_edit_step", done_step_name="concluir")
@@ -42,6 +42,7 @@ urlpatterns = [
     path("oauth/", DashboardView.as_view()),
     path("admin/", admin.site.urls),
     path("select2/", include("django_select2.urls")),
+    path('address/', AddressView.as_view(), name='address'),
     path("", include("cms.urls")),
 ]
 
