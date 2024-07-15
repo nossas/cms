@@ -56,7 +56,18 @@ class ApplicationForm(forms.Form):
             self.fields['city'].choices = get_choices(self.data.get('state'))
         elif self.initial.get('state'):
             self.fields['city'].choices = get_choices(self.initial.get('state'))
-
+    class Media:
+        css = {
+            "all": [
+                "https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css",
+            ]
+        }
+        js = [
+            "https://code.jquery.com/jquery-3.5.1.min.js",
+            "https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.full.min.js",
+            "https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/i18n/pt-BR.js",
+            "js/address-fields.js",
+        ]
 
 class ProfileForm(forms.Form):
     video = forms.URLField(label="Vídeo", required=False)
@@ -87,7 +98,7 @@ class CheckoutForm(forms.Form):
 
 
 register_form_list = [
-    # ("captcha", CaptchaForm),
+    ("captcha", CaptchaForm),
     ("informacoes-iniciais", InitialForm),
     ("informacoes-de-candidatura", ApplicationForm),
     ("complemente-seu-perfil", ProfileForm),

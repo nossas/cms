@@ -18,7 +18,7 @@ def get_ufs():
 
 def get_choices(uf):
     csv_filename = settings.BASE_DIR / "votepeloclima/candidature/csv/places.csv"
-    choices = set()
+    choices = []
     with open(csv_filename) as f:
         reader = csv.DictReader(f)
         reader.fieldnames = [field.strip() for field in reader.fieldnames]
@@ -27,4 +27,4 @@ def get_choices(uf):
                 city_code = row["Código Município Completo"].strip()
                 city_name = row["Nome_Município"].strip()
                 choices.append((city_code, city_name))
-    return sorted(list(choices), key=lambda x: x[1])
+    return sorted(choices, key=lambda x: x[1])
