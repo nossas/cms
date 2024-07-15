@@ -12,14 +12,14 @@ DATABASES.update(
 )
 
 INSTALLED_APPS += [
-    "eleicoes.eleicao",
+    "org_eleicoes.eleicao",
 ]
 
 MIDDLEWARE += [
-    "eleicoes.eleicao.middleware.EleicaoRedirectMiddleware",
+    "org_eleicoes.eleicao.middleware.EleicaoRedirectMiddleware",
 ]
 
-ROOT_URLCONF = "eleicoes.eleicao.urls"
+ROOT_URLCONF = "org_eleicoes.eleicao.urls"
 
 STATICFILES_FINDERS += [
     "compressor.finders.CompressorFinder",

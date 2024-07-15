@@ -73,7 +73,7 @@ INSTALLED_APPS = [
     "contrib.ds.tooltip",
     # Project Apps
     "contrib.oauth",
-    "eleicoes.votepeloclima.candidature",
+    "org_eleicoes.votepeloclima.candidature",
 ]
 
 MIDDLEWARE = [
@@ -100,7 +100,7 @@ MIDDLEWARE = [
 
 # URLs
 
-ROOT_URLCONF = "eleicoes.votepeloclima.urls"
+ROOT_URLCONF = "org_eleicoes.votepeloclima.urls"
 
 
 AUTHENTICATION_BACKENDS = [
