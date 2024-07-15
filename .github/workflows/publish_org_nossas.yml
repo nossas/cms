@@ -1,14 +1,19 @@
-name: Publish Bonde CMS docker image
+name: Publish NOSSAS / CMS docker image
 on:
-  pull_request:
   push:
+    paths:
+      - 'app/contrib/**'
+      - 'app/project/**'
+      - 'app/tailwind/**'
+      - 'app/admin_styled/**'
+      - 'app/org_nossas/**'
     branches:
       - main
+      - 'releases/**'
+      - 'feature/**'
+      - 'hotfix/**'
     tags:
       - v*
-    paths-ignore:
-      - app/org_nossas/**
-
 
 jobs:
   build-docker:
@@ -30,13 +35,13 @@ jobs:
         id: meta
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
-          images: nossas/cms
+          images: nossas/nossas-cms
       
       - name: Build and Push
         uses: docker/build-push-action@v3
         with:
           context: ./app
-          file: Dockerfile
+          file: Dockerfile.nossas
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
