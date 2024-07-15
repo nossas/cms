@@ -20,7 +20,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path, include
 
 from django.contrib.auth.views import LogoutView
-from .views import OAuthIndexView, OAuthLoginView
+from .views import OAuthIndexView, OAuthLoginView, OAuthChangePasswordView
 
 
 urlpatterns = [
@@ -29,5 +29,6 @@ urlpatterns = [
     # path("select2/", include("django_select2.urls")),
     path("logout/", LogoutView.as_view(), name="logout"),
     path("login/", OAuthLoginView.as_view(), name="login"),
+    path("change-password/<uidb64>/<token>/", OAuthChangePasswordView.as_view(), name="change-password"),
     path("", OAuthIndexView.as_view(), name="index"),
 ]

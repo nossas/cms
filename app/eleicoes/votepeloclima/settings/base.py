@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     "django_select2",
     "django_jsonform",
     "djangocms_form_builder",
+    "formtools",
     # My Apps
     "contrib.bonde",
     "contrib.ga",
@@ -70,9 +71,9 @@ INSTALLED_APPS = [
     "contrib.ds.link",
     "contrib.ds.picture",
     "contrib.ds.tooltip",
-
+    # Project Apps
     "contrib.oauth",
-    # "adp.map"
+    "votepeloclima.candidature",
 ]
 
 MIDDLEWARE = [
@@ -102,10 +103,10 @@ MIDDLEWARE = [
 ROOT_URLCONF = "eleicoes.votepeloclima.urls"
 
 
-AUTHENTICATION_BACKENDS = (
+AUTHENTICATION_BACKENDS = [
     'contrib.oauth.backends.OAuthBackend',
     'django.contrib.auth.backends.ModelBackend',
-)
+ ] + AUTHENTICATION_BACKENDS
 
 # Static files
 
@@ -142,3 +143,11 @@ DJANGOCMS_FORMS_FORM_PLUGIN_CHILD_CLASSES = [
 #     **CKEDITOR_SETTINGS,
 #     "colorButton_colors": "0F5427,20A54B,D8952A,F0A42B,C32C18,EA4F83,1D3D90,080808,222222,555555,F5F4F0,FFFFFF",
 # }
+
+
+EMAIL_HOST = env("SMTP_HOST", default="localhost")
+EMAIL_PORT = env("SMTP_PORT", default=1025)
+EMAIL_HOST_USER = env("SMTP_USER", default="")
+EMAIL_HOST_PASSWORD = env("SMTP_PASS", default="")
+EMAIL_USE_TLS = env("SMTP_USE_TLS", default=False)
+EMAIL_USE_SSL = env("SMTP_USE_SSL", default=False)
