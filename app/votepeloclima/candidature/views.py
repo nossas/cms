@@ -13,7 +13,7 @@ from formtools.wizard.views import NamedUrlSessionWizardView
 from contrib.oauth.utils import send_confirmation_email
 from .models import CandidatureFlow, CandidatureFlowStatus, Candidature
 from .forms import register_form_list, InitialForm, FlagForm, AppointmentForm
-from .utils import get_choices
+from .locations_utils import get_choices
 
 
 class RegisterView(NamedUrlSessionWizardView):

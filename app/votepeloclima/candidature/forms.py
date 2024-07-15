@@ -6,7 +6,7 @@ from django.utils.functional import lazy
 from django.urls import reverse_lazy
 
 from .fields import ValidateOnceReCaptchaField
-from .utils import get_ufs, get_choices
+from .locations_utils import get_ufs, get_choices
 
 
 class CaptchaForm(forms.Form):
