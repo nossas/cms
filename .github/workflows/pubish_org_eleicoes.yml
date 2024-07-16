@@ -41,7 +41,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: ./app
-          file: Dockerfile.eleicoes
+          file: Dockerfiles/Dockerfile.eleicoes
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
