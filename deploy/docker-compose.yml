@@ -1,31 +1,4 @@
-services:
-  #cms:
-  #  image: ${DOCKER_IMAGE:-nossas/cms:latest}
-  #  restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
-  #  pull_policy: always
-  #  environment:
-  #    - DEBUG=${DEBUG:-True}
-  #    - ALLOWED_HOSTS=${ALLOWED_HOSTS:-"docker.localhost"}
-  #    - CMS_DATABASE_URL=${CMS_DATABASE_URL}
-  #    - BONDE_DATABASE_URL=${BONDE_DATABASE_URL}
-  #    - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-  #    - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-  #    - AWS_STORAGE_BUCKET_NAME=${AWS_STORAGE_BUCKET_NAME}
-  #    - RECAPTCHA_PUBLIC_KEY=${RECAPTCHA_PUBLIC_KEY}
-  #    - RECAPTCHA_PRIVATE_KEY=${RECAPTCHA_PRIVATE_KEY}
-  #    - DISABLE_RECAPTCHA=${DISABLE_RECAPTCHA}
-  #    - BONDE_ACTION_API_URL=${BONDE_ACTION_API_URL}
-  #    - BONDE_ACTION_SECRET_KEY=${BONDE_ACTION_SECRET_KEY}
-  #    - ETCD_HOST=${ETCD_HOST:-"etcd"}
-  #    - ETCD_PORT=${ETCD_PORT:-2379}
-  #  labels:
-  #    - traefik.enable=true
-  #    - traefik.http.routers.cms.priority=10
-  #    - traefik.http.services.cms.loadbalancer.server.port=8000
-  #    - traefik.http.routers.cms.tls=true
-  #    - traefik.http.routers.cms.tls.certresolver=myresolver
-  #    - traefik.http.routers.cms.rule=${TRAEFIK_ROUTERS_RULE:-"HostRegexp(`cms.staging.bonde.org`)"}
-  
+services:  
   eleicaodoano:
     image: ${ELEICOES_DOCKER_IMAGE:-nossas/eleicoes-cms:latest}
     restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
@@ -52,7 +25,7 @@ services:
       - traefik.http.services.eleicaodoano.loadbalancer.server.port=8000
       - traefik.http.routers.eleicaodoano.tls=true
       - traefik.http.routers.eleicaodoano.tls.certresolver=myresolver
-      - traefik.http.routers.eleicaodoano.rule=${TRAEFIK_ROUTERS_RULE:-"HostRegexp(`eleicaodoano.staging.bonde.org`)"}
+      - traefik.http.routers.eleicaodoano.rule=${ELEICAODOANO_TRAEFIK_ROUTERS_RULE:-HostRegexp(`eleicaodoano.staging.bonde.org`,`www.eleicaodoano.staging.bonde.org`)}
 
   votepeloclima:
     image: ${ELEICOES_DOCKER_IMAGE:-nossas/eleicoes-cms:latest}
@@ -80,7 +53,7 @@ services:
       - traefik.http.services.votepeloclima.loadbalancer.server.port=8000
       - traefik.http.routers.votepeloclima.tls=true
       - traefik.http.routers.votepeloclima.tls.certresolver=myresolver
-      - traefik.http.routers.votepeloclima.rule=${TRAEFIK_ROUTERS_RULE:-"HostRegexp(`votepeloclima.staging.bonde.org`)"}
+      - traefik.http.routers.votepeloclima.rule=${VOTEPELOCLIMA_TRAEFIK_ROUTERS_RULE:-HostRegexp(`votepeloclima.staging.bonde.org`,`www.votepeloclima.staging.bonde.org`)}
 
   nossas:
     image: ${NOSSAS_DOCKER_IMAGE:-nossas/nossas-cms:latest}
@@ -108,10 +81,10 @@ services:
       - traefik.http.services.nossas.loadbalancer.server.port=8000
       - traefik.http.routers.nossas.tls=true
       - traefik.http.routers.nossas.tls.certresolver=myresolver
-      - traefik.http.routers.nossas.rule=${NOSSAS_TRAEFIK_ROUTERS_RULE:-"HostRegexp(`nossas.staging.bonde.org`)"}
+      - traefik.http.routers.nossas.rule=${NOSSAS_TRAEFIK_ROUTERS_RULE:-HostRegexp(`nossas.staging.bonde.org`,`www.nossas.staging.bonde.org`)}
 
   observatorio:
-    image: ${ADP_DOCKER_IMAGE:-nossas/cms:latest}
+    image: ${ADP_DOCKER_IMAGE:-nossas/amazoniadepe-cms:latest}
     restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
     pull_policy: always
     environment:
@@ -136,8 +109,7 @@ services:
       - traefik.http.services.observatorio.loadbalancer.server.port=8000
       - traefik.http.routers.observatorio.tls=true
       - traefik.http.routers.observatorio.tls.certresolver=myresolver
-      - traefik.http.routers.observatorio.rule=${ADP_TRAEFIK_ROUTERS_RULE:-"HostRegexp(`observatorio.staging.bonde.org`)"}
-
+      - traefik.http.routers.observatorio.rule=${ADP_TRAEFIK_ROUTERS_RULE:-HostRegexp(`observatorio.staging.bonde.org`, `www.observatorio.staging.bonde.org`)}
   observatorio-mapa:
     image: ${ADP_MAPA_DOCKER_IMAGE:-nossas/fpnd-mapa:v1.0}
     restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
@@ -154,7 +126,7 @@ services:
       - traefik.http.services.observatorio-mapa.loadbalancer.server.port=80
       - traefik.http.routers.observatorio-mapa.tls=true
       - traefik.http.routers.observatorio-mapa.tls.certresolver=myresolver
-      - traefik.http.routers.observatorio-mapa.rule=${ADP_MAPA_TRAEFIK_ROUTERS_RULE:-"HostRegexp(`observatorio-mapa.staging.bonde.org`)"}
+      - traefik.http.routers.observatorio-mapa.rule=${ADP_MAPA_TRAEFIK_ROUTERS_RULE:-HostRegexp(`observatorio-mapa.staging.bonde.org`)}
 
 networks:
   default:
