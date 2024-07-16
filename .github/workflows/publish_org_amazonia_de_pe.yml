@@ -41,7 +41,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: ./app
-          file: Dockerfiles/Dockerfile.amazoniadepe
+          file: app/org_amazonia_de_pe/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
