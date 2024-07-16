@@ -9,11 +9,22 @@ from .fields import ValidateOnceReCaptchaField
 from .locations_utils import get_ufs, get_choices
 
 
+class DisabledMixin():
+
+    def __init__(self, disabled=False, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        if disabled:
+            # import ipdb;ipdb.set_trace()
+            for field_name in self.fields:
+                self.fields[field_name].widget.attrs.update({'readonly': True, 'disabled': True})
+
+
 class CaptchaForm(forms.Form):
     captcha = ValidateOnceReCaptchaField(widget=ReCaptchaV2Checkbox())
 
 
-class InitialForm(forms.Form):
+class InitialForm(DisabledMixin, forms.Form):
     legal_name = forms.CharField(label="Nome")
     ballot_name = forms.CharField(label="Nome na urna")
     birth_date = forms.DateField(label="Data de nascimento")
@@ -22,7 +33,7 @@ class InitialForm(forms.Form):
     tse_id = forms.CharField(label="Identificação TSE (?)", required=False)
 
 
-class ApplicationForm(forms.Form):
+class ApplicationForm(DisabledMixin, forms.Form):
     number_id = forms.IntegerField(label="Número de identificação", min_value=1)
     intended_position = forms.CharField(label="Cargo pretendido")
     state = forms.ChoiceField(
@@ -69,7 +80,7 @@ class ApplicationForm(forms.Form):
             "js/address-fields.js",
         ]
 
-class ProfileForm(forms.Form):
+class ProfileForm(DisabledMixin, forms.Form):
     video = forms.URLField(label="Vídeo", required=False)
     photo = forms.URLField(label="Foto", required=False)
     gender = forms.CharField(label="Gênero")
@@ -77,18 +88,18 @@ class ProfileForm(forms.Form):
     sexuality = forms.CharField(label="Sexualidade", required=False)
 
 
-class TrackForm(forms.Form):
+class TrackForm(DisabledMixin, forms.Form):
     education = forms.CharField(label="Escolaridade", required=False)
     employment = forms.CharField(label="Ocupação", required=False)
     short_description = forms.CharField(label="Minibio", widget=forms.Textarea())
 
 
-class FlagForm(forms.Form):
+class FlagForm(DisabledMixin, forms.Form):
     is_renewable_energy = forms.BooleanField(label="Energia Renovável", required=False)
     is_transport_and_mobility = forms.BooleanField(label="Transporte e Mobilidade", required=False)
 
 
-class AppointmentForm(forms.Form):
+class AppointmentForm(DisabledMixin, forms.Form):
     appointment_1 = forms.BooleanField(label="Compromisso 1", required=False)
     appointment_2 = forms.BooleanField(label="Compromisso 2", required=False)
 

@@ -1,6 +1,21 @@
-<h1>Olá {{ request.user.first_name }}</h1>
-<p>Status do cadastro {{ candidature_flow.get_status_display }}</p>
-<hr />
-<h2>Suas informações</h2>
-<h2>Compromissos climáticos</h2>
-<a href="{% url 'oauth:logout' %}">Sair</a>
+{% extends "ds/base.html" %}
+
+{% block content %}
+<div class="container mx-auto py-5">
+    <h1>Olá {{ request.user.first_name }}</h1>
+    <p>Status do cadastro {{ candidature_flow.get_status_display }}</p>
+    <hr />
+    <h2>Suas informações</h2>
+    <div>
+        {% for checkout_step in checkout_steps %}
+            <h3>{{ checkout_step.name }} | <a class="fs-6" href="{{ checkout_step.edit_url }}">Editar</a></h3>
+            {{ checkout_step.form.as_p }}
+        {% endfor %}
+    </div>
+    <h2>Compromissos climáticos</h2>
+    <hr />
+    <div>
+        <a href="{% url 'oauth:logout' %}">Sair</a>
+    </div>
+</div>
+{% endblock %}

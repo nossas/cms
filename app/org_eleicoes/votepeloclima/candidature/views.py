@@ -178,13 +178,33 @@ class DashboardView(LoginRequiredMixin, TemplateView):
     template_name = "candidature/dashboard.html"
     login_url = reverse_lazy("oauth:login")
 
+    def get_checkout_steps(self):
+        checkout_steps = []
+        candidature_flow = self.request.user.candidatureflow
+
+        for step_name, form_class in register_form_list:
+            if step_name not in ("captcha", "checkout"):
+                initial_data = {}
+                for key in list(filter(lambda x: x.startswith(step_name), candidature_flow.properties.keys())):
+                    initial_data[key.replace(step_name + "-", "")] = candidature_flow.properties.get(key)
+                
+                checkout_steps.append(dict(
+                    name=step_name,
+                    edit_url=reverse("register_edit_step", kwargs={"step": step_name}),
+                    form=form_class(data=initial_data, disabled=True)
+                ))
+        
+        return checkout_steps
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
         if not self.request.user.is_staff:
+            checkout_steps = self.get_checkout_steps()
             context.update({
-                "candidature_flow": self.request.user.candidatureflow
+                "candidature_flow": self.request.user.candidatureflow,
+                "checkout_steps": checkout_steps
             })
 
         return context
