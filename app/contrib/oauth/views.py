@@ -1,18 +1,7 @@
-from django.views.generic import TemplateView
 from django.http import HttpResponseRedirect
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import LoginView, PasswordResetConfirmView, INTERNAL_RESET_SESSION_TOKEN
+from django.contrib.auth.views import LoginView, PasswordResetConfirmView, INTERNAL_RESET_SESSION_TOKEN, LogoutView
 from django.contrib.auth import login as auth_login
-from django.urls import reverse_lazy, reverse
-
-
-class OAuthIndexView(LoginRequiredMixin, TemplateView):
-    template_name = "oauth/index.html"
-    login_url = reverse_lazy("oauth:login")
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
+from django.urls import reverse
 
 
 class OAuthLoginView(LoginView):
@@ -44,7 +33,8 @@ class OAuthChangePasswordView(PasswordResetConfirmView):
     
     def get_success_url(self):
         return reverse("oauth:index")
-    # form_class = PasswordChangeForm
 
-    # def form_valid(self, form):
-    #     return super().form_valid()
+class OAuthLogoutView(LogoutView):
+
+    def get_success_url(self):
+        return reverse("oauth:login")

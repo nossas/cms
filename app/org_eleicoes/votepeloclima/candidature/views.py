@@ -175,6 +175,8 @@ class EditRegisterView(LoginRequiredMixin, RegisterView):
 
 class DashboardView(LoginRequiredMixin, TemplateView):
     template_name = "candidature/dashboard.html"
+    login_url = reverse_lazy("oauth:login")
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
