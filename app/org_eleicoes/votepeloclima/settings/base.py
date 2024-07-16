@@ -57,6 +57,8 @@ INSTALLED_APPS = [
     "django_jsonform",
     "djangocms_form_builder",
     "formtools",
+    "crispy_forms",
+    "crispy_bootstrap5",
     # My Apps
     "contrib.bonde",
     "contrib.ga",
@@ -146,8 +148,19 @@ DJANGOCMS_FORMS_FORM_PLUGIN_CHILD_CLASSES = [
 
 
 EMAIL_HOST = env("SMTP_HOST", default="localhost")
+
 EMAIL_PORT = env("SMTP_PORT", default=1025)
+
 EMAIL_HOST_USER = env("SMTP_USER", default="")
+
 EMAIL_HOST_PASSWORD = env("SMTP_PASS", default="")
+
 EMAIL_USE_TLS = env("SMTP_USE_TLS", default=False)
+
 EMAIL_USE_SSL = env("SMTP_USE_SSL", default=False)
+
+# Django Crispy Forms
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"

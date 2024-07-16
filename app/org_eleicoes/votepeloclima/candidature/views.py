@@ -19,6 +19,7 @@ from .locations_utils import get_choices
 class RegisterView(NamedUrlSessionWizardView):
     form_list = register_form_list
     steps_hide_on_checkout = ["captcha"]
+    template_name = "candidature/wizard_form.html"
 
     def render_done(self, form, **kwargs):
         revalid = True

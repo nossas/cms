@@ -1,0 +1,26 @@
+{% extends "ds/base.html" %}
+{% load i18n crispy_forms_filters %}
+
+{% block content %}
+<div class="container">
+    <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ wizard.form.media }}
+    {{ wizard.management_form }}
+    {% if wizard.form.forms %}
+        {{ wizard.form.management_form }}
+        {% for form in wizard.form.forms %}
+            {{ form|crispy }}
+        {% endfor %}
+    {% else %}
+        {{ wizard.form|crispy }}
+    {% endif %}
+
+    {% if wizard.steps.prev %}
+    <button class="btn btn-secondary" name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}">{% translate "first step" %}</button>
+    <button class="btn btn-secondary" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% translate "prev step" %}</button>
+    {% endif %}
+    <input class="btn btn-primary" type="submit" name="submit" value="{% translate "submit" %}" />
+    </form>
+</div>
+{% endblock %}
