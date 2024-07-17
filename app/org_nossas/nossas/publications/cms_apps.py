@@ -10,7 +10,7 @@ class PublicationsApphook(CMSApp):
     name = _("Publicações")
 
     def get_urls(self, page=None, language=None, **kwargs):
-        return ["nossas.publications.urls"]
+        return ["org_nossas.nossas.publications.urls"]
 
 
 
@@ -20,4 +20,4 @@ class SearchApphook(CMSApp):
     name = _("Buscador")
 
     def get_urls(self, page=None, language=None, **kwargs):
-        return ["nossas.urls_search"]
+        return ["org_nossas.nossas.urls_search"]
