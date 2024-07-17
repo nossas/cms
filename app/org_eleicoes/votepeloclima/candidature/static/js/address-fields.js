@@ -22,17 +22,15 @@
         placeholder: "Selecione sua cidade"
       });
 
-      var uf;
-      $stateField.on("change", (evt) => {
-        uf = evt.target.value;
-        const url = $stateField.data("address-url");
+      $stateField.on("change", function(evt) {
+        const uf = $(this).val();
+        const url = $(this).data("address-url");
 
-        $cityField.empty();
-        $cityField.append('<option value="">Selecione sua cidade</option>');
+        $cityField.empty().append('<option value="">Selecione sua cidade</option>').val("");
 
         if (uf) {
-          $.get(url + "?state=" + uf, (data) => {
-            $.each(data, (index, value) => {
+          $.get(url + "?state=" + uf, function(data) {
+            $.each(data, function(index, value) {
               $cityField.append(
                 '<option value="' + value.code + '">' + value.name + '</option>'
               );

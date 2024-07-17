@@ -190,5 +190,5 @@ class DashboardView(LoginRequiredMixin, TemplateView):
 class AddressView(View):
     def get(self, request, *args, **kwargs):
         state = request.GET.get('state')
-        cities = get_choices(state)
+        cities = get_choices(state) if state else []
         return JsonResponse([{'code': code, 'name': name} for code, name in cities], safe=False)

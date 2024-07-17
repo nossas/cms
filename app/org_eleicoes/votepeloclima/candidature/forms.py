@@ -6,7 +6,7 @@ from django.utils.functional import lazy
 from django.urls import reverse_lazy
 
 from .fields import ValidateOnceReCaptchaField
-from .locations_utils import get_ufs, get_choices
+from .locations_utils import get_states, get_choices
 
 
 class CaptchaForm(forms.Form):
@@ -22,28 +22,33 @@ class InitialForm(forms.Form):
     tse_id = forms.CharField(label="Identificação TSE (?)", required=False)
 
 
+def lazy_get_states():
+    return [(uf, state_name) for uf, state_name in get_states()]
+
+
 class ApplicationForm(forms.Form):
     number_id = forms.IntegerField(label="Número de identificação", min_value=1)
     intended_position = forms.CharField(label="Cargo pretendido")
     state = forms.ChoiceField(
-        label="Estado",
-        choices=lazy(get_ufs, list)(),
+        choices=lazy(lazy_get_states, list)(),
         widget=Select2Widget(
             attrs={
                 "data-address-fields": "state",
                 "data-address-url": reverse_lazy("address"),
             }
-        )
+        ),
+        required=True,
+        label="Estado"
     )
-    city = forms.ChoiceField(
-        choices=[],
-        label="Cidade",
+    city = forms.CharField(
         widget=Select2Widget(
             attrs={
                 "data-address-fields": "city",
                 "data-address-url": reverse_lazy("address"),
             }
-        )
+        ),
+        required=True,
+        label="Cidade"
     )
     is_collective_mandate = forms.BooleanField(
         label="É um mandato coletivo?", required=False
@@ -56,6 +61,7 @@ class ApplicationForm(forms.Form):
             self.fields['city'].choices = get_choices(self.data.get('state'))
         elif self.initial.get('state'):
             self.fields['city'].choices = get_choices(self.initial.get('state'))
+
     class Media:
         css = {
             "all": [

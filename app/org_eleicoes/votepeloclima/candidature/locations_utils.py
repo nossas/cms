@@ -1,7 +1,7 @@
 from django.conf import settings
 from pathlib import Path
 import csv
-from typing import List, Tuple, Set
+from typing import List, Tuple
 
 csv_filename = Path(settings.BASE_DIR) / "org_eleicoes/votepeloclima/candidature/csv/places.csv"
 
