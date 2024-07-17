@@ -60,7 +60,7 @@ services:
     restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
     pull_policy: always
     environment:
-      - DJANGO_SETTINGS_MODULE=org_nossas.settings.production
+      - DJANGO_SETTINGS_MODULE=org_nossas.nossas.settings.production
       - DEBUG=${DEBUG:-True}
       - ALLOWED_HOSTS=${ALLOWED_HOSTS:-"docker.localhost"}
       - CMS_DATABASE_URL=${NOSSAS_DATABASE_URL}
