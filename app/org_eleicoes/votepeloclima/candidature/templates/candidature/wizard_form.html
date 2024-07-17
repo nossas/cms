@@ -1,26 +1,32 @@
-{% extends "ds/base.html" %}
+{% extends "votepeloclima/base.html" %}
 {% load i18n crispy_forms_filters %}
 
 {% block content %}
-<div class="container">
+<div class="d-flex">
+  <div class="container px-5 py-4">
     <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ wizard.form.media }}
-    {{ wizard.management_form }}
-    {% if wizard.form.forms %}
+      {% csrf_token %}
+      {{ wizard.form.media }}
+      {{ wizard.management_form }}
+      {% if wizard.form.forms %}
         {{ wizard.form.management_form }}
         {% for form in wizard.form.forms %}
-            {{ form|crispy }}
+        {{ form|crispy }}
         {% endfor %}
-    {% else %}
+      {% else %}
         {{ wizard.form|crispy }}
-    {% endif %}
+      {% endif %}
 
-    {% if wizard.steps.prev %}
-    <button class="btn btn-secondary" name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}">{% translate "first step" %}</button>
-    <button class="btn btn-secondary" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% translate "prev step" %}</button>
-    {% endif %}
-    <input class="btn btn-primary" type="submit" name="submit" value="{% translate "submit" %}" />
+      {% if wizard.steps.prev %}
+      <button class="btn btn-secondary" name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}">{% translate "first step" %}</button>
+      <button class="btn btn-secondary" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% translate "prev step" %}</button>
+      {% endif %}
+      <input class="btn btn-dark" type="submit" name="submit" value="{% translate "submit" %}" />
     </form>
+  </div>
+  <div class="bg-light" style="height:100vh;width:40%;">
+  </div>
 </div>
 {% endblock %}
+
+{% block footer %}{% endblock %}
