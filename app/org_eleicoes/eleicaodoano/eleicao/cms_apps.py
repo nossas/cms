@@ -7,4 +7,4 @@ class EleicaoApphook(CMSApp):
     name = "Eleição do ano"
 
     def get_urls(self, page=None, language=None, **kwargs):
-        return ["org_eleicoes.eleicao.urls"]
+        return ["org_eleicoes.eleicaodoano.eleicao.urls"]
