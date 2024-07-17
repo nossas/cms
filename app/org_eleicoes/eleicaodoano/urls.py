@@ -7,6 +7,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("select2/", include("django_select2.urls")),
+    path("actions/", include("contrib.actions.pressure.urls")),
     path("", include("cms.urls")),
 ]
 
