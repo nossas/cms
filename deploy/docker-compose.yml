@@ -4,7 +4,7 @@ services:
     restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
     pull_policy: always
     environment:
-      - DJANGO_SETTINGS_MODULE=org_eleicoes.eleicao.settings.base
+      - DJANGO_SETTINGS_MODULE=org_eleicoes.eleicaodoano.settings
       - DEBUG=${DEBUG:-True}
       - ALLOWED_HOSTS=${ALLOWED_HOSTS:-"docker.localhost"}
       - CMS_DATABASE_URL=${ELEICAODOANO_DATABASE_URL}
@@ -32,7 +32,7 @@ services:
     restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
     pull_policy: always
     environment:
-      - DJANGO_SETTINGS_MODULE=org_eleicoes.votepeloclima.settings.base
+      - DJANGO_SETTINGS_MODULE=org_eleicoes.votepeloclima.settings
       - DEBUG=${DEBUG:-True}
       - ALLOWED_HOSTS=${ALLOWED_HOSTS:-"docker.localhost"}
       - CMS_DATABASE_URL=${VOTEPELOCLIMA_DATABASE_URL}
@@ -110,6 +110,7 @@ services:
       - traefik.http.routers.observatorio.tls=true
       - traefik.http.routers.observatorio.tls.certresolver=myresolver
       - traefik.http.routers.observatorio.rule=${ADP_TRAEFIK_ROUTERS_RULE:-HostRegexp(`observatorio.staging.bonde.org`, `www.observatorio.staging.bonde.org`)}
+  
   observatorio-mapa:
     image: ${ADP_MAPA_DOCKER_IMAGE:-nossas/fpnd-mapa:v1.0}
     restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
