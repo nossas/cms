@@ -184,3 +184,6 @@ EMAIL_USE_SSL = env("SMTP_USE_SSL", default=False)
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+# Oauth App
+OAUTH_REDIRECT_LOGIN_URL = '/oauth/'

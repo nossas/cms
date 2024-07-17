@@ -1,4 +1,5 @@
 from django.http import HttpResponseRedirect
+from django.conf import settings
 from django.contrib.auth.views import LoginView, PasswordResetConfirmView, INTERNAL_RESET_SESSION_TOKEN, LogoutView
 from django.contrib.auth import login as auth_login
 from django.urls import reverse
@@ -8,6 +9,8 @@ class OAuthLoginView(LoginView):
     template_name = "oauth/login.html"
 
     def get_success_url(self):
+        if hasattr(settings, 'OAUTH_REDIRECT_LOGIN_URL'):
+            return settings.OAUTH_REDIRECT_LOGIN_URL
         return self.get_redirect_url() or reverse("oauth:index")
 
 

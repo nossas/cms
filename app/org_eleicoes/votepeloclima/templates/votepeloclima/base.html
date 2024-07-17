@@ -21,8 +21,10 @@
         </li> -->
       </ul>
       <div class="d-flex" style="--bs-gap:1rem;">
+        {% block navbar_actions %}
         <a class="btn btn-outline-light" href="#" role="button">Cadastre-se</a>
-        <a class="btn btn-primary" href="#" role="button">Login</a>
+        <a class="btn btn-primary" href="{% url 'oauth:login' %}" role="button">Login</a>
+        {% endblock %}
       </div>
     </div>
   </div>
