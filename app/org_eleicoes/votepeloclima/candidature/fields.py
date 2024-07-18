@@ -75,3 +75,33 @@ class CityCepField(forms.CharField):
             "data-address-url": reverse_lazy("address"),
         }
     )
+
+
+class CheckboxTextWidget(forms.MultiWidget):
+
+    def __init__(self, attrs=None):
+
+        widgets = [
+            forms.CheckboxInput(attrs={"data-checktext": ""}),
+            forms.Textarea(attrs=attrs)
+        ]
+
+        super().__init__(widgets, attrs)
+    
+    def decompress(self, value):
+        if value:
+            return [True, value]
+        return [False, ""]
+    
+    def value_from_datadict(self, data, files, name):
+        checkbox, text = super().value_from_datadict(data, files, name)
+        if checkbox:
+            return text
+        return None
+    
+    @property
+    def media(self):
+        return forms.Media(
+            js=["https://code.jquery.com/jquery-3.5.1.min.js", "js/checkbox-text-widget.js"],
+            # css={"screen": select2_css + ["django_select2/django_select2.css"]},
+        )

@@ -1,7 +1,12 @@
 from django import forms
 from captcha.widgets import ReCaptchaV2Checkbox
 
-from .fields import ValidateOnceReCaptchaField, StateCepField, CityCepField
+from .fields import (
+    ValidateOnceReCaptchaField,
+    StateCepField,
+    CityCepField,
+    CheckboxTextWidget,
+)
 
 
 class DisabledMixin:
@@ -68,9 +73,14 @@ class TrackForm(DisabledMixin, forms.Form):
 
 
 class FlagForm(DisabledMixin, forms.Form):
-    is_renewable_energy = forms.BooleanField(label="Energia Renovável", required=False)
-    is_transport_and_mobility = forms.BooleanField(
-        label="Transporte e Mobilidade", required=False
+    is_renewable_energy = forms.CharField(
+        label="Energia Renovável", required=False, widget=CheckboxTextWidget()
+    )
+    is_transport_and_mobility = forms.CharField(
+        label="Transporte e Mobilidade", required=False, widget=CheckboxTextWidget()
+    )
+    is_sustainable_agriculture = forms.CharField(
+        label="Agricultura Sustentável", required=False, widget=CheckboxTextWidget()
     )
 
     class Meta:
