@@ -1,4 +1,5 @@
 from pathlib import Path
+from django.urls import reverse_lazy
 from project.settings import *
 
 
@@ -186,4 +187,4 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 # Oauth App
-OAUTH_REDIRECT_LOGIN_URL = '/oauth/'
+OAUTH_REDIRECT_LOGIN_URL = reverse_lazy("dashboard")

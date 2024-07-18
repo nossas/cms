@@ -39,7 +39,7 @@ urlpatterns = [
         name="register_step",
     ),
     path("register/", register_view, name="register"),
-    path("oauth/", DashboardView.as_view()),
+    path("area-restrita/", DashboardView.as_view(), name="dashboard"),
     path("admin/", admin.site.urls),
     path("select2/", include("django_select2.urls")),
     path('address/', AddressView.as_view(), name='address'),
