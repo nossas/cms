@@ -5,7 +5,7 @@ from .fields import (
     ValidateOnceReCaptchaField,
     StateCepField,
     CityCepField,
-    CheckboxTextWidget,
+    CheckboxTextField,
 )
 
 
@@ -47,7 +47,7 @@ class ApplicationForm(DisabledMixin, forms.Form):
         label="É um mandato coletivo?", required=False
     )
     political_party = forms.CharField(label="Partido político")
-    
+
     class Meta:
         title = "Informações de candidatura"
 
@@ -73,14 +73,12 @@ class TrackForm(DisabledMixin, forms.Form):
 
 
 class FlagForm(DisabledMixin, forms.Form):
-    is_renewable_energy = forms.CharField(
-        label="Energia Renovável", required=False, widget=CheckboxTextWidget()
+    is_renewable_energy = CheckboxTextField(label="Energia Renovável", required=False)
+    is_transport_and_mobility = CheckboxTextField(
+        label="Transporte e Mobilidade", required=False
     )
-    is_transport_and_mobility = forms.CharField(
-        label="Transporte e Mobilidade", required=False, widget=CheckboxTextWidget()
-    )
-    is_sustainable_agriculture = forms.CharField(
-        label="Agricultura Sustentável", required=False, widget=CheckboxTextWidget()
+    is_sustainable_agriculture = CheckboxTextField(
+        label="Agricultura Sustentável", required=False
     )
 
     class Meta:

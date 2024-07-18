@@ -77,31 +77,61 @@ class CityCepField(forms.CharField):
     )
 
 
+class SwitchInput(forms.CheckboxInput):
+    template_name = "forms/widgets/switch.html"
+
+    def __init__(self, label=None, attrs=None):
+        self.label = label
+        super().__init__(attrs=attrs)
+
+    def get_context(self, name, value, attrs):
+        context = super().get_context(name, value, attrs)
+        # import ipdb;ipdb.set_trace()
+        context.update({"widget": {**context["widget"], "label": self.label}})
+        return context
+
+
 class CheckboxTextWidget(forms.MultiWidget):
 
-    def __init__(self, attrs=None):
-
+    def __init__(self, label=None, attrs=None):
         widgets = [
-            forms.CheckboxInput(attrs={"data-checktext": ""}),
-            forms.Textarea(attrs=attrs)
+            SwitchInput(attrs={"data-checktext": ""}, label=label),
+            forms.Textarea(attrs=attrs),
         ]
 
         super().__init__(widgets, attrs)
-    
+
     def decompress(self, value):
         if value:
             return [True, value]
         return [False, ""]
-    
+
     def value_from_datadict(self, data, files, name):
         checkbox, text = super().value_from_datadict(data, files, name)
         if checkbox:
             return text
         return None
-    
+
     @property
     def media(self):
         return forms.Media(
-            js=["https://code.jquery.com/jquery-3.5.1.min.js", "js/checkbox-text-widget.js"],
+            js=[
+                "https://code.jquery.com/jquery-3.5.1.min.js",
+                "js/checkbox-text-widget.js",
+            ],
             # css={"screen": select2_css + ["django_select2/django_select2.css"]},
+        )
+
+
+class CheckboxTextField(forms.CharField):
+    template_name = "forms/fields/checkbox_text.html"
+
+    def __init__(
+        self, *, max_length=None, min_length=None, strip=True, empty_value="", **kwargs
+    ):
+        label = kwargs.pop("label")
+        self.widget = CheckboxTextWidget(label=label)
+
+        super().__init__(
+            max_length=None, min_length=None, strip=True, empty_value="", **kwargs
         )
