@@ -187,7 +187,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
             if step_name not in self.steps_hide_on_checkout:
                 initial_data = {}
                 for key in list(filter(lambda x: x.startswith(step_name), candidature_flow.properties.keys())):
-                    initial_data[key.replace(step_name + "-", "")] = candidature_flow.properties.get(key)
+                    initial_data[key.replace(step_name + "-", "")] = candidature_flow.properties.get(key)[0]
                 
                 checkout_steps.append(dict(
                     name=step_name,
