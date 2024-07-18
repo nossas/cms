@@ -27,7 +27,7 @@ class RegisterView(NamedUrlSessionWizardView):
 
     def get_current_user(self):
         # First step after recaptcha
-        step_name = register_form_list[1][0]
+        step_name = register_form_list[2][0]
         #
         data = self.get_cleaned_data_for_step(step_name)
         if data:
@@ -177,13 +177,14 @@ class EditRegisterView(LoginRequiredMixin, RegisterView):
 class DashboardView(LoginRequiredMixin, TemplateView):
     template_name = "candidature/dashboard.html"
     login_url = reverse_lazy("oauth:login")
+    steps_hide_on_checkout = ("captcha", "checkout", "compromissos")
 
     def get_checkout_steps(self):
         checkout_steps = []
         candidature_flow = self.request.user.candidatureflow
 
         for step_name, form_class in register_form_list:
-            if step_name not in ("captcha", "checkout"):
+            if step_name not in self.steps_hide_on_checkout:
                 initial_data = {}
                 for key in list(filter(lambda x: x.startswith(step_name), candidature_flow.properties.keys())):
                     initial_data[key.replace(step_name + "-", "")] = candidature_flow.properties.get(key)
@@ -202,6 +203,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
 
         if not self.request.user.is_staff:
             checkout_steps = self.get_checkout_steps()
+            # checkout_steps = []
             context.update({
                 "candidature_flow": self.request.user.candidatureflow,
                 "checkout_steps": checkout_steps
