@@ -19,6 +19,7 @@ from .locations_utils import get_choices
 class RegisterView(NamedUrlSessionWizardView):
     form_list = register_form_list
     steps_hide_on_checkout = ["captcha"]
+    template_name = "candidature/wizard_form.html"
 
     def render_done(self, form, **kwargs):
         revalid = True
@@ -26,7 +27,7 @@ class RegisterView(NamedUrlSessionWizardView):
 
     def get_current_user(self):
         # First step after recaptcha
-        step_name = register_form_list[1][0]
+        step_name = register_form_list[2][0]
         #
         data = self.get_cleaned_data_for_step(step_name)
         if data:
@@ -175,13 +176,37 @@ class EditRegisterView(LoginRequiredMixin, RegisterView):
 
 class DashboardView(LoginRequiredMixin, TemplateView):
     template_name = "candidature/dashboard.html"
+    login_url = reverse_lazy("oauth:login")
+    steps_hide_on_checkout = ("captcha", "checkout", "compromissos")
+
+    def get_checkout_steps(self):
+        checkout_steps = []
+        candidature_flow = self.request.user.candidatureflow
+
+        for step_name, form_class in register_form_list:
+            if step_name not in self.steps_hide_on_checkout:
+                initial_data = {}
+                for key in list(filter(lambda x: x.startswith(step_name), candidature_flow.properties.keys())):
+                    initial_data[key.replace(step_name + "-", "")] = candidature_flow.properties.get(key)[0]
+                
+                checkout_steps.append(dict(
+                    name=step_name,
+                    edit_url=reverse("register_edit_step", kwargs={"step": step_name}),
+                    form=form_class(data=initial_data, disabled=True)
+                ))
+        
+        return checkout_steps
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
         if not self.request.user.is_staff:
+            checkout_steps = self.get_checkout_steps()
+            # checkout_steps = []
             context.update({
-                "candidature_flow": self.request.user.candidatureflow
+                "candidature_flow": self.request.user.candidatureflow,
+                "checkout_steps": checkout_steps
             })
 
         return context

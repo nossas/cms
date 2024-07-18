@@ -3,6 +3,8 @@ django-environ
 psycopg2-binary
 django-select2
 django-compressor==4.4
+django-crispy-forms==2.2
+crispy-bootstrap5==2024.2
 django-sass-processor==1.4
 django-entangled==0.5.4
 django-formtools

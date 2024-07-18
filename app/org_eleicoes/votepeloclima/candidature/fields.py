@@ -1,4 +1,10 @@
 import sys
+
+from django import forms
+from django.conf import settings
+from django.urls import reverse_lazy
+
+from django_select2.forms import Select2Widget
 from captcha.fields import ReCaptchaField
 
 
@@ -13,3 +19,59 @@ class ValidateOnceReCaptchaField(ReCaptchaField):
             max_depth -= 1
             frame = frame.f_back
         return super(ValidateOnceReCaptchaField, self).clean(values)
+
+
+class CepWidget(Select2Widget):
+
+    @property
+    def media(self):
+        """
+        Construct Media as a dynamic property.
+
+        .. Note:: For more information visit
+            https://docs.djangoproject.com/en/stable/topics/forms/media/#media-as-a-dynamic-property
+        """
+        select2_js = settings.SELECT2_JS if settings.SELECT2_JS else []
+        select2_css = settings.SELECT2_CSS if settings.SELECT2_CSS else []
+
+        if isinstance(select2_js, str):
+            select2_js = [select2_js]
+        if isinstance(select2_css, str):
+            select2_css = [select2_css]
+
+        i18n_file = []
+        if self.i18n_name in settings.SELECT2_I18N_AVAILABLE_LANGUAGES:
+            i18n_file = [f"{settings.SELECT2_I18N_PATH}/{self.i18n_name}.js"]
+
+        return forms.Media(
+            js=["https://code.jquery.com/jquery-3.5.1.min.js"]
+            + select2_js
+            + i18n_file
+            + ["django_select2/django_select2.js"]
+            + ["js/address-fields.js"],
+            css={"screen": select2_css + ["django_select2/django_select2.css"]},
+        )
+
+
+class StateCepField(forms.ChoiceField):
+    widget = CepWidget(
+        attrs={
+            "data-address-fields": "state",
+            "data-address-url": reverse_lazy("address"),
+        }
+    )
+
+    def __init__(self, *args, **kwargs):
+        from .locations_utils import get_ufs
+
+        super().__init__(**kwargs)
+        self.choices = get_ufs
+
+
+class CityCepField(forms.CharField):
+    widget = CepWidget(
+        attrs={
+            "data-address-fields": "city",
+            "data-address-url": reverse_lazy("address"),
+        }
+    )

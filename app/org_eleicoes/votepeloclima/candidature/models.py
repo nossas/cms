@@ -37,10 +37,13 @@ class Candidature(models.Model):
     # Step 6
     appointments = models.JSONField(blank=True)
 
+    class Meta:
+        verbose_name = "Candidatura"
+
     @property
     def status(self):
         if self.candidatureflow:
-            return self.candidatureflow.status
+            return self.candidatureflow.get_status_display
 
         return CandidatureFlowStatus.draft
 
@@ -83,3 +86,6 @@ class CandidatureFlow(models.Model):
     # - Enviar e-mail para validar o usuário e criar uma senha de acesso
     # - Habilitar usuário `is_active=True`
     user = models.OneToOneField(User, null=True, on_delete=models.SET_NULL)
+
+    class Meta:
+        verbose_name = "Formulário"

@@ -1,10 +1,10 @@
 from pathlib import Path
+from django.urls import reverse_lazy
 from project.settings import *
 
 
-# Root folder to this site config
-
-SITE_DIR = Path(__file__).resolve().parent
+# Root folder to this site
+SITE_DIR = Path(__file__).resolve().parent.parent
 
 # Databases
 
@@ -57,6 +57,8 @@ INSTALLED_APPS = [
     "django_jsonform",
     "djangocms_form_builder",
     "formtools",
+    "crispy_forms",
+    "crispy_bootstrap5",
     # My Apps
     "contrib.bonde",
     "contrib.ga",
@@ -117,10 +119,31 @@ STATICFILES_FINDERS += [
 
 COMPRESS_PRECOMPILERS = (("text/x-scss", "django_libsass.SassCompiler"),)
 
+TEMPLATES = [
+    {
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [SITE_DIR / "templates"],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.template.context_processors.i18n",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+                "sekizai.context_processors.sekizai",
+                "contrib.ga.context_processors.ga",
+                "django.template.context_processors.request",
+            ],
+        },
+    },
+]
+
 # DjangoCMS
 # Configurações inicials
 
 CMS_TEMPLATES = [
+    ("votepeloclima/base.html", "Vote pelo Clima"),
     ("ds/base.html", "[DS] Padrão"),
     ("ds/base_navbar_footer.html", "[DS] Navbar + Footer"),
     # ("ga/base.html", "Base Google Analytics"),
@@ -146,8 +169,22 @@ DJANGOCMS_FORMS_FORM_PLUGIN_CHILD_CLASSES = [
 
 
 EMAIL_HOST = env("SMTP_HOST", default="localhost")
+
 EMAIL_PORT = env("SMTP_PORT", default=1025)
+
 EMAIL_HOST_USER = env("SMTP_USER", default="")
+
 EMAIL_HOST_PASSWORD = env("SMTP_PASS", default="")
+
 EMAIL_USE_TLS = env("SMTP_USE_TLS", default=False)
+
 EMAIL_USE_SSL = env("SMTP_USE_SSL", default=False)
+
+# Django Crispy Forms
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+# Oauth App
+OAUTH_REDIRECT_LOGIN_URL = reverse_lazy("dashboard")

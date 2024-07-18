@@ -1,0 +1,21 @@
+{% extends 'votepeloclima/base.html' %}
+{% load crispy_forms_filters %}
+
+{% block navbar_actions %}{% endblock %}
+
+{% block content %}
+<div class="d-flex">
+  <div class="bg-light" style="height:100vh;width:50%;">
+  </div>
+  <div class="container px-5 py-4">
+    <h2>Login</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam lacinia iaculis arcu, sed ornare risus congue nec.
+      Vestibulum in tortor sit amet metus vehicula elementum.</p>
+    <form method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <button class="btn btn-dark" type="submit">Entrar</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
