@@ -48,8 +48,8 @@ class ApplicationForm(DisabledMixin, forms.Form):
 
 
 class ProfileForm(DisabledMixin, forms.Form):
-    video = forms.URLField(label="Vídeo", required=False)
-    photo = forms.URLField(label="Foto", required=False)
+    video = forms.FileField(label="Vídeo", required=False)
+    photo = forms.FileField(label="Foto", required=False)
     gender = forms.CharField(label="Gênero")
     color = forms.CharField(label="Raça")
     sexuality = forms.CharField(label="Sexualidade", required=False)
@@ -100,5 +100,5 @@ register_form_list = [
     ("complemente-seu-perfil", ProfileForm),
     ("sobre-sua-trajetoria", TrackForm),
     ("bandeiras-da-sua-candidatura", FlagForm),
-    ("checkout", CheckoutForm),
+    # ("checkout", CheckoutForm),
 ]

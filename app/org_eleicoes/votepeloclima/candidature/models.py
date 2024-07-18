@@ -23,8 +23,8 @@ class Candidature(models.Model):
     is_collective_mandate = models.BooleanField(default=False, blank=True)
     political_party = models.CharField(max_length=60)
     # Step 3
-    video = models.FileField(upload_to="cadidatures/videos/", null=True, blank=True)
-    photo = models.FileField(upload_to="cadidatures/photos/", null=True, blank=True)
+    video = models.FileField(upload_to="candidatures/videos/", null=True, blank=True)
+    photo = models.FileField(upload_to="candidatures/photos/", null=True, blank=True)
     gender = models.CharField(max_length=30)
     color = models.CharField(max_length=30)
     sexuality = models.CharField(max_length=30, null=True, blank=True)
