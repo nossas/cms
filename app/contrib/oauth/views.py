@@ -35,6 +35,8 @@ class OAuthChangePasswordView(PasswordResetConfirmView):
         return HttpResponseRedirect(self.get_success_url())
     
     def get_success_url(self):
+        if hasattr(settings, 'OAUTH_REDIRECT_LOGIN_URL'):
+            return settings.OAUTH_REDIRECT_LOGIN_URL
         return reverse("oauth:index")
 
 class OAuthLogoutView(LogoutView):
