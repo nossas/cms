@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class EleicaoConfig(AppConfig):
+class CandidatureConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'org_eleicoes.eleicaodoano.eleicao'
+    name = 'org_eleicoes.votepeloclima.candidature'
