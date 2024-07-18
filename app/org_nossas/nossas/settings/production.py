@@ -8,7 +8,7 @@ MIDDLEWARE = (
 )
 
 
-INSTALLED_APPS += ["project", "storages", "django_prometheus"]
+INSTALLED_APPS += ["storages", "django_prometheus"]
 
 # aws settings
 AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID")

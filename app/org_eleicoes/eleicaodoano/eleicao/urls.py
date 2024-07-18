@@ -1,4 +1,5 @@
 from django.urls import path
+
 from .views import CandidateCreateView, CandidateDetailView, suggest_slug
 from .places.views import fetch_cep
 

@@ -4,7 +4,11 @@ from django.conf import settings
 def get_states(column_label="name"):
     import csv
 
+<<<<<<<< HEAD:app/org_eleicoes/eleicao/csv/choices.py
     csv_filename = settings.BASE_DIR / "eleicoes/eleicao/csv/states.csv"
+========
+    csv_filename = settings.BASE_DIR / "org_eleicoes/eleicaodoano/eleicao/csv/states.csv"
+>>>>>>>> release/votepeloclima:app/org_eleicoes/eleicaodoano/eleicao/csv/choices.py
     states = []
     with open(csv_filename) as f:
         reader = csv.DictReader(f)
