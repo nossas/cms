@@ -1,32 +1,24 @@
-{% extends "votepeloclima/base.html" %}
+{% extends "candidature/wizard_base.html" %}
 {% load i18n crispy_forms_filters %}
 
-{% block content %}
-<div class="d-flex">
-  <div class="container px-5 py-4">
-    <form method="post" enctype="multipart/form-data">
-      {% csrf_token %}
-      {{ wizard.form.media }}
-      {{ wizard.management_form }}
-      {% if wizard.form.forms %}
-        {{ wizard.form.management_form }}
-        {% for form in wizard.form.forms %}
-        {{ form|crispy }}
-        {% endfor %}
-      {% else %}
-        {{ wizard.form|crispy }}
-      {% endif %}
+{% block main %}
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ wizard.form.media }}
+  {{ wizard.management_form }}
+  {% if wizard.form.forms %}
+    {{ wizard.form.management_form }}
+    {% for form in wizard.form.forms %}
+    {{ form|crispy }}
+    {% endfor %}
+  {% else %}
+    {{ wizard.form|crispy }}
+  {% endif %}
 
-      {% if wizard.steps.prev %}
-      <button class="btn btn-secondary" name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}">{% translate "first step" %}</button>
-      <button class="btn btn-secondary" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% translate "prev step" %}</button>
-      {% endif %}
-      <input class="btn btn-dark" type="submit" name="submit" value="{% translate "submit" %}" />
-    </form>
-  </div>
-  <div class="bg-light" style="height:100vh;width:40%;">
-  </div>
-</div>
+  {% if wizard.steps.prev %}
+  <button class="btn btn-secondary" name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}">{% translate "first step" %}</button>
+  <button class="btn btn-secondary" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% translate "prev step" %}</button>
+  {% endif %}
+  <input class="btn btn-dark" type="submit" name="submit" value="{% translate "submit" %}" />
+</form>
 {% endblock %}
-
-{% block footer %}{% endblock %}
