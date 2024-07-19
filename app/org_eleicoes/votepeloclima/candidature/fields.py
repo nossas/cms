@@ -3,6 +3,8 @@ import sys
 from django import forms
 from django.conf import settings
 from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
+from django.core.exceptions import ValidationError
 
 from django_select2.forms import Select2Widget
 from captcha.fields import ReCaptchaField
@@ -127,13 +129,14 @@ class CheckboxTextWidget(forms.MultiWidget):
 
     def decompress(self, value):
         if value:
+            value = value.replace("on-", "")
             return [True, value]
         return [False, ""]
 
     def value_from_datadict(self, data, files, name):
         checkbox, text = super().value_from_datadict(data, files, name)
         if checkbox:
-            return text
+            return "on-" + text
         return None
 
     @property
@@ -169,3 +172,13 @@ class CheckboxTextField(forms.CharField):
         super().__init__(
             max_length=None, min_length=None, strip=True, empty_value="", **kwargs
         )
+
+    def validate(self, value):
+        value = value or ""
+        text_value = value.replace("on-", "")
+        if value.startswith("on-") and not text_value:
+            raise ValidationError(_("Required"))
+
+    def clean(self, value):
+        value = super().clean(value)
+        return value.replace("on-", "")
