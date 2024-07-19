@@ -1,7 +1,14 @@
 from django import forms
+from django.core.exceptions import ValidationError
+
 from captcha.widgets import ReCaptchaV2Checkbox
 
-from .fields import ValidateOnceReCaptchaField, StateCepField, CityCepField
+from .fields import (
+    ValidateOnceReCaptchaField,
+    StateCepField,
+    CityCepField,
+    CheckboxTextField,
+)
 
 
 class DisabledMixin:
@@ -42,7 +49,7 @@ class ApplicationForm(DisabledMixin, forms.Form):
         label="É um mandato coletivo?", required=False
     )
     political_party = forms.CharField(label="Partido político")
-    
+
     class Meta:
         title = "Informações de candidatura"
 
@@ -68,13 +75,87 @@ class TrackForm(DisabledMixin, forms.Form):
 
 
 class FlagForm(DisabledMixin, forms.Form):
-    is_renewable_energy = forms.BooleanField(label="Energia Renovável", required=False)
-    is_transport_and_mobility = forms.BooleanField(
-        label="Transporte e Mobilidade", required=False
+    is_renewable_energy = CheckboxTextField(
+        checkbox_label="Energia Renovável",
+        text_label="Proposta",
+        help_text="Proin non nisl sed lorem pharetra blandit. Curabitur nec metus vitae libero elementum cursus. Suspendisse potenti. Praesent sit amet turpis vel lacus volutpat scelerisque. Proin non nisl sed lorem pharetra blandit.",
+        required=False
+    )
+    is_transport_and_mobility = CheckboxTextField(
+        checkbox_label="Transporte e Mobilidade",
+        text_label="Proposta",
+        required=False
+    )
+    is_sustainable_agriculture = CheckboxTextField(
+        checkbox_label="Agricultura Sustentável",
+        text_label="Proposta",
+        required=False,
+    )
+    is_conservation_and_forests = CheckboxTextField(
+        checkbox_label="Conservação e Florestas",
+        text_label="Proposta",
+        required=False,
+    )
+    is_waste_management = CheckboxTextField(
+        checkbox_label="Gestão de Resíduos",
+        text_label="Proposta",
+        required=False,
+    )
+    is_water_and_sanitation = CheckboxTextField(
+        checkbox_label="Água e Saneamento",
+        text_label="Proposta",
+        required=False,
+    )
+    is_green_jobs = CheckboxTextField(
+        checkbox_label="Empregos Verdes",
+        text_label="Proposta",
+        required=False,
+    )
+    is_markets_and_finance = CheckboxTextField(
+        checkbox_label="Mercados e finanças",
+        text_label="Proposta",
+        required=False,
+    )
+    is_urbanism_and_the_right_to_the_city = CheckboxTextField(
+        checkbox_label="Urbanismo e Direito à Cidade",
+        text_label="Proposta",
+        required=False,
+    )
+    is_combating_environmental_racism = CheckboxTextField(
+        checkbox_label="Combate ao Racismo Ambiental",
+        text_label="Proposta",
+        required=False,
+    )
+    is_sustainable_agriculture = CheckboxTextField(
+        checkbox_label="Agricultura Sustentável",
+        text_label="Proposta",
+        required=False,
+    )
+    is_indigenous_rights = CheckboxTextField(
+        checkbox_label="Direitos Indígenas",
+        text_label="Proposta",
+        required=False,
+    )
+    is_health_and_climate = CheckboxTextField(
+        checkbox_label="Saúde e Clima",
+        text_label="Proposta",
+        required=False,
+    )
+    is_climate_adaptation = CheckboxTextField(
+        checkbox_label="Adaptação Climática",
+        text_label="Proposta",
+        required=False,
     )
 
     class Meta:
         title = "Bandeiras da sua candidatura"
+    
+    def clean(self):
+        cleaned_data = super().clean()
+        selected_size = len(list(filter(lambda x: bool(x), cleaned_data.values())))
+        if selected_size > 5:
+            raise ValidationError("Selecione apenas 5 bandeiras")
+        return cleaned_data
 
 
 class AppointmentForm(DisabledMixin, forms.Form):
