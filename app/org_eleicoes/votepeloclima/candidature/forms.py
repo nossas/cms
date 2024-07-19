@@ -10,6 +10,7 @@ from .fields import (
     StateCepField,
     CityCepField,
     CheckboxTextField,
+    VideoField
 )
 
 
@@ -57,40 +58,14 @@ class ApplicationForm(DisabledMixin, forms.Form):
 
 
 class ProfileForm(DisabledMixin, forms.Form):
-    video = forms.FileField(label="Vídeo", required=False)
-    photo = forms.FileField(label="Foto", required=False)
+    video = VideoField(label="Vídeo", required=False)
+    photo = forms.ImageField(label="Foto", required=False)
     gender = forms.CharField(label="Gênero")
     color = forms.CharField(label="Raça")
     sexuality = forms.CharField(label="Sexualidade", required=False)
 
     class Meta:
         title = "Complemente seu perfil"
-
-
-    def clean_video(self):
-        content = self.cleaned_data["video"]
-        # 50MB
-        max_size = 52428800
-        if content:
-            if "video" in content.content_type:
-                if content.size > max_size:
-                    raise forms.ValidationError(
-                        "Por favor, escolha um video com tamanho de até %s. Tamanho Atual %s"
-                        % (filesizeformat(max_size), filesizeformat(content.size))
-                    )
-            else:
-                raise forms.ValidationError("Tipo de arquivo não suportado.")
-        return content
-    
-    def clean_photo(self):
-        content = self.cleaned_data["photo"]
-        if content:
-            if content.content_type not in ["image/png", "image/jpg", "image/jpeg"]:
-                raise forms.ValidationError(
-                    "Somente são aceitos arquivos em PNG ou JPEG. Selecione outra imagem, por favor."
-                )
-
-        return content
 
 
 class TrackForm(DisabledMixin, forms.Form):
