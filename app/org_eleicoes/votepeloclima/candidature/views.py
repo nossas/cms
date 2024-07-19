@@ -96,6 +96,8 @@ class RegisterView(NamedUrlSessionWizardView):
     def get_template_names(self):
         if self.steps.current == "checkout":
             return "candidature/done.html"
+        elif self.steps.current == "bandeiras-da-sua-candidatura":
+            return "candidature/bandeiras_da_sua_candidatura.html"
         return super().get_template_names()
 
     def get_context_data(self, form, **kwargs):

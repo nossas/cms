@@ -9,7 +9,7 @@ on:
       - 'app/org_eleicoes/**'
     branches:
       - main
-      - 'releases/**'
+      - 'release/**'
       - 'feature/**'
       - 'hotfix/**'
     tags:

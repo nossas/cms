@@ -1,3 +1,7 @@
+{% extends "candidature/wizard_base.html" %}
+{% load i18n crispy_forms_filters %}
+
+{% block main %}
 {% for step in checkout_steps %}
 {% if step.name == 'checkout' %}
     <form method="post" enctype="multipart/form-data">
@@ -21,3 +25,6 @@
 </div>
 {% endif %}
 {% endfor %}
+{% endblock %}
+
+{% block screenside %}{% endblock %}

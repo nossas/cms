@@ -6,14 +6,25 @@
   {% csrf_token %}
   {{ wizard.form.media }}
   {{ wizard.management_form }}
-  {% if wizard.form.forms %}
-    {{ wizard.form.management_form }}
-    {% for form in wizard.form.forms %}
-    {{ form|crispy }}
-    {% endfor %}
-  {% else %}
-    {{ wizard.form|crispy }}
-  {% endif %}
+  <div class="d-flex">
+    <div class="w-50">
+      <h2>Selecione</h2>
+      <div id="selectzone">
+      {% if wizard.form.forms %}
+        {{ wizard.form.management_form }}
+        {% for form in wizard.form.forms %}
+        {{ form|crispy }}
+        {% endfor %}
+      {% else %}
+        {{ wizard.form|crispy }}
+      {% endif %}
+      </div>
+    </div>
+    <div class="w-50">
+      <h2>Propostas selecionadas</h2>
+      <div id="dropzone"></div>
+    </div>
+  </div>
 
   {% if wizard.steps.prev %}
   <button class="btn btn-secondary" name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}">{% translate "first step" %}</button>
@@ -22,3 +33,5 @@
   <input class="btn btn-dark" type="submit" name="submit" value="{% translate "submit" %}" />
 </form>
 {% endblock %}
+
+{% block screenside %}{% endblock %}
