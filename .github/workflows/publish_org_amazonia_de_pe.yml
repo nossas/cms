@@ -9,7 +9,7 @@ on:
       - 'app/org_amazonia_de_pe/**'
     branches:
       - main
-      - 'releases/**'
+      - 'release/**'
       - 'feature/**'
       - 'hotfix/**'
     tags:
