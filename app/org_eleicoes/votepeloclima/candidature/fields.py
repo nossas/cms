@@ -80,23 +80,36 @@ class CityCepField(forms.CharField):
 class SwitchInput(forms.CheckboxInput):
     template_name = "forms/widgets/switch.html"
 
-    def __init__(self, label=None, attrs=None):
+    def __init__(self, label, help_text=None, attrs=None):
+        self.label = label
+        self.help_text = help_text
+        super().__init__(attrs=attrs)
+
+    def get_context(self, name, value, attrs):
+        context = super().get_context(name, value, attrs)
+        context.update({"widget": {**context["widget"], "label": self.label, "help_text": self.help_text}})
+        return context
+
+
+class TextareaInput(forms.Textarea):
+    template_name = "forms/widgets/textarea.html"
+
+    def __init__(self, label=None, help_text=None, attrs=None):
         self.label = label
         super().__init__(attrs=attrs)
 
     def get_context(self, name, value, attrs):
         context = super().get_context(name, value, attrs)
-        # import ipdb;ipdb.set_trace()
         context.update({"widget": {**context["widget"], "label": self.label}})
         return context
 
 
 class CheckboxTextWidget(forms.MultiWidget):
 
-    def __init__(self, label=None, attrs=None):
+    def __init__(self, checkbox_label, text_label=None, help_text=None, attrs=None):
         widgets = [
-            SwitchInput(attrs={"data-checktext": ""}, label=label),
-            forms.Textarea(attrs=attrs),
+            SwitchInput(attrs={"data-checktext": ""}, label=checkbox_label, help_text=help_text),
+            TextareaInput(attrs=attrs, label=text_label),
         ]
 
         super().__init__(widgets, attrs)
@@ -127,10 +140,20 @@ class CheckboxTextField(forms.CharField):
     template_name = "forms/fields/checkbox_text.html"
 
     def __init__(
-        self, *, max_length=None, min_length=None, strip=True, empty_value="", **kwargs
+        self,
+        *,
+        checkbox_label,
+        text_label=None,
+        max_length=None,
+        min_length=None,
+        strip=True,
+        empty_value="",
+        help_text=None,
+        **kwargs,
     ):
-        label = kwargs.pop("label")
-        self.widget = CheckboxTextWidget(label=label)
+        self.widget = CheckboxTextWidget(
+            checkbox_label=checkbox_label, text_label=text_label, help_text=help_text
+        )
 
         super().__init__(
             max_length=None, min_length=None, strip=True, empty_value="", **kwargs
