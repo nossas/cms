@@ -1,4 +1,6 @@
 from django import forms
+from django.core.exceptions import ValidationError
+
 from captcha.widgets import ReCaptchaV2Checkbox
 
 from .fields import (
@@ -147,6 +149,14 @@ class FlagForm(DisabledMixin, forms.Form):
 
     class Meta:
         title = "Bandeiras da sua candidatura"
+    
+    def clean(self):
+        cleaned_data = super().clean()
+        selected_size = len(list(filter(lambda x: bool(x), cleaned_data.values())))
+        if selected_size > 5:
+            raise ValidationError("Selecione apenas 5 bandeiras")
+        return cleaned_data
+
 
 class AppointmentForm(DisabledMixin, forms.Form):
     appointment_1 = forms.BooleanField(label="Compromisso 1", required=False)
