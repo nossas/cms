@@ -182,3 +182,17 @@ class CheckboxTextField(forms.CharField):
     def clean(self, value):
         value = super().clean(value)
         return value.replace("on-", "")
+
+
+class InlineArrayWidget(forms.TextInput):
+    template_name = "forms/widgets/inline_array.html"
+
+    @property
+    def media(self):
+        return forms.Media(
+            js=[
+                "https://code.jquery.com/jquery-3.5.1.min.js",
+                "js/inline-array-widget.js",
+            ],
+            # css={"screen": select2_css + ["django_select2/django_select2.css"]},
+        )

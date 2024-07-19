@@ -1,0 +1,12 @@
+<div id="inline-array">
+    <div class="d-flex">
+        <input type="{{widget.type}}"{% include "django/forms/widgets/attrs.html" %}/>
+        <button type="button" onclick="inlineDelete(this)">
+            Remover
+        </button>
+    </div>
+</div>
+<button type="button" id="inline-array-add">
+    Adicionar
+</button>
+<input type="hidden" name="{{ widget.name }}"{% if widget.value != None %} value="{{ widget.value|stringformat:'s' }}"{% endif %}{% include "django/forms/widgets/attrs.html" %}>
