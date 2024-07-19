@@ -87,7 +87,15 @@ class SwitchInput(forms.CheckboxInput):
 
     def get_context(self, name, value, attrs):
         context = super().get_context(name, value, attrs)
-        context.update({"widget": {**context["widget"], "label": self.label, "help_text": self.help_text}})
+        context.update(
+            {
+                "widget": {
+                    **context["widget"],
+                    "label": self.label,
+                    "help_text": self.help_text,
+                }
+            }
+        )
         return context
 
 
@@ -99,6 +107,7 @@ class TextareaInput(forms.Textarea):
         super().__init__(attrs=attrs)
 
     def get_context(self, name, value, attrs):
+        attrs = {"rows": 4, **(attrs or {})}
         context = super().get_context(name, value, attrs)
         context.update({"widget": {**context["widget"], "label": self.label}})
         return context
@@ -108,7 +117,9 @@ class CheckboxTextWidget(forms.MultiWidget):
 
     def __init__(self, checkbox_label, text_label=None, help_text=None, attrs=None):
         widgets = [
-            SwitchInput(attrs={"data-checktext": ""}, label=checkbox_label, help_text=help_text),
+            SwitchInput(
+                attrs={"data-checktext": ""}, label=checkbox_label, help_text=help_text
+            ),
             TextareaInput(attrs=attrs, label=text_label),
         ]
 
