@@ -1,12 +1,15 @@
-<div id="inline-array">
-    <div class="d-flex">
-        <input type="{{widget.type}}"{% include "django/forms/widgets/attrs.html" %}/>
-        <button type="button" onclick="inlineDelete(this)">
-            Remover
-        </button>
-    </div>
+<div id="inline-array" data-name="{{ widget.name }}">
+    {% for widget in widget.subwidgets %}
+        {% if widget.value or forloop.counter < 3 %}
+            <div class="d-flex mb-2">
+                <input type="{{ widget.type }}" name="{{ widget.name }}" id="{{ widget.id }}"{% if widget.value != None %} value="{{ widget.value|stringformat:'s' }}"{% endif %}{% include "django/forms/widgets/attrs.html" %}/>
+                <button type="button" class="btn btn-danger ml-2" onclick="inlineDelete(this)">
+                    Remover
+                </button>
+            </div>
+        {% endif %}
+    {% endfor %}
 </div>
-<button type="button" id="inline-array-add">
+<button type="button" id="inline-array-add" class="btn btn-primary mt-2" data-size="{{ widget.size }}">
     Adicionar
 </button>
-<input type="hidden" name="{{ widget.name }}"{% if widget.value != None %} value="{{ widget.value|stringformat:'s' }}"{% endif %}{% include "django/forms/widgets/attrs.html" %}>

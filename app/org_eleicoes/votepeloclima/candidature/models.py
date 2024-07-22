@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.postgres.fields import ArrayField
 from django.core.serializers.json import DjangoJSONEncoder
 
 
@@ -28,10 +29,12 @@ class Candidature(models.Model):
     gender = models.CharField(max_length=30)
     color = models.CharField(max_length=30)
     sexuality = models.CharField(max_length=30, null=True, blank=True)
+    social_media = ArrayField(models.URLField(blank=True), size=5, null=True, blank=True)
     # Step 4
     education = models.CharField(max_length=50, null=True, blank=True)
     employment = models.CharField(max_length=50, null=True, blank=True)
     short_description = models.TextField()
+    milestones = ArrayField(models.CharField(max_length=140, blank=True), size=5, null=True, blank=True)
     # Step 5
     flags = models.JSONField(blank=True)
     # Step 6
