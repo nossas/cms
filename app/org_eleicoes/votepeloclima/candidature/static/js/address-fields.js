@@ -10,7 +10,7 @@
       $stateField.select2({
         allowClear: true,
         dropdownAutoWidth: true,
-        width: "auto",
+        width: "100%",
         placeholder: "Selecione seu estado"
       });
 
@@ -18,7 +18,7 @@
       $cityField.select2({
         allowClear: true,
         dropdownAutoWidth: true,
-        width: "auto",
+        width: "100%",
         placeholder: "Selecione sua cidade"
       });
 
