@@ -7,6 +7,81 @@ from django.core.serializers.json import DjangoJSONEncoder
 # Armazenar e acompanhar etapas do preenchimento das informações
 
 
+class CandidatureIntendedPosition(models.TextChoices):
+    prefeitura = "prefeitura", "Prefeitura"
+    vice_prefeitura = "vice_prefeitura", "Vice-Prefeitura"
+    vereadore = "vereadore", "Vereador(a)"
+
+
+class CandidaturePoliticalParty(models.TextChoices):
+    mdb = "mdb", "MDB"
+    pdt = "pdt", "PDT"
+    pt = "pt", "PT"
+    pcdob = "pcdob", "PCdoB"
+    psb = "psb", "PSB"
+    psdb = "psdb", "PSDB"
+    agir = "agir", "AGIR"
+    mobiliza = "mobiliza", "MOBILIZA"
+    cidadania = "cidadania", "CIDADANIA"
+    pv = "pv", "PV"
+    avante = "avante", "AVANTE"
+    pstu = "pstu", "PSTU"
+    pcb = "pcb", "PCB"
+    prtb = "prtb", "PRTB"
+    dc = "dc", "DC"
+    pco = "pco", "PCO"
+    pode = "pode", "PODE"
+    republicanos = "republicanos", "REPUBLICANOS"
+    psol = "psol", "PSOL"
+    psd = "psd", "PSD"
+    solidariedade = "solidariedade", "SOLIDARIEDADE"
+    novo = "novo", "NOVO"
+    rede = "rede", "REDE"
+    pmb = "pmb", "PMB"
+    up = "up", "UP"
+    uniao = "uniao", "UNIÃO"
+    prd = "prd", "PRD"
+
+
+class CandidatureGender(models.TextChoices):
+    male = "homem", "Homem"
+    female = "mulher", "Mulher"
+    nonbinary = "não binário", "Não binário"
+    travesti = "travesti", "Travesti"
+    queer = "queer", "Queer"
+    no_answer = "não declarado", "Não declarado"
+
+
+class CandidatureSexuality(models.TextChoices):
+    heterossexual = "Heterossexual"
+    pansexual = "Pansexual"
+    assexual = "Assexual"
+    bissexual = "Bissexual"
+    queer = "Queer"
+    gay = "Gay"
+    lesbica = "Lésbica"
+    no_answer = "Não declarada"
+
+
+class CandidatureColor(models.TextChoices):
+    white = "branca", "Branca"
+    black = "preta", "Preta"
+    yellow = "amarela", "Amarela"
+    indigenous = "indígena", "Indígena"
+    pardo = "parda", "Parda"
+    no_answer = "não declarada", "Não declarada"
+
+
+class CandidatureEducation(models.TextChoices):
+    le_e_escreve = "le_e_escreve", "Lê e escreve"
+    fundamental_incompleto = "fundamental_incompleto", "Ensino Fundamental Incompleto"
+    fundamental_completo = "fundamental_completo", "Ensino Fundamental Completo"
+    medio_incompleto = "medio_incompleto", "Ensino Médio Incompleto"
+    medio_completo = "medio_completo", "Ensino Médio Completo"
+    superior_incompleto = "não superior_incompleto", "Ensino Superior Incompleto"
+    superior_completo = "superior_completo", "Ensino Superior Completo"
+
+
 class Candidature(models.Model):
     # Step 1
     legal_name = models.CharField(max_length=150)
@@ -17,20 +92,46 @@ class Candidature(models.Model):
     tse_id = models.CharField(max_length=30, null=True, blank=True)
     # Step 2
     number_id = models.PositiveIntegerField()
-    intended_position = models.CharField(max_length=50)
+    intended_position = models.CharField(
+        max_length=50,
+        choices=CandidatureIntendedPosition.choices,
+        default=CandidatureIntendedPosition.prefeitura
+    )
     state = models.CharField(max_length=2)
     city = models.CharField(max_length=60)
     is_collective_mandate = models.BooleanField(default=False, blank=True)
-    political_party = models.CharField(max_length=60)
+    political_party = models.CharField(
+        max_length=60,
+        choices=CandidaturePoliticalParty.choices,
+        default=CandidaturePoliticalParty.mdb
+    )
     # Step 3
     video = models.FileField(upload_to="cadidatures/videos/", null=True, blank=True)
     photo = models.FileField(upload_to="cadidatures/photos/", null=True, blank=True)
-    gender = models.CharField(max_length=30)
-    color = models.CharField(max_length=30)
-    sexuality = models.CharField(max_length=30, null=True, blank=True)
+    gender = models.CharField(
+        max_length=30,
+        choices=CandidatureGender.choices,
+        default=CandidatureGender.male
+    )
+    color = models.CharField(
+        max_length=30,
+        choices=CandidatureColor.choices,
+        default=CandidatureColor.white
+    )
+    sexuality = models.CharField(
+        max_length=30,
+        null=True,
+        blank=True,
+        choices=CandidatureSexuality.choices,
+        default=CandidatureSexuality.heterossexual
+    )
     social_media = models.JSONField(blank=True, null=True, default=list)
     # Step 4
-    education = models.CharField(max_length=50, null=True, blank=True)
+    education = models.CharField(
+        max_length=50,
+        choices=CandidatureEducation.choices,
+        default=CandidatureEducation.le_e_escreve
+    )
     employment = models.CharField(max_length=50, null=True, blank=True)
     short_description = models.TextField()
     milestones = models.JSONField(blank=True, null=True, default=list)

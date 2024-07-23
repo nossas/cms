@@ -1,15 +1,18 @@
 from django import forms
-from django.contrib.postgres.forms import SimpleArrayField
 from django.core.exceptions import ValidationError
 
 from captcha.widgets import ReCaptchaV2Checkbox
 
+from .models import CandidaturePoliticalParty, CandidatureIntendedPosition, CandidatureGender, CandidatureSexuality, CandidatureColor, CandidatureEducation
+
+
 from .fields import (
-    ValidateOnceReCaptchaField,
-    StateCepField,
-    CityCepField,
     CheckboxTextField,
+    CityCepField,
     InlineArrayField,
+    Select2CustomWidget,
+    StateCepField,
+    ValidateOnceReCaptchaField
 )
 
 
@@ -44,13 +47,21 @@ class InitialForm(DisabledMixin, forms.Form):
 
 class ApplicationForm(DisabledMixin, forms.Form):
     number_id = forms.IntegerField(label="Número de identificação", min_value=1)
-    intended_position = forms.CharField(label="Cargo pretendido")
+    intended_position = forms.ChoiceField(
+        label="Cargo pretendido",
+        choices=CandidatureIntendedPosition.choices,
+        widget=Select2CustomWidget()
+    )
     state = StateCepField(label="Estado")
     city = CityCepField(label="Cidade")
     is_collective_mandate = forms.BooleanField(
         label="É um mandato coletivo?", required=False
     )
-    political_party = forms.CharField(label="Partido político")
+    political_party = forms.ChoiceField(
+        label="Partido político",
+        choices=CandidaturePoliticalParty.choices,
+        widget=Select2CustomWidget()
+    )
 
     class Meta:
         title = "Informações de candidatura"
@@ -59,9 +70,21 @@ class ApplicationForm(DisabledMixin, forms.Form):
 class ProfileForm(DisabledMixin, forms.Form):
     video = forms.URLField(label="Vídeo", required=False)
     photo = forms.URLField(label="Foto", required=False)
-    gender = forms.CharField(label="Gênero")
-    color = forms.CharField(label="Raça")
-    sexuality = forms.CharField(label="Sexualidade", required=False)
+    gender = forms.ChoiceField(
+        label="Gênero",
+        choices=CandidatureGender.choices,
+        widget=Select2CustomWidget()
+    )
+    color = forms.ChoiceField(
+        label="Raça",
+        choices=CandidatureColor.choices,
+        widget=Select2CustomWidget()
+    )
+    sexuality = forms.ChoiceField(
+        label="Sexualidade",
+        choices=CandidatureSexuality.choices,
+        widget=Select2CustomWidget()
+    )
     social_media = InlineArrayField(forms.URLField(required=False), required=False)
 
     def clean_social_media(self):
@@ -73,7 +96,11 @@ class ProfileForm(DisabledMixin, forms.Form):
 
 
 class TrackForm(DisabledMixin, forms.Form):
-    education = forms.CharField(label="Escolaridade", required=False)
+    education = forms.ChoiceField(
+        label="Escolaridade",
+        choices=CandidatureEducation.choices,
+        widget=Select2CustomWidget()
+    )
     employment = forms.CharField(label="Ocupação", required=False)
     short_description = forms.CharField(label="Minibio", widget=forms.Textarea())
     milestones = InlineArrayField(forms.CharField(max_length=140, required=False), required=False)
