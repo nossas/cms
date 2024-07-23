@@ -97,6 +97,14 @@ class RegisterView(NamedUrlSessionWizardView):
             return "candidature/bandeiras_da_sua_candidatura.html"
         return super().get_template_names()
 
+    def get_next_step_title(self):
+        if self.steps.next:
+            next_step = self.steps.next
+            form_class = self.get_form_list().get(next_step)
+            if form_class:
+                return form_class().Meta.title
+        return ""
+
     def get_context_data(self, form, **kwargs):
         context = super().get_context_data(form, **kwargs)
         checkout_steps = []
@@ -115,6 +123,7 @@ class RegisterView(NamedUrlSessionWizardView):
 
             context.update({"checkout_steps": checkout_steps})
 
+        context.update({"next_step_title": self.get_next_step_title()})
         return context
 
     def done(self, form_list, form_dict, **kwargs):
