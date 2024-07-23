@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.postgres.forms import SimpleArrayField
 from django.core.exceptions import ValidationError
 
 from captcha.widgets import ReCaptchaV2Checkbox
@@ -8,6 +9,7 @@ from .fields import (
     StateCepField,
     CityCepField,
     CheckboxTextField,
+    InlineArrayField,
 )
 
 
@@ -60,6 +62,11 @@ class ProfileForm(DisabledMixin, forms.Form):
     gender = forms.CharField(label="Gênero")
     color = forms.CharField(label="Raça")
     sexuality = forms.CharField(label="Sexualidade", required=False)
+    social_media = InlineArrayField(forms.URLField(required=False), required=False)
+
+    def clean_social_media(self):
+        value = self.cleaned_data['social_media']
+        return value
 
     class Meta:
         title = "Complemente seu perfil"
@@ -69,6 +76,11 @@ class TrackForm(DisabledMixin, forms.Form):
     education = forms.CharField(label="Escolaridade", required=False)
     employment = forms.CharField(label="Ocupação", required=False)
     short_description = forms.CharField(label="Minibio", widget=forms.Textarea())
+    milestones = InlineArrayField(forms.CharField(max_length=140, required=False), required=False)
+
+    def clean_milestones(self):
+        value = self.cleaned_data['milestones']
+        return value
 
     class Meta:
         title = "Sobre sua trajetória"
