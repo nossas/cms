@@ -9,7 +9,6 @@ from django.http import HttpResponseForbidden
 from django.urls import reverse_lazy,reverse
 from django.core.files.storage import DefaultStorage
 
-
 from formtools.wizard.views import NamedUrlSessionWizardView
 
 from contrib.oauth.utils import send_confirmation_email
@@ -90,9 +89,6 @@ class RegisterView(NamedUrlSessionWizardView):
             # print(flow.properties)
         return form_data
 
-    def process_step_files(self, form):
-        return self.get_form_step_files(form)
-
     def get_template_names(self):
         if self.steps.current == "checkout":
             return "candidature/done.html"
@@ -131,9 +127,6 @@ class RegisterView(NamedUrlSessionWizardView):
                     values.update({"flags": form.cleaned_data})
                 elif isinstance(form, AppointmentForm):
                     values.update({"appointments": form.cleaned_data})
-                elif isinstance(form, ProfileForm):
-                    values["video"] = form.cleaned_data.get("video")
-                    values["photo"] = form.cleaned_data.get("photo")
                 else:
                     values.update(form.cleaned_data)
 
