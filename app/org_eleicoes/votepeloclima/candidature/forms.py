@@ -34,11 +34,11 @@ class CaptchaForm(forms.Form):
 
 
 class InitialForm(DisabledMixin, forms.Form):
-    legal_name = forms.CharField(label="Nome")
-    ballot_name = forms.CharField(label="Nome na urna")
+    legal_name = forms.CharField(label="Nome", help_text="Nome da pessoa que possui os dados registrados no TSE.")
+    ballot_name = forms.CharField(label="Nome na urna", help_text="Nome público, registrado no TSE.")
     birth_date = forms.DateField(label="Data de nascimento")
     email = forms.EmailField(label="E-mail")
-    cpf_cnpj = forms.CharField(label="CPF/CNPJ")
+    cpf_cnpj = forms.CharField(label="CPF/CNPJ", help_text="CPF é necessário para confirmar sua identidade junto ao TSE")
 
     class Meta:
         title = "Informações Pessoais"
@@ -47,14 +47,15 @@ class InitialForm(DisabledMixin, forms.Form):
 
 
 class ApplicationForm(DisabledMixin, forms.Form):
-    number_id = forms.IntegerField(label="Número de identificação", min_value=1)
+    number_id = forms.IntegerField(label="Número de identificação", help_text="Número fornecido pelo TSE", min_value=1)
     intended_position = forms.ChoiceField(
         label="Cargo pretendido",
+        help_text="Selecione o cargo que você está concorrendo",
         choices=CandidatureIntendedPosition.choices,
         widget=Select2CustomWidget()
     )
-    state = StateCepField(label="Estado")
-    city = CityCepField(label="Cidade")
+    state = StateCepField(label="Estado", help_text="Estado onde você está concorrendo")
+    city = CityCepField(label="Cidade", help_text="Cidade onde você está concorrendo")
     is_collective_mandate = forms.BooleanField(
         label="É um mandato coletivo?", required=False
     )
@@ -87,7 +88,7 @@ class ProfileForm(DisabledMixin, forms.Form):
         choices=CandidatureSexuality.choices,
         widget=Select2CustomWidget()
     )
-    social_media = InlineArrayField(forms.URLField(required=False), required=False)
+    social_media = InlineArrayField(forms.URLField(required=False), label="Redes sociais", required=False)
 
     def clean_social_media(self):
         value = self.cleaned_data['social_media']
@@ -105,8 +106,8 @@ class TrackForm(DisabledMixin, forms.Form):
         widget=Select2CustomWidget()
     )
     employment = forms.CharField(label="Ocupação", required=False)
-    short_description = forms.CharField(label="Minibio", widget=forms.Textarea())
-    milestones = InlineArrayField(forms.CharField(max_length=140, required=False), required=False)
+    short_description = forms.CharField(label="Minibio", help_text="Fale um pouco sobre você e sua jornada até aqui. Até 150 caracteres.", widget=forms.Textarea())
+    milestones = InlineArrayField(forms.CharField(max_length=140, required=False), label="Histórico de atuação", required=False)
 
     def clean_milestones(self):
         value = self.cleaned_data['milestones']
