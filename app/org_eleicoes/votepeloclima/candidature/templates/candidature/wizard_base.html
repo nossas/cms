@@ -1,4 +1,5 @@
 {% extends "votepeloclima/base.html" %}
+{% load crispy_forms_filters %}
 
 {% block content %}
 <div class="d-flex">
@@ -6,6 +7,10 @@
     {% widthratio wizard.steps.step1 wizard.steps.count 100 as progress %}
     <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100">
       <div class="progress-bar" style="width:{{ progress }}%"></div>
+    </div>
+    <div class="base-header">
+      <h1>{{ wizard_title }}</h1>
+      <p>{{ wizard_description }}</p>
     </div>
     {% block main %}{% endblock %}
   </div>
@@ -16,4 +21,6 @@
 </div>
 {% endblock %}
 
-{% block footer %}{% endblock %}
+{% block footer %}
+  <p>{{ wizard_footer_note }}</p>
+{% endblock %}

@@ -99,7 +99,20 @@ class RegisterView(NamedUrlSessionWizardView):
 
     def get_context_data(self, form, **kwargs):
         context = super().get_context_data(form, **kwargs)
+        current_form = self.get_form(step=self.steps.current)
+
+        form_title = getattr(current_form.Meta, "title", "")
+        form_description = getattr(current_form.Meta, "description", "")
+        form_footer_note = getattr(current_form.Meta, "footer_note", "")
+
+        context.update({
+            "wizard_title": form_title,
+            "wizard_description": form_description,
+            "wizard_footer_note": form_footer_note
+        })
+
         checkout_steps = []
+
         if self.steps.current == "checkout":
             for step, form_class in self.get_form_list().items():
                 if step not in self.steps_hide_on_checkout:
