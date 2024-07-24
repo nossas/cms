@@ -39,10 +39,11 @@ class InitialForm(DisabledMixin, forms.Form):
     birth_date = forms.DateField(label="Data de nascimento")
     email = forms.EmailField(label="E-mail")
     cpf_cnpj = forms.CharField(label="CPF/CNPJ")
-    tse_id = forms.CharField(label="Identificação TSE (?)", required=False)
 
     class Meta:
-        title = "Informações iniciais"
+        title = "Informações Pessoais"
+        description = "Vamos lá! Essas informações são essenciais para verificar sua candidatura e garantir a segurança. Se for uma candidatura coletiva, a pessoa responsável deve ter os dados registrados no TSE."
+        footer_note = "Suas informações são usadas apenas para verificação e segurança. O processo será salvo pelo seu e-mail e, no final do cadastro, você criará uma senha e um login para acessar a Área da Candidatura."
 
 
 class ApplicationForm(DisabledMixin, forms.Form):
@@ -65,6 +66,7 @@ class ApplicationForm(DisabledMixin, forms.Form):
 
     class Meta:
         title = "Informações de candidatura"
+        description = "Preencha os detalhes sobre sua candidatura."
 
 
 class ProfileForm(DisabledMixin, forms.Form):
@@ -92,7 +94,8 @@ class ProfileForm(DisabledMixin, forms.Form):
         return value
 
     class Meta:
-        title = "Complemente seu perfil"
+        title = "Complemente seu Perfil"
+        description = "Adicione mais detalhes ao seu perfil para torná-lo completo e atrativo aos eleitores. Essas informações ajudarão a construir uma apresentação mais detalhada e engajadora."
 
 
 class TrackForm(DisabledMixin, forms.Form):
@@ -111,6 +114,7 @@ class TrackForm(DisabledMixin, forms.Form):
 
     class Meta:
         title = "Sobre sua trajetória"
+        description = "Compartilhe um pouco sobre sua trajetória. Essas informações ajudarão os eleitores a conhecerem melhor sua história e seu compromisso com a causa."
 
 
 class FlagForm(DisabledMixin, forms.Form):
@@ -187,7 +191,8 @@ class FlagForm(DisabledMixin, forms.Form):
     )
 
     class Meta:
-        title = "Bandeiras da sua candidatura"
+        title = "Bandeiras e propostas"
+        description = "Máximo de 5 seleções. Escolha até 5 bandeiras que você defenderá e descreva suas propostas para cada uma delas. Essas informações ajudarão os eleitores a entender melhor suas prioridades e ações."
     
     def clean(self):
         cleaned_data = super().clean()
@@ -203,22 +208,25 @@ class AppointmentForm(DisabledMixin, forms.Form):
 
     class Meta:
         title = "Você assume compromisso com..."
+        description = "Esses são os compromissos climáticos que todos os candidatos devem assumir ao criar um perfil no Vote pelo Clima. Eles ficarão visíveis aos eleitores, mostrando seu empenho em um futuro sustentável. Vamos juntos nessa?"
 
 
 class CheckoutForm(forms.Form):
     is_valid = forms.BooleanField()
 
     class Meta:
-        title = "Para finalizar, confirme as suas informações"
+        title = "Para finalizar, confirme suas informações"
+        description = "Revise todas as informações fornecidas. Após finalizar, você terá acesso a uma área restrita onde poderá visualizar e editar suas informações. Certifique-se de que todos os dados estão corretos para evitar solicitações de edição desnecessárias."
+        footer_note = "Ao preencher o formulário e se cadastrar na Campanha, você está ciente de que seus dados pessoais serão tratados de acordo com o Aviso de Privacidade."
 
 
 register_form_list = [
     ("captcha", CaptchaForm),
     ("compromissos", AppointmentForm),
-    ("informacoes-iniciais", InitialForm),
+    ("informacoes-pessoais", InitialForm),
     ("informacoes-de-candidatura", ApplicationForm),
-    ("complemente-seu-perfil", ProfileForm),
-    ("sobre-sua-trajetoria", TrackForm),
     ("bandeiras-da-sua-candidatura", FlagForm),
+    ("sobre-sua-trajetoria", TrackForm),
+    ("complemente-seu-perfil", ProfileForm),
     ("checkout", CheckoutForm),
 ]

@@ -6,37 +6,42 @@
   {% csrf_token %}
   {{ wizard.form.media }}
   {{ wizard.management_form }}
-  <div class="grid">
-    <div class="g-col-12 g-col-md-6">
+  
+  <div class="container">
+    <div class="grid">
       {% if wizard.form.forms %}
         {{ wizard.form.management_form }}
         {% for form in wizard.form.forms %}
-          <div class="mb-3">
+          <div class="g-col-12 g-col-md-6">
             {{ form|crispy }}
           </div>
-          {% if forloop.counter|divisibleby:3 and not forloop.last %}
-            </div><div class="g-col-12 g-col-md-6">
+          {% if forloop.counter|divisibleby:2 and not forloop.last %}
+            </div><div class="grid">
           {% endif %}
         {% endfor %}
       {% else %}
         {% for field in wizard.form %}
-          <div class="mb-3">
+          <div class="g-col-12 g-col-md-6">
             {{ field|as_crispy_field }}
           </div>
-          {% if forloop.counter|divisibleby:3 and not forloop.last %}
-            </div><div class="g-col-12 g-col-md-6">
+          {% if forloop.counter|divisibleby:2 and not forloop.last %}
+            </div><div class="grid">
           {% endif %}
         {% endfor %}
       {% endif %}
     </div>
-  </div>
-  
-  <div class="mt-3">
-    {% if wizard.steps.prev %}
-      <button class="btn btn-secondary" name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}">{% translate "first step" %}</button>
-      <button class="btn btn-secondary" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% translate "prev step" %}</button>
-    {% endif %}
-    <input class="btn btn-dark" type="submit" name="submit" value="{% translate "submit" %}" />
+
+    <div class="row">
+      <p class="py-4 text-body-secondary">{{ wizard_footer_note }}</p>
+    </div>
+
+    <div class="mt-3">
+      {% if wizard.steps.prev %}
+        <button class="btn btn-secondary" name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}">{% translate "first step" %}</button>
+        <button class="btn btn-secondary" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% translate "prev step" %}</button>
+      {% endif %}
+      <input class="btn btn-dark" type="submit" name="submit" value="{% translate "submit" %}" />
+    </div>
   </div>
 </form>
 {% endblock %}

@@ -17,11 +17,11 @@ class CandidatureFlowAdmin(admin.ModelAdmin):
 
     @admin.display
     def legal_name(self, obj):
-        return obj.properties.get("informacoes-iniciais-legal_name")
+        return obj.properties.get("informacoes-pessoais-legal_name")
     
     @admin.display
     def email(self, obj):
-        return obj.properties.get("informacoes-iniciais-email")
+        return obj.properties.get("informacoes-pessoais-email")
     
     @admin.display
     def political_party(self, obj):
