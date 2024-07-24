@@ -7,41 +7,70 @@
   {{ wizard.form.media }}
   {{ wizard.management_form }}
   
-  <div class="container">
+  {% if wizard.steps.current == "sobre-sua-trajetoria" %}
+    <!-- Step: sobre-sua-trajetoria -->
     <div class="grid">
-      {% if wizard.form.forms %}
-        {{ wizard.form.management_form }}
-        {% for form in wizard.form.forms %}
-          <div class="g-col-12 g-col-md-6">
-            {{ form|crispy }}
-          </div>
-          {% if forloop.counter|divisibleby:2 and not forloop.last %}
-            </div><div class="grid">
-          {% endif %}
-        {% endfor %}
-      {% else %}
-        {% for field in wizard.form %}
-          <div class="g-col-12 g-col-md-6">
-            {{ field|as_crispy_field }}
-          </div>
-          {% if forloop.counter|divisibleby:2 and not forloop.last %}
-            </div><div class="grid">
-          {% endif %}
-        {% endfor %}
-      {% endif %}
+      <div class="g-col-12 g-col-md-6">
+        {{ wizard.form.education|as_crispy_field }}
+      </div>
+      <div class="g-col-12 g-col-md-6">
+        {{ wizard.form.employment|as_crispy_field }}
+      </div>
+      <div class="g-col-12">
+        {{ wizard.form.short_description|as_crispy_field }}
+      </div>
+      <div class="g-col-12">
+        {{ wizard.form.milestones|as_crispy_field }}
+      </div>
     </div>
-
+  {% elif wizard.steps.current == "complemente-seu-perfil" %}
+    <!-- Step: complemente-seu-perfil -->
+    <div class="grid">
+      <div class="g-col-12 g-col-md-6">
+        {{ wizard.form.video|as_crispy_field }}
+      </div>
+      <div class="g-col-12 g-col-md-6">
+        {{ wizard.form.photo|as_crispy_field }}
+      </div>
+      <div class="g-col-12 g-col-md-6">
+        {{ wizard.form.gender|as_crispy_field }}
+      </div>
+      <div class="g-col-12 g-col-md-6">
+        {{ wizard.form.color|as_crispy_field }}
+      </div>
+      <div class="g-col-12 g-col-md-6">
+        {{ wizard.form.sexuality|as_crispy_field }}
+      </div>
+      <div class="g-col-12">
+        {{ wizard.form.social_media|as_crispy_field }}
+      </div>
+    </div>
+  {% else %}
+    <!-- Default Layout -->
+    <div class="grid">
+      {% for field in wizard.form %}
+        <div class="g-col-12 g-col-md-6">
+          {{ field|as_crispy_field }}
+        </div>
+        {% if forloop.counter|divisibleby:2 and not forloop.last %}
+          </div><div class="grid">
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% endif %}
+  
+  {% if wizard_footer_note %}
     <div class="row">
       <p class="py-4 text-body-secondary">{{ wizard_footer_note }}</p>
     </div>
+  {% endif %}
 
-    <div class="mt-3">
-      {% if wizard.steps.prev %}
-        <button class="btn btn-secondary" name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}">{% translate "first step" %}</button>
-        <button class="btn btn-secondary" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% translate "prev step" %}</button>
-      {% endif %}
-      <input class="btn btn-dark" type="submit" name="submit" value="{% translate "submit" %}" />
-    </div>
+  <div class="mt-3">
+    {% if wizard.steps.prev %}
+      <button class="btn btn-secondary" name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}">{% translate "first step" %}</button>
+      <button class="btn btn-secondary" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% translate "prev step" %}</button>
+    {% endif %}
+    <input class="btn btn-dark" type="submit" name="submit" value="{% translate "submit" %}" />
   </div>
 </form>
 {% endblock %}
