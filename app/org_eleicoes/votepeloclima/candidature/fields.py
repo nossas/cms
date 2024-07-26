@@ -195,6 +195,12 @@ class CheckboxTextField(forms.CharField):
         value = super().clean(value)
         return value.replace("on-", "")
 
+    # def get_bound_field(self, form, field_name):
+    #     bound_field = super().get_bound_field(form ,field_name)
+    #     if self.disabled:
+    #         import ipdb;ipdb.set_trace()
+    #     return bound_field
+
 
 class VideoField(forms.FileField):
     default_validators = [
@@ -264,16 +270,26 @@ class InlineArrayWidget(forms.MultiWidget):
 
     def get_context(self, name, value, attrs):
         context = super().get_context(name, value, attrs)
-
+        invalid_count = len(list(filter(lambda x: "is-invalid" in x.get("attrs", {}).get("class", ""), context["widget"]["subwidgets"])))
         context["widget"].update(
             {
                 "item_label": self.item_label,
                 "add_button_text": self.add_button_text,
                 "size": self.size,
+                "attrs": {
+                    **context["widget"]["attrs"],
+                    "class": "is-invalid"
+                } if invalid_count > 0 else context["widget"]["attrs"]
             }
         )
 
         return context
+
+class CustomBoundField(forms.BoundField):
+    def __str__(self):
+        help_text_html = f'<small>{self.field.add_help_text}</small>' if self.field.add_help_text else ''
+        widget_html = self.as_widget()
+        return f'{help_text_html}{widget_html}'
 
 
 class InlineArrayField(SimpleArrayField):
@@ -288,6 +304,7 @@ class InlineArrayField(SimpleArrayField):
         min_length=None,
         **kwargs,
     ):
+        self.add_help_text = kwargs.pop("help_text", None)
         super().__init__(
             base_field,
             delimiter=delimiter,
@@ -301,3 +318,13 @@ class InlineArrayField(SimpleArrayField):
             item_label=item_label,
             add_button_text=add_button_text,
         )
+
+    def get_bound_field(self, form, field_name):
+        return CustomBoundField(form, self, field_name)
+
+    # def render(self, name, value, attrs=None, renderer=None):
+    #     import ipdb;ipdb.set_trace()
+    #     widget_html = super(InlineArrayField, self).widget.render(name, value, attrs, renderer)
+    #     help_text_html = f'<small>{self.help_text}</small>' if self.help_text else ''
+    #     errors_html = ''.join([f'<span class="error">{error}</span>' for error in self.errors])
+    #     return f'<div class="custom-field">{help_text_html}{errors_html}{widget_html}</div>'

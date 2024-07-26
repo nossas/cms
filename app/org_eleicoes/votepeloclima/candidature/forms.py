@@ -276,7 +276,14 @@ class ProfileForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
     gender = forms.CharField(label="Gênero")
     color = forms.CharField(label="Raça")
     sexuality = forms.CharField(label="Sexualidade", required=False)
-    social_media = InlineArrayField(forms.URLField(required=False), required=False)
+    social_media = InlineArrayField(
+        forms.URLField(required=False),
+        required=False,
+        label="Redes sociais",
+        item_label="Rede social",
+        add_button_text="Adicionar outra rede social",
+        help_text="Conecte suas redes sociais para ampliar sua visibilidade e engajamento com os eleitores.",
+    )
 
     def clean_social_media(self):
         value = self.cleaned_data["social_media"]

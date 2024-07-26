@@ -3,7 +3,7 @@
 
 {% block main %}
 <h2>{{ wizard.form.Meta.title }}</h2>
-<form method="post" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data" novalidate>
   {% block form_fields %}
   {% csrf_token %}
   {{ wizard.form.media }}

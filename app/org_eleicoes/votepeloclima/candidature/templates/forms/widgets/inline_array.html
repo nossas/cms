@@ -1,4 +1,4 @@
-<div id="inline-array" data-name="{{ widget.name }}">
+<div id="inline-array" data-name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %}>
     <ol>
     {% for subwidget in widget.subwidgets %}
         {% if subwidget.value or forloop.counter < 3 %}
