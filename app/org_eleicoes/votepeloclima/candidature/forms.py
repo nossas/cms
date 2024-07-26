@@ -1,17 +1,17 @@
 from django import forms
-from django.template.defaultfilters import filesizeformat
-
 from django.core.exceptions import ValidationError
 
+from entangled.forms import EntangledModelFormMixin
 from captcha.widgets import ReCaptchaV2Checkbox
 
+from .models import CandidatureFlow
 from .fields import (
     ValidateOnceReCaptchaField,
     StateCepField,
     CityCepField,
     CheckboxTextField,
+    InlineArrayField,
     VideoField,
-    InlineArrayField
 )
 
 
@@ -21,18 +21,34 @@ class DisabledMixin:
         super().__init__(*args, **kwargs)
 
         if disabled:
-            # import ipdb;ipdb.set_trace()
             for field_name in self.fields:
                 self.fields[field_name].widget.attrs.update(
                     {"readonly": True, "disabled": True}
                 )
 
 
-class CaptchaForm(forms.Form):
+class CaptchaForm(EntangledModelFormMixin, forms.ModelForm):
     captcha = ValidateOnceReCaptchaField(widget=ReCaptchaV2Checkbox())
 
+    class Meta:
+        title = "Vamos começar?"
+        model = CandidatureFlow
+        entangled_fields = {"properties": ["captcha"]}
+        untangled_fields = []
 
-class InitialForm(DisabledMixin, forms.Form):
+
+class AppointmentForm(DisabledMixin, EntangledModelFormMixin, forms.ModelForm):
+    appointment_1 = forms.BooleanField(label="Compromisso 1", required=False)
+    appointment_2 = forms.BooleanField(label="Compromisso 2", required=False)
+
+    class Meta:
+        title = "Você assume compromisso com..."
+        model = CandidatureFlow
+        entangled_fields = {"properties": ["appointment_1", "appointment_2"]}
+        untangled_fields = []
+
+
+class InitialForm(DisabledMixin, EntangledModelFormMixin, forms.ModelForm):
     legal_name = forms.CharField(label="Nome")
     ballot_name = forms.CharField(label="Nome na urna")
     birth_date = forms.DateField(label="Data de nascimento")
@@ -41,10 +57,22 @@ class InitialForm(DisabledMixin, forms.Form):
     tse_id = forms.CharField(label="Identificação TSE (?)", required=False)
 
     class Meta:
-        title = "Informações iniciais"
+        title = "Informações pessoais"
+        model = CandidatureFlow
+        entangled_fields = {
+            "properties": [
+                "legal_name",
+                "ballot_name",
+                "birth_date",
+                "email",
+                "cpf_cnpj",
+                "tse_id",
+            ]
+        }
+        untangled_fields = []
 
 
-class ApplicationForm(DisabledMixin, forms.Form):
+class ApplicationForm(DisabledMixin, EntangledModelFormMixin, forms.ModelForm):
     number_id = forms.IntegerField(label="Número de identificação", min_value=1)
     intended_position = forms.CharField(label="Cargo pretendido")
     state = StateCepField(label="Estado")
@@ -56,49 +84,29 @@ class ApplicationForm(DisabledMixin, forms.Form):
 
     class Meta:
         title = "Informações de candidatura"
+        model = CandidatureFlow
+        entangled_fields = {
+            "properties": [
+                "number_id",
+                "intended_position",
+                "state",
+                "city",
+                "is_collective_mandate",
+                "political_party",
+            ]
+        }
+        untangled_fields = []
 
 
-class ProfileForm(DisabledMixin, forms.Form):
-    video = VideoField(label="Vídeo", required=False)
-    photo = forms.ImageField(label="Foto", required=False)
-    gender = forms.CharField(label="Gênero")
-    color = forms.CharField(label="Raça")
-    sexuality = forms.CharField(label="Sexualidade", required=False)
-    social_media = InlineArrayField(forms.URLField(required=False), required=False)
-
-    def clean_social_media(self):
-        value = self.cleaned_data['social_media']
-        return value
-
-    class Meta:
-        title = "Complemente seu perfil"
-
-
-class TrackForm(DisabledMixin, forms.Form):
-    education = forms.CharField(label="Escolaridade", required=False)
-    employment = forms.CharField(label="Ocupação", required=False)
-    short_description = forms.CharField(label="Minibio", widget=forms.Textarea())
-    milestones = InlineArrayField(forms.CharField(max_length=140, required=False), required=False)
-
-    def clean_milestones(self):
-        value = self.cleaned_data['milestones']
-        return value
-
-    class Meta:
-        title = "Sobre sua trajetória"
-
-
-class FlagForm(DisabledMixin, forms.Form):
+class FlagForm(DisabledMixin, EntangledModelFormMixin, forms.ModelForm):
     is_renewable_energy = CheckboxTextField(
         checkbox_label="Energia Renovável",
         text_label="Proposta",
         help_text="Proin non nisl sed lorem pharetra blandit. Curabitur nec metus vitae libero elementum cursus. Suspendisse potenti. Praesent sit amet turpis vel lacus volutpat scelerisque. Proin non nisl sed lorem pharetra blandit.",
-        required=False
+        required=False,
     )
     is_transport_and_mobility = CheckboxTextField(
-        checkbox_label="Transporte e Mobilidade",
-        text_label="Proposta",
-        required=False
+        checkbox_label="Transporte e Mobilidade", text_label="Proposta", required=False
     )
     is_sustainable_agriculture = CheckboxTextField(
         checkbox_label="Agricultura Sustentável",
@@ -162,8 +170,28 @@ class FlagForm(DisabledMixin, forms.Form):
     )
 
     class Meta:
-        title = "Bandeiras da sua candidatura"
-    
+        title = "Bandeiras e propostas"
+        model = CandidatureFlow
+        entangled_fields = {
+            "properties": [
+                "is_renewable_energy",
+                "is_transport_and_mobility",
+                "is_sustainable_agriculture",
+                "is_conservation_and_forests",
+                "is_waste_management",
+                "is_water_and_sanitation",
+                "is_green_jobs",
+                "is_markets_and_finance",
+                "is_urbanism_and_the_right_to_the_city",
+                "is_combating_environmental_racism",
+                "is_sustainable_agriculture",
+                "is_indigenous_rights",
+                "is_health_and_climate",
+                "is_climate_adaptation",
+            ]
+        }
+        untangled_fields = []
+
     def clean(self):
         cleaned_data = super().clean()
         selected_size = len(list(filter(lambda x: bool(x), cleaned_data.values())))
@@ -172,19 +200,69 @@ class FlagForm(DisabledMixin, forms.Form):
         return cleaned_data
 
 
-class AppointmentForm(DisabledMixin, forms.Form):
-    appointment_1 = forms.BooleanField(label="Compromisso 1", required=False)
-    appointment_2 = forms.BooleanField(label="Compromisso 2", required=False)
+class TrackForm(DisabledMixin, EntangledModelFormMixin, forms.ModelForm):
+    education = forms.CharField(label="Escolaridade", required=False)
+    employment = forms.CharField(label="Ocupação", required=False)
+    short_description = forms.CharField(label="Minibio", widget=forms.Textarea())
+    milestones = InlineArrayField(
+        forms.CharField(max_length=140, required=False), required=False
+    )
+
+    def clean_milestones(self):
+        value = self.cleaned_data["milestones"]
+        return value
 
     class Meta:
-        title = "Você assume compromisso com..."
+        title = "Sobre sua trajetória"
+        model = CandidatureFlow
+        entangled_fields = {
+            "properties": [
+                "education",
+                "employment",
+                "short_description",
+                "milestones",
+            ]
+        }
+        untangled_fields = []
 
 
-class CheckoutForm(forms.Form):
+class ProfileForm(DisabledMixin, EntangledModelFormMixin, forms.ModelForm):
+    video = VideoField(label="Vídeo", required=False)
+    photo = forms.ImageField(label="Foto", required=False)
+    gender = forms.CharField(label="Gênero")
+    color = forms.CharField(label="Raça")
+    sexuality = forms.CharField(label="Sexualidade", required=False)
+    social_media = InlineArrayField(forms.URLField(required=False), required=False)
+
+    def clean_social_media(self):
+        value = self.cleaned_data["social_media"]
+        return value
+
+    class Meta:
+        title = "Complemente seu perfil"
+        model = CandidatureFlow
+        entangled_fields = {
+            "properties": [
+                "gender",
+                "color",
+                "sexuality",
+                "social_media",
+            ]
+        }
+        untangled_fields = [
+            "video",
+            "photo",
+        ]
+
+
+class CheckoutForm(EntangledModelFormMixin, forms.ModelForm):
     is_valid = forms.BooleanField()
 
     class Meta:
-        title = "Para finalizar, confirme as suas informações"
+        title = "Para finalizar, confirme suas informações"
+        model = CandidatureFlow
+        entangled_fields = {"properties": ["is_valid"]}
+        untangled_fields = []
 
 
 register_form_list = [
@@ -192,8 +270,8 @@ register_form_list = [
     ("compromissos", AppointmentForm),
     ("informacoes-iniciais", InitialForm),
     ("informacoes-de-candidatura", ApplicationForm),
-    ("complemente-seu-perfil", ProfileForm),
-    ("sobre-sua-trajetoria", TrackForm),
     ("bandeiras-da-sua-candidatura", FlagForm),
+    ("sobre-sua-trajetoria", TrackForm),
+    ("complemente-seu-perfil", ProfileForm),
     ("checkout", CheckoutForm),
 ]
