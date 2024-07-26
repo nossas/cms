@@ -8,6 +8,7 @@ from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.template.defaultfilters import filesizeformat
 
+from django.contrib.postgres.forms import SimpleArrayField
 from django_select2.forms import Select2Widget
 from captcha.fields import ReCaptchaField
 
@@ -215,3 +216,46 @@ class VideoField(forms.FileField):
                     )
 
         return value
+
+class InlineArrayWidget(forms.MultiWidget):
+    template_name = "forms/widgets/inline_array.html"
+
+    def __init__(self, widget, size, attrs=None):
+        widgets = [widget() if isinstance(widget, type) else widget for _ in range(size)]
+        super().__init__(widgets, attrs)
+        self.size = size
+
+    @property
+    def media(self):
+        return forms.Media(
+            js=[
+                "https://code.jquery.com/jquery-3.5.1.min.js",
+                "js/inline-array-widget.js",
+            ],
+        )
+    
+    def decompress(self, value):
+        if isinstance(value, list):
+            return value
+        if value is None:
+            return []
+        return [v.strip() for v in value.split(',')]
+
+    def value_from_datadict(self, data, files, name):
+        values = []
+        for key, value in data.items():
+            if key.startswith(f'{name}_'):
+                values.append(value)
+        return values
+    
+    def get_context(self, name, value, attrs):
+        context = super().get_context(name, value, attrs)
+        context['widget'].update({'size':self.size})
+
+        return context
+
+
+class InlineArrayField(SimpleArrayField):
+    def __init__(self, base_field, size=5, delimiter=",", max_length=None, min_length=None, **kwargs):
+        super().__init__(base_field, delimiter=delimiter, max_length=max_length, min_length=min_length, **kwargs)
+        self.widget = InlineArrayWidget(widget=base_field.widget, size=size)

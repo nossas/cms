@@ -28,10 +28,12 @@ class Candidature(models.Model):
     gender = models.CharField(max_length=30)
     color = models.CharField(max_length=30)
     sexuality = models.CharField(max_length=30, null=True, blank=True)
+    social_media = models.JSONField(blank=True, null=True, default=list)
     # Step 4
     education = models.CharField(max_length=50, null=True, blank=True)
     employment = models.CharField(max_length=50, null=True, blank=True)
     short_description = models.TextField()
+    milestones = models.JSONField(blank=True, null=True, default=list)
     # Step 5
     flags = models.JSONField(blank=True)
     # Step 6
