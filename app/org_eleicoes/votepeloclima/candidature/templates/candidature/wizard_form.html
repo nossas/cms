@@ -2,19 +2,24 @@
 {% load i18n crispy_forms_filters %}
 
 {% block main %}
+<h2>{{ wizard.form.Meta.title }}</h2>
 <form method="post" enctype="multipart/form-data">
+  {% block form_fields %}
   {% csrf_token %}
   {{ wizard.form.media }}
   {{ wizard.management_form }}
-  {% if wizard.form.forms %}
+  {% comment %}
+  <!-- {% if wizard.form.forms %}
     {{ wizard.form.management_form }}
     {% for form in wizard.form.forms %}
     {{ form|crispy }}
     {% endfor %}
   {% else %}
-    {{ wizard.form|crispy }}
-  {% endif %}
-
+  {{ wizard.form|crispy }}
+  {% endif %} -->
+  {% endcomment %}
+  {{ wizard.form|crispy }}
+  {% endblock %}
   {% if wizard.steps.prev %}
   <button class="btn btn-secondary" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% translate "prev step" %}</button>
   {% endif %}

@@ -1,8 +1,7 @@
-{% extends "candidature/wizard_base.html" %}
+{% extends "candidature/wizard_form.html" %}
 {% load i18n crispy_forms_filters %}
 
-{% block main %}
-<form method="post" enctype="multipart/form-data">
+{% block form_fields %}
   {% csrf_token %}
   {{ wizard.form.media }}
   {{ wizard.management_form }}
@@ -25,14 +24,6 @@
       <div id="dropzone"></div>
     </div>
   </div>
-
-  {% if wizard.steps.prev %}
-  <button class="btn btn-secondary" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% translate "prev step" %}</button>
-  {% endif %}
-  {% if wizard.steps.next %}
-  <input class="btn btn-secondary" name="wizard_goto_step" type="submit" value="{% translate "Continuar: " %}{{ next_step_title }}" />
-  {% endif %}
-</form>
 {% endblock %}
 
 {% block screenside %}{% endblock %}
