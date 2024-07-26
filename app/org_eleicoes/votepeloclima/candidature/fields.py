@@ -142,6 +142,13 @@ class CheckboxTextWidget(forms.MultiWidget):
             return "on-" + text
         return None
 
+    def render(self, name, value, attrs=None, renderer=None):
+        """Render the widget as an HTML string."""
+        context = self.get_context(name, value, attrs)
+        if "disabled" in self.attrs and self.attrs["disabled"] and not value:
+            return self._render("forms/widgets/nop.html", context, renderer)
+        return self._render(self.template_name, context, renderer)
+
     @property
     def media(self):
         return forms.Media(
@@ -175,6 +182,8 @@ class CheckboxTextField(forms.CharField):
         super().__init__(
             max_length=None, min_length=None, strip=True, empty_value="", **kwargs
         )
+        # Remove label to use only subwidgets label
+        self.label = ""
 
     def validate(self, value):
         value = value or ""
