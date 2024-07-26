@@ -11,17 +11,17 @@
         {% if wizard.form.forms %}
             {{ wizard.form.management_form }}
             {% for form in wizard.form.forms %}
-                {{ form.as_p }}
+                {{ form|crispy }}
             {% endfor %}
         {% else %}
-            {{ wizard.form.as_p }}
+            {{ wizard.form|crispy }}
         {% endif %}
         <button class="btn btn-dark" type="submit" name="submit">Concluir Cadastro</button>
     </form>
 {% else %}
 <div>
     <a href="{{ step.edit_url }}">Editar</a>
-    {{ step.form.as_p }}
+    {{ step.form|crispy }}
 </div>
 {% endif %}
 {% endfor %}

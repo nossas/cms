@@ -37,7 +37,7 @@ class CaptchaForm(EntangledModelFormMixin, forms.ModelForm):
         untangled_fields = []
 
 
-class AppointmentForm(DisabledMixin, EntangledModelFormMixin, forms.ModelForm):
+class AppointmentForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
     appointment_1 = forms.BooleanField(label="Compromisso 1", required=False)
     appointment_2 = forms.BooleanField(label="Compromisso 2", required=False)
 
@@ -48,7 +48,7 @@ class AppointmentForm(DisabledMixin, EntangledModelFormMixin, forms.ModelForm):
         untangled_fields = []
 
 
-class InitialForm(DisabledMixin, EntangledModelFormMixin, forms.ModelForm):
+class InitialForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
     legal_name = forms.CharField(label="Nome")
     ballot_name = forms.CharField(label="Nome na urna")
     birth_date = forms.DateField(label="Data de nascimento")
@@ -72,7 +72,7 @@ class InitialForm(DisabledMixin, EntangledModelFormMixin, forms.ModelForm):
         untangled_fields = []
 
 
-class ApplicationForm(DisabledMixin, EntangledModelFormMixin, forms.ModelForm):
+class ApplicationForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
     number_id = forms.IntegerField(label="Número de identificação", min_value=1)
     intended_position = forms.CharField(label="Cargo pretendido")
     state = StateCepField(label="Estado")
@@ -98,7 +98,7 @@ class ApplicationForm(DisabledMixin, EntangledModelFormMixin, forms.ModelForm):
         untangled_fields = []
 
 
-class FlagForm(DisabledMixin, EntangledModelFormMixin, forms.ModelForm):
+class FlagForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
     is_renewable_energy = CheckboxTextField(
         checkbox_label="Energia Renovável",
         text_label="Proposta",
@@ -200,7 +200,7 @@ class FlagForm(DisabledMixin, EntangledModelFormMixin, forms.ModelForm):
         return cleaned_data
 
 
-class TrackForm(DisabledMixin, EntangledModelFormMixin, forms.ModelForm):
+class TrackForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
     education = forms.CharField(label="Escolaridade", required=False)
     employment = forms.CharField(label="Ocupação", required=False)
     short_description = forms.CharField(label="Minibio", widget=forms.Textarea())
@@ -226,7 +226,7 @@ class TrackForm(DisabledMixin, EntangledModelFormMixin, forms.ModelForm):
         untangled_fields = []
 
 
-class ProfileForm(DisabledMixin, EntangledModelFormMixin, forms.ModelForm):
+class ProfileForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
     video = VideoField(label="Vídeo", required=False)
     photo = forms.ImageField(label="Foto", required=False)
     gender = forms.CharField(label="Gênero")
@@ -255,7 +255,7 @@ class ProfileForm(DisabledMixin, EntangledModelFormMixin, forms.ModelForm):
         ]
 
 
-class CheckoutForm(EntangledModelFormMixin, forms.ModelForm):
+class CheckoutForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
     is_valid = forms.BooleanField()
 
     class Meta:

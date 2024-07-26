@@ -61,25 +61,33 @@ class BaseRegisterView(NamedUrlSessionWizardView):
 
         return user
 
-    def upsert_instance(self, form, current_step, user):
-        instance, created = CandidatureFlow.objects.get_or_create(user=user)
-
-        if created:
-            for step, form_class in register_form_list[1:]:
-                if step == current_step:
-                    break
-
-                data = self.get_cleaned_data_for_step(step)
-                form_class(data=data, instance=instance).save()
-
+    def save_obj(self, instance, form):
         if form.is_valid():
             for field, value in form.cleaned_data.items():
                 if field == "properties":
                     instance.properties.update(value)
                 elif field not in ("photo", "video"):
                     setattr(instance, field, value)
-
+            
             instance.save()
+        
+        return instance
+
+    def upsert_instance(self, form, current_step, user):
+        instance, created = CandidatureFlow.objects.get_or_create(user=user)
+        
+        if created:
+            for step, FormClass in register_form_list[1:]:
+                if step == current_step:
+                    break
+
+                data = self.get_cleaned_data_for_step(step)
+                if "properties" in data:
+                    data.update(data.get("properties"))
+
+                instance = self.save_obj(instance, form=FormClass(data=data))
+
+        self.save_obj(instance, form)
 
         return created
 
@@ -117,7 +125,7 @@ class RegisterView(BaseRegisterView):
 
     def get_template_names(self):
         if self.steps.current == "checkout":
-            return "candidature/done.html"
+            return "candidature/checkout.html"
         elif self.steps.current == "bandeiras-da-sua-candidatura":
             return "candidature/bandeiras_da_sua_candidatura.html"
         return super().get_template_names()
@@ -134,15 +142,18 @@ class RegisterView(BaseRegisterView):
         context = super().get_context_data(form, **kwargs)
         checkout_steps = []
         if self.steps.current == "checkout":
+            user = self.get_current_user()
+            instance = CandidatureFlow.objects.get(user=user)
+            # import ipdb;ipdb.set_trace()
             for step, form_class in self.get_form_list().items():
                 if step not in self.steps_hide_on_checkout:
-                    data = self.get_cleaned_data_for_step(step)
+                    # data = self.get_cleaned_data_for_step(step)
                     checkout_steps.append(
                         dict(
                             name=step,
                             edit_url=reverse(self.url_name, kwargs={"step": step}),
-                            form=form_class(data=data),
-                            data=data,
+                            form=form_class(disabled=True, instance=instance),
+                            # data=data,
                         )
                     )
 
