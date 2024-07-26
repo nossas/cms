@@ -61,13 +61,7 @@ class InitialForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         title = "Informações pessoais"
         model = CandidatureFlow
         entangled_fields = {
-            "properties": [
-                "legal_name",
-                "ballot_name",
-                "birth_date",
-                "email",
-                "cpf"
-            ]
+            "properties": ["legal_name", "ballot_name", "birth_date", "email", "cpf"]
         }
         untangled_fields = []
 
@@ -82,7 +76,7 @@ class InitialForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
                 Div(Field("birth_date"), css_class="g-col-12 g-col-md-6"),
                 Div(Field("email"), css_class="g-col-12 g-col-md-6"),
                 Div(Field("cpf"), css_class="g-col-12 g-col-md-6"),
-                css_class="grid"
+                css_class="grid",
             )
         )
 
@@ -124,7 +118,7 @@ class ApplicationForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
                 Div(Field("city"), css_class="g-col-12 g-col-md-6"),
                 Div(Field("is_collective_mandate"), css_class="g-col-12 g-col-md-6"),
                 Div(Field("political_party"), css_class="g-col-12 g-col-md-6"),
-                css_class="grid"
+                css_class="grid",
             )
         )
 
@@ -236,7 +230,12 @@ class TrackForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
     employment = forms.CharField(label="Ocupação", required=False)
     short_description = forms.CharField(label="Minibio", widget=forms.Textarea())
     milestones = InlineArrayField(
-        forms.CharField(max_length=140, required=False), required=False
+        forms.CharField(max_length=140, required=False),
+        required=False,
+        label="Histórico de atuação",
+        item_label="Realização",
+        add_button_text="Adicionar outra realização",
+        help_text="Adicione momentos e realizações marcantes da sua trajetória.",
     )
 
     def clean_milestones(self):
@@ -255,7 +254,7 @@ class TrackForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
             ]
         }
         untangled_fields = []
-    
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -266,7 +265,7 @@ class TrackForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
                 Div(Field("employment"), css_class="g-col-12 g-col-md-6"),
                 Div(Field("short_description"), css_class="g-col-12"),
                 Div(Field("milestones"), css_class="g-col-12"),
-                css_class="grid"
+                css_class="grid",
             )
         )
 
@@ -311,7 +310,7 @@ class ProfileForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
                 Div(Field("color"), css_class="g-col-12 g-col-md-6"),
                 Div(Field("sexuality"), css_class="g-col-12 g-col-md-6"),
                 Div(Field("social_media"), css_class="g-col-12"),
-                css_class="grid"
+                css_class="grid",
             )
         )
 
