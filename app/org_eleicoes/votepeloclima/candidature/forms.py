@@ -1,5 +1,6 @@
 from django import forms
-from django.contrib.postgres.forms import SimpleArrayField
+from django.template.defaultfilters import filesizeformat
+
 from django.core.exceptions import ValidationError
 
 from captcha.widgets import ReCaptchaV2Checkbox
@@ -9,7 +10,8 @@ from .fields import (
     StateCepField,
     CityCepField,
     CheckboxTextField,
-    InlineArrayField,
+    VideoField,
+    InlineArrayField
 )
 
 
@@ -57,8 +59,8 @@ class ApplicationForm(DisabledMixin, forms.Form):
 
 
 class ProfileForm(DisabledMixin, forms.Form):
-    video = forms.URLField(label="Vídeo", required=False)
-    photo = forms.URLField(label="Foto", required=False)
+    video = VideoField(label="Vídeo", required=False)
+    photo = forms.ImageField(label="Foto", required=False)
     gender = forms.CharField(label="Gênero")
     color = forms.CharField(label="Raça")
     sexuality = forms.CharField(label="Sexualidade", required=False)

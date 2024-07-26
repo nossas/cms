@@ -7,12 +7,13 @@ from django.contrib.auth.models import User
 from django.views.generic import TemplateView
 from django.http import HttpResponseForbidden
 from django.urls import reverse_lazy,reverse
+from django.core.files.storage import DefaultStorage
 
 from formtools.wizard.views import NamedUrlSessionWizardView
 
 from contrib.oauth.utils import send_confirmation_email
 from .models import CandidatureFlow, CandidatureFlowStatus, Candidature
-from .forms import register_form_list, InitialForm, FlagForm, AppointmentForm
+from .forms import register_form_list, InitialForm, FlagForm, AppointmentForm, ProfileForm
 from .locations_utils import get_choices
 
 
@@ -20,6 +21,7 @@ class RegisterView(NamedUrlSessionWizardView):
     form_list = register_form_list
     steps_hide_on_checkout = ["captcha"]
     template_name = "candidature/wizard_form.html"
+    file_storage = DefaultStorage()
 
     def render_done(self, form, **kwargs):
         revalid = True
@@ -86,9 +88,6 @@ class RegisterView(NamedUrlSessionWizardView):
             # print("Salvando dados")
             # print(flow.properties)
         return form_data
-
-    def process_step_files(self, form):
-        return self.get_form_step_files(form)
 
     def get_template_names(self):
         if self.steps.current == "checkout":

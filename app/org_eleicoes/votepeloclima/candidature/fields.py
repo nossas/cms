@@ -2,9 +2,11 @@ import sys
 
 from django import forms
 from django.conf import settings
+from django.core.exceptions import ValidationError
+from django.core.validators import FileExtensionValidator
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.core.exceptions import ValidationError
+from django.template.defaultfilters import filesizeformat
 
 from django.contrib.postgres.forms import SimpleArrayField
 from django_select2.forms import Select2Widget
@@ -184,6 +186,36 @@ class CheckboxTextField(forms.CharField):
         value = super().clean(value)
         return value.replace("on-", "")
 
+
+class VideoField(forms.FileField):
+    default_validators = [
+        FileExtensionValidator(
+            allowed_extensions=["MOV", "avi", "mp4", "webm", "mkv"],
+            message="Tipo de arquivo não suportado.",
+        )
+    ]
+
+    def __init__(
+        self, *, max_size=50, max_length=None, allow_empty_file=False, **kwargs
+    ):
+        super().__init__(
+            max_length=max_length, allow_empty_file=allow_empty_file, **kwargs
+        )
+        # 50MB
+        self.max_size = max_size * 1024 * 1024
+        self.widget.attrs["accept"] = "video/*"
+
+    def clean(self, value, initial):
+        value = super().clean(value, initial)
+        if value:
+            if "video" in value.content_type:
+                if value.size > self.max_size:
+                    raise forms.ValidationError(
+                        "Por favor, escolha um video com tamanho de até %s. Tamanho Atual %s"
+                        % (filesizeformat(self.max_size), filesizeformat(value.size))
+                    )
+
+        return value
 
 class InlineArrayWidget(forms.MultiWidget):
     template_name = "forms/widgets/inline_array.html"
