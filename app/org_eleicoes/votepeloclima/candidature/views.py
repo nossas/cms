@@ -6,8 +6,8 @@ from django.views import View
 from django.contrib.auth.models import User
 from django.views.generic import TemplateView
 from django.http import HttpResponseForbidden
-from django.urls import reverse_lazy,reverse
-from django.core.files.storage import DefaultStorage
+from django.urls import reverse_lazy, reverse
+from django.core.files.storage import default_storage
 
 from formtools.wizard.views import NamedUrlSessionWizardView
 
@@ -17,77 +17,103 @@ from .forms import register_form_list, InitialForm, FlagForm, AppointmentForm, P
 from .locations_utils import get_choices
 
 
-class RegisterView(NamedUrlSessionWizardView):
+initial_step_name = register_form_list[2][0]
+
+
+class BaseRegisterView(NamedUrlSessionWizardView):
     form_list = register_form_list
-    steps_hide_on_checkout = ["captcha"]
     template_name = "candidature/wizard_form.html"
-    file_storage = DefaultStorage()
+    file_storage = default_storage
+    # user = None
+
+    # def dispatch(self, request, *args, **kwargs):
+    #     response = super().dispatch(request, *args, **kwargs)
+        
+    #     # Atualiza o atributo instance do storage com o Fluxo de Candidatura relacionado ao usuário preenchido no e-mail
+    #     # Candidatura deve estar habilita como draft
+    #     data = self.storage.data.get("step_data")
+    #     if "informacoes-iniciais" in data and "informacoes-iniciais-email" in data.get("informacoes-iniciais"):
+    #         email = self.storage.data.get("step_data").get("informacoes-iniciais").get("informacoes-iniciais-email")[0]
+    #         user = User.objects.get(email=email)
+    #         self.storage.instance, created = CandidatureFlow.objects.get_or_create(CandidatureFlow.objects.get_or_create(user=user))
+
+    #     return response
+
+    def get_current_user(self):
+        data = self.get_cleaned_data_for_step(initial_step_name)
+        if data:
+            return User.objects.get(email=data["properties"]["email"])
+
+        return None
+
+    def create_user(self, **values):
+        user, created = User.objects.get_or_create(**values)
+
+        if created:
+            user.is_active = False
+            user.save()
+
+            send_confirmation_email(
+                user,
+                self.request,
+                email_template_name="candidature/activation_email.html",
+            )
+
+        return user
+
+    def upsert_instance(self, form, current_step, user):
+        instance, created = CandidatureFlow.objects.get_or_create(user=user)
+
+        if created:
+            for step, form_class in register_form_list[1:]:
+                if step == current_step:
+                    break
+
+                data = self.get_cleaned_data_for_step(step)
+                form_class(data=data, instance=instance).save()
+
+        if form.is_valid():
+            for field, value in form.cleaned_data.items():
+                if field == "properties":
+                    instance.properties.update(value)
+                elif field not in ("photo", "video"):
+                    setattr(instance, field, value)
+
+            instance.save()
+
+        return created
+
+    def process_step(self, form):
+        form_data = super().process_step(form)
+        # import ipdb;ipdb.set_trace()
+        current_step = form_data[f"{self.get_prefix(self.request)}-current_step"]
+        user = self.get_current_user()
+
+        if current_step == initial_step_name and not user:
+            email = form_data[current_step + "-email"]
+            name = form_data[current_step + "-legal_name"]
+
+            values = {
+                "username": email,
+                "email": email,
+                "first_name": name.split(" ")[0],
+                "last_name": " ".join(name.split(" ")[:-1]),
+            }
+            user = self.create_user(**values)
+
+        if user:
+            self.upsert_instance(form, current_step, user)
+
+        # import ipdb;ipdb.set_trace()
+        return form_data
+
+
+class RegisterView(BaseRegisterView):
+    steps_hide_on_checkout = ["captcha"]
 
     def render_done(self, form, **kwargs):
         revalid = True
         return super().render_done(form, **kwargs)
-
-    def get_current_user(self):
-        # First step after recaptcha
-        step_name = register_form_list[2][0]
-        #
-        data = self.get_cleaned_data_for_step(step_name)
-        if data:
-            return User.objects.get(email=data["email"])
-
-        return None
-
-    def process_step(self, form):
-        form_data = super().process_step(form)
-        step_name = form_data[f"{self.get_prefix(self.request)}-current_step"]
-        user = self.get_current_user()
-
-        if isinstance(form, InitialForm) and not user:
-
-            email = form_data[step_name + "-email"]
-            # cpf_cnpj = form_data[step_name + "-cpf_cnpj"]
-            name = form_data[step_name + "-legal_name"]
-
-            user, created = User.objects.get_or_create(
-                username=email,
-                email=email,
-                first_name=name.split(" ")[0],
-                last_name=" ".join(name.split(" ")[:-1]),
-            )
-
-            if created:
-                user.is_active = False
-                user.save()
-
-                send_confirmation_email(
-                    user,
-                    self.request,
-                    email_template_name="candidature/activation_email.html",
-                )
-                # print("Enviar e-mail")
-
-        if user:
-            flow, created = CandidatureFlow.objects.get_or_create(user=user)
-            if created and step_name != register_form_list[1][0]:
-                for etapa, form in register_form_list:
-                    data = self.get_cleaned_data_for_step(etapa)
-                    if data:
-                        flow.properties.update(
-                            dict(
-                                (etapa + "-" + key, value)
-                                for key, value in data.items()
-                            )
-                        )
-
-                    if etapa == step_name:
-                        break
-
-            flow.properties.update(form_data)
-            flow.save()
-
-            # print("Salvando dados")
-            # print(flow.properties)
-        return form_data
 
     def get_template_names(self):
         if self.steps.current == "checkout":
@@ -138,11 +164,6 @@ class RegisterView(NamedUrlSessionWizardView):
                     values.update({"appointments": form.cleaned_data})
                 else:
                     values.update(form.cleaned_data)
-
-        # print("---------- Done -----------")
-        # print(user.first_name)
-        # print(flow.properties)
-        # print(values)
 
         obj = Candidature.objects.create(**values)
         flow.candidature = obj
