@@ -3,13 +3,17 @@
         {% if widget.value or forloop.counter < 3 %}
             <div class="d-flex mb-2">
                 <input type="{{ widget.type }}" name="{{ widget.name }}" id="{{ widget.id }}"{% if widget.value != None %} value="{{ widget.value|stringformat:'s' }}"{% endif %}{% include "django/forms/widgets/attrs.html" %}/>
+                {% if not widget.attrs.disabled %}
                 <button type="button" class="btn btn-danger ml-2" onclick="inlineDelete(this)">
                     Remover
                 </button>
+                {% endif %}
             </div>
         {% endif %}
     {% endfor %}
 </div>
+{% if not widget.attrs.disabled %}
 <button type="button" id="inline-array-add" class="btn btn-primary mt-2" data-size="{{ widget.size }}">
     Adicionar
 </button>
+{% endif %}
