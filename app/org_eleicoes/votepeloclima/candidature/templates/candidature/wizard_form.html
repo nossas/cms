@@ -1,5 +1,5 @@
 {% extends "candidature/wizard_base.html" %}
-{% load i18n crispy_forms_filters %}
+{% load i18n crispy_forms_tags %}
 
 {% block main %}
 <h2>{{ wizard.form.Meta.title }}</h2>
@@ -18,7 +18,11 @@
   {{ wizard.form|crispy }}
   {% endif %} -->
   {% endcomment %}
-  {{ wizard.form|crispy }}
+  {% if wizard.form.helper %}
+    {% crispy wizard.form wizard.form.helper %}
+  {% else %}
+    {{ wizard.form|crispy }}
+  {% endif %}
   {% endblock %}
   {% if wizard.steps.prev %}
   <button class="btn btn-secondary" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% translate "prev step" %}</button>

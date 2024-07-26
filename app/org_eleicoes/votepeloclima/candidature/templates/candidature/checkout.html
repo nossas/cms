@@ -1,5 +1,5 @@
 {% extends "candidature/wizard_base.html" %}
-{% load i18n crispy_forms_filters %}
+{% load i18n crispy_forms_tags %}
 
 {% block main %}
 {% for step in checkout_steps %}
@@ -14,14 +14,22 @@
                 {{ form|crispy }}
             {% endfor %}
         {% else %}
-            {{ wizard.form|crispy }}
+            {% if wizard.form.helper %}
+                {% crispy wizard.form wizard.form.helper %}
+            {% else %}
+                {{ wizard.form|crispy }}
+            {% endif %}
         {% endif %}
         <button class="btn btn-dark" type="submit" name="submit">Concluir Cadastro</button>
     </form>
 {% else %}
 <div>
     <a href="{{ step.edit_url }}">Editar</a>
-    {{ step.form|crispy }}
+    {% if step.form.helper %}
+        {% crispy step.form step.form.helper %}
+    {% else %}
+        {{ step.form|crispy }}
+    {% endif %}
 </div>
 {% endif %}
 {% endfor %}

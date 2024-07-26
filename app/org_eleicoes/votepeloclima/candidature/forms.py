@@ -1,8 +1,10 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
-from entangled.forms import EntangledModelFormMixin
 from captcha.widgets import ReCaptchaV2Checkbox
+from entangled.forms import EntangledModelFormMixin
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Div, Row, Field
 
 from .models import CandidatureFlow
 from .fields import (
@@ -53,8 +55,7 @@ class InitialForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
     ballot_name = forms.CharField(label="Nome na urna")
     birth_date = forms.DateField(label="Data de nascimento")
     email = forms.EmailField(label="E-mail")
-    cpf_cnpj = forms.CharField(label="CPF/CNPJ")
-    tse_id = forms.CharField(label="Identificação TSE (?)", required=False)
+    cpf = forms.CharField(label="CPF")
 
     class Meta:
         title = "Informações pessoais"
@@ -65,11 +66,25 @@ class InitialForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
                 "ballot_name",
                 "birth_date",
                 "email",
-                "cpf_cnpj",
-                "tse_id",
+                "cpf"
             ]
         }
         untangled_fields = []
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.layout = Layout(
+            Div(
+                Div(Field("legal_name"), css_class="g-col-12 g-col-md-6"),
+                Div(Field("ballot_name"), css_class="g-col-12 g-col-md-6"),
+                Div(Field("birth_date"), css_class="g-col-12 g-col-md-6"),
+                Div(Field("email"), css_class="g-col-12 g-col-md-6"),
+                Div(Field("cpf"), css_class="g-col-12 g-col-md-6"),
+                css_class="grid"
+            )
+        )
 
 
 class ApplicationForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
@@ -96,6 +111,22 @@ class ApplicationForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
             ]
         }
         untangled_fields = []
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.layout = Layout(
+            Div(
+                Div(Field("number_id"), css_class="g-col-12 g-col-md-6"),
+                Div(Field("intended_position"), css_class="g-col-12 g-col-md-6"),
+                Div(Field("state"), css_class="g-col-12 g-col-md-6"),
+                Div(Field("city"), css_class="g-col-12 g-col-md-6"),
+                Div(Field("is_collective_mandate"), css_class="g-col-12 g-col-md-6"),
+                Div(Field("political_party"), css_class="g-col-12 g-col-md-6"),
+                css_class="grid"
+            )
+        )
 
 
 class FlagForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
@@ -224,6 +255,20 @@ class TrackForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
             ]
         }
         untangled_fields = []
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.layout = Layout(
+            Div(
+                Div(Field("education"), css_class="g-col-12 g-col-md-6"),
+                Div(Field("employment"), css_class="g-col-12 g-col-md-6"),
+                Div(Field("short_description"), css_class="g-col-12"),
+                Div(Field("milestones"), css_class="g-col-12"),
+                css_class="grid"
+            )
+        )
 
 
 class ProfileForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
@@ -253,6 +298,22 @@ class ProfileForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
             "video",
             "photo",
         ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.layout = Layout(
+            Div(
+                Div(Field("photo"), css_class="g-col-12 g-col-md-6"),
+                Div(Field("video"), css_class="g-col-12 g-col-md-6"),
+                Div(Field("gender"), css_class="g-col-12 g-col-md-6"),
+                Div(Field("color"), css_class="g-col-12 g-col-md-6"),
+                Div(Field("sexuality"), css_class="g-col-12 g-col-md-6"),
+                Div(Field("social_media"), css_class="g-col-12"),
+                css_class="grid"
+            )
+        )
 
 
 class CheckoutForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
