@@ -128,6 +128,10 @@ class RegisterView(BaseRegisterView):
             return "candidature/checkout.html"
         elif self.steps.current == "bandeiras-da-sua-candidatura":
             return "candidature/bandeiras_da_sua_candidatura.html"
+        elif self.steps.current == "captcha":
+            return "candidature/captcha.html"
+        elif self.steps.current == "informacoes-pessoais":
+            return "candidature/informacoes_pessoais.html"
         return super().get_template_names()
 
     def get_next_step_title(self):
@@ -158,6 +162,11 @@ class RegisterView(BaseRegisterView):
                     )
 
             context.update({"checkout_steps": checkout_steps})
+
+        if hasattr(form.Meta, "title"):
+            context.update({"step_title": form.Meta.title})
+        if hasattr(form.Meta, "description"):
+            context.update({"step_description": form.Meta.description})
 
         context.update({"next_step_title": self.get_next_step_title()})
         return context

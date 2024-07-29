@@ -1,0 +1,26 @@
+{% extends "candidature/wizard_form.html" %}
+{% load crispy_forms_tags %}
+
+{% block before_form %}
+<div class="mb-5">
+    <h1>Vamos começar?</h1>
+    <h2>Inscreva-se e aumente a visibilidade da sua candidatura!</h2>
+    <p>O processo de cadastro é simples e leva de 10 a 15 minutos. Você precisará aceitar alguns compromissos básicos, preencher suas informações pessoais, fornecer detalhes sobre sua candidatura e trajetória, e incluir suas propostas no contexto climático.</p>
+    <p>Após finalizar, você terá acesso a uma área exclusiva onde poderá ver e editar seu perfil, além de acessar ferramentas para compartilhar sua campanha. Vamos lá?</p>
+</div>
+{% endblock %}
+
+{% block form_fields %}{% endblock %}
+
+{% block form_actions %}
+<div class="d-flex align-items-end justify-content-between">
+    <div class="">
+        {% crispy wizard.form %}
+    </div>
+    <div class="">
+        {% if wizard.steps.next %}
+        <input class="btn btn-dark mb-3" name="wizard_goto_step" type="submit" value="Iniciar cadastro" />
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

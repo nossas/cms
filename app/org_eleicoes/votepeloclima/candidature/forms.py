@@ -42,10 +42,15 @@ class CaptchaForm(EntangledModelFormMixin, forms.ModelForm):
     captcha = ValidateOnceReCaptchaField(widget=ReCaptchaV2Checkbox())
 
     class Meta:
-        title = "Vamos começar?"
+        # Sobrescreve o template na view para criar uma página customizada
         model = CandidatureFlow
         entangled_fields = {"properties": ["captcha"]}
         untangled_fields = []
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields["captcha"].label = ""
 
 
 class AppointmentForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
@@ -54,20 +59,39 @@ class AppointmentForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
 
     class Meta:
         title = "Você assume compromisso com..."
+        description = "Esses são os compromissos climáticos que todos os candidatos devem assumir ao criar um perfil no Vote pelo Clima. Eles ficarão visíveis aos eleitores, mostrando seu empenho em um futuro sustentável."
         model = CandidatureFlow
         entangled_fields = {"properties": ["appointment_1", "appointment_2"]}
         untangled_fields = []
 
 
-class InitialForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
-    legal_name = forms.CharField(label="Nome")
-    ballot_name = forms.CharField(label="Nome na urna")
+class PersonalForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
+    legal_name = forms.CharField(
+        label="Nome",
+        help_text="Nome da pessoa que possui os dados registrados no TSE.",
+        widget=forms.TextInput(attrs={"placeholder": "Digite seu nome completo"}),
+    )
+    ballot_name = forms.CharField(
+        label="Nome na urna",
+        help_text="Nome público, registrado no TSE.",
+        widget=forms.TextInput(
+            attrs={"placeholder": "Digite o nome que aparecerá na urna"}
+        ),
+    )
     birth_date = forms.DateField(label="Data de nascimento")
-    email = forms.EmailField(label="E-mail")
-    cpf = forms.CharField(label="CPF")
+    email = forms.EmailField(
+        label="E-mail",
+        widget=forms.EmailInput(attrs={"placeholder": "Digite seu e-mail"}),
+    )
+    cpf = forms.CharField(
+        label="CPF",
+        help_text="CPF é necessário para confirmar sua identidade junto ao TSE",
+        widget=forms.TextInput(attrs={"placeholder": "Digite seu CPF"}),
+    )
 
     class Meta:
         title = "Informações pessoais"
+        description = "Vamos lá! Essas informações são essenciais para verificar sua candidatura e garantir a segurança. Se for uma candidatura coletiva, a pessoa responsável deve ter os dados registrados no TSE."
         model = CandidatureFlow
         entangled_fields = {
             "properties": ["legal_name", "ballot_name", "birth_date", "email", "cpf"]
@@ -91,18 +115,32 @@ class InitialForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
 
 
 class ApplicationForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
-    number_id = forms.IntegerField(label="Número de identificação", min_value=1)
+    number_id = forms.IntegerField(
+        label="Número de identificação",
+        min_value=1,
+        help_text="Número fornecido pelo TSE",
+        widget=forms.NumberInput(
+            attrs={"placeholder": "Digite seu número de identificação"}
+        ),
+    )
     intended_position = forms.ChoiceField(
-        label="Cargo pretendido", choices=IntendedPosition.choices
+        label="Cargo pretendido",
+        choices=IntendedPosition.choices,
+        help_text="Selecione o cargo que você está concorrendo",
     )
     state = CepField(
         field="state",
         label="Estado",
-        placeholder="Selecione seu estado",
+        placeholder="Selecione",
         choices=lazy(get_ufs, list)(),
+        help_text="Estado onde você está concorrendo",
     )
     city = CepField(
-        field="city", parent="state", label="Cidade", placeholder="Selecione sua cidade"
+        field="city",
+        parent="state",
+        label="Cidade",
+        placeholder="Selecione",
+        help_text="Cidade onde você está concorrendo",
     )
     is_collective_mandate = forms.BooleanField(
         label="É um mandato coletivo?", required=False
@@ -113,6 +151,7 @@ class ApplicationForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
 
     class Meta:
         title = "Informações de candidatura"
+        description = "Preencha os detalhes sobre sua candidatura."
         model = CandidatureFlow
         entangled_fields = {
             "properties": [
@@ -372,7 +411,7 @@ class CheckoutForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
 register_form_list = [
     ("captcha", CaptchaForm),
     ("compromissos", AppointmentForm),
-    ("informacoes-iniciais", InitialForm),
+    ("informacoes-pessoais", PersonalForm),
     ("informacoes-de-candidatura", ApplicationForm),
     ("bandeiras-da-sua-candidatura", FlagForm),
     ("sobre-sua-trajetoria", TrackForm),

@@ -1,0 +1,8 @@
+{% extends "candidature/wizard_form.html" %}
+{% load crispy_forms_tags %}
+
+{% block form_fields %}
+{{block.super}}
+
+<p>Suas informações são usadas apenas para verificação e segurança. O processo será salvo pelo seu e-mail e, no final do cadastro, você criará uma senha e um login para acessar a Área da Candidatura.</p>
+{% endblock %}

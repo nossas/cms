@@ -17,7 +17,7 @@ class IntendedPosition(models.TextChoices):
 
 
 class PoliticalParty(models.TextChoices):
-    empty = "", "Selecione uma opção"
+    empty = "", "Selecione seu partido"
     mdb = "mdb", "MDB"
     pdt = "pdt", "PDT"
     pt = "pt", "PT"
