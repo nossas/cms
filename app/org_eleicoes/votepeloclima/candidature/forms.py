@@ -1,19 +1,20 @@
 from django import forms
 from django.core.exceptions import ValidationError
+from django.utils.functional import lazy
 
 from captcha.widgets import ReCaptchaV2Checkbox
 from entangled.forms import EntangledModelFormMixin
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Div, Row, Field
+from crispy_forms.layout import Layout, Div, Field
 
+from .locations_utils import get_ufs, get_choices
 from .models import CandidatureFlow
 from .fields import (
     ValidateOnceReCaptchaField,
-    StateCepField,
-    CityCepField,
     CheckboxTextField,
     InlineArrayField,
     VideoField,
+    CepField,
 )
 
 
@@ -84,8 +85,15 @@ class InitialForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
 class ApplicationForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
     number_id = forms.IntegerField(label="Número de identificação", min_value=1)
     intended_position = forms.CharField(label="Cargo pretendido")
-    state = StateCepField(label="Estado")
-    city = CityCepField(label="Cidade")
+    state = CepField(
+        field="state",
+        label="Estado",
+        placeholder="Selecione seu estado",
+        choices=lazy(get_ufs, list)(),
+    )
+    city = CepField(
+        field="city", parent="state", label="Cidade", placeholder="Selecione sua cidade"
+    )
     is_collective_mandate = forms.BooleanField(
         label="É um mandato coletivo?", required=False
     )
@@ -110,17 +118,30 @@ class ApplicationForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_tag = False
-        self.helper.layout = Layout(
-            Div(
-                Div(Field("number_id"), css_class="g-col-12 g-col-md-6"),
-                Div(Field("intended_position"), css_class="g-col-12 g-col-md-6"),
-                Div(Field("state"), css_class="g-col-12 g-col-md-6"),
-                Div(Field("city"), css_class="g-col-12 g-col-md-6"),
-                Div(Field("is_collective_mandate"), css_class="g-col-12 g-col-md-6"),
-                Div(Field("political_party"), css_class="g-col-12 g-col-md-6"),
-                css_class="grid",
-            )
-        )
+        # TODO: investigar porque quando usamos layout o select2 duplica o campo
+        # self.helper.layout = Layout(
+        #     Div(
+        #         Div(Field("number_id"), css_class="g-col-12 g-col-md-6"),
+        #         Div(Field("intended_position"), css_class="g-col-12 g-col-md-6"),
+        #         Div(Field("state"), css_class="g-col-12 g-col-md-6"),
+        #         Div(Field("city"), css_class="g-col-12 g-col-md-6"),
+        #         Div(Field("is_collective_mandate"), css_class="g-col-12 g-col-md-6"),
+        #         Div(Field("political_party"), css_class="g-col-12 g-col-md-6"),
+        #         css_class="grid",
+        #     )
+        # )
+        data = kwargs.get("data", None)
+        instance = kwargs.get("instance", None)
+
+        if data or instance:
+            state = None
+            if instance:
+                state = instance.properties.get("state", None)
+            if data:
+                state = data.get("informacoes-de-candidatura-state", None)
+
+            if state:
+                self.fields["city"].choices = get_choices(state)
 
 
 class FlagForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):

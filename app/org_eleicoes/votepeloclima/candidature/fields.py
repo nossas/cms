@@ -52,34 +52,33 @@ class CepWidget(Select2Widget):
             js=["https://code.jquery.com/jquery-3.5.1.min.js"]
             + select2_js
             + i18n_file
-            + ["django_select2/django_select2.js"]
             + ["js/address-fields.js"],
-            css={"screen": select2_css + ["django_select2/django_select2.css"]},
+            css={"screen": select2_css},
         )
 
 
-class StateCepField(forms.ChoiceField):
-    widget = CepWidget(
-        attrs={
-            "data-address-fields": "state",
-            "data-address-url": reverse_lazy("address"),
-        }
-    )
+class CepField(forms.ChoiceField):
 
-    def __init__(self, *args, **kwargs):
-        from .locations_utils import get_ufs
+    def __init__(self, field, parent=None, *args, **kwargs):
+        placeholder = kwargs.pop("placeholder", None)
+        widget_attrs = {
+            "data-address-name": field,
+            "data-address-url": reverse_lazy("address"),
+            "data-address-placeholder": placeholder,
+        }
+        if parent:
+            widget_attrs.update({"data-address-parent": parent})
+
+        self.widget = CepWidget(attrs=widget_attrs)
 
         super().__init__(**kwargs)
-        self.choices = get_ufs
+    
+    def valid_value(self, value):
+        is_valid = super().valid_value(value)
+        if self.choices:
+            return is_valid
 
-
-class CityCepField(forms.CharField):
-    widget = CepWidget(
-        attrs={
-            "data-address-fields": "city",
-            "data-address-url": reverse_lazy("address"),
-        }
-    )
+        return True
 
 
 class SwitchInput(forms.CheckboxInput):

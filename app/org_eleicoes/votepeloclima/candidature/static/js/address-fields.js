@@ -2,44 +2,49 @@
   "use strict";
 
   $(function () {
-    const $stateField = $('[data-address-fields="state"]');
-    const $cityField = $('[data-address-fields="city"]');
+    $("[data-address-name]").each((i, item) => {
+      const $field = $(item);
+      
+      const name = $field.data("addressName");
+      const url = $field.data("addressUrl");
+      const placeholder = $field.data("addressPlaceholder") || "Select";
+      const value = $field.find(":selected").val();
 
-    if ($stateField.length) {
-      $stateField.prepend('<option value=""></option>').val("");
-      $stateField.select2({
+      const parentName = $field.data("addressParent");
+      const $parent = $(`[data-address-name="${parentName}"]`);
+
+      if (!value) {
+        // Add empty value only not selected value
+        $field.prepend(`<option value="">${placeholder}</option>`).val("");
+      }
+
+      $field.select2({
         allowClear: true,
         dropdownAutoWidth: true,
-        width: "auto",
-        placeholder: "Selecione seu estado"
+        width: "100%",
+        placeholder: placeholder
       });
 
-      $cityField.prepend('<option value=""></option>').val("");
-      $cityField.select2({
-        allowClear: true,
-        dropdownAutoWidth: true,
-        width: "auto",
-        placeholder: "Selecione sua cidade"
-      });
+      if ($parent) {
+        const changeEvent = (evt) => {
+          const value = evt.target.value;
 
-      var uf;
-      $stateField.on("change", (evt) => {
-        uf = evt.target.value;
-        const url = $stateField.data("address-url");
-
-        $cityField.empty();
-        $cityField.append('<option value="">Selecione sua cidade</option>');
-
-        if (uf) {
-          $.get(url + "?state=" + uf, (data) => {
-            $.each(data, (index, value) => {
-              $cityField.append(
-                '<option value="' + value.code + '">' + value.name + '</option>'
-              );
+          $field.empty();
+          $field.append(`<option value="">${placeholder}</option>`);
+  
+          if (value) {
+            $.get(url + "?" + parentName + "=" + value, (data) => {
+              $.each(data, (index, value) => {
+                $field.append(
+                  '<option value="' + value.code + '">' + value.name + '</option>'
+                );
+              });
             });
-          });
+          }
         }
-      });
-    }
+
+        $parent.on("change", changeEvent);
+      }
+    });
   });
 }(jQuery));
