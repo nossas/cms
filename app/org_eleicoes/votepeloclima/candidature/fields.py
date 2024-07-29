@@ -24,7 +24,7 @@ class ValidateOnceReCaptchaField(ReCaptchaField):
         return super(ValidateOnceReCaptchaField, self).clean(values)
 
 
-class Select2CustomWidget(Select2Widget):
+class CepWidget(Select2Widget):
 
     @property
     def media(self):
@@ -57,7 +57,7 @@ class Select2CustomWidget(Select2Widget):
 
 
 class StateCepField(forms.ChoiceField):
-    widget = Select2CustomWidget(
+    widget = CepWidget(
         attrs={
             "data-address-fields": "state",
             "data-address-url": reverse_lazy("address"),
@@ -72,7 +72,7 @@ class StateCepField(forms.ChoiceField):
 
 
 class CityCepField(forms.CharField):
-    widget = Select2CustomWidget(
+    widget = CepWidget(
         attrs={
             "data-address-fields": "city",
             "data-address-url": reverse_lazy("address"),

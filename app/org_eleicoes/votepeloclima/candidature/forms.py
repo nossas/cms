@@ -3,6 +3,9 @@ from django.core.exceptions import ValidationError
 
 from captcha.widgets import ReCaptchaV2Checkbox
 
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Row, Column
+
 from .models import CandidaturePoliticalParty, CandidatureIntendedPosition, CandidatureGender, CandidatureSexuality, CandidatureColor, CandidatureEducation
 
 
@@ -10,7 +13,6 @@ from .fields import (
     CheckboxTextField,
     CityCepField,
     InlineArrayField,
-    Select2CustomWidget,
     StateCepField,
     ValidateOnceReCaptchaField
 )
@@ -52,7 +54,6 @@ class ApplicationForm(DisabledMixin, forms.Form):
         label="Cargo pretendido",
         help_text="Selecione o cargo que você está concorrendo",
         choices=CandidatureIntendedPosition.choices,
-        widget=Select2CustomWidget()
     )
     state = StateCepField(label="Estado", help_text="Estado onde você está concorrendo")
     city = CityCepField(label="Cidade", help_text="Cidade onde você está concorrendo")
@@ -62,7 +63,6 @@ class ApplicationForm(DisabledMixin, forms.Form):
     political_party = forms.ChoiceField(
         label="Partido político",
         choices=CandidaturePoliticalParty.choices,
-        widget=Select2CustomWidget()
     )
 
     class Meta:
@@ -75,18 +75,15 @@ class ProfileForm(DisabledMixin, forms.Form):
     photo = forms.URLField(label="Foto", required=False)
     gender = forms.ChoiceField(
         label="Gênero",
-        choices=CandidatureGender.choices,
-        widget=Select2CustomWidget()
+        choices=CandidatureGender.choices
     )
     color = forms.ChoiceField(
         label="Raça",
-        choices=CandidatureColor.choices,
-        widget=Select2CustomWidget()
+        choices=CandidatureColor.choices
     )
     sexuality = forms.ChoiceField(
         label="Sexualidade",
-        choices=CandidatureSexuality.choices,
-        widget=Select2CustomWidget()
+        choices=CandidatureSexuality.choices
     )
     social_media = InlineArrayField(forms.URLField(required=False), label="Redes sociais", required=False)
 
@@ -102,8 +99,7 @@ class ProfileForm(DisabledMixin, forms.Form):
 class TrackForm(DisabledMixin, forms.Form):
     education = forms.ChoiceField(
         label="Escolaridade",
-        choices=CandidatureEducation.choices,
-        widget=Select2CustomWidget()
+        choices=CandidatureEducation.choices
     )
     employment = forms.CharField(label="Ocupação", required=False)
     short_description = forms.CharField(label="Minibio", help_text="Fale um pouco sobre você e sua jornada até aqui. Até 150 caracteres.", widget=forms.Textarea())
@@ -112,7 +108,7 @@ class TrackForm(DisabledMixin, forms.Form):
     def clean_milestones(self):
         value = self.cleaned_data['milestones']
         return value
-
+    
     class Meta:
         title = "Sobre sua trajetória"
         description = "Compartilhe um pouco sobre sua trajetória. Essas informações ajudarão os eleitores a conhecerem melhor sua história e seu compromisso com a causa."

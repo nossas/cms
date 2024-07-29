@@ -99,11 +99,11 @@ class RegisterView(NamedUrlSessionWizardView):
 
     def get_context_data(self, form, **kwargs):
         context = super().get_context_data(form, **kwargs)
-        current_form = self.get_form(step=self.steps.current)
 
-        form_title = getattr(current_form.Meta, "title", "")
-        form_description = getattr(current_form.Meta, "description", "")
-        form_footer_note = getattr(current_form.Meta, "footer_note", "")
+
+        form_title = getattr(form.Meta, "title", "")
+        form_description = getattr(form.Meta, "description", "")
+        form_footer_note = getattr(form.Meta, "footer_note", "")
 
         context.update({
             "wizard_title": form_title,
