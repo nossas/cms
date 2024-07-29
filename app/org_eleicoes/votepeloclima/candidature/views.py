@@ -117,7 +117,7 @@ class BaseRegisterView(NamedUrlSessionWizardView):
 
 
 class RegisterView(BaseRegisterView):
-    steps_hide_on_checkout = ["captcha"]
+    steps_hide_on_checkout = ["captcha", "compromissos"]
 
     def render_done(self, form, **kwargs):
         revalid = True
