@@ -72,7 +72,7 @@ class CepField(forms.ChoiceField):
         self.widget = CepWidget(attrs=widget_attrs)
 
         super().__init__(**kwargs)
-    
+
     def valid_value(self, value):
         is_valid = super().valid_value(value)
         if self.choices:
@@ -108,23 +108,39 @@ class TextareaInput(forms.Textarea):
 
     def __init__(self, label=None, help_text=None, attrs=None):
         self.label = label
+        self.help_text = help_text
         super().__init__(attrs=attrs)
 
     def get_context(self, name, value, attrs):
         attrs = {"rows": 4, **(attrs or {})}
         context = super().get_context(name, value, attrs)
-        context.update({"widget": {**context["widget"], "label": self.label}})
+        context.update(
+            {
+                "widget": {
+                    **context["widget"],
+                    "label": self.label,
+                    "help_text": self.help_text,
+                }
+            }
+        )
         return context
 
 
 class CheckboxTextWidget(forms.MultiWidget):
 
-    def __init__(self, checkbox_label, text_label=None, help_text=None, attrs=None):
+    def __init__(
+        self,
+        checkbox_label,
+        text_label=None,
+        text_help_text=None,
+        help_text=None,
+        attrs=None,
+    ):
         widgets = [
             SwitchInput(
                 attrs={"data-checktext": ""}, label=checkbox_label, help_text=help_text
             ),
-            TextareaInput(attrs=attrs, label=text_label),
+            TextareaInput(attrs=attrs, label=text_label, help_text=text_help_text),
         ]
 
         super().__init__(widgets, attrs)
@@ -167,6 +183,7 @@ class CheckboxTextField(forms.CharField):
         *,
         checkbox_label,
         text_label=None,
+        text_help_text=None,
         max_length=None,
         min_length=None,
         strip=True,
@@ -175,7 +192,10 @@ class CheckboxTextField(forms.CharField):
         **kwargs,
     ):
         self.widget = CheckboxTextWidget(
-            checkbox_label=checkbox_label, text_label=text_label, help_text=help_text
+            checkbox_label=checkbox_label,
+            text_label=text_label,
+            text_help_text=text_help_text,
+            help_text=help_text,
         )
 
         super().__init__(
@@ -292,11 +312,16 @@ class InlineArrayWidget(forms.MultiWidget):
 
         return context
 
+
 class CustomBoundField(forms.BoundField):
     def __str__(self):
-        help_text_html = f'<small>{self.field.add_help_text}</small>' if self.field.add_help_text else ''
+        help_text_html = (
+            f"<div class='form-text mb-3'>{self.field.add_help_text}</div>"
+            if self.field.add_help_text
+            else ""
+        )
         widget_html = self.as_widget()
-        return f'{help_text_html}{widget_html}'
+        return f"{help_text_html}{widget_html}"
 
 
 class InlineArrayField(SimpleArrayField):

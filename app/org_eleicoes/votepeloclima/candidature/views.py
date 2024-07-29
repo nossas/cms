@@ -13,7 +13,7 @@ from formtools.wizard.views import NamedUrlSessionWizardView
 
 from contrib.oauth.utils import send_confirmation_email
 from .models import CandidatureFlow, CandidatureFlowStatus, Candidature
-from .forms import register_form_list, InitialForm, FlagForm, AppointmentForm, ProfileForm
+from .forms import register_form_list, ProposeForm, AppointmentForm
 from .locations_utils import get_choices
 
 
@@ -126,8 +126,8 @@ class RegisterView(BaseRegisterView):
     def get_template_names(self):
         if self.steps.current == "checkout":
             return "candidature/checkout.html"
-        elif self.steps.current == "bandeiras-da-sua-candidatura":
-            return "candidature/bandeiras_da_sua_candidatura.html"
+        elif self.steps.current == "suas-propostas":
+            return "candidature/suas_propostas.html"
         elif self.steps.current == "captcha":
             return "candidature/captcha.html"
         elif self.steps.current == "informacoes-pessoais":
@@ -138,8 +138,8 @@ class RegisterView(BaseRegisterView):
         if self.steps.next:
             next_step = self.steps.next
             form_class = self.get_form_list().get(next_step)
-            if form_class:
-                return form_class().Meta.title
+            if hasattr(form_class.Meta, "title"):
+                return form_class.Meta.title
         return ""
 
     def get_context_data(self, form, **kwargs):
@@ -178,7 +178,7 @@ class RegisterView(BaseRegisterView):
 
         for step, form in form_dict.items():
             if step not in self.steps_hide_on_checkout and step != "checkout":
-                if isinstance(form, FlagForm):
+                if isinstance(form, ProposeForm):
                     values.update({"flags": form.cleaned_data})
                 elif isinstance(form, AppointmentForm):
                     values.update({"appointments": form.cleaned_data})

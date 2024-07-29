@@ -195,74 +195,92 @@ class ApplicationForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
                 self.fields["city"].choices = get_choices(state)
 
 
-class FlagForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
+
+propose_text_label = "Proposta"
+propose_text_help_text = "Descreva sua proposta de forma clara e objetiva. Máximo de 300 caracteres."
+
+class ProposeForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
     energia_renovavel = CheckboxTextField(
         checkbox_label="Energia Renovável",
-        text_label="Proposta",
-        help_text="Proin non nisl sed lorem pharetra blandit. Curabitur nec metus vitae libero elementum cursus. Suspendisse potenti. Praesent sit amet turpis vel lacus volutpat scelerisque. Proin non nisl sed lorem pharetra blandit.",
-        required=False,
+        text_label=propose_text_label,
+        text_help_text=propose_text_help_text,
+        required=False
     )
     transporte_e_mobilidade = CheckboxTextField(
-        checkbox_label="Transporte e Mobilidade", text_label="Proposta", required=False
+        checkbox_label="Transporte e Mobilidade",
+        text_label=propose_text_label,
+        text_help_text=propose_text_help_text,
+        required=False
     )
     agricultura_sustentavel = CheckboxTextField(
         checkbox_label="Agricultura Sustentável",
-        text_label="Proposta",
+        text_label=propose_text_label,
+        text_help_text=propose_text_help_text,
         required=False,
     )
     conservacao_e_florestas = CheckboxTextField(
         checkbox_label="Conservação e Florestas",
-        text_label="Proposta",
+        text_label=propose_text_label,
+        text_help_text=propose_text_help_text,
         required=False,
     )
     gestao_de_residuos = CheckboxTextField(
         checkbox_label="Gestão de Resíduos",
-        text_label="Proposta",
+        text_label=propose_text_label,
+        text_help_text=propose_text_help_text,
         required=False,
     )
     agua_e_saneamento = CheckboxTextField(
         checkbox_label="Água e Saneamento",
-        text_label="Proposta",
+        text_label=propose_text_label,
+        text_help_text=propose_text_help_text,
         required=False,
     )
     empregos_verdes = CheckboxTextField(
         checkbox_label="Empregos Verdes",
-        text_label="Proposta",
+        text_label=propose_text_label,
+        text_help_text=propose_text_help_text,
         required=False,
     )
     mercados_e_financas = CheckboxTextField(
         checkbox_label="Mercados e finanças",
-        text_label="Proposta",
+        text_label=propose_text_label,
+        text_help_text=propose_text_help_text,
         required=False,
     )
     urbanismo_e_direito_a_cidade = CheckboxTextField(
         checkbox_label="Urbanismo e Direito à Cidade",
-        text_label="Proposta",
+        text_label=propose_text_label,
+        text_help_text=propose_text_help_text,
         required=False,
     )
     combate_ao_racismo_ambiental = CheckboxTextField(
         checkbox_label="Combate ao Racismo Ambiental",
-        text_label="Proposta",
-        required=False,
+        text_label=propose_text_label,
+        text_help_text=propose_text_help_text,
+        required=False
     )
     direitos_indigenas = CheckboxTextField(
         checkbox_label="Direitos Indígenas",
-        text_label="Proposta",
-        required=False,
+        text_label=propose_text_label,
+        text_help_text=propose_text_help_text,
+        required=False
     )
     saude_e_clima = CheckboxTextField(
         checkbox_label="Saúde e Clima",
-        text_label="Proposta",
-        required=False,
+        text_label=propose_text_label,
+        text_help_text=propose_text_help_text,
+        required=False
     )
     adaptacao_climatica = CheckboxTextField(
         checkbox_label="Adaptação Climática",
-        text_label="Proposta",
-        required=False,
+        text_label=propose_text_label,
+        text_help_text=propose_text_help_text,
+        required=False
     )
 
     class Meta:
-        title = "Bandeiras e propostas"
+        title = "Suas propostas"
         model = CandidatureFlow
         entangled_fields = {
             "properties": [
@@ -298,7 +316,7 @@ class TrackForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
     employment = forms.CharField(label="Ocupação", required=False)
     short_description = forms.CharField(
         label="Minibio",
-        widget=forms.Textarea(),
+        widget=forms.Textarea(attrs={"placeholder": "Escreva uma breve biografia"}),
         help_text="Fale um pouco sobre você e sua jornada até aqui. Até 800 caracteres.",
     )
     milestones = InlineArrayField(
@@ -413,7 +431,7 @@ register_form_list = [
     ("compromissos", AppointmentForm),
     ("informacoes-pessoais", PersonalForm),
     ("informacoes-de-candidatura", ApplicationForm),
-    ("bandeiras-da-sua-candidatura", FlagForm),
+    ("suas-propostas", ProposeForm),
     ("sobre-sua-trajetoria", TrackForm),
     ("complemente-seu-perfil", ProfileForm),
     ("checkout", CheckoutForm),

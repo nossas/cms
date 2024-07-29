@@ -1,13 +1,17 @@
 {% extends "candidature/wizard_form.html" %}
 {% load i18n crispy_forms_tags %}
 
+{% block before_form %}
+<div class="mb-3">
+  <h1>Suas propostas</h1>
+  <p>Escolha até 3 pautas que você defenderá e descreva suas propostas para cada uma delas. Essas informações ajudarão os eleitores a entender melhor suas prioridades e ações.</p>
+</div>
+{% endblock %}
+
 {% block form_fields %}
-  {% csrf_token %}
-  {{ wizard.form.media }}
-  {{ wizard.management_form }}
   <div class="d-flex">
     <div class="w-50">
-      <h2>Selecione</h2>
+      <h3>Selecione até 3 pautas prioritárias</h3>
       <div id="selectzone">
       {% if wizard.form.forms %}
         {{ wizard.form.management_form }}
@@ -20,7 +24,7 @@
       </div>
     </div>
     <div class="w-50">
-      <h2>Propostas selecionadas</h2>
+      <h3>Descreva suas propostas</h3>
       <div id="dropzone"></div>
     </div>
   </div>
