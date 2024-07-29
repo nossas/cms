@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.serializers.json import DjangoJSONEncoder
 
+from .choices import CandidatureFlowStatus
+
 
 # Acompanhar validação da candidatura
 # Armazenar e acompanhar etapas do preenchimento das informações
@@ -48,14 +50,6 @@ class Candidature(models.Model):
             return self.candidatureflow.get_status_display
 
         return CandidatureFlowStatus.draft
-
-
-class CandidatureFlowStatus(models.TextChoices):
-    draft = "draft", "Editando"
-    submitted = "submitted", "Enviado"
-    invalid = "invalid", "Inválido"
-    is_valid = "is_valid", "Válido"
-    draft_requested = "draft_requested", "Edição Requisitada"
 
 
 class CandidatureFlow(models.Model):

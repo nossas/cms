@@ -8,6 +8,14 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Div, Field
 
 from .locations_utils import get_ufs, get_choices
+from .choices import (
+    PoliticalParty,
+    IntendedPosition,
+    Education,
+    Color,
+    Gender,
+    Sexuality,
+)
 from .models import CandidatureFlow
 from .fields import (
     ValidateOnceReCaptchaField,
@@ -84,7 +92,9 @@ class InitialForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
 
 class ApplicationForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
     number_id = forms.IntegerField(label="Número de identificação", min_value=1)
-    intended_position = forms.CharField(label="Cargo pretendido")
+    intended_position = forms.ChoiceField(
+        label="Cargo pretendido", choices=IntendedPosition.choices
+    )
     state = CepField(
         field="state",
         label="Estado",
@@ -97,7 +107,9 @@ class ApplicationForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
     is_collective_mandate = forms.BooleanField(
         label="É um mandato coletivo?", required=False
     )
-    political_party = forms.CharField(label="Partido político")
+    political_party = forms.ChoiceField(
+        label="Partido político", choices=PoliticalParty.choices
+    )
 
     class Meta:
         title = "Informações de candidatura"
@@ -145,71 +157,66 @@ class ApplicationForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
 
 
 class FlagForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
-    is_renewable_energy = CheckboxTextField(
+    energia_renovavel = CheckboxTextField(
         checkbox_label="Energia Renovável",
         text_label="Proposta",
         help_text="Proin non nisl sed lorem pharetra blandit. Curabitur nec metus vitae libero elementum cursus. Suspendisse potenti. Praesent sit amet turpis vel lacus volutpat scelerisque. Proin non nisl sed lorem pharetra blandit.",
         required=False,
     )
-    is_transport_and_mobility = CheckboxTextField(
+    transporte_e_mobilidade = CheckboxTextField(
         checkbox_label="Transporte e Mobilidade", text_label="Proposta", required=False
     )
-    is_sustainable_agriculture = CheckboxTextField(
+    agricultura_sustentavel = CheckboxTextField(
         checkbox_label="Agricultura Sustentável",
         text_label="Proposta",
         required=False,
     )
-    is_conservation_and_forests = CheckboxTextField(
+    conservacao_e_florestas = CheckboxTextField(
         checkbox_label="Conservação e Florestas",
         text_label="Proposta",
         required=False,
     )
-    is_waste_management = CheckboxTextField(
+    gestao_de_residuos = CheckboxTextField(
         checkbox_label="Gestão de Resíduos",
         text_label="Proposta",
         required=False,
     )
-    is_water_and_sanitation = CheckboxTextField(
+    agua_e_saneamento = CheckboxTextField(
         checkbox_label="Água e Saneamento",
         text_label="Proposta",
         required=False,
     )
-    is_green_jobs = CheckboxTextField(
+    empregos_verdes = CheckboxTextField(
         checkbox_label="Empregos Verdes",
         text_label="Proposta",
         required=False,
     )
-    is_markets_and_finance = CheckboxTextField(
+    mercados_e_financas = CheckboxTextField(
         checkbox_label="Mercados e finanças",
         text_label="Proposta",
         required=False,
     )
-    is_urbanism_and_the_right_to_the_city = CheckboxTextField(
+    urbanismo_e_direito_a_cidade = CheckboxTextField(
         checkbox_label="Urbanismo e Direito à Cidade",
         text_label="Proposta",
         required=False,
     )
-    is_combating_environmental_racism = CheckboxTextField(
+    combate_ao_racismo_ambiental = CheckboxTextField(
         checkbox_label="Combate ao Racismo Ambiental",
         text_label="Proposta",
         required=False,
     )
-    is_sustainable_agriculture = CheckboxTextField(
-        checkbox_label="Agricultura Sustentável",
-        text_label="Proposta",
-        required=False,
-    )
-    is_indigenous_rights = CheckboxTextField(
+    direitos_indigenas = CheckboxTextField(
         checkbox_label="Direitos Indígenas",
         text_label="Proposta",
         required=False,
     )
-    is_health_and_climate = CheckboxTextField(
+    saude_e_clima = CheckboxTextField(
         checkbox_label="Saúde e Clima",
         text_label="Proposta",
         required=False,
     )
-    is_climate_adaptation = CheckboxTextField(
+    adaptacao_climatica = CheckboxTextField(
         checkbox_label="Adaptação Climática",
         text_label="Proposta",
         required=False,
@@ -220,20 +227,19 @@ class FlagForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         model = CandidatureFlow
         entangled_fields = {
             "properties": [
-                "is_renewable_energy",
-                "is_transport_and_mobility",
-                "is_sustainable_agriculture",
-                "is_conservation_and_forests",
-                "is_waste_management",
-                "is_water_and_sanitation",
-                "is_green_jobs",
-                "is_markets_and_finance",
-                "is_urbanism_and_the_right_to_the_city",
-                "is_combating_environmental_racism",
-                "is_sustainable_agriculture",
-                "is_indigenous_rights",
-                "is_health_and_climate",
-                "is_climate_adaptation",
+                "energia_renovavel",
+                "transporte_e_mobilidade",
+                "agricultura_sustentavel",
+                "conservacao_e_florestas",
+                "gestao_de_residuos",
+                "agua_e_saneamento",
+                "empregos_verdes",
+                "mercados_e_financas",
+                "urbanismo_e_direito_a_cidade",
+                "combate_ao_racismo_ambiental",
+                "direitos_indigenas",
+                "saude_e_clima",
+                "adaptacao_climatica",
             ]
         }
         untangled_fields = []
@@ -241,15 +247,21 @@ class FlagForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
     def clean(self):
         cleaned_data = super().clean()
         selected_size = len(list(filter(lambda x: bool(x), cleaned_data.values())))
-        if selected_size > 5:
-            raise ValidationError("Selecione apenas 5 bandeiras")
+        if selected_size > 3:
+            raise ValidationError("Selecione apenas 3 bandeiras")
         return cleaned_data
 
 
 class TrackForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
-    education = forms.CharField(label="Escolaridade", required=False)
+    education = forms.ChoiceField(
+        label="Escolaridade", required=False, choices=Education.choices
+    )
     employment = forms.CharField(label="Ocupação", required=False)
-    short_description = forms.CharField(label="Minibio", widget=forms.Textarea())
+    short_description = forms.CharField(
+        label="Minibio",
+        widget=forms.Textarea(),
+        help_text="Fale um pouco sobre você e sua jornada até aqui. Até 800 caracteres.",
+    )
     milestones = InlineArrayField(
         forms.CharField(max_length=140, required=False),
         required=False,
@@ -293,10 +305,12 @@ class TrackForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
 
 class ProfileForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
     video = VideoField(label="Vídeo", required=False)
-    photo = forms.ImageField(label="Foto", required=False)
-    gender = forms.CharField(label="Gênero")
-    color = forms.CharField(label="Raça")
-    sexuality = forms.CharField(label="Sexualidade", required=False)
+    photo = forms.ImageField(label="Foto")
+    gender = forms.ChoiceField(label="Gênero", choices=Gender.choices)
+    color = forms.ChoiceField(label="Raça", choices=Color.choices)
+    sexuality = forms.ChoiceField(
+        label="Sexualidade", required=False, choices=Sexuality.choices
+    )
     social_media = InlineArrayField(
         forms.URLField(required=False),
         required=False,
@@ -344,7 +358,9 @@ class ProfileForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
 
 
 class CheckoutForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
-    is_valid = forms.BooleanField()
+    is_valid = forms.BooleanField(
+        label="Ao preencher o formulário e se cadastrar na Campanha, você está ciente de que seus dados pessoais serão tratados de acordo com o Aviso de Privacidade."
+    )
 
     class Meta:
         title = "Para finalizar, confirme suas informações"
