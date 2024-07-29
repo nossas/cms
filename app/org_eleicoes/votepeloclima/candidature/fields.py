@@ -269,16 +269,24 @@ class InlineArrayWidget(forms.MultiWidget):
 
     def get_context(self, name, value, attrs):
         context = super().get_context(name, value, attrs)
-        invalid_count = len(list(filter(lambda x: "is-invalid" in x.get("attrs", {}).get("class", ""), context["widget"]["subwidgets"])))
+        invalid_count = len(
+            list(
+                filter(
+                    lambda x: "is-invalid" in x.get("attrs", {}).get("class", ""),
+                    context["widget"]["subwidgets"],
+                )
+            )
+        )
         context["widget"].update(
             {
                 "item_label": self.item_label,
                 "add_button_text": self.add_button_text,
                 "size": self.size,
-                "attrs": {
-                    **context["widget"]["attrs"],
-                    "class": "is-invalid"
-                } if invalid_count > 0 else context["widget"]["attrs"]
+                "attrs": (
+                    {**context["widget"]["attrs"], "class": "is-invalid"}
+                    if invalid_count > 0
+                    else context["widget"]["attrs"]
+                ),
             }
         )
 
