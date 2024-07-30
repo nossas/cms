@@ -1,4 +1,4 @@
-from django.shortcuts import redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 from django.http import JsonResponse
@@ -227,3 +227,11 @@ class AddressView(View):
         state = request.GET.get('state')
         cities = get_choices(state)
         return JsonResponse([{'code': code, 'name': name} for code, name in cities], safe=False)
+
+
+class PublicCandidatureView(View):
+    template_name = "candidature/candidate_profile.html"
+
+    def get(self, request, slug):
+        candidature = get_object_or_404(Candidature, slug=slug)
+        return render(request, self.template_name, {"candidature": candidature})

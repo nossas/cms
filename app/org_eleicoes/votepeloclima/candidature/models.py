@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.serializers.json import DjangoJSONEncoder
+from django.utils.text import slugify
 
 
 # Acompanhar validação da candidatura
@@ -39,6 +40,9 @@ class Candidature(models.Model):
     # Step 6
     appointments = models.JSONField(blank=True)
 
+    # friendly url by ballot_name
+    slug = models.SlugField(max_length=100, unique=True, blank=True, null=True)
+
     class Meta:
         verbose_name = "Candidatura"
 
@@ -48,6 +52,11 @@ class Candidature(models.Model):
             return self.candidatureflow.get_status_display
 
         return CandidatureFlowStatus.draft
+    
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.ballot_name)
+        super().save(*args, **kwargs)
 
 
 class CandidatureFlowStatus(models.TextChoices):

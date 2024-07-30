@@ -1,0 +1,71 @@
+{% extends "votepeloclima/base.html" %}
+{% load crispy_forms_filters %}
+
+{% block navbar_actions %}
+<a class="btn btn-outline-light" href="{% url 'oauth:logout' %}">Sair</a>
+{% endblock %}
+
+{% block content %}
+<div class="container mx-auto py-5">
+    <div class="d-flex justify-content-between">
+        <div class="" style="width:538px;">
+            <h1>{{ candidature.ballot_name }}</h1>
+            <p>{{ candidature.short_description }}</p>
+            <p><strong>Email:</strong> {{ candidature.email }}</p>
+            <p><strong>CPF/CNPJ:</strong> {{ candidature.cpf_cnpj }}</p>
+            <p><strong>Data de Nascimento:</strong> {{ candidature.birth_date }}</p>
+            <p><strong>Gênero:</strong> {{ candidature.gender }}</p>
+            <p><strong>Cor:</strong> {{ candidature.color }}</p>
+            <p><strong>Sexualidade:</strong> {{ candidature.sexuality }}</p>
+            <p><strong>Educação:</strong> {{ candidature.education }}</p>
+            <p><strong>Emprego:</strong> {{ candidature.employment }}</p>
+            <p><strong>Partido Político:</strong> {{ candidature.political_party }}</p>
+            <p><strong>Estado:</strong> {{ candidature.state }}</p>
+            <p><strong>Cidade:</strong> {{ candidature.city }}</p>
+            <p><strong>Mandato Coletivo:</strong> {{ candidature.is_collective_mandate|yesno:"Sim,Não" }}</p>
+            
+            {% if candidature.photo %}
+                <p><img src="{{ candidature.photo.url }}" alt="Foto de {{ candidature.ballot_name }}" class="img-fluid"/></p>
+            {% endif %}
+            {% if candidature.video %}
+                <p><video controls src="{{ candidature.video.url }}" class="img-fluid"></video></p>
+            {% endif %}
+            
+            <h2>Redes Sociais</h2>
+            <ul>
+                {% for social in candidature.social_media %}
+                    <li><a href="{{ social.url }}">{{ social.name }}</a></li>
+                {% endfor %}
+            </ul>
+            
+            <h2>Marcos</h2>
+            <ul>
+                {% for milestone in candidature.milestones %}
+                    <li>{{ milestone }}</li>
+                {% endfor %}
+            </ul>
+            
+            <h2>Bandeiras</h2>
+            <ul>
+                {% for flag in candidature.flags %}
+                    <li>{{ flag }}</li>
+                {% endfor %}
+            </ul>
+            
+            <h2>Compromissos</h2>
+            <ul>
+                {% for appointment in candidature.appointments %}
+                    <li>{{ appointment }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <h2>Compartilhe este perfil</h2>
+    <div>
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode }}" target="_blank" class="btn btn-primary">Compartilhar no Facebook</a>
+        <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri|urlencode }}&text=Confira o perfil do candidato {{ candidature.ballot_name }}" target="_blank" class="btn btn-info">Compartilhar no Twitter</a>
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri|urlencode }}&title=Perfil do Candidato {{ candidature.ballot_name }}" target="_blank" class="btn btn-dark">Compartilhar no LinkedIn</a>
+    </div>
+</div>
+{% endblock %}
