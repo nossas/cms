@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     "formtools",
     "crispy_forms",
     "crispy_bootstrap5",
+    "bootstrap_datepicker_plus",
     # My Apps
     "contrib.bonde",
     "contrib.ga",

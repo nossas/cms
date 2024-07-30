@@ -6,6 +6,7 @@ from captcha.widgets import ReCaptchaV2Checkbox
 from entangled.forms import EntangledModelFormMixin
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Div, Field
+from bootstrap_datepicker_plus.widgets import DatePickerInput
 
 from .locations_utils import get_ufs, get_choices
 from .choices import (
@@ -93,7 +94,17 @@ class PersonalForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
             attrs={"placeholder": "Digite o nome que aparecerá na urna"}
         ),
     )
-    birth_date = forms.DateField(label="Data de nascimento")
+    birth_date = forms.DateField(
+        label="Data de nascimento",
+        widget=DatePickerInput(
+            attrs={"placeholder": "dd/mm/yyyy"},
+            options={
+                "locale": "pt-BR",
+                "format": "DD/MM/YYYY"
+            }
+        ),
+        localize="pt-BR"
+    )
     email = forms.EmailField(
         label="E-mail",
         widget=forms.EmailInput(attrs={"placeholder": "Digite seu e-mail"}),
@@ -112,6 +123,9 @@ class PersonalForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
             "properties": ["legal_name", "ballot_name", "birth_date", "email", "cpf"]
         }
         untangled_fields = []
+    
+    class Media:
+        js=["https://code.jquery.com/jquery-3.5.1.min.js"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
