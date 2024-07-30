@@ -1,0 +1,11 @@
+{% load crispy_forms_tags %}
+<div class="form-group">
+    <label class="form-label">{{ field.label }}</label>
+    {{ field }}
+    {% if field.help_text %}
+        <small class="form-text text-muted">{{ field.help_text }}</small>
+    {% endif %}
+    {% for error in field.errors %}
+        <div class="invalid-feedback">{{ error }}</div>
+    {% endfor %}
+</div>

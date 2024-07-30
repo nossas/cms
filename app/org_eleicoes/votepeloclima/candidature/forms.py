@@ -26,6 +26,7 @@ from .fields import (
     CepField,
     ToggleButtonField
 )
+from .layout import NoCrispyField
 
 
 class DisabledMixin:
@@ -210,7 +211,7 @@ class ApplicationForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
                 Div(Field("intended_position"), css_class="g-col-12 g-col-md-6"),
                 Div(Field("state"), css_class="g-col-12 g-col-md-6"),
                 Div(Field("city"), css_class="g-col-12 g-col-md-6"),
-                Div(Field("is_collective_mandate"), css_class="g-col-12 g-col-md-6"),
+                Div(NoCrispyField("is_collective_mandate"), css_class="g-col-12 g-col-md-6"),
                 Div(Field("political_party"), css_class="g-col-12 g-col-md-6"),
                 css_class="grid",
             )
