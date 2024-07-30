@@ -157,6 +157,7 @@ class RegisterView(BaseRegisterView):
                     checkout_steps.append(
                         dict(
                             name=step,
+                            title=form_class.Meta.title,
                             edit_url=reverse(self.url_name, kwargs={"step": step}),
                             form=form_class(disabled=True, instance=instance),
                             # data=data,

@@ -24,7 +24,7 @@ from .fields import (
     InlineArrayField,
     VideoField,
     CepField,
-    ToggleButtonField
+    ToggleButtonField,
 )
 from .layout import NoCrispyField
 
@@ -63,7 +63,7 @@ class AppointmentForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         text_html="""
 <span class='fw-semibold'>Aliquam porta libero et ligula euismod sodales.</span>
 <span class='form-text'>Vestibulum quis sapien mattis, porta diam quis, scelerisque neque. Integer id nisi in sem viverra mattis sit amet sit amet quam.</span>
-"""
+""",
     )
     appointment_2 = ToggleButtonField(
         required=False,
@@ -71,8 +71,8 @@ class AppointmentForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         text_html="""
 <span class='fw-semibold'>Aliquam porta libero et ligula euismod sodales.</span>
 <span class='form-text'>Vestibulum quis sapien mattis, porta diam quis, scelerisque neque. Integer id nisi in sem viverra mattis sit amet sit amet quam.</span>
-"""
-)
+""",
+    )
 
     class Meta:
         title = "Você assume compromisso com..."
@@ -99,12 +99,9 @@ class PersonalForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         label="Data de nascimento",
         widget=DatePickerInput(
             attrs={"placeholder": "dd/mm/yyyy"},
-            options={
-                "locale": "pt-BR",
-                "format": "DD/MM/YYYY"
-            }
+            options={"locale": "pt-BR", "format": "DD/MM/YYYY"},
         ),
-        localize="pt-BR"
+        localize="pt-BR",
     )
     email = forms.EmailField(
         label="E-mail",
@@ -124,9 +121,9 @@ class PersonalForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
             "properties": ["legal_name", "ballot_name", "birth_date", "email", "cpf"]
         }
         untangled_fields = []
-    
+
     class Media:
-        js=["https://code.jquery.com/jquery-3.5.1.min.js"]
+        js = ["https://code.jquery.com/jquery-3.5.1.min.js"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -140,6 +137,7 @@ class PersonalForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
                 Div(Field("email"), css_class="g-col-12 g-col-md-6"),
                 Div(Field("cpf"), css_class="g-col-12 g-col-md-6"),
                 css_class="grid",
+                style="grid-row-gap:0;"
             )
         )
 
@@ -176,9 +174,7 @@ class ApplicationForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         label="É um mandato coletivo?",
         required=False,
         initial=False,
-        widget=forms.RadioSelect(
-            choices=((True, "Sim"), (False, "Não"))
-        )
+        widget=forms.RadioSelect(choices=((True, "Sim"), (False, "Não"))),
     )
     political_party = forms.ChoiceField(
         label="Partido político", choices=PoliticalParty.choices
@@ -211,9 +207,13 @@ class ApplicationForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
                 Div(Field("intended_position"), css_class="g-col-12 g-col-md-6"),
                 Div(Field("state"), css_class="g-col-12 g-col-md-6"),
                 Div(Field("city"), css_class="g-col-12 g-col-md-6"),
-                Div(NoCrispyField("is_collective_mandate"), css_class="g-col-12 g-col-md-6"),
+                Div(
+                    NoCrispyField("is_collective_mandate"),
+                    css_class="g-col-12 g-col-md-6",
+                ),
                 Div(Field("political_party"), css_class="g-col-12 g-col-md-6"),
                 css_class="grid",
+                style="grid-row-gap:0;"
             )
         )
         data = kwargs.get("data", None)
@@ -230,22 +230,24 @@ class ApplicationForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
                 self.fields["city"].choices = get_choices(state)
 
 
-
 propose_text_label = "Proposta"
-propose_text_help_text = "Descreva sua proposta de forma clara e objetiva. Máximo de 300 caracteres."
+propose_text_help_text = (
+    "Descreva sua proposta de forma clara e objetiva. Máximo de 300 caracteres."
+)
+
 
 class ProposeForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
     energia_renovavel = CheckboxTextField(
         checkbox_label="Energia Renovável",
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
-        required=False
+        required=False,
     )
     transporte_e_mobilidade = CheckboxTextField(
         checkbox_label="Transporte e Mobilidade",
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
-        required=False
+        required=False,
     )
     agricultura_sustentavel = CheckboxTextField(
         checkbox_label="Agricultura Sustentável",
@@ -293,25 +295,25 @@ class ProposeForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         checkbox_label="Combate ao Racismo Ambiental",
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
-        required=False
+        required=False,
     )
     direitos_indigenas = CheckboxTextField(
         checkbox_label="Direitos Indígenas",
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
-        required=False
+        required=False,
     )
     saude_e_clima = CheckboxTextField(
         checkbox_label="Saúde e Clima",
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
-        required=False
+        required=False,
     )
     adaptacao_climatica = CheckboxTextField(
         checkbox_label="Adaptação Climática",
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
-        required=False
+        required=False,
     )
 
     class Meta:
@@ -391,6 +393,7 @@ class TrackForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
                 Div(Field("short_description"), css_class="g-col-12"),
                 Div(Field("milestones"), css_class="g-col-12"),
                 css_class="grid",
+                style="grid-row-gap:0;"
             )
         )
 
@@ -445,6 +448,7 @@ class ProfileForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
                 Div(Field("sexuality"), css_class="g-col-12 g-col-md-6"),
                 Div(Field("social_media"), css_class="g-col-12"),
                 css_class="grid",
+                style="grid-row-gap:0;"
             )
         )
 
