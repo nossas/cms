@@ -132,6 +132,8 @@ class RegisterView(BaseRegisterView):
             return "candidature/captcha.html"
         elif self.steps.current == "informacoes-pessoais":
             return "candidature/informacoes_pessoais.html"
+        elif self.steps.current == "compromissos":
+            return "candidature/compromissos.html"
         return super().get_template_names()
 
     def get_next_step_title(self):

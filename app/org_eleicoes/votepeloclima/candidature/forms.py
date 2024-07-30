@@ -23,6 +23,7 @@ from .fields import (
     InlineArrayField,
     VideoField,
     CepField,
+    ToggleButtonField
 )
 
 
@@ -54,8 +55,22 @@ class CaptchaForm(EntangledModelFormMixin, forms.ModelForm):
 
 
 class AppointmentForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
-    appointment_1 = forms.BooleanField(label="Compromisso 1", required=False)
-    appointment_2 = forms.BooleanField(label="Compromisso 2", required=False)
+    appointment_1 = ToggleButtonField(
+        required=False,
+        icon_name="ds-icon-wrapper-2",
+        text_html="""
+<span class='fw-semibold'>Aliquam porta libero et ligula euismod sodales.</span>
+<span class='form-text'>Vestibulum quis sapien mattis, porta diam quis, scelerisque neque. Integer id nisi in sem viverra mattis sit amet sit amet quam.</span>
+"""
+    )
+    appointment_2 = ToggleButtonField(
+        required=False,
+        icon_name="ds-icon-wrapper",
+        text_html="""
+<span class='fw-semibold'>Aliquam porta libero et ligula euismod sodales.</span>
+<span class='form-text'>Vestibulum quis sapien mattis, porta diam quis, scelerisque neque. Integer id nisi in sem viverra mattis sit amet sit amet quam.</span>
+"""
+)
 
     class Meta:
         title = "Você assume compromisso com..."

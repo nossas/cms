@@ -324,6 +324,11 @@ class CustomBoundField(forms.BoundField):
         return f"{help_text_html}{widget_html}"
 
 
+class NoLabelBoundField(forms.BoundField):
+    def label_tag(self, contents=None, attrs=None, label_suffix=None):
+        return ""
+
+
 class InlineArrayField(SimpleArrayField):
     def __init__(
         self,
@@ -354,9 +359,44 @@ class InlineArrayField(SimpleArrayField):
     def get_bound_field(self, form, field_name):
         return CustomBoundField(form, self, field_name)
 
-    # def render(self, name, value, attrs=None, renderer=None):
-    #     import ipdb;ipdb.set_trace()
-    #     widget_html = super(InlineArrayField, self).widget.render(name, value, attrs, renderer)
-    #     help_text_html = f'<small>{self.help_text}</small>' if self.help_text else ''
-    #     errors_html = ''.join([f'<span class="error">{error}</span>' for error in self.errors])
-    #     return f'<div class="custom-field">{help_text_html}{errors_html}{widget_html}</div>'
+
+class ToogleButtonInput(forms.CheckboxInput):
+    template_name = "forms/widgets/toggle_button.html"
+
+    @property
+    def media(self):
+        return forms.Media(
+            css={"screen": ["css/icons.css"]}
+        )
+
+    def __init__(self, text_html, icon_name=None, *args, **kwargs):
+        self.text_html = text_html
+        self.icon_name = icon_name
+        super().__init__(*args, **kwargs)
+
+    def get_context(self, name, value, attrs):
+        context = super().get_context(name, value, attrs)
+
+        context["widget"].update(
+            {
+                "text_html": self.text_html,
+                "icon_name": self.icon_name,
+                "attrs": {**context["widget"].get("attrs", {}), "class": "btn-check"},
+            }
+        )
+
+        return context
+
+
+class ToggleButtonField(forms.BooleanField):
+
+    def __init__(self, text_html, icon_name=None, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.widget = ToogleButtonInput(text_html=text_html, icon_name=icon_name)
+
+    def get_bound_field(self, form, field_name):
+        """
+        Return a BoundField instance that will be used when accessing the form
+        field in a template.
+        """
+        return NoLabelBoundField(form, self, field_name)
