@@ -177,13 +177,15 @@ class RegisterView(BaseRegisterView):
         values = {}
 
         for step, form in form_dict.items():
-            if step not in self.steps_hide_on_checkout and step != "checkout":
+            if step not in ("captcha", "checkout"):
                 if isinstance(form, ProposeForm):
-                    values.update({"flags": form.cleaned_data})
+                    values.update({"flags": form.cleaned_data.get("properties")})
                 elif isinstance(form, AppointmentForm):
-                    values.update({"appointments": form.cleaned_data})
+                    values.update({"appointments": form.cleaned_data.get("properties")})
                 else:
-                    values.update(form.cleaned_data)
+                    cleaned = form.cleaned_data.copy()
+                    properties = cleaned.pop("properties", {})
+                    values.update({**properties, **cleaned})
 
         obj = Candidature.objects.create(**values)
         flow.candidature = obj
