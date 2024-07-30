@@ -313,7 +313,7 @@ class InlineArrayWidget(forms.MultiWidget):
         return context
 
 
-class CustomBoundField(forms.BoundField):
+class ChangeHelpTextBoundField(forms.BoundField):
     def __str__(self):
         help_text_html = (
             f"<div class='form-text mb-3'>{self.field.add_help_text}</div>"
@@ -357,7 +357,7 @@ class InlineArrayField(SimpleArrayField):
         )
 
     def get_bound_field(self, form, field_name):
-        return CustomBoundField(form, self, field_name)
+        return ChangeHelpTextBoundField(form, self, field_name)
 
 
 class ToogleButtonInput(forms.CheckboxInput):
