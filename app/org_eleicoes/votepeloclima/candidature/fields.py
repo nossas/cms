@@ -52,7 +52,7 @@ class CepWidget(Select2Widget):
             js=["https://code.jquery.com/jquery-3.5.1.min.js"]
             + select2_js
             + i18n_file
-            + ["js/address-fields.js"],
+            + ["js/cep-fields.js"],
             css={"screen": select2_css},
         )
 

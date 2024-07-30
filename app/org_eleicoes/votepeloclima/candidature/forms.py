@@ -161,7 +161,7 @@ class ApplicationForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         field="state",
         label="Estado",
         placeholder="Selecione",
-        choices=lazy(get_ufs, list)(),
+        choices=[("", "Selecione")] + lazy(get_ufs, list)(),
         help_text="Estado onde você está concorrendo",
     )
     city = CepField(
@@ -172,7 +172,12 @@ class ApplicationForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         help_text="Cidade onde você está concorrendo",
     )
     is_collective_mandate = forms.BooleanField(
-        label="É um mandato coletivo?", required=False
+        label="É um mandato coletivo?",
+        required=False,
+        initial=False,
+        widget=forms.RadioSelect(
+            choices=((True, "Sim"), (False, "Não"))
+        )
     )
     political_party = forms.ChoiceField(
         label="Partido político", choices=PoliticalParty.choices
@@ -199,17 +204,17 @@ class ApplicationForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         self.helper = FormHelper()
         self.helper.form_tag = False
         # TODO: investigar porque quando usamos layout o select2 duplica o campo
-        # self.helper.layout = Layout(
-        #     Div(
-        #         Div(Field("number_id"), css_class="g-col-12 g-col-md-6"),
-        #         Div(Field("intended_position"), css_class="g-col-12 g-col-md-6"),
-        #         Div(Field("state"), css_class="g-col-12 g-col-md-6"),
-        #         Div(Field("city"), css_class="g-col-12 g-col-md-6"),
-        #         Div(Field("is_collective_mandate"), css_class="g-col-12 g-col-md-6"),
-        #         Div(Field("political_party"), css_class="g-col-12 g-col-md-6"),
-        #         css_class="grid",
-        #     )
-        # )
+        self.helper.layout = Layout(
+            Div(
+                Div(Field("number_id"), css_class="g-col-12 g-col-md-6"),
+                Div(Field("intended_position"), css_class="g-col-12 g-col-md-6"),
+                Div(Field("state"), css_class="g-col-12 g-col-md-6"),
+                Div(Field("city"), css_class="g-col-12 g-col-md-6"),
+                Div(Field("is_collective_mandate"), css_class="g-col-12 g-col-md-6"),
+                Div(Field("political_party"), css_class="g-col-12 g-col-md-6"),
+                css_class="grid",
+            )
+        )
         data = kwargs.get("data", None)
         instance = kwargs.get("instance", None)
 
