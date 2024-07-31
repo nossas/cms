@@ -15,7 +15,7 @@ from formtools.wizard.views import NamedUrlSessionWizardView
 
 from contrib.oauth.utils import send_confirmation_email
 from .models import CandidatureFlow, CandidatureFlowStatus, Candidature
-from .forms import register_form_list, ProposeForm, AppointmentForm, ProfileForm
+from .forms import register_form_list, ProposeForm, AppointmentForm
 from .locations_utils import get_choices
 
 
@@ -26,7 +26,7 @@ def files_is_equal(file1, file2):
     hash1_sha256 = hashlib.sha256()
     for block in iter(lambda: file1.read(4096), b""):
         hash1_sha256.update(block)
-    
+
     hash2_sha256 = hashlib.sha256()
     for block in iter(lambda: file2.read(4096), b""):
         hash2_sha256.update(block)
@@ -39,33 +39,23 @@ class BaseRegisterView(NamedUrlSessionWizardView):
     form_list = register_form_list
     template_name = "candidature/wizard_form.html"
     file_storage = default_storage
-    # user = None
-
-    # def dispatch(self, request, *args, **kwargs):
-    #     response = super().dispatch(request, *args, **kwargs)
-        
-    #     # Atualiza o atributo instance do storage com o Fluxo de Candidatura relacionado ao usuário preenchido no e-mail
-    #     # Candidatura deve estar habilita como draft
-    #     data = self.storage.data.get("step_data")
-    #     if "informacoes-iniciais" in data and "informacoes-iniciais-email" in data.get("informacoes-iniciais"):
-    #         email = self.storage.data.get("step_data").get("informacoes-iniciais").get("informacoes-iniciais-email")[0]
-    #         user = User.objects.get(email=email)
-    #         self.storage.instance, created = CandidatureFlow.objects.get_or_create(CandidatureFlow.objects.get_or_create(user=user))
-
-    #     return response
 
     def _get_instance(self):
         if not self._instance:
             step_name = "informacoes-pessoais"
-            email = self.storage.data.get("step_data", {}).get(step_name, {}).get(f"{step_name}-email", [None])[0]
+            email = (
+                self.storage.data.get("step_data", {})
+                .get(step_name, {})
+                .get(f"{step_name}-email", [None])[0]
+            )
             try:
                 user = User.objects.get(email=email)
                 self._instance = user.candidatureflow
             except User.DoesNotExist:
                 pass
-        
+
         return self._instance
-    
+
     instance = property(_get_instance)
 
     def get_current_user(self):
@@ -105,14 +95,14 @@ class BaseRegisterView(NamedUrlSessionWizardView):
                         # Remove old files
                         instance_field.delete()
                         setattr(instance, field, value)
-            
+
             instance.save()
-        
+
         return instance
 
     def upsert_instance(self, form, current_step, user):
         instance, created = CandidatureFlow.objects.get_or_create(user=user)
-        
+
         if created:
             for step, FormClass in register_form_list[1:]:
                 if step == current_step:
@@ -127,7 +117,7 @@ class BaseRegisterView(NamedUrlSessionWizardView):
         self.save_obj(instance, form)
 
         return created
-    
+
     def process_step_files(self, form):
         # Save file method on save_obj in model
         return None
@@ -152,8 +142,10 @@ class BaseRegisterView(NamedUrlSessionWizardView):
         if user:
             self.upsert_instance(form, current_step, user)
 
-        # import ipdb;ipdb.set_trace()
         return form_data
+
+    def get_form_instance(self, step):
+        return self.instance
 
 
 class RegisterView(BaseRegisterView):
@@ -243,13 +235,17 @@ class EditRegisterView(LoginRequiredMixin, RegisterView):
     login_url = reverse_lazy("oauth:login")
 
     def has_permission(self):
-        return self.request.user.candidatureflow and self.request.user.candidatureflow.status == CandidatureFlowStatus.draft
-    
+        return (
+            self.request.user.candidatureflow
+            and self.request.user.candidatureflow.status == CandidatureFlowStatus.draft
+        )
+
     def dispatch(self, request, *args, **kwargs):
         if not self.has_permission():
-            return HttpResponseForbidden("You do not have permission to edit Candidature")
+            return HttpResponseForbidden(
+                "You do not have permission to edit Candidature"
+            )
         return super().dispatch(request, *args, **kwargs)
-        
 
     def get_form_initial(self, step):
         """
@@ -263,7 +259,7 @@ class EditRegisterView(LoginRequiredMixin, RegisterView):
 
             for key, value in cflow.properties.items():
                 if key.startswith(step):
-                    copyKey = key.replace(f'{step}-', '')
+                    copyKey = key.replace(f"{step}-", "")
                     initial_data[copyKey] = value[0]
 
         return self.initial_dict.get(step, initial_data)
@@ -281,17 +277,27 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         for step_name, form_class in register_form_list:
             if step_name not in self.steps_hide_on_checkout:
                 initial_data = {}
-                for key in list(filter(lambda x: x.startswith(step_name), candidature_flow.properties.keys())):
-                    initial_data[key.replace(step_name + "-", "")] = candidature_flow.properties.get(key)[0]
-                
-                checkout_steps.append(dict(
-                    name=step_name,
-                    edit_url=reverse("register_edit_step", kwargs={"step": step_name}),
-                    form=form_class(data=initial_data, disabled=True)
-                ))
-        
-        return checkout_steps
+                for key in list(
+                    filter(
+                        lambda x: x.startswith(step_name),
+                        candidature_flow.properties.keys(),
+                    )
+                ):
+                    initial_data[key.replace(step_name + "-", "")] = (
+                        candidature_flow.properties.get(key)[0]
+                    )
 
+                checkout_steps.append(
+                    dict(
+                        name=step_name,
+                        edit_url=reverse(
+                            "register_edit_step", kwargs={"step": step_name}
+                        ),
+                        form=form_class(data=initial_data, disabled=True),
+                    )
+                )
+
+        return checkout_steps
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -299,16 +305,20 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         if not self.request.user.is_staff:
             checkout_steps = self.get_checkout_steps()
             # checkout_steps = []
-            context.update({
-                "candidature_flow": self.request.user.candidatureflow,
-                "checkout_steps": checkout_steps
-            })
+            context.update(
+                {
+                    "candidature_flow": self.request.user.candidatureflow,
+                    "checkout_steps": checkout_steps,
+                }
+            )
 
         return context
 
 
 class AddressView(View):
     def get(self, request, *args, **kwargs):
-        state = request.GET.get('state')
+        state = request.GET.get("state")
         cities = get_choices(state)
-        return JsonResponse([{'code': code, 'name': name} for code, name in cities], safe=False)
+        return JsonResponse(
+            [{"code": code, "name": name} for code, name in cities], safe=False
+        )

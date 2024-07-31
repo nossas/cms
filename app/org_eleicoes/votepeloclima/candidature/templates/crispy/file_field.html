@@ -7,8 +7,9 @@
         </label>
     {% endif %}
     {% for widget in field.subwidgets %}
-    {% if widget.data.is_initial %}
-    <div class="input-group mb-2">
+    <!-- Versão preview apenas quando editável -->
+    {% if widget.data.is_initial and not widget.data.attrs.disabled %}
+    <div class="input-group mb-2">    
         <span class="input-group-text">{{ widget.data.initial_text }}</span>
         <div class="form-control d-flex h-auto">
             <span class="text-break flex-grow-1">
@@ -25,9 +26,25 @@
         </div>
     </div>
     {% endif %}
+    <!-- Versão preview apenas quando desabilitado -->
+    {% if widget.data.attrs.disabled and field.value %}
+    <div>
+        <!-- Alterar o render pra ser mais generico -->
+        {% if field.name == "photo" %}
+        <img src="{{ field.value.url }}" width="237" height="240"/>
+        {% elif field.name == "video" %}
+        <video width="100%" height="240" controls muted>
+            <source src="{{field.value.url}}" type="video/mp4" />
+            Your browser does not support the video tag.
+        </video>
+        {% endif %}
+        <!-- <p>renderiza um tipo de arquivo: {{ field.name }}</p> -->
+    </div>
+    {% else %}
     <div{% if field.errors %} class="is-invalid"{%endif%}>
         <input type="{{ widget.data.type }}" name="{{ widget.data.name }}" class="form-control{% if widget.data.attrs.class %} {{ widget.data.attrs.class }}{% endif %}{% if field.errors %} is-invalid{%endif%}"{% if field.field.disabled %} disabled{% endif %}{% for name, value in widget.data.attrs.items %}{% if value is not False and name != 'class' %} {{ name }}{% if value is not True %}="{{ value|stringformat:'s' }}"{% endif %}{% endif %}{% endfor %}>
         {% include 'bootstrap5/layout/help_text_and_errors.html' %}
     </div>
+    {% endif %}
     {% endfor %}
 </div>
