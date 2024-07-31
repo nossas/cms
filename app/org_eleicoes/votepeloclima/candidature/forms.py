@@ -24,10 +24,9 @@ from .fields import (
     InlineArrayField,
     CepField,
     ToggleButtonField,
-    VideoField,
-    ImageField
+    VideoField
 )
-from .layout import NoCrispyField
+from .layout import NoCrispyField, FileField
 
 
 class DisabledMixin:
@@ -401,7 +400,7 @@ class TrackForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
 
 class ProfileForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
     video = VideoField(label="Vídeo", required=False)
-    photo = ImageField(label="Foto")
+    photo = forms.ImageField(label="Foto")
     gender = forms.ChoiceField(label="Gênero", choices=Gender.choices)
     color = forms.ChoiceField(label="Raça", choices=Color.choices)
     sexuality = forms.ChoiceField(
@@ -442,8 +441,8 @@ class ProfileForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         self.helper.form_tag = False
         self.helper.layout = Layout(
             Div(
-                Div(Field("photo"), css_class="g-col-12 g-col-md-6"),
-                Div(Field("video"), css_class="g-col-12 g-col-md-6"),
+                Div(FileField("photo"), css_class="g-col-12 g-col-md-6"),
+                Div(FileField("video"), css_class="g-col-12 g-col-md-6"),
                 Div(Field("gender"), css_class="g-col-12 g-col-md-6"),
                 Div(Field("color"), css_class="g-col-12 g-col-md-6"),
                 Div(Field("sexuality"), css_class="g-col-12 g-col-md-6"),

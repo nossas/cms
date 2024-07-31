@@ -369,16 +369,7 @@ class ToggleButtonField(forms.BooleanField):
         return NoLabelBoundField(form, self, field_name)
 
 
-class FileInput(forms.ClearableFileInput):
-    template_name = "forms/widgets/file_input.html"
-
-
-class ImageField(forms.ImageField):
-    widget = FileInput
-
-
 class VideoField(forms.FileField):
-    widget = FileInput
     default_validators = [
         FileExtensionValidator(
             allowed_extensions=["MOV", "avi", "mp4", "webm", "mkv"],
