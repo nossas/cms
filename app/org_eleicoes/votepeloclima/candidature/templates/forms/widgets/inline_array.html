@@ -11,7 +11,7 @@
                     type="{{ subwidget.type }}"
                     name="{{ subwidget.name }}"
                     id="{{ subwidget.id }}"
-                    {% if widget.value != None %} value="{{ subwidget.value|stringformat:'s' }}"{% endif %}
+                    {% if subwidget.value %} value="{{ subwidget.value|stringformat:'s' }}"{% endif %}
                     {% include "django/forms/widgets/attrs.html" with widget=subwidget %}
                 />
                 {% if not subwidget.attrs.disabled %}
