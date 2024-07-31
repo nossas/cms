@@ -221,37 +221,6 @@ class CheckboxTextField(forms.CharField):
     #     return bound_field
 
 
-class VideoField(forms.FileField):
-    default_validators = [
-        FileExtensionValidator(
-            allowed_extensions=["MOV", "avi", "mp4", "webm", "mkv"],
-            message="Tipo de arquivo não suportado.",
-        )
-    ]
-
-    def __init__(
-        self, *, max_size=50, max_length=None, allow_empty_file=False, **kwargs
-    ):
-        super().__init__(
-            max_length=max_length, allow_empty_file=allow_empty_file, **kwargs
-        )
-        # 50MB
-        self.max_size = max_size * 1024 * 1024
-        self.widget.attrs["accept"] = "video/*"
-
-    def clean(self, value, initial):
-        value = super().clean(value, initial)
-        if value:
-            if "video" in value.content_type:
-                if value.size > self.max_size:
-                    raise forms.ValidationError(
-                        "Por favor, escolha um video com tamanho de até %s. Tamanho Atual %s"
-                        % (filesizeformat(self.max_size), filesizeformat(value.size))
-                    )
-
-        return value
-
-
 class InlineArrayWidget(forms.MultiWidget):
     template_name = "forms/widgets/inline_array.html"
 
@@ -365,9 +334,7 @@ class ToogleButtonInput(forms.CheckboxInput):
 
     @property
     def media(self):
-        return forms.Media(
-            css={"screen": ["css/icons.css"]}
-        )
+        return forms.Media(css={"screen": ["css/icons.css"]})
 
     def __init__(self, text_html, icon_name=None, *args, **kwargs):
         self.text_html = text_html
@@ -400,3 +367,49 @@ class ToggleButtonField(forms.BooleanField):
         field in a template.
         """
         return NoLabelBoundField(form, self, field_name)
+
+
+class FileInput(forms.ClearableFileInput):
+    template_name = "forms/widgets/file_input.html"
+
+
+class ImageField(forms.ImageField):
+    widget = FileInput
+
+
+class VideoField(forms.FileField):
+    widget = FileInput
+    default_validators = [
+        FileExtensionValidator(
+            allowed_extensions=["MOV", "avi", "mp4", "webm", "mkv"],
+            message="Tipo de arquivo não suportado.",
+        )
+    ]
+
+    def __init__(
+        self, *, max_size=50, max_length=None, allow_empty_file=False, **kwargs
+    ):
+        super().__init__(
+            max_length=max_length, allow_empty_file=allow_empty_file, **kwargs
+        )
+        # 50MB
+        self.max_size = max_size * 1024 * 1024
+        self.widget.attrs["accept"] = "video/*"
+
+    def clean(self, value, initial):
+        value = super().clean(value, initial)
+        if value:
+            content_type = getattr(value, "content_type", None)
+            if not content_type:
+                import mimetypes
+
+                content_type, _ = mimetypes.guess_type(value.file.name)
+
+            if "video" in content_type:
+                if value.size > self.max_size:
+                    raise forms.ValidationError(
+                        "Por favor, escolha um video com tamanho de até %s. Tamanho Atual %s"
+                        % (filesizeformat(self.max_size), filesizeformat(value.size))
+                    )
+
+        return value

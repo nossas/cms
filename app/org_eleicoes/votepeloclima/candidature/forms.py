@@ -22,9 +22,10 @@ from .fields import (
     ValidateOnceReCaptchaField,
     CheckboxTextField,
     InlineArrayField,
-    VideoField,
     CepField,
     ToggleButtonField,
+    VideoField,
+    ImageField
 )
 from .layout import NoCrispyField
 
@@ -400,7 +401,7 @@ class TrackForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
 
 class ProfileForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
     video = VideoField(label="Vídeo", required=False)
-    photo = forms.ImageField(label="Foto")
+    photo = ImageField(label="Foto")
     gender = forms.ChoiceField(label="Gênero", choices=Gender.choices)
     color = forms.ChoiceField(label="Raça", choices=Color.choices)
     sexuality = forms.ChoiceField(

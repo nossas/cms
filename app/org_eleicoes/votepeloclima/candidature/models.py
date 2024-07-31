@@ -47,6 +47,9 @@ class Candidature(models.Model):
 
 class CandidatureFlow(models.Model):
     # Propriedades só podem ser editadas quando status for `draft`
+    photo = models.ImageField(upload_to="tmp/photos/", null=True)
+    video = models.FileField(upload_to="tmp/videos/", null=True, blank=True)
+
     properties = models.JSONField(blank=True, encoder=DjangoJSONEncoder, default=dict)
     status = models.CharField(
         max_length=50,

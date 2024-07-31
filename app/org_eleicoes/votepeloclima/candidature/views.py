@@ -1,3 +1,5 @@
+import hashlib
+
 from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
@@ -13,14 +15,27 @@ from formtools.wizard.views import NamedUrlSessionWizardView
 
 from contrib.oauth.utils import send_confirmation_email
 from .models import CandidatureFlow, CandidatureFlowStatus, Candidature
-from .forms import register_form_list, ProposeForm, AppointmentForm
+from .forms import register_form_list, ProposeForm, AppointmentForm, ProfileForm
 from .locations_utils import get_choices
 
 
 initial_step_name = register_form_list[2][0]
 
 
+def files_is_equal(file1, file2):
+    hash1_sha256 = hashlib.sha256()
+    for block in iter(lambda: file1.read(4096), b""):
+        hash1_sha256.update(block)
+    
+    hash2_sha256 = hashlib.sha256()
+    for block in iter(lambda: file2.read(4096), b""):
+        hash2_sha256.update(block)
+
+    return hash1_sha256.hexdigest() == hash2_sha256.hexdigest()
+
+
 class BaseRegisterView(NamedUrlSessionWizardView):
+    _instance = None
     form_list = register_form_list
     template_name = "candidature/wizard_form.html"
     file_storage = default_storage
@@ -38,6 +53,20 @@ class BaseRegisterView(NamedUrlSessionWizardView):
     #         self.storage.instance, created = CandidatureFlow.objects.get_or_create(CandidatureFlow.objects.get_or_create(user=user))
 
     #     return response
+
+    def _get_instance(self):
+        if not self._instance:
+            step_name = "informacoes-pessoais"
+            email = self.storage.data.get("step_data", {}).get(step_name, {}).get(f"{step_name}-email", [None])[0]
+            try:
+                user = User.objects.get(email=email)
+                self._instance = user.candidatureflow
+            except User.DoesNotExist:
+                pass
+        
+        return self._instance
+    
+    instance = property(_get_instance)
 
     def get_current_user(self):
         data = self.get_cleaned_data_for_step(initial_step_name)
@@ -68,6 +97,14 @@ class BaseRegisterView(NamedUrlSessionWizardView):
                     instance.properties.update(value)
                 elif field not in ("photo", "video"):
                     setattr(instance, field, value)
+                else:
+                    instance_field = getattr(instance, field)
+                    if not instance_field:
+                        setattr(instance, field, value)
+                    elif not files_is_equal(instance_field.file, value.file):
+                        # Remove old files
+                        instance_field.delete()
+                        setattr(instance, field, value)
             
             instance.save()
         
@@ -90,10 +127,13 @@ class BaseRegisterView(NamedUrlSessionWizardView):
         self.save_obj(instance, form)
 
         return created
+    
+    def process_step_files(self, form):
+        # Save file method on save_obj in model
+        return None
 
     def process_step(self, form):
         form_data = super().process_step(form)
-        # import ipdb;ipdb.set_trace()
         current_step = form_data[f"{self.get_prefix(self.request)}-current_step"]
         user = self.get_current_user()
 
@@ -153,14 +193,13 @@ class RegisterView(BaseRegisterView):
             # import ipdb;ipdb.set_trace()
             for step, form_class in self.get_form_list().items():
                 if step not in self.steps_hide_on_checkout:
-                    # data = self.get_cleaned_data_for_step(step)
+                    form = form_class(disabled=True, instance=instance)
                     checkout_steps.append(
                         dict(
                             name=step,
                             title=form_class.Meta.title,
                             edit_url=reverse(self.url_name, kwargs={"step": step}),
-                            form=form_class(disabled=True, instance=instance),
-                            # data=data,
+                            form=form,
                         )
                     )
 
