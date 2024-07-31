@@ -6,66 +6,89 @@
 {% endblock %}
 
 {% block content %}
-<div class="container mx-auto py-5">
-    <div class="d-flex justify-content-between">
-        <div class="" style="width:538px;">
-            <h1>{{ candidature.ballot_name }}</h1>
-            <p>{{ candidature.short_description }}</p>
-            <p><strong>Email:</strong> {{ candidature.email }}</p>
-            <p><strong>CPF/CNPJ:</strong> {{ candidature.cpf_cnpj }}</p>
-            <p><strong>Data de Nascimento:</strong> {{ candidature.birth_date }}</p>
-            <p><strong>Gênero:</strong> {{ candidature.gender }}</p>
-            <p><strong>Cor:</strong> {{ candidature.color }}</p>
-            <p><strong>Sexualidade:</strong> {{ candidature.sexuality }}</p>
-            <p><strong>Educação:</strong> {{ candidature.education }}</p>
-            <p><strong>Emprego:</strong> {{ candidature.employment }}</p>
-            <p><strong>Partido Político:</strong> {{ candidature.political_party }}</p>
-            <p><strong>Estado:</strong> {{ candidature.state }}</p>
-            <p><strong>Cidade:</strong> {{ candidature.city }}</p>
-            <p><strong>Mandato Coletivo:</strong> {{ candidature.is_collective_mandate|yesno:"Sim,Não" }}</p>
-            
+<section class="container">
+    <div class="grid gap-5">
+        <div class="g-col-4">
             {% if candidature.photo %}
                 <p><img src="{{ candidature.photo.url }}" alt="Foto de {{ candidature.ballot_name }}" class="img-fluid"/></p>
             {% endif %}
-            {% if candidature.video %}
-                <p><video controls src="{{ candidature.video.url }}" class="img-fluid"></video></p>
-            {% endif %}
-            
-            <h2>Redes Sociais</h2>
-            <ul>
-                {% for social in candidature.social_media %}
-                    <li><a href="{{ social.url }}">{{ social.name }}</a></li>
+        </div>
+        <div class="g-col-8">
+            <div class="d-flex justify-content-between">
+                <p>{{ candidature.city }} - {{ candidature.state }}</p>
+                <div>
+                    {% for social in candidature.social_media %}
+                    <a href="{{ social }}">{{ social }}</a>
                 {% endfor %}
-            </ul>
-            
-            <h2>Marcos</h2>
-            <ul>
-                {% for milestone in candidature.milestones %}
-                    <li>{{ milestone }}</li>
-                {% endfor %}
-            </ul>
-            
-            <h2>Bandeiras</h2>
-            <ul>
-                {% for flag in candidature.flags %}
-                    <li>{{ flag }}</li>
-                {% endfor %}
-            </ul>
-            
-            <h2>Compromissos</h2>
-            <ul>
-                {% for appointment in candidature.appointments %}
-                    <li>{{ appointment }}</li>
-                {% endfor %}
-            </ul>
+                </div>
+            </div>
+            <div>
+                <h1>{{ candidature.ballot_name }} | {{ candidature.number_id }}</h1>
+                <span class="badge rounded-pill bg-secondary">{{ candidature.intended_position }}</span>
+                <span class="badge rounded-pill bg-secondary">{{ candidature.political_party }}</span>
+                {% if candidature.is_collective_mandate %}
+                    <span class="badge rounded-pill bg-secondary">Mandato Coletivo</span>
+                {% endif %}
+            </div>
+            <div>
+                <p>{{ candidature.short_description }}</p>
+            </div>
+            <hr class="hr"/>
+            <div>
+                <h2>Propostas</h2>
+                <div class="grid">
+                    <div class="g-col-4"><p class="bold">Energia renovável</p></div>
+                    <div class="g-col-8"><p>{{ candidature.flags.is_renewable_energy.description }}</p></div>
+                </div>
+            </div>
+            <hr class="hr"/>
+            <div>
+                <h2>Informações</h2>
+                <div class="grid">
+                    <div class="g-col-4">
+                        <p><strong>Data de Nascimento:</strong> {{ candidature.birth_date }}</p>
+                        <p><strong>Raça:</strong> {{ candidature.color }}</p>
+                        <p><strong>Gênero:</strong> {{ candidature.gender }}</p>
+                    </div>
+                    <div class="g-col-8">
+                        <p><strong>Sexualidade:</strong> {{ candidature.sexuality }}</p>
+                        <p><strong>Escolaridade:</strong> {{ candidature.education }}</p>
+                        <p><strong>Ocupação:</strong> {{ candidature.employment }}</p>
+                    </div>
+                </div>
+            </div>
+            <hr class="hr"/>
+            <div>
+                <h2>Histórico de atuação</h2>
+                <div>
+                    {% for milestone in candidature.milestones %}
+                        <li>{{ milestone }}</li>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </div>
-
-    <h2>Compartilhe este perfil</h2>
+</section>
+<section class="container">
+    <h1>O que {{ candidature.ballot_name }} tem a dizer</h1>
+    {% if candidature.video %}
+        <p><video controls src="{{ candidature.video.url }}" class="img-fluid"></video></p>
+    {% endif %}
+</section>
+<section class="container">
+    <h1>O que esperar de {{ candidature.ballot_name }}</h1>
+    <ul>
+        {% for appointment in candidature.appointments %}
+            <li>{{ appointment }}</li>
+        {% endfor %}
+    </ul>
+</section>
+<section class="container">
+    <h2>Compartilhe nas redes sociais para apoiar {{ candidature.ballot_name }}!</h2>
     <div>
         <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode }}" target="_blank" class="btn btn-primary">Compartilhar no Facebook</a>
         <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri|urlencode }}&text=Confira o perfil do candidato {{ candidature.ballot_name }}" target="_blank" class="btn btn-info">Compartilhar no Twitter</a>
         <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri|urlencode }}&title=Perfil do Candidato {{ candidature.ballot_name }}" target="_blank" class="btn btn-dark">Compartilhar no LinkedIn</a>
     </div>
-</div>
+</section>
 {% endblock %}

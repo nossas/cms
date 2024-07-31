@@ -55,7 +55,11 @@ class Candidature(models.Model):
     
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.ballot_name)
+            if self.id:
+                self.slug = f"{slugify(self.ballot_name)}-{self.id}"
+            else:
+                super().save(*args, **kwargs)
+                self.slug = f"{slugify(self.ballot_name)}-{self.id}"
         super().save(*args, **kwargs)
 
 
