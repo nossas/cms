@@ -2,7 +2,8 @@ from django.db import models
 
 
 class CandidatureFlowStatus(models.TextChoices):
-    draft = "draft", "Editando"
+    draft = "draft", "Rascunho"
+    editing = "editing", "Editando"
     submitted = "submitted", "Enviado"
     invalid = "invalid", "Inválido"
     is_valid = "is_valid", "Válido"

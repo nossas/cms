@@ -29,6 +29,9 @@
     {% if wizard.steps.next %}
     <input class="btn btn-secondary" name="wizard_goto_step" type="submit" value="{% translate "Continuar: " %}{{ next_step_title }}" />
     {% endif %}
+    {% if editing %}
+    <button class="btn btn-secondary" type="submit" name="wizard_goto_last">Salvar Edição</button>
+    {% endif %}
     {% endblock %}
   </form>
   {% block after_form %}{% endblock %}

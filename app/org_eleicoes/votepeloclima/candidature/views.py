@@ -58,6 +58,19 @@ class BaseRegisterView(NamedUrlSessionWizardView):
 
     instance = property(_get_instance)
 
+    def post(self, *args, **kwargs):
+        request = self.request
+        form = self.get_form(data=request.POST, files=request.FILES)
+        
+        if form.is_valid():
+            self.storage.set_step_data(self.steps.current, self.process_step(form))
+            self.storage.set_step_files(self.steps.current, self.process_step_files(form))
+            if "wizard_goto_last" in request.POST:
+                self.storage.current_step = self.steps.all[-1]
+                return self.render(self.get_form())
+
+        return super().post(*args, **kwargs)
+
     def get_current_user(self):
         data = self.get_cleaned_data_for_step(initial_step_name)
         if data:
@@ -116,7 +129,7 @@ class BaseRegisterView(NamedUrlSessionWizardView):
 
         self.save_obj(instance, form)
 
-        return created
+        return instance, created
 
     def process_step_files(self, form):
         # Save file method on save_obj in model
@@ -141,6 +154,9 @@ class BaseRegisterView(NamedUrlSessionWizardView):
 
         if user:
             self.upsert_instance(form, current_step, user)
+
+        if current_step == "complemente-seu-perfil":
+            self.storage.extra_data["editing"] = True
 
         return form_data
 
@@ -202,7 +218,10 @@ class RegisterView(BaseRegisterView):
         if hasattr(form.Meta, "description"):
             context.update({"step_description": form.Meta.description})
 
-        context.update({"next_step_title": self.get_next_step_title()})
+        context.update({
+            "next_step_title": self.get_next_step_title(),
+            "editing": self.storage.extra_data.get("editing", False)
+        })
         return context
 
     def done(self, form_list, form_dict, **kwargs):
