@@ -58,7 +58,6 @@ class CaptchaForm(EntangledModelFormMixin, forms.ModelForm):
 
 class AppointmentForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
     appointment_1 = ToggleButtonField(
-        required=False,
         icon_name="ds-icon-wrapper-2",
         text_html="""
 <span class='fw-semibold'>Aliquam porta libero et ligula euismod sodales.</span>
@@ -66,7 +65,6 @@ class AppointmentForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
 """,
     )
     appointment_2 = ToggleButtonField(
-        required=False,
         icon_name="ds-icon-wrapper",
         text_html="""
 <span class='fw-semibold'>Aliquam porta libero et ligula euismod sodales.</span>

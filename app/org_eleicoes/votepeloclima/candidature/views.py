@@ -60,12 +60,13 @@ class BaseRegisterView(NamedUrlSessionWizardView):
 
     def post(self, *args, **kwargs):
         request = self.request
-        form = self.get_form(data=request.POST, files=request.FILES)
-        
-        if form.is_valid():
-            self.storage.set_step_data(self.steps.current, self.process_step(form))
-            self.storage.set_step_files(self.steps.current, self.process_step_files(form))
-            if "wizard_goto_last" in request.POST:
+        if "wizard_goto_last" in request.POST:
+            form = self.get_form(data=request.POST, files=request.FILES)
+            
+            if form.is_valid():
+                self.storage.set_step_data(self.steps.current, self.process_step(form))
+                self.storage.set_step_files(self.steps.current, self.process_step_files(form))
+                # Move to last step
                 self.storage.current_step = self.steps.all[-1]
                 return self.render(self.get_form())
 
