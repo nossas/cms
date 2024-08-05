@@ -234,4 +234,9 @@ class PublicCandidatureView(View):
 
     def get(self, request, slug):
         candidature = get_object_or_404(Candidature, slug=slug)
+        
+        # Verifica se a candidatura está aprovada
+        if candidature.status() != CandidatureFlowStatus.is_valid.label:
+            return render(request, 'candidature/not_approved.html', {"candidature": candidature})
+        
         return render(request, self.template_name, {"candidature": candidature})
