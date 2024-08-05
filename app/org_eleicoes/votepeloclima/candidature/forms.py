@@ -26,6 +26,7 @@ from .fields import (
     ToggleButtonField,
     VideoField,
     InputMask,
+    HTMLBooleanField
 )
 from .layout import NoCrispyField, FileField
 
@@ -455,8 +456,8 @@ class ProfileForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
 
 
 class CheckoutForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
-    is_valid = forms.BooleanField(
-        label="Ao preencher o formulário e se cadastrar na Campanha, você está ciente de que seus dados pessoais serão tratados de acordo com o Aviso de Privacidade."
+    is_valid = HTMLBooleanField(
+        label="Ao preencher o formulário e se cadastrar na Campanha, você está ciente de que seus dados pessoais serão tratados de acordo com o <a href='#' target='blank'>Aviso de Privacidade</a>."
     )
 
     class Meta:
