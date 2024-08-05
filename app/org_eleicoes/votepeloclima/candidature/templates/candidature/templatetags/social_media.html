@@ -1,0 +1,7 @@
+{% if url and kind %}
+<a href="{{ url }}">
+    {% with icon_path="candidature/icons/social-media/"|add:kind|add:".svg" %}
+      {% include icon_path %}
+    {% endwith %}
+</a>
+{% endif %}

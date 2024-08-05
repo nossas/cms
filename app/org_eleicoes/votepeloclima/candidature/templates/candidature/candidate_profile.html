@@ -1,5 +1,6 @@
 {% extends "votepeloclima/base.html" %}
 {% load crispy_forms_filters %}
+{% load social_media_tags %}
 
 {% block navbar_actions %}
 <a class="btn btn-outline-light" href="{% url 'oauth:logout' %}">Sair</a>
@@ -30,9 +31,9 @@
                             
                         <p class="text-opacity-75 m-0">{{ candidature.city }} - {{ candidature.state }}</p>
                     </div>
-                    <div>
+                    <div class="d-flex">
                         {% for social in candidature.social_media %}
-                            <a href="{{ social }}">{{ social }}</a>
+                            {% render_social_media social %}
                         {% endfor %}
                     </div>
                 </div>
