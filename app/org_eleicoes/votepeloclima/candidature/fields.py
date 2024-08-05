@@ -175,6 +175,12 @@ class CheckboxTextField(forms.CharField):
         super().__init__(
             max_length=None, min_length=None, strip=True, empty_value="", **kwargs
         )
+        self.checkbox_label = checkbox_label
+
+    def get_bound_field(self, form, field_name):
+        bound_field = super().get_bound_field(form, field_name)
+        bound_field.checkbox_label = self.checkbox_label
+        return bound_field
 
     def validate(self, value):
         value = value or ""
