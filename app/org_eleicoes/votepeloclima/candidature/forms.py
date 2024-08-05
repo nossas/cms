@@ -24,7 +24,8 @@ from .fields import (
     InlineArrayField,
     CepField,
     ToggleButtonField,
-    VideoField
+    VideoField,
+    InputMask,
 )
 from .layout import NoCrispyField, FileField
 
@@ -108,7 +109,9 @@ class PersonalForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
     cpf = forms.CharField(
         label="CPF",
         help_text="CPF é necessário para confirmar sua identidade junto ao TSE",
-        widget=forms.TextInput(attrs={"placeholder": "Digite seu CPF"}),
+        widget=InputMask(
+            mask="000.000.000-00", attrs={"placeholder": "Digite seu CPF"}
+        ),
     )
 
     class Meta:
@@ -135,7 +138,7 @@ class PersonalForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
                 Div(Field("email"), css_class="g-col-12 g-col-md-6"),
                 Div(Field("cpf"), css_class="g-col-12 g-col-md-6"),
                 css_class="grid",
-                style="grid-row-gap:0;"
+                style="grid-row-gap:0;",
             )
         )
 
@@ -211,7 +214,7 @@ class ApplicationForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
                 ),
                 Div(Field("political_party"), css_class="g-col-12 g-col-md-6"),
                 css_class="grid",
-                style="grid-row-gap:0;"
+                style="grid-row-gap:0;",
             )
         )
         data = kwargs.get("data", None)
@@ -391,7 +394,7 @@ class TrackForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
                 Div(Field("short_description"), css_class="g-col-12"),
                 Div(Field("milestones"), css_class="g-col-12"),
                 css_class="grid",
-                style="grid-row-gap:0;"
+                style="grid-row-gap:0;",
             )
         )
 
@@ -446,7 +449,7 @@ class ProfileForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
                 Div(Field("sexuality"), css_class="g-col-12 g-col-md-6"),
                 Div(Field("social_media"), css_class="g-col-12"),
                 css_class="grid",
-                style="grid-row-gap:0;"
+                style="grid-row-gap:0;",
             )
         )
 

@@ -13,6 +13,31 @@ from django_select2.forms import Select2Widget
 from captcha.fields import ReCaptchaField
 
 
+class InputMask(forms.TextInput):
+    mask = None
+
+    def __init__(self, mask, *args, **kwargs):
+        attrs = kwargs.get("attrs", {})
+        attrs["data-mask"] = mask
+        
+        kwargs.update({"attrs": attrs})
+
+        super().__init__(*args, **kwargs)
+
+    @property
+    def media(self):
+        """
+        Construct Media as a dynamic property.
+
+        .. Note:: For more information visit
+            https://docs.djangoproject.com/en/stable/topics/forms/media/#media-as-a-dynamic-property
+        """
+        return forms.Media(
+            js=["https://code.jquery.com/jquery-3.5.1.min.js"]
+            + ["js/jquery.mask.min.js"]
+        )
+
+
 class ValidateOnceReCaptchaField(ReCaptchaField):
     def clean(self, values):
         # find the 'revalidating' value in stack

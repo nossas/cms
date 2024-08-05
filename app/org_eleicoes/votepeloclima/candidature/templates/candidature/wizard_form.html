@@ -10,10 +10,6 @@
   </div>
   {% endblock %}
   <form method="post" enctype="multipart/form-data" novalidate>
-    {% csrf_token %}
-    {{ wizard.form.media }}
-    {{ wizard.management_form }}
-    
     {% block form_fields %}
     {% if wizard.form.helper %}
       {% crispy wizard.form wizard.form.helper %}
@@ -33,6 +29,10 @@
     <button class="btn btn-secondary" type="submit" name="wizard_goto_last">Salvar Edição</button>
     {% endif %}
     {% endblock %}
+
+    {% csrf_token %}
+    {{ wizard.management_form }}
+    {{ wizard.form.media }}
   </form>
   {% block after_form %}{% endblock %}
 </div>
