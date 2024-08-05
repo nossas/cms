@@ -2,11 +2,16 @@ from django.db import models
 
 
 class CandidatureFlowStatus(models.TextChoices):
+    # Editando
     draft = "draft", "Rascunho"
-    editing = "editing", "Editando"
+    # Passou pelo checkout e submeteu a candidatura
     submitted = "submitted", "Enviado"
+    # Não passou nas validações
     invalid = "invalid", "Inválido"
+    # Passour nas validções
     is_valid = "is_valid", "Válido"
+    # Começou a editar, seu perfil continua público, mas o processo de atualizar
+    # a candidatura vai acontecer novamente para os novos dados
     draft_requested = "draft_requested", "Edição Requisitada"
 
 
