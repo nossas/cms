@@ -1,6 +1,5 @@
 {% extends "votepeloclima/base.html" %}
-{% load crispy_forms_filters %}
-{% load social_media_tags %}
+{% load static crispy_forms_filters social_media_tags %}
 
 {% block navbar_actions %}
 <a class="btn btn-outline-light" href="{% url 'oauth:logout' %}">Sair</a>
@@ -130,11 +129,17 @@
             </div>
             <div class="g-col-6">
                 <div class="d-flex flex-column justify-content-center gap-2">
-                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode }}" target="_blank" class="btn btn-primary">Compartilhar no Facebook</a>
-                    <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri|urlencode }}&text=Confira o perfil do candidato {{ candidature.ballot_name }}" target="_blank" class="btn btn-info">Compartilhar no Twitter</a>
-                    <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri|urlencode }}&title=Perfil do Candidato {{ candidature.ballot_name }}" target="_blank" class="btn btn-dark">Compartilhar no LinkedIn</a>
+                    <a class="btn btn-primary text-uppercase" href="https://wa.me/?text=Confira a candidatura de {{ request.build_absolute_uri|urlencode }}">Compartilhar no WhatsApp</a>
+                    <a class="btn btn-primary text-uppercase" href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri|urlencode }}&text=Confira a candidatura de {{ candidature.ballot_name }}" target="_blank">Compartilhar no Twitter</a>
+                    <a class="btn btn-primary text-uppercase" href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri|urlencode }}&title=Confira a candidatura de {{ candidature.ballot_name }}" target="_blank">Compartilhar no LinkedIn</a>
+                    <a class="btn btn-primary text-uppercase" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode }}" target="_blank">Compartilhar no Facebook</a>
+                    <button type="button" id="copyButton" onclick="copyURL()" class="btn btn-primary text-uppercase" data-bs-toggle="tooltip" data-bs-trigger="click" data-bs-placement="bottom" title="Copiado!">Copiar Link</button>
                 </div>
             </div>
         </div>
 </section>
+{% endblock %}
+
+{% block footer_js %}
+<script src="{% static '/js/copy-to-clipboard.js' %}" type="text/javascript"></script>
 {% endblock %}
