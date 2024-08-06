@@ -88,11 +88,7 @@ class BaseRegisterView(NamedUrlSessionWizardView):
             user.is_active = False
             user.save()
 
-            send_confirmation_email(
-                user,
-                self.request,
-                email_template_name="candidature/activation_email.html",
-            )
+            send_confirmation_email(user=user, request=self.request)
 
         return user
 
