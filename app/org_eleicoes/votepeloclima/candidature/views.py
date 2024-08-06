@@ -296,24 +296,13 @@ class DashboardView(LoginRequiredMixin, TemplateView):
 
         for step_name, form_class in register_form_list:
             if step_name not in self.steps_hide_on_checkout:
-                initial_data = {}
-                for key in list(
-                    filter(
-                        lambda x: x.startswith(step_name),
-                        candidature_flow.properties.keys(),
-                    )
-                ):
-                    initial_data[key.replace(step_name + "-", "")] = (
-                        candidature_flow.properties.get(key)[0]
-                    )
-
                 checkout_steps.append(
                     dict(
                         name=step_name,
                         edit_url=reverse(
                             "register_edit_step", kwargs={"step": step_name}
                         ),
-                        form=form_class(data=initial_data, disabled=True),
+                        form=form_class(instance=candidature_flow, data=candidature_flow.properties, disabled=True),
                     )
                 )
 
