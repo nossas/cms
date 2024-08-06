@@ -1,25 +1,39 @@
 {% extends "candidature/wizard_base.html" %}
-{% load i18n crispy_forms_filters %}
+{% load i18n crispy_forms_tags %}
 
 {% block main %}
-<form method="post" enctype="multipart/form-data">
-  {% csrf_token %}
-  {{ wizard.form.media }}
-  {{ wizard.management_form }}
-  {% if wizard.form.forms %}
-    {{ wizard.form.management_form }}
-    {% for form in wizard.form.forms %}
-    {{ form|crispy }}
-    {% endfor %}
-  {% else %}
-    {{ wizard.form|crispy }}
-  {% endif %}
+<div class="mt-3">
+  {% block before_form %}
+  <div class="mb-3">
+    <h1>{{ step_title }}</h1>
+    <p>{{ step_description }}</p>
+  </div>
+  {% endblock %}
+  <form method="post" enctype="multipart/form-data" novalidate>
+    {% block form_fields %}
+    {% if wizard.form.helper %}
+      {% crispy wizard.form wizard.form.helper %}
+    {% else %}
+      {{ wizard.form|crispy }}
+    {% endif %}
+    {% endblock %}
+    
+    {% block form_actions %}
+    {% if wizard.steps.prev %}
+    <button class="btn btn-secondary" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% translate "prev step" %}</button>
+    {% endif %}
+    {% if wizard.steps.next %}
+    <input class="btn btn-secondary" name="wizard_goto_step" type="submit" value="{% translate "Continuar: " %}{{ next_step_title }}" />
+    {% endif %}
+    {% if editing %}
+    <button class="btn btn-secondary" type="submit" name="wizard_goto_last">Salvar Edição</button>
+    {% endif %}
+    {% endblock %}
 
-  {% if wizard.steps.prev %}
-  <button class="btn btn-secondary" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% translate "prev step" %}</button>
-  {% endif %}
-  {% if wizard.steps.next %}
-  <input class="btn btn-secondary" name="wizard_goto_step" type="submit" value="{% translate "Continuar: " %}{{ next_step_title }}" />
-  {% endif %}
-</form>
+    {% csrf_token %}
+    {{ wizard.management_form }}
+    {{ wizard.form.media }}
+  </form>
+  {% block after_form %}{% endblock %}
+</div>
 {% endblock %}

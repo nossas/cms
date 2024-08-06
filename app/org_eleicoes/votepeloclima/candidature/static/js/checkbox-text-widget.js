@@ -5,12 +5,11 @@
         const $selectzone = $("#selectzone");
         // Init
         $("[data-checktext]").each((index, element) => {
-            $(element).parent().prev().remove();
-
+            console.log($(element));
             if (!$(element).attr("checked")) {
                 $(element).parent().next().hide();
             } else if ($dropzone.length) {
-                const $field = $(element).parent().parent().parent();
+                const $field = $(element).parent().parent();
                 $field.appendTo($dropzone);
             }
         });
@@ -18,7 +17,7 @@
         $("[data-checktext]").change((evt) => {
             if ($(evt.target).is(":checked")) {
                 if ($dropzone.length) {
-                    const $field = $(evt.target).parent().parent().parent();
+                    const $field = $(evt.target).parent().parent();
                     $field.appendTo($dropzone);
                 }
                 $(evt.target).attr("checked", "checked");
@@ -26,7 +25,7 @@
                 $item.show()
             } else {
                 if ($selectzone.length) {
-                    const $field = $(evt.target).parent().parent().parent();
+                    const $field = $(evt.target).parent().parent();
                     $field.appendTo($selectzone);
                 }
                 $(evt.target).removeAttr("checked");
