@@ -10,6 +10,9 @@
   </div>
   {% endblock %}
   <form method="post" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+    {{ wizard.management_form }}
+
     {% block form_fields %}
     {% if wizard.form.helper %}
       {% crispy wizard.form wizard.form.helper %}
@@ -30,8 +33,6 @@
     {% endif %}
     {% endblock %}
 
-    {% csrf_token %}
-    {{ wizard.management_form }}
     {{ wizard.form.media }}
   </form>
   {% block after_form %}{% endblock %}

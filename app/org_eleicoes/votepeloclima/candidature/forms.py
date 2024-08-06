@@ -345,6 +345,8 @@ class ProposeForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         selected_size = len(list(filter(lambda x: bool(x), cleaned_data.values())))
         if selected_size > 3:
             raise ValidationError("Selecione apenas 3 bandeiras")
+        elif selected_size == 0:
+            raise ValidationError("Selecione ao menos 1 bandeira")
         return cleaned_data
 
 

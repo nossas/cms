@@ -5,7 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 from django.http import JsonResponse
 from django.views import View
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AnonymousUser
 from django.views.generic import TemplateView
 from django.http import HttpResponseForbidden
 from django.urls import reverse_lazy, reverse
@@ -41,7 +41,7 @@ class BaseRegisterView(NamedUrlSessionWizardView):
     file_storage = default_storage
 
     def _get_instance(self):
-        if not self._instance:
+        if not self._instance and isinstance(self.request.user, AnonymousUser):
             step_name = "informacoes-pessoais"
             email = (
                 self.storage.data.get("step_data", {})
@@ -53,6 +53,8 @@ class BaseRegisterView(NamedUrlSessionWizardView):
                 self._instance = user.candidatureflow
             except User.DoesNotExist:
                 pass
+        elif isinstance(self.request.user, User):
+            self._instance = self.request.user.candidatureflow
 
         return self._instance
 
@@ -266,6 +268,9 @@ class EditRegisterView(LoginRequiredMixin, RegisterView):
                 "You do not have permission to edit Candidature"
             )
         return super().dispatch(request, *args, **kwargs)
+    
+    def get_current_user(self):
+        return self.request.user
 
     def get_form_initial(self, step):
         """
@@ -316,7 +321,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
             # checkout_steps = []
             context.update(
                 {
-                    "candidature_flow": self.request.user.candidatureflow,
+                    "flow": self.request.user.candidatureflow,
                     "checkout_steps": checkout_steps,
                 }
             )

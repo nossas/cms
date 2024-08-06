@@ -3,7 +3,7 @@ from django.db import models
 
 class CandidatureFlowStatus(models.TextChoices):
     # Editando
-    draft = "draft", "Rascunho"
+    draft = "draft", "Cadastro Incompleto"
     # Passou pelo checkout e submeteu a candidatura
     submitted = "submitted", "Enviado"
     # Não passou nas validações
