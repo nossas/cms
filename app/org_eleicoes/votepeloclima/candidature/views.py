@@ -293,17 +293,27 @@ class DashboardView(LoginRequiredMixin, TemplateView):
 
     def get_checkout_steps(self):
         checkout_steps = []
-        candidature_flow = self.request.user.candidatureflow
+        candidature_flow = CandidatureFlow.objects.get(user=self.request.user)
+        candidature_flow.refresh_from_db(fields=["properties"])
 
         for step_name, form_class in register_form_list:
             if step_name not in self.steps_hide_on_checkout:
+                form = form_class(
+                    instance=candidature_flow,
+                    data=candidature_flow.properties,
+                    disabled=True
+                )
+                # if step_name == "informacoes-de-candidatura":
+                #     import ipdb;ipdb.set_trace()
+
                 checkout_steps.append(
                     dict(
                         name=step_name,
                         edit_url=reverse(
                             "register_edit_step", kwargs={"step": step_name}
                         ),
-                        form=form_class(instance=candidature_flow, data=candidature_flow.properties, disabled=True),
+                        form=form,
+                        is_valid=form.is_valid()
                     )
                 )
 

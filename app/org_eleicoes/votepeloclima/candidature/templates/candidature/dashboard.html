@@ -33,7 +33,7 @@
     <div class="accordion-item">
       <h2 class="accordion-header">
         <button class="accordion-button{% if flow.status == 'draft' %} collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{forloop.counter}}" aria-expanded="false" aria-controls="collapse{{forloop.counter}}">
-          {% if checkout_step.form.Meta.title %}{{checkout_step.form.Meta.title|upper}}{% else %}{{ checkout_step.name|upper }}{% endif %}
+          {% if flow.status == "draft" %}<i class="bg-{% if checkout_step.is_valid %}success{% else %}danger{% endif %} rounded-circle d-inline-block me-2" style="width:10px;height:10px;"></i>{% endif %}{% if checkout_step.form.Meta.title %}{{checkout_step.form.Meta.title|upper}}{% else %}{{ checkout_step.name|upper }}{% endif %}
         </button>
       </h2>
       <div id="collapse{{forloop.counter}}" class="accordion-collapse collapse{% if flow.status == 'draft' %} show{% endif %}" data-bs-parent="#accordionCheckoutSteps">
