@@ -363,7 +363,7 @@ class TrackForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         required=False,
         label="Histórico de atuação",
         item_label="Realização",
-        add_button_text="Adicionar outra realização",
+        add_button_text="ADICIONAR MARCO",
         help_text="Adicione momentos e realizações marcantes da sua trajetória.",
     )
 

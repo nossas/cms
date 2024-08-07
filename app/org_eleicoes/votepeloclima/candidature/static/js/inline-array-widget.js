@@ -1,47 +1,59 @@
 (function ($) {
     "use strict";
-    $(function () {
-        const maxSize = $('#inline-array-add').data('size');
+    $(document).ready(function () {
+        const $inlineArrayAdd = $('#inline-array-add');
+        const maxSize = $inlineArrayAdd.data('size');
         const name = $('#inline-array').data('name');
-        
+
         function updateInlineArray() {
-            const totalInputs = $('#inline-array li').length;
+            const $inputs = $('#inline-array li input');
+            const totalInputs = $inputs.length;
+            const lastInputValue = $inputs.last().val().trim();
+
             if (totalInputs === 1) {
                 $('#inline-array li').find('button').hide();
             } else {
                 $('#inline-array li').find('button').show();
             }
 
-            if (totalInputs === maxSize) {
-                $('#inline-array-add').attr('disabled', 'disabled');
+            if (totalInputs >= maxSize || lastInputValue === "") {
+                $inlineArrayAdd.attr('disabled', 'disabled');
             } else {
-                $('#inline-array-add').removeAttr('disabled');
+                $inlineArrayAdd.removeAttr('disabled');
             }
 
+            // Atualizar os nomes dos inputs
             $('#inline-array li').each((i, item) => {
-                $(item).find('input').attr('name', `${name}_${i}`)
-            })
+                $(item).find('input').attr('name', `${name}_${i}`);
+            });
         }
 
-        $('#inline-array-add').on("click", () => {
-            const totalInputs = $('#inline-array li').length;
-            if (totalInputs < maxSize) {
-                const $div = $('#inline-array li').first().clone();
-                console.log($div);
-                console.log("asdadasdasd")
-                $div.find('input').val('');
-                $div.find('button').show();
-                $('#inline-array ol').append($div);
+        $inlineArrayAdd.off("click").on("click", () => {
+            const $inputs = $('#inline-array li input');
+            const lastInputValue = $inputs.last().val().trim();
+            const totalInputs = $inputs.length;
+
+            if (lastInputValue !== "" && totalInputs < maxSize) {
+                const $firstItem = $('#inline-array li').first().clone();
+                $firstItem.find('input').val('');
+                $firstItem.find('button').show();
+                $('#inline-array ol').append($firstItem);
                 updateInlineArray();
             }
         });
 
         function inlineDelete(target) {
-            $(target).parent().parent().remove();
+            $(target).closest('li').remove();
             updateInlineArray();
-        };
+        }
 
         updateInlineArray();
+
+        // Adicionar eventos para atualização em tempo real dos campos
+        $('#inline-array').on('input', 'input', function() {
+            updateInlineArray();
+        });
+
         window.inlineDelete = inlineDelete;
     });
 }(jQuery));
