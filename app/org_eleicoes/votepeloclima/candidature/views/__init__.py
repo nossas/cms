@@ -14,12 +14,18 @@ from django.core.files.storage import default_storage
 from formtools.wizard.views import NamedUrlSessionWizardView
 
 from contrib.oauth.utils import send_confirmation_email
-from .models import CandidatureFlow, CandidatureFlowStatus, Candidature
-from .forms import register_form_list, ProposeForm, AppointmentForm
-from .locations_utils import get_choices
+from ..models import CandidatureFlow, CandidatureFlowStatus, Candidature
+from ..forms import register_form_list, ProposeForm, AppointmentForm
+from ..locations_utils import get_choices
 
 
 initial_step_name = register_form_list[2][0]
+disable_edit_steps = [
+    "informacoes-pessoais",
+    "informacoes-de-candidatura",
+    "captcha",
+    "compromissos",
+]
 
 
 def files_is_equal(file1, file2):
@@ -64,12 +70,16 @@ class BaseRegisterView(NamedUrlSessionWizardView):
         request = self.request
         if "wizard_goto_last" in request.POST:
             form = self.get_form(data=request.POST, files=request.FILES)
-            
+
             if form.is_valid():
                 self.storage.set_step_data(self.steps.current, self.process_step(form))
-                self.storage.set_step_files(self.steps.current, self.process_step_files(form))
+                self.storage.set_step_files(
+                    self.steps.current, self.process_step_files(form)
+                )
                 # Move to last step
                 self.storage.current_step = self.steps.all[-1]
+                if self.request.user.is_active:
+                    return redirect("/area-restrita")
                 return self.render(self.get_form())
 
         return super().post(*args, **kwargs)
@@ -135,10 +145,12 @@ class BaseRegisterView(NamedUrlSessionWizardView):
         return None
 
     def process_step(self, form):
+        print("asdadasdasdasd")
         form_data = super().process_step(form)
         current_step = form_data[f"{self.get_prefix(self.request)}-current_step"]
         user = self.get_current_user()
 
+        print(form_data)
         if current_step == initial_step_name and not user:
             email = form_data[current_step + "-email"]
             name = form_data[current_step + "-legal_name"]
@@ -152,6 +164,7 @@ class BaseRegisterView(NamedUrlSessionWizardView):
             user = self.create_user(**values)
 
         if user:
+            print("asdadasdasdasd")
             self.upsert_instance(form, current_step, user)
 
         if current_step == "complemente-seu-perfil":
@@ -217,10 +230,12 @@ class RegisterView(BaseRegisterView):
         if hasattr(form.Meta, "description"):
             context.update({"step_description": form.Meta.description})
 
-        context.update({
-            "next_step_title": self.get_next_step_title(),
-            "editing": self.storage.extra_data.get("editing", False)
-        })
+        context.update(
+            {
+                "next_step_title": self.get_next_step_title(),
+                "editing": self.storage.extra_data.get("editing", False),
+            }
+        )
         return context
 
     def done(self, form_list, form_dict, **kwargs):
@@ -253,10 +268,23 @@ class EditRegisterView(LoginRequiredMixin, RegisterView):
     login_url = reverse_lazy("oauth:login")
 
     def has_permission(self):
-        return (
+        is_draft = (
             self.request.user.candidatureflow
             and self.request.user.candidatureflow.status == CandidatureFlowStatus.draft
         )
+
+        is_steps = bool(
+            len(
+                list(
+                    filter(
+                        lambda x: self.request.path.endswith(f"{x}/"),
+                        disable_edit_steps,
+                    )
+                )
+            )
+        )
+
+        return is_draft and not is_steps
 
     def dispatch(self, request, *args, **kwargs):
         if not self.has_permission():
@@ -264,26 +292,14 @@ class EditRegisterView(LoginRequiredMixin, RegisterView):
                 "You do not have permission to edit Candidature"
             )
         return super().dispatch(request, *args, **kwargs)
-    
+
     def get_current_user(self):
         return self.request.user
 
-    def get_form_initial(self, step):
-        """
-        Returns a dictionary which will be passed to the form for `step`
-        as `initial`. If no initial data was provided while initializing the
-        form wizard, an empty dictionary will be returned.
-        """
-        initial_data = {}
-        if step not in self.steps_hide_on_checkout:
-            cflow = self.request.user.candidatureflow
-
-            for key, value in cflow.properties.items():
-                if key.startswith(step):
-                    copyKey = key.replace(f"{step}-", "")
-                    initial_data[copyKey] = value[0]
-
-        return self.initial_dict.get(step, initial_data)
+    def get_context_data(self, form, **kwargs):
+        context = super().get_context_data(form, **kwargs)
+        context["editing"] = True
+        return context
 
 
 class DashboardView(LoginRequiredMixin, TemplateView):
@@ -293,29 +309,22 @@ class DashboardView(LoginRequiredMixin, TemplateView):
 
     def get_checkout_steps(self):
         checkout_steps = []
-        candidature_flow = CandidatureFlow.objects.get(user=self.request.user)
-        candidature_flow.refresh_from_db(fields=["properties"])
 
         for step_name, form_class in register_form_list:
             if step_name not in self.steps_hide_on_checkout:
-                form = form_class(
-                    instance=candidature_flow,
-                    data=candidature_flow.properties,
-                    disabled=True
+                obj = CandidatureFlow.objects.get(user=self.request.user)
+                form = form_class(instance=obj, data=obj.properties, disabled=True)
+                step_dict = dict(
+                    name=step_name,
+                    form=form,
+                    is_valid=form.is_valid(),
                 )
-                # if step_name == "informacoes-de-candidatura":
-                #     import ipdb;ipdb.set_trace()
-
-                checkout_steps.append(
-                    dict(
-                        name=step_name,
-                        edit_url=reverse(
-                            "register_edit_step", kwargs={"step": step_name}
-                        ),
-                        form=form,
-                        is_valid=form.is_valid()
+                if step_name not in disable_edit_steps:
+                    step_dict["edit_url"] = reverse(
+                        "register_edit_step", kwargs={"step": step_name}
                     )
-                )
+
+                checkout_steps.append(step_dict)
 
         return checkout_steps
 
