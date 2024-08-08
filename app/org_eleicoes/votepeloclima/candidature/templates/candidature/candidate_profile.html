@@ -104,6 +104,58 @@
 <section class="py-5">
     <div class="container">
         <h1 class="text-center">O que esperar de {{ candidature.ballot_name }}</h1>
+        <div id="carouselControls" class="carousel slide carousel-dark">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class="grid justify-content-center gap-3">
+                  <div class="d-flex g-col-3 flex-column align-items-center">
+                    <i class="bi bi-house fs-1"></i>
+                    <p class="mt-2">Texto 1</p>
+                  </div>
+                  <div class="d-flex g-col-3 flex-column align-items-center">
+                    <i class="bi bi-person fs-1"></i>
+                    <p class="mt-2">Texto 2</p>
+                  </div>
+                  <div class="d-flex g-col-3 flex-column align-items-center">
+                    <i class="bi bi-gear fs-1"></i>
+                    <p class="mt-2">Texto 3</p>
+                  </div>
+                  <div class="d-flex g-col-3 flex-column align-items-center">
+                    <i class="bi bi-gear fs-1"></i>
+                    <p class="mt-2">Texto 4</p>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="grid justify-content-center gap-3">
+                  <div class="d-flex g-col-3 flex-column align-items-center">
+                    <i class="bi bi-star fs-1"></i>
+                    <p class="mt-2">Texto 5</p>
+                  </div>
+                  <div class="d-flex g-col-3 flex-column align-items-center">
+                    <i class="bi bi-heart fs-1"></i>
+                    <p class="mt-2">Texto 6</p>
+                  </div>
+                  <div class="d-flex g-col-3 flex-column align-items-center">
+                    <i class="bi bi-lightbulb fs-1"></i>
+                    <p class="mt-2">Texto 7</p>
+                  </div>
+                  <div class="d-flex g-col-3 flex-column align-items-center">
+                    <i class="bi bi-gear fs-1"></i>
+                    <p class="mt-2">Texto 8</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="carousel-control-prev w-auto" type="button" data-bs-target="#carouselControls" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Anterior</span>
+            </button>
+            <button class="carousel-control-next w-auto" type="button" data-bs-target="#carouselControls" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Próximo</span>
+            </button>
+          </div>          
         <ul class="text-center">
             {% for appointment in candidature.appointments %}
                 <li>{{ appointment }}</li>
