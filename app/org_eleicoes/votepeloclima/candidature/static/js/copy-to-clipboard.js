@@ -1,14 +1,16 @@
+const copyButton = document.querySelector("#copyButton");
+
 function copyURL() {
-  var url = window.location.href;
-  var modalString = "?modal=true";
+  let url = window.location.href;
+  let modalString = "?modal=true";
 
   if (url.includes(modalString)) {
     url = url.replace(modalString, "");
   }
 
   navigator.clipboard.writeText(url).then(function() {
-    var copyButton = document.querySelector("#copyButton");
-    var tooltip = bootstrap.Tooltip.getInstance(copyButton) || new bootstrap.Tooltip(copyButton);
+    const copyButton = document.querySelector("#copyButton");
+    let tooltip = bootstrap.Tooltip.getInstance(copyButton) || new bootstrap.Tooltip(copyButton);
     tooltip.show();
 
     setTimeout(function() {
@@ -21,7 +23,8 @@ function copyURL() {
   });
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-  var copyButton = document.querySelector("#copyButton");
-  new bootstrap.Tooltip(copyButton);
+document.addEventListener("DOMContentLoaded", function() {
+  if (copyButton) {
+    new bootstrap.Tooltip(copyButton);
+  }
 });
