@@ -1,6 +1,5 @@
 {% extends "votepeloclima/base.html" %}
-{% load crispy_forms_filters %}
-{% load social_media_tags %}
+{% load static crispy_forms_filters social_media_tags %}
 
 {% block navbar_actions %}
 <a class="btn btn-outline-light" href="{% url 'oauth:logout' %}">Sair</a>
@@ -8,7 +7,7 @@
 
 {% block content %}
 <section class="container">
-    <div class="grid gap-5 pb-5">
+    <div class="grid gap-5 py-5">
         <div class="g-col-4">
             {% if candidature.photo %}
                 <p><img src="{{ candidature.photo.url }}" alt="Foto de {{ candidature.ballot_name }}" class="img-fluid"/></p>
@@ -16,22 +15,12 @@
         </div>
         <div class="g-col-8">
             <div>
-                <div class="d-flex justify-content-between">
-                    <div class="d-flex w-100 align-items-center">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0_2368_66558)">
-                            <path d="M4.146 0.146977C4.19252 0.100576 4.24773 0.0637975 4.30847 0.0387458C4.36921 0.0136941 4.4343 0.000860013 4.5 0.00097736H11.5C11.6326 0.00097736 11.7598 0.0536558 11.8536 0.147424C11.9473 0.241192 12 0.368369 12 0.500977C12 1.18098 11.658 1.67498 11.354 1.97998C11.228 2.10498 11.104 2.20398 11 2.27798V6.70898L11.078 6.75698C11.281 6.88398 11.554 7.07098 11.829 7.31198C12.36 7.77598 13 8.52798 13 9.50098C13 9.63359 12.9473 9.76076 12.8536 9.85453C12.7598 9.9483 12.6326 10.001 12.5 10.001H8.5V14.501C8.5 14.777 8.276 16.001 8 16.001C7.724 16.001 7.5 14.777 7.5 14.501V10.001H3.5C3.36739 10.001 3.24021 9.9483 3.14645 9.85453C3.05268 9.76076 3 9.63359 3 9.50098C3 8.52798 3.64 7.77598 4.17 7.31198C4.4287 7.08734 4.70641 6.88559 5 6.70898V2.27798C4.8739 2.18869 4.75548 2.08901 4.646 1.97998C4.342 1.67498 4 1.17998 4 0.500977C3.99988 0.435272 4.01272 0.370189 4.03777 0.309447C4.06282 0.248705 4.0996 0.193496 4.146 0.146977Z" fill="#666666"/>
-                            </g>
-                            <defs>
-                            <clipPath id="clip0_2368_66558">
-                            <rect width="16" height="16" fill="white"/>
-                            </clipPath>
-                            </defs>
-                            </svg>
-                            
+                <div class="d-flex justify-content-between mb-2">
+                    <div class="d-flex w-100 align-items-center gap-1">
+                        {% include "candidature/icons/pin.svg" %}
                         <p class="text-opacity-75 m-0">{{ candidature.city }} - {{ candidature.state }}</p>
                     </div>
-                    <div class="d-flex">
+                    <div class="d-flex gap-1">
                         {% for social in candidature.social_media %}
                             {% render_social_media social %}
                         {% endfor %}
@@ -130,11 +119,32 @@
             </div>
             <div class="g-col-6">
                 <div class="d-flex flex-column justify-content-center gap-2">
-                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode }}" target="_blank" class="btn btn-primary">Compartilhar no Facebook</a>
-                    <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri|urlencode }}&text=Confira o perfil do candidato {{ candidature.ballot_name }}" target="_blank" class="btn btn-info">Compartilhar no Twitter</a>
-                    <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri|urlencode }}&title=Perfil do Candidato {{ candidature.ballot_name }}" target="_blank" class="btn btn-dark">Compartilhar no LinkedIn</a>
+                    <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" href="https://wa.me/?text=Confira a candidatura de {{ request.build_absolute_uri|urlencode }}">
+                        {% include "candidature/icons/social-media/whatsapp.svg" %}
+                        Compartilhar no WhatsApp
+                    </a>
+                    <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri|urlencode }}&text=Confira a candidatura de {{ candidature.ballot_name }}" target="_blank">
+                        {% include "candidature/icons/social-media/x.svg" %}
+                        Compartilhar no Twitter
+                    </a>
+                    <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri|urlencode }}&title=Confira a candidatura de {{ candidature.ballot_name }}" target="_blank">
+                        {% include "candidature/icons/social-media/linkedin.svg" %}
+                        Compartilhar no LinkedIn
+                    </a>
+                    <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode }}" target="_blank">
+                        {% include "candidature/icons/social-media/facebook.svg" %}
+                        Compartilhar no Facebook
+                    </a>
+                    <button type="button" id="copyButton" onclick="copyURL()" class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" data-bs-toggle="tooltip" data-bs-trigger="click" data-bs-placement="bottom" title="Copiado!">
+                        {% include "candidature/icons/social-media/anchor.svg" %}
+                        Copiar Link
+                    </button>
                 </div>
             </div>
         </div>
 </section>
+{% endblock %}
+
+{% block footer_js %}
+<script src="{% static '/js/copy-to-clipboard.js' %}" type="text/javascript"></script>
 {% endblock %}

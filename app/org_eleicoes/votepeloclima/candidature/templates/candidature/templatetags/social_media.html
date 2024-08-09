@@ -1,5 +1,5 @@
 {% if url and kind %}
-<a href="{{ url }}">
+<a href="{{ url }}" class="badge bg-primary p-1">
     {% with icon_path="candidature/icons/social-media/"|add:kind|add:".svg" %}
       {% include icon_path %}
     {% endwith %}
