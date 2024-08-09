@@ -175,6 +175,16 @@ class FlagForm(DisabledMixin, forms.Form):
 class AppointmentForm(DisabledMixin, forms.Form):
     appointment_1 = forms.BooleanField(label="Compromisso 1", required=False)
     appointment_2 = forms.BooleanField(label="Compromisso 2", required=False)
+    appointment_3 = forms.BooleanField(label="Compromisso 3", required=False)
+    appointment_4 = forms.BooleanField(label="Compromisso 4", required=False)
+    appointment_5 = forms.BooleanField(label="Compromisso 5", required=False)
+    appointment_6 = forms.BooleanField(label="Compromisso 6", required=False)
+    appointment_7 = forms.BooleanField(label="Compromisso 7", required=False)
+    appointment_8 = forms.BooleanField(label="Compromisso 8", required=False)
+    appointment_9 = forms.BooleanField(label="Compromisso 9", required=False)
+    appointment_10 = forms.BooleanField(label="Compromisso 10", required=False)
+    appointment_11 = forms.BooleanField(label="Compromisso 11", required=False)
+    appointment_12 = forms.BooleanField(label="Compromisso 12", required=False)
 
     class Meta:
         title = "Você assume compromisso com..."
