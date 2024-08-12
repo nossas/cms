@@ -23,6 +23,8 @@ def url_parse(value: str, social_media_type):
         result = result.group(1)
 
     if not result or not base_url:
+        if not value.startswith("http://") and not value.startswith("https://"):
+            value = "https://" + value
         return value
 
     if result and base_url:
