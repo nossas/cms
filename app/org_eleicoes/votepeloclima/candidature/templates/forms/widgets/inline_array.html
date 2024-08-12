@@ -1,15 +1,32 @@
-<div id="inline-array" data-name="{{ widget.name }}">
-    {% for widget in widget.subwidgets %}
-        {% if widget.value or forloop.counter < 3 %}
+<div id="inline-array" data-name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %}>
+    <ol>
+    {% for subwidget in widget.subwidgets %}
+        {% if subwidget.value or forloop.counter < 3 %}
+        <li>
             <div class="d-flex mb-2">
-                <input type="{{ widget.type }}" name="{{ widget.name }}" id="{{ widget.id }}"{% if widget.value != None %} value="{{ widget.value|stringformat:'s' }}"{% endif %}{% include "django/forms/widgets/attrs.html" %}/>
-                <button type="button" class="btn btn-danger ml-2" onclick="inlineDelete(this)">
-                    Remover
+                {% if widget.item_label %}
+                <span class="fw-semibold me-2 mt-1 text-nowrap">{{widget.item_label}}</span>
+                {% endif %}
+                <input
+                    type="{{ subwidget.type }}"
+                    name="{{ subwidget.name }}"
+                    id="{{ subwidget.id }}"
+                    {% if subwidget.value %} value="{{ subwidget.value|stringformat:'s' }}"{% endif %}
+                    {% include "django/forms/widgets/attrs.html" with widget=subwidget %}
+                />
+                {% if not subwidget.attrs.disabled %}
+                <button type="button" class="btn btn-outline-danger ms-2" onclick="inlineDelete(this)">
+                    <i class="bi bi-trash"></i>
                 </button>
+                {% endif %}
             </div>
+        </li>
         {% endif %}
     {% endfor %}
+    </ol>
 </div>
-<button type="button" id="inline-array-add" class="btn btn-primary mt-2" data-size="{{ widget.size }}">
-    Adicionar
+{% if not widget.attrs.disabled %}
+<button type="button" id="inline-array-add" class="btn btn-outline-dark mt-2" data-size="{{ widget.size }}">
+    +{% if widget.add_button_text %}{{ widget.add_button_text }}{% else %}Adicionar{% endif %}
 </button>
+{% endif %}

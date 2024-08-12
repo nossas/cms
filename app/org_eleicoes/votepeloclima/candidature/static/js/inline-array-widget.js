@@ -5,11 +5,11 @@
         const name = $('#inline-array').data('name');
         
         function updateInlineArray() {
-            const totalInputs = $('#inline-array .d-flex').length;
+            const totalInputs = $('#inline-array li').length;
             if (totalInputs === 1) {
-                $('#inline-array .d-flex').find('button').hide();
+                $('#inline-array li').find('button').hide();
             } else {
-                $('#inline-array .d-flex').find('button').show();
+                $('#inline-array li').find('button').show();
             }
 
             if (totalInputs === maxSize) {
@@ -18,24 +18,26 @@
                 $('#inline-array-add').removeAttr('disabled');
             }
 
-            $('#inline-array .d-flex').each((i, item) => {
+            $('#inline-array li').each((i, item) => {
                 $(item).find('input').attr('name', `${name}_${i}`)
             })
         }
 
-        $('#inline-array-add').click(() => {
-            const totalInputs = $('#inline-array .d-flex').length;
+        $('#inline-array-add').on("click", () => {
+            const totalInputs = $('#inline-array li').length;
             if (totalInputs < maxSize) {
-                const $div = $('#inline-array .d-flex').first().clone();
+                const $div = $('#inline-array li').first().clone();
+                console.log($div);
+                console.log("asdadasdasd")
                 $div.find('input').val('');
                 $div.find('button').show();
-                $('#inline-array').append($div);
+                $('#inline-array ol').append($div);
                 updateInlineArray();
             }
         });
 
         function inlineDelete(target) {
-            $(target).parent().remove();
+            $(target).parent().parent().remove();
             updateInlineArray();
         };
 
