@@ -104,11 +104,36 @@
 <section class="py-5">
     <div class="container">
         <h1 class="text-center">O que esperar de {{ candidature.ballot_name }}</h1>
-        <ul class="text-center">
-            {% for appointment in candidature.appointments %}
-                <li>{{ appointment }}</li>
-            {% endfor %}
-        </ul>
+        <p class="text-center">Praesent sit amet turpis vel lacus volutpat scelerisque. Vivamus dapibus, nisi at feugiat tempor, erat lorem lacinia nulla, at consequat massa dolor id odio.</p>
+        <div id="carouselControls" class="carousel slide carousel-dark py-4">
+            <div class="carousel-inner">
+                {% for appointment in appointments_form %}
+                    {% if forloop.first or forloop.counter0|divisibleby:4 %}
+                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                            <div class="d-flex justify-content-center gap-5">
+                    {% endif %}
+                                <div class="d-flex g-col-3 flex-column align-items-center">
+                                    <i class="bi bi-gear fs-1"></i>
+                                    <p class="mt-2">{{ appointment.label }}</p>
+                                </div>
+                    {% if forloop.counter|divisibleby:4 or forloop.last %}
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <button class="carousel-control-prev w-auto" type="button" data-bs-target="#carouselControls" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Anterior</span>
+            </button>
+            <button class="carousel-control-next w-auto" type="button" data-bs-target="#carouselControls" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Próximo</span>
+            </button>
+        </div>
+        <div class="d-flex justify-content-center">
+            <a href="#" class="btn btn-primary text-uppercase">Sou uma pessoa candidata e quero me cadastrar</a>
+        </div>
     </div>
 </section>
 <section class="py-5">

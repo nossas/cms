@@ -235,9 +235,12 @@ class PublicCandidatureView(View):
     def get(self, request, slug):
         candidature = get_object_or_404(Candidature, slug=slug)
         flag_form = FlagForm(initial=candidature.flags)
+        appointments_form = AppointmentForm(request.GET or None)
+
         context = {
             "candidature": candidature,
-            "flag_form": flag_form
+            "flag_form": flag_form,
+            "appointments_form": appointments_form,
         }
 
         # Verifica se a candidatura está aprovada
