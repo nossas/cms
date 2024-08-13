@@ -2,7 +2,9 @@
 {% load static crispy_forms_filters social_media_tags %}
 
 {% block navbar_actions %}
-<a class="btn btn-outline-light" href="{% url 'oauth:logout' %}">Sair</a>
+    {% if user.is_authenticated %}
+    <a class="btn btn-outline-light" href="{% url 'oauth:logout' %}">Sair</a>
+    {% endif %}
 {% endblock %}
 
 {% block content %}
