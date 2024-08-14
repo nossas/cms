@@ -251,9 +251,10 @@ class CheckboxTextField(forms.CharField):
 class InlineArrayWidget(forms.MultiWidget):
     template_name = "forms/widgets/inline_array.html"
 
-    def __init__(self, widget, size, item_label=None, add_button_text=None, attrs=None):
+    def __init__(self, widget, size, item_label=None, add_button_text=None, placeholder=None, attrs=None):
         self.add_button_text = add_button_text
         self.item_label = item_label
+        self.placeholder = placeholder or ''
         widgets = [
             widget() if isinstance(widget, type) else widget for _ in range(size)
         ]
@@ -285,6 +286,7 @@ class InlineArrayWidget(forms.MultiWidget):
 
     def get_context(self, name, value, attrs):
         context = super().get_context(name, value, attrs)
+        context['widget']['placeholder'] = self.placeholder
         invalid_count = len(
             list(
                 filter(
@@ -335,8 +337,10 @@ class InlineArrayField(SimpleArrayField):
         delimiter=",",
         max_length=None,
         min_length=None,
+        placeholder=None,
         **kwargs,
     ):
+        self.placeholder = placeholder or ''
         self.add_help_text = kwargs.pop("help_text", None)
         super().__init__(
             base_field,
@@ -350,6 +354,7 @@ class InlineArrayField(SimpleArrayField):
             size=size,
             item_label=item_label,
             add_button_text=add_button_text,
+            placeholder=placeholder,
         )
 
     def get_bound_field(self, form, field_name):
