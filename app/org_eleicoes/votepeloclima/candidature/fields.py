@@ -227,8 +227,15 @@ class CheckboxTextField(forms.CharField):
         super().__init__(
             max_length=None, min_length=None, strip=True, empty_value="", **kwargs
         )
+
         # Remove label to use only subwidgets label
         self.label = ""
+        self.checkbox_label = checkbox_label
+
+    def get_bound_field(self, form, field_name):
+        bound_field = super().get_bound_field(form, field_name)
+        bound_field.checkbox_label = self.checkbox_label
+        return bound_field
 
     def validate(self, value):
         value = value or ""
@@ -239,12 +246,6 @@ class CheckboxTextField(forms.CharField):
     def clean(self, value):
         value = super().clean(value)
         return value.replace("on-", "")
-
-    # def get_bound_field(self, form, field_name):
-    #     bound_field = super().get_bound_field(form ,field_name)
-    #     if self.disabled:
-    #         import ipdb;ipdb.set_trace()
-    #     return bound_field
 
 
 class InlineArrayWidget(forms.MultiWidget):
