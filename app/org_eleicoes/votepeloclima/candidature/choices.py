@@ -16,13 +16,13 @@ class CandidatureFlowStatus(models.TextChoices):
 
 
 class IntendedPosition(models.TextChoices):
-    empty = "", "Selecione uma opção"
+    empty = "", "Cargo"
     prefeitura = "prefeitura", "Prefeitura"
     vereacao = "vereacao", "Vereação"
 
 
 class PoliticalParty(models.TextChoices):
-    empty = "", "Selecione seu partido"
+    empty = "", "Partido político"
     pdt = "pdt", "PDT"
     novo = "novo", "Novo"
     psdb= "psdb", "PSDB"
@@ -58,7 +58,7 @@ class PoliticalParty(models.TextChoices):
 
 
 class Gender(models.TextChoices):
-    empty = "", "Selecione uma opção"
+    empty = "", "Gênero"
     mulher_cis = "mulher_cis", "Mulher cis"
     mulher_trans = "mulher_trans", "Mulher trans"
     homem_cis = "homem_cis", "Homem cis"
@@ -71,7 +71,7 @@ class Gender(models.TextChoices):
 
 
 class Sexuality(models.TextChoices):
-    empty = "", "Selecione uma opção"
+    empty = "", "Sexualidade"
     heterossexual = "heterossexual", "Heterossexual"
     pansexual = "pansexual", "Pansexual"
     assexual = "assexual", "Assexual"
@@ -83,7 +83,7 @@ class Sexuality(models.TextChoices):
 
 
 class Color(models.TextChoices):
-    empty = "", "Selecione uma opção"
+    empty = "", "Raça"
     preta = "preta", "Preta"
     parda = "parda", "Parda"
     indigena = "indigena", "Indígena"

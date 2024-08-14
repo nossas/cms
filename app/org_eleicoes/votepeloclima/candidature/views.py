@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.http import JsonResponse
 from django.views import View
 from django.contrib.auth.models import User
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 from django.http import HttpResponseForbidden
 from django.urls import reverse_lazy, reverse
 from django.core.files.storage import default_storage
@@ -16,7 +16,14 @@ from formtools.wizard.views import NamedUrlSessionWizardView
 from contrib.oauth.utils import send_confirmation_email
 from .models import CandidatureFlow, CandidatureFlowStatus, Candidature
 from .forms import register_form_list, ProposeForm, AppointmentForm
-from .locations_utils import get_choices
+from .locations_utils import get_ufs, get_choices
+from .choices import (
+    PoliticalParty,
+    IntendedPosition,
+    Color,
+    Gender,
+    Sexuality,
+)
 
 
 initial_step_name = register_form_list[2][0]
@@ -342,3 +349,61 @@ class AddressView(View):
         return JsonResponse(
             [{"code": code, "name": name} for code, name in cities], safe=False
         )
+
+
+class CandidatureSearchView(ListView):
+    model = Candidature
+    template_name = "candidature/candidature_search.html"
+    context_object_name = "candidatures"
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        ballot_name = self.request.GET.get('ballot_name')
+        if ballot_name:
+            queryset = queryset.filter(ballot_name__icontains=ballot_name)
+
+        intended_position = self.request.GET.get('intended_position')
+        if intended_position:
+            queryset = queryset.filter(intended_position__icontains=intended_position)
+
+        political_party = self.request.GET.get('political_party')
+        if political_party:
+            queryset = queryset.filter(political_party__icontains=political_party)
+
+        state = self.request.GET.get('state')
+        if state:
+            queryset = queryset.filter(state__icontains=state)
+
+        city = self.request.GET.get('city')
+        if city:
+            queryset = queryset.filter(city__icontains=city)
+
+        gender = self.request.GET.get('gender')
+        if gender:
+            queryset = queryset.filter(gender__icontains=gender)
+
+        color = self.request.GET.get('color')
+        if color:
+            queryset = queryset.filter(color__icontains=color)
+        
+        sexuality = self.request.GET.get('sexuality')
+        if sexuality:
+            queryset = queryset.filter(sexuality__icontains=sexuality)
+
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['sexuality_choices'] = Sexuality.choices
+        context['gender_choices'] = Gender.choices
+        context['color_choices'] = Color.choices
+        context['intended_position_choices'] = IntendedPosition.choices
+        context['political_party_choices'] = PoliticalParty.choices
+        context['states'] = get_ufs()
+        selected_state = self.request.GET.get('state')
+        if selected_state:
+            context['cities'] = get_choices(selected_state)
+        else:
+            context['cities'] = []
+        return context

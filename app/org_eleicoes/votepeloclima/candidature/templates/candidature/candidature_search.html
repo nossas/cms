@@ -1,0 +1,78 @@
+{% load crispy_forms_filters %}
+
+<form method="get" action="{% url 'candidature_search' %}">
+    <input type="text" name="ballot_name" placeholder="Nome na Urna" value="{{ request.GET.ballot_name }}">
+    <select name="intended_position" id="intended_position">
+        {% for value, label in intended_position_choices %}
+            <option value="{{ value }}" {% if request.GET.intended_position == value %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+    </select>
+    <select name="political_party" id="political_party">
+        {% for value, label in political_party_choices %}
+            <option value="{{ value }}" {% if request.GET.political_party == value %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+    </select>
+    <select name="state" id="state">
+        <option value="">Estado</option>
+        {% for value, label in states %}
+            <option value="{{ value }}" {% if request.GET.state == value %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+    </select>
+    <select name="city" id="city" {% if not request.GET.state %}disabled{% endif %}>
+        <option value="">Cidade</option>
+        {% for value, label in cities %}
+            <option value="{{ value }}" {% if request.GET.city == value %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+    </select>
+    <select name="gender" id="gender">
+        {% for value, label in gender_choices %}
+            <option value="{{ value }}" {% if request.GET.gender == value %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+    </select>
+    <select name="color" id="color">
+        {% for value, label in color_choices %}
+            <option value="{{ value }}" {% if request.GET.color == value %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+    </select>
+    <select name="sexuality" id="sexuality">
+        {% for value, label in sexuality_choices %}
+            <option value="{{ value }}" {% if request.GET.sexuality == value %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Buscar</button>
+</form>
+
+<ul>
+    {% for candidature in candidatures %}
+    <li>
+        <a href="">
+            {{ candidature.ballot_name }} - {{ candidature.intended_position }} ({{ candidature.political_party }})
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+
+<script>
+    document.getElementById('state').addEventListener('change', function() {
+        const stateValue = this.value;
+        const citySelect = document.getElementById('city');
+        
+        if (stateValue) {
+            citySelect.disabled = false;
+            fetch(`/address/?state=${stateValue}`)
+                .then(response => response.json())
+                .then(data => {
+                    citySelect.innerHTML = '<option value="">Selecione uma cidade</option>';
+                    data.forEach(city => {
+                        const option = document.createElement('option');
+                        option.value = city.code;
+                        option.textContent = city.name;
+                        citySelect.appendChild(option);
+                    });
+                });
+        } else {
+            citySelect.disabled = true;
+            citySelect.innerHTML = '<option value="">Selecione uma cidade</option>';
+        }
+    });
+</script>
