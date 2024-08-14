@@ -2,12 +2,15 @@ import hashlib
 
 from django.core.files.storage import default_storage
 from django.contrib.auth.models import User, AnonymousUser
+from django.shortcuts import render
+from django.urls import reverse
 
 from formtools.wizard.views import NamedUrlSessionWizardView
 from contrib.oauth.utils import send_confirmation_email
 
-from ..models import CandidatureFlow
-from ..forms import register_form_list
+from ..choices import CandidatureFlowStatus
+from ..models import CandidatureFlow, Candidature
+from ..forms import register_form_list, ProposeForm, AppointmentForm
 
 
 def files_is_equal(file1, file2):
@@ -25,6 +28,7 @@ def files_is_equal(file1, file2):
 class CandidatureBaseView(NamedUrlSessionWizardView):
     form_list = register_form_list
     file_storage = default_storage
+    template_name = "candidature/wizard_form.html"
 
     _instance = None
 
@@ -48,9 +52,10 @@ class CandidatureBaseView(NamedUrlSessionWizardView):
 
     instance = property(get_instance)
 
-    # def render_done(self, form, **kwargs):
-    #     revalid = True
-    #     return super().render_done(form, **kwargs)
+    def render_done(self, form, **kwargs):
+        """Válida o captcha respondido na primeira etapa do formulário"""
+        revalid = True
+        return super().render_done(form, **kwargs)
 
     def get_current_user(self):
         raise NotImplementedError("Should be implement get_current_user")
@@ -122,8 +127,98 @@ class CandidatureBaseView(NamedUrlSessionWizardView):
         
         if user:
             self.upsert_instance(form, current_step, user)
+        
+        if self.get_next_step(step=current_step) == "checkout":
+            self.storage.extra_data["editing"] = True
 
         return form_data
 
     def get_form_instance(self, step):
         return self.instance
+
+    def get_template_names(self):
+        if self.steps.current == "checkout":
+            return "candidature/checkout.html"
+        elif self.steps.current == "suas-propostas":
+            return "candidature/suas_propostas.html"
+        elif self.steps.current == "captcha":
+            return "candidature/captcha.html"
+        elif self.steps.current == "informacoes-pessoais":
+            return "candidature/informacoes_pessoais.html"
+        elif self.steps.current == "compromissos":
+            return "candidature/compromissos.html"
+        return super().get_template_names()
+
+    def get_context_data(self, form, **kwargs):
+        context = super().get_context_data(form, **kwargs)
+
+        if hasattr(form.Meta, "title"):
+            context.update({"step_title": form.Meta.title})
+
+        if hasattr(form.Meta, "description"):
+            context.update({"step_description": form.Meta.description})
+        
+        if self.steps.next:
+            next_form_class = self.get_form_list().get(self.steps.next)
+            if hasattr(next_form_class.Meta, "title"):
+                context.update({"next_step_title": next_form_class.Meta.title})
+        
+        checkout_steps = []
+        if self.steps.current == "checkout":
+            user = self.get_current_user()
+            instance = CandidatureFlow.objects.get(user=user)
+
+            for step, form_class in self.get_form_list().items():
+                if step not in ["captcha", "compromissos"]:
+                    checkout_steps.append(dict(
+                        name=step,
+                        title=getattr(form_class.Meta, "title"),
+                        edit_url=reverse("register_step", kwargs={"step": step}),
+                        form=form_class(disabled=True, instance=instance)
+                    ))
+            context.update({"checkout_steps": checkout_steps})
+        
+        return context
+    
+    def post(self, *args, **kwargs):
+        request = self.request
+        if "wizard_goto_last" in request.POST:
+            form = self.get_form(data=request.POST, files=request.FILES)
+
+            if form.is_valid():
+                self.storage.set_step_data(self.steps.current, self.process_step(form))
+                self.storage.set_step_files(
+                    self.steps.current, self.process_step_files(form)
+                )
+                # Move to last step
+                self.storage.current_step = self.steps.all[-1]
+                # if self.request.user.is_active:
+                #     return redirect("/area-restrita")
+                return self.render(self.get_form())
+
+        return super().post(*args, **kwargs)
+
+    def done(self, form_list, form_dict, **kwargs):
+        user = self.get_current_user()
+        flow = CandidatureFlow.objects.get(user=user)
+        values = {}
+
+        for step, form in form_dict.items():
+            if step not in ("captcha", "checkout"):
+                if isinstance(form, ProposeForm):
+                    values.update({"flags": form.cleaned_data.get("properties")})
+                elif isinstance(form, AppointmentForm):
+                    values.update({"appointments": form.cleaned_data.get("properties")})
+                else:
+                    cleaned = form.cleaned_data.copy()
+                    properties = cleaned.pop("properties", {})
+                    values.update({**properties, **cleaned})
+
+        obj = Candidature.objects.create(**values)
+        flow.candidature = obj
+        flow.status = CandidatureFlowStatus.submitted
+        flow.save()
+
+        print("Enviar e-mail de cadastro enviado")
+
+        return render(self.request, "candidature/submitted.html")

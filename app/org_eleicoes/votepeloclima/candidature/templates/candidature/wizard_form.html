@@ -22,15 +22,16 @@
     {% endblock %}
     
     {% block form_actions %}
+    <div class="d-flex justify-content-between mt-5">
     {% if wizard.steps.prev %}
-    <button class="btn btn-secondary" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% translate "prev step" %}</button>
+    <button class="btn btn-outline-dark" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">Voltar</button>
     {% endif %}
-    {% if wizard.steps.next %}
-    <input class="btn btn-secondary" name="wizard_goto_step" type="submit" value="{% translate "Continuar: " %}{{ next_step_title }}" />
+    {% if wizard.steps.next and not editing %}
+    <input class="btn btn-dark" name="wizard_goto_step" type="submit" value="{% translate "Continuar: " %}{{ next_step_title }}" />
+    {% elif editing %}
+    <button class="btn btn-dark" type="submit" name="wizard_goto_last">Salvar</button>
     {% endif %}
-    {% if editing %}
-    <button class="btn btn-secondary" type="submit" name="wizard_goto_last">Salvar Edição</button>
-    {% endif %}
+    </div>
     {% endblock %}
 
     {{ wizard.form.media }}

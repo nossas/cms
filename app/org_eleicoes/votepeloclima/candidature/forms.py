@@ -37,6 +37,7 @@ class DisabledMixin:
         super().__init__(*args, **kwargs)
 
         if disabled:
+            self.disabled = disabled
             for field_name in self.fields:
                 self.fields[field_name].widget.attrs.update(
                     {"readonly": True, "disabled": True}

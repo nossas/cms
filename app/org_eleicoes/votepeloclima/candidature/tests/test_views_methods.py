@@ -1,5 +1,6 @@
 import pytest
 
+from collections import OrderedDict
 from django.test import RequestFactory
 from django.contrib.auth.models import AnonymousUser
 from django.test import override_settings
@@ -197,6 +198,8 @@ def test_create_user_when_process_step_infos(mocker, setup_oauth_urls):
         view, "get_form_step_data", return_value=cleaned_data
     ) and mocker.patch.object(
         view, "get_cleaned_data_for_step", return_value={}
+    ) and mocker.patch.object(
+        view, "get_form_list", return_value=OrderedDict(view.form_list)
     ):
         # Fake form response in get_form_step_data
         view.process_step(form=form)
@@ -247,6 +250,8 @@ def test_create_user_and_sendmail_when_is_new(mocker, setup_oauth_urls):
         view, "get_form_step_data", return_value=cleaned_data
     ) and mocker.patch.object(
         view, "get_cleaned_data_for_step", return_value={}
+    ) and mocker.patch.object(
+        view, "get_form_list", return_value=OrderedDict(view.form_list)
     ):
         # Fake form response in get_form_step_data
         view.process_step(form=form)
@@ -356,6 +361,8 @@ def test_call_upsert_instance_when_user(mocker):
         view, "get_current_user", return_value=user
     ) and mocker.patch.object(
         view, "get_form_step_data", return_value=form_data
+    ) and mocker.patch.object(
+        view, "get_form_list", return_value=OrderedDict(view.form_list)
     ):
         view.process_step(form)
 

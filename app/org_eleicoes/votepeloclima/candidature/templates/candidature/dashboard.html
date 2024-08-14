@@ -43,7 +43,7 @@
           {% else %}
           {% crispy checkout_step.form %}
           {% endif %}
-          {% if flow.status == "draft" %}
+          {% if flow.status == "draft" and checkout_step.edit_url %}
           <a class="btn btn-dark" href="{{checkout_step.edit_url}}">EDITAR</a>
           {% endif %}
         </div>

@@ -57,6 +57,8 @@ FONT_FAMILIES = [
     "Arvo",
     "Asap",
     "Avenir Next LT Pro",
+    "Agrandir Grand",
+    "Arial",
     "Baloo Bhai",
     "Bebas Neue Pro",
     "Bitter",
