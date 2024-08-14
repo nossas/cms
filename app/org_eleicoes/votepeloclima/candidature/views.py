@@ -348,12 +348,12 @@ class PublicCandidatureView(View):
 
     def get(self, request, slug):
         candidature = get_object_or_404(Candidature, slug=slug)
-        flag_form = FlagForm(initial=candidature.flags)
+        propose_form = ProposeForm()
         appointments_form = AppointmentForm(request.GET or None)
 
         context = {
             "candidature": candidature,
-            "flag_form": flag_form,
+            "propose_form": propose_form,
             "appointments_form": appointments_form,
         }
 

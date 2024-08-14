@@ -1,6 +1,11 @@
 {% extends "votepeloclima/base.html" %}
 {% load static crispy_forms_filters social_media_tags %}
 
+{% block head_css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/icons.css' %}">
+{% endblock %}
+
 {% block navbar_actions %}
     {% if user.is_authenticated %}
     <a class="btn btn-outline-light" href="{% url 'oauth:logout' %}">Sair</a>
@@ -63,7 +68,7 @@
                     <p class="text-muted">Propostas de {{ candidature.ballot_name }}.</p>
                 </div>
                 <div>
-                    {% for field in flag_form %}
+                    {% for field in propose_form %}
                         <div class="card mb-2">
                             <div class="card-body">
                                 <strong class="text-primary pb-2">{{ field.checkbox_label }}</strong>
@@ -159,7 +164,7 @@
                         Compartilhar no LinkedIn
                     </a>
                     <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode }}" target="_blank">
-                        <span class="icon-facebook"></span>
+                        <i class="ds-icon-facebook"></i>
                         Compartilhar no Facebook
                     </a>
                     <button type="button" id="copyButton" onclick="copyURL()" class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" data-bs-toggle="tooltip" data-bs-trigger="click" data-bs-placement="bottom" title="Copiado!">
