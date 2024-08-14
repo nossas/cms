@@ -1,6 +1,6 @@
 import hashlib
 
-from django.shortcuts import redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 from django.http import JsonResponse
@@ -348,6 +348,26 @@ class AddressView(View):
     def get(self, request, *args, **kwargs):
         state = request.GET.get("state")
         cities = get_choices(state)
-        return JsonResponse(
-            [{"code": code, "name": name} for code, name in cities], safe=False
-        )
+
+        return JsonResponse([{'code': code, 'name': name} for code, name in cities], safe=False)
+
+
+class PublicCandidatureView(View):
+    template_name = "candidature/candidate_profile.html"
+
+    def get(self, request, slug):
+        candidature = get_object_or_404(Candidature, slug=slug)
+        flag_form = FlagForm(initial=candidature.flags)
+        appointments_form = AppointmentForm(request.GET or None)
+
+        context = {
+            "candidature": candidature,
+            "flag_form": flag_form,
+            "appointments_form": appointments_form,
+        }
+
+        # Verifica se a candidatura está aprovada
+        if candidature.status() != CandidatureFlowStatus.is_valid.label:
+            return render(request, 'candidature/not_approved.html', context)
+        
+        return render(request, self.template_name, context)

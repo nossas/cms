@@ -230,8 +230,15 @@ class CheckboxTextField(forms.CharField):
         super().__init__(
             max_length=None, min_length=None, strip=True, empty_value="", **kwargs
         )
+
         # Remove label to use only subwidgets label
         self.label = ""
+        self.checkbox_label = checkbox_label
+
+    def get_bound_field(self, form, field_name):
+        bound_field = super().get_bound_field(form, field_name)
+        bound_field.checkbox_label = self.checkbox_label
+        return bound_field
 
     def validate(self, value):
         value = value or ""
@@ -243,19 +250,14 @@ class CheckboxTextField(forms.CharField):
         value = super().clean(value)
         return value.replace("on-", "")
 
-    # def get_bound_field(self, form, field_name):
-    #     bound_field = super().get_bound_field(form ,field_name)
-    #     if self.disabled:
-    #         import ipdb;ipdb.set_trace()
-    #     return bound_field
-
 
 class InlineArrayWidget(forms.MultiWidget):
     template_name = "forms/widgets/inline_array.html"
 
-    def __init__(self, widget, size, item_label=None, add_button_text=None, attrs=None):
+    def __init__(self, widget, size, item_label=None, add_button_text=None, placeholder=None, attrs=None):
         self.add_button_text = add_button_text
         self.item_label = item_label
+        self.placeholder = placeholder or ''
         widgets = [
             widget() if isinstance(widget, type) else widget for _ in range(size)
         ]
@@ -293,6 +295,7 @@ class InlineArrayWidget(forms.MultiWidget):
 
     def get_context(self, name, value, attrs):
         context = super().get_context(name, value, attrs)
+        context['widget']['placeholder'] = self.placeholder
         invalid_count = len(
             list(
                 filter(
@@ -343,8 +346,10 @@ class InlineArrayField(SimpleArrayField):
         delimiter=",",
         max_length=None,
         min_length=None,
+        placeholder=None,
         **kwargs,
     ):
+        self.placeholder = placeholder or ''
         self.add_help_text = kwargs.pop("help_text", None)
         super().__init__(
             base_field,
@@ -358,6 +363,7 @@ class InlineArrayField(SimpleArrayField):
             size=size,
             item_label=item_label,
             add_button_text=add_button_text,
+            placeholder=placeholder,
         )
 
     def get_bound_field(self, form, field_name):

@@ -20,7 +20,7 @@ from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path, include, re_path
 
-from .candidature.views import AddressView
+from .candidature.views import AddressView, PublicCandidatureView
 from .candidature.views.create import CreateCandidatureView
 from .candidature.views.edit import EditCandidatureView
 from .candidature.views.oauth import DashboardView
@@ -43,6 +43,7 @@ urlpatterns = [
     ),
     path("register/", register_view, name="register"),
     path("area-restrita/", DashboardView.as_view(), name="dashboard"),
+    path('candidate/<slug:slug>/', PublicCandidatureView.as_view(), name='candidate_profile'),
     path("admin/", admin.site.urls),
     path("select2/", include("django_select2.urls")),
     path('address/', AddressView.as_view(), name='address'),

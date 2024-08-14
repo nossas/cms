@@ -1,0 +1,177 @@
+{% extends "votepeloclima/base.html" %}
+{% load static crispy_forms_filters social_media_tags %}
+
+{% block navbar_actions %}
+    {% if user.is_authenticated %}
+    <a class="btn btn-outline-light" href="{% url 'oauth:logout' %}">Sair</a>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<section class="container">
+    <div class="grid gap-5 py-5">
+        <div class="g-col-4">
+            {% if candidature.photo %}
+                <p><img src="{{ candidature.photo.url }}" alt="Foto de {{ candidature.ballot_name }}" class="img-fluid"/></p>
+            {% endif %}
+        </div>
+        <div class="g-col-8">
+            <div>
+                <div class="d-flex justify-content-between mb-2">
+                    <div class="d-flex w-100 align-items-center gap-1">
+                        <span class="icon-pin"></span>
+                        <p class="text-opacity-75 m-0">{{ candidature.city }} - {{ candidature.state }}</p>
+                    </div>
+                    <div class="d-flex gap-1">
+                        {% for social in candidature.social_media %}
+                            {% render_social_media social %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div>
+                    <h1 class="text-uppercase text-primary">{{ candidature.ballot_name }} | {{ candidature.number_id }}</h1>
+                    <span class="badge bg-secondary">{{ candidature.intended_position }}</span>
+                    <span class="badge bg-secondary">{{ candidature.political_party }}</span>
+                    {% if candidature.is_collective_mandate %}
+                        <span class="badge rounded-pill bg-secondary">Mandato Coletivo</span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="pt-3">
+                <p>{{ candidature.short_description }}</p>
+            </div>
+            <hr class="hr my-4"/>
+            <div>
+                <h2 class="text-uppercase text-primary">Informações</h2>
+                <div class="grid">
+                    <div class="g-col-4">
+                        <p><strong>Data de Nascimento:</strong> {{ candidature.birth_date }}</p>
+                        <p><strong>Raça:</strong> {{ candidature.color }}</p>
+                        <p><strong>Gênero:</strong> {{ candidature.gender }}</p>
+                    </div>
+                    <div class="g-col-8">
+                        <p><strong>Sexualidade:</strong> {{ candidature.sexuality }}</p>
+                        <p><strong>Escolaridade:</strong> {{ candidature.education }}</p>
+                        <p><strong>Ocupação:</strong> {{ candidature.employment }}</p>
+                    </div>
+                </div>
+            </div>
+            <hr class="hr my-4"/>
+            <div>
+                <div>
+                    <h2 class="text-uppercase text-primary">Propostas</h2>
+                    <p class="text-muted">Propostas de {{ candidature.ballot_name }}.</p>
+                </div>
+                <div>
+                    {% for field in flag_form %}
+                        <div class="card mb-2">
+                            <div class="card-body">
+                                <strong class="text-primary pb-2">{{ field.checkbox_label }}</strong>
+                                <p class="m-0">{{ field.value.description }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <hr class="hr my-4"/>
+            <div>
+                <div>
+                <h2 class="text-uppercase text-primary">Histórico de atuação</h2>
+                <p class="text-muted">Momentos e realizações marcantes de {{ candidature.ballot_name }}</p>
+                </div>
+                <div>
+                    {% for milestone in candidature.milestones %}
+                    <div class="card mb-2">
+                        <div class="card-body">
+                            <p class="m-0">{{ milestone }}</p>
+                        </div>
+                      </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="py-5 bg-primary">
+    <div class="container">
+        <h1 class="text-center text-white">O que {{ candidature.ballot_name }} tem a dizer</h1>
+        <p class="text-center text-white">Praesent sit amet turpis vel lacus volutpat scelerisque. Vivamus dapibus, nisi at feugiat tempor, erat lorem lacinia nulla, at consequat massa dolor id odio.</p>
+        {% if candidature.video %}
+            <div class="d-flex justify-content-center">
+                <video controls src="{{ candidature.video.url }}" class="img-fluid"></video>
+            </div>
+        {% endif %}
+    </div>
+</section>
+<section class="py-5">
+    <div class="container">
+        <h1 class="text-center">O que esperar de {{ candidature.ballot_name }}</h1>
+        <p class="text-center">Praesent sit amet turpis vel lacus volutpat scelerisque. Vivamus dapibus, nisi at feugiat tempor, erat lorem lacinia nulla, at consequat massa dolor id odio.</p>
+        <div id="carouselControls" class="carousel slide carousel-dark py-4">
+            <div class="carousel-inner">
+                {% for appointment in appointments_form %}
+                    {% if forloop.first or forloop.counter0|divisibleby:4 %}
+                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                            <div class="d-flex justify-content-center gap-5">
+                    {% endif %}
+                                <div class="d-flex g-col-3 flex-column align-items-center">
+                                    <i class="bi bi-gear fs-1"></i>
+                                    <p class="mt-2">{{ appointment.label }}</p>
+                                </div>
+                    {% if forloop.counter|divisibleby:4 or forloop.last %}
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <button class="carousel-control-prev w-auto" type="button" data-bs-target="#carouselControls" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Anterior</span>
+            </button>
+            <button class="carousel-control-next w-auto" type="button" data-bs-target="#carouselControls" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Próximo</span>
+            </button>
+        </div>
+        <div class="d-flex justify-content-center">
+            <a href="#" class="btn btn-primary text-uppercase">Sou uma pessoa candidata e quero me cadastrar</a>
+        </div>
+    </div>
+</section>
+<section class="py-5">
+    <div class="container">
+        <div class="grid gap-2">
+            <div class="g-col-6">
+                <h2>Compartilhe nas redes sociais para apoiar {{ candidature.ballot_name }}!</h2>
+            </div>
+            <div class="g-col-6">
+                <div class="d-flex flex-column justify-content-center gap-2">
+                    <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" href="https://wa.me/?text=Confira a candidatura de {{ request.build_absolute_uri|urlencode }}">
+                        <span class="icon-whatsapp"></span>
+                        Compartilhar no WhatsApp
+                    </a>
+                    <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri|urlencode }}&text=Confira a candidatura de {{ candidature.ballot_name }}" target="_blank">
+                        <span class="icon-x"></span>
+                        Compartilhar no Twitter
+                    </a>
+                    <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri|urlencode }}&title=Confira a candidatura de {{ candidature.ballot_name }}" target="_blank">
+                        <span class="icon-linkedin"></span>
+                        Compartilhar no LinkedIn
+                    </a>
+                    <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode }}" target="_blank">
+                        <span class="icon-facebook"></span>
+                        Compartilhar no Facebook
+                    </a>
+                    <button type="button" id="copyButton" onclick="copyURL()" class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" data-bs-toggle="tooltip" data-bs-trigger="click" data-bs-placement="bottom" title="Copiado!">
+                        <span class="icon-anchor"></span>
+                        Copiar Link
+                    </button>
+                </div>
+            </div>
+        </div>
+</section>
+{% endblock %}
+
+{% block footer_js %}
+<script src="{% static '/js/copy-to-clipboard.js' %}" type="text/javascript"></script>
+{% endblock %}
