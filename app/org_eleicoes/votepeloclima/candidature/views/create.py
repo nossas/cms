@@ -10,3 +10,6 @@ class CreateCandidatureView(CandidatureBaseView):
 
         if data:
             return User.objects.get(email=data["properties"]["email"])
+        elif isinstance(self.request.user, User):
+            # Quando o storage perde a referência dos dados
+            return self.request.user

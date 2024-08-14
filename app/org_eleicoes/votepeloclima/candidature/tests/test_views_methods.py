@@ -53,6 +53,8 @@ def test_get_current_user_when_init_view():
 @pytest.mark.django_db
 def test_get_current_user_create(mocker):
     view = CreateCandidatureView()
+    view.request = type("WSGIRequest", (object,), {"is_secure": lambda: False, "user": None})
+
     spy_cleaned_data = mocker.spy(view, "get_cleaned_data_for_step")
 
     user = view.get_current_user()

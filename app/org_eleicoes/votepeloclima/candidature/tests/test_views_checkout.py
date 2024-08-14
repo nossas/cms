@@ -79,7 +79,7 @@ def test_context_checkout_steps_with_forms_filleds_and_disabled(mocker):
         form = CheckoutForm()
         context = view.get_context_data(form)
 
-        assert len(context["checkout_steps"]) == len(register_form_list) - 3
+        assert len(context["checkout_steps"]) == len(register_form_list) - 2
 
         for step in context["checkout_steps"]:
             assert step["form"].instance == instance

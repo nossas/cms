@@ -20,9 +20,10 @@ from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path, include, re_path
 
-from .candidature.views import RegisterView, EditRegisterView, DashboardView, AddressView
+from .candidature.views import AddressView
 from .candidature.views.create import CreateCandidatureView
 from .candidature.views.edit import EditCandidatureView
+from .candidature.views.oauth import DashboardView
 
 register_view = CreateCandidatureView.as_view(url_name="register_step", done_step_name="concluir")
 register_edit_view = EditCandidatureView.as_view(url_name="register_edit_step", done_step_name="concluir")
