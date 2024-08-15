@@ -14,13 +14,13 @@
 
 {% block content %}
 <section class="container">
-    <div class="grid gap-5 py-5">
-        <div class="g-col-4">
+    <div class="grid py-5">
+        <div class="g-col-12 g-col-md-4">
             {% if candidature.photo %}
                 <p><img src="{{ candidature.photo.url }}" alt="Foto de {{ candidature.ballot_name }}" class="img-fluid"/></p>
             {% endif %}
         </div>
-        <div class="g-col-8">
+        <div class="g-col-12 g-col-md-8">
             <div>
                 <div class="d-flex justify-content-between mb-2">
                     <div class="d-flex w-100 align-items-center gap-1">
@@ -49,12 +49,12 @@
             <div>
                 <h2 class="text-uppercase text-primary">Informações</h2>
                 <div class="grid">
-                    <div class="g-col-4">
+                    <div class="g-col-12 g-col-md-4">
                         <p><strong>Data de Nascimento:</strong> {{ candidature.birth_date }}</p>
                         <p><strong>Raça:</strong> {{ candidature.color }}</p>
                         <p><strong>Gênero:</strong> {{ candidature.gender }}</p>
                     </div>
-                    <div class="g-col-8">
+                    <div class="g-col-12 g-col-md-8">
                         <p><strong>Sexualidade:</strong> {{ candidature.sexuality }}</p>
                         <p><strong>Escolaridade:</strong> {{ candidature.education }}</p>
                         <p><strong>Ocupação:</strong> {{ candidature.employment }}</p>
@@ -117,9 +117,9 @@
                 {% for appointment in appointments_form %}
                     {% if forloop.first or forloop.counter0|divisibleby:4 %}
                         <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                            <div class="d-flex justify-content-center gap-5">
+                            <div class="d-flex justify-content-around">
                     {% endif %}
-                                <div class="d-flex g-col-3 flex-column align-items-center">
+                                <div class="g-col-3 text-center">
                                     <i class="bi bi-gear fs-1"></i>
                                     <p class="mt-2">{{ appointment.label }}</p>
                                 </div>
@@ -146,10 +146,10 @@
 <section class="py-5">
     <div class="container">
         <div class="grid gap-2">
-            <div class="g-col-6">
+            <div class="g-col-12 g-col-md-6">
                 <h2>Compartilhe nas redes sociais para apoiar {{ candidature.ballot_name }}!</h2>
             </div>
-            <div class="g-col-6">
+            <div class="g-col-12 g-col-md-6">
                 <div class="d-flex flex-column justify-content-center gap-2">
                     <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" href="https://wa.me/?text=Confira a candidatura de {{ request.build_absolute_uri|urlencode }}">
                         <span class="icon-whatsapp"></span>
