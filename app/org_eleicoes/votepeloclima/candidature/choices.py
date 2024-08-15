@@ -66,7 +66,6 @@ class Gender(models.TextChoices):
     pessoa_nao_binaria = "pessoa_nao_binaria", "Pessoa não binária"
     travesti = "travesti", "Travesti"
     queer = "queer", "Queer"
-    mandato_coletivo = "mandato_coletivo", "Mandato Coletivo"
     nao_declarado = "nao_declarado", "Não declarado"
 
 

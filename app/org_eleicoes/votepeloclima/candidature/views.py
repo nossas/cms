@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.http import JsonResponse
 from django.views import View
 from django.contrib.auth.models import User
+from django.db.models import Q
 from django.views.generic import TemplateView, ListView
 from django.http import HttpResponseForbidden
 from django.urls import reverse_lazy, reverse
@@ -390,6 +391,19 @@ class CandidatureSearchView(ListView):
         sexuality = self.request.GET.get('sexuality')
         if sexuality:
             queryset = queryset.filter(sexuality__icontains=sexuality)
+        
+        keyword = self.request.GET.get('keyword')
+        if keyword:
+            queryset = queryset.filter(
+                Q(short_description__icontains=keyword) |
+                Q(milestones__icontains=keyword) |
+                Q(flags__icontains=keyword) |
+                Q(appointments__icontains=keyword)
+            )
+        
+        is_collective_mandate = self.request.GET.get('is_collective_mandate')
+        if is_collective_mandate:
+            queryset = queryset.filter(is_collective_mandate=True)
 
         return queryset
 

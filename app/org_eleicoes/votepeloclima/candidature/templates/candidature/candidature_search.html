@@ -2,6 +2,9 @@
 
 <form method="get" action="{% url 'candidature_search' %}">
     <input type="text" name="ballot_name" placeholder="Nome na Urna" value="{{ request.GET.ballot_name }}">
+    <input type="text" name="keyword" id="keyword" placeholder="Palavra-chave" value="{{ request.GET.keyword }}">
+    <label for="is_collective_mandate">Candidatura Coletiva:</label>
+    <input type="checkbox" name="is_collective_mandate" id="is_collective_mandate" {% if request.GET.is_collective_mandate %}checked{% endif %}>
     <select name="intended_position" id="intended_position">
         {% for value, label in intended_position_choices %}
             <option value="{{ value }}" {% if request.GET.intended_position == value %}selected{% endif %}>{{ label }}</option>
