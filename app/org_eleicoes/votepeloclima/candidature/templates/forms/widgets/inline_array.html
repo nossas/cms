@@ -13,6 +13,7 @@
                     id="{{ subwidget.id }}"
                     {% if subwidget.value %} value="{{ subwidget.value|stringformat:'s' }}"{% endif %}
                     {% include "django/forms/widgets/attrs.html" with widget=subwidget %}
+                    placeholder="{{ widget.placeholder|default:'' }}"
                 />
                 {% if not subwidget.attrs.disabled %}
                 <button type="button" class="btn btn-outline-danger ms-2" onclick="inlineDelete(this)">

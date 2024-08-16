@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.serializers.json import DjangoJSONEncoder
+from django.utils.text import slugify
 
 from .choices import CandidatureFlowStatus
 
@@ -17,6 +18,8 @@ class Candidature(models.Model):
     cpf = models.CharField(max_length=30)
     number_id = models.PositiveIntegerField()
     intended_position = models.CharField(max_length=50)
+    deputy_mayor = models.CharField(max_length=140, blank=True, null=True)
+    deputy_mayor_political_party = models.CharField(max_length=60, blank=True, null=True)
     state = models.CharField(max_length=10)
     city = models.CharField(max_length=60)
     is_collective_mandate = models.BooleanField(default=False, blank=True)
@@ -31,8 +34,11 @@ class Candidature(models.Model):
     employment = models.CharField(max_length=50, null=True, blank=True)
     short_description = models.TextField()
     milestones = models.JSONField(blank=True, null=True, default=list)
-    flags = models.JSONField(blank=True)
+    proposes = models.JSONField(blank=True)
     appointments = models.JSONField(blank=True)
+
+    # friendly url by ballot_name
+    slug = models.SlugField(max_length=100, unique=True, blank=True, null=True)
 
     class Meta:
         verbose_name = "Candidatura"
@@ -43,6 +49,11 @@ class Candidature(models.Model):
             return self.candidatureflow.get_status_display
 
         return CandidatureFlowStatus.draft
+    
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = f"{slugify(self.ballot_name)}-{self.number_id}"
+        super().save(*args, **kwargs)
 
 
 class CandidatureFlow(models.Model):

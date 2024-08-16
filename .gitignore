@@ -6,7 +6,8 @@ __pycache__
 *.sqlite3
 media
 staticfiles
-
+testimage.jpeg
+*.DS_Store
 
 # Pelican
 docs/output

@@ -1,13 +1,14 @@
 import hashlib
 
-from django.shortcuts import redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 from django.http import JsonResponse
 from django.views import View
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AnonymousUser
 from django.db.models import Q
 from django.views.generic import TemplateView, ListView
+
 from django.http import HttpResponseForbidden
 from django.urls import reverse_lazy, reverse
 from django.core.files.storage import default_storage
@@ -15,10 +16,10 @@ from django.core.files.storage import default_storage
 from formtools.wizard.views import NamedUrlSessionWizardView
 
 from contrib.oauth.utils import send_confirmation_email
-from .models import CandidatureFlow, CandidatureFlowStatus, Candidature
-from .forms import register_form_list, ProposeForm, AppointmentForm
-from .locations_utils import get_ufs, get_choices
-from .choices import (
+from ..models import CandidatureFlow, CandidatureFlowStatus, Candidature
+from ..forms import register_form_list, ProposeForm, AppointmentForm
+from ..locations_utils import get_ufs, get_choices
+from ..choices import (
     PoliticalParty,
     IntendedPosition,
     Color,
@@ -26,8 +27,13 @@ from .choices import (
     Sexuality,
 )
 
-
 initial_step_name = register_form_list[2][0]
+disable_edit_steps = [
+    "informacoes-pessoais",
+    "informacoes-de-candidatura",
+    "captcha",
+    "compromissos",
+]
 
 
 def files_is_equal(file1, file2):
@@ -49,7 +55,7 @@ class BaseRegisterView(NamedUrlSessionWizardView):
     file_storage = default_storage
 
     def _get_instance(self):
-        if not self._instance:
+        if not self._instance and isinstance(self.request.user, AnonymousUser):
             step_name = "informacoes-pessoais"
             email = (
                 self.storage.data.get("step_data", {})
@@ -61,6 +67,8 @@ class BaseRegisterView(NamedUrlSessionWizardView):
                 self._instance = user.candidatureflow
             except User.DoesNotExist:
                 pass
+        elif isinstance(self.request.user, User):
+            self._instance = self.request.user.candidatureflow
 
         return self._instance
 
@@ -70,12 +78,16 @@ class BaseRegisterView(NamedUrlSessionWizardView):
         request = self.request
         if "wizard_goto_last" in request.POST:
             form = self.get_form(data=request.POST, files=request.FILES)
-            
+
             if form.is_valid():
                 self.storage.set_step_data(self.steps.current, self.process_step(form))
-                self.storage.set_step_files(self.steps.current, self.process_step_files(form))
+                self.storage.set_step_files(
+                    self.steps.current, self.process_step_files(form)
+                )
                 # Move to last step
                 self.storage.current_step = self.steps.all[-1]
+                if self.request.user.is_active:
+                    return redirect("/area-restrita")
                 return self.render(self.get_form())
 
         return super().post(*args, **kwargs)
@@ -94,11 +106,7 @@ class BaseRegisterView(NamedUrlSessionWizardView):
             user.is_active = False
             user.save()
 
-            send_confirmation_email(
-                user,
-                self.request,
-                email_template_name="candidature/activation_email.html",
-            )
+            send_confirmation_email(user=user, request=self.request)
 
         return user
 
@@ -145,10 +153,12 @@ class BaseRegisterView(NamedUrlSessionWizardView):
         return None
 
     def process_step(self, form):
+        print("asdadasdasdasd")
         form_data = super().process_step(form)
         current_step = form_data[f"{self.get_prefix(self.request)}-current_step"]
         user = self.get_current_user()
 
+        print(form_data)
         if current_step == initial_step_name and not user:
             email = form_data[current_step + "-email"]
             name = form_data[current_step + "-legal_name"]
@@ -162,6 +172,7 @@ class BaseRegisterView(NamedUrlSessionWizardView):
             user = self.create_user(**values)
 
         if user:
+            print("asdadasdasdasd")
             self.upsert_instance(form, current_step, user)
 
         if current_step == "complemente-seu-perfil":
@@ -227,10 +238,12 @@ class RegisterView(BaseRegisterView):
         if hasattr(form.Meta, "description"):
             context.update({"step_description": form.Meta.description})
 
-        context.update({
-            "next_step_title": self.get_next_step_title(),
-            "editing": self.storage.extra_data.get("editing", False)
-        })
+        context.update(
+            {
+                "next_step_title": self.get_next_step_title(),
+                "editing": self.storage.extra_data.get("editing", False),
+            }
+        )
         return context
 
     def done(self, form_list, form_dict, **kwargs):
@@ -241,7 +254,7 @@ class RegisterView(BaseRegisterView):
         for step, form in form_dict.items():
             if step not in ("captcha", "checkout"):
                 if isinstance(form, ProposeForm):
-                    values.update({"flags": form.cleaned_data.get("properties")})
+                    values.update({"proposes": form.cleaned_data.get("properties")})
                 elif isinstance(form, AppointmentForm):
                     values.update({"appointments": form.cleaned_data.get("properties")})
                 else:
@@ -263,10 +276,23 @@ class EditRegisterView(LoginRequiredMixin, RegisterView):
     login_url = reverse_lazy("oauth:login")
 
     def has_permission(self):
-        return (
+        is_draft = (
             self.request.user.candidatureflow
             and self.request.user.candidatureflow.status == CandidatureFlowStatus.draft
         )
+
+        is_steps = bool(
+            len(
+                list(
+                    filter(
+                        lambda x: self.request.path.endswith(f"{x}/"),
+                        disable_edit_steps,
+                    )
+                )
+            )
+        )
+
+        return is_draft and not is_steps
 
     def dispatch(self, request, *args, **kwargs):
         if not self.has_permission():
@@ -275,22 +301,13 @@ class EditRegisterView(LoginRequiredMixin, RegisterView):
             )
         return super().dispatch(request, *args, **kwargs)
 
-    def get_form_initial(self, step):
-        """
-        Returns a dictionary which will be passed to the form for `step`
-        as `initial`. If no initial data was provided while initializing the
-        form wizard, an empty dictionary will be returned.
-        """
-        initial_data = {}
-        if step not in self.steps_hide_on_checkout:
-            cflow = self.request.user.candidatureflow
+    def get_current_user(self):
+        return self.request.user
 
-            for key, value in cflow.properties.items():
-                if key.startswith(step):
-                    copyKey = key.replace(f"{step}-", "")
-                    initial_data[copyKey] = value[0]
-
-        return self.initial_dict.get(step, initial_data)
+    def get_context_data(self, form, **kwargs):
+        context = super().get_context_data(form, **kwargs)
+        context["editing"] = True
+        return context
 
 
 class DashboardView(LoginRequiredMixin, TemplateView):
@@ -300,30 +317,22 @@ class DashboardView(LoginRequiredMixin, TemplateView):
 
     def get_checkout_steps(self):
         checkout_steps = []
-        candidature_flow = self.request.user.candidatureflow
 
         for step_name, form_class in register_form_list:
             if step_name not in self.steps_hide_on_checkout:
-                initial_data = {}
-                for key in list(
-                    filter(
-                        lambda x: x.startswith(step_name),
-                        candidature_flow.properties.keys(),
-                    )
-                ):
-                    initial_data[key.replace(step_name + "-", "")] = (
-                        candidature_flow.properties.get(key)[0]
+                obj = CandidatureFlow.objects.get(user=self.request.user)
+                form = form_class(instance=obj, data=obj.properties, disabled=True)
+                step_dict = dict(
+                    name=step_name,
+                    form=form,
+                    is_valid=form.is_valid(),
+                )
+                if step_name not in disable_edit_steps:
+                    step_dict["edit_url"] = reverse(
+                        "register_edit_step", kwargs={"step": step_name}
                     )
 
-                checkout_steps.append(
-                    dict(
-                        name=step_name,
-                        edit_url=reverse(
-                            "register_edit_step", kwargs={"step": step_name}
-                        ),
-                        form=form_class(data=initial_data, disabled=True),
-                    )
-                )
+                checkout_steps.append(step_dict)
 
         return checkout_steps
 
@@ -335,7 +344,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
             # checkout_steps = []
             context.update(
                 {
-                    "candidature_flow": self.request.user.candidatureflow,
+                    "flow": self.request.user.candidatureflow,
                     "checkout_steps": checkout_steps,
                 }
             )
@@ -347,9 +356,7 @@ class AddressView(View):
     def get(self, request, *args, **kwargs):
         state = request.GET.get("state")
         cities = get_choices(state)
-        return JsonResponse(
-            [{"code": code, "name": name} for code, name in cities], safe=False
-        )
+        return JsonResponse([{'code': code, 'name': name} for code, name in cities], safe=False)
 
 
 class CandidatureSearchView(ListView):
@@ -407,3 +414,29 @@ class CandidatureSearchView(ListView):
         context['initial_search'] = self.request.GET.get('initial_search', 'false')
         
         return context
+
+
+class PublicCandidatureView(View):
+    template_name = "candidature/candidate_profile.html"
+
+    def get(self, request, slug):
+        candidature = get_object_or_404(Candidature, slug=slug)
+        proposes_list = []
+
+        for field_name, value in candidature.proposes.items():
+            if value:
+                proposes_list.append({
+                    "label": ProposeForm().fields[field_name].checkbox_label,
+                    "description": value
+                })
+
+        context = {
+            "candidature": candidature,
+            "proposes": proposes_list,
+        }
+
+        # Verifica se a candidatura está aprovada
+        if candidature.status() != CandidatureFlowStatus.is_valid.label:
+            return render(request, 'candidature/not_approved.html', context)
+        
+        return render(request, self.template_name, context)

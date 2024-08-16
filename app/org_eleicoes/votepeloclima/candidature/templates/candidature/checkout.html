@@ -21,9 +21,11 @@
         </form>
     {% else %}
         <div class="border rounded p-2 mb-3">
-            <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between align-items-start">
                 <h2>{{ step.title }}</h2>
-                <a href="{{ step.edit_url }}">Editar</a>
+                {% if step.edit_url %}
+                <a class="btn btn-outline-dark" href="{{ step.edit_url }}">Editar</a>
+                {% endif %}
             </div>
             {% if step.form.helper %}
                 {% crispy step.form step.form.helper %}

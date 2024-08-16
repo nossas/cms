@@ -17,15 +17,15 @@ class CandidatureFlowAdmin(admin.ModelAdmin):
 
     @admin.display
     def legal_name(self, obj):
-        return obj.properties.get("informacoes-iniciais-legal_name")
+        return obj.properties.get("legal_name")
     
     @admin.display
     def email(self, obj):
-        return obj.properties.get("informacoes-iniciais-email")
+        return obj.properties.get("email")
     
     @admin.display
     def political_party(self, obj):
-        return obj.properties.get("informacoes-de-candidatura-political_party")
+        return obj.properties.get("political_party")
     
     def has_add_permission(self, request):
         return False
