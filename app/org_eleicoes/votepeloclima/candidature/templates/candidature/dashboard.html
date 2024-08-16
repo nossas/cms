@@ -28,8 +28,13 @@
     <div class="d-flex flex-column" style="--bs-gap:10px;width:245px;">
       <a class="btn btn-dark" href="#">Visualizar perfil</a>
       <a class="btn btn-dark" href="#">Compartilhar seu perfil</a>
-      {% if flow.status == "draft" %}
+      {% if flow.status == "draft" or flow.status == "editing" %}
       <a class="btn btn-dark" href="{% url 'register_step' step='checkout' %}">Editar informações</a>
+      {% else %}
+      <form method="post">
+        {% csrf_token %}
+        <input class="btn btn-dark w-100" type="submit" name="request_change" value="Editar informações" />
+      </form>
       {% endif %}
     </div>
   </div>

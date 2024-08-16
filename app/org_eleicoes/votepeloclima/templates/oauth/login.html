@@ -12,7 +12,7 @@
     <p>Acesse a área restrita das candidaturas para verificar, editar e compartilhar suas informações.</p>
     <form method="post">
       {% csrf_token %}
-      
+      {{ form.errors }}
       <div id="div_id_username" class="mb-3">
         <label for="id_username" class="form-label requiredField">E-mail<span class="asteriskField">*</span></label>
         <input type="email" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" class="textinput form-control" required="" id="id_username" placeholder="Insira seu e-mail" />
