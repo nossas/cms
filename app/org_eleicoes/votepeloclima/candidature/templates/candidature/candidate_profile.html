@@ -68,11 +68,11 @@
                     <p class="text-muted">Propostas de {{ candidature.ballot_name }}.</p>
                 </div>
                 <div>
-                    {% for field in propose_form %}
+                    {% for item in proposes %}
                         <div class="card mb-2">
                             <div class="card-body">
-                                <strong class="text-primary pb-2">{{ field.checkbox_label }}</strong>
-                                <p class="m-0">{{ field.value.description }}</p>
+                                <strong class="text-primary pb-2">{{ item.label }}</strong>
+                                <p class="m-0">{{ item.description }}</p>
                             </div>
                         </div>
                     {% endfor %}
@@ -114,20 +114,38 @@
         <p class="text-center">Praesent sit amet turpis vel lacus volutpat scelerisque. Vivamus dapibus, nisi at feugiat tempor, erat lorem lacinia nulla, at consequat massa dolor id odio.</p>
         <div id="carouselControls" class="carousel slide carousel-dark py-4">
             <div class="carousel-inner">
-                {% for appointment in appointments_form %}
-                    {% if forloop.first or forloop.counter0|divisibleby:4 %}
-                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                            <div class="d-flex justify-content-around">
-                    {% endif %}
-                                <div class="g-col-3 text-center">
-                                    <i class="bi bi-gear fs-1"></i>
-                                    <p class="mt-2">{{ appointment.label }}</p>
-                                </div>
-                    {% if forloop.counter|divisibleby:4 or forloop.last %}
+                <div class="carousel-item active">
+                    <div class="d-flex justify-content-around">
+                        <div class="g-col-4 text-center">
+                            <i class="bi bi-gear fs-1"></i>
+                            <p class="mt-2">Lorem ipsum dolor a sit.</p>
+                        </div>
+                        <div class="g-col-4 text-center">
+                            <i class="bi bi-gear fs-1"></i>
+                            <p class="mt-2">Lorem ipsum dolor a sit.</p>
+                        </div>
+                        <div class="g-col-4 text-center">
+                            <i class="bi bi-gear fs-1"></i>
+                            <p class="mt-2">Lorem ipsum dolor a sit.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                        <div class="d-flex justify-content-around">
+                            <div class="g-col-4 text-center">
+                                <i class="bi bi-gear fs-1"></i>
+                                <p class="mt-2">Lorem ipsum dolor a sit.</p>
+                            </div>
+                            <div class="g-col-4 text-center">
+                                <i class="bi bi-gear fs-1"></i>
+                                <p class="mt-2">Lorem ipsum dolor a sit.</p>
+                            </div>
+                            <div class="g-col-4 text-center">
+                                <i class="bi bi-gear fs-1"></i>
+                                <p class="mt-2">Lorem ipsum dolor a sit.</p>
                             </div>
                         </div>
-                    {% endif %}
-                {% endfor %}
+                </div>
             </div>
             <button class="carousel-control-prev w-auto" type="button" data-bs-target="#carouselControls" data-bs-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
