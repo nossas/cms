@@ -4,8 +4,7 @@ from django.shortcuts import render
 
 from .base import CandidatureBaseView
 from ..choices import CandidatureFlowStatus
-from ..forms import ProposeForm, AppointmentForm
-from ..models import Candidature, CandidatureFlow
+from ..models import CandidatureFlow
 
 
 class CreateUpdateCandidatureView(CandidatureBaseView):
@@ -26,17 +25,16 @@ class CreateUpdateCandidatureView(CandidatureBaseView):
         validate, `render_revalidation_failure` should get called.
         If everything is fine call `done`.
         """
+        
         final_forms = OrderedDict()
         # walk through the form list and try to validate the data again.
-        for form_key in self.get_form_list():
-            form_obj = self.get_form(
-                step=form_key,
-                data=self.storage.get_step_data(form_key),
-                files=self.storage.get_step_files(form_key)
-            )
-            if not form_obj.is_valid() and self.instance.status == "draft":  # Revalidation only draft
-                return self.render_revalidation_failure(form_key, form_obj, **kwargs)
-            final_forms[form_key] = form_obj
+        for step_name, form_class in self.get_form_list().items():
+            instance = CandidatureFlow.objects.get(user=self.request.user)
+            form_obj = form_class(instance=instance, data=instance.properties)
+            
+            if not form_obj.is_valid() and step_name != "captcha":  # Revalidation only draft
+                return self.render_revalidation_failure(step_name, form_obj, **kwargs)
+            final_forms[step_name] = form_obj
 
         # render the done view and reset the wizard before returning the
         # response. This is needed to prevent from rendering done with the
