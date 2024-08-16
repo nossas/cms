@@ -24,7 +24,7 @@
             <div>
                 <div class="d-flex justify-content-between mb-2">
                     <div class="d-flex w-100 align-items-center gap-1">
-                        <span class="icon-pin"></span>
+                        <span class="ds-icon-pin"></span>
                         <p class="text-opacity-75 m-0">{{ candidature.city }} - {{ candidature.state }}</p>
                     </div>
                     <div class="d-flex gap-1">
@@ -170,23 +170,23 @@
             <div class="g-col-12 g-col-md-6">
                 <div class="d-flex flex-column justify-content-center gap-2">
                     <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" href="https://wa.me/?text=Confira a candidatura de {{ request.build_absolute_uri|urlencode }}">
-                        <span class="icon-whatsapp"></span>
+                        <span class="ds-icon-whatsapp"></span>
                         Compartilhar no WhatsApp
                     </a>
                     <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri|urlencode }}&text=Confira a candidatura de {{ candidature.ballot_name }}" target="_blank">
-                        <span class="icon-x"></span>
+                        <span class="ds-icon-x"></span>
                         Compartilhar no Twitter
                     </a>
                     <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri|urlencode }}&title=Confira a candidatura de {{ candidature.ballot_name }}" target="_blank">
-                        <span class="icon-linkedin"></span>
+                        <span class="ds-icon-linkedin"></span>
                         Compartilhar no LinkedIn
                     </a>
                     <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode }}" target="_blank">
-                        <i class="ds-icon-facebook"></i>
+                        <span class="ds-icon-facebook"></span>
                         Compartilhar no Facebook
                     </a>
                     <button type="button" id="copyButton" onclick="copyURL()" class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" data-bs-toggle="tooltip" data-bs-trigger="click" data-bs-placement="bottom" title="Copiado!">
-                        <span class="icon-anchor"></span>
+                        <span class="ds-icon-anchor"></span>
                         Copiar Link
                     </button>
                 </div>
