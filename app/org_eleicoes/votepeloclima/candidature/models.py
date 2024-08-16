@@ -32,7 +32,7 @@ class Candidature(models.Model):
     employment = models.CharField(max_length=50, null=True, blank=True)
     short_description = models.TextField()
     milestones = models.JSONField(blank=True, null=True, default=list)
-    flags = models.JSONField(blank=True)
+    proposes = models.JSONField(blank=True)
     appointments = models.JSONField(blank=True)
 
     # friendly url by ballot_name
