@@ -14,6 +14,7 @@ from org_eleicoes.votepeloclima.candidature.forms import (
 
 def test_add_form_title_context(mocker):
     view = CandidatureBaseView()
+    view.request = type("WSGIRequest", (object,), {"is_secure": lambda: False, "user": None})
     view.prefix = normalize_name(view.__class__.__name__)
     view.steps = StepsHelper(view)
     view.storage = type(
@@ -35,6 +36,7 @@ def test_add_form_title_context(mocker):
 
 def test_add_form_description_context(mocker):
     view = CandidatureBaseView()
+    view.request = type("WSGIRequest", (object,), {"is_secure": lambda: False, "user": None})
     view.prefix = normalize_name(view.__class__.__name__)
     view.steps = StepsHelper(view)
     view.storage = type(
@@ -63,6 +65,7 @@ def test_context_checkout_steps_with_forms_filleds_and_disabled(mocker):
     instance = CandidatureFlow.objects.create(user=user)
 
     view = CandidatureBaseView()
+    view.request = type("WSGIRequest", (object,), {"is_secure": lambda: False, "user": None})
     view.prefix = normalize_name(view.__class__.__name__)
     view.steps = StepsHelper(view)
     view.storage = type(

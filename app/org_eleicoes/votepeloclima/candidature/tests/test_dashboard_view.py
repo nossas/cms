@@ -44,7 +44,7 @@ def test_get_dashboard_when_logged(client):
     from org_eleicoes.votepeloclima.candidature.models import CandidatureFlow, Candidature
 
     user = User.objects.create_user(username="test@localhost", password="test123")
-    candidature = baker.make(Candidature, flags=[], appointments=[])
+    candidature = baker.make(Candidature, proposes=[], appointments=[])
     flow = baker.make(CandidatureFlow, candidature=candidature, user=user, status=CandidatureFlowStatus.submitted)
 
     assert flow.status == CandidatureFlowStatus.submitted

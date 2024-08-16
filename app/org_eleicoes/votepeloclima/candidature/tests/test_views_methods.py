@@ -7,8 +7,7 @@ from django.test import override_settings
 from django.urls import path, include
 
 from org_eleicoes.votepeloclima.candidature.views.base import CandidatureBaseView
-from org_eleicoes.votepeloclima.candidature.views.create import CreateCandidatureView
-from org_eleicoes.votepeloclima.candidature.views.edit import EditCandidatureView
+from org_eleicoes.votepeloclima.candidature.views.create import CreateUpdateCandidatureView
 
 
 @pytest.fixture
@@ -40,8 +39,7 @@ def test_base_view_file_storage():
 
 
 def test_inherit_add_and_edit_base_view():
-    assert issubclass(CreateCandidatureView, CandidatureBaseView)
-    assert issubclass(EditCandidatureView, CandidatureBaseView)
+    assert issubclass(CreateUpdateCandidatureView, CandidatureBaseView)
 
 
 def test_get_current_user_when_init_view():
@@ -52,7 +50,7 @@ def test_get_current_user_when_init_view():
 
 @pytest.mark.django_db
 def test_get_current_user_create(mocker):
-    view = CreateCandidatureView()
+    view = CreateUpdateCandidatureView()
     view.request = type("WSGIRequest", (object,), {"is_secure": lambda: False, "user": None})
 
     spy_cleaned_data = mocker.spy(view, "get_cleaned_data_for_step")
@@ -67,7 +65,8 @@ def test_get_current_user_create(mocker):
 def test_get_current_user_create_with_email(mocker):
     from django.contrib.auth.models import User
 
-    view = CreateCandidatureView()
+    view = CreateUpdateCandidatureView()
+    view.request = type("WSGIRequest", (object,), {"is_secure": lambda: False, "user": None})
 
     email = "test@localhost"
     user = User.objects.create(username=email, email=email)
@@ -78,23 +77,6 @@ def test_get_current_user_create_with_email(mocker):
         return_value={"properties": {"email": user.email}},
     ):
         assert view.get_current_user() == user
-
-
-@pytest.mark.django_db
-def test_get_current_user_edit_with_request(mocker):
-    from django.contrib.auth.models import User
-
-    rf = RequestFactory()
-    request = rf.get("/")
-    email = "test@localhost"
-    user = User.objects.create(username=email, email=email)
-
-    request.user = user
-
-    view = EditCandidatureView()
-    view.request = type("WSGIRequest", (object,), {"user": user})
-
-    assert view.get_current_user() == user
 
 
 @pytest.mark.django_db
@@ -284,7 +266,7 @@ def test_upsert_instance_create_flow_personal_step(mocker):
     form = PersonalForm(data=initial_data)
 
     view = CandidatureBaseView()
-
+    view.request = type("WSGIRequest", (object,), {"is_secure": lambda: False, "user": None})
     with mocker.patch.object(
         view, "get_cleaned_data_for_step", return_value=appoitments
     ):
@@ -320,6 +302,7 @@ def test_upsert_instance_update_flow_personal_step(mocker):
     form = PersonalForm(data=initial_data)
 
     view = CandidatureBaseView()
+    view.request = type("WSGIRequest", (object,), {"is_secure": lambda: False, "user": None})
     with mocker.patch.object(
         view, "get_cleaned_data_for_step", return_value=appoitments
     ):
