@@ -18,6 +18,8 @@ class Candidature(models.Model):
     cpf = models.CharField(max_length=30)
     number_id = models.PositiveIntegerField()
     intended_position = models.CharField(max_length=50)
+    deputy_mayor = models.CharField(max_length=140, blank=True, null=True)
+    deputy_mayor_political_party = models.CharField(max_length=60, blank=True, null=True)
     state = models.CharField(max_length=10)
     city = models.CharField(max_length=60)
     is_collective_mandate = models.BooleanField(default=False, blank=True)

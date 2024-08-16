@@ -5,7 +5,7 @@ from django.utils.functional import lazy
 from captcha.widgets import ReCaptchaV2Checkbox
 from entangled.forms import EntangledModelFormMixin
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Div, Field
+from crispy_forms.layout import Layout, Div, Field, HTML
 from bootstrap_datepicker_plus.widgets import DatePickerInput
 
 from .locations_utils import get_ufs, get_choices
@@ -26,7 +26,7 @@ from .fields import (
     ToggleButtonField,
     VideoField,
     InputMask,
-    HTMLBooleanField
+    HTMLBooleanField,
 )
 from .layout import NoCrispyField, FileField
 
@@ -182,6 +182,14 @@ class ApplicationForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
     political_party = forms.ChoiceField(
         label="Partido político", choices=PoliticalParty.choices
     )
+    deputy_mayor = forms.CharField(
+        label="Nome vice-prefeitura",
+        widget=forms.TextInput(attrs={"placeholder": "Digite o nome"}),
+        required=False,
+    )
+    deputy_mayor_political_party = forms.ChoiceField(
+        label="Partido político", choices=PoliticalParty.choices, required=False
+    )
 
     class Meta:
         title = "Informações de candidatura"
@@ -212,9 +220,24 @@ class ApplicationForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
                 Div(Field("city"), css_class="g-col-12 g-col-md-6"),
                 Div(
                     NoCrispyField("is_collective_mandate"),
-                    css_class="g-col-12 g-col-md-6",
+                    css_class="g-col-12 g-col-md-6 mb-3",
                 ),
                 Div(Field("political_party"), css_class="g-col-12 g-col-md-6"),
+                Div(
+                    HTML(
+                        """
+                        <hr/>
+                        <h5>Informações vice-prefeitura</h5>
+                        <p>Adicione informações somente em caso de candidaturas para prefeitura<p>
+                        """
+                    ),
+                    css_class="g-col-12 g-col-md-12",
+                ),
+                Div(Field("deputy_mayor"), css_class="g-col-12 g-col-md-6"),
+                Div(
+                    Field("deputy_mayor_political_party"),
+                    css_class="g-col-12 g-col-md-6",
+                ),
                 css_class="grid",
                 style="grid-row-gap:0;",
             )
@@ -231,6 +254,21 @@ class ApplicationForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
 
             if state:
                 self.fields["city"].choices = get_choices(state)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        intended_position = cleaned_data.get("intended_position")
+        deputy_mayor = cleaned_data.get("deputy_mayor")
+        deputy_mayor_political_party = cleaned_data.get("deputy_mayor_political_party")
+
+        if intended_position == IntendedPosition.prefeitura and not deputy_mayor:
+            self.add_error("deputy_mayor", "Esse campo é obrigatório")
+
+        if (
+            intended_position == IntendedPosition.prefeitura
+            and not deputy_mayor_political_party
+        ):
+            self.add_error("deputy_mayor_political_party", "Esse campo é obrigatório")
 
 
 propose_text_label = "Proposta"

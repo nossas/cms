@@ -201,13 +201,15 @@ class CandidatureBaseView(NamedUrlSessionWizardView):
 
         if request.user.is_authenticated and request.user.is_staff:
             raise Http404("Staff users isn't permissions to create Candidature")
+
         
-        try:
-            instance = CandidatureFlow.objects.get(user=request.user)
-            if instance.status == CandidatureFlowStatus.editing and self.storage.current_step in self.steps_not_editable:
-                raise Http404()
-        except CandidatureFlow.DoesNotExist:
-            pass
+        if isinstance(request.user, User):
+            try:
+                instance = CandidatureFlow.objects.get(user=request.user)
+                if instance.status == CandidatureFlowStatus.editing and self.storage.current_step in self.steps_not_editable:
+                    raise Http404()
+            except CandidatureFlow.DoesNotExist:
+                pass
 
         return response
         
