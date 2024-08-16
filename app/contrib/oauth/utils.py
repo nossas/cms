@@ -5,6 +5,8 @@ from django.urls import reverse
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 
+from .forms import OAuthPasswordResetForm
+
 
 def get_uuid_and_token(user):
     return urlsafe_base64_encode(
@@ -13,18 +15,23 @@ def get_uuid_and_token(user):
 
 
 
-def send_confirmation_email(user, request, email_template_name):
-    uid, token = get_uuid_and_token(user)
-    current_site = request.current_site
+def send_confirmation_email(
+    user,
+    request,
+    from_email=None,
+    subject_template_name="oauth/email/password_reset_subject.txt",
+    email_template_name="oauth/email/password_reset_confirm.html"
+):
+    opts = {
+        "use_https": request.is_secure(),
+        "token_generator": default_token_generator,
+        "request": request,
+        "from_email": from_email,
+        "subject_template_name": subject_template_name,
+        "email_template_name": email_template_name,
+        "extra_email_context": {}
+    }
 
-    activation_url = f'http{"s" if request.is_secure() else ""}://{current_site.domain}{reverse("oauth:change-password", kwargs={"uidb64": uid, "token": token})}'
-
-    subject = "Confirme seu e-mail"
-    message = render_to_string(email_template_name, {
-        "user": user,
-        "activation_url": activation_url
-    })
-    to_email = user.email
-    
-    email = EmailMessage(subject, message, to=[to_email])
-    email.send()
+    form = OAuthPasswordResetForm(data={"email": user.email})
+    if form.is_valid():
+        form.save(**opts)

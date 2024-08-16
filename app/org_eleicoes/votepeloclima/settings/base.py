@@ -97,6 +97,7 @@ MIDDLEWARE = [
     "cms.middleware.toolbar.ToolbarMiddleware",
     "cms.middleware.language.LanguageCookieMiddleware",
     "contrib.oauth.middleware.NoDjangoAdminForEndUserMiddleware",
+    "contrib.oauth.middleware.TokenAuthMiddleware",
     #
     # "django_prometheus.middleware.PrometheusAfterMiddleware",
 ]

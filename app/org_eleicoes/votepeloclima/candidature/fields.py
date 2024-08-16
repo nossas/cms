@@ -181,6 +181,9 @@ class CheckboxTextWidget(forms.MultiWidget):
         checkbox, text = super().value_from_datadict(data, files, name)
         if checkbox:
             return "on-" + text
+        elif data.get(name, None):
+            return "on-" + data.get(name)
+
         return None
 
     def render(self, name, value, attrs=None, renderer=None):
@@ -279,9 +282,15 @@ class InlineArrayWidget(forms.MultiWidget):
 
     def value_from_datadict(self, data, files, name):
         values = []
-        for key, value in data.items():
-            if key.startswith(f"{name}_"):
-                values.append(value)
+
+        # Used when save values in model like a list
+        if name in data:
+            values = data.get(name)
+        else:
+            for key, value in data.items():
+                if key.startswith(f"{name}_"):
+                    values.append(value)
+
         return values
 
     def get_context(self, name, value, attrs):

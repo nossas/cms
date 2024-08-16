@@ -15,11 +15,13 @@ Including another URLconf
 """
 from django.urls import path
 
-from .views import OAuthLoginView, OAuthChangePasswordView, OAuthLogoutView
+from .views import OAuthLoginView, OAuthChangePasswordView, OAuthLogoutView, OAuthPasswordResetView, OAuthPasswordResetDoneView
 
 
 urlpatterns = [
     path("logout/", OAuthLogoutView.as_view(), name="logout"),
     path("login/", OAuthLoginView.as_view(), name="login"),
+    path("reset-password/", OAuthPasswordResetView.as_view(), name="reset-password"),
+    path("reset-password/done/", OAuthPasswordResetDoneView.as_view(), name="reset-password-done"),
     path("change-password/<uidb64>/<token>/", OAuthChangePasswordView.as_view(), name="change-password"),
 ]
