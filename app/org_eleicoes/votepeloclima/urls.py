@@ -21,10 +21,10 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path, include, re_path
 
 from .candidature.views import AddressView, PublicCandidatureView
-from .candidature.views.create import CreateCandidatureView
+from .candidature.views.create import CreateUpdateCandidatureView
 from .candidature.views.oauth import DashboardView, UpdateCandidatureStatusView
 
-register_view = CreateCandidatureView.as_view(url_name="register_step", done_step_name="concluir")
+register_view = CreateUpdateCandidatureView.as_view(url_name="register_step", done_step_name="concluir")
 
 urlpatterns = [
     # path("monitoring/", include("django_prometheus.urls")),

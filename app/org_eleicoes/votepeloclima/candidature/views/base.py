@@ -6,6 +6,7 @@ from django.urls import reverse
 
 from formtools.wizard.views import NamedUrlSessionWizardView
 from contrib.oauth.utils import send_confirmation_email
+from contrib.oauth.models import Token
 
 from ..choices import CandidatureFlowStatus
 from ..models import CandidatureFlow, Candidature
@@ -121,6 +122,8 @@ class CandidatureBaseView(NamedUrlSessionWizardView):
             if created:
                 user.is_active = False
                 user.save()
+
+                Token.objects.create(user=user)
 
                 send_confirmation_email(user=user, request=self.request)
         

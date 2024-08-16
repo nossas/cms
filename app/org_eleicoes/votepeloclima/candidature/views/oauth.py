@@ -1,4 +1,5 @@
-import functools
+from functools import reduce
+from collections import OrderedDict
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView, View
@@ -12,7 +13,7 @@ from contrib.oauth.mixins import JsonLoginRequiredMixin
 
 from ..choices import CandidatureFlowStatus
 from ..models import CandidatureFlow, Candidature
-from ..forms import register_form_list, ProposeForm, TrackForm, ProfileForm
+from ..forms import register_form_list, ProposeForm, AppointmentForm
 
 disable_edit_steps = [
     "informacoes-pessoais",
@@ -49,7 +50,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
 
         if not self.request.user.is_staff:
             checkout_steps = self.get_checkout_steps()
-            is_valid = functools.reduce(lambda x, y: x and y, list(map(lambda x: x.get("is_valid"), checkout_steps)))
+            is_valid = reduce(lambda x, y: x and y, list(map(lambda x: x.get("is_valid"), checkout_steps)))
             # checkout_steps = []
             context.update(
                 {
@@ -76,28 +77,30 @@ class DashboardView(LoginRequiredMixin, TemplateView):
 class UpdateCandidatureStatusView(JsonLoginRequiredMixin, View):
 
     def post(self, request, *args, **kwargs):
-        instance = request.user.candidatureflow
+        instance = CandidatureFlow.objects.get(user=request.user)
         if instance.status == "submitted":
             values = {}
-            for form_class in (ProposeForm, TrackForm, ProfileForm):
-                instance = CandidatureFlow.objects.get(user=request.user)
-                form = form_class(instance=instance, data=instance.properties)
-                if form.is_valid():
-                    if isinstance(form, ProposeForm):
-                        values.update({"flags": form.cleaned_data.get("properties")})
-                    else:
-                        cleaned = form.cleaned_data.copy()
-                        properties = cleaned.pop("properties", {})
-                        values.update({**properties, **cleaned})
+            for step, form_class in OrderedDict(register_form_list).items():
+                if step not in ("captcha", "checkout"):
+                    form = form_class(instance=CandidatureFlow.objects.get(user=request.user), data=instance.properties)
+                    if form.is_valid():
+                        if isinstance(form, ProposeForm):
+                            # TODO: Mudar depois de mergear para proposes
+                            values.update({"flags": form.cleaned_data.get("properties")})
+                        elif isinstance(form, AppointmentForm):
+                            values.update({"appointments": form.cleaned_data.get("properties")})
+                        else:
+                            cleaned = form.cleaned_data.copy()
+                            properties = cleaned.pop("properties", {})
+                            values.update({**properties, **cleaned})
             
-            import ipdb;ipdb.set_trace()
             if instance.candidature:
                 Candidature.objects.filter(id=instance.candidature.id).update(**values)
-                instance.status = "success"
+                instance.status = CandidatureFlowStatus.is_valid
                 instance.save()
             else:
                 instance.candidature = Candidature.objects.create(**values)
-                instance.status = "success"
+                instance.status = CandidatureFlowStatus.is_valid
                 instance.save()
 
         return JsonResponse({"message": "success"})
