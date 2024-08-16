@@ -2,6 +2,7 @@ import hashlib
 
 from django.core.files.storage import default_storage
 from django.contrib.auth.models import User, AnonymousUser
+from django.http import Http404
 from django.urls import reverse
 
 from formtools.wizard.views import NamedUrlSessionWizardView
@@ -29,6 +30,7 @@ class CandidatureBaseView(NamedUrlSessionWizardView):
     form_list = register_form_list
     file_storage = default_storage
     template_name = "candidature/wizard_form.html"
+    steps_not_editable = ("informacoes-pessoais", "informacoes-de-candidatura")
 
     _instance = None
 
@@ -126,10 +128,10 @@ class CandidatureBaseView(NamedUrlSessionWizardView):
                 Token.objects.create(user=user)
 
                 send_confirmation_email(user=user, request=self.request)
-        
+
         if user:
             self.upsert_instance(form, current_step, user)
-        
+
         if self.get_next_step(step=current_step) == "checkout":
             self.storage.extra_data["editing"] = True
 
@@ -160,15 +162,15 @@ class CandidatureBaseView(NamedUrlSessionWizardView):
 
         if hasattr(form.Meta, "description"):
             context.update({"step_description": form.Meta.description})
-        
+
         if self.steps.next:
             next_form_class = self.get_form_list().get(self.steps.next)
             if hasattr(next_form_class.Meta, "title"):
                 context.update({"next_step_title": next_form_class.Meta.title})
-        
+
         if instance and instance.status == "editing":
             context.update({"editing": True})
-        
+
         checkout_steps = []
         if self.steps.current == "checkout":
             user = self.get_current_user()
@@ -176,16 +178,36 @@ class CandidatureBaseView(NamedUrlSessionWizardView):
 
             for step, form_class in self.get_form_list().items():
                 if step not in ["captcha", "compromissos"]:
-                    checkout_steps.append(dict(
-                        name=step,
-                        title=getattr(form_class.Meta, "title"),
-                        edit_url=reverse("register_step", kwargs={"step": step}),
-                        form=form_class(disabled=True, instance=instance)
-                    ))
+                    edit_url = reverse("register_step", kwargs={"step": step})
+                    editable = instance.status == CandidatureFlowStatus.draft or (
+                        instance.status == CandidatureFlowStatus.editing
+                        and step
+                        not in self.steps_not_editable
+                    )
+                    checkout_steps.append(
+                        dict(
+                            name=step,
+                            title=getattr(form_class.Meta, "title"),
+                            edit_url=edit_url if editable else None,
+                            form=form_class(disabled=True, instance=instance),
+                        )
+                    )
             context.update({"checkout_steps": checkout_steps})
-        
+
         return context
-    
+
+    def dispatch(self, request, *args, **kwargs):
+        response = super().dispatch(request, *args, **kwargs)
+        try:
+            instance = CandidatureFlow.objects.get(user=request.user)
+            if instance.status == CandidatureFlowStatus.editing and self.storage.current_step in self.steps_not_editable:
+                raise Http404()
+        except CandidatureFlow.DoesNotExist:
+            pass
+
+        return response
+        
+
     def post(self, *args, **kwargs):
         request = self.request
         if "wizard_goto_last" in request.POST:

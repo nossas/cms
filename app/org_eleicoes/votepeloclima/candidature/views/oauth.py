@@ -86,7 +86,7 @@ class UpdateCandidatureStatusView(JsonLoginRequiredMixin, View):
                     if form.is_valid():
                         if isinstance(form, ProposeForm):
                             # TODO: Mudar depois de mergear para proposes
-                            values.update({"flags": form.cleaned_data.get("properties")})
+                            values.update({"proposes": form.cleaned_data.get("properties")})
                         elif isinstance(form, AppointmentForm):
                             values.update({"appointments": form.cleaned_data.get("properties")})
                         else:

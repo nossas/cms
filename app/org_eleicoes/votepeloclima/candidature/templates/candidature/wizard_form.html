@@ -24,7 +24,7 @@
     {% block form_actions %}
     <div class="d-flex justify-content-between mt-5">
     {% if wizard.steps.prev %}
-    <button class="btn btn-outline-dark" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">Voltar</button>
+    <button class="btn btn-outline-dark" name="wizard_goto_step" type="submit" value="{% if editing %}checkout{% else %}{{ wizard.steps.prev }}{% endif %}">Voltar</button>
     {% endif %}
     {% if wizard.steps.next and not editing %}
     <input class="btn btn-dark" name="wizard_goto_step" type="submit" value="{% translate "Continuar: " %}{{ next_step_title }}" />
