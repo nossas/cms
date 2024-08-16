@@ -246,7 +246,7 @@ class RegisterView(BaseRegisterView):
         for step, form in form_dict.items():
             if step not in ("captcha", "checkout"):
                 if isinstance(form, ProposeForm):
-                    values.update({"flags": form.cleaned_data.get("properties")})
+                    values.update({"proposes": form.cleaned_data.get("properties")})
                 elif isinstance(form, AppointmentForm):
                     values.update({"appointments": form.cleaned_data.get("properties")})
                 else:
@@ -357,13 +357,18 @@ class PublicCandidatureView(View):
 
     def get(self, request, slug):
         candidature = get_object_or_404(Candidature, slug=slug)
-        flag_form = FlagForm(initial=candidature.flags)
-        appointments_form = AppointmentForm(request.GET or None)
+        proposes_list = []
+
+        for field_name, value in candidature.proposes.items():
+            if value:
+                proposes_list.append({
+                    "label": ProposeForm().fields[field_name].checkbox_label,
+                    "description": value
+                })
 
         context = {
             "candidature": candidature,
-            "flag_form": flag_form,
-            "appointments_form": appointments_form,
+            "proposes": proposes_list,
         }
 
         # Verifica se a candidatura está aprovada
