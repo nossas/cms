@@ -360,50 +360,32 @@ class CandidatureSearchView(ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
 
-        ballot_name = self.request.GET.get('ballot_name')
-        if ballot_name:
-            queryset = queryset.filter(ballot_name__icontains=ballot_name)
+        # Filtros principais
+        for field in ['state', 'city', 'intended_position', 'political_party']:
+            value = self.request.GET.get(field)
+            if value:
+                queryset = queryset.filter(**{f"{field}__icontains": value})
 
-        intended_position = self.request.GET.get('intended_position')
-        if intended_position:
-            queryset = queryset.filter(intended_position__icontains=intended_position)
-
-        political_party = self.request.GET.get('political_party')
-        if political_party:
-            queryset = queryset.filter(political_party__icontains=political_party)
-
-        state = self.request.GET.get('state')
-        if state:
-            queryset = queryset.filter(state__icontains=state)
-
-        city = self.request.GET.get('city')
-        if city:
-            queryset = queryset.filter(city__icontains=city)
-
-        gender = self.request.GET.get('gender')
-        if gender:
-            queryset = queryset.filter(gender__icontains=gender)
-
-        color = self.request.GET.get('color')
-        if color:
-            queryset = queryset.filter(color__icontains=color)
-        
-        sexuality = self.request.GET.get('sexuality')
-        if sexuality:
-            queryset = queryset.filter(sexuality__icontains=sexuality)
-        
-        keyword = self.request.GET.get('keyword')
-        if keyword:
-            queryset = queryset.filter(
-                Q(short_description__icontains=keyword) |
-                Q(milestones__icontains=keyword) |
-                Q(flags__icontains=keyword) |
-                Q(appointments__icontains=keyword)
-            )
-        
-        is_collective_mandate = self.request.GET.get('is_collective_mandate')
-        if is_collective_mandate:
-            queryset = queryset.filter(is_collective_mandate=True)
+        # Verificar se a busca inicial foi feita
+        if self.request.GET.get('initial_search') == 'true':
+            #Filtros secundários
+            for field in ['gender', 'color', 'sexuality', 'ballot_name']:
+                value = self.request.GET.get(field)
+                if value:
+                    queryset = queryset.filter(**{f"{field}__icontains": value})
+            
+            keyword = self.request.GET.get('keyword')
+            if keyword:
+                queryset = queryset.filter(
+                    Q(short_description__icontains=keyword) |
+                    Q(milestones__icontains=keyword) |
+                    Q(flags__icontains=keyword) |
+                    Q(appointments__icontains=keyword)
+                )
+            
+            is_collective_mandate = self.request.GET.get('is_collective_mandate')
+            if is_collective_mandate:
+                queryset = queryset.filter(is_collective_mandate=True)
 
         return queryset
 
@@ -414,10 +396,14 @@ class CandidatureSearchView(ListView):
         context['color_choices'] = Color.choices
         context['intended_position_choices'] = IntendedPosition.choices
         context['political_party_choices'] = PoliticalParty.choices
+        
         context['states'] = get_ufs()
         selected_state = self.request.GET.get('state')
         if selected_state:
             context['cities'] = get_choices(selected_state)
         else:
             context['cities'] = []
+        
+        context['initial_search'] = self.request.GET.get('initial_search', 'false')
+        
         return context
