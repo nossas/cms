@@ -2,7 +2,6 @@ import hashlib
 
 from django.core.files.storage import default_storage
 from django.contrib.auth.models import User, AnonymousUser
-from django.shortcuts import render
 from django.urls import reverse
 
 from formtools.wizard.views import NamedUrlSessionWizardView
@@ -151,6 +150,7 @@ class CandidatureBaseView(NamedUrlSessionWizardView):
 
     def get_context_data(self, form, **kwargs):
         context = super().get_context_data(form, **kwargs)
+        instance = self.instance
 
         if hasattr(form.Meta, "title"):
             context.update({"step_title": form.Meta.title})
@@ -162,6 +162,9 @@ class CandidatureBaseView(NamedUrlSessionWizardView):
             next_form_class = self.get_form_list().get(self.steps.next)
             if hasattr(next_form_class.Meta, "title"):
                 context.update({"next_step_title": next_form_class.Meta.title})
+        
+        if instance and instance.status == "editing":
+            context.update({"editing": True})
         
         checkout_steps = []
         if self.steps.current == "checkout":
@@ -192,33 +195,6 @@ class CandidatureBaseView(NamedUrlSessionWizardView):
                 )
                 # Move to last step
                 self.storage.current_step = self.steps.all[-1]
-                # if self.request.user.is_active:
-                #     return redirect("/area-restrita")
                 return self.render(self.get_form())
 
         return super().post(*args, **kwargs)
-
-    def done(self, form_list, form_dict, **kwargs):
-        user = self.get_current_user()
-        flow = CandidatureFlow.objects.get(user=user)
-        values = {}
-
-        for step, form in form_dict.items():
-            if step not in ("captcha", "checkout"):
-                if isinstance(form, ProposeForm):
-                    values.update({"flags": form.cleaned_data.get("properties")})
-                elif isinstance(form, AppointmentForm):
-                    values.update({"appointments": form.cleaned_data.get("properties")})
-                else:
-                    cleaned = form.cleaned_data.copy()
-                    properties = cleaned.pop("properties", {})
-                    values.update({**properties, **cleaned})
-
-        obj = Candidature.objects.create(**values)
-        flow.candidature = obj
-        flow.status = CandidatureFlowStatus.submitted
-        flow.save()
-
-        print("Enviar e-mail de cadastro enviado")
-
-        return render(self.request, "candidature/submitted.html")

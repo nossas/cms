@@ -1,11 +1,18 @@
 import functools
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, View
+from django.views.decorators.csrf import csrf_exempt
+from django.http.response import JsonResponse
+from django.shortcuts import redirect
 from django.urls import reverse_lazy, reverse
+from django.utils.decorators import method_decorator
 
-from ..models import CandidatureFlow
-from ..forms import register_form_list
+from contrib.oauth.mixins import JsonLoginRequiredMixin
+
+from ..choices import CandidatureFlowStatus
+from ..models import CandidatureFlow, Candidature
+from ..forms import register_form_list, ProposeForm, TrackForm, ProfileForm
 
 disable_edit_steps = [
     "informacoes-pessoais",
@@ -32,10 +39,6 @@ class DashboardView(LoginRequiredMixin, TemplateView):
                     form=form,
                     is_valid=form.is_valid(),
                 )
-                if step_name not in disable_edit_steps:
-                    step_dict["edit_url"] = reverse(
-                        "register_edit_step", kwargs={"step": step_name}
-                    )
 
                 checkout_steps.append(step_dict)
 
@@ -57,3 +60,44 @@ class DashboardView(LoginRequiredMixin, TemplateView):
             )
 
         return context
+    
+    def post(self, request, *args, **kwargs):
+        if "request_change" in request.POST:
+            flow = request.user.candidatureflow
+            flow.status = CandidatureFlowStatus.editing
+            flow.save()
+
+            return redirect(reverse("register_step", kwargs={"step": "checkout"}))
+
+        return super().post(request, *args, **kwargs)
+
+
+@method_decorator(csrf_exempt, name='dispatch')
+class UpdateCandidatureStatusView(JsonLoginRequiredMixin, View):
+
+    def post(self, request, *args, **kwargs):
+        instance = request.user.candidatureflow
+        if instance.status == "submitted":
+            values = {}
+            for form_class in (ProposeForm, TrackForm, ProfileForm):
+                instance = CandidatureFlow.objects.get(user=request.user)
+                form = form_class(instance=instance, data=instance.properties)
+                if form.is_valid():
+                    if isinstance(form, ProposeForm):
+                        values.update({"flags": form.cleaned_data.get("properties")})
+                    else:
+                        cleaned = form.cleaned_data.copy()
+                        properties = cleaned.pop("properties", {})
+                        values.update({**properties, **cleaned})
+            
+            import ipdb;ipdb.set_trace()
+            if instance.candidature:
+                Candidature.objects.filter(id=instance.candidature.id).update(**values)
+                instance.status = "success"
+                instance.save()
+            else:
+                instance.candidature = Candidature.objects.create(**values)
+                instance.status = "success"
+                instance.save()
+
+        return JsonResponse({"message": "success"})

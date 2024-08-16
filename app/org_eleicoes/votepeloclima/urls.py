@@ -22,31 +22,24 @@ from django.urls import path, include, re_path
 
 from .candidature.views import AddressView, PublicCandidatureView
 from .candidature.views.create import CreateCandidatureView
-from .candidature.views.edit import EditCandidatureView
-from .candidature.views.oauth import DashboardView
+from .candidature.views.oauth import DashboardView, UpdateCandidatureStatusView
 
 register_view = CreateCandidatureView.as_view(url_name="register_step", done_step_name="concluir")
-register_edit_view = EditCandidatureView.as_view(url_name="register_edit_step", done_step_name="concluir")
 
 urlpatterns = [
     # path("monitoring/", include("django_prometheus.urls")),
-    re_path(
-        r"^register/edit/(?P<step>.+)/$",
-        register_edit_view,
-        name="register_edit_step",
-    ),
-    path("register/edit/", register_edit_view, name="register_edit"),
     re_path(
         r"^register/(?P<step>.+)/$",
         register_view,
         name="register_step",
     ),
     path("register/", register_view, name="register"),
-    path("area-restrita/", DashboardView.as_view(), name="dashboard"),
+    path("area-da-candidatura/", DashboardView.as_view(), name="dashboard"),
     path('candidate/<slug:slug>/', PublicCandidatureView.as_view(), name='candidate_profile'),
     path("admin/", admin.site.urls),
     path("select2/", include("django_select2.urls")),
     path('address/', AddressView.as_view(), name='address'),
+    path("api/candidature/update/", UpdateCandidatureStatusView.as_view()),
     path("", include("cms.urls")),
 ]
 
