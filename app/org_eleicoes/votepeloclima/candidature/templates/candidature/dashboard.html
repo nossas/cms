@@ -22,7 +22,9 @@
       {% endif %}
     </div>
     <div class="d-flex flex-column" style="--bs-gap:10px;width:245px;">
-      <a class="btn btn-dark" href="#">Visualizar perfil</a>
+      {% if is_public %}
+      <a class="btn btn-dark" href="{% url 'candidate_profile' slug=flow.candidature.slug %}">Visualizar perfil</a>
+      {% endif %}
       <a class="btn btn-dark" href="#">Compartilhar seu perfil</a>
       {% if flow.status == "draft" or flow.status == "editing" %}
       <a class="btn btn-dark" href="{% url 'register_step' step='checkout' %}">Editar informações</a>

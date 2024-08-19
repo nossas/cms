@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.core.serializers.json import DjangoJSONEncoder
 from django.utils.text import slugify
 
-from .choices import CandidatureFlowStatus
+from .choices import CandidatureFlowStatus, IntendedPosition, PoliticalParty, Gender, Color, Sexuality, Education
 
 
 # Acompanhar validação da candidatura
@@ -17,20 +17,20 @@ class Candidature(models.Model):
     email = models.EmailField()
     cpf = models.CharField(max_length=30)
     number_id = models.PositiveIntegerField()
-    intended_position = models.CharField(max_length=50)
+    intended_position = models.CharField(max_length=50, choices=IntendedPosition.choices)
     deputy_mayor = models.CharField(max_length=140, blank=True, null=True)
     deputy_mayor_political_party = models.CharField(max_length=60, blank=True, null=True)
     state = models.CharField(max_length=10)
     city = models.CharField(max_length=60)
     is_collective_mandate = models.BooleanField(default=False, blank=True)
-    political_party = models.CharField(max_length=60)
+    political_party = models.CharField(max_length=60, choices=PoliticalParty.choices)
     video = models.FileField(upload_to="candidatures/videos/", null=True, blank=True)
     photo = models.FileField(upload_to="candidatures/photos/", null=True, blank=True)
-    gender = models.CharField(max_length=30)
-    color = models.CharField(max_length=30)
-    sexuality = models.CharField(max_length=30, null=True, blank=True)
+    gender = models.CharField(max_length=30, choices=Gender.choices)
+    color = models.CharField(max_length=30, choices=Color.choices)
+    sexuality = models.CharField(max_length=30, null=True, blank=True, choices=Sexuality.choices)
     social_media = models.JSONField(blank=True, null=True, default=list)
-    education = models.CharField(max_length=50, null=True, blank=True)
+    education = models.CharField(max_length=50, null=True, blank=True, choices=Education.choices)
     employment = models.CharField(max_length=50, null=True, blank=True)
     short_description = models.TextField()
     milestones = models.JSONField(blank=True, null=True, default=list)

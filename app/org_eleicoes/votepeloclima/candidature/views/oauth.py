@@ -49,19 +49,26 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
 
         if not self.request.user.is_staff:
+            flow = self.request.user.candidatureflow
             checkout_steps = self.get_checkout_steps()
-            is_valid = reduce(lambda x, y: x and y, list(map(lambda x: x.get("is_valid"), checkout_steps)))
-            # checkout_steps = []
+            is_valid = reduce(
+                lambda x, y: x and y,
+                list(map(lambda x: x.get("is_valid"), checkout_steps)),
+            )
+
             context.update(
                 {
-                    "flow": self.request.user.candidatureflow,
+                    "flow": flow,
                     "checkout_steps": checkout_steps,
-                    "checkout_is_valid": is_valid
+                    "checkout_is_valid": is_valid,
+                    "is_public": flow.status
+                    in [CandidatureFlowStatus.is_valid, CandidatureFlowStatus.editing]
+                    and flow.candidature,
                 }
             )
 
         return context
-    
+
     def post(self, request, *args, **kwargs):
         if "request_change" in request.POST:
             flow = request.user.candidatureflow
@@ -73,7 +80,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         return super().post(request, *args, **kwargs)
 
 
-@method_decorator(csrf_exempt, name='dispatch')
+@method_decorator(csrf_exempt, name="dispatch")
 class UpdateCandidatureStatusView(JsonLoginRequiredMixin, View):
 
     def post(self, request, *args, **kwargs):
@@ -82,18 +89,25 @@ class UpdateCandidatureStatusView(JsonLoginRequiredMixin, View):
             values = {}
             for step, form_class in OrderedDict(register_form_list).items():
                 if step not in ("captcha", "checkout"):
-                    form = form_class(instance=CandidatureFlow.objects.get(user=request.user), data=instance.properties)
+                    form = form_class(
+                        instance=CandidatureFlow.objects.get(user=request.user),
+                        data=instance.properties,
+                    )
                     if form.is_valid():
                         if isinstance(form, ProposeForm):
                             # TODO: Mudar depois de mergear para proposes
-                            values.update({"proposes": form.cleaned_data.get("properties")})
+                            values.update(
+                                {"proposes": form.cleaned_data.get("properties")}
+                            )
                         elif isinstance(form, AppointmentForm):
-                            values.update({"appointments": form.cleaned_data.get("properties")})
+                            values.update(
+                                {"appointments": form.cleaned_data.get("properties")}
+                            )
                         else:
                             cleaned = form.cleaned_data.copy()
                             properties = cleaned.pop("properties", {})
                             values.update({**properties, **cleaned})
-            
+
             if instance.candidature:
                 Candidature.objects.filter(id=instance.candidature.id).update(**values)
                 instance.status = CandidatureFlowStatus.is_valid
