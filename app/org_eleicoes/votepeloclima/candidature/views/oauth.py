@@ -1,5 +1,9 @@
+import json
+
+from datetime import datetime
 from functools import reduce
 from collections import OrderedDict
+# from typing import TypedDict
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView, View
@@ -80,12 +84,59 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         return super().post(request, *args, **kwargs)
 
 
+# Validation = TypedDict("Validation", {
+#     "status": str,
+#     "slug": str,
+#     "name": str,
+#     "content": str | None
+# })
+
+
 @method_decorator(csrf_exempt, name="dispatch")
 class UpdateCandidatureStatusView(JsonLoginRequiredMixin, View):
 
     def post(self, request, *args, **kwargs):
+        validation = json.loads(request.body)
         instance = CandidatureFlow.objects.get(user=request.user)
-        if instance.status == "submitted":
+        instance.validations = instance.validations or {}
+
+        if instance.status == "submitted" and validation.get("status") == "validating":
+            instance.validations.update({
+                validation.get("slug"): {
+                    "date": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                    "content": validation.get("content"),
+                    "name": validation.get("name"),
+                    "status": CandidatureFlowStatus.is_valid
+                }
+            })
+            
+            instance.save()
+        elif instance.status == "submitted" and validation.get("status") == CandidatureFlowStatus.invalid:
+            instance.validations.update({
+                validation.get("slug"): {
+                    "date": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                    "content": validation.get("content"),
+                    "name": validation.get("name"),
+                    "status": CandidatureFlowStatus.invalid
+                }
+            })
+
+            instance.status = CandidatureFlowStatus.invalid
+            instance.save()
+
+            return JsonResponse({"message": "fail"}, status=200)
+        elif instance.status == "submitted" and validation.get("status") == CandidatureFlowStatus.is_valid:
+            instance.validations.update({
+                validation.get("slug"): {
+                    "date": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                    "content": validation.get("content"),
+                    "name": validation.get("name"),
+                    "status": CandidatureFlowStatus.is_valid
+                }
+            })
+
+            instance.status = CandidatureFlowStatus.is_valid
+
             values = {}
             for step, form_class in OrderedDict(register_form_list).items():
                 if step not in ("captcha", "checkout"):
@@ -110,11 +161,9 @@ class UpdateCandidatureStatusView(JsonLoginRequiredMixin, View):
 
             if instance.candidature:
                 Candidature.objects.filter(id=instance.candidature.id).update(**values)
-                instance.status = CandidatureFlowStatus.is_valid
-                instance.save()
             else:
                 instance.candidature = Candidature.objects.create(**values)
-                instance.status = CandidatureFlowStatus.is_valid
-                instance.save()
+            
+            instance.save()
 
-        return JsonResponse({"message": "success"})
+        return JsonResponse({"message": "success"}, status=200)
