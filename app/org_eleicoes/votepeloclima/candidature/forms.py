@@ -203,6 +203,8 @@ class ApplicationForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
                 "city",
                 "is_collective_mandate",
                 "political_party",
+                "deputy_mayor",
+                "deputy_mayor_political_party"
             ]
         }
         untangled_fields = []
