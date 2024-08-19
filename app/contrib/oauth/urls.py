@@ -19,9 +19,9 @@ from .views import OAuthLoginView, OAuthChangePasswordView, OAuthLogoutView, OAu
 
 
 urlpatterns = [
-    path("logout/", OAuthLogoutView.as_view(), name="logout"),
+    path("sair/", OAuthLogoutView.as_view(), name="logout"),
     path("login/", OAuthLoginView.as_view(), name="login"),
-    path("reset-password/", OAuthPasswordResetView.as_view(), name="reset-password"),
-    path("reset-password/done/", OAuthPasswordResetDoneView.as_view(), name="reset-password-done"),
-    path("change-password/<uidb64>/<token>/", OAuthChangePasswordView.as_view(), name="change-password"),
+    path("esqueci-minha-senha/", OAuthPasswordResetView.as_view(), name="reset-password"),
+    path("esqueci-minha-senha/sucesso/", OAuthPasswordResetDoneView.as_view(), name="reset-password-done"),
+    path("criar-nova-senha/<uidb64>/<token>/", OAuthChangePasswordView.as_view(), name="change-password"),
 ]

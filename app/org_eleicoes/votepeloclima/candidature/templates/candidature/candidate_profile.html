@@ -6,12 +6,6 @@
 <link rel="stylesheet" href="{% static 'css/icons.css' %}">
 {% endblock %}
 
-{% block navbar_actions %}
-    {% if user.is_authenticated %}
-    <a class="btn btn-outline-light" href="{% url 'oauth:logout' %}">Sair</a>
-    {% endif %}
-{% endblock %}
-
 {% block content %}
 <section class="container">
     <div class="grid py-5">
@@ -35,8 +29,8 @@
                 </div>
                 <div>
                     <h1 class="text-uppercase text-primary">{{ candidature.ballot_name }} | {{ candidature.number_id }}</h1>
-                    <span class="badge bg-secondary">{{ candidature.intended_position }}</span>
-                    <span class="badge bg-secondary">{{ candidature.political_party }}</span>
+                    <span class="badge bg-secondary">{{ candidature.get_intended_position_display }}</span>
+                    <span class="badge bg-secondary">{{ candidature.get_political_party_display }}</span>
                     {% if candidature.is_collective_mandate %}
                         <span class="badge rounded-pill bg-secondary">Mandato Coletivo</span>
                     {% endif %}
@@ -51,12 +45,12 @@
                 <div class="grid">
                     <div class="g-col-12 g-col-md-4">
                         <p><strong>Data de Nascimento:</strong> {{ candidature.birth_date }}</p>
-                        <p><strong>Raça:</strong> {{ candidature.color }}</p>
-                        <p><strong>Gênero:</strong> {{ candidature.gender }}</p>
+                        <p><strong>Raça:</strong> {{ candidature.get_color_display }}</p>
+                        <p><strong>Gênero:</strong> {{ candidature.get_gender_display }}</p>
                     </div>
                     <div class="g-col-12 g-col-md-8">
-                        <p><strong>Sexualidade:</strong> {{ candidature.sexuality }}</p>
-                        <p><strong>Escolaridade:</strong> {{ candidature.education }}</p>
+                        <p><strong>Sexualidade:</strong> {{ candidature.get_sexuality_display }}</p>
+                        <p><strong>Escolaridade:</strong> {{ candidature.get_education_display }}</p>
                         <p><strong>Ocupação:</strong> {{ candidature.employment }}</p>
                     </div>
                 </div>
