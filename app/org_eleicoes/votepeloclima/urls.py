@@ -27,20 +27,19 @@ from .candidature.views.oauth import DashboardView, UpdateCandidatureStatusView
 register_view = CreateUpdateCandidatureView.as_view(url_name="register_step", done_step_name="concluir")
 
 urlpatterns = [
-    # path("monitoring/", include("django_prometheus.urls")),
-    re_path(
-        r"^register/(?P<step>.+)/$",
-        register_view,
-        name="register_step",
-    ),
-    path("register/", register_view, name="register"),
+    # LoginRequired
     path("area-da-candidatura/", DashboardView.as_view(), name="dashboard"),
+    # Public Routers
+    re_path(r"^candidatura/cadastro/(?P<step>.+)/$", register_view, name="register_step",),
+    path("candidatura/cadastro/", register_view, name="register"),
+    re_path(r"^c(andidatura)*/(?P<slug>.+)/$", PublicCandidatureView.as_view(), name='candidate_profile'),
     path('candidaturas/busca/', CandidatureSearchView.as_view(), name='candidature_search'),
-    path('candidate/<slug:slug>/', PublicCandidatureView.as_view(), name='candidate_profile'),
+    # API
+    path('api/candidatura/buscar-endereco/', AddressView.as_view(), name='address'),
+    path("api/candidatura/validar/", UpdateCandidatureStatusView.as_view()),
+    # Manage
     path("admin/", admin.site.urls),
     path("select2/", include("django_select2.urls")),
-    path('address/', AddressView.as_view(), name='address'),
-    path("api/candidature/update/", UpdateCandidatureStatusView.as_view()),
     path("", include("cms.urls")),
 ]
 

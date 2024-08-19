@@ -10,8 +10,8 @@ from contrib.oauth.utils import send_confirmation_email
 from contrib.oauth.models import Token
 
 from ..choices import CandidatureFlowStatus
-from ..models import CandidatureFlow, Candidature
-from ..forms import register_form_list, ProposeForm, AppointmentForm
+from ..models import CandidatureFlow
+from ..forms import register_form_list
 
 
 def files_is_equal(file1, file2):

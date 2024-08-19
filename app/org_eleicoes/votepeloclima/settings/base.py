@@ -169,6 +169,7 @@ DJANGOCMS_FORMS_FORM_PLUGIN_CHILD_CLASSES = [
 #     "colorButton_colors": "0F5427,20A54B,D8952A,F0A42B,C32C18,EA4F83,1D3D90,080808,222222,555555,F5F4F0,FFFFFF",
 # }
 
+DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", default="Vote pelo Clima <votepeloclima@nossas.org>")
 
 EMAIL_HOST = env("SMTP_HOST", default="localhost")
 
