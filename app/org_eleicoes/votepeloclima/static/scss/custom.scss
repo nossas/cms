@@ -34,8 +34,17 @@ h6 {
     font-size: 18px;
 }
 
-.sub-4 {
-    font-size: 16px;
+// Create new class
+.toogle-button {
+
+    .btn {
+        padding-top: 14px;
+        padding-bottom: 14px;
+    }
+
+    .btn-check:checked + .btn {
+        border-color: var(--bs-btn-active-border-color)!important;
+    }
 }
 
 .sub-5 {

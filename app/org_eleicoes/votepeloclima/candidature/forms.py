@@ -61,25 +61,59 @@ class CaptchaForm(EntangledModelFormMixin, forms.ModelForm):
 
 class AppointmentForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
     appointment_1 = ToggleButtonField(
-        icon_name="ds-icon-wrapper-2",
-        text_html="""
-<span class='fw-semibold'>Aliquam porta libero et ligula euismod sodales.</span>
-<span class='form-text'>Vestibulum quis sapien mattis, porta diam quis, scelerisque neque. Integer id nisi in sem viverra mattis sit amet sit amet quam.</span>
-""",
+        icon_name="ds-icon-compromisso-1",
+        text_html="Políticas climáticas comprometidas com a justiça racial",
     )
     appointment_2 = ToggleButtonField(
-        icon_name="ds-icon-wrapper",
-        text_html="""
-<span class='fw-semibold'>Aliquam porta libero et ligula euismod sodales.</span>
-<span class='form-text'>Vestibulum quis sapien mattis, porta diam quis, scelerisque neque. Integer id nisi in sem viverra mattis sit amet sit amet quam.</span>
-""",
+        icon_name="ds-icon-compromisso-2",
+        text_html="Conservação dos recursos naturais",
+    )
+    appointment_3 = ToggleButtonField(
+        icon_name="ds-icon-compromisso-3",
+        text_html="Mecanismos e espaços de participação popular",
+    )
+    appointment_4 = ToggleButtonField(
+        icon_name="ds-icon-compromisso-4",
+        text_html="Inclusão e consideração de saberes tradicionais e tecnologias sociais",
+    )
+    appointment_5 = ToggleButtonField(
+        icon_name="ds-icon-compromisso-5",
+        text_html="Combate a todas as formas de desigualdade e pobreza",
+    )
+    appointment_6 = ToggleButtonField(
+        icon_name="ds-icon-compromisso-6",
+        text_html="Equidade de gênero",
+    )
+    appointment_7 = ToggleButtonField(
+        icon_name="ds-icon-compromisso-7",
+        text_html="Transição climática justa",
+    )
+    appointment_8 = ToggleButtonField(
+        icon_name="ds-icon-compromisso-8",
+        text_html="Equidade intergeracional e juventudes",
+    )
+    appointment_9 = ToggleButtonField(
+        icon_name="ds-icon-compromisso-9",
+        text_html="Fomento e incentivo à pesquisa e inovação no enfrentamento à crise climática",
     )
 
     class Meta:
         title = "Você assume compromisso com..."
-        description = "Esses são os compromissos climáticos que todos os candidatos devem assumir ao criar um perfil no Vote pelo Clima. Eles ficarão visíveis aos eleitores, mostrando seu empenho em um futuro sustentável."
+        description = "Esses são os valores e princípios básicos que todos os candidatos devem assumir ao criar um perfil no Vote pelo Clima. Eles representam compromissos essenciais e serão visíveis aos eleitores, evidenciando sua dedicação a um futuro sustentável. Para continuar, é necessário selecionar todos os compromissos."
         model = CandidatureFlow
-        entangled_fields = {"properties": ["appointment_1", "appointment_2"]}
+        entangled_fields = {
+            "properties": [
+                "appointment_1",
+                "appointment_2",
+                "appointment_3",
+                "appointment_4",
+                "appointment_5",
+                "appointment_6",
+                "appointment_7",
+                "appointment_8",
+                "appointment_9",
+            ]
+        }
         untangled_fields = []
 
 
