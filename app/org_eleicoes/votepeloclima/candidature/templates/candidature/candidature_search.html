@@ -1,12 +1,19 @@
 {% extends "votepeloclima/base.html" %}
-
 {% load static crispy_forms_filters %}
 
-{% block content %}
-<h1 class="text-uppercase text-primary">Conheça candidaturas da sua cidade</h1>
-<span class="badge bg-secondary">Praesent sit amet turpis vel lacus volutpat scelerisque. Vivamus dapibus, nisi at feugiat tempor, erat lorem lacinia nulla, at consequat massa dolor id odio.</span>
+{% block head_css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/icons.css' %}">
+<link rel="stylesheet" href="{% static 'css/card.css' %}">
+{% endblock %}
 
-<section class="container">
+{% block content %}
+<section class="container-fluid px-5">
+    <div class="w-75 py-4">
+        <h1 class="text-uppercase text-primary fw-bold">Conheça candidaturas<br/> da sua cidade</h1>
+        <p>Praesent sit amet turpis vel lacus volutpat scelerisque. Vivamus dapibus, nisi at feugiat tempor, erat lorem lacinia nulla, at consequat massa dolor id odio.</span>
+
+    </div>
     <form method="get" action="{% url 'candidature_search' %}">
         <select name="state" id="state">
             <option value="">Estado</option>
@@ -74,19 +81,29 @@
                 <div class="g-col-12 g-col-md-4">
                     <div class="card">
                         <img src="{{ candidature.photo.url }}" class="card-img-top" alt="Foto de {{ candidature.legal_name }}">
-                        <div class="card-body">
-                            <p>{{ candidature.get_state_display }} - {{ candidature.get_city_display }}</p>
-                            <h5 class="card-title">{{ candidature.legal_name }}</h5>
-                            <p>{{ candidature.number_id }}</p>
-                            <p>{{ candidature.get_intended_position_display }} - {{ candidature.get_political_party_display }}</p>
-                            {% for propose in candidature.proposes %}
-                            <p>{{ propose }}</p>
-                            {% endfor %}
-                            <a href="#" class="btn btn-primary text-uppercase">Perfil Completo</a>
+                        <div class="card-body p-2">
+                            <p class="mb-1 fs-6 text-black-50">{{ candidature.get_state_display }} - {{ candidature.get_city_display }}</p>
+                            <div class="card-title">
+                                <h4 class="text-uppercase fw-bold mb-0 fs-3">{{ candidature.legal_name }}</h4>
+                                <h4 class="fs-3 mb-0">{{ candidature.number_id }}</h4>
+                            </div>
+                            <hr style="width: 24px;" class="my-2" />
+                            <div>
+                                <strong class="fs-6 pb-1">{{ candidature.get_intended_position_display }} | {{ candidature.get_political_party_display }}</strong>
+                                <p class="fs-6">
+                                {% for propose in proposes %}
+                                        {{ propose.label }}{% if not forloop.last %} / {% endif %}
+                                {% endfor %}
+                                </p>
+                                {% if candidature.is_collective_mandate %}
+                                <strong class="fs-6">Candidatura Coletiva</strong>
+                                {% endif %}
+                            </div>
                         </div>
-                        {% if candidature.is_collective_mandate %}
-                        <p><strong>Candidatura Coletiva</strong></p>
-                        {% endif %}
+                        <a href="{% url 'candidate_profile' candidature.slug %}" class="btn btn-primary btn-card text-uppercase d-flex align-items-center justify-content-center">
+                                <span class="me-1">Perfil Completo</span>
+                                <span class="ds-icon-chevron-right"></span>
+                        </a>
                     </div>
                 </div>
                 {% endfor %}
