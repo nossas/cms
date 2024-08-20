@@ -19,6 +19,7 @@ from .choices import (
 )
 from .models import CandidatureFlow
 from .fields import (
+    CheckboxSelectMultipleWidget,
     ValidateOnceReCaptchaField,
     CheckboxTextField,
     InlineArrayField,
@@ -522,22 +523,47 @@ register_form_list = [
     ("checkout", CheckoutForm),
 ]
 
-class CandidatureSearchForm(forms.Form):
+class CandidatureSearchTopForm(forms.Form):
     state = forms.ChoiceField(choices=[('', 'Estado')] + get_ufs(), required=False)
     city = forms.ChoiceField(choices=[('', 'Cidade')], required=False)
     intended_position = forms.ChoiceField(choices=IntendedPosition.choices, required=False)
     political_party = forms.ChoiceField(choices=PoliticalParty.choices, required=False)
 
-    gender = forms.ChoiceField(choices=Gender.choices, required=False, widget=forms.RadioSelect)
-    color = forms.ChoiceField(choices=Color.choices, required=False, widget=forms.RadioSelect)
-    sexuality = forms.ChoiceField(choices=Sexuality.choices, required=False, widget=forms.RadioSelect)
-
-    ballot_name = forms.CharField(required=False)
-    keyword = forms.CharField(required=False)
-    is_collective_mandate = forms.BooleanField(required=False)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = False
 
     def update_city_choices(self, state):
         if state:
             self.fields['city'].choices = get_choices(state)
         else:
             self.fields['city'].choices = [('', 'Cidade')]
+
+class CandidatureSearchSideForm(forms.Form):
+    gender = forms.MultipleChoiceField(
+        choices=Gender.choices[1:], 
+        required=False, 
+        widget=CheckboxSelectMultipleWidget(),
+        label='Gênero'
+    )
+    color = forms.MultipleChoiceField(
+        choices=Color.choices[1:], 
+        required=False, 
+        widget=CheckboxSelectMultipleWidget(),
+        label='Raça'
+    )
+    sexuality = forms.MultipleChoiceField(
+        choices=Sexuality.choices[1:], 
+        required=False, 
+        widget=CheckboxSelectMultipleWidget(),
+        label='Sexualidade'
+    )
+    ballot_name = forms.CharField(required=False)
+    keyword = forms.CharField(required=False)
+    is_collective_mandate = forms.BooleanField(required=False)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = False

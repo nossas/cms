@@ -17,7 +17,7 @@ from formtools.wizard.views import NamedUrlSessionWizardView
 
 from contrib.oauth.utils import send_confirmation_email
 from ..models import CandidatureFlow, CandidatureFlowStatus, Candidature
-from ..forms import CandidatureSearchForm, register_form_list, ProposeForm, AppointmentForm
+from ..forms import CandidatureSearchSideForm, CandidatureSearchTopForm, register_form_list, ProposeForm, AppointmentForm
 from ..locations_utils import get_ufs, get_choices
 from ..choices import (
     PoliticalParty,
@@ -368,10 +368,19 @@ class CandidatureSearchView(ListView):
         queryset = super().get_queryset()
         queryset = queryset.filter(candidatureflow__status__in=[CandidatureFlowStatus.is_valid, CandidatureFlowStatus.editing])
 
-        for field in ['state', 'city', 'intended_position', 'political_party', 'gender', 'color', 'sexuality', 'ballot_name']:
-            value = self.request.GET.get(field)
-            if value:
-                queryset = queryset.filter(**{field: value})
+        form_top = CandidatureSearchTopForm(self.request.GET or None)
+        form_side = CandidatureSearchSideForm(self.request.GET or None)
+
+        if form_top.is_valid() and form_side.is_valid():
+            cleaned_data = {**form_top.cleaned_data, **form_side.cleaned_data}
+
+            for field in ['state', 'city', 'intended_position', 'political_party', 'gender', 'color', 'sexuality', 'ballot_name']:
+                values = cleaned_data.get(field)
+                if values:
+                    if isinstance(values, list):
+                        queryset = queryset.filter(**{f"{field}__in": values})
+                    else:
+                        queryset = queryset.filter(**{field: values})
             
             keyword = self.request.GET.get('keyword')
             if keyword:
@@ -391,14 +400,16 @@ class CandidatureSearchView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        form = CandidatureSearchForm(self.request.GET or None)
+        form_top = CandidatureSearchTopForm(self.request.GET or None)
+        form_side = CandidatureSearchSideForm(self.request.GET or None)
 
         # Atualizar as cidades com base no estado selecionado
         state = self.request.GET.get('state')
         if state:
-            form.update_city_choices(state)
+            form_top.update_city_choices(state)
 
-        context['form'] = form
+        context['form_top'] = form_top
+        context['form_side'] = form_side
         
         return context
 

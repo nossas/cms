@@ -2,47 +2,37 @@
 {% load static crispy_forms_filters %}
 
 {% block content %}
-<h1 class="text-uppercase text-primary">Conheça candidaturas da sua cidade</h1>
-<span class="badge bg-secondary">Praesent sit amet turpis vel lacus volutpat scelerisque. Vivamus dapibus, nisi at feugiat tempor, erat lorem lacinia nulla, at consequat massa dolor id odio.</span>
+<form method="get">
+    <h1 class="text-uppercase text-primary">Conheça candidaturas da sua cidade</h1>
+    <span class="badge bg-secondary">Praesent sit amet turpis vel lacus volutpat scelerisque. Vivamus dapibus, nisi at feugiat tempor, erat lorem lacinia nulla, at consequat massa dolor id odio.</span>
 
-<section class="container">
-    <div class="grid py-5 d-flex align-items-center">
-        <form method="get" action="{% url 'candidature_search' %}">
-            {{ form.state }}
-            {{ form.city }}
-            {{ form.intended_position }}
-            {{ form.political_party }}
-            <button type="submit">Buscar</button>
-        </form>
-    </div>
-</section>
-
-<section class="container"> 
-    <div class="grid py-5">
-        <div class="g-col-12 g-col-md-4">
-            <aside class="sidebar">
-                <form method="get">
-                    {{ form.gender }}
-                    {{ form.color }}
-                    {{ form.sexuality }}
-                    {{ form.ballot_name }}
-                    {{ form.keyword }}
-                    {{ form.is_collective_mandate }}
-                    <button type="submit">Buscar</button>
-                </form>
-            </aside>
+    <section class="container">
+        <div class="grid py-5 d-flex align-items-center">
+                {% crispy form_top %}
+                <button type="submit">Buscar</button>
         </div>
-        <div class="g-col-12 g-col-md-8">
-            {% for candidature in candidatures %}
-                <p>{{ candidature.legal_name }} - {{ candidature.intended_position }} - {{ candidature.political_party }}</p>
-                <p>{{ candidature.short_description }}</p>
-                {% if candidature.is_collective_mandate %}
-                    <p><strong>Candidatura Coletiva</strong></p>
-                {% endif %}
-            {% endfor %}
+    </section>
+    
+    <section class="container"> 
+        <div class="grid py-5">
+            <div class="g-col-12 g-col-md-4">
+                <aside class="sidebar">
+                        {% crispy form_side %}
+                        <button type="submit">Buscar</button>
+                </aside>
+            </div>
+            <div class="g-col-12 g-col-md-8">
+                {% for candidature in candidatures %}
+                    <p>{{ candidature.legal_name }} - {{ candidature.intended_position }} - {{ candidature.political_party }}</p>
+                    <p>{{ candidature.short_description }}</p>
+                    {% if candidature.is_collective_mandate %}
+                        <p><strong>Candidatura Coletiva</strong></p>
+                    {% endif %}
+                {% endfor %}
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+</form>
 {% endblock %}
 
 {% block footer_js %}
