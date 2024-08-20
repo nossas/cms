@@ -17,7 +17,7 @@ from formtools.wizard.views import NamedUrlSessionWizardView
 
 from contrib.oauth.utils import send_confirmation_email
 from ..models import CandidatureFlow, CandidatureFlowStatus, Candidature
-from ..forms import register_form_list, ProposeForm, AppointmentForm
+from ..forms import CandidatureSearchForm, register_form_list, ProposeForm, AppointmentForm
 from ..locations_utils import get_ufs, get_choices
 from ..choices import (
     PoliticalParty,
@@ -366,20 +366,12 @@ class CandidatureSearchView(ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
+        queryset = queryset.filter(candidatureflow__status__in=[CandidatureFlowStatus.is_valid, CandidatureFlowStatus.editing])
 
-        # Filtros principais
-        for field in ['state', 'city', 'intended_position', 'political_party']:
+        for field in ['state', 'city', 'intended_position', 'political_party', 'gender', 'color', 'sexuality', 'ballot_name']:
             value = self.request.GET.get(field)
             if value:
-                queryset = queryset.filter(**{f"{field}__icontains": value})
-
-        # Verificar se a busca inicial foi feita
-        if self.request.GET.get('initial_search') == 'true':
-            #Filtros secundários
-            for field in ['gender', 'color', 'sexuality', 'ballot_name']:
-                value = self.request.GET.get(field)
-                if value:
-                    queryset = queryset.filter(**{f"{field}__icontains": value})
+                queryset = queryset.filter(**{field: value})
             
             keyword = self.request.GET.get('keyword')
             if keyword:
@@ -398,20 +390,15 @@ class CandidatureSearchView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['sexuality_choices'] = Sexuality.choices
-        context['gender_choices'] = Gender.choices
-        context['color_choices'] = Color.choices
-        context['intended_position_choices'] = IntendedPosition.choices
-        context['political_party_choices'] = PoliticalParty.choices
-        
-        context['states'] = get_ufs()
-        selected_state = self.request.GET.get('state')
-        if selected_state:
-            context['cities'] = get_choices(selected_state)
-        else:
-            context['cities'] = []
-        
-        context['initial_search'] = self.request.GET.get('initial_search', 'false')
+
+        form = CandidatureSearchForm(self.request.GET or None)
+
+        # Atualizar as cidades com base no estado selecionado
+        state = self.request.GET.get('state')
+        if state:
+            form.update_city_choices(state)
+
+        context['form'] = form
         
         return context
 

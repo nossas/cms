@@ -521,3 +521,23 @@ register_form_list = [
     ("complemente-seu-perfil", ProfileForm),
     ("checkout", CheckoutForm),
 ]
+
+class CandidatureSearchForm(forms.Form):
+    state = forms.ChoiceField(choices=[('', 'Estado')] + get_ufs(), required=False)
+    city = forms.ChoiceField(choices=[('', 'Cidade')], required=False)
+    intended_position = forms.ChoiceField(choices=IntendedPosition.choices, required=False)
+    political_party = forms.ChoiceField(choices=PoliticalParty.choices, required=False)
+
+    gender = forms.ChoiceField(choices=Gender.choices, required=False, widget=forms.RadioSelect)
+    color = forms.ChoiceField(choices=Color.choices, required=False, widget=forms.RadioSelect)
+    sexuality = forms.ChoiceField(choices=Sexuality.choices, required=False, widget=forms.RadioSelect)
+
+    ballot_name = forms.CharField(required=False)
+    keyword = forms.CharField(required=False)
+    is_collective_mandate = forms.BooleanField(required=False)
+
+    def update_city_choices(self, state):
+        if state:
+            self.fields['city'].choices = get_choices(state)
+        else:
+            self.fields['city'].choices = [('', 'Cidade')]
