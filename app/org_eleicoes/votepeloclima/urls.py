@@ -32,8 +32,8 @@ urlpatterns = [
     # Public Routers
     re_path(r"^candidatura/cadastro/(?P<step>.+)/$", register_view, name="register_step",),
     path("candidatura/cadastro/", register_view, name="register"),
+    path('candidatura/busca/', CandidatureSearchView.as_view(), name='candidature_search'),
     re_path(r"^c(andidatura)*/(?P<slug>.+)/$", PublicCandidatureView.as_view(), name='candidate_profile'),
-    path('candidaturas/busca/', CandidatureSearchView.as_view(), name='candidature_search'),
     # API
     path('api/candidatura/buscar-endereco/', AddressView.as_view(), name='address'),
     path("api/candidatura/validar/", UpdateCandidatureStatusView.as_view()),
