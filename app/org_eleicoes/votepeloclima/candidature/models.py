@@ -51,11 +51,13 @@ class Candidature(models.Model):
 
         return CandidatureFlowStatus.draft
     
-    def get_state_name(self):
+    @property
+    def get_state_display(self):
         states = dict(get_states())
         return states.get(self.state, "")
 
-    def get_city_name(self):
+    @property
+    def get_city_display(self):
         cities = dict(get_choices(self.state))
         return cities.get(self.city, "")
     
