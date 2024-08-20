@@ -1,4 +1,14 @@
 {% extends "ds/base.html" %}
+{% load cms_tags menu_tags compress %}
+
+{% block head_css %}
+{{block.super}}
+{% compress css %}
+<style type="text/x-scss">
+@import "scss/custom.scss";
+</style>
+{% endcompress %}
+{% endblock %}
 
 {% block navbar %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
