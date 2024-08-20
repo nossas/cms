@@ -36,7 +36,6 @@
     </form>
 
     <div class="grid py-4">
-        {% if initial_search == 'true' %}
         <aside class="sidebar g-col-12 g-col-md-3">
             <form class="d-flex flex-column gap-2" method="get">
                 <select name="gender" id="gender">
@@ -68,19 +67,18 @@
                 <button type="submit">Buscar</button>
             </form>
         </aside>
-        {% endif %}
 
         <div class="g-col-12 g-col-md-9">
             <div class="grid gap-2">
                 {% for candidature in candidatures %}
                 <div class="g-col-12 g-col-md-4">
                     <div class="card">
-                        <img src="{{ candidature.photo }}" class="card-img-top" alt="Foto de {{ candidature.legal_name }}">
+                        <img src="{{ candidature.photo.url }}" class="card-img-top" alt="Foto de {{ candidature.legal_name }}">
                         <div class="card-body">
-                            <p>{{ candidature.state }} - {{ candidature.city }}</p>
+                            <p>{{ candidature.get_state_display }} - {{ candidature.get_city_display }}</p>
                             <h5 class="card-title">{{ candidature.legal_name }}</h5>
                             <p>{{ candidature.number_id }}</p>
-                            <p>{{ candidature.intended_position }} - {{ candidature.political_party }}</p>
+                            <p>{{ candidature.get_intended_position_display }} - {{ candidature.get_political_party_display }}</p>
                             {% for propose in candidature.proposes %}
                             <p>{{ propose }}</p>
                             {% endfor %}
