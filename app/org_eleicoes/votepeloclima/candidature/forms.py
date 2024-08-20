@@ -226,7 +226,7 @@ class ApplicationForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
     )
 
     class Meta:
-        title = "Informações de candidatura"
+        title = "Dados de candidatura"
         description = "Preencha os detalhes sobre sua candidatura."
         model = CandidatureFlow
         entangled_fields = {
@@ -238,7 +238,7 @@ class ApplicationForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
                 "is_collective_mandate",
                 "political_party",
                 "deputy_mayor",
-                "deputy_mayor_political_party"
+                "deputy_mayor_political_party",
             ]
         }
         untangled_fields = []
@@ -263,7 +263,7 @@ class ApplicationForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
                     HTML(
                         """
                         <hr/>
-                        <h5>Informações vice-prefeitura</h5>
+                        <h5 class="fw-bold">Informações sobre vice-prefeitura</h5>
                         <p>Adicione informações somente em caso de candidaturas para prefeitura<p>
                         """
                     ),
@@ -433,15 +433,15 @@ class TrackForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
     short_description = forms.CharField(
         label="Minibio",
         widget=forms.Textarea(attrs={"placeholder": "Escreva uma breve biografia"}),
-        help_text="Fale um pouco sobre você e sua jornada até aqui. Até 800 caracteres.",
+        help_text="Fale um pouco sobre você e sua jornada até aqui. Até 500 caracteres.",
     )
     milestones = InlineArrayField(
         forms.CharField(max_length=140, required=False),
         required=False,
         label="Histórico de atuação",
         item_label="Realização",
-        add_button_text="ADICIONAR MARCO",
-        help_text="Adicione momentos e realizações marcantes da sua trajetória.",
+        add_button_text="Adicionar outra",
+        help_text="Adicione momentos e realizações marcantes da sua trajetória. Até 150 caracteres.",
         placeholder="Recebi o Prêmio XYZ pela Iniciativa Ambiental",
     )
 
@@ -450,7 +450,8 @@ class TrackForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         return value
 
     class Meta:
-        title = "Sobre sua trajetória"
+        title = "Trajetória"
+        description = "Compartilhe um pouco sobre sua trajetória. Essas informações ajudarão os eleitores a conhecerem melhor sua história e seu compromisso com a causa."
         model = CandidatureFlow
         entangled_fields = {
             "properties": [
@@ -471,6 +472,10 @@ class TrackForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
                 Div(Field("education"), css_class="g-col-12 g-col-md-6"),
                 Div(Field("employment"), css_class="g-col-12 g-col-md-6"),
                 Div(Field("short_description"), css_class="g-col-12"),
+                Div(
+                    HTML("""<hr class="mb-4"/>"""),
+                    css_class="g-col-12 g-col-md-12",
+                ),
                 Div(Field("milestones"), css_class="g-col-12"),
                 css_class="grid",
                 style="grid-row-gap:0;",
@@ -479,7 +484,7 @@ class TrackForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
 
 
 class ProfileForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
-    video = VideoField(label="Vídeo", required=False)
+    video = VideoField(label="Vídeo", required=False, help_text="Tamanho máximo 50mb.")
     photo = forms.ImageField(label="Foto")
     gender = forms.ChoiceField(label="Gênero", choices=Gender.choices)
     color = forms.ChoiceField(label="Raça", choices=Color.choices)
@@ -491,7 +496,7 @@ class ProfileForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         required=False,
         label="Redes sociais",
         item_label="Rede social",
-        add_button_text="Adicionar outra rede social",
+        add_button_text="Adicionar outra",
         help_text="Conecte suas redes sociais para ampliar sua visibilidade e engajamento com os eleitores.",
     )
 
@@ -501,6 +506,7 @@ class ProfileForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
 
     class Meta:
         title = "Complemente seu perfil"
+        description = "Adicione mais detalhes ao seu perfil para torná-lo completo e atrativo aos eleitores. Essas informações ajudarão a construir uma apresentação mais detalhada e engajadora."
         model = CandidatureFlow
         entangled_fields = {
             "properties": [
@@ -526,6 +532,10 @@ class ProfileForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
                 Div(Field("gender"), css_class="g-col-12 g-col-md-6"),
                 Div(Field("color"), css_class="g-col-12 g-col-md-6"),
                 Div(Field("sexuality"), css_class="g-col-12 g-col-md-6"),
+                Div(
+                    HTML("""<hr class="mb-4"/>"""),
+                    css_class="g-col-12 g-col-md-12",
+                ),
                 Div(Field("social_media"), css_class="g-col-12"),
                 css_class="grid",
                 style="grid-row-gap:0;",
@@ -539,7 +549,7 @@ class CheckoutForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
     )
 
     class Meta:
-        title = "Para finalizar, confirme suas informações"
+        title = "Confirmar informações"
         model = CandidatureFlow
         entangled_fields = {"properties": ["is_valid"]}
         untangled_fields = []

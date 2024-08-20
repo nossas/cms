@@ -5,7 +5,7 @@
 <div class="mt-3">
   {% block before_form %}
   <div class="mb-3">
-    <h1>{{ step_title }}</h1>
+    <h2 class="fw-bold text-uppercase">{{ step_title }}</h2>
     <p>{{ step_description }}</p>
   </div>
   {% endblock %}
@@ -27,9 +27,9 @@
     <button class="btn btn-outline-dark" name="wizard_goto_step" type="submit" value="{% if editing %}checkout{% else %}{{ wizard.steps.prev }}{% endif %}">Voltar</button>
     {% endif %}
     {% if wizard.steps.next and not editing %}
-    <input class="btn btn-dark" name="wizard_goto_step" type="submit" value="{% translate "Continuar: " %}{{ next_step_title }}" />
+    <input class="btn btn-secondary" name="wizard_goto_step" type="submit" value="{% translate "Continuar: " %}{{ next_step_title }}" />
     {% elif editing %}
-    <button class="btn btn-dark" type="submit" name="wizard_goto_last">Salvar</button>
+    <button class="btn btn-secondary" type="submit" name="wizard_goto_last">Salvar</button>
     {% endif %}
     </div>
     {% endblock %}

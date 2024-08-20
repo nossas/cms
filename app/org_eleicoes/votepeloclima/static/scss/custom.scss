@@ -1,37 +1,95 @@
+// 
 h1 {
-    font-size: 80px;
-}
-
-h2 {
-    font-size: 72px;
-}
-
-h3 {
-    font-size: 64px;
-}
-
-h4 {
     font-size: 48px;
 }
 
-h5 {
+h2 {
     font-size: 40px;
 }
 
-h6 {
+h3 {
     font-size: 32px;
 }
 
-.sub-1 {
+// Subtitles
+h4 {
     font-size: 24px;
 }
 
-.sub-2 {
+h5 {
     font-size: 20px;
 }
 
-.sub-3 {
+h6 {
     font-size: 18px;
+}
+
+.fw-bold {
+    font-weight: 900 !important;
+}
+
+.fw-semibold {
+    font-weight: 700 !important;
+}
+
+.fw-normal {
+    font-weight: 400 !important;
+}
+
+.fw-light {
+    font-weight: 200 !important;
+}
+
+.form-control, .form-control:focus, .form-select {
+    background-color: white;
+}
+
+.asteriskField {
+    margin-left: 3px;
+    color: var(--bs-danger);
+}
+
+.form-check-input:checked {
+    background-color: var(--bs-secondary);
+    border: none;
+}
+
+legend.form-label {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#inline-array {
+    ol {
+        li {
+            span.text-nowrap {
+                font-size: 14px;
+            }
+        }
+    }
+}
+
+// Custom select2
+.select2-container {
+    .select2-selection--single {
+        height: 36px !important;
+        padding: 4px 0;
+    }
+}
+
+.select2-container--default {
+    .select2-selection--single {
+        border-color: var(--bs-border-color) !important;
+
+        .select2-selection__placeholder {
+            color: #000 !important;
+        }
+
+        .select2-selection__arrow {
+            top: 5px !important;
+            right: 7px !important;
+        }
+    }
 }
 
 // Create new class
@@ -47,6 +105,29 @@ h6 {
     }
 }
 
-.sub-5 {
-    font-size: 14px;
+#dropzone {
+    > div:not(:last-child) {
+        border-bottom: 1px solid var(--bs-gray-400);
+        padding-bottom: 25px;
+    }
+}
+
+.form-switch {
+    label {
+        cursor: pointer;
+
+        .form-text {
+            margin-left: -36px;
+        }
+    }
+
+    input:not([disabled]) + label {
+        &:hover {
+            color: var(--bs-secondary);
+
+            .form-text {
+                color: var(--bs-secondary);
+            }
+        }
+    }
 }
