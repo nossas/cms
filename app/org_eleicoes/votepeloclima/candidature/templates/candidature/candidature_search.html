@@ -3,6 +3,9 @@
 {% load static crispy_forms_filters %}
 
 {% block content %}
+<h1 class="text-uppercase text-primary">Conheça candidaturas da sua cidade</h1>
+<span class="badge bg-secondary">Praesent sit amet turpis vel lacus volutpat scelerisque. Vivamus dapibus, nisi at feugiat tempor, erat lorem lacinia nulla, at consequat massa dolor id odio.</span>
+
 <section class="container">
     <form method="get" action="{% url 'candidature_search' %}">
         <select name="state" id="state">
@@ -119,6 +122,31 @@
             citySelect.disabled = true;
             citySelect.innerHTML = '<option value="">Selecione uma cidade</option>';
         }
+    });
+
+    // Adiciona eventos de clique aos botões de filtro
+    document.querySelectorAll('.filter-button').forEach((button) => {
+        button.addEventListener('click', function () {
+            // Remove a classe 'selected' de todos os botões do mesmo grupo
+            let name = this.getAttribute('data-name');
+            document.querySelectorAll('.button-group[data-name="'+name+'"] .filter-button').forEach((btn) => {
+                btn.classList.remove('selected');
+            });
+
+            // Adiciona a classe 'selected' ao botão clicado
+            this.classList.add('selected');
+
+            // Atualiza o valor do input hidden ou cria um novo input hidden se necessário
+            let value = this.getAttribute('data-value');
+            let input = document.querySelector('input[name="' + name + '"]');
+            if (!input) {
+                input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = name;
+                document.getElementById('sidebar-filter-form').appendChild(input);
+            }
+            input.value = value;
+        });
     });
 </script>
 {% endblock %}
