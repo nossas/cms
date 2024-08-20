@@ -76,6 +76,7 @@ INSTALLED_APPS = [
     "contrib.ds.tooltip",
     # Project Apps
     "contrib.oauth",
+    "org_eleicoes.votepeloclima",
     "org_eleicoes.votepeloclima.candidature",
 ]
 
@@ -124,7 +125,7 @@ COMPRESS_PRECOMPILERS = (("text/x-scss", "django_libsass.SassCompiler"),)
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [SITE_DIR / "templates"],
+        "DIRS": [],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [

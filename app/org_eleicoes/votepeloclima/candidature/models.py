@@ -4,6 +4,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.utils.text import slugify
 
 from .choices import CandidatureFlowStatus, IntendedPosition, PoliticalParty, Gender, Color, Sexuality, Education
+from .locations_utils import get_choices, get_states
 
 
 # Acompanhar validação da candidatura
@@ -49,6 +50,16 @@ class Candidature(models.Model):
             return self.candidatureflow.get_status_display
 
         return CandidatureFlowStatus.draft
+    
+    @property
+    def get_state_display(self):
+        states = dict(get_states())
+        return states.get(self.state, "")
+
+    @property
+    def get_city_display(self):
+        cities = dict(get_choices(self.state))
+        return cities.get(self.city, "")
     
     def save(self, *args, **kwargs):
         if not self.slug:
