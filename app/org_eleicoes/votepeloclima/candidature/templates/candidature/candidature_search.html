@@ -1,72 +1,101 @@
-{% load crispy_forms_filters %}
+{% extends "votepeloclima/base.html" %}
 
-<form method="get" action="{% url 'candidature_search' %}">
-    <select name="state" id="state">
-        <option value="">Estado</option>
-        {% for value, label in states %}
-            <option value="{{ value }}" {% if request.GET.state == value %}selected{% endif %}>{{ label }}</option>
-        {% endfor %}
-    </select>
-    <select name="city" id="city" {% if not request.GET.state %}disabled{% endif %}>
-        <option value="">Cidade</option>
-        {% for value, label in cities %}
-            <option value="{{ value }}" {% if request.GET.city == value %}selected{% endif %}>{{ label }}</option>
-        {% endfor %}
-    </select>
-    <select name="intended_position" id="intended_position">
-        {% for value, label in intended_position_choices %}
-            <option value="{{ value }}" {% if request.GET.intended_position == value %}selected{% endif %}>{{ label }}</option>
-        {% endfor %}
-    </select>
-    <select name="political_party" id="political_party">
-        {% for value, label in political_party_choices %}
-            <option value="{{ value }}" {% if request.GET.political_party == value %}selected{% endif %}>{{ label }}</option>
-        {% endfor %}
-    </select>
+{% load static crispy_forms_filters %}
 
-    <input type="hidden" name="initial_search" value="true">
-    <button type="submit">Buscar</button>
-</form>
-
-{% if initial_search == 'true' %}
-<aside class="sidebar">
-    <form method="get">
-        <select name="gender" id="gender">
-            {% for value, label in gender_choices %}
-                <option value="{{ value }}" {% if request.GET.gender == value %}selected{% endif %}>{{ label }}</option>
+{% block content %}
+<section class="container">
+    <form method="get" action="{% url 'candidature_search' %}">
+        <select name="state" id="state">
+            <option value="">Estado</option>
+            {% for value, label in states %}
+                <option value="{{ value }}" {% if request.GET.state == value %}selected{% endif %}>{{ label }}</option>
             {% endfor %}
         </select>
-        <select name="color" id="color">
-            {% for value, label in color_choices %}
-                <option value="{{ value }}" {% if request.GET.color == value %}selected{% endif %}>{{ label }}</option>
+        <select name="city" id="city" {% if not request.GET.state %}disabled{% endif %}>
+            <option value="">Cidade</option>
+            {% for value, label in cities %}
+                <option value="{{ value }}" {% if request.GET.city == value %}selected{% endif %}>{{ label }}</option>
             {% endfor %}
         </select>
-        <select name="sexuality" id="sexuality">
-            {% for value, label in sexuality_choices %}
-                <option value="{{ value }}" {% if request.GET.sexuality == value %}selected{% endif %}>{{ label }}</option>
+        <select name="intended_position" id="intended_position">
+            {% for value, label in intended_position_choices %}
+                <option value="{{ value }}" {% if request.GET.intended_position == value %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+        </select>
+        <select name="political_party" id="political_party">
+            {% for value, label in political_party_choices %}
+                <option value="{{ value }}" {% if request.GET.political_party == value %}selected{% endif %}>{{ label }}</option>
             {% endfor %}
         </select>
 
-        <input type="text" name="ballot_name" placeholder="Nome na Urna" value="{{ request.GET.ballot_name }}">
-        <input type="text" name="keyword" id="keyword" placeholder="Palavra-chave" value="{{ request.GET.keyword }}">
-        <label for="is_collective_mandate">Candidatura Coletiva:</label>
-        <input type="checkbox" name="is_collective_mandate" id="is_collective_mandate" {% if request.GET.is_collective_mandate %}checked{% endif %}>
-        
         <input type="hidden" name="initial_search" value="true">
         <button type="submit">Buscar</button>
     </form>
-</aside>
-{% endif %}
 
+    <div class="grid py-4">
+        {% if initial_search == 'true' %}
+        <aside class="sidebar g-col-12 g-col-md-3">
+            <form class="d-flex flex-column gap-2" method="get">
+                <select name="gender" id="gender">
+                    {% for value, label in gender_choices %}
+                        <option value="{{ value }}" {% if request.GET.gender == value %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+                <select name="color" id="color">
+                    {% for value, label in color_choices %}
+                        <option value="{{ value }}" {% if request.GET.color == value %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+                <select name="sexuality" id="sexuality">
+                    {% for value, label in sexuality_choices %}
+                        <option value="{{ value }}" {% if request.GET.sexuality == value %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
 
-{% for candidature in candidatures %}
-    <p>{{ candidature.legal_name }} - {{ candidature.intended_position }} - {{ candidature.political_party }}</p>
-    <p>{{ candidature.short_description }}</p>
-    {% if candidature.is_collective_mandate %}
-        <p><strong>Candidatura Coletiva</strong></p>
-    {% endif %}
-{% endfor %}
+                <input type="text" name="ballot_name" placeholder="Nome na Urna" value="{{ request.GET.ballot_name }}" />
 
+                <input type="text" name="keyword" id="keyword" placeholder="Palavra-chave" value="{{ request.GET.keyword }}" />
+
+                <div>
+                    <label for="is_collective_mandate">Candidatura Coletiva:</label>
+                    <input type="checkbox" name="is_collective_mandate" id="is_collective_mandate" {% if request.GET.is_collective_mandate %}checked{% endif %}>
+                </div>
+                
+                <input type="hidden" name="initial_search" value="true">
+                <button type="submit">Buscar</button>
+            </form>
+        </aside>
+        {% endif %}
+
+        <div class="g-col-12 g-col-md-9">
+            <div class="grid gap-2">
+                {% for candidature in candidatures %}
+                <div class="g-col-12 g-col-md-4">
+                    <div class="card">
+                        <img src="{{ candidature.photo }}" class="card-img-top" alt="Foto de {{ candidature.legal_name }}">
+                        <div class="card-body">
+                            <p>{{ candidature.state }} - {{ candidature.city }}</p>
+                            <h5 class="card-title">{{ candidature.legal_name }}</h5>
+                            <p>{{ candidature.number_id }}</p>
+                            <p>{{ candidature.intended_position }} - {{ candidature.political_party }}</p>
+                            {% for propose in candidature.proposes %}
+                            <p>{{ propose }}</p>
+                            {% endfor %}
+                            <a href="#" class="btn btn-primary text-uppercase">Perfil Completo</a>
+                        </div>
+                        {% if candidature.is_collective_mandate %}
+                        <p><strong>Candidatura Coletiva</strong></p>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block footer_js %}
 <script>
     // Método que carrega as cidades de acordo com o estado selecionado
     document.getElementById('state').addEventListener('change', function() {
@@ -92,3 +121,4 @@
         }
     });
 </script>
+{% endblock %}
