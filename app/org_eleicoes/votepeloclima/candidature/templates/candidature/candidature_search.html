@@ -8,121 +8,75 @@
 {% endblock %}
 
 {% block content %}
-<section class="container-fluid px-5">
-    <div class="w-75 py-4">
+<form method="get">
+<main class="container-fluid px-5">
+    <section class="w-75 py-5">
         <h1 class="text-uppercase text-primary fw-bold">Conheça candidaturas<br/> da sua cidade</h1>
         <p>Praesent sit amet turpis vel lacus volutpat scelerisque. Vivamus dapibus, nisi at feugiat tempor, erat lorem lacinia nulla, at consequat massa dolor id odio.</span>
-
-    </div>
-    <form method="get" action="{% url 'candidature_search' %}">
-        <select name="state" id="state">
-            <option value="">Estado</option>
-            {% for value, label in states %}
-                <option value="{{ value }}" {% if request.GET.state == value %}selected{% endif %}>{{ label }}</option>
-            {% endfor %}
-        </select>
-        <select name="city" id="city" {% if not request.GET.state %}disabled{% endif %}>
-            <option value="">Cidade</option>
-            {% for value, label in cities %}
-                <option value="{{ value }}" {% if request.GET.city == value %}selected{% endif %}>{{ label }}</option>
-            {% endfor %}
-        </select>
-        <select name="intended_position" id="intended_position">
-            {% for value, label in intended_position_choices %}
-                <option value="{{ value }}" {% if request.GET.intended_position == value %}selected{% endif %}>{{ label }}</option>
-            {% endfor %}
-        </select>
-        <select name="political_party" id="political_party">
-            {% for value, label in political_party_choices %}
-                <option value="{{ value }}" {% if request.GET.political_party == value %}selected{% endif %}>{{ label }}</option>
-            {% endfor %}
-        </select>
-
-        <input type="hidden" name="initial_search" value="true">
-        <button type="submit">Buscar</button>
-    </form>
-
-    <div class="grid py-4">
-        <aside class="sidebar g-col-12 g-col-md-3">
-            <form class="d-flex flex-column gap-2" method="get">
-                <select name="gender" id="gender">
-                    {% for value, label in gender_choices %}
-                        <option value="{{ value }}" {% if request.GET.gender == value %}selected{% endif %}>{{ label }}</option>
-                    {% endfor %}
-                </select>
-                <select name="color" id="color">
-                    {% for value, label in color_choices %}
-                        <option value="{{ value }}" {% if request.GET.color == value %}selected{% endif %}>{{ label }}</option>
-                    {% endfor %}
-                </select>
-                <select name="sexuality" id="sexuality">
-                    {% for value, label in sexuality_choices %}
-                        <option value="{{ value }}" {% if request.GET.sexuality == value %}selected{% endif %}>{{ label }}</option>
-                    {% endfor %}
-                </select>
-
-                <input type="text" name="ballot_name" placeholder="Nome na Urna" value="{{ request.GET.ballot_name }}" />
-
-                <input type="text" name="keyword" id="keyword" placeholder="Palavra-chave" value="{{ request.GET.keyword }}" />
-
-                <div>
-                    <label for="is_collective_mandate">Candidatura Coletiva:</label>
-                    <input type="checkbox" name="is_collective_mandate" id="is_collective_mandate" {% if request.GET.is_collective_mandate %}checked{% endif %}>
-                </div>
-                
-                <input type="hidden" name="initial_search" value="true">
-                <button type="submit">Buscar</button>
-            </form>
-        </aside>
-
-        <div class="g-col-12 g-col-md-9">
-            <div class="grid gap-2">
-                {% for candidature in candidatures %}
-                <div class="g-col-12 g-col-md-4">
-                    <div class="card">
-                        <img src="{{ candidature.photo.url }}" class="card-img-top" alt="Foto de {{ candidature.legal_name }}">
-                        <div class="card-body p-2">
-                            <p class="mb-1 fs-6 text-black-50">{{ candidature.get_state_display }} - {{ candidature.get_city_display }}</p>
-                            <div class="card-title">
-                                <h4 class="text-uppercase fw-bold mb-0 fs-3">{{ candidature.legal_name }}</h4>
-                                <h4 class="fs-3 mb-0">{{ candidature.number_id }}</h4>
+    </section>
+    <nav class="py-2">
+        <div class="grid py-2 d-flex align-items-center justify-content-between">
+            {% crispy form_top %}
+            <button type="submit">Buscar</button>
+        </div>
+    </nav>
+    <section>
+        <div class="grid py-5">
+            <div class="g-col-12 g-col-md-3">
+                <aside class="sidebar">
+                    {% crispy form_side %}
+                    <button type="submit">Buscar</button>
+                </aside>
+            </div>
+            <div class="g-col-12 g-col-md-9">
+                <div class="grid gap-4">
+                    {% for candidature in candidatures %}
+                    <div class="g-col-12 g-col-md-4">
+                        <div class="card">
+                            <img src="{{ candidature.photo.url }}" class="card-img-top" alt="Foto de {{ candidature.legal_name }}">
+                            <div class="card-body p-2">
+                                <p class="mb-1 fs-6 text-black-50">{{ candidature.get_state_display }} - {{ candidature.get_city_display }}</p>
+                                <div class="card-title">
+                                    <h4 class="text-uppercase fw-bold mb-0 fs-3">{{ candidature.legal_name }}</h4>
+                                    <h4 class="fs-3 mb-0">{{ candidature.number_id }}</h4>
+                                </div>
+                                <hr style="width: 24px;" class="my-2" />
+                                <div>
+                                    <strong class="fs-6 pb-1">{{ candidature.get_intended_position_display }} | {{ candidature.get_political_party_display }}</strong>
+                                    <p class="fs-6">
+                                    {% for propose in proposes %}
+                                            {{ propose.label }}{% if not forloop.last %} / {% endif %}
+                                    {% endfor %}
+                                    </p>
+                                    {% if candidature.is_collective_mandate %}
+                                    <strong class="fs-6">Candidatura Coletiva</strong>
+                                    {% endif %}
+                                </div>
                             </div>
-                            <hr style="width: 24px;" class="my-2" />
-                            <div>
-                                <strong class="fs-6 pb-1">{{ candidature.get_intended_position_display }} | {{ candidature.get_political_party_display }}</strong>
-                                <p class="fs-6">
-                                {% for propose in proposes %}
-                                        {{ propose.label }}{% if not forloop.last %} / {% endif %}
-                                {% endfor %}
-                                </p>
-                                {% if candidature.is_collective_mandate %}
-                                <strong class="fs-6">Candidatura Coletiva</strong>
-                                {% endif %}
-                            </div>
+                            <a href="{% url 'candidate_profile' candidature.slug %}" class="btn btn-primary btn-card text-uppercase d-flex align-items-center justify-content-center">
+                                    <span class="me-1">Perfil Completo</span>
+                                    <span class="ds-icon-chevron-right"></span>
+                            </a>
                         </div>
-                        <a href="{% url 'candidate_profile' candidature.slug %}" class="btn btn-primary btn-card text-uppercase d-flex align-items-center justify-content-center">
-                                <span class="me-1">Perfil Completo</span>
-                                <span class="ds-icon-chevron-right"></span>
-                        </a>
                     </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
             </div>
         </div>
-    </div>
-</section>
+    </section>
+</main>
 {% endblock %}
 
 {% block footer_js %}
 <script>
     // Método que carrega as cidades de acordo com o estado selecionado
-    document.getElementById('state').addEventListener('change', function() {
+    document.getElementById('id_state').addEventListener('change', function() {
         const stateValue = this.value;
-        const citySelect = document.getElementById('city');
+        const citySelect = document.getElementById('id_city');
         
         if (stateValue) {
             citySelect.disabled = false;
-            fetch(`/address/?state=${stateValue}`)
+            fetch(`/api/candidatura/buscar-endereco/?state=${stateValue}`)
                 .then(response => response.json())
                 .then(data => {
                     citySelect.innerHTML = '<option value="">Selecione uma cidade</option>';
@@ -137,31 +91,6 @@
             citySelect.disabled = true;
             citySelect.innerHTML = '<option value="">Selecione uma cidade</option>';
         }
-    });
-
-    // Adiciona eventos de clique aos botões de filtro
-    document.querySelectorAll('.filter-button').forEach((button) => {
-        button.addEventListener('click', function () {
-            // Remove a classe 'selected' de todos os botões do mesmo grupo
-            let name = this.getAttribute('data-name');
-            document.querySelectorAll('.button-group[data-name="'+name+'"] .filter-button').forEach((btn) => {
-                btn.classList.remove('selected');
-            });
-
-            // Adiciona a classe 'selected' ao botão clicado
-            this.classList.add('selected');
-
-            // Atualiza o valor do input hidden ou cria um novo input hidden se necessário
-            let value = this.getAttribute('data-value');
-            let input = document.querySelector('input[name="' + name + '"]');
-            if (!input) {
-                input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = name;
-                document.getElementById('sidebar-filter-form').appendChild(input);
-            }
-            input.value = value;
-        });
     });
 </script>
 {% endblock %}

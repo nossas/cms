@@ -17,7 +17,7 @@ from formtools.wizard.views import NamedUrlSessionWizardView
 
 from contrib.oauth.utils import send_confirmation_email
 from ..models import CandidatureFlow, CandidatureFlowStatus, Candidature
-from ..forms import register_form_list, ProposeForm, AppointmentForm
+from ..forms import CandidatureSearchSideForm, CandidatureSearchTopForm, register_form_list, ProposeForm, AppointmentForm
 from ..locations_utils import get_ufs, get_choices
 from ..choices import (
     PoliticalParty,
@@ -380,20 +380,21 @@ class CandidatureSearchView(ListView, ProposesMixin):
 
     def get_queryset(self):
         queryset = super().get_queryset()
+        queryset = queryset.filter(candidatureflow__status__in=[CandidatureFlowStatus.is_valid, CandidatureFlowStatus.editing])
 
-        # Filtros principais
-        for field in ['state', 'city', 'intended_position', 'political_party']:
-            value = self.request.GET.get(field)
-            if value:
-                queryset = queryset.filter(**{f"{field}__icontains": value})
+        form_top = CandidatureSearchTopForm(self.request.GET or None)
+        form_side = CandidatureSearchSideForm(self.request.GET or None)
 
-        # Verificar se a busca inicial foi feita
-        if self.request.GET.get('initial_search') == 'true':
-            #Filtros secundários
-            for field in ['gender', 'color', 'sexuality', 'ballot_name']:
-                value = self.request.GET.get(field)
-                if value:
-                    queryset = queryset.filter(**{f"{field}__icontains": value})
+        if form_top.is_valid() and form_side.is_valid():
+            cleaned_data = {**form_top.cleaned_data, **form_side.cleaned_data}
+
+            for field in ['state', 'city', 'intended_position', 'political_party', 'gender', 'color', 'sexuality', 'ballot_name']:
+                values = cleaned_data.get(field)
+                if values:
+                    if isinstance(values, list):
+                        queryset = queryset.filter(**{f"{field}__in": values})
+                    else:
+                        queryset = queryset.filter(**{field: values})
             
             keyword = self.request.GET.get('keyword')
             if keyword:
@@ -412,20 +413,17 @@ class CandidatureSearchView(ListView, ProposesMixin):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['sexuality_choices'] = Sexuality.choices
-        context['gender_choices'] = Gender.choices
-        context['color_choices'] = Color.choices
-        context['intended_position_choices'] = IntendedPosition.choices
-        context['political_party_choices'] = PoliticalParty.choices
-        
-        context['states'] = get_ufs()
-        selected_state = self.request.GET.get('state')
-        if selected_state:
-            context['cities'] = get_choices(selected_state)
-        else:
-            context['cities'] = []
-        
-        context['initial_search'] = self.request.GET.get('initial_search', 'false')
+
+        form_top = CandidatureSearchTopForm(self.request.GET or None)
+        form_side = CandidatureSearchSideForm(self.request.GET or None)
+
+        # Atualizar as cidades com base no estado selecionado
+        state = self.request.GET.get('state')
+        if state:
+            form_top.update_city_choices(state)
+
+        context['form_top'] = form_top
+        context['form_side'] = form_side
         
         candidature = self.get_queryset().first()
         if candidature:

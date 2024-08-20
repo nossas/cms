@@ -454,3 +454,16 @@ class HTMLBooleanField(forms.BooleanField):
         bound_field.label = mark_safe(bound_field.label)
 
         return bound_field
+
+class CheckboxSelectMultipleWidget(forms.CheckboxSelectMultiple):
+    template_name = 'forms/widgets/checkbox_select_multiple.html'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def get_context(self, name, value, attrs):
+        context = super().get_context(name, value, attrs)
+
+        context["widget"].update({"attrs": {**context["widget"].get("attrs", {}), "class": "btn-check"}})
+
+        return context
