@@ -11,21 +11,24 @@
 {% endblock %}
 
 {% block navbar %}
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
   <div class="container">
-    <a class="navbar-brand" href="/">Vote Pelo Clima</a>
+    <a class="navbar-brand" href="/">
+      {% include "votepeloclima/logo.svg" %}
+    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
       aria-controls="navbarText" aria-expan ded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
+        {% show_menu 0 100 100 100 "votepeloclima/menu_item.html" %}
+        <!-- <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">Menu 1</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Menu 2</a>
-        </li>
+        </li> -->
         <!-- <li class="nav-item">
           <a class="nav-link" href="#">Pricing</a>
         </li> -->
@@ -33,11 +36,11 @@
       <div class="d-flex" style="--bs-gap:1rem;">
         {% block navbar_actions %}
         {% if request.user.is_authenticated %}
-        <a class="btn btn-primary" href="{% url 'dashboard' %}">Área da Candidatura</a>
-        <a class="btn btn-outline-light" href="{% url 'oauth:logout' %}">Sair</a>
+        <a class="btn btn-outline-light" href="{% url 'dashboard' %}">Área da Candidatura</a>
+        <a class="btn btn-light" href="{% url 'oauth:logout' %}">Sair</a>
         {% else %}
         <a class="btn btn-outline-light" href="{% url 'register' %}" role="button">Cadastre-se</a>
-        <a class="btn btn-primary" href="{% url 'oauth:login' %}" role="button">Login</a>
+        <a class="btn btn-light" href="{% url 'oauth:login' %}" role="button">Login</a>
         {% endif %}
         {% endblock %}
       </div>
@@ -47,6 +50,7 @@
 {% endblock %}
 
 {% block content %}
+{% placeholder "content" %}
 {% endblock %}
 
 {% block footer %}
