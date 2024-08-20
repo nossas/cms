@@ -309,108 +309,122 @@ class ApplicationForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
 
 propose_text_label = "Proposta"
 propose_text_help_text = (
-    "Descreva sua proposta de forma clara e objetiva. Máximo de 300 caracteres."
+    "Descreva brevemente sua proposta. Até 200 caracteres."
 )
 
 
 class ProposeForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
-    energia_renovavel = CheckboxTextField(
-        checkbox_label="Energia Renovável",
-        text_label=propose_text_label,
-        text_help_text=propose_text_help_text,
-        required=False,
-    )
     transporte_e_mobilidade = CheckboxTextField(
         checkbox_label="Transporte e Mobilidade",
-        text_label=propose_text_label,
-        text_help_text=propose_text_help_text,
-        required=False,
-    )
-    agricultura_sustentavel = CheckboxTextField(
-        checkbox_label="Agricultura Sustentável",
-        text_label=propose_text_label,
-        text_help_text=propose_text_help_text,
-        required=False,
-    )
-    conservacao_e_florestas = CheckboxTextField(
-        checkbox_label="Conservação e Florestas",
+        help_text="Promover transporte coletivo gratuito e de qualidade, usar modais com menos emissões e incentivar a mobilidade ativa.",
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
     )
     gestao_de_residuos = CheckboxTextField(
         checkbox_label="Gestão de Resíduos",
+        help_text="Encorajar a compostagem, resíduos orgânicos, captura de emissões de metano, promover economia circular e materiais biodegradáveis",
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
     )
-    agua_e_saneamento = CheckboxTextField(
-        checkbox_label="Água e Saneamento",
+    povos_originarios_tradicionais = CheckboxTextField(
+        checkbox_label="Povos Originários e Tradicionais",
+        help_text="Garantir direitos dos povos originários, reconhecer e valorizar conhecimentos e tecnologias de povos tradicionais.",
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
     )
-    empregos_verdes = CheckboxTextField(
-        checkbox_label="Empregos Verdes",
+    educacao_climatica = CheckboxTextField(
+        checkbox_label="Educação Climática",
+        help_text="Ensinar sobre meio ambiente e mudanças climáticas em instituições de ensino, treinar profissionais para empregos verdes.",
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
     )
-    mercados_e_financas = CheckboxTextField(
-        checkbox_label="Mercados e finanças",
-        text_label=propose_text_label,
-        text_help_text=propose_text_help_text,
-        required=False,
-    )
-    urbanismo_e_direito_a_cidade = CheckboxTextField(
-        checkbox_label="Urbanismo e Direito à Cidade",
-        text_label=propose_text_label,
-        text_help_text=propose_text_help_text,
-        required=False,
-    )
-    combate_ao_racismo_ambiental = CheckboxTextField(
+    combate_racismo_ambiental = CheckboxTextField(
         checkbox_label="Combate ao Racismo Ambiental",
+        help_text="Endereçar desigualdades socioeconômicas, implementar mecanismos de participação efetiva de grupos marginalizados.",
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
     )
-    direitos_indigenas = CheckboxTextField(
-        checkbox_label="Direitos Indígenas",
+    moradia_digna = CheckboxTextField(
+        checkbox_label="Moradia Digna",
+        help_text="Assegurar moradia resiliente aos impactos de eventos climáticos extremos, estimular a eficiência energética e hídrica de residências.",
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
     )
-    saude_e_clima = CheckboxTextField(
-        checkbox_label="Saúde e Clima",
+    transicao_energetica = CheckboxTextField(
+        checkbox_label="Transição Energética",
+        help_text="Instalar fontes de energia limpa e renovável, suspender e substituir o uso de fontes sujas e poluidoras de energia.",
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
     )
-    adaptacao_climatica = CheckboxTextField(
-        checkbox_label="Adaptação Climática",
+    agricultura_sustentavel = CheckboxTextField(
+        checkbox_label="Alimentação e Agricultura Sustentável",
+        help_text="Promover a agricultura orgânica e familiar livre de agrotóxicos, estimular dietas vegetarianas e veganas.",
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
     )
+    direito_a_cidade = CheckboxTextField(
+        checkbox_label="Direito à Cidade",
+        help_text="Expandir áreas verdes e parques públicos, diminuir ilhas de calor, promover segurança pública e bem-estar urbano, assegurando o direito à cidade sustentável e inclusiva.",
+        text_label=propose_text_label,
+        text_help_text=propose_text_help_text,
+        required=False,
+    )
+    adaptacao_reducao_desastres = CheckboxTextField(
+        checkbox_label="Adaptação e Redução de Desastres",
+        help_text="Apoiar pessoas atingidas por eventos climáticos extremos, adaptar a infraestrutura das cidades aos impactos climáticos, monitorar e responder rapidamente desastres ambientais.",
+        text_label=propose_text_label,
+        text_help_text=propose_text_help_text,
+        required=False,
+    )
+    direito_dos_animais = CheckboxTextField(
+        checkbox_label="Direito dos Animais",
+        help_text="Proteger habitats da fauna local, promover alimentação baseada em plantas, combater zoonoses para controlar doenças vetoriais agravadas pela crise climática.",
+        text_label=propose_text_label,
+        text_help_text=propose_text_help_text,
+        required=False,
+    )
+    economia_verde = CheckboxTextField(
+        checkbox_label="Economia Verde",
+        help_text="Descarbonizar indústrias e processos produtivos, incentivar a bioeconomia, criar novos empregos verdes.",
+        text_label=propose_text_label,
+        text_help_text=propose_text_help_text,
+        required=False,
+    )
+    pessoas_afetadas_desastres = CheckboxTextField(
+        checkbox_label="Pessoas afetadas por desastres",
+        help_text="Criar programas de recuperação ambiental e assistência imediata, incluindo moradias sustentáveis e serviços de saúde física e mental, para comunidades impactadas por desastres naturais.",
+        text_label=propose_text_label,
+        text_help_text=propose_text_help_text,
+        required=False,
+    )
+    
 
     class Meta:
         title = "Suas propostas"
         model = CandidatureFlow
         entangled_fields = {
             "properties": [
-                "energia_renovavel",
                 "transporte_e_mobilidade",
-                "agricultura_sustentavel",
-                "conservacao_e_florestas",
                 "gestao_de_residuos",
-                "agua_e_saneamento",
-                "empregos_verdes",
-                "mercados_e_financas",
-                "urbanismo_e_direito_a_cidade",
-                "combate_ao_racismo_ambiental",
-                "direitos_indigenas",
-                "saude_e_clima",
-                "adaptacao_climatica",
+                "povos_originarios_tradicionais",
+                "educacao_climatica",
+                "combate_racismo_ambiental",
+                "moradia_digna",
+                "transicao_energetica",
+                "agricultura_sustentavel",
+                "direito_a_cidade",
+                "adaptacao_reducao_desastres",
+                "direito_dos_animais",
+                "economia_verde",
+                "pessoas_afetadas_desastres"
             ]
         }
         untangled_fields = []
