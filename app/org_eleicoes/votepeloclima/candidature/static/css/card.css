@@ -1,0 +1,26 @@
+.card {
+  transition: border-color 0.3s ease;
+
+}
+
+.card:hover {
+  border-color: #1F8523;
+}
+
+.card .card-title {
+  transition: color 0.3s ease;
+
+}
+
+.card:hover .card-title {
+  color: #1F8523;
+}
+
+.card .btn-card {
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.card:hover .btn-card {
+  background-color: #1F8523;
+  border-color: #1F8523;
+}

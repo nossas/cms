@@ -359,7 +359,21 @@ class AddressView(View):
         return JsonResponse([{'code': code, 'name': name} for code, name in cities], safe=False)
 
 
-class CandidatureSearchView(ListView):
+class ProposesMixin:
+    def get_proposes(self, candidature):
+        proposes_list = []
+
+        for field_name, value in candidature.proposes.items():
+            if value:
+                proposes_list.append({
+                    "label": ProposeForm().fields[field_name].checkbox_label,
+                    "description": value
+                })
+
+        return proposes_list
+
+
+class CandidatureSearchView(ListView, ProposesMixin):
     model = Candidature
     template_name = "candidature/candidature_search.html"
     context_object_name = "candidatures"
@@ -411,30 +425,25 @@ class CandidatureSearchView(ListView):
         context['form_top'] = form_top
         context['form_side'] = form_side
         
+        candidature = self.get_queryset().first()
+        if candidature:
+            context['proposes'] = self.get_proposes(candidature)
+
         return context
 
 
-class PublicCandidatureView(View):
+class PublicCandidatureView(View, ProposesMixin):
     template_name = "candidature/candidate_profile.html"
 
     def get(self, request, slug):
         candidature = get_object_or_404(Candidature, slug=slug)
-        proposes_list = []
-
-        for field_name, value in candidature.proposes.items():
-            if value:
-                proposes_list.append({
-                    "label": ProposeForm().fields[field_name].checkbox_label,
-                    "description": value
-                })
-
         context = {
             "candidature": candidature,
-            "proposes": proposes_list,
+            "proposes": self.get_proposes(candidature),
         }
 
         # Verifica se a candidatura está aprovada
         if candidature.status() != CandidatureFlowStatus.is_valid.label:
             return render(request, 'candidature/not_approved.html', context)
-        
+
         return render(request, self.template_name, context)
