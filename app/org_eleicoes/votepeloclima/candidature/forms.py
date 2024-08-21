@@ -316,91 +316,91 @@ propose_text_help_text = (
 class ProposeForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
     transporte_e_mobilidade = CheckboxTextField(
         checkbox_label="Transporte e Mobilidade",
-        help_text="Promover transporte coletivo gratuito e de qualidade, usar modais com menos emissões e incentivar a mobilidade ativa.",
+        help_text="Transporte coletivo gratuito e de qualidade, modais com menos emissões e mobilidade ativa.",
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
     )
     gestao_de_residuos = CheckboxTextField(
         checkbox_label="Gestão de Resíduos",
-        help_text="Encorajar a compostagem, resíduos orgânicos, captura de emissões de metano, promover economia circular e materiais biodegradáveis",
+        help_text="Compostagem de resíduos orgânicos, economia circular, mais iniciativas de catadores e catadoras de materiais recicláveis, uso de materiais biodegradáveis.",
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
     )
     povos_originarios_tradicionais = CheckboxTextField(
-        checkbox_label="Povos Originários e Tradicionais",
-        help_text="Garantir direitos dos povos originários, reconhecer e valorizar conhecimentos e tecnologias de povos tradicionais.",
+        checkbox_label="Povos e comunidades tradicionais",
+        help_text="Direitos, reconhecimento e valorização de conhecimentos e tecnologias de povos e comunidades tradicionais.",
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
     )
     educacao_climatica = CheckboxTextField(
         checkbox_label="Educação Climática",
-        help_text="Ensinar sobre meio ambiente e mudanças climáticas em instituições de ensino, treinar profissionais para empregos verdes.",
+        help_text="Ensino sobre meio ambiente e mudanças climáticas nas escolas, formação profissional para empregos verdes, formação de agentes populares para gestão do risco climático.",
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
     )
     combate_racismo_ambiental = CheckboxTextField(
-        checkbox_label="Combate ao Racismo Ambiental",
-        help_text="Endereçar desigualdades socioeconômicas, implementar mecanismos de participação efetiva de grupos marginalizados.",
+        checkbox_label="Enfrentamento ao racismo ambiental",
+        help_text="Cultura viva, segurança cidadã, participação ativa das comunidades, protagonismo de pessoas negras, indígenas e jovens na construção de soluções.",
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
     )
     moradia_digna = CheckboxTextField(
         checkbox_label="Moradia Digna",
-        help_text="Assegurar moradia resiliente aos impactos de eventos climáticos extremos, estimular a eficiência energética e hídrica de residências.",
+        help_text="Políticas habitacionais justas e participativas, moradia resiliente aos impactos de eventos climáticos extremos, eficiência hídrica e energética.",
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
     )
     transicao_energetica = CheckboxTextField(
-        checkbox_label="Transição Energética",
-        help_text="Instalar fontes de energia limpa e renovável, suspender e substituir o uso de fontes sujas e poluidoras de energia.",
+        checkbox_label="Transição energética justa",
+        help_text="Mais fontes de energias renováveis que substituam gradualmente o uso de fontes poluidoras e garantam os direitos socioambientais das populações em seus territórios.",
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
     )
     agricultura_sustentavel = CheckboxTextField(
-        checkbox_label="Alimentação e Agricultura Sustentável",
-        help_text="Promover a agricultura orgânica e familiar livre de agrotóxicos, estimular dietas vegetarianas e veganas.",
+        checkbox_label="Alimentos saudáveis",
+        help_text="Agricultura livre de agrotóxicos, produção agroecológica, agricultura familiar e mais vegetais na mesa da população.",
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
     )
     direito_a_cidade = CheckboxTextField(
         checkbox_label="Direito à Cidade",
-        help_text="Expandir áreas verdes e parques públicos, diminuir ilhas de calor, promover segurança pública e bem-estar urbano, assegurando o direito à cidade sustentável e inclusiva.",
+        help_text="Mais áreas verdes e parques públicos, menos ilhas de calor, segurança pública e bem-estar urbano, cidades mais sustentáveis e inclusivas.",
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
     )
     adaptacao_reducao_desastres = CheckboxTextField(
-        checkbox_label="Adaptação e Redução de Desastres",
-        help_text="Apoiar pessoas atingidas por eventos climáticos extremos, adaptar a infraestrutura das cidades aos impactos climáticos, monitorar e responder rapidamente desastres ambientais.",
+        checkbox_label="Adaptação e redução de desastres",
+        help_text="Políticas públicas para pessoas atingidas por eventos climáticos extremos, projetos e recursos para infraestrutura resiliente, monitoramento e resposta rápida a desastres ambientais.",
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
     )
     direito_dos_animais = CheckboxTextField(
-        checkbox_label="Direito dos Animais",
-        help_text="Proteger habitats da fauna local, promover alimentação baseada em plantas, combater zoonoses para controlar doenças vetoriais agravadas pela crise climática.",
+        checkbox_label="Proteção de animais",
+        help_text="Habitats da fauna local protegidos, controle de zoonoses para evitar doenças vetoriais agravadas pela crise climática.",
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
     )
     economia_verde = CheckboxTextField(
         checkbox_label="Economia Verde",
-        help_text="Descarbonizar indústrias e processos produtivos, incentivar a bioeconomia, criar novos empregos verdes.",
+        help_text="Indústrias e processos produtivos sem carbono, bioeconomia, novos empregos verdes.",
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
     )
     pessoas_afetadas_desastres = CheckboxTextField(
         checkbox_label="Pessoas afetadas por desastres",
-        help_text="Criar programas de recuperação ambiental e assistência imediata, incluindo moradias sustentáveis e serviços de saúde física e mental, para comunidades impactadas por desastres naturais.",
+        help_text="Políticas públicas de recuperação ambiental e assistência imediata, incluindo moradias sustentáveis e serviços de saúde física e mental, para comunidades impactadas por desastres ambientais.",
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
