@@ -161,7 +161,14 @@ class CheckboxTextWidget(forms.MultiWidget):
         text_help_text=None,
         help_text=None,
         attrs=None,
+        max_length=None
     ):
+        
+        if attrs is None:
+            attrs = {}
+        if max_length:
+            attrs['maxlength'] = max_length
+    
         widgets = [
             SwitchInput(
                 attrs={"data-checktext": ""}, label=checkbox_label, help_text=help_text
@@ -224,6 +231,7 @@ class CheckboxTextField(forms.CharField):
             text_label=text_label,
             text_help_text=text_help_text,
             help_text=help_text,
+            max_length=max_length
         )
 
         super().__init__(
