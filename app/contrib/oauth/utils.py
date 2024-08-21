@@ -26,6 +26,7 @@ def send_mail(
         "from_email": from_email,
         "subject_template_name": subject_template_name,
         "email_template_name": email_template_name,
+        "html_email_template_name": email_template_name,
         "extra_email_context": {}
     }
 
