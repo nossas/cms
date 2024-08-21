@@ -1,6 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.functional import lazy
+from django.templatetags.static import static
 
 from captcha.widgets import ReCaptchaV2Checkbox
 from entangled.forms import EntangledModelFormMixin
@@ -559,7 +560,7 @@ class ProfileForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
 
 class CheckoutForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
     is_valid = HTMLBooleanField(
-        label="Ao preencher o formulário e se cadastrar na Campanha, você está ciente de que seus dados pessoais serão tratados de acordo com o <a href='#' target='blank'>Aviso de Privacidade</a>."
+        label=f'Ao preencher o formulário e se cadastrar na Campanha, você está ciente de que seus dados pessoais serão tratados de acordo com o <a href="{static("docs/aviso-de-privacidade-candidaturas.pdf")}" target="_blank">Aviso de Privacidade</a>.'
     )
 
     class Meta:
