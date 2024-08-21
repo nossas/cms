@@ -2,6 +2,8 @@ from collections import OrderedDict
 from django.contrib.auth.models import User
 from django.shortcuts import render
 
+from contrib.oauth.utils import send_mail
+
 from .base import CandidatureBaseView
 from ..choices import CandidatureFlowStatus
 from ..models import CandidatureFlow
@@ -49,10 +51,20 @@ class CreateUpdateCandidatureView(CandidatureBaseView):
     def done(self, form_list, form_dict, **kwargs):
         user = self.get_current_user()
         flow = CandidatureFlow.objects.get(user=user)
-        flow.status = CandidatureFlowStatus.submitted
-        flow.save()
-        
-        # Submete Editing
-        print("Enviar e-mail de cadastro enviado")
 
+        if flow.status == "draft":
+            flow.status = CandidatureFlowStatus.submitted
+            flow.save()
+            
+            # Envia e-mail para cadastro enviado pela primeira vez
+            send_mail(
+                user=user,
+                request=self.request,
+                email_template_name="candidature/emails/register_done.html",
+                subject_template_name="candidature/emails/register_done_subject.txt"
+            )
+        else:
+            flow.status = CandidatureFlowStatus.submitted
+            flow.save()
+        
         return render(self.request, "candidature/submitted.html")

@@ -6,7 +6,7 @@ from django.http import Http404
 from django.urls import reverse
 
 from formtools.wizard.views import NamedUrlSessionWizardView
-from contrib.oauth.utils import send_confirmation_email
+from contrib.oauth.utils import send_mail
 from contrib.oauth.models import Token
 
 from ..choices import CandidatureFlowStatus
@@ -127,7 +127,12 @@ class CandidatureBaseView(NamedUrlSessionWizardView):
 
                 Token.objects.create(user=user)
 
-                send_confirmation_email(user=user, request=self.request)
+                send_mail(
+                    user=user,
+                    request=self.request,
+                    email_template_name="candidature/emails/register_incomplete.html",
+                    subject_template_name="candidature/emails/register_incomplete_subject.txt"
+                )
 
         if user:
             self.upsert_instance(form, current_step, user)
@@ -213,7 +218,6 @@ class CandidatureBaseView(NamedUrlSessionWizardView):
 
         return response
         
-
     def post(self, *args, **kwargs):
         request = self.request
         if "wizard_goto_last" in request.POST:

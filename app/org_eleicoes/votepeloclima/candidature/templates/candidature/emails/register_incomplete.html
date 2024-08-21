@@ -1,0 +1,11 @@
+{% extends "votepeloclima/base_mail.html" %}
+
+{% block content %}
+<p>Oi {{user.first_name}},</p>
+
+<p>Você está recebendo esse e-mail porque iniciou seu cadastro na plataforma Vote Pelo Clima.</p>
+
+<p style="color:#1f8523;"><a href="{{ protocol }}://{{ domain }}{% url 'oauth:change-password' uidb64=uid token=token %}">Clique aqui para criar um senha e concluir seu cadastro</a></p>
+
+<p>Caso você não tenha iniciado seu cadastro na plataforma, ignore essa mensagem.</p>
+{% endblock %}
