@@ -62,39 +62,35 @@ class CaptchaForm(EntangledModelFormMixin, forms.ModelForm):
 class AppointmentForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
     appointment_1 = ToggleButtonField(
         icon_name="ds-icon-compromisso-1",
-        text_html="Políticas climáticas comprometidas com a justiça racial",
+        text_html="Políticas de adaptação das cidades para reduzir tragédias",
     )
     appointment_2 = ToggleButtonField(
         icon_name="ds-icon-compromisso-2",
-        text_html="Conservação dos recursos naturais",
+        text_html="Políticas para redução de emissões e transição energética",
     )
     appointment_3 = ToggleButtonField(
         icon_name="ds-icon-compromisso-3",
-        text_html="Mecanismos e espaços de participação popular",
+        text_html="Políticas sociais de apoio às populações atingidas",
     )
     appointment_4 = ToggleButtonField(
         icon_name="ds-icon-compromisso-4",
-        text_html="Inclusão e consideração de saberes tradicionais e tecnologias sociais",
+        text_html="Transição climática com justiça social, racial e de gênero",
     )
     appointment_5 = ToggleButtonField(
         icon_name="ds-icon-compromisso-5",
-        text_html="Combate a todas as formas de desigualdade e pobreza",
+        text_html="Proteção ambiental e de recursos naturais",
     )
     appointment_6 = ToggleButtonField(
         icon_name="ds-icon-compromisso-6",
-        text_html="Equidade de gênero",
+        text_html="Incentivo à participação popular e ao engajamento da juventude",
     )
     appointment_7 = ToggleButtonField(
         icon_name="ds-icon-compromisso-7",
-        text_html="Transição climática justa",
+        text_html="Investimentos em pesquisa e inovação para enfrentar a crise climática",
     )
     appointment_8 = ToggleButtonField(
         icon_name="ds-icon-compromisso-8",
-        text_html="Equidade intergeracional e juventudes",
-    )
-    appointment_9 = ToggleButtonField(
-        icon_name="ds-icon-compromisso-9",
-        text_html="Fomento e incentivo à pesquisa e inovação no enfrentamento à crise climática",
+        text_html="Valorização de saberes tradicionais e tecnologias sociais na busca de soluções",
     )
 
     class Meta:
@@ -111,7 +107,6 @@ class AppointmentForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
                 "appointment_6",
                 "appointment_7",
                 "appointment_8",
-                "appointment_9",
             ]
         }
         untangled_fields = []
