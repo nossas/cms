@@ -3,9 +3,10 @@
 {% block content %}
 <p>Oi {{user.first_name}},</p>
 
-<p>Você está recebendo esse e-mail porque iniciou seu cadastro na plataforma Vote Pelo Clima.</p>
+<p>Você iniciou seu cadastro na plataforma Vote pelo Clima! Faltam poucos passos para se conectar com novos eleitores e mostrar que sua candidatura é comprometida com a justiça climática.</p>
 
-<p style="color:#1f8523;"><a href="{{ protocol }}://{{ domain }}{% url 'oauth:change-password' uidb64=uid token=token %}">Clique aqui para criar um senha e concluir seu cadastro</a></p>
+<p>Caso tenha que sair antes de finalizar o cadastro, você pode continuar de onde parou quando estiver pronta/o. Para isso, é só definir uma senha para acessar a plataforma e criar seu perfil:</p>
+<a style="color:#1f8523;" href="{{ protocol }}://{{ domain }}{% url 'oauth:change-password' uidb64=uid token=token %}">Criar senha</a>
 
-<p>Caso você não tenha iniciado seu cadastro na plataforma, ignore essa mensagem.</p>
+<p>Obs: Caso você tenha concluído seu cadastro na plataforma, é só ignorar essa mensagem e acompanhar os próximos e-mails.</p>
 {% endblock %}

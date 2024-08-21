@@ -3,14 +3,19 @@
 {% block content %}
 <p>Oi {{user.first_name}},</p>
 
-<p>Bem-vindo(a) ao Vote Pelo Clima! Seu cadastro está sendo validado, assim que a verificação for concluída enviaremos um novo e-mail com o link do seu perfil.</p>
+<p>Recebemos seu cadastro e estamos validando as informações para garantir que tudo esteja correto. Assim que a
+    verificação for concluída, enviaremos um novo e-mail com o link do seu perfil para que você possa começar a
+    divulgá-lo.</p>
 
 {% if not user.is_active %}
-<p>Enquanto isso, defina uma senha segura para acessar a plataforma:</p>
-<p style="color:#1f8523;"><a href="{{ protocol }}://{{ domain }}{% url 'oauth:change-password' uidb64=uid token=token %}">Criar senha</a></p>
+<p>Enquanto isso, você pode se antecipar e definir uma senha segura para acessar a plataforma:</p>
+<a style="color:#1f8523;"
+    href="{{ protocol }}://{{ domain }}{% url 'oauth:change-password' uidb64=uid token=token %}">Criar senha</a>
+<p>Seu nome de usuário, caso tenha esquecido: {{user.username}}</p>
+<p>Por ora, é isso! Ficamos felizes em ter você conosco.</p>
+{% else %}
+<p>Ficamos felizes em ter você conosco.</p>
 {% endif %}
 
-<p>Seu nome de usuário, caso tenha esquecido: {{user.username}}</p>
-<p>Por enquanto, é isso.</p>
 <p>Qualquer dúvida, é só responder retornando esse e-mail.</p>
 {% endblock %}
