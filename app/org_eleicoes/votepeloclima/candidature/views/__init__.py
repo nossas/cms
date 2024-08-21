@@ -401,7 +401,7 @@ class CandidatureSearchView(ListView, ProposesMixin):
                 queryset = queryset.filter(
                     Q(short_description__icontains=keyword) |
                     Q(milestones__icontains=keyword) |
-                    Q(flags__icontains=keyword) |
+                    Q(proposes__icontains=keyword) |
                     Q(appointments__icontains=keyword)
                 )
             

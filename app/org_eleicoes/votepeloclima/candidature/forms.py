@@ -559,6 +559,7 @@ class CandidatureSearchSideForm(forms.Form):
         widget=CheckboxSelectMultipleWidget(),
         label='Sexualidade'
     )
+    # proposes = forms.MultipleChoiceField(
     ballot_name = forms.CharField(required=False)
     keyword = forms.CharField(required=False)
     is_collective_mandate = forms.BooleanField(required=False)

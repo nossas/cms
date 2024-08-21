@@ -460,10 +460,13 @@ class CheckboxSelectMultipleWidget(forms.CheckboxSelectMultiple):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        print("Widget customizado inicializado")
 
     def get_context(self, name, value, attrs):
+        print("Custom widget template being used")
         context = super().get_context(name, value, attrs)
 
-        context["widget"].update({"attrs": {**context["widget"].get("attrs", {}), "class": "btn-check"}})
+        # context["widget"].update({"attrs": {**context["widget"].get("attrs", {}), "class": "btn-check"}})
+        context["widget"]["optgroups"] = self.optgroups(name, context["widget"]["value"], attrs)
 
         return context
