@@ -597,7 +597,7 @@ class CheckoutForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
 
 
 register_form_list = [
-    # ("captcha", CaptchaForm),
+    ("captcha", CaptchaForm),
     ("compromissos", AppointmentForm),
     ("informacoes-pessoais", PersonalForm),
     ("informacoes-de-candidatura", ApplicationForm),
