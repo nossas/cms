@@ -69,6 +69,33 @@ legend.form-label {
     }
 }
 
+#accordionCheckoutSteps {
+    .accordion-item {
+        margin-bottom: 20px;
+        border-top: var(--bs-accordion-border-width) solid var(--bs-accordion-border-color);
+        border-right: var(--bs-accordion-border-width) solid var(--bs-accordion-border-color);
+        border-bottom: var(--bs-accordion-border-width) solid var(--bs-accordion-border-color);
+        border-left: var(--bs-accordion-border-width) solid var(--bs-accordion-border-color);
+        
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+
+        .accordion-button {
+            border-radius: 10px;
+        }
+
+        .accordion-button:not(.collapsed) {
+            box-shadow: none;
+        }
+    }
+
+    .accordion-item:not(:first-of-type) {
+        border-top: var(--bs-accordion-border-width) solid var(--bs-accordion-border-color);
+    }
+}
+
 // Custom select2
 .select2-container {
     .select2-selection--single {
