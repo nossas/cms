@@ -20,7 +20,7 @@ class InputMask(forms.TextInput):
     def __init__(self, mask, *args, **kwargs):
         attrs = kwargs.get("attrs", {})
         attrs["data-mask"] = mask
-        
+
         kwargs.update({"attrs": attrs})
 
         super().__init__(*args, **kwargs)
@@ -205,7 +205,6 @@ class CheckboxTextWidget(forms.MultiWidget):
 
 
 class CheckboxTextField(forms.CharField):
-    template_name = "forms/fields/checkbox_text.html"
 
     def __init__(
         self,
@@ -254,10 +253,18 @@ class CheckboxTextField(forms.CharField):
 class InlineArrayWidget(forms.MultiWidget):
     template_name = "forms/widgets/inline_array.html"
 
-    def __init__(self, widget, size, item_label=None, add_button_text=None, placeholder=None, attrs=None):
+    def __init__(
+        self,
+        widget,
+        size,
+        item_label=None,
+        add_button_text=None,
+        placeholder=None,
+        attrs=None,
+    ):
         self.add_button_text = add_button_text
         self.item_label = item_label
-        self.placeholder = placeholder or ''
+        self.placeholder = placeholder or ""
         widgets = [
             widget() if isinstance(widget, type) else widget for _ in range(size)
         ]
@@ -295,7 +302,7 @@ class InlineArrayWidget(forms.MultiWidget):
 
     def get_context(self, name, value, attrs):
         context = super().get_context(name, value, attrs)
-        context['widget']['placeholder'] = self.placeholder
+        context["widget"]["placeholder"] = self.placeholder
         invalid_count = len(
             list(
                 filter(
@@ -349,7 +356,7 @@ class InlineArrayField(SimpleArrayField):
         placeholder=None,
         **kwargs,
     ):
-        self.placeholder = placeholder or ''
+        self.placeholder = placeholder or ""
         self.add_help_text = kwargs.pop("help_text", None)
         super().__init__(
             base_field,
@@ -448,7 +455,7 @@ class VideoField(forms.FileField):
 
 
 class HTMLBooleanField(forms.BooleanField):
-    
+
     def get_bound_field(self, form, field_name):
         bound_field = forms.BoundField(form, self, field_name)
         bound_field.label = mark_safe(bound_field.label)

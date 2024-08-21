@@ -1,0 +1,9 @@
+{% extends "votepeloclima/base_mail.html" %}
+
+{% block content %}
+<p>Oi {{user.first_name}},</p>
+<p>Encontramos um problema no seu cadastro.</p>
+<p>Acesse a área da candidatura para saber mais detalhes:</p>
+<p style="color:#1f8523;"><a href="{{ protocol }}://{{ domain }}{% url 'dashboard' %}">Ver área da candidatura</a></p>
+<p>Qualquer dúvida, estamos à disposição.</p>
+{% endblock %}

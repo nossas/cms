@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.serializers.json import DjangoJSONEncoder
 from django.utils.text import slugify
+from django.utils.html import mark_safe
 
 from .choices import CandidatureFlowStatus, IntendedPosition, PoliticalParty, Gender, Color, Sexuality, Education
 from .locations_utils import get_choices, get_states
@@ -103,3 +104,29 @@ class CandidatureFlow(models.Model):
 
     class Meta:
         verbose_name = "Formulário"
+    
+    @property
+    def invalid_reason(self):
+        for reason, item in (self.validations or {}).items():
+            if item.get("status") == CandidatureFlowStatus.invalid:
+                message = invalid_messages_map.get(reason)
+                return mark_safe(f"""<p class="fw-bold">{message.get("title")}</p><p>{message.get("content")}</p>""")
+
+invalid_messages_map = {
+    "pesquisa-tse": {
+        "title": "Candidatura não encontrada no TSE",
+        "content": "Estamos verificando suas informações. Esse processo pode levar até X horas. Você pode desativar seu perfil para que ele não fique público durante o processo de edição, se preferir. Caso contrário, seu perfil continuará no ar com as informações iniciais até que os dados sejam validados."
+    },
+    "multa-ambiental": {
+        "title": "Candidatura tem histórico de infrações ambientais",
+        "content": "A plataforma é destinada a candidaturas que são comprometidas com a pauta climática. Na validação do seu cadastro, encontramos uma infração ambiental (número do processo: XXXX). Se isso não estiver correto, clique em “recorrer” e podemos checar novamente."
+    },
+    "discurso-odio-minibio": {
+        "title": "Discurso de ódio/anti-ambiental/antidemocrático no cadastro",
+        "content": "A plataforma é destinada a candidaturas que são comprometidas com a pauta climática. Na validação do seu cadastro, encontramos conteúdo com discurso [de ódio / anti-ambiental / antidemocrático]. Edite seu perfil para revisar o conteúdo e passar por uma nova validação."
+    },
+    "discurso-odio-propostas": {
+        "title": "Discurso de ódio/anti-ambiental/antidemocrático no cadastro",
+        "content": "A plataforma é destinada a candidaturas que são comprometidas com a pauta climática. Na validação do seu cadastro, encontramos conteúdo com discurso [de ódio / anti-ambiental / antidemocrático]. Edite seu perfil para revisar o conteúdo e passar por uma nova validação."
+    }
+}
