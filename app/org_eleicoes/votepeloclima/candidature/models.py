@@ -115,18 +115,18 @@ class CandidatureFlow(models.Model):
 invalid_messages_map = {
     "pesquisa-tse": {
         "title": "Candidatura não encontrada no TSE",
-        "content": "Estamos verificando suas informações. Esse processo pode levar até X horas. Você pode desativar seu perfil para que ele não fique público durante o processo de edição, se preferir. Caso contrário, seu perfil continuará no ar com as informações iniciais até que os dados sejam validados."
+        "content": "A plataforma é destinada a candidaturas ativas nas eleições municipais de 2024. Na validação do seu cadastro, não encontramos sua candidatura na base do TSE. Se isso não estiver correto, entre em contato pelo e-mail votepeloclima@nossas.org e podemos checar novamente."
     },
     "multa-ambiental": {
         "title": "Candidatura tem histórico de infrações ambientais",
-        "content": "A plataforma é destinada a candidaturas que são comprometidas com a pauta climática. Na validação do seu cadastro, encontramos uma infração ambiental (número do processo: XXXX). Se isso não estiver correto, clique em “recorrer” e podemos checar novamente."
+        "content": "A plataforma é destinada a candidaturas que são comprometidas com a pauta climática. Na validação do seu cadastro, encontramos uma infração ambiental. Se isso não estiver correto, entre em contato pelo e-mail votepeloclima@nossas.org e podemos checar novamente."
     },
     "discurso-odio-minibio": {
-        "title": "Discurso de ódio/anti-ambiental/antidemocrático no cadastro",
-        "content": "A plataforma é destinada a candidaturas que são comprometidas com a pauta climática. Na validação do seu cadastro, encontramos conteúdo com discurso [de ódio / anti-ambiental / antidemocrático]. Edite seu perfil para revisar o conteúdo e passar por uma nova validação."
+        "title": "Discurso antidemocrático no cadastro",
+        "content": "A plataforma é destinada a candidaturas que são comprometidas com a pauta climática, que também zelam pela democracia e pelos direitos fundamentais. Na validação do seu cadastro, encontramos conteúdo com discurso antidemocrático. Edite seu perfil para revisar o conteúdo e passar por uma nova validação."
     },
     "discurso-odio-propostas": {
-        "title": "Discurso de ódio/anti-ambiental/antidemocrático no cadastro",
-        "content": "A plataforma é destinada a candidaturas que são comprometidas com a pauta climática. Na validação do seu cadastro, encontramos conteúdo com discurso [de ódio / anti-ambiental / antidemocrático]. Edite seu perfil para revisar o conteúdo e passar por uma nova validação."
+        "title": "Discurso antidemocrático no cadastro",
+        "content": "A plataforma é destinada a candidaturas que são comprometidas com a pauta climática, que também zelam pela democracia e pelos direitos fundamentais. Na validação do seu cadastro, encontramos conteúdo com discurso antidemocrático. Edite seu perfil para revisar o conteúdo e passar por uma nova validação."
     }
 }
