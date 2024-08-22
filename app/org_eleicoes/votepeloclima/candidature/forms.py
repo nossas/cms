@@ -580,9 +580,14 @@ class ProfileForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
 
 
 class CheckoutForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
-    is_valid = HTMLBooleanField(
-        label=f'Ao preencher o formulário e se cadastrar na Campanha, você está ciente de que seus dados pessoais serão tratados de acordo com o <a href="{static("docs/aviso-de-privacidade-candidaturas.pdf")}" target="_blank">Aviso de Privacidade</a>.'
-    )
+    is_valid = HTMLBooleanField()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        privacy_url = static('docs/aviso-de-privacidade-candidaturas.pdf')
+        self.fields['is_valid'].label = (
+            f'Ao preencher o formulário e se cadastrar na Campanha, você está ciente de que seus dados pessoais serão tratados de acordo com o <a href="{privacy_url}" target="_blank">Aviso de Privacidade</a>.'
+        )
 
     class Meta:
         title = "Confirmar informações"
