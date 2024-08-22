@@ -1,8 +1,12 @@
 from .base import *
 
+import ast
+
 DEBUG = False
 
-ADMINS = env.list("ADMINS", default=[("Admin", "admin@localhost")])
+ADMINS = env("ADMINS", default="('Admin', 'admin@localhost'),")
+
+ADMINS = ast.literal_eval(f"[{ADMINS}]")
 
 INSTALLED_APPS += [
     "storages",
