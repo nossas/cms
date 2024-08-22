@@ -85,6 +85,7 @@ MIDDLEWARE = [
     #
     "django.middleware.security.SecurityMiddleware",
     "project.middleware.WwwRedirectMiddleware",
+    "project.middleware.DomainRedirectMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -192,3 +193,8 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 # Oauth App
 OAUTH_REDIRECT_LOGIN_URL = reverse_lazy("dashboard")
+
+# Domain Redirect Settings
+REDIRECT_MIDDLEWARE_ROOT_DOMAIN = env("REDIRECT_MIDDLEWARE_ROOT_DOMAIN", default="localhost")
+
+REDIRECT_MIDDLEWARE_LIST_DOMAIN = env.list("REDIRECT_MIDDLEWARE_LIST_DOMAIN", default=["localhost.dev","localhost.devel"])
