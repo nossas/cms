@@ -24,6 +24,8 @@ from .candidature.views import AddressView, PublicCandidatureView
 from .candidature.views.create import CreateUpdateCandidatureView
 from .candidature.views.oauth import DashboardView, UpdateCandidatureStatusView
 
+from .views import home
+
 register_view = CreateUpdateCandidatureView.as_view(url_name="register_step", done_step_name="concluir")
 
 urlpatterns = [
@@ -39,6 +41,7 @@ urlpatterns = [
     # Manage
     path("admin/", admin.site.urls),
     path("select2/", include("django_select2.urls")),
+    path("", home),
     path("", include("cms.urls")),
 ]
 
