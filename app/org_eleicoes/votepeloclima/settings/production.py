@@ -2,8 +2,6 @@ from .base import *
 
 import ast
 
-DEBUG = False
-
 ADMINS = env("ADMINS", default="('Admin', 'admin@localhost'),")
 
 ADMINS = ast.literal_eval(f"[{ADMINS}]")
@@ -36,8 +34,6 @@ STATICFILES_STORAGE = 'project.storages.PublicStaticStorage'
 COMPRESS_STORAGE = STATICFILES_STORAGE
 
 COMPRESS_URL = STATIC_URL
-
-COMPRESS_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_STATIC_LOCATION}/"
 
 PUBLIC_MEDIA_LOCATION = "media"
 
