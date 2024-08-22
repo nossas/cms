@@ -16,8 +16,6 @@ DATABASES.update(
     }
 )
 
-DEBUG = False
-
 # Installed apps
 
 INSTALLED_APPS = [
