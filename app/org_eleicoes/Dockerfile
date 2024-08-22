@@ -53,7 +53,7 @@ WORKDIR /app
 # Copy the source code of the project into the container.
 COPY --from=node-builder /app ./
 
-RUN python manage.py collectstatic --noinput --clear -i tailwindcss
+# RUN python manage.py collectstatic --noinput --clear -i tailwindcss
 
 # Runtime command that executes when "docker run" is called.
 
