@@ -17,10 +17,7 @@
         <div class="g-col-12 g-col-md-8">
             <div>
                 <div class="d-flex justify-content-between mb-2">
-                    <div class="d-flex w-100 align-items-center gap-1">
-                        <span class="ds-icon-pin"></span>
-                        <p class="text-opacity-75 m-0">{{ candidature.get_city_display }} - {{ candidature.get_state_display }}</p>
-                    </div>
+                    <p class="text-opacity-75 m-0">{{ candidature.get_city_display }} - {{ candidature.get_state_display }}</p>
                     <div class="d-flex gap-1">
                         {% for social in candidature.social_media %}
                             {% render_social_media social %}
@@ -28,11 +25,14 @@
                     </div>
                 </div>
                 <div>
-                    <h1 class="text-uppercase text-primary">{{ candidature.ballot_name }} | {{ candidature.number_id }}</h1>
-                    <span class="badge bg-secondary">{{ candidature.get_intended_position_display }}</span>
-                    <span class="badge bg-secondary">{{ candidature.get_political_party_display }}</span>
-                    {% if candidature.is_collective_mandate %}
-                        <span class="badge rounded-pill bg-secondary">Mandato Coletivo</span>
+                    <h1 class="text-uppercase fw-bold">{{ candidature.ballot_name }} | {{ candidature.number_id }}</h1>
+                    {% if candidature.deputy_mayor %}
+                        <p><strong>Vice:</strong>  {{ candidature.deputy_mayor }}</p>
+                    {% endif %}
+                    <span class="badge bg-primary">{{ candidature.get_intended_position_display }}</span>
+                    <span class="badge bg-primary">{{ candidature.get_political_party_display }}</span>
+                    {% if candidature.primary %}
+                        <span class="badge rounded-pill bg-primary">Mandato Coletivo</span>
                     {% endif %}
                 </div>
             </div>
@@ -41,14 +41,14 @@
             </div>
             <hr class="hr my-4"/>
             <div>
-                <h2 class="text-uppercase text-primary">Informações</h2>
-                <div class="grid">
-                    <div class="g-col-12 g-col-md-4">
+                <h3 class="text-uppercase pb-2">Informações</h2>
+                <div class="grid gap-5">
+                    <div class="g-col-12 g-col-md-6">
                         <p><strong>Data de Nascimento:</strong> {{ candidature.birth_date }}</p>
                         <p><strong>Raça:</strong> {{ candidature.get_color_display }}</p>
                         <p><strong>Gênero:</strong> {{ candidature.get_gender_display }}</p>
                     </div>
-                    <div class="g-col-12 g-col-md-8">
+                    <div class="g-col-12 g-col-md-6">
                         <p><strong>Sexualidade:</strong> {{ candidature.get_sexuality_display }}</p>
                         <p><strong>Escolaridade:</strong> {{ candidature.get_education_display }}</p>
                         <p><strong>Ocupação:</strong> {{ candidature.employment }}</p>
@@ -58,14 +58,14 @@
             <hr class="hr my-4"/>
             <div>
                 <div>
-                    <h2 class="text-uppercase text-primary">Propostas</h2>
+                    <h3 class="text-uppercase">Propostas</h2>
                     <p class="text-muted">Propostas de {{ candidature.ballot_name }}.</p>
                 </div>
                 <div>
                     {% for item in proposes %}
                         <div class="card mb-2">
                             <div class="card-body">
-                                <strong class="text-primary pb-2">{{ item.label }}</strong>
+                                <h5 class="text-primary fw-bold">{{ item.label }}</h5>
                                 <p class="m-0">{{ item.description }}</p>
                             </div>
                         </div>
@@ -75,7 +75,7 @@
             <hr class="hr my-4"/>
             <div>
                 <div>
-                <h2 class="text-uppercase text-primary">Histórico de atuação</h2>
+                <h3 class="text-uppercase">Histórico de atuação</h2>
                 <p class="text-muted">Momentos e realizações marcantes de {{ candidature.ballot_name }}</p>
                 </div>
                 <div>
@@ -93,10 +93,9 @@
 </section>
 <section class="py-5 bg-primary">
     <div class="container">
-        <h1 class="text-center text-white">O que {{ candidature.ballot_name }} tem a dizer</h1>
-        <p class="text-center text-white">Praesent sit amet turpis vel lacus volutpat scelerisque. Vivamus dapibus, nisi at feugiat tempor, erat lorem lacinia nulla, at consequat massa dolor id odio.</p>
+        <h1 class="text-center text-white text-uppercase fw-bold">O que {{ candidature.ballot_name }} tem a dizer</h1>
         {% if candidature.video %}
-            <div class="d-flex justify-content-center">
+            <div class="d-flex justify-content-center py-5">
                 <video controls src="{{ candidature.video.url }}" class="img-fluid"></video>
             </div>
         {% endif %}
@@ -104,41 +103,48 @@
 </section>
 <section class="py-5">
     <div class="container">
-        <h1 class="text-center">O que esperar de {{ candidature.ballot_name }}</h1>
-        <p class="text-center">Praesent sit amet turpis vel lacus volutpat scelerisque. Vivamus dapibus, nisi at feugiat tempor, erat lorem lacinia nulla, at consequat massa dolor id odio.</p>
-        <div id="carouselControls" class="carousel slide carousel-dark py-4">
+        <h1 class="text-center text-uppercase fw-bold">O que esperar de {{ candidature.ballot_name }}</h1>
+        <div id="carouselControls" class="carousel slide carousel-dark py-5">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <div class="d-flex justify-content-around">
-                        <div class="g-col-4 text-center">
-                            <i class="bi bi-gear fs-1"></i>
-                            <p class="mt-2">Lorem ipsum dolor a sit.</p>
+                    <div class="grid">
+                        <div class="g-col-6 g-col-md-3 px-2 text-center d-flex flex-column align-items-center">
+                            <i class="ds-icon-compromisso-laranja-1"></i>
+                            <p class="mt-2 text-uppercase fw-bold w-75">Políticas de adaptação das cidades para reduzir tragédias</p>
                         </div>
-                        <div class="g-col-4 text-center">
-                            <i class="bi bi-gear fs-1"></i>
-                            <p class="mt-2">Lorem ipsum dolor a sit.</p>
+                        <div class="g-col-6 g-col-md-3 px-2 text-center d-flex flex-column align-items-center">
+                            <i class="ds-icon-compromisso-laranja-2"></i>
+                            <p class="mt-2 text-uppercase fw-bold w-75">Políticas para redução de emissões e transição energética</p>
                         </div>
-                        <div class="g-col-4 text-center">
-                            <i class="bi bi-gear fs-1"></i>
-                            <p class="mt-2">Lorem ipsum dolor a sit.</p>
+                        <div class="g-col-6 g-col-md-3 px-2 text-center d-flex flex-column align-items-center">
+                            <i class="ds-icon-compromisso-laranja-3"></i>
+                            <p class="mt-2 text-uppercase fw-bold w-75">Políticas sociais de apoio às populações atingidas</p>
+                        </div>
+                        <div class="g-col-6 g-col-md-3 px-2 text-center d-flex flex-column align-items-center">
+                            <i class="ds-icon-compromisso-laranja-4"></i>
+                            <p class="mt-2 text-uppercase fw-bold w-75">Transição climática com justiça social, racial e de gênero</p>
                         </div>
                     </div>
                 </div>
                 <div class="carousel-item">
-                        <div class="d-flex justify-content-around">
-                            <div class="g-col-4 text-center">
-                                <i class="bi bi-gear fs-1"></i>
-                                <p class="mt-2">Lorem ipsum dolor a sit.</p>
-                            </div>
-                            <div class="g-col-4 text-center">
-                                <i class="bi bi-gear fs-1"></i>
-                                <p class="mt-2">Lorem ipsum dolor a sit.</p>
-                            </div>
-                            <div class="g-col-4 text-center">
-                                <i class="bi bi-gear fs-1"></i>
-                                <p class="mt-2">Lorem ipsum dolor a sit.</p>
-                            </div>
+                    <div class="grid">
+                        <div class="g-col-6 g-col-md-3 px-2 text-center d-flex flex-column align-items-center">
+                            <i class="ds-icon-compromisso-laranja-5"></i>
+                            <p class="mt-2 text-uppercase fw-bold w-75">Proteção ambiental e de recursos naturais</p>
                         </div>
+                        <div class="g-col-6 g-col-md-3 px-2 text-center d-flex flex-column align-items-center">
+                            <i class="ds-icon-compromisso-laranja-6"></i>
+                            <p class="mt-2 text-uppercase fw-bold w-75">Incentivo à participação popular e ao engajamento da juventude</p>
+                        </div>
+                        <div class="g-col-6 g-col-md-3 px-2 text-center d-flex flex-column align-items-center">
+                            <i class="ds-icon-compromisso-laranja-7"></i>
+                            <p class="mt-2 text-uppercase fw-bold w-75">Investimentos em pesquisa e inovação para enfrentar a crise climática</p>
+                        </div>
+                        <div class="g-col-6 g-col-md-3 px-2 text-center d-flex flex-column align-items-center">
+                            <i class="ds-icon-compromisso-laranja-8"></i>
+                            <p class="mt-2 text-uppercase fw-bold w-75">Valorização de saberes tradicionais e tecnologias sociais na busca de soluções</p>
+                        </div>
+                    </div>
                 </div>
             </div>
             <button class="carousel-control-prev w-auto" type="button" data-bs-target="#carouselControls" data-bs-slide="prev">
@@ -150,34 +156,42 @@
               <span class="visually-hidden">Próximo</span>
             </button>
         </div>
-        <div class="d-flex justify-content-center">
-            <a href="#" class="btn btn-primary text-uppercase">Sou uma pessoa candidata e quero me cadastrar</a>
-        </div>
+
+        <p class="text-center">*As organizações da plataforma não se comprometem com a efetividade e execução dos compromissos firmados. O controle social e a participação ativa da cidadania são fundamentais para que parlamentares e gestores públicos cumpram suas promessas.</p>
     </div>
 </section>
 <section class="py-5">
     <div class="container">
-        <div class="grid gap-2">
-            <div class="g-col-12 g-col-md-6">
-                <h2>Compartilhe nas redes sociais para apoiar {{ candidature.ballot_name }}!</h2>
+        <div class="grid gap-5">
+            <div class="g-col-12 g-col-md-8">
+                <div class="d-flex flex-column justify-content-between h-100">
+                    <div>
+                        <h2 class="fw-bold text-uppercase">Compartilhe nas redes</h2>
+                        <p class="w-75">Compartilhe esse perfil nas redes sociais e com seus amigos para que as propostas de {{ candidate.ballot_name }} cheguem em mais gente:</p>
+                    </div>
+                    <p>
+                        Viu algo estranho? <a href="mailto:denunciavotepeloclima@nossas.org" target="_blank" rel="noopener noreferrer">Clique aqui para denunciar esse perfil.</a>
+                    </p>
+                </div>
             </div>
-            <div class="g-col-12 g-col-md-6">
+            <div class="g-col-12 g-col-md-4">
+                <p class="fw-bold text-uppercase">Compartilhe em:</p>
                 <div class="d-flex flex-column justify-content-center gap-2">
                     <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" href="https://wa.me/?text=Confira a candidatura de {{ request.build_absolute_uri|urlencode }}">
                         <span class="ds-icon-whatsapp"></span>
-                        Compartilhar no WhatsApp
+                        WhatsApp
                     </a>
                     <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri|urlencode }}&text=Confira a candidatura de {{ candidature.ballot_name }}" target="_blank">
                         <span class="ds-icon-x"></span>
-                        Compartilhar no Twitter
+                        Twitter
                     </a>
                     <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri|urlencode }}&title=Confira a candidatura de {{ candidature.ballot_name }}" target="_blank">
                         <span class="ds-icon-linkedin"></span>
-                        Compartilhar no LinkedIn
+                        LinkedIn
                     </a>
                     <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode }}" target="_blank">
                         <span class="ds-icon-facebook"></span>
-                        Compartilhar no Facebook
+                        Facebook
                     </a>
                     <button type="button" id="copyButton" onclick="copyURL()" class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" data-bs-toggle="tooltip" data-bs-trigger="click" data-bs-placement="bottom" title="Copiado!">
                         <span class="ds-icon-anchor"></span>
