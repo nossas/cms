@@ -16,6 +16,7 @@ DATABASES.update(
     }
 )
 
+DEBUG = False
 
 # Installed apps
 

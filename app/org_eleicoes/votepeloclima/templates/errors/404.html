@@ -1,0 +1,18 @@
+{% extends "votepeloclima/base.html" %}
+{% load static crispy_forms_tags %}
+
+{% block content %}
+<section class="grid" style="height: 100vh;">
+    <div class="bg-screenside g-col-4">
+        <div class="screenside" style="background-image:url({% static 'imgs/bg-steps.svg' %});">
+        </div>
+    </div>
+    <div class="container d-flex align-items-center g-col-8">
+        <div class="w-50">
+            <h1 class="text-uppercase">Página não <br/> encontrada</h1>
+            <p class="pb-3">Não conseguimos encontrar essa página. Confira se o link está certo ou volte para o início:</p>
+            <button class="btn btn-secondary text-uppercase" type="button" onclick="window.location.href='/'">Voltar ao início</button>
+        </div>
+    </div>
+</section>
+{% endblock %}
