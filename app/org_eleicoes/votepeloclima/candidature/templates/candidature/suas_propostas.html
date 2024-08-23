@@ -9,8 +9,8 @@
 {% endblock %}
 
 {% block form_fields %}
-  <div class="d-flex" style="--bs-gap:40px;">
-    <div class="w-50">
+  <div class="d-flex flex-column flex-md-row" style="--bs-gap:40px;">
+    <div class="w-100 w-md-50">
       <h5 class="fw-bold text-uppercase mb-4">Selecione até 3 pautas prioritárias</h5>
       <div id="selectzone">
       {% if wizard.form.forms %}
@@ -23,7 +23,7 @@
       {% endif %}
       </div>
     </div>
-    <div class="w-50">
+    <div class="w-100 w-md-50">
       <h5 class="fw-bold text-uppercase text-gray mb-4">Descreva suas propostas</h5>
       <div id="dropzone"></div>
     </div>
