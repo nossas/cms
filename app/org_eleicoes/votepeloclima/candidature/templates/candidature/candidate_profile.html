@@ -49,9 +49,9 @@
                         <p><strong>Gênero:</strong> {{ candidature.get_gender_display }}</p>
                     </div>
                     <div class="g-col-12 g-col-md-6">
-                        <p><strong>Sexualidade:</strong> {{ candidature.get_sexuality_display }}</p>
-                        <p><strong>Escolaridade:</strong> {{ candidature.get_education_display }}</p>
-                        <p><strong>Ocupação:</strong> {{ candidature.employment }}</p>
+                        {% if candidature.sexuality %}<p><strong>Sexualidade:</strong> {{ candidature.get_sexuality_display }}</p>{% endif %}
+                        {% if candidature.education %}<p><strong>Escolaridade:</strong> {{ candidature.get_education_display }}</p>{% endif %}
+                        {% if candidature.employment %}<p><strong>Ocupação:</strong> {{ candidature.employment }}</p>{% endif %}
                     </div>
                 </div>
             </div>
@@ -72,6 +72,7 @@
                     {% endfor %}
                 </div>
             </div>
+            {% if candidature.milestones %}
             <hr class="hr my-4"/>
             <div>
                 <div>
@@ -88,19 +89,20 @@
                     {% endfor %}
                 </div>
             </div>
+            {% endif %}
         </div>
     </div>
 </section>
+{% if candidature.video %}
 <section class="py-5 bg-primary">
     <div class="container">
         <h1 class="text-center text-white text-uppercase fw-bold">O que {{ candidature.ballot_name }} tem a dizer</h1>
-        {% if candidature.video %}
-            <div class="d-flex justify-content-center py-5">
-                <video controls src="{{ candidature.video.url }}" class="img-fluid"></video>
-            </div>
-        {% endif %}
+        <div class="d-flex justify-content-center py-5">
+            <video controls src="{{ candidature.video.url }}" class="img-fluid"></video>
+        </div>
     </div>
 </section>
+{% endif %}
 <section class="py-5">
     <div class="container">
         <h1 class="text-center text-uppercase fw-bold">O que esperar de {{ candidature.ballot_name }}</h1>
