@@ -13,11 +13,11 @@
 {% block form_fields %}{% endblock %}
 
 {% block form_actions %}
-<div class="d-flex flex-column flex-lg-row align-items-end justify-content-between">
-    <div class="">
+<div class="d-flex align-items-center justify-content-between">
+    <div>
         {% crispy wizard.form %}
     </div>
-    <div class="">
+    <div>
         {% if wizard.steps.next %}
         <input class="btn btn-secondary mb-3" name="wizard_goto_step" type="submit" value="Iniciar cadastro" />
         {% endif %}
