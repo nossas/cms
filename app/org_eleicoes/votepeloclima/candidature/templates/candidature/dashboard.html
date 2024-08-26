@@ -1,8 +1,8 @@
 {% extends "votepeloclima/base.html" %}
-{% load crispy_forms_filters %}
+{% load static crispy_forms_filters %}
 
 {% block content %}
-<div class="container mx-auto py-5">
+<div class="container mx-auto py-5" id="dashboard" data-slug="{{candidature.slug}}">
   <div class="d-flex justify-content-between">
     <div class="d-flex flex-column align-items-start" style="max-width:758px;">      
       <h1 class="fw-bold text-uppercase text-secondary">Olá, {{ request.user.first_name }}!</h1>
@@ -70,6 +70,53 @@
     </div>
     {% endfor %}
   </div>
+  <hr class="hr my-4"/>
+  <section class="py-5">
+    <div class="container">
+        <div class="grid gap-5">
+            <div class="g-col-12 g-col-md-8">
+                <div class="d-flex flex-column justify-content-between h-100">
+                    <div>
+                        <h2 class="fw-bold text-uppercase">Outras informações</h2>
+                        <p class="w-75">Compartilhe seu perfil com eleitores e ajude a divulgar suas propostas. Para mais detalhes sobre o processo de verificação, acesse o link abaixo. Se precisar de suporte ou tiver dúvidas, entre em contato conosco. Se preferir remover seu perfil e dados da plataforma, você pode excluir seu cadastro a qualquer momento.</p>
+                        <div class="d-flex">
+                          <p>
+                              <a href="mailto:votepeloclima@nossas.org" target="_blank" rel="noopener noreferrer" class="me-3">Contato</a>
+                              <a href="{% static 'docs/aviso-de-privacidade-candidaturas.pdf' %}" target="_blank" rel="noopener noreferrer">Política de privacidade</a>
+                          </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="g-col-12 g-col-md-4">
+                <p class="fw-bold text-uppercase">Compartilhe seu perfil:</p>
+                <div class="d-flex flex-column justify-content-center gap-2">
+                  {% with request.scheme|add:"://"|add:request.get_host as base_url %}
+                    <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" href="https://wa.me/?text={{ 'Oi! As eleições estão chegando e o futuro da nossa cidade depende do nosso voto. Compartilho com você uma das candidaturas comprometidas na luta pelo meio ambiente e contra as ameaças climáticas. Conheça as propostas na plataforma *Vote pelo Clima!* ' | urlencode }}{{ base_url|add:'/c/'|add:candidature.slug|urlencode }}">
+                      <span class="ds-icon-whatsapp"></span>
+                      WhatsApp
+                    </a>
+                    <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" href="https://twitter.com/intent/tweet?url={{ base_url|add:'/c/'|add:candidature.slug|urlencode }}&text={{ 'O clima mudou. A política precisa mudar. #VotePeloClima é a plataforma que reúne candidaturas de todo o Brasil comprometidas com a pauta climática, eu sou uma delas! Acesse o perfil e conheça as propostas.' | urlencode }}" target="_blank">
+                      <span class="ds-icon-x"></span>
+                      Twitter
+                    </a>
+                    <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" href="https://www.linkedin.com/shareArticle?mini=true&url={{ base_url|add:'/c/'|add:candidature.slug|urlencode }}&title={{ 'O clima mudou. A política precisa mudar.' | urlencode }}&summary={{ '#VotePeloClima é a plataforma que reúne candidaturas de todo o Brasil comprometidas com a pauta climática, eu sou uma delas! Acesse o perfil e conheça as propostas.' | urlencode }}" target="_blank">
+                      <span class="ds-icon-linkedin"></span>
+                      LinkedIn
+                    </a>
+                    <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" href="https://www.facebook.com/sharer/sharer.php?u={{ base_url|add:'/c/'|add:candidature.slug|urlencode }}&quote={{ 'O clima mudou. A política precisa mudar. #VotePeloClima é a plataforma que reúne candidaturas de todo o Brasil comprometidas com a pauta climática, eu sou uma delas! Acesse o perfil e conheça as propostas.' | urlencode }}" target="_blank">
+                      <span class="ds-icon-facebook"></span>
+                      Facebook
+                    </a>
+                    <button type="button" id="copyButton" onclick="copyURL(is_dashboard=true)" class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" data-bs-toggle="tooltip" data-bs-trigger="click" data-bs-placement="bottom" title="Copiado!">
+                        <span class="ds-icon-anchor"></span>
+                        Copiar Link
+                    </button>
+                  {% endwith %}
+                </div>
+            </div>
+        </div>
+  </section>
   <!-- <div class="mt-4" style="max-width:868px;">
     <h3 class="text-dark fw-bold text-uppercase">Outras informações</h3>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam lacinia iaculis arcu, sed ornare risus congue nec. Phasellus rhoncus, tortor in fermentum auctor, diam risus pulvinar nisi, ac ultrices nibh ipsum at lacus. Mauris varius metus in ante viverra faucibus. Vivamus fringilla metus urna, sit amet.</p>
@@ -80,4 +127,8 @@
     </div>
   </div> -->
 </div>
+{% endblock %}
+
+{% block footer_js %}
+<script src="{% static 'js/copy-to-clipboard.js' %}" type="text/javascript"></script>
 {% endblock %}
