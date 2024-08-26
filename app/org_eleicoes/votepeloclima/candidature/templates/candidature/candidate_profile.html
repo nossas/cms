@@ -106,49 +106,15 @@
 <section class="py-5">
     <div class="container">
         <h2 class="text-center text-uppercase fw-bold">O que esperar de {{ candidature.ballot_name }}</h2>
-        <div id="carouselControls" class="carousel slide carousel-dark py-4">
+        <div id="carouselControls" class="carousel slide carousel-dark py-4" data-bs-ride="carousel">
+            <!-- Indicadores de Slides -->
+            <div class="carousel-indicators"></div>
+            
+            <!-- Itens do Carousel -->
             <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="grid">
-                        <div class="g-col-6 g-col-md-3 px-2 text-center d-flex flex-column align-items-center">
-                            <i class="ds-icon-compromisso-laranja-1"></i>
-                            <p class="mt-2 text-uppercase fw-bold w-75">Políticas de adaptação das cidades para reduzir tragédias</p>
-                        </div>
-                        <div class="g-col-6 g-col-md-3 px-2 text-center d-flex flex-column align-items-center">
-                            <i class="ds-icon-compromisso-laranja-2"></i>
-                            <p class="mt-2 text-uppercase fw-bold w-75">Políticas para redução de emissões e transição energética</p>
-                        </div>
-                        <div class="g-col-6 g-col-md-3 px-2 text-center d-flex flex-column align-items-center">
-                            <i class="ds-icon-compromisso-laranja-3"></i>
-                            <p class="mt-2 text-uppercase fw-bold w-75">Políticas sociais de apoio às populações atingidas</p>
-                        </div>
-                        <div class="g-col-6 g-col-md-3 px-2 text-center d-flex flex-column align-items-center">
-                            <i class="ds-icon-compromisso-laranja-4"></i>
-                            <p class="mt-2 text-uppercase fw-bold w-75">Transição climática com justiça social, racial e de gênero</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="grid">
-                        <div class="g-col-6 g-col-md-3 px-2 text-center d-flex flex-column align-items-center">
-                            <i class="ds-icon-compromisso-laranja-5"></i>
-                            <p class="mt-2 text-uppercase fw-bold w-75">Proteção ambiental e de recursos naturais</p>
-                        </div>
-                        <div class="g-col-6 g-col-md-3 px-2 text-center d-flex flex-column align-items-center">
-                            <i class="ds-icon-compromisso-laranja-6"></i>
-                            <p class="mt-2 text-uppercase fw-bold w-75">Incentivo à participação popular e ao engajamento da juventude</p>
-                        </div>
-                        <div class="g-col-6 g-col-md-3 px-2 text-center d-flex flex-column align-items-center">
-                            <i class="ds-icon-compromisso-laranja-7"></i>
-                            <p class="mt-2 text-uppercase fw-bold w-75">Investimentos em pesquisa e inovação para enfrentar a crise climática</p>
-                        </div>
-                        <div class="g-col-6 g-col-md-3 px-2 text-center d-flex flex-column align-items-center">
-                            <i class="ds-icon-compromisso-laranja-8"></i>
-                            <p class="mt-2 text-uppercase fw-bold w-75">Valorização de saberes tradicionais e tecnologias sociais na busca de soluções</p>
-                        </div>
-                    </div>
-                </div>
             </div>
+          
+            <!-- Controles do Carousel -->
             <button class="carousel-control-prev w-auto" type="button" data-bs-target="#carouselControls" data-bs-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Anterior</span>
@@ -157,7 +123,8 @@
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Próximo</span>
             </button>
-        </div>
+          </div>
+          
 
         <p class="text-center">*As organizações da plataforma não se comprometem com a efetividade e execução dos compromissos firmados. O controle social e a participação ativa da cidadania são fundamentais para que parlamentares e gestores públicos cumpram suas promessas.</p>
     </div>
@@ -208,5 +175,6 @@
 {% endblock %}
 
 {% block footer_js %}
-<script src="{% static 'js/copy-to-clipboard.js' %}" type="text/javascript"></script>
+<script src="{% static '/js/copy-to-clipboard.js' %}" type="text/javascript"></script>
+<script src="{% static '/js/carousel-icons.js' %}" type="text/javascript"></script>
 {% endblock %}
