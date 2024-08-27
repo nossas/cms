@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
       slide.className = "carousel-item" + (i === 0 ? " active" : "");
 
       const container = document.createElement("div");
-      container.className = "d-flex justify-content-center";
+      container.className = "d-flex justify-content-center align-items-center";
 
       for (let j = i; j < i + itemsPerSlide && j < items.length; j++) {
         const col = document.createElement("div");

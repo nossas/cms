@@ -10,12 +10,14 @@
 {% block content %}
 <section class="container">
     <div class="grid py-3">
-        <div class="g-col-12 g-col-md-4">
+        <div class="g-col-12 g-col-sm-12 g-col-lg-4">
             {% if candidature.photo %}
-                <img src="{{ candidature.photo.url }}" alt="Foto de {{ candidature.ballot_name }}" class="img-fluid rounded-2"/>
+                <div class="candidature-profile-photo">
+                    <img src="{{ candidature.photo.url }}" alt="Foto de {{ candidature.ballot_name }}" class="img-fluid rounded-2"/>
+                </div>
             {% endif %}
         </div>
-        <div class="g-col-12 g-col-md-8">
+        <div class="g-col-12 g-col-sm-12 g-col-lg-8">
             <div>
                 <div class="d-flex justify-content-between mb-2">
                     <p class="text-opacity-75 m-0">{{ candidature.get_city_display }} - {{ candidature.get_state_display }}</p>
@@ -134,7 +136,7 @@
 <section class="py-5">
     <div class="container">
         <div class="grid">
-            <div class="g-col-12 g-col-md-8">
+            <div class="g-col-12 g-col-sm-12 g-col-lg-8">
                 <div class="d-flex flex-column justify-content-between h-100">
                     <div>
                         <h2 class="fw-bold text-uppercase mb-3">Compartilhe nas redes sociais 
@@ -142,11 +144,11 @@
                         <p class="w-75">Compartilhe esse perfil nas redes sociais e com seus amigos para que as propostas de {{ candidature.ballot_name }} cheguem em mais gente:</p>
                     </div>
                     <p>
-                        Viu algo estranho? <a href="mailto:denunciavotepeloclima@nossas.org" target="_blank" rel="noopener noreferrer">Clique aqui para denunciar esse perfil.</a>
+                        Viu algo estranho? <a class="fw-bold text-black" href="mailto:denunciavotepeloclima@nossas.org" target="_blank" rel="noopener noreferrer">Clique aqui para denunciar esse perfil.</a>
                     </p>
                 </div>
             </div>
-            <div class="g-col-12 g-col-md-4">
+            <div class="g-col-12 g-col-sm-12 g-col-lg-4">
                 <p class="fw-bold text-uppercase">Compartilhe em:</p>
                 <div class="d-flex flex-column justify-content-center gap-2">
                     <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" href="https://wa.me/?text=Confira a candidatura de {{ request.build_absolute_uri|urlencode }}">
