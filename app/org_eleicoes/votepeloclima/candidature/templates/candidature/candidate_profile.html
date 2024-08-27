@@ -32,11 +32,13 @@
                     {% if candidature.deputy_mayor %}
                         <p><strong>Vice:</strong>  {{ candidature.deputy_mayor }}</p>
                     {% endif %}
-                    <span class="badge bg-primary">{{ candidature.get_intended_position_display }}</span>
-                    <span class="badge bg-primary">{{ candidature.get_political_party_display }}</span>
-                    {% if candidature.primary %}
-                        <span class="badge rounded-pill bg-primary">Mandato Coletivo</span>
-                    {% endif %}
+                    <div class="d-flex flex-row gap-2">
+                        <span class="badge bg-primary fs-6">{{ candidature.get_intended_position_display }}</span>
+                        <span class="badge bg-primary fs-6">{{ candidature.get_political_party_display }}</span>
+                        {% if candidature.primary %}
+                        <span class="badge bg-primary fs-6">Mandato Coletivo</span>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
             <div class="pt-3">
