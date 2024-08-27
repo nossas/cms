@@ -4,6 +4,7 @@
 {% block head_css %}
 {{ block.super }}
 <link rel="stylesheet" href="{% static 'css/icons.css' %}">
+<link rel="stylesheet" href="{% static 'css/custom.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -98,7 +99,7 @@
     <div class="container">
         <h1 class="text-center text-white text-uppercase fw-bold">O que {{ candidature.ballot_name }} tem a dizer</h1>
         <div class="d-flex justify-content-center py-5">
-            <video controls src="{{ candidature.video.url }}" class="img-fluid"></video>
+            <video controls src="{{ candidature.video.url }}" class="w-100"></video>
         </div>
     </div>
 </section>

@@ -158,3 +158,9 @@ legend.form-label {
         }
     }
 }
+
+#carouselControls {
+    .carousel-item > div {
+        min-height: 230px;
+    }
+}
