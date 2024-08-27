@@ -5,13 +5,13 @@ class CandidatureFlowStatus(models.TextChoices):
     # Editando
     draft = "draft", "Cadastro Incompleto"
     # Já enviou um formulário, mas solicitou alterar algumas informações
-    editing = "editing", "Em edição"
+    editing = "editing", "Edição Incompleta"
     # Passou pelo checkout e submeteu a candidatura
-    submitted = "submitted", "Enviado"
+    submitted = "submitted", "Perfil em análise"
     # Não passou nas validações
-    invalid = "invalid", "Inválido"
+    invalid = "invalid", "Perfil Reprovado"
     # Passour nas validções
-    is_valid = "is_valid", "Válido"
+    is_valid = "is_valid", "Perfil Ativo"
     # # Começou a editar, seu perfil continua público, mas o processo de atualizar
     # # a candidatura vai acontecer novamente para os novos dados
     # draft_requested = "draft_requested", "Edição Requisitada"
@@ -24,7 +24,7 @@ class IntendedPosition(models.TextChoices):
 
 
 class PoliticalParty(models.TextChoices):
-    empty = "", "Selecione uma opção"
+    empty = "", "Selecione o partido"
     pdt = "pdt", "PDT"
     novo = "novo", "Novo"
     psdb= "psdb", "PSDB"
@@ -68,6 +68,7 @@ class Gender(models.TextChoices):
     pessoa_nao_binaria = "pessoa_nao_binaria", "Pessoa não binária"
     travesti = "travesti", "Travesti"
     queer = "queer", "Queer"
+    mandato_coletivo = "mandato_coletivo", "Mandato Coletivo"
     nao_declarado = "nao_declarado", "Não declarado"
 
 

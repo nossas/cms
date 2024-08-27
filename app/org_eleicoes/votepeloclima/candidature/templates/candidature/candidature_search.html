@@ -3,67 +3,67 @@
 
 {% block head_css %}
 {{ block.super }}
-<link rel="stylesheet" href="{% static 'css/icons.css' %}">
 <link rel="stylesheet" href="{% static 'css/card.css' %}">
 {% endblock %}
 
 {% block content %}
 <form method="get">
-<main class="container-fluid px-5">
+<main class="container px-5">
     <section class="w-75 py-5">
-        <h1 class="text-uppercase text-primary fw-bold">Conheça candidaturas<br/> da sua cidade</h1>
-        <p>Praesent sit amet turpis vel lacus volutpat scelerisque. Vivamus dapibus, nisi at feugiat tempor, erat lorem lacinia nulla, at consequat massa dolor id odio.</span>
+        <h1 class="text-uppercase fw-bold">Conheça candidaturas da sua cidade</h1>
+        <p>Use os filtros para descobrir candidatos comprometidos com políticas climáticas!</span>
     </section>
-    <nav class="py-2">
-        <div class="grid py-2 d-flex align-items-center justify-content-between">
-            {% crispy form_top %}
-            <button type="submit">Buscar</button>
-        </div>
-    </nav>
-    <section>
-        <div class="grid py-5">
-            <div class="g-col-12 g-col-md-3">
-                <aside class="sidebar">
-                    {% crispy form_side %}
-                    <button type="submit">Buscar</button>
-                </aside>
+    <div class="grid">
+        <!-- Navbar -->
+        <div class="g-col-12">
+            <div class="d-flex flex-column flex-md-row align-items-md-center" style="--bs-gap:1rem;">
+                {% crispy form.header %}
+                <button type="submit">Buscar</button>
             </div>
-            <div class="g-col-12 g-col-md-9">
-                <div class="grid gap-4">
-                    {% for candidature in candidatures %}
-                    <div class="g-col-12 g-col-md-4">
-                        <div class="card">
-                            <img src="{{ candidature.photo.url }}" class="card-img-top" alt="Foto de {{ candidature.legal_name }}">
-                            <div class="card-body p-2">
-                                <p class="mb-1 fs-6 text-black-50">{{ candidature.get_state_display }} - {{ candidature.get_city_display }}</p>
-                                <div class="card-title">
-                                    <h4 class="text-uppercase fw-bold mb-0 fs-3">{{ candidature.legal_name }}</h4>
-                                    <h4 class="fs-3 mb-0">{{ candidature.number_id }}</h4>
-                                </div>
-                                <hr style="width: 24px;" class="my-2" />
-                                <div>
-                                    <strong class="fs-6 pb-1">{{ candidature.get_intended_position_display }} | {{ candidature.get_political_party_display }}</strong>
-                                    <p class="fs-6">
-                                    {% for propose in proposes %}
-                                            {{ propose.label }}{% if not forloop.last %} / {% endif %}
-                                    {% endfor %}
-                                    </p>
-                                    {% if candidature.is_collective_mandate %}
-                                    <strong class="fs-6">Candidatura Coletiva</strong>
-                                    {% endif %}
-                                </div>
+        </div>
+        <!-- Sidebar -->
+        <div class="g-col-12 g-col-md-3">
+            <aside class="sidebar">
+                <h6 class="text-uppercase">Filtrar resultados</h6>
+                {% crispy form.sidebar %}
+                <button type="submit">Buscar</button>
+            </aside>
+        </div>
+        <!-- Listagem -->
+        <div class="g-col-12 g-col-md-9">
+            <div class="grid gap-4">
+                {% for candidature in candidatures %}
+                <div class="g-col-12 g-col-md-4">
+                    <a class="card" href="{% url 'candidate_profile' candidature.slug %}">
+                        <img src="{{ candidature.photo.url }}" class="card-img-top" alt="Foto de {{ candidature.legal_name }}">
+                        <div class="card-body px-2 py-1">
+                            <p class="mb-1 fs-6 text-black-50">{{ candidature.get_state_display }} - {{ candidature.get_city_display }}</p>
+                            <div class="card-title">
+                                <h5 class="fw-bold">{{ candidature.legal_name }}</h5>
                             </div>
-                            <a href="{% url 'candidate_profile' candidature.slug %}" class="btn btn-primary btn-card text-uppercase d-flex align-items-center justify-content-center">
-                                    <span class="me-1">Perfil Completo</span>
-                                    <span class="ds-icon-chevron-right"></span>
-                            </a>
+                            <hr style="width: 24px;" class="my-2" />
+                            <div>
+                                <h6 class="fs-6">{{ candidature.get_intended_position_display }} | {{ candidature.get_political_party_display }} | {{ candidature.number_id }}</h6>
+                                <p class="text-muted form-text">
+                                    Valor 1 / Valor 2 / Valor 3
+                                <!-- {% for propose in proposes %}
+                                    {{ propose.label }}{% if not forloop.last %} / {% endif %}
+                                {% endfor %} -->
+                                </p>
+                                {% if candidature.is_collective_mandate %}
+                                <strong class="fs-6">Candidatura Coletiva</strong>
+                                {% endif %}
+                            </div>
                         </div>
-                    </div>
-                    {% endfor %}
+                        <div class="card-footer">
+                            <button class="btn btn-dark text-uppercase">Conheça</button>
+                        </div>
+                    </a>
                 </div>
+                {% endfor %}
             </div>
         </div>
-    </section>
+    </div>
 </main>
 {% endblock %}
 

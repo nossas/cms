@@ -1,0 +1,18 @@
+{% extends "votepeloclima/base_mail.html" %}
+
+{% block content %}
+<p>Oi {{ user.first_name }},</p>
+
+{% if not user.is_active %}
+<p>Seu perfil foi aprovado e já está disponível no Vote Pelo Clima! Agora, basta definir uma senha segura para começar a
+    usar todos os recursos disponíveis na plataforma. Assim, você poderá editar suas informações, acessar links de
+    compartilhamento e gerenciar sua conta:</p>
+<a style="color:#1f8523;" href="{{ protocol }}://{{ domain }}{% url 'oauth:change-password' uidb64=uid token=token %}">Criar senha</a>
+{% else %}
+<p>Seu perfil foi aprovado e já está disponível no Vote Pelo Clima! Você pode acessar a nossa plataforma para editar suas informações, acessar links de compartilhamento e gerenciar sua conta.</p>
+<a style="color:#1f8523;" href="{{ protocol }}://{{ domain }}{% url 'dashboard' %}">Ir para Vote Pelo Clima</a>
+{% endif %}
+
+<p>É um prazer ter você conosco!</p>
+<p>Qualquer dúvida, é só responder retornando esse e-mail.</p>
+{% endblock %}

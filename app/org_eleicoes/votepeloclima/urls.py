@@ -20,9 +20,13 @@ from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path, include, re_path
 
-from .candidature.views import AddressView, CandidatureSearchView, PublicCandidatureView
+from .candidature.views import PublicCandidatureView
 from .candidature.views.create import CreateUpdateCandidatureView
 from .candidature.views.oauth import DashboardView, UpdateCandidatureStatusView
+from .candidature.views.public import AddressView
+from .candidature.filters.views import CandidatureSearchView
+
+from .views import home
 
 register_view = CreateUpdateCandidatureView.as_view(url_name="register_step", done_step_name="concluir")
 
@@ -40,6 +44,7 @@ urlpatterns = [
     # Manage
     path("admin/", admin.site.urls),
     path("select2/", include("django_select2.urls")),
+    path("", home),
     path("", include("cms.urls")),
 ]
 

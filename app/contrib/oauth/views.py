@@ -61,6 +61,7 @@ class OAuthPasswordResetView(PasswordResetView):
     form_class = OAuthPasswordResetForm
     subject_template_name = "oauth/email/password_reset_subject.txt"
     email_template_name = "oauth/email/password_reset_confirm.html"
+    html_email_template_name = "oauth/email/password_reset_confirm.html"
 
 
 class OAuthPasswordResetDoneView(PasswordResetDoneView):

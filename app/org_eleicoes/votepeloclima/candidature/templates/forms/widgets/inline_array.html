@@ -5,7 +5,7 @@
         <li>
             <div class="d-flex mb-2">
                 {% if widget.item_label %}
-                <span class="fw-semibold me-2 mt-1 text-nowrap">{{widget.item_label}}</span>
+                <span class="fw-semibold me-2 mt-1 text-nowrap d-none d-md-inline-block">{{widget.item_label}}</span>
                 {% endif %}
                 <input
                     type="{{ subwidget.type }}"
@@ -27,7 +27,7 @@
     </ol>
 </div>
 {% if not widget.attrs.disabled %}
-<button type="button" id="inline-array-add" class="btn btn-outline-dark mt-2" data-size="{{ widget.size }}">
+<button type="button" id="inline-array-add" class="btn btn-outline-primary mt-2" data-size="{{ widget.size }}">
     +{% if widget.add_button_text %}{{ widget.add_button_text }}{% else %}Adicionar{% endif %}
 </button>
 {% endif %}

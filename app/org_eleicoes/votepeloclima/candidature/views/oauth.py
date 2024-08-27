@@ -13,6 +13,7 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy, reverse
 from django.utils.decorators import method_decorator
 
+from contrib.oauth.utils import send_mail
 from contrib.oauth.mixins import JsonLoginRequiredMixin
 
 from ..choices import CandidatureFlowStatus
@@ -124,6 +125,14 @@ class UpdateCandidatureStatusView(JsonLoginRequiredMixin, View):
             instance.status = CandidatureFlowStatus.invalid
             instance.save()
 
+            # Perfil Reprovado envia e-mail
+            send_mail(
+                user=request.user,
+                request=request,
+                email_template_name="candidature/emails/register_done.html",
+                subject_template_name="candidature/emails/register_done_subject.txt"
+            )
+
             return JsonResponse({"message": "fail"}, status=200)
         elif instance.status == "submitted" and validation.get("status") == CandidatureFlowStatus.is_valid:
             instance.validations.update({
@@ -165,5 +174,13 @@ class UpdateCandidatureStatusView(JsonLoginRequiredMixin, View):
                 instance.candidature = Candidature.objects.create(**values)
             
             instance.save()
+
+            # Perfil Aprovado envia e-mail
+            send_mail(
+                user=request.user,
+                request=request,
+                email_template_name="candidature/emails/register_approved.html",
+                subject_template_name="candidature/emails/register_approved_subject.txt"
+            )
 
         return JsonResponse({"message": "success"}, status=200)

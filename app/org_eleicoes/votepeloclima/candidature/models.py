@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.serializers.json import DjangoJSONEncoder
 from django.utils.text import slugify
+from django.utils.html import mark_safe
 
 from .choices import CandidatureFlowStatus, IntendedPosition, PoliticalParty, Gender, Color, Sexuality, Education
 from .locations_utils import get_choices, get_states
@@ -12,19 +13,19 @@ from .locations_utils import get_choices, get_states
 
 
 class Candidature(models.Model):
-    legal_name = models.CharField(max_length=150)
-    ballot_name = models.CharField(max_length=100)
-    birth_date = models.DateField()
+    legal_name = models.CharField(verbose_name="Nome", max_length=150)
+    ballot_name = models.CharField(verbose_name="Nome na urna", max_length=100)
+    birth_date = models.DateField(verbose_name="Data de nascimento")
     email = models.EmailField()
     cpf = models.CharField(max_length=30)
     number_id = models.PositiveIntegerField()
-    intended_position = models.CharField(max_length=50, choices=IntendedPosition.choices)
+    intended_position = models.CharField(verbose_name="Tipo de candidatura", max_length=50, choices=IntendedPosition.choices)
     deputy_mayor = models.CharField(max_length=140, blank=True, null=True)
     deputy_mayor_political_party = models.CharField(max_length=60, blank=True, null=True)
-    state = models.CharField(max_length=10)
-    city = models.CharField(max_length=60)
-    is_collective_mandate = models.BooleanField(default=False, blank=True)
-    political_party = models.CharField(max_length=60, choices=PoliticalParty.choices)
+    state = models.CharField(verbose_name="Estado", max_length=10)
+    city = models.CharField(verbose_name="Município", max_length=60)
+    is_collective_mandate = models.BooleanField(verbose_name="Tipo de mandato", default=False, blank=True)
+    political_party = models.CharField(verbose_name="Partido político", max_length=60, choices=PoliticalParty.choices)
     video = models.FileField(upload_to="candidatures/videos/", null=True, blank=True)
     photo = models.FileField(upload_to="candidatures/photos/", null=True, blank=True)
     gender = models.CharField(max_length=30, choices=Gender.choices)
@@ -103,3 +104,29 @@ class CandidatureFlow(models.Model):
 
     class Meta:
         verbose_name = "Formulário"
+    
+    @property
+    def invalid_reason(self):
+        for reason, item in (self.validations or {}).items():
+            if item.get("status") == CandidatureFlowStatus.invalid:
+                message = invalid_messages_map.get(reason)
+                return mark_safe(f"""<p class="fw-bold">{message.get("title")}</p><p>{message.get("content")}</p>""")
+
+invalid_messages_map = {
+    "pesquisa-tse": {
+        "title": "Candidatura não encontrada no TSE",
+        "content": "A plataforma é destinada a candidaturas ativas nas eleições municipais de 2024. Na validação do seu cadastro, não encontramos sua candidatura na base do TSE. Se isso não estiver correto, entre em contato pelo e-mail votepeloclima@nossas.org e podemos checar novamente."
+    },
+    "multa-ambiental": {
+        "title": "Candidatura tem histórico de infrações ambientais",
+        "content": "A plataforma é destinada a candidaturas que são comprometidas com a pauta climática. Na validação do seu cadastro, encontramos uma infração ambiental. Se isso não estiver correto, entre em contato pelo e-mail votepeloclima@nossas.org e podemos checar novamente."
+    },
+    "discurso-odio-minibio": {
+        "title": "Discurso antidemocrático no cadastro",
+        "content": "A plataforma é destinada a candidaturas que são comprometidas com a pauta climática, que também zelam pela democracia e pelos direitos fundamentais. Na validação do seu cadastro, encontramos conteúdo com discurso antidemocrático. Edite seu perfil para revisar o conteúdo e passar por uma nova validação."
+    },
+    "discurso-odio-propostas": {
+        "title": "Discurso antidemocrático no cadastro",
+        "content": "A plataforma é destinada a candidaturas que são comprometidas com a pauta climática, que também zelam pela democracia e pelos direitos fundamentais. Na validação do seu cadastro, encontramos conteúdo com discurso antidemocrático. Edite seu perfil para revisar o conteúdo e passar por uma nova validação."
+    }
+}

@@ -1,7 +1,4 @@
 from django.contrib.auth.tokens import default_token_generator
-from django.core.mail import EmailMessage
-from django.template.loader import render_to_string
-from django.urls import reverse
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 
@@ -15,7 +12,7 @@ def get_uuid_and_token(user):
 
 
 
-def send_confirmation_email(
+def send_mail(
     user,
     request,
     from_email=None,
@@ -29,6 +26,7 @@ def send_confirmation_email(
         "from_email": from_email,
         "subject_template_name": subject_template_name,
         "email_template_name": email_template_name,
+        "html_email_template_name": email_template_name,
         "extra_email_context": {}
     }
 
