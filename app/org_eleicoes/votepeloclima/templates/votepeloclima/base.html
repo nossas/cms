@@ -16,7 +16,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
   <div class="container">
     <a class="navbar-brand" href="/">
-      {% include "votepeloclima/logo-votepeloclima-sm.svg" %}
+      {% include "votepeloclima/logo-navbar.svg" %}
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
       aria-controls="navbarText" aria-expan ded="false" aria-label="Toggle navigation">
@@ -42,7 +42,7 @@
         <a class="btn btn-light" href="{% url 'oauth:logout' %}">Sair</a>
         {% else %}
         <a class="btn btn-outline-light" href="{% url 'register' %}" role="button">Cadastre-se</a>
-        <a class="btn btn-light" href="{% url 'oauth:login' %}" role="button">Login</a>
+        <a class="btn btn-light" href="{% url 'dashboard' %}" role="button">Login</a>
         {% endif %}
         {% endblock %}
       </div>
@@ -60,12 +60,12 @@
   <div class="container">
     <div class="grid text-white">
       <div class="g-col-12 g-col-md-8">
-        <img src="{% static "/imgs/logo-votepeloclima-lg.svg" %}" alt="Vote Pelo Clima">
+        <img src="{% static "imgs/logo-footer.svg" %}" alt="Vote Pelo Clima">
         <p class="mt-3">Vote pelo Clima é uma iniciativa para fortalecer a democracia por meio da participação popular nas eleições municipais, com ênfase na crise climática. Nosso objetivo é dar visibilidade a candidaturas comprometidas em enfrentar amplamente as mudanças climáticas nas cidades</p>
         <ul class="d-flex list-unstyled gap-2 mb-2">
           {% comment %} <li><a class="text-white text-uppercase fw-bold" href="{% url 'candidature-list' %}" rel="noopener noreferrer">Conheça as candidaturas</a></li> {% endcomment %}
           <li><a class="text-white text-uppercase fw-bold" href="{% url 'register' %}" rel="noopener noreferrer">Cadastre-se</a></li>
-          <li><a class="text-white text-uppercase fw-bold" href="{% url 'oauth:login' %}" rel="noopener noreferrer">Login</a></li>
+          <li><a class="text-white text-uppercase fw-bold" href="{% url 'dashboard' %}" rel="noopener noreferrer">Login</a></li>
           <li><a class="text-white text-uppercase fw-bold" href="mailto:votepeloclima@nossas.org" rel="noopener noreferrer">Contato</a></li>
         </ul>
       </div>
@@ -73,10 +73,10 @@
         <h5 class="fw-bold text-uppercase text-white">Realização</h5>
         <div class="d-flex gap-3">
           <a href="https://nossas.org" target="_blank" rel="noopener noreferrer">
-            <img src="{% static "/imgs/logo-nossas.png" %}" alt="NOSSAS">
+            <img src="{% static "imgs/logo-nossas.png" %}" alt="NOSSAS">
           </a>
           <a href="https://climadeeleicao.com.br/" target="_blank" rel="noopener noreferrer">
-            <img src="{% static "/imgs/logo-clima-de-eleicao.png" %}" alt="Clima de Eleição">
+            <img src="{% static "imgs/logo-clima-de-eleicao.png" %}" alt="Clima de Eleição">
           </a>
         </div>
       </div>

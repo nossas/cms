@@ -160,11 +160,14 @@ legend.form-label {
 }
 
 // Perfil da Candidatura
-
 @media (min-width: 1200px) {
     .candidature-profile-photo {
         margin-right: 2.5rem;
     }
+}
+
+.candidature-video {
+    max-height: 600px;
 }
 
 #carouselControls {
