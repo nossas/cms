@@ -158,3 +158,20 @@ legend.form-label {
         }
     }
 }
+
+// Perfil da Candidatura
+@media (min-width: 1200px) {
+    .candidature-profile-photo {
+        margin-right: 2.5rem;
+    }
+}
+
+.candidature-video {
+    max-height: 600px;
+}
+
+#carouselControls {
+    .carousel-item > div {
+        min-height: 230px;
+    }
+}
