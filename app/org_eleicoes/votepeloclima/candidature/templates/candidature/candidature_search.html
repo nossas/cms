@@ -1,9 +1,14 @@
 {% extends "votepeloclima/base.html" %}
-{% load static crispy_forms_filters %}
+{% load static crispy_forms_filters compress %}
 
 {% block head_css %}
 {{ block.super }}
 <link rel="stylesheet" href="{% static 'css/card.css' %}">
+{% compress css %}
+<style type="text/x-scss">
+@import "scss/candidaturesearch.scss";
+</style>
+{% endcompress %}
 {% endblock %}
 
 {% block content %}
@@ -16,17 +21,16 @@
     <div class="grid">
         <!-- Navbar -->
         <div class="g-col-12">
-            <div class="d-flex flex-column flex-md-row align-items-md-center" style="--bs-gap:1rem;">
+            <div class="search-header">
                 {% crispy form.header %}
-                <button type="submit">Buscar</button>
+                <button class="btn btn-primary" type="submit"><i class="ds-icon-search"></i></button>
             </div>
         </div>
         <!-- Sidebar -->
         <div class="g-col-12 g-col-md-3">
-            <aside class="sidebar">
+            <aside class="search-sidebar">
                 <h6 class="text-uppercase">Filtrar resultados</h6>
                 {% crispy form.sidebar %}
-                <button type="submit">Buscar</button>
             </aside>
         </div>
         <!-- Listagem -->

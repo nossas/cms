@@ -1,0 +1,31 @@
+fieldset {
+    legend.form-label {
+        color: var(--bs-primary);
+        text-transform: uppercase;
+        font-weight: 600;
+        font-size: 16px;
+    }
+}
+
+.search-header {
+    // d-flex flex-column flex-md-row align-items-md-center
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+
+    .btn {
+        display: flex;
+        align-items: center;
+        padding: 8px 10px;
+    }
+
+    @media (min-width: 768px) {
+        align-items: center;
+        flex-direction: row;
+        gap: 1rem;
+    }
+}
+
+.form-check-input:checked {
+    background-color: var(--bs-primary);
+}
