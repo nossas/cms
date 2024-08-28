@@ -1,6 +1,7 @@
 from django import forms
 from django.utils.functional import lazy
 
+from crispy_forms.helper import FormHelper
 # from django_select2.forms import Select2Widget
 
 from ..choices import Gender, Color
@@ -15,12 +16,16 @@ class RemoveRequiredMixin:
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.disable_csrf = True
+
         for field_name in self.fields:
             self.fields[field_name].required = False
 
 
 class FilterFormHeader(RemoveRequiredMixin, forms.ModelForm):
-    name_or_themes = forms.CharField(
+    keyword = forms.CharField(
         label="Buscar por temas ou nomes",
         widget=forms.TextInput(attrs={"placeholder": "Digite um tema ou nome"}),
     )
@@ -41,7 +46,7 @@ class FilterFormHeader(RemoveRequiredMixin, forms.ModelForm):
             "city",
             "intended_position",
             "political_party",
-            "name_or_themes",
+            "keyword",
         ]
         widgets = {
             # "political_party": Select2Widget()
@@ -55,14 +60,13 @@ class FilterFormSidebar(RemoveRequiredMixin, forms.ModelForm):
     proposes = forms.MultipleChoiceField(
         label="Propostas", widget=forms.CheckboxSelectMultiple
     )
-    is_collective_mandate = forms.TypedChoiceField(
+    mandate_type = forms.ChoiceField(
         label="Tipo de mandato",
-        coerce=lambda x: x == "True",
-        choices=((False, "Individual"), (True, "Mandato coletivo")),
+        choices=(("", "Todos"), ("individual", "Individual"), ("coletivo", "Mandato coletivo")),
         widget=forms.RadioSelect,
     )
     gender = forms.MultipleChoiceField(
-        label="Gênero", choices=Gender.choices[1:], widget=forms.CheckboxSelectMultiple
+        label="Gênero", choices=Gender.choices, widget=forms.CheckboxSelectMultiple
     )
     color = forms.MultipleChoiceField(
         label="Raça", choices=Color.choices[1:], widget=forms.CheckboxSelectMultiple
@@ -70,7 +74,7 @@ class FilterFormSidebar(RemoveRequiredMixin, forms.ModelForm):
 
     class Meta:
         model = Candidature
-        fields = ["proposes", "is_collective_mandate", "gender", "color"]
+        fields = ["proposes", "mandate_type", "gender", "color"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

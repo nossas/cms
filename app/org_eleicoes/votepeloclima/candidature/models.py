@@ -28,8 +28,8 @@ class Candidature(models.Model):
     political_party = models.CharField(verbose_name="Partido político", max_length=60, choices=PoliticalParty.choices)
     video = models.FileField(upload_to="candidatures/videos/", null=True, blank=True)
     photo = models.FileField(upload_to="candidatures/photos/", null=True, blank=True)
-    gender = models.CharField(max_length=30, choices=Gender.choices)
-    color = models.CharField(max_length=30, choices=Color.choices)
+    gender = models.CharField(max_length=30)
+    color = models.CharField(max_length=30)
     sexuality = models.CharField(max_length=30, null=True, blank=True, choices=Sexuality.choices)
     social_media = models.JSONField(blank=True, null=True, default=list)
     education = models.CharField(max_length=50, null=True, blank=True, choices=Education.choices)
@@ -61,6 +61,27 @@ class Candidature(models.Model):
     def get_city_display(self):
         cities = dict(get_choices(self.state))
         return cities.get(self.city, "")
+
+    @property
+    def get_color_display(self):
+        return dict(Color.choices).get(self.color)
+    
+    @property
+    def get_gender_display(self):
+        return dict(Gender.choices).get(self.gender)
+    
+    @property
+    def get_proposes_display(self):
+        from org_eleicoes.votepeloclima.candidature.forms import ProposeForm
+
+        form = ProposeForm()
+        proposes = []
+        for field_name, value in self.proposes.items():
+            if value:
+                proposes.append(form[field_name].checkbox_label)
+
+        return proposes
+
     
     def save(self, *args, **kwargs):
         if not self.slug:
