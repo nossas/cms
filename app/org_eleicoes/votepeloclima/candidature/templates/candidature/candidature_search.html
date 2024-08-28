@@ -12,7 +12,7 @@
 
 {% block content %}
 <form method="get">
-<main class="container px-5">
+<main class="container mx-auto pb-4">
     <section class="pt-5 pb-3" style="max-width:570px;">
         <h2 class="text-uppercase fw-bold">Conheça candidaturas da sua cidade</h2>
         <p>Use os filtros para descobrir candidatos comprometidos com políticas climáticas!</span>
@@ -28,8 +28,13 @@
         <!-- Sidebar -->
         <div class="g-col-12 g-col-md-4">
             <aside class="search-sidebar">
-                <h6 class="text-uppercase">Filtrar resultados</h6>
-                {% crispy form.sidebar %}
+                <input type="checkbox" id="sidebar-toggle" />
+                <label for="sidebar-toggle">
+                    <h6 class="text-uppercase fw-bold"><i class="ds-sidebar-bars"></i> Filtrar resultados <i class="ds-sidebar-arrow d-inline-block d-md-none"></i></h6>
+                </label>
+                <div class="d-none d-md-block">
+                    {% crispy form.sidebar %}
+                </div>
             </aside>
         </div>
         <!-- Listagem -->
@@ -82,12 +87,16 @@
 (function ($) {
     "use strict";
     $(function () {
-        console.log("aasdasdasd");
-        $(".search-sidebar input[type='checkbox']").change(function() {
+        $(".search-sidebar .btn-check[type='checkbox']").change(function() {
             $("form").submit();
         });
-        $(".search-sidebar input[type='radio']").change(function() {
+        $(".search-sidebar .btn-check[type='radio']").change(function() {
             $("form").submit();
+        });
+
+        // Hide Sidebar Filters only mobile
+        $("#sidebar-toggle").change(function() {
+            $(this).next().next().toggleClass("d-none");
         });
     });
 }(jQuery));

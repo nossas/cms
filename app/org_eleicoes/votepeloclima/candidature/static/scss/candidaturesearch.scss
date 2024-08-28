@@ -125,4 +125,24 @@ legend.form-label {
     #div_id_intended_position, #div_id_political_party {
         display: none;
     }
+
+    .search-sidebar {
+        label {
+            cursor: pointer;
+        }
+    }
+
+}
+
+
+.search-sidebar {
+    #sidebar-toggle {
+        display: none;
+
+        &:checked + label {
+            i.ds-sidebar-arrow {
+                rotate: 180deg;
+            }
+        }
+    }
 }
