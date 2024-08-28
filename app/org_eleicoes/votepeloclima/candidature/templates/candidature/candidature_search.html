@@ -3,7 +3,6 @@
 
 {% block head_css %}
 {{ block.super }}
-<link rel="stylesheet" href="{% static 'css/card.css' %}">
 {% compress css %}
 <style type="text/x-scss">
 @import "scss/candidaturesearch.scss";
@@ -70,28 +69,17 @@
 
 {% block footer_js %}
 <script>
-    // Método que carrega as cidades de acordo com o estado selecionado
-    document.getElementById('id_state').addEventListener('change', function() {
-        const stateValue = this.value;
-        const citySelect = document.getElementById('id_city');
-        
-        if (stateValue) {
-            citySelect.disabled = false;
-            fetch(`/api/candidatura/buscar-endereco/?state=${stateValue}`)
-                .then(response => response.json())
-                .then(data => {
-                    citySelect.innerHTML = '<option value="">Selecione uma cidade</option>';
-                    data.forEach(city => {
-                        const option = document.createElement('option');
-                        option.value = city.code;
-                        option.textContent = city.name;
-                        citySelect.appendChild(option);
-                    });
-                });
-        } else {
-            citySelect.disabled = true;
-            citySelect.innerHTML = '<option value="">Selecione uma cidade</option>';
-        }
+(function ($) {
+    "use strict";
+    $(function () {
+        console.log("aasdasdasd");
+        $(".search-sidebar input[type='checkbox']").change(function() {
+            $("form").submit();
+        });
+        $(".search-sidebar input[type='radio']").change(function() {
+            $("form").submit();
+        });
     });
+}(jQuery));
 </script>
 {% endblock %}

@@ -50,3 +50,68 @@ legend.form-label {
         }
     }
 }
+
+.empty-box {
+    background: rgba(255,255,255,.15);
+    border-color: var(--bs-gray-300);
+    border-radius: 20px;
+}
+
+.form-control, .form-select, .select2-container--default .select2-selection--single .select2-selection__rendered {
+    font-size: 14px;
+}
+
+// Card
+.card {
+    --bs-card-border-radius: 12px;
+    --bs-border-radius: 12px;
+
+    text-decoration: none;
+    background-color: rgba(255,255,255, .15);
+    cursor: pointer;
+
+    h6 {
+        font-size: 14px;
+        margin-bottom: 5px;
+    }
+
+    .form-text {
+        font-size: 12px;
+        height: 54px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-bottom: 5px;
+    }
+
+    .card-img-top {
+        height: 235px;
+        object-fit: cover;
+        object-position: top;
+    }
+
+    .card-footer {
+        display: flex;
+        padding: 0;
+    }
+
+    .card-footer .btn {
+        flex-grow: 1;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    &:hover {
+        border-color: var(--bs-secondary);
+        color: var(--bs-secondary);
+        background-color: rgba(255,255,255, .40);
+
+        .btn {
+            background-color: var(--bs-secondary);
+            border-color: var(--bs-secondary);
+        }
+
+        hr {
+            color: var(--bs-secondary);
+        }
+    }
+}
