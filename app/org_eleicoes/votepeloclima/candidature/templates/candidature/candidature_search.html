@@ -27,15 +27,15 @@
             </div>
         </div>
         <!-- Sidebar -->
-        <div class="g-col-12 g-col-md-3">
+        <div class="g-col-12 g-col-md-4">
             <aside class="search-sidebar">
                 <h6 class="text-uppercase">Filtrar resultados</h6>
                 {% crispy form.sidebar %}
             </aside>
         </div>
         <!-- Listagem -->
-        <div class="g-col-12 g-col-md-9">
-            <div class="grid gap-4">
+        <div class="g-col-12 g-col-md-8">
+            <div class="grid gap-2">
                 {% for candidature in candidatures %}
                 <div class="g-col-12 g-col-md-4">
                     <a class="card" href="{% url 'candidate_profile' candidature.slug %}">

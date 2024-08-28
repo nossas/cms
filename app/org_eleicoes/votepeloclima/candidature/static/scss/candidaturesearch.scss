@@ -1,10 +1,8 @@
-fieldset {
-    legend.form-label {
-        color: var(--bs-primary);
-        text-transform: uppercase;
-        font-weight: 600;
-        font-size: 16px;
-    }
+legend.form-label {
+    color: var(--bs-primary);
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 16px;
 }
 
 .search-header {
@@ -28,4 +26,27 @@ fieldset {
 
 .form-check-input:checked {
     background-color: var(--bs-primary);
+}
+
+.btn-check + .btn {
+    padding: 8px 12px;
+    font-size: 14px;
+
+    &.btn-outline-dark {
+        // background-color: var(--bs-gray-100);
+        --bs-btn-active-bg: var(--bs-primary);
+        --bs-btn-active-border-color: var(--bs-primary);
+        --bs-btn-hover-color: var(--bs-primary);
+        --bs-btn-hover-border-color: var(--bs-primary);
+    }
+}
+
+.btn-check:not(:checked) + .btn {
+    &.btn-outline-dark {
+        &:hover {
+            color: var(--bs-btn-hover-color);
+            background-color: var(--bs-btn-bg);
+            border-color: var(--bs-btn-hover-border-color);
+        }
+    }
 }

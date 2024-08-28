@@ -1,11 +1,13 @@
 from django import forms
 from django.utils.functional import lazy
 
+from crispy_forms.layout import Layout, Div
 from crispy_forms.helper import FormHelper
 # from django_select2.forms import Select2Widget
 
+from ..layout import NoCrispyField
 from ..choices import Gender, Color
-from ..fields import CepField
+from ..fields import CepField, ButtonCheckboxSelectMultiple, ButtonRadioSelect
 from ..forms import ProposeForm
 from ..locations_utils import get_ufs
 from ..models import Candidature
@@ -58,18 +60,18 @@ class FilterFormHeader(RemoveRequiredMixin, forms.ModelForm):
 
 class FilterFormSidebar(RemoveRequiredMixin, forms.ModelForm):
     proposes = forms.MultipleChoiceField(
-        label="Propostas", widget=forms.CheckboxSelectMultiple
+        label="Propostas", widget=ButtonCheckboxSelectMultiple
     )
     mandate_type = forms.ChoiceField(
         label="Tipo de mandato",
         choices=(("", "Todos"), ("individual", "Individual"), ("coletivo", "Mandato coletivo")),
-        widget=forms.RadioSelect,
+        widget=ButtonRadioSelect,
     )
     gender = forms.MultipleChoiceField(
-        label="Gênero", choices=Gender.choices, widget=forms.CheckboxSelectMultiple
+        label="Gênero", choices=Gender.choices[1:], widget=ButtonCheckboxSelectMultiple
     )
     color = forms.MultipleChoiceField(
-        label="Raça", choices=Color.choices[1:], widget=forms.CheckboxSelectMultiple
+        label="Raça", choices=Color.choices[1:], widget=ButtonCheckboxSelectMultiple
     )
 
     class Meta:
@@ -80,6 +82,13 @@ class FilterFormSidebar(RemoveRequiredMixin, forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         self.fields["proposes"].choices = self.get_proposes_choices()
+
+        self.helper.layout = Layout(
+            NoCrispyField("proposes"),
+            NoCrispyField("mandate_type"),
+            NoCrispyField("gender"),
+            NoCrispyField("color"),
+        )
 
     def get_proposes_choices(self):
         form = ProposeForm()
