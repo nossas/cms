@@ -116,23 +116,7 @@ class AppointmentForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
 class PersonalForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
     legal_name = forms.CharField(
         label="Nome",
-        help_text="Nome da pessoa que possui os dados registrados no TSE.",
         widget=forms.TextInput(attrs={"placeholder": "Digite seu nome completo"}),
-    )
-    ballot_name = forms.CharField(
-        label="Nome na urna",
-        help_text="Nome público, registrado no TSE.",
-        widget=forms.TextInput(
-            attrs={"placeholder": "Digite o nome que aparecerá na urna"}
-        ),
-    )
-    birth_date = forms.DateField(
-        label="Data de nascimento",
-        widget=DatePickerInput(
-            attrs={"placeholder": "dd/mm/yyyy"},
-            options={"locale": "pt-BR", "format": "DD/MM/YYYY"},
-        ),
-        localize="pt-BR",
     )
     email = forms.EmailField(
         label="E-mail",
@@ -145,13 +129,21 @@ class PersonalForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
             mask="000.000.000-00", attrs={"placeholder": "Digite seu CPF"}
         ),
     )
-
+    birth_date = forms.DateField(
+        label="Data de nascimento",
+        widget=DatePickerInput(
+            attrs={"placeholder": "dd/mm/yyyy"},
+            options={"locale": "pt-BR", "format": "DD/MM/YYYY"},
+        ),
+        localize="pt-BR",
+    )
+    
     class Meta:
         title = "Informações pessoais"
         description = "Vamos lá! Essas informações são essenciais para verificar sua candidatura e garantir a segurança. Se for uma candidatura coletiva, a pessoa responsável deve ter os dados registrados no TSE."
         model = CandidatureFlow
         entangled_fields = {
-            "properties": ["legal_name", "ballot_name", "birth_date", "email", "cpf"]
+            "properties": ["legal_name", "email", "cpf", "birth_date"]
         }
         untangled_fields = []
 
@@ -165,10 +157,9 @@ class PersonalForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         self.helper.layout = Layout(
             Div(
                 Div(Field("legal_name"), css_class="g-col-12 g-col-md-6"),
-                Div(Field("ballot_name"), css_class="g-col-12 g-col-md-6"),
-                Div(Field("birth_date"), css_class="g-col-12 g-col-md-6"),
                 Div(Field("email"), css_class="g-col-12 g-col-md-6"),
                 Div(Field("cpf"), css_class="g-col-12 g-col-md-6"),
+                Div(Field("birth_date"), css_class="g-col-12 g-col-md-6"),
                 css_class="grid",
                 style="grid-row-gap:0;",
             )
@@ -176,10 +167,17 @@ class PersonalForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
 
 
 class ApplicationForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
+    ballot_name = forms.CharField(
+        label="Nome na urna",
+        help_text="Nome público, registrado no TSE.",
+        widget=forms.TextInput(
+            attrs={"placeholder": "Digite o nome que aparecerá na urna"}
+        ),
+    )
     number_id = forms.IntegerField(
-        label="Número de identificação",
+        label="Número na urna",
         min_value=1,
-        help_text="Número fornecido pelo TSE",
+        help_text="Número da candidatura",
         widget=forms.NumberInput(
             attrs={"placeholder": "Digite seu número de identificação"}
         ),
@@ -227,6 +225,7 @@ class ApplicationForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         model = CandidatureFlow
         entangled_fields = {
             "properties": [
+                "ballot_name",
                 "number_id",
                 "intended_position",
                 "state",
@@ -246,15 +245,16 @@ class ApplicationForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         # TODO: investigar porque quando usamos layout o select2 duplica o campo
         self.helper.layout = Layout(
             Div(
+                Div(Field("ballot_name"), css_class="g-col-12 g-col-md-6"),
                 Div(Field("number_id"), css_class="g-col-12 g-col-md-6"),
                 Div(Field("intended_position"), css_class="g-col-12 g-col-md-6"),
+                Div(Field("political_party"), css_class="g-col-12 g-col-md-6"),
                 Div(Field("state"), css_class="g-col-12 g-col-md-6"),
                 Div(Field("city"), css_class="g-col-12 g-col-md-6"),
                 Div(
                     NoCrispyField("is_collective_mandate"),
                     css_class="g-col-12 g-col-md-6 mb-3",
                 ),
-                Div(Field("political_party"), css_class="g-col-12 g-col-md-6"),
                 Div(
                     HTML(
                         """
@@ -305,7 +305,7 @@ class ApplicationForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
 
 propose_text_label = "Proposta"
 propose_text_help_text = (
-    "Descreva brevemente sua proposta. Até 200 caracteres."
+    "Descreva brevemente sua proposta. Até 600 caracteres."
 )
 
 
@@ -316,7 +316,7 @@ class ProposeForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
-        max_length=200
+        max_length=600
     )
     gestao_de_residuos = CheckboxTextField(
         checkbox_label="Gestão de Resíduos",
@@ -324,7 +324,7 @@ class ProposeForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
-        max_length=200
+        max_length=600
 
     )
     povos_originarios_tradicionais = CheckboxTextField(
@@ -333,7 +333,7 @@ class ProposeForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
-        max_length=200
+        max_length=600
 
     )
     educacao_climatica = CheckboxTextField(
@@ -342,7 +342,7 @@ class ProposeForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
-        max_length=200
+        max_length=600
 
     )
     combate_racismo_ambiental = CheckboxTextField(
@@ -351,7 +351,7 @@ class ProposeForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
-        max_length=200
+        max_length=600
 
     )
     moradia_digna = CheckboxTextField(
@@ -360,7 +360,7 @@ class ProposeForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
-        max_length=200
+        max_length=600
 
     )
     transicao_energetica = CheckboxTextField(
@@ -369,7 +369,7 @@ class ProposeForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
-        max_length=200
+        max_length=600
 
     )
     agricultura_sustentavel = CheckboxTextField(
@@ -378,7 +378,7 @@ class ProposeForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
-        max_length=200
+        max_length=600
 
     )
     direito_a_cidade = CheckboxTextField(
@@ -387,7 +387,7 @@ class ProposeForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
-        max_length=200
+        max_length=600
 
     )
     adaptacao_reducao_desastres = CheckboxTextField(
@@ -396,7 +396,7 @@ class ProposeForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
-        max_length=200
+        max_length=600
 
     )
     direito_dos_animais = CheckboxTextField(
@@ -405,7 +405,7 @@ class ProposeForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
-        max_length=200
+        max_length=600
 
     )
     economia_verde = CheckboxTextField(
@@ -414,7 +414,7 @@ class ProposeForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
-        max_length=200
+        max_length=600
 
     )
     pessoas_afetadas_desastres = CheckboxTextField(
@@ -423,7 +423,7 @@ class ProposeForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
-        max_length=200
+        max_length=600
 
     )
     
