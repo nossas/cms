@@ -28,7 +28,7 @@ legend.form-label {
     background-color: var(--bs-primary);
 }
 
-.btn-check + .btn {
+.btn-check+.btn {
     padding: 8px 12px;
     font-size: 14px;
 
@@ -38,10 +38,13 @@ legend.form-label {
         --bs-btn-active-border-color: var(--bs-primary);
         --bs-btn-hover-color: var(--bs-primary);
         --bs-btn-hover-border-color: var(--bs-primary);
+
+        --bs-btn-border-color: var(--bs-gray-300);
+        --bs-btn-bg: rgba(255,255,255,.5);
     }
 }
 
-.btn-check:not(:checked) + .btn {
+.btn-check:not(:checked)+.btn {
     &.btn-outline-dark {
         &:hover {
             color: var(--bs-btn-hover-color);
