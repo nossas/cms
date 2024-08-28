@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django import forms
+from entangled.forms import EntangledModelForm
 
 from .models import Candidature, CandidatureFlow
 
@@ -12,7 +13,7 @@ class CandidatureAdmin(admin.ModelAdmin):
         return False
 
 
-class CandidatureFlowAdminForm(forms.ModelForm):
+class CandidatureFlowAdminForm(EntangledModelForm):
     legal_name = forms.CharField(label='Nome Legal', required=True)
     cpf = forms.CharField(label='CPF', required=True)
     email = forms.EmailField(label='Email', required=True)
@@ -32,54 +33,14 @@ class CandidatureFlowAdminForm(forms.ModelForm):
 
     class Meta:
         model = CandidatureFlow
-        fields = [
-            'photo', 'video', 'status',
-            'legal_name', 'cpf', 'email', 'birth_date',
-            'ballot_name', 'number_id', 'intended_position', 'state', 'city',
-            'political_party', 'deputy_mayor', 'deputy_mayor_political_party'
-        ]
+        entangled_fields = {'properties': [
+            'legal_name', 'cpf', 'email', 'birth_date', 
+            'ballot_name', 'number_id', 'intended_position', 
+            'state', 'city', 'political_party', 
+            'deputy_mayor', 'deputy_mayor_political_party'
+        ]}
+        untangled_fields = ['photo', 'video', 'status']
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        
-        # Inicializar os campos do formulário com os valores do JSON `properties`
-        if self.instance and self.instance.properties:
-            props = self.instance.properties
-            self.fields['legal_name'].initial = props.get('legal_name', '')
-            self.fields['cpf'].initial = props.get('cpf', '')
-            self.fields['email'].initial = props.get('email', '')
-            self.fields['birth_date'].initial = props.get('birth_date', '')
-            self.fields['ballot_name'].initial = props.get('ballot_name', '')
-            self.fields['number_id'].initial = props.get('number_id', '')
-            self.fields['intended_position'].initial = props.get('intended_position', '')
-            self.fields['state'].initial = props.get('state', '')
-            self.fields['city'].initial = props.get('city', '')
-            self.fields['political_party'].initial = props.get('political_party', '')
-            self.fields['deputy_mayor'].initial = props.get('deputy_mayor', '')
-            self.fields['deputy_mayor_political_party'].initial = props.get('deputy_mayor_political_party', '')
-
-    def save(self, commit=True):
-        instance = super().save(commit=False)
-        properties = instance.properties or {}
-
-        # Atualizar o JSON `properties` com os dados do formulário
-        properties['legal_name'] = self.cleaned_data.get('legal_name')
-        properties['cpf'] = self.cleaned_data.get('cpf')
-        properties['email'] = self.cleaned_data.get('email')
-        properties['birth_date'] = self.cleaned_data.get('birth_date')
-        properties['ballot_name'] = self.cleaned_data.get('ballot_name')
-        properties['number_id'] = self.cleaned_data.get('number_id')
-        properties['intended_position'] = self.cleaned_data.get('intended_position')
-        properties['state'] = self.cleaned_data.get('state')
-        properties['city'] = self.cleaned_data.get('city')
-        properties['political_party'] = self.cleaned_data.get('political_party')
-        properties['deputy_mayor'] = self.cleaned_data.get('deputy_mayor')
-        properties['deputy_mayor_political_party'] = self.cleaned_data.get('deputy_mayor_political_party')
-
-        instance.properties = properties
-        if commit:
-            instance.save()
-        return instance
 
 class CandidatureFlowAdmin(admin.ModelAdmin):
     form = CandidatureFlowAdminForm
