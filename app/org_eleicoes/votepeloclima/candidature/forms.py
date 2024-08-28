@@ -305,7 +305,7 @@ class ApplicationForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
 
 propose_text_label = "Proposta"
 propose_text_help_text = (
-    "Descreva brevemente sua proposta. Até 200 caracteres."
+    "Descreva brevemente sua proposta. Até 600 caracteres."
 )
 
 
@@ -316,7 +316,7 @@ class ProposeForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
-        max_length=200
+        max_length=600
     )
     gestao_de_residuos = CheckboxTextField(
         checkbox_label="Gestão de Resíduos",
@@ -324,7 +324,7 @@ class ProposeForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
-        max_length=200
+        max_length=600
 
     )
     povos_originarios_tradicionais = CheckboxTextField(
@@ -333,7 +333,7 @@ class ProposeForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
-        max_length=200
+        max_length=600
 
     )
     educacao_climatica = CheckboxTextField(
@@ -342,7 +342,7 @@ class ProposeForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
-        max_length=200
+        max_length=600
 
     )
     combate_racismo_ambiental = CheckboxTextField(
@@ -351,7 +351,7 @@ class ProposeForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
-        max_length=200
+        max_length=600
 
     )
     moradia_digna = CheckboxTextField(
@@ -360,7 +360,7 @@ class ProposeForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
-        max_length=200
+        max_length=600
 
     )
     transicao_energetica = CheckboxTextField(
@@ -369,7 +369,7 @@ class ProposeForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
-        max_length=200
+        max_length=600
 
     )
     agricultura_sustentavel = CheckboxTextField(
@@ -378,7 +378,7 @@ class ProposeForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
-        max_length=200
+        max_length=600
 
     )
     direito_a_cidade = CheckboxTextField(
@@ -387,7 +387,7 @@ class ProposeForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
-        max_length=200
+        max_length=600
 
     )
     adaptacao_reducao_desastres = CheckboxTextField(
@@ -396,7 +396,7 @@ class ProposeForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
-        max_length=200
+        max_length=600
 
     )
     direito_dos_animais = CheckboxTextField(
@@ -405,7 +405,7 @@ class ProposeForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
-        max_length=200
+        max_length=600
 
     )
     economia_verde = CheckboxTextField(
@@ -414,7 +414,7 @@ class ProposeForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
-        max_length=200
+        max_length=600
 
     )
     pessoas_afetadas_desastres = CheckboxTextField(
@@ -423,7 +423,7 @@ class ProposeForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
         required=False,
-        max_length=200
+        max_length=600
 
     )
     
