@@ -118,3 +118,11 @@ legend.form-label {
         }
     }
 }
+
+// Hide Inputs
+@media (max-width: 768px) {
+
+    #div_id_intended_position, #div_id_political_party {
+        display: none;
+    }
+}
