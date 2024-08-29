@@ -9,7 +9,7 @@ from ..layout import NoCrispyField
 from ..choices import Gender, Color
 from ..fields import CepField, ButtonCheckboxSelectMultiple, ButtonRadioSelect
 from ..forms import ProposeForm
-from ..locations_utils import get_ufs
+from ..locations_utils import get_ufs, get_choices
 from ..models import Candidature
 
 
@@ -56,6 +56,14 @@ class FilterFormHeader(RemoveRequiredMixin, forms.ModelForm):
 
     class Media:
         js = ["https://code.jquery.com/jquery-3.5.1.min.js"]
+    
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        state = self.data.get("state")
+        if state:
+            self.fields["city"].choices = [("", "Selecione")] + get_choices(state)
 
 
 class FilterFormSidebar(RemoveRequiredMixin, forms.ModelForm):
