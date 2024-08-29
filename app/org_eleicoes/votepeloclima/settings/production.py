@@ -6,6 +6,8 @@ ADMINS = env("ADMINS", default="('Admin', 'admin@localhost'),")
 
 ADMINS = ast.literal_eval(f"[{ADMINS}]")
 
+SERVER_EMAIL = env("SERVER_EMAIL", default="no-reply@nossas.org")
+
 INSTALLED_APPS += [
     "storages",
 ]
