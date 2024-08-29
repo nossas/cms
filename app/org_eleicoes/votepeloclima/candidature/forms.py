@@ -464,7 +464,12 @@ class TrackForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
     education = forms.ChoiceField(
         label="Escolaridade", required=False, choices=Education.choices
     )
-    employment = forms.CharField(label="Ocupação", required=False)
+    employment = forms.CharField(
+        label="Ocupação",
+        required=False,
+        help_text="Até 150 caracteres.",
+        max_length=150
+    )
     short_description = forms.CharField(
         label="Minibio",
         widget=forms.Textarea(attrs={"placeholder": "Escreva uma breve biografia"}),
