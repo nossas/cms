@@ -24,6 +24,7 @@ djangocms-video
 djangocms_snippet
 djangocms-frontend>=1.2.1
 django-prometheus
+django-filer==3.1.3
 # Authentication all platforms
 # django-allauth
 bcrypt
