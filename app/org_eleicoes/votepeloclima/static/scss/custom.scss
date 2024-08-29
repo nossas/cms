@@ -159,6 +159,26 @@ legend.form-label {
     }
 }
 
+// Cadastro
+.candidate-signup {
+    padding: 0 72px;
+}
+
+@media (max-width: 992px) {
+    .candidate-signup {
+        padding: 0 20px;
+
+        h2 {
+            font-size: 28px;
+        }
+    }
+}
+
+.btn-inline-delete {
+    padding: 6px 12px;
+}
+
+
 // Perfil da Candidatura
 @media (min-width: 1200px) {
     .candidature-profile-photo {

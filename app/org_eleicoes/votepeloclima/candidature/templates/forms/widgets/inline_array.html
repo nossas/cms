@@ -16,7 +16,7 @@
                     placeholder="{{ widget.placeholder|default:'' }}"
                 />
                 {% if not subwidget.attrs.disabled %}
-                <button type="button" class="btn btn-outline-danger ms-2" onclick="inlineDelete(this)">
+                <button type="button" class="btn-inline-delete btn btn-outline-danger ms-2" onclick="inlineDelete(this)">
                     <i class="bi bi-trash"></i>
                 </button>
                 {% endif %}
