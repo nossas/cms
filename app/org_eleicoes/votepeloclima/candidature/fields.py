@@ -388,9 +388,9 @@ class InlineArrayField(SimpleArrayField):
 class ToogleButtonInput(forms.CheckboxInput):
     template_name = "forms/widgets/toggle_button.html"
 
-    @property
-    def media(self):
-        return forms.Media(css={"screen": ["css/icons.css"]})
+    # @property
+    # def media(self):
+    #     return forms.Media(css={"screen": ["css/icons.css"]})
 
     def __init__(self, text_html, icon_name=None, *args, **kwargs):
         self.text_html = text_html
@@ -469,3 +469,13 @@ class HTMLBooleanField(forms.BooleanField):
         bound_field.label = mark_safe(bound_field.label)
 
         return bound_field
+
+
+class ButtonCheckboxSelectMultiple(forms.CheckboxSelectMultiple):
+    template_name = "forms/widgets/button_input_select.html"
+    option_template_name = "forms/widgets/button_input_option.html"
+
+
+class ButtonRadioSelect(forms.RadioSelect):
+    template_name = "forms/widgets/button_input_select.html"
+    option_template_name = "forms/widgets/button_input_option.html"

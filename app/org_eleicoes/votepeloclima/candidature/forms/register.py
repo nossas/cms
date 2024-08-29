@@ -9,8 +9,8 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Div, Field, HTML
 from bootstrap_datepicker_plus.widgets import DatePickerInput
 
-from .locations_utils import get_ufs, get_choices
-from .choices import (
+from ..locations_utils import get_ufs, get_choices
+from ..choices import (
     PoliticalParty,
     IntendedPosition,
     Education,
@@ -18,8 +18,8 @@ from .choices import (
     Gender,
     Sexuality,
 )
-from .models import CandidatureFlow
-from .fields import (
+from ..models import CandidatureFlow
+from ..fields import (
     ValidateOnceReCaptchaField,
     CheckboxTextField,
     InlineArrayField,
@@ -29,7 +29,7 @@ from .fields import (
     InputMask,
     HTMLBooleanField,
 )
-from .layout import NoCrispyField, FileField
+from ..layout import NoCrispyField, FileField
 
 
 class DisabledMixin:
@@ -311,7 +311,7 @@ propose_text_help_text = (
 
 class ProposeForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
     transporte_e_mobilidade = CheckboxTextField(
-        checkbox_label="Transporte e mobilidade",
+        checkbox_label="Transporte e Mobilidade",
         help_text="Transporte coletivo gratuito e de qualidade, modais com menos emissões e mobilidade ativa.",
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
@@ -319,7 +319,7 @@ class ProposeForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         max_length=600
     )
     gestao_de_residuos = CheckboxTextField(
-        checkbox_label="Gestão de resíduos",
+        checkbox_label="Gestão de Resíduos",
         help_text="Compostagem de resíduos orgânicos, economia circular, mais iniciativas de catadores e catadoras de materiais recicláveis, uso de materiais biodegradáveis.",
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
@@ -337,7 +337,7 @@ class ProposeForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
 
     )
     educacao_climatica = CheckboxTextField(
-        checkbox_label="Educação climática",
+        checkbox_label="Educação Climática",
         help_text="Ensino sobre meio ambiente e mudanças climáticas nas escolas, formação profissional para empregos verdes, formação de agentes populares para gestão do risco climático.",
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
@@ -355,7 +355,7 @@ class ProposeForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
 
     )
     moradia_digna = CheckboxTextField(
-        checkbox_label="Moradia digna",
+        checkbox_label="Moradia Digna",
         help_text="Políticas habitacionais justas e participativas, moradia resiliente aos impactos de eventos climáticos extremos, eficiência hídrica e energética.",
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
@@ -382,7 +382,7 @@ class ProposeForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
 
     )
     direito_a_cidade = CheckboxTextField(
-        checkbox_label="Direito à cidade",
+        checkbox_label="Direito à Cidade",
         help_text="Mais áreas verdes e parques públicos, menos ilhas de calor, segurança pública e bem-estar urbano, cidades mais sustentáveis e inclusivas.",
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,

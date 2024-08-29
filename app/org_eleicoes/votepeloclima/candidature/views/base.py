@@ -11,7 +11,7 @@ from contrib.oauth.models import Token
 
 from ..choices import CandidatureFlowStatus
 from ..models import CandidatureFlow
-from ..forms import register_form_list
+from ..forms.register import register_form_list
 
 
 def files_is_equal(file1, file2):

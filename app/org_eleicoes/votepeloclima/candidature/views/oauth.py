@@ -18,7 +18,7 @@ from contrib.oauth.mixins import JsonLoginRequiredMixin
 
 from ..choices import CandidatureFlowStatus
 from ..models import CandidatureFlow, Candidature
-from ..forms import register_form_list, ProposeForm, AppointmentForm
+from ..forms.register import register_form_list, ProposeForm, AppointmentForm
 
 disable_edit_steps = [
     "informacoes-pessoais",

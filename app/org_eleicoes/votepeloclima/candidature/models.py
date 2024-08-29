@@ -11,7 +11,6 @@ from .locations_utils import get_choices, get_states
 # Acompanhar validação da candidatura
 # Armazenar e acompanhar etapas do preenchimento das informações
 
-
 class Candidature(models.Model):
     legal_name = models.CharField(max_length=150, verbose_name="Nome")
     ballot_name = models.CharField(max_length=100, verbose_name="Nome na Urna")
@@ -28,8 +27,8 @@ class Candidature(models.Model):
     political_party = models.CharField(max_length=60, choices=PoliticalParty.choices, verbose_name="Partido Político")
     video = models.FileField(upload_to="candidatures/videos/", null=True, blank=True, verbose_name="Vídeo")
     photo = models.FileField(upload_to="candidatures/photos/", null=True, blank=True, verbose_name="Foto")
-    gender = models.CharField(max_length=30, choices=Gender.choices, verbose_name="Gênero")
-    color = models.CharField(max_length=30, choices=Color.choices, verbose_name="Raça")
+    gender = models.CharField(max_length=30, verbose_name="Gênero")
+    color = models.CharField(max_length=30, verbose_name="Raça")
     sexuality = models.CharField(max_length=30, null=True, blank=True, choices=Sexuality.choices, verbose_name="Sexualidade")
     social_media = models.JSONField(blank=True, null=True, default=list, verbose_name="Redes Sociais")
     education = models.CharField(max_length=50, null=True, blank=True, choices=Education.choices, verbose_name="Educação")
@@ -61,6 +60,27 @@ class Candidature(models.Model):
     def get_city_display(self):
         cities = dict(get_choices(self.state))
         return cities.get(self.city, "")
+
+    @property
+    def get_color_display(self):
+        return dict(Color.choices).get(self.color)
+    
+    @property
+    def get_gender_display(self):
+        return dict(Gender.choices).get(self.gender)
+    
+    @property
+    def get_proposes_display(self):
+        from org_eleicoes.votepeloclima.candidature.forms.register import ProposeForm
+
+        form = ProposeForm()
+        proposes = []
+        for field_name, value in self.proposes.items():
+            if value:
+                proposes.append(form[field_name].checkbox_label)
+
+        return proposes
+
     
     def save(self, *args, **kwargs):
         if not self.slug:
