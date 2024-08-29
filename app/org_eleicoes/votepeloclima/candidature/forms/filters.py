@@ -103,7 +103,7 @@ class FilterFormSidebar(RemoveRequiredMixin, forms.ModelForm):
         form = ProposeForm()
         choices = []
         for field_name in form.fields:
-            if field_name is not "properties":
+            if field_name != "properties":
                 choices.append((field_name, form.fields[field_name].checkbox_label))
 
         return choices
