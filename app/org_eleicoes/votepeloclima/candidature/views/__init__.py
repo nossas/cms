@@ -2,9 +2,7 @@ from django.shortcuts import get_object_or_404, render
 from django.views import View
 
 from ..models import CandidatureFlowStatus, Candidature
-
-from ..models import CandidatureFlowStatus, Candidature
-from ..forms import ProposeForm
+from ..forms.register import ProposeForm
 
 
 class ProposesMixin:

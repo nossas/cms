@@ -2,7 +2,7 @@ from django.db.models import Q
 from django.views.generic import ListView
 
 from ..models import CandidatureFlowStatus, Candidature
-from .forms import FilterFactoryForm
+from ..forms.filters import FilterFactoryForm
 
 
 class CandidatureSearchView(ListView):

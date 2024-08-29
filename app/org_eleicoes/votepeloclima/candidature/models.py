@@ -72,7 +72,7 @@ class Candidature(models.Model):
     
     @property
     def get_proposes_display(self):
-        from org_eleicoes.votepeloclima.candidature.forms import ProposeForm
+        from org_eleicoes.votepeloclima.candidature.forms.register import ProposeForm
 
         form = ProposeForm()
         proposes = []

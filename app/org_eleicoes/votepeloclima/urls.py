@@ -24,7 +24,7 @@ from .candidature.views import PublicCandidatureView
 from .candidature.views.create import CreateUpdateCandidatureView
 from .candidature.views.oauth import DashboardView, UpdateCandidatureStatusView
 from .candidature.views.public import AddressView
-from .candidature.filters.views import CandidatureSearchView
+from .candidature.views.filters import CandidatureSearchView
 
 from .views import home
 

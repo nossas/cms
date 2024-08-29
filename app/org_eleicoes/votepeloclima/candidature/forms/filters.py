@@ -8,9 +8,10 @@ from crispy_forms.helper import FormHelper
 from ..layout import NoCrispyField
 from ..choices import Gender, Color
 from ..fields import CepField, ButtonCheckboxSelectMultiple, ButtonRadioSelect
-from ..forms import ProposeForm
 from ..locations_utils import get_ufs, get_choices
 from ..models import Candidature
+
+from .register import ProposeForm
 
 
 class RemoveRequiredMixin:
