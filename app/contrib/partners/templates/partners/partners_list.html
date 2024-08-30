@@ -1,0 +1,9 @@
+<div class="grid">
+  {% for partner in partners %}
+  <div class="g-col-4 g-col-md-1">
+    <a href="{{ partner.link }}" target="_blank" rel="noopener noreferrer">
+      <img src="{{ partner.logo.url }}" alt="{{ partner.name }}" class="partner-logo">
+    </a>
+  </div>
+  {% endfor %}
+</div>

@@ -91,6 +91,7 @@ INSTALLED_APPS = [
     "contrib.frontend.grid",
     "contrib.frontend.maps",
     "contrib.ga",
+    "contrib.partners",
     #
     # "contrib.domains.route53",
     # "contrib.domains.traefik",
