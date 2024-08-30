@@ -288,7 +288,7 @@ class InlineArrayWidget(forms.MultiWidget):
                 "js/inline-array-widget.js",
             ],
         )
-    
+
     def decompress(self, value):
         if isinstance(value, list):
             return value
