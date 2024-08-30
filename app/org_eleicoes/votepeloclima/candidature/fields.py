@@ -294,18 +294,21 @@ class InlineArrayWidget(forms.MultiWidget):
             return value
         if value is None:
             return []
-        try:
-            return json.loads(value)
-        except json.JSONDecodeError:
-            return []
+
+        return [v.strip() for v in value.split("|")]
 
     def value_from_datadict(self, data, files, name):
         values = []
-        for key, value in data.items():
-            if key.startswith(f"{name}_") and value.strip():
-                values.append(value.strip())
 
-        return json.dumps(values)
+        # Used when save values in model like a list
+        if name in data:
+            values = data.get(name)
+        else:
+            for key, value in data.items():
+                if key.startswith(f"{name}_"):
+                    values.append(value)
+
+        return values
 
     def get_context(self, name, value, attrs):
         context = super().get_context(name, value, attrs)
@@ -357,7 +360,7 @@ class InlineArrayField(SimpleArrayField):
         size=5,
         item_label=None,
         add_button_text=None,
-        delimiter=",",
+        delimiter="|",
         max_length=None,
         min_length=None,
         placeholder=None,
