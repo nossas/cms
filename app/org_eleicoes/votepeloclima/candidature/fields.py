@@ -1,3 +1,4 @@
+import json
 import sys
 
 from django import forms
@@ -287,26 +288,24 @@ class InlineArrayWidget(forms.MultiWidget):
                 "js/inline-array-widget.js",
             ],
         )
-
+    
     def decompress(self, value):
         if isinstance(value, list):
             return value
         if value is None:
             return []
-        return [v.strip() for v in value.split(",")]
+        try:
+            return json.loads(value)
+        except json.JSONDecodeError:
+            return []
 
     def value_from_datadict(self, data, files, name):
         values = []
+        for key, value in data.items():
+            if key.startswith(f"{name}_") and value.strip():
+                values.append(value.strip())
 
-        # Used when save values in model like a list
-        if name in data:
-            values = data.get(name)
-        else:
-            for key, value in data.items():
-                if key.startswith(f"{name}_"):
-                    values.append(value)
-
-        return values
+        return json.dumps(values)
 
     def get_context(self, name, value, attrs):
         context = super().get_context(name, value, attrs)
