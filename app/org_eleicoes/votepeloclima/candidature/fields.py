@@ -162,14 +162,14 @@ class CheckboxTextWidget(forms.MultiWidget):
         text_help_text=None,
         help_text=None,
         attrs=None,
-        max_length=None
+        max_length=None,
     ):
-        
+
         if attrs is None:
             attrs = {}
         if max_length:
-            attrs['maxlength'] = max_length
-    
+            attrs["maxlength"] = max_length
+
         widgets = [
             SwitchInput(
                 attrs={"data-checktext": ""}, label=checkbox_label, help_text=help_text
@@ -232,7 +232,7 @@ class CheckboxTextField(forms.CharField):
             text_label=text_label,
             text_help_text=text_help_text,
             help_text=help_text,
-            max_length=max_length
+            max_length=max_length,
         )
 
         super().__init__(
@@ -457,6 +457,29 @@ class VideoField(forms.FileField):
                         "Por favor, escolha um video com tamanho de até %s. Tamanho Atual %s"
                         % (filesizeformat(self.max_size), filesizeformat(value.size))
                     )
+
+        return value
+
+
+class ImageField(forms.ImageField):
+
+    def __init__(
+        self, *, max_size=10, max_length=None, allow_empty_file=False, **kwargs
+    ):
+        super().__init__(
+            max_length=max_length, allow_empty_file=allow_empty_file, **kwargs
+        )
+        # 10MB
+        self.max_size = max_size * 1024 * 1024
+        self.widget.attrs["accept"] = "image/png,image/jpeg"
+
+    def clean(self, value, initial):
+        value = super().clean(value, initial)
+        if value.size > self.max_size:
+            raise forms.ValidationError(
+                "Por favor, escolha uma imagem com tamanho de até %s. Tamanho Atual %s"
+                % (filesizeformat(self.max_size), filesizeformat(value.size))
+            )
 
         return value
 

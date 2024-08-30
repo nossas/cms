@@ -26,6 +26,7 @@ from ..fields import (
     CepField,
     ToggleButtonField,
     VideoField,
+    ImageField,
     InputMask,
     HTMLBooleanField,
 )
@@ -311,7 +312,7 @@ propose_text_help_text = (
 
 class ProposeForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
     transporte_e_mobilidade = CheckboxTextField(
-        checkbox_label="Transporte e Mobilidade",
+        checkbox_label="Transporte e mobilidade",
         help_text="Transporte coletivo gratuito e de qualidade, modais com menos emissões e mobilidade ativa.",
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
@@ -319,7 +320,7 @@ class ProposeForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         max_length=600
     )
     gestao_de_residuos = CheckboxTextField(
-        checkbox_label="Gestão de Resíduos",
+        checkbox_label="Gestão de resíduos",
         help_text="Compostagem de resíduos orgânicos, economia circular, mais iniciativas de catadores e catadoras de materiais recicláveis, uso de materiais biodegradáveis.",
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
@@ -337,7 +338,7 @@ class ProposeForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
 
     )
     educacao_climatica = CheckboxTextField(
-        checkbox_label="Educação Climática",
+        checkbox_label="Educação climática",
         help_text="Ensino sobre meio ambiente e mudanças climáticas nas escolas, formação profissional para empregos verdes, formação de agentes populares para gestão do risco climático.",
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
@@ -355,7 +356,7 @@ class ProposeForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
 
     )
     moradia_digna = CheckboxTextField(
-        checkbox_label="Moradia Digna",
+        checkbox_label="Moradia digna",
         help_text="Políticas habitacionais justas e participativas, moradia resiliente aos impactos de eventos climáticos extremos, eficiência hídrica e energética.",
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
@@ -382,7 +383,7 @@ class ProposeForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
 
     )
     direito_a_cidade = CheckboxTextField(
-        checkbox_label="Direito à Cidade",
+        checkbox_label="Direito à cidade",
         help_text="Mais áreas verdes e parques públicos, menos ilhas de calor, segurança pública e bem-estar urbano, cidades mais sustentáveis e inclusivas.",
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
@@ -409,7 +410,7 @@ class ProposeForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
 
     )
     economia_verde = CheckboxTextField(
-        checkbox_label="Economia Verde",
+        checkbox_label="Economia verde",
         help_text="Indústrias e processos produtivos sem carbono, bioeconomia, novos empregos verdes.",
         text_label=propose_text_label,
         text_help_text=propose_text_help_text,
@@ -464,7 +465,12 @@ class TrackForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
     education = forms.ChoiceField(
         label="Escolaridade", required=False, choices=Education.choices
     )
-    employment = forms.CharField(label="Ocupação", required=False)
+    employment = forms.CharField(
+        label="Ocupação",
+        required=False,
+        help_text="Até 150 caracteres.",
+        max_length=150
+    )
     short_description = forms.CharField(
         label="Minibio",
         widget=forms.Textarea(attrs={"placeholder": "Escreva uma breve biografia"}),
@@ -521,7 +527,7 @@ class TrackForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
 
 class ProfileForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
     video = VideoField(label="Vídeo", required=False, help_text="Tamanho máximo 50mb.")
-    photo = forms.ImageField(label="Foto")
+    photo = ImageField(label="Foto", help_text="Tipo de imagem JPEG ou PNG. Tamanho máximo 10mb.")
     gender = forms.ChoiceField(label="Gênero", choices=Gender.choices)
     color = forms.ChoiceField(label="Raça", choices=Color.choices)
     sexuality = forms.ChoiceField(
