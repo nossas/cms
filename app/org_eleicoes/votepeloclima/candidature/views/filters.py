@@ -9,6 +9,7 @@ class CandidatureSearchView(ListView):
     model = Candidature
     template_name = "candidature/candidature_search.html"
     context_object_name = "candidatures"
+    paginate_by = 12
 
     search_filter_fields = [
         "legal_name",
