@@ -3,7 +3,7 @@
 
 {% block content %}
 <div class="d-flex">
-  <div class="container px-5 py-5">
+  <div class="candidate-signup container py-5">
     {% widthratio wizard.steps.step1 wizard.steps.count 100 as progress %}
     <div class="progress mb-4 border" role="progressbar" aria-label="Basic example" aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100" style="max-width:256px;">
       <div class="progress-bar bg-secondary" style="width:{{ progress }}%"></div>
