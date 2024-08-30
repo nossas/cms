@@ -119,6 +119,21 @@ legend.form-label {
     }
 }
 
+.pagination {
+    --bs-pagination-bg: var(--bs-tertiary-bg);
+    --bs-pagination-color: var(--bs-secondary);
+    --bs-pagination-hover-color: var(--bs-secondary);
+
+    --bs-pagination-active-color: var(--bs-tertiary-bg);
+    --bs-pagination-active-bg: var(--bs-secondary);
+    --bs-pagination-active-border-color: var(--bs-secondary);
+    --bs-pagination-focus-color: var(--bs-secondary);
+
+    .page-link:focus {
+        box-shadow: none;
+    }
+}
+
 // Hide Inputs
 @media (max-width: 768px) {
 
