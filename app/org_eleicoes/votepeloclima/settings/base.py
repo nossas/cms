@@ -200,7 +200,6 @@ REDIRECT_MIDDLEWARE_LIST_DOMAIN = env.list("REDIRECT_MIDDLEWARE_LIST_DOMAIN", de
 
 THUMBNAIL_ALIASES = {
     '': {
-        "card-photo": {"size": (1080, 1350), "crop": True},
         "profile-photo": {"size": (1080, 1350), "crop": True},
     },
 }
