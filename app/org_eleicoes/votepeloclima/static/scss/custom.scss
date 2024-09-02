@@ -195,3 +195,19 @@ legend.form-label {
         min-height: 230px;
     }
 }
+
+// Partner Tag
+.partners-list {
+    a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    img {
+        width: 125px;
+        height: 70px;
+        object-fit: contain;
+        object-position: center;
+    }
+}

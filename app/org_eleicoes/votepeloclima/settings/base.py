@@ -74,6 +74,7 @@ INSTALLED_APPS = [
     "contrib.ds.picture",
     "contrib.ds.tooltip",
     # Project Apps
+    "contrib.partners",
     "contrib.oauth",
     "org_eleicoes.votepeloclima",
     "org_eleicoes.votepeloclima.candidature",

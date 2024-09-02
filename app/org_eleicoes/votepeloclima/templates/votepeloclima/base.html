@@ -1,5 +1,5 @@
 {% extends "ds/base.html" %}
-{% load static cms_tags menu_tags compress %}
+{% load static cms_tags menu_tags compress partners_tags %}
 
 {% block head_css %}
 {{block.super}}
@@ -82,6 +82,13 @@
       </div>
       <div class="g-col-12">
         <p>© 2024. Nossas e Clima de Eleição. Direitos reservados.</p>
+      </div>
+      <hr class="g-col-12" />
+      <div class="g-col-12">
+        <h5 class="text-uppercase text-white">Quem assina</h5>
+        <div class="partners-list d-flex flex-wrap gap-2">
+          {% show_partners %}
+        </div>
       </div>
     </div>
   </div>
