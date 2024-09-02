@@ -7,7 +7,8 @@ from .models import Candidature, CandidatureFlow
 
 class CandidatureAdmin(admin.ModelAdmin):
     search_fields = ("legal_name", "ballot_name", "email", "political_party")
-    list_display = ("legal_name", "email", "political_party", "status")
+    list_display = ("legal_name", "email", "political_party", "status", "updated_at")
+    ordering = ("updated_at", )
 
     def has_add_permission(self, request):
         return False
@@ -51,7 +52,8 @@ class CandidatureFlowAdminForm(EntangledModelForm):
 class CandidatureFlowAdmin(admin.ModelAdmin):
     form = CandidatureFlowAdminForm
     list_filter = ("status", )
-    list_display = ("legal_name", "email", "political_party", "status")
+    list_display = ("legal_name", "email", "political_party", "status", "created_at", "updated_at")
+    ordering = ("updated_at", )
     
     fieldsets = (
         (None, {
