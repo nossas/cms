@@ -198,3 +198,9 @@ OAUTH_REDIRECT_LOGIN_URL = reverse_lazy("dashboard")
 REDIRECT_MIDDLEWARE_ROOT_DOMAIN = env("REDIRECT_MIDDLEWARE_ROOT_DOMAIN", default="localhost")
 
 REDIRECT_MIDDLEWARE_LIST_DOMAIN = env.list("REDIRECT_MIDDLEWARE_LIST_DOMAIN", default=["localhost.dev","localhost.devel"])
+
+THUMBNAIL_ALIASES = {
+    '': {
+        "profile-photo": {"size": (1080, 1350), "crop": True},
+    },
+}

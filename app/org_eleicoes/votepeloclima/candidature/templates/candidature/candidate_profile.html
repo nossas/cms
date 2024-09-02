@@ -1,5 +1,5 @@
 {% extends "votepeloclima/base.html" %}
-{% load static crispy_forms_filters social_media_tags %}
+{% load static crispy_forms_filters social_media_tags thumbnail %}
 
 {% block head_css %}
 {{ block.super }}
@@ -13,7 +13,7 @@
         <div class="g-col-12 g-col-md-4">
             {% if candidature.photo %}
                 <div class="candidature-profile-photo">
-                    <img src="{{ candidature.photo.url }}" alt="Foto de {{ candidature.ballot_name }}" class="img-fluid rounded-2"/>
+                    <img src="{{ candidature.photo|thumbnail_url:'profile-photo' }}" alt="Foto de {{ candidature.ballot_name }}" class="img-fluid rounded-2"/>
                 </div>
             {% endif %}
         </div>
