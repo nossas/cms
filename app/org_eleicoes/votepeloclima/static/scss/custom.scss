@@ -197,6 +197,17 @@ legend.form-label {
 }
 
 // Partner Tag
-.partner-logo {
-    max-width: 120px;
+.partners-list {
+    a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    img {
+        width: 125px;
+        height: 70px;
+        object-fit: contain;
+        object-position: center;
+    }
 }
