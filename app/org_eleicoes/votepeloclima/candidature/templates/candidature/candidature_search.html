@@ -43,7 +43,7 @@
                 {% for candidature in candidatures %}
                 <div class="g-col-12 g-col-md-6 g-col-lg-4">
                     <a class="card" href="{% url 'candidate_profile' candidature.slug %}">
-                        <img src="{{ candidature.photo|thumbnail_url:'avatar' }}" class="card-img-top" alt="Foto de {{ candidature.legal_name }}">
+                        <img src="{{ candidature.photo|thumbnail_url:'card-photo' }}" class="card-img-top" alt="Foto de {{ candidature.legal_name }}">
                         <div class="card-body px-2 py-1">
                             <p class="state-city mb-1 text-black-50">{{ candidature.get_state_display }} - {{ candidature.get_city_display }}</p>
                             <div class="card-title">
