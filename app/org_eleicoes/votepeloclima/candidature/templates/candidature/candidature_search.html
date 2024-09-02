@@ -15,7 +15,7 @@
 <main class="container mx-auto pb-4">
     <section class="pt-5 pb-3" style="max-width:570px;">
         <h2 class="text-uppercase fw-bold">Conheça candidaturas da sua cidade</h2>
-        <p>Use os filtros para descobrir candidatos comprometidos com políticas climáticas!</span>
+        <p>Use os filtros para descobrir candidaturas comprometidas com políticas climáticas!</span>
     </section>
     <div class="grid">
         <!-- Navbar -->
@@ -45,9 +45,9 @@
                     <a class="card" href="{% url 'candidate_profile' candidature.slug %}">
                         <img src="{{ candidature.photo|thumbnail_url:'profile-photo' }}" class="card-img-top" alt="Foto de {{ candidature.legal_name }}">
                         <div class="card-body px-2 py-1">
-                            <p class="state-city mb-1 text-black-50">{{ candidature.get_state_display }} - {{ candidature.get_city_display }}</p>
+                            <p class="state-city mb-1 text-black-50">{{ candidature.get_city_display }} - {{ candidature.get_state_display }}</p>
                             <div class="card-title">
-                                <h5 class="fw-bold">{{ candidature.ballot_name }}</h5>
+                                <h5 class="fw-bold">{{ candidature.ballot_name|title }}</h5>
                             </div>
                             <hr style="width: 24px;" class="my-2" />
                             <div>
