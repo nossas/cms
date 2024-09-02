@@ -2,16 +2,17 @@
 {% load static %}
 
 {% block content %}
-<section class="grid" style="height: 100vh;">
+<section class="container grid">
     <div class="bg-screenside d-none d-lg-flex g-col-4">
         <div class="screenside" style="background-image:url({% static 'imgs/bg-steps.svg' %});">
         </div>
     </div>
-    <div class="container d-flex align-items-center g-col-12 g-col-lg-8">
-        <div class="w-50">
+    <div class="d-flex align-items-center g-col-12 g-col-lg-8" style="padding: 115px 0;">
+        <div class="d-flex flex-column align-items-md-start gap-3">
             {% block main %}
-            <h1 class="text-uppercase">Página não <br/> encontrada</h1>
-            <p class="pb-3">Não conseguimos encontrar essa página. Confira se o link está certo ou volte para o início:</p>
+            <i class="ds-icon-warning"></i>
+            <h3 class="text-uppercase fw-bold m-0">Página não <br/> encontrada</h3>
+            <p class="pb-1">Não conseguimos encontrar esta página. Confira se o link está correto. Se o erro persistir, entre em contato com a gente em  <a href="mailto:votepeloclima@nossas.org" target="_blank" rel="noopener noreferrer">votepeloclima@nossas.org</a></p>
             <button class="btn btn-secondary text-uppercase" type="button" onclick="window.location.href='/'">Voltar ao início</button>
             {% endblock %}
         </div>
