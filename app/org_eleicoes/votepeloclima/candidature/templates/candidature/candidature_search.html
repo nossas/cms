@@ -1,0 +1,125 @@
+{% extends "votepeloclima/base.html" %}
+{% load static crispy_forms_filters url_tags compress thumbnail %}
+
+{% block head_css %}
+{{ block.super }}
+{% compress css %}
+<style type="text/x-scss">
+@import "scss/candidaturesearch.scss";
+</style>
+{% endcompress %}
+{% endblock %}
+
+{% block content %}
+<form method="get">
+<main class="container mx-auto pb-4">
+    <section class="pt-5 pb-3" style="max-width:570px;">
+        <h2 class="text-uppercase fw-bold">Conheça candidaturas da sua cidade</h2>
+        <p>Use os filtros para descobrir candidaturas comprometidas com políticas climáticas!</span>
+    </section>
+    <div class="grid">
+        <!-- Navbar -->
+        <div class="g-col-12">
+            <div class="search-header">
+                {% crispy form.header %}
+                <button class="btn btn-primary" type="submit"><i class="ds-icon-search"></i><span class="d-inline-block d-md-none mx-auto">Buscar</span></button>
+            </div>
+        </div>
+        <!-- Sidebar -->
+        <div class="g-col-12 g-col-md-4">
+            <aside class="search-sidebar">
+                <input type="checkbox" id="sidebar-toggle" />
+                <label for="sidebar-toggle">
+                    <h6 class="text-uppercase fw-bold"><i class="ds-sidebar-bars"></i> Filtrar resultados <i class="ds-sidebar-arrow d-inline-block d-md-none"></i></h6>
+                </label>
+                <div class="d-none d-md-block">
+                    {% crispy form.sidebar %}
+                </div>
+            </aside>
+        </div>
+        <!-- Listagem -->
+        <div class="g-col-12 g-col-md-8">
+            <div class="grid gap-2">
+                {% for candidature in candidatures %}
+                <div class="g-col-12 g-col-md-6 g-col-lg-4">
+                    <a class="card" href="{% url 'candidate_profile' candidature.slug %}">
+                        <img src="{{ candidature.photo|thumbnail_url:'profile-photo' }}" class="card-img-top" alt="Foto de {{ candidature.legal_name }}">
+                        <div class="card-body px-2 py-1">
+                            <p class="state-city mb-1 text-black-50">{{ candidature.get_city_display }} - {{ candidature.get_state_display }}</p>
+                            <div class="card-title">
+                                <h5 class="fw-bold">{{ candidature.ballot_name|title }}</h5>
+                            </div>
+                            <hr style="width: 24px;" class="my-2" />
+                            <div>
+                                <h6>{{ candidature.get_intended_position_display }} | {{ candidature.get_political_party_display }} | {{ candidature.number_id }}</h6>
+                                <p class="text-muted form-text">
+                                    {{ candidature.get_proposes_display|join:" / "|escape }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-dark text-uppercase">Conheça</button>
+                        </div>
+                    </a>
+                </div>
+                {% empty %}
+                <div class="empty-box g-col-12 p-3 border d-flex flex-column align-items-center">
+                    <i class="ds-icon-search-green mb-3"></i>
+                    <h5 class="text-uppercase fw-bold text-center">Infelizmente nenhuma candidatura foi encontrada</h5>
+                    <p class="text-center">Tente ajustar os filtros para encontrar uma candidatura que se alinhe com suas prioridades climáticas.</p>
+                    <div class="d-flex flex-column flex-md-row justify-content-center" style="--bs-gap:1rem;">
+                        <a href="{% url 'candidature_search' %}" class="btn btn-secondary">Limpar filtros</a>
+                        <a href="{% url 'register' %}" class="btn btn-outline-secondary">Cadastre sua candidatura</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <ul class="pagination justify-content-end mt-3">
+                <li class="page-item{% if not page_obj.has_previous %} disabled{% endif %}">
+                    <a class="page-link"{% if page_obj.has_previous %} href="?{% url_replace page=page_obj.previous_page_number %}"{% endif %}>
+                        <i class="ds-paginator-previous"></i>
+                    </a>
+                </li>
+            
+                <!-- <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.page_range }}.
+                </span> -->
+                {% for page_number in page_obj.paginator.page_range %}
+                <li class="page-item{% if page_number == page_obj.number %} active{% endif %}">
+                    <a class="page-link"{% if page_number != page_obj.number %} href="?{% url_replace page=page_number %}"{% endif %}>
+                        {{ page_number }}
+                    </a>
+                </li>
+                {% endfor %}
+            
+                <li class="page-item{% if not page_obj.has_next %} disabled{% endif %}">
+                    <a class="page-link"{% if page_obj.has_next %} href="?{% url_replace page=page_obj.next_page_number %}"{% endif %}>
+                        <i class="ds-paginator-next"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</main>
+{% endblock %}
+
+{% block footer_js %}
+<script>
+(function ($) {
+    "use strict";
+    $(function () {
+        $(".search-sidebar .btn-check[type='checkbox']").change(function() {
+            $("form").submit();
+        });
+        $(".search-sidebar .btn-check[type='radio']").change(function() {
+            $("form").submit();
+        });
+
+        // Hide Sidebar Filters only mobile
+        $("#sidebar-toggle").change(function() {
+            $(this).next().next().toggleClass("d-none");
+        });
+    });
+}(jQuery));
+</script>
+{% endblock %}

@@ -6,6 +6,8 @@ ADMINS = env("ADMINS", default="('Admin', 'admin@localhost'),")
 
 ADMINS = ast.literal_eval(f"[{ADMINS}]")
 
+SERVER_EMAIL = env("SERVER_EMAIL", default="no-reply@nossas.org")
+
 INSTALLED_APPS += [
     "storages",
 ]
@@ -31,6 +33,8 @@ PUBLIC_MEDIA_LOCATION = "media"
 MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/"
 
 DEFAULT_FILE_STORAGE = "project.storages.PublicMediaStorage"
+
+THUMBNAIL_DEFAULT_STORAGE = DEFAULT_FILE_STORAGE
 
 if not DEBUG:
 

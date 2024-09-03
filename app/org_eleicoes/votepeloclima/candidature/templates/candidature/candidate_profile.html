@@ -1,17 +1,20 @@
 {% extends "votepeloclima/base.html" %}
-{% load static crispy_forms_filters social_media_tags %}
+{% load static crispy_forms_filters social_media_tags thumbnail %}
 
 {% block head_css %}
 {{ block.super }}
 <link rel="stylesheet" href="{% static 'css/icons.css' %}">
+<link rel="stylesheet" href="{% static 'css/custom.css' %}">
 {% endblock %}
 
 {% block content %}
 <section class="container">
-    <div class="grid py-5">
+    <div class="grid py-3">
         <div class="g-col-12 g-col-md-4">
             {% if candidature.photo %}
-                <p><img src="{{ candidature.photo.url }}" alt="Foto de {{ candidature.ballot_name }}" class="img-fluid"/></p>
+                <div class="candidature-profile-photo">
+                    <img src="{{ candidature.photo|thumbnail_url:'profile-photo' }}" alt="Foto de {{ candidature.ballot_name }}" class="img-fluid rounded-2"/>
+                </div>
             {% endif %}
         </div>
         <div class="g-col-12 g-col-md-8">
@@ -29,11 +32,13 @@
                     {% if candidature.deputy_mayor %}
                         <p><strong>Vice:</strong>  {{ candidature.deputy_mayor }}</p>
                     {% endif %}
-                    <span class="badge bg-primary">{{ candidature.get_intended_position_display }}</span>
-                    <span class="badge bg-primary">{{ candidature.get_political_party_display }}</span>
-                    {% if candidature.primary %}
-                        <span class="badge rounded-pill bg-primary">Mandato Coletivo</span>
-                    {% endif %}
+                    <div class="d-flex flex-row gap-2">
+                        <span class="badge bg-primary fs-6">{{ candidature.get_intended_position_display }}</span>
+                        <span class="badge bg-primary fs-6">{{ candidature.get_political_party_display }}</span>
+                        {% if candidature.is_collective_mandate %}
+                        <span class="badge bg-primary fs-6">Mandato Coletivo</span>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
             <div class="pt-3">
@@ -42,13 +47,13 @@
             <hr class="hr my-4"/>
             <div>
                 <h3 class="text-uppercase pb-2">Informações</h2>
-                <div class="grid gap-5">
-                    <div class="g-col-12 g-col-md-6">
+                <div class="d-flex flex-wrap">
+                    <div class="col pe-2">
                         <p><strong>Data de Nascimento:</strong> {{ candidature.birth_date }}</p>
                         <p><strong>Raça:</strong> {{ candidature.get_color_display }}</p>
                         <p><strong>Gênero:</strong> {{ candidature.get_gender_display }}</p>
                     </div>
-                    <div class="g-col-12 g-col-md-6">
+                    <div class="col">
                         {% if candidature.sexuality %}<p><strong>Sexualidade:</strong> {{ candidature.get_sexuality_display }}</p>{% endif %}
                         {% if candidature.education %}<p><strong>Escolaridade:</strong> {{ candidature.get_education_display }}</p>{% endif %}
                         {% if candidature.employment %}<p><strong>Ocupação:</strong> {{ candidature.employment }}</p>{% endif %}
@@ -62,7 +67,7 @@
                     <p class="text-muted">Propostas de {{ candidature.ballot_name }}.</p>
                 </div>
                 <div>
-                    {% for item in proposes %}
+                    {% for item in candidature.get_proposes_items %}
                         <div class="card mb-2">
                             <div class="card-body">
                                 <h5 class="text-primary fw-bold">{{ item.label }}</h5>
@@ -97,58 +102,24 @@
 <section class="py-5 bg-primary">
     <div class="container">
         <h1 class="text-center text-white text-uppercase fw-bold">O que {{ candidature.ballot_name }} tem a dizer</h1>
-        <div class="d-flex justify-content-center py-5">
-            <video controls src="{{ candidature.video.url }}" class="img-fluid"></video>
+        <div class="candidature-video d-flex justify-content-center py-5">
+            <video controls src="{{ candidature.video.url }}" class="w-100"></video>
         </div>
     </div>
 </section>
 {% endif %}
 <section class="py-5">
     <div class="container">
-        <h1 class="text-center text-uppercase fw-bold">O que esperar de {{ candidature.ballot_name }}</h1>
-        <div id="carouselControls" class="carousel slide carousel-dark py-5">
+        <h2 class="text-center text-uppercase fw-bold">O que esperar de {{ candidature.ballot_name }}</h2>
+        <div id="carouselControls" class="carousel slide carousel-dark py-4" data-bs-ride="carousel">
+            <!-- Indicadores de Slides -->
+            <div class="carousel-indicators"></div>
+            
+            <!-- Itens do Carousel -->
             <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="grid">
-                        <div class="g-col-6 g-col-md-3 px-2 text-center d-flex flex-column align-items-center">
-                            <i class="ds-icon-compromisso-laranja-1"></i>
-                            <p class="mt-2 text-uppercase fw-bold w-75">Políticas de adaptação das cidades para reduzir tragédias</p>
-                        </div>
-                        <div class="g-col-6 g-col-md-3 px-2 text-center d-flex flex-column align-items-center">
-                            <i class="ds-icon-compromisso-laranja-2"></i>
-                            <p class="mt-2 text-uppercase fw-bold w-75">Políticas para redução de emissões e transição energética</p>
-                        </div>
-                        <div class="g-col-6 g-col-md-3 px-2 text-center d-flex flex-column align-items-center">
-                            <i class="ds-icon-compromisso-laranja-3"></i>
-                            <p class="mt-2 text-uppercase fw-bold w-75">Políticas sociais de apoio às populações atingidas</p>
-                        </div>
-                        <div class="g-col-6 g-col-md-3 px-2 text-center d-flex flex-column align-items-center">
-                            <i class="ds-icon-compromisso-laranja-4"></i>
-                            <p class="mt-2 text-uppercase fw-bold w-75">Transição climática com justiça social, racial e de gênero</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="grid">
-                        <div class="g-col-6 g-col-md-3 px-2 text-center d-flex flex-column align-items-center">
-                            <i class="ds-icon-compromisso-laranja-5"></i>
-                            <p class="mt-2 text-uppercase fw-bold w-75">Proteção ambiental e de recursos naturais</p>
-                        </div>
-                        <div class="g-col-6 g-col-md-3 px-2 text-center d-flex flex-column align-items-center">
-                            <i class="ds-icon-compromisso-laranja-6"></i>
-                            <p class="mt-2 text-uppercase fw-bold w-75">Incentivo à participação popular e ao engajamento da juventude</p>
-                        </div>
-                        <div class="g-col-6 g-col-md-3 px-2 text-center d-flex flex-column align-items-center">
-                            <i class="ds-icon-compromisso-laranja-7"></i>
-                            <p class="mt-2 text-uppercase fw-bold w-75">Investimentos em pesquisa e inovação para enfrentar a crise climática</p>
-                        </div>
-                        <div class="g-col-6 g-col-md-3 px-2 text-center d-flex flex-column align-items-center">
-                            <i class="ds-icon-compromisso-laranja-8"></i>
-                            <p class="mt-2 text-uppercase fw-bold w-75">Valorização de saberes tradicionais e tecnologias sociais na busca de soluções</p>
-                        </div>
-                    </div>
-                </div>
             </div>
+          
+            <!-- Controles do Carousel -->
             <button class="carousel-control-prev w-auto" type="button" data-bs-target="#carouselControls" data-bs-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Anterior</span>
@@ -157,41 +128,43 @@
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Próximo</span>
             </button>
-        </div>
+          </div>
+          
 
-        <p class="text-center">*As organizações da plataforma não se comprometem com a efetividade e execução dos compromissos firmados. O controle social e a participação ativa da cidadania são fundamentais para que parlamentares e gestores públicos cumpram suas promessas.</p>
+        <p class="text-center">*As organizações da plataforma não se responsabilizam pela efetivação dos compromissos declarados pelas candidaturas. O controle social e a participação ativa da cidadania são fundamentais para que parlamentares e gestores públicos cumpram suas promessas.</p>
     </div>
 </section>
+<hr class="w-100" />
 <section class="py-5">
     <div class="container">
-        <div class="grid gap-5">
+        <div class="grid">
             <div class="g-col-12 g-col-md-8">
                 <div class="d-flex flex-column justify-content-between h-100">
                     <div>
-                        <h2 class="fw-bold text-uppercase">Compartilhe nas redes</h2>
-                        <p class="w-75">Compartilhe esse perfil nas redes sociais e com seus amigos para que as propostas de {{ candidate.ballot_name }} cheguem em mais gente:</p>
+                        <h2 class="fw-bold text-uppercase mb-3">Compartilhe nas redes sociais 
+                            para apoiar {{ candidature.ballot_name }}!</h2>
+                        <p class="w-75">Compartilhe esse perfil nas redes sociais e com seus amigos para que as propostas de {{ candidature.ballot_name }} cheguem em mais gente:</p>
                     </div>
                     <p>
-                        Viu algo estranho? <a href="mailto:denunciavotepeloclima@nossas.org" target="_blank" rel="noopener noreferrer">Clique aqui para denunciar esse perfil.</a>
+                        Viu algo estranho? <a class="fw-bold text-black" href="mailto:denunciavotepeloclima@nossas.org" target="_blank" rel="noopener noreferrer">Clique aqui para denunciar esse perfil.</a>
                     </p>
                 </div>
             </div>
             <div class="g-col-12 g-col-md-4">
-                <p class="fw-bold text-uppercase">Compartilhe em:</p>
                 <div class="d-flex flex-column justify-content-center gap-2">
-                    <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" href="https://wa.me/?text=Confira a candidatura de {{ request.build_absolute_uri|urlencode }}">
+                    <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" href="https://wa.me/?text=Oi! As eleições estão chegando e o futuro da nossa cidade depende do nosso voto. Compartilho com você uma das candidaturas comprometidas na luta pelo meio ambiente e contra as ameaças climáticas. Conheça as propostas na plataforma *Vote pelo Clima!* {{ request.build_absolute_uri|urlencode }}">
                         <span class="ds-icon-whatsapp"></span>
                         WhatsApp
                     </a>
-                    <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri|urlencode }}&text=Confira a candidatura de {{ candidature.ballot_name }}" target="_blank">
+                    <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri|urlencode }}&text=O clima mudou. A política precisa mudar. #VotePeloClima é a plataforma que reúne candidaturas de todo o Brasil comprometidas com a pauta climática, eu sou uma delas! Acesse o perfil e conheça as propostas." target="_blank">
                         <span class="ds-icon-x"></span>
                         Twitter
                     </a>
-                    <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri|urlencode }}&title=Confira a candidatura de {{ candidature.ballot_name }}" target="_blank">
+                    <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri|urlencode }}&title=O clima mudou. A política precisa mudar.&summary=A #VotePeloClima é a plataforma que reúne candidaturas de todo o Brasil comprometidas com a pauta climática, eu sou uma delas! Acesse o perfil e conheça as propostas." target="_blank">
                         <span class="ds-icon-linkedin"></span>
                         LinkedIn
                     </a>
-                    <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode }}" target="_blank">
+                    <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode }}&quote=O clima mudou. A política precisa mudar. #VotePeloClima é a plataforma que reúne candidaturas de todo o Brasil comprometidas com a pauta climática, eu sou uma delas! Acesse o perfil e conheça as propostas." target="_blank">
                         <span class="ds-icon-facebook"></span>
                         Facebook
                     </a>
@@ -207,4 +180,5 @@
 
 {% block footer_js %}
 <script src="{% static 'js/copy-to-clipboard.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/carousel-icons.js' %}" type="text/javascript"></script>
 {% endblock %}

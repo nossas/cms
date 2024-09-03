@@ -1,3 +1,4 @@
+import json
 import sys
 
 from django import forms
@@ -161,14 +162,14 @@ class CheckboxTextWidget(forms.MultiWidget):
         text_help_text=None,
         help_text=None,
         attrs=None,
-        max_length=None
+        max_length=None,
     ):
-        
+
         if attrs is None:
             attrs = {}
         if max_length:
-            attrs['maxlength'] = max_length
-    
+            attrs["maxlength"] = max_length
+
         widgets = [
             SwitchInput(
                 attrs={"data-checktext": ""}, label=checkbox_label, help_text=help_text
@@ -231,7 +232,7 @@ class CheckboxTextField(forms.CharField):
             text_label=text_label,
             text_help_text=text_help_text,
             help_text=help_text,
-            max_length=max_length
+            max_length=max_length,
         )
 
         super().__init__(
@@ -293,7 +294,8 @@ class InlineArrayWidget(forms.MultiWidget):
             return value
         if value is None:
             return []
-        return [v.strip() for v in value.split(",")]
+
+        return [v.strip() for v in value.split("|")]
 
     def value_from_datadict(self, data, files, name):
         values = []
@@ -358,7 +360,7 @@ class InlineArrayField(SimpleArrayField):
         size=5,
         item_label=None,
         add_button_text=None,
-        delimiter=",",
+        delimiter="|",
         max_length=None,
         min_length=None,
         placeholder=None,
@@ -388,9 +390,9 @@ class InlineArrayField(SimpleArrayField):
 class ToogleButtonInput(forms.CheckboxInput):
     template_name = "forms/widgets/toggle_button.html"
 
-    @property
-    def media(self):
-        return forms.Media(css={"screen": ["css/icons.css"]})
+    # @property
+    # def media(self):
+    #     return forms.Media(css={"screen": ["css/icons.css"]})
 
     def __init__(self, text_html, icon_name=None, *args, **kwargs):
         self.text_html = text_html
@@ -462,6 +464,29 @@ class VideoField(forms.FileField):
         return value
 
 
+class ImageField(forms.ImageField):
+
+    def __init__(
+        self, *, max_size=10, max_length=None, allow_empty_file=False, **kwargs
+    ):
+        super().__init__(
+            max_length=max_length, allow_empty_file=allow_empty_file, **kwargs
+        )
+        # 10MB
+        self.max_size = max_size * 1024 * 1024
+        self.widget.attrs["accept"] = "image/png,image/jpeg"
+
+    def clean(self, value, initial):
+        value = super().clean(value, initial)
+        if value.size > self.max_size:
+            raise forms.ValidationError(
+                "Por favor, escolha uma imagem com tamanho de até %s. Tamanho Atual %s"
+                % (filesizeformat(self.max_size), filesizeformat(value.size))
+            )
+
+        return value
+
+
 class HTMLBooleanField(forms.BooleanField):
 
     def get_bound_field(self, form, field_name):
@@ -469,3 +494,13 @@ class HTMLBooleanField(forms.BooleanField):
         bound_field.label = mark_safe(bound_field.label)
 
         return bound_field
+
+
+class ButtonCheckboxSelectMultiple(forms.CheckboxSelectMultiple):
+    template_name = "forms/widgets/button_input_select.html"
+    option_template_name = "forms/widgets/button_input_option.html"
+
+
+class ButtonRadioSelect(forms.RadioSelect):
+    template_name = "forms/widgets/button_input_select.html"
+    option_template_name = "forms/widgets/button_input_option.html"

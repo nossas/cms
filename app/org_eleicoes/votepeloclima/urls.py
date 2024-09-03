@@ -20,11 +20,10 @@ from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path, include, re_path
 
-from .candidature.views import AddressView, PublicCandidatureView
 from .candidature.views.create import CreateUpdateCandidatureView
 from .candidature.views.oauth import DashboardView, UpdateCandidatureStatusView
-
-from .views import home
+from .candidature.views.public import AddressView, PublicCandidatureView
+from .candidature.views.filters import CandidatureSearchView
 
 register_view = CreateUpdateCandidatureView.as_view(url_name="register_step", done_step_name="concluir")
 
@@ -34,6 +33,7 @@ urlpatterns = [
     # Public Routers
     re_path(r"^candidatura/cadastro/(?P<step>.+)/$", register_view, name="register_step",),
     path("candidatura/cadastro/", register_view, name="register"),
+    path('candidatura/busca/', CandidatureSearchView.as_view(), name='candidature_search'),
     re_path(r"^c(andidatura)*/(?P<slug>.+)/$", PublicCandidatureView.as_view(), name='candidate_profile'),
     # API
     path('api/candidatura/buscar-endereco/', AddressView.as_view(), name='address'),
@@ -41,7 +41,6 @@ urlpatterns = [
     # Manage
     path("admin/", admin.site.urls),
     path("select2/", include("django_select2.urls")),
-    path("", home),
     path("", include("cms.urls")),
 ]
 

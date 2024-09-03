@@ -1,0 +1,5 @@
+  {% for partner in partners %}
+    <a href="{{ partner.link }}" target="_blank" rel="noopener noreferrer">
+      <img src="{{ partner.logo.url }}" alt="{{ partner.name }}">
+    </a>
+  {% endfor %}
