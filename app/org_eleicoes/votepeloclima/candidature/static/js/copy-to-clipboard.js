@@ -1,7 +1,10 @@
 const copyButton = document.querySelector("#copyButton");
 
-function copyURL() {
-  let url = window.location.href;
+function copyURL(url=null) {
+  if (!url) {
+    // Se a URL não for passada, use a URL atual da página
+    url = window.location.href;
+  }
   let modalString = "?modal=true";
 
   if (url.includes(modalString)) {

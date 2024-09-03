@@ -61,14 +61,15 @@ class DashboardView(LoginRequiredMixin, TemplateView):
                 list(map(lambda x: x.get("is_valid"), checkout_steps)),
             )
 
+            is_public = flow.status in [CandidatureFlowStatus.is_valid, CandidatureFlowStatus.editing] and flow.candidature
+
             context.update(
                 {
                     "flow": flow,
                     "checkout_steps": checkout_steps,
                     "checkout_is_valid": is_valid,
-                    "is_public": flow.status
-                    in [CandidatureFlowStatus.is_valid, CandidatureFlowStatus.editing]
-                    and flow.candidature,
+                    "is_public": is_public,
+                    "candidature": flow.candidature if is_public else None,
                 }
             )
 
