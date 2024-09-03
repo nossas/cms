@@ -88,33 +88,35 @@
                     </div>
                 </div>
             </div>
-            <div class="g-col-12 g-col-md-4">
-                <p class="fw-bold text-uppercase">Compartilhe seu perfil:</p>
-                <div class="d-flex flex-column justify-content-center gap-2">
-                  {% with request.scheme|add:"://"|add:request.get_host as base_url %}
-                    <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" href="{% share_url base_url candidature.slug 'whatsapp' %}">
-                        <span class="ds-icon-whatsapp"></span>
-                        WhatsApp
-                    </a>
-                    <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" href="{% share_url base_url candidature.slug 'twitter' %}" target="_blank">
-                        <span class="ds-icon-x"></span>
-                        Twitter
-                    </a>
-                    <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" href="{% share_url base_url candidature.slug 'linkedin' %}" target="_blank">
-                        <span class="ds-icon-linkedin"></span>
-                        LinkedIn
-                    </a>
-                    <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" href="{% share_url base_url candidature.slug 'facebook' %}" target="_blank">
-                        <span class="ds-icon-facebook"></span>
-                        Facebook
-                    </a>
-                    <button type="button" id="copyButton" onclick="copyURL('{{ base_url }}/c/{{ candidature.slug }}')" class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" data-bs-toggle="tooltip" data-bs-trigger="click" data-bs-placement="bottom" title="Copiado!">
-                        <span class="ds-icon-anchor"></span>
-                        Copiar Link
-                    </button>
-                  {% endwith %}
-                </div>
-            </div>
+            {% if is_public and candidature %}
+              <div class="g-col-12 g-col-md-4">
+                  <p class="fw-bold text-uppercase">Compartilhe seu perfil:</p>
+                  <div class="d-flex flex-column justify-content-center gap-2">
+                    {% with request.scheme|add:"://"|add:request.get_host as base_url %}
+                      <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" href="{% share_url base_url candidature.slug 'whatsapp' %}">
+                          <span class="ds-icon-whatsapp"></span>
+                          WhatsApp
+                      </a>
+                      <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" href="{% share_url base_url candidature.slug 'twitter' %}" target="_blank">
+                          <span class="ds-icon-x"></span>
+                          Twitter
+                      </a>
+                      <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" href="{% share_url base_url candidature.slug 'linkedin' %}" target="_blank">
+                          <span class="ds-icon-linkedin"></span>
+                          LinkedIn
+                      </a>
+                      <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" href="{% share_url base_url candidature.slug 'facebook' %}" target="_blank">
+                          <span class="ds-icon-facebook"></span>
+                          Facebook
+                      </a>
+                      <button type="button" id="copyButton" onclick="copyURL('{{ base_url }}/c/{{ candidature.slug }}')" class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" data-bs-toggle="tooltip" data-bs-trigger="click" data-bs-placement="bottom" title="Copiado!">
+                          <span class="ds-icon-anchor"></span>
+                          Copiar Link
+                      </button>
+                    {% endwith %}
+                  </div>
+              </div>
+            {% endif %}
         </div>
   </section>
   <!-- <div class="mt-4" style="max-width:868px;">
