@@ -51,8 +51,8 @@ class Candidature(models.Model):
 
     @property
     def status(self):
-        if self.candidatureflow:
-            return self.candidatureflow.get_status_display
+        if hasattr(self, "candidatureflow"):
+            return self.candidatureflow.status
 
         return CandidatureFlowStatus.draft
     
@@ -85,6 +85,20 @@ class Candidature(models.Model):
                 proposes.append(form[field_name].checkbox_label)
 
         return proposes
+
+    @property
+    def get_proposes_items(self):
+        from org_eleicoes.votepeloclima.candidature.forms.register import ProposeForm
+        proposes_list = []
+
+        for field_name, value in self.proposes.items():
+            if value:
+                proposes_list.append({
+                    "label": ProposeForm().fields[field_name].checkbox_label,
+                    "description": value
+                })
+
+        return proposes_list
 
     
     def save(self, *args, **kwargs):

@@ -67,7 +67,7 @@
                     <p class="text-muted">Propostas de {{ candidature.ballot_name }}.</p>
                 </div>
                 <div>
-                    {% for item in proposes %}
+                    {% for item in candidature.get_proposes_items %}
                         <div class="card mb-2">
                             <div class="card-body">
                                 <h5 class="text-primary fw-bold">{{ item.label }}</h5>
