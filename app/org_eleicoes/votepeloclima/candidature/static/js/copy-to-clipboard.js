@@ -1,17 +1,14 @@
 const copyButton = document.querySelector("#copyButton");
 
-function copyURL(isDashboard=false) {
-  let url = window.location.href;
+function copyURL(url=null) {
+  if (!url) {
+    // Se a URL não for passada, use a URL atual da página
+    url = window.location.href;
+  }
   let modalString = "?modal=true";
 
   if (url.includes(modalString)) {
     url = url.replace(modalString, "");
-  }
-
-  if (isDashboard) {
-    const slug = document.getElementById("dashboard").getAttribute("data-slug");
-    const baseUrl = window.location.origin;
-    url = baseUrl + "/c/" + slug;
   }
 
   navigator.clipboard.writeText(url).then(function() {
