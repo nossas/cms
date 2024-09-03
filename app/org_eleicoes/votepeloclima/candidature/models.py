@@ -42,8 +42,8 @@ class Candidature(models.Model):
     slug = models.SlugField(max_length=100, unique=True, blank=True, null=True)
 
     #
-    created_at = models.DateTimeField(verbose_name="Criado em", auto_now_add=True)
-    updated_at = models.DateTimeField(verbose_name="Atualizado em", auto_now=True)
+    created_at = models.DateTimeField(verbose_name="Criado em", auto_now_add=True, null=True, blank=True)
+    updated_at = models.DateTimeField(verbose_name="Atualizado em", auto_now=True, null=True, blank=True)
 
     class Meta:
         verbose_name = "Candidatura"
@@ -143,8 +143,8 @@ class CandidatureFlow(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.SET_NULL, verbose_name="Usuário")
 
     #
-    created_at = models.DateTimeField(verbose_name="Criado em", auto_now_add=True)
-    updated_at = models.DateTimeField(verbose_name="Atualizado em", auto_now=True)
+    created_at = models.DateTimeField(verbose_name="Criado em", auto_now_add=True, null=True, blank=True)
+    updated_at = models.DateTimeField(verbose_name="Atualizado em", auto_now=True, null=True, blank=True)
 
     class Meta:
         verbose_name = "Formulário"
