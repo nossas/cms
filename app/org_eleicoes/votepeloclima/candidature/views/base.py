@@ -124,6 +124,7 @@ class CandidatureBaseView(NamedUrlSessionWizardView):
                 "first_name": name.split(" ")[0],
                 "last_name": " ".join(name.split(" ")[1:]),
             }
+
             user, created = User.objects.get_or_create(**values)
 
             if created:
@@ -225,16 +226,22 @@ class CandidatureBaseView(NamedUrlSessionWizardView):
         
     def post(self, *args, **kwargs):
         request = self.request
-        if "wizard_goto_last" in request.POST:
+        try:
+            if "wizard_goto_last" in request.POST:
+                form = self.get_form(data=request.POST, files=request.FILES)
+
+                if form.is_valid():
+                    self.storage.set_step_data(self.steps.current, self.process_step(form))
+                    self.storage.set_step_files(
+                        self.steps.current, self.process_step_files(form)
+                    )
+                    # Move to last step
+                    self.storage.current_step = self.steps.all[-1]
+                    return self.render(self.get_form())
+
+            return super().post(*args, **kwargs)
+        except IntegrityError:
+            # Evita problemas com e-mails duplicados
             form = self.get_form(data=request.POST, files=request.FILES)
-
-            if form.is_valid():
-                self.storage.set_step_data(self.steps.current, self.process_step(form))
-                self.storage.set_step_files(
-                    self.steps.current, self.process_step_files(form)
-                )
-                # Move to last step
-                self.storage.current_step = self.steps.all[-1]
-                return self.render(self.get_form())
-
-        return super().post(*args, **kwargs)
+            form.add_error("email", "Esse e-mail já possui um cadastro em andamento, por favor, cadastre uma senha e/ou faça login.")
+            return self.render(form)
