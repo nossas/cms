@@ -2,6 +2,8 @@ import hashlib
 
 from django.core.files.storage import default_storage
 from django.contrib.auth.models import User, AnonymousUser
+from django.db.utils import IntegrityError
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
 from django.urls import reverse
 
@@ -47,6 +49,9 @@ class CandidatureBaseView(NamedUrlSessionWizardView):
                 self._instance = user.candidatureflow
             except User.DoesNotExist:
                 pass
+            except ObjectDoesNotExist:
+                pass
+
         elif isinstance(self.request.user, User):
             self._instance = self.request.user.candidatureflow
 
