@@ -180,9 +180,24 @@ legend.form-label {
 
 
 // Perfil da Candidatura
+
+@media (max-width: 992px) {
+    .candidature-profile {
+        h2 {
+            font-size: 32px;
+        }
+
+        h3 {
+            font-size: 24px;
+        }
+    }
+}
+
 @media (min-width: 1200px) {
-    .candidature-profile-photo {
-        margin-right: 2.5rem;
+    .candidature-profile {
+        .candidature-profile-photo {
+            margin-right: 2.5rem;
+        }
     }
 }
 

@@ -19,8 +19,8 @@ class CandidatureFlowStatus(models.TextChoices):
 
 class IntendedPosition(models.TextChoices):
     empty = "", "Selecione uma opção"
-    prefeitura = "prefeitura", "Prefeitura"
-    vereacao = "vereacao", "Vereação"
+    prefeitura = "prefeitura", "Prefeito/a"
+    vereacao = "vereacao", "Vereador/a"
 
 
 class PoliticalParty(models.TextChoices):
