@@ -76,10 +76,9 @@ class Sexuality(models.TextChoices):
     empty = "", "Selecione uma opção"
     heterossexual = "heterossexual", "Heterossexual"
     pansexual = "pansexual", "Pansexual"
-    assexual = "assexual", "Assexual"
     bissexual = "bissexual", "Bissexual"
+    gay = "gay", "Homossexual"
     queer = "queer", "Queer"
-    gay = "gay", "Gay"
     lesbica = "lesbica", "Lésbica"
     nao_declarada = "nao_declarada", "Não declarada"
 

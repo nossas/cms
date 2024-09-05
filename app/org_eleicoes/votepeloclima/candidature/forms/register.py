@@ -529,7 +529,7 @@ class ProfileForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
     video = VideoField(label="Vídeo", required=False, help_text="Tamanho máximo 50mb.")
     photo = ImageField(label="Foto", help_text="Tipo de imagem JPEG ou PNG. Tamanho máximo 10mb.")
     gender = forms.ChoiceField(label="Gênero", choices=Gender.choices)
-    color = forms.ChoiceField(label="Raça", choices=Color.choices)
+    color = forms.ChoiceField(label="Cor ou Raça", choices=Color.choices)
     sexuality = forms.ChoiceField(
         label="Sexualidade", required=False, choices=Sexuality.choices
     )
