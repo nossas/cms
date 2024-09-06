@@ -85,11 +85,23 @@
                     Page {{ page_obj.number }} of {{ page_obj.paginator.page_range }}.
                 </span> -->
                 {% for page_number in page_obj.paginator.page_range %}
-                <li class="page-item{% if page_number == page_obj.number %} active{% endif %}">
-                    <a class="page-link"{% if page_number != page_obj.number %} href="?{% url_replace page=page_number %}"{% endif %}>
-                        {{ page_number }}
-                    </a>
-                </li>
+                    {% if page_number == 1 or page_number == page_obj.paginator.num_pages %}
+                        <li class="page-item{% if page_number == page_obj.number %} active{% endif %}">
+                            <a class="page-link"{% if page_number != page_obj.number %} href="?{% url_replace page=page_number %}"{% endif %}>
+                                {{ page_number }}
+                            </a>
+                        </li>
+                    {% elif page_number >= page_obj.number|add:'-3' and page_number <= page_obj.number|add:'3' %}
+                        <li class="page-item{% if page_number == page_obj.number %} active{% endif %}">
+                            <a class="page-link"{% if page_number != page_obj.number %} href="?{% url_replace page=page_number %}"{% endif %}>
+                                {{ page_number }}
+                            </a>
+                        </li>
+                    {% elif page_number == page_obj.number|add:'-4' or page_number == page_obj.number|add:'4' %}
+                        <li class="page-item disabled">
+                            <span class="page-link">...</span>
+                        </li>
+                    {% endif %}
                 {% endfor %}
             
                 <li class="page-item{% if not page_obj.has_next %} disabled{% endif %}">
