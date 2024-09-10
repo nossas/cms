@@ -8,6 +8,7 @@ from django.utils.translation import gettext_lazy as _
 from django.core.mail import EmailMultiAlternatives
 from django.template import Context, Template
 
+from djangocms_text_ckeditor.widgets import TextEditorWidget
 from djangocms_form_builder import actions
 
 from .api import create_form_entry
@@ -45,19 +46,19 @@ class IntegrateWithEmail(actions.FormAction):
 
     class Meta:
         entangled_fields = {
-            "action_parameters": ["subject", "to_email"]
+            "action_parameters": ["subject", "to_email", "email_text_html"]
         }
     
     # name = forms.CharField(label="Nome", required=False)
     to_email = forms.EmailField(label="Email", required=False)
     subject = forms.CharField(label="Assunto", required=False)
-    body = forms.CharField(label="Corpo do e-mail", required=False, widget=forms.Textarea)
+    email_text_html = forms.CharField(label="Corpo do e-mail", required=False, widget=TextEditorWidget)
 
     def execute(self, form, request):
         # name = self.get_parameter(form, "name")
         to_email = self.get_parameter(form, "to_email")
         subject_text = self.get_parameter(form, "subject")
-        body_text = self.get_parameter(form, "body")
+        email_text_html = self.get_parameter(form, "email_text_html")
 
         # context = form.cleaned_data
         # email_template_name = "forms/body.html"
@@ -74,9 +75,9 @@ class IntegrateWithEmail(actions.FormAction):
         # subject = "".join(subject.splitlines())
 
         subject = Template(subject_text).render(context)
-        body = Template(body_text).render(context)
+        body = Template(email_text_html).render(context)
 
-
+        # import ipdb;ipdb.set_trace()
         email_message = EmailMultiAlternatives(subject, body, from_email, [to_email])
         email_message.attach_alternative(body, "text/html")
         email_message.send()
