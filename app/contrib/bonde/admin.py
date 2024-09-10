@@ -51,8 +51,17 @@ class IntegrateWithEmail(actions.FormAction):
     
     # name = forms.CharField(label="Nome", required=False)
     to_email = forms.EmailField(label="Email", required=False)
-    subject = forms.CharField(label="Assunto", required=False)
-    email_text_html = forms.CharField(label="Corpo do e-mail", required=False, widget=TextEditorWidget)
+    subject = forms.CharField(
+        label="Assunto",
+        required=False,
+        help_text="Você pode usar {{FieldName}} para inserir uma informaçâo do formulário nesse texto.",
+    )
+    email_text_html = forms.CharField(
+        label="Corpo do e-mail",
+        help_text="Você pode usar {{FieldName}} para inserir uma informaçâo do formulário nesse texto.",
+        required=False,
+        widget=TextEditorWidget
+    )
 
     def execute(self, form, request):
         # name = self.get_parameter(form, "name")
