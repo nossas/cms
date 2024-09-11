@@ -6,7 +6,7 @@ from crispy_forms.helper import FormHelper
 # from django_select2.forms import Select2Widget
 
 from ..layout import NoCrispyField
-from ..choices import Gender, Color
+from ..choices import Gender, Color, Sexuality
 from ..fields import CepField, ButtonCheckboxSelectMultiple, ButtonRadioSelect
 from ..locations_utils import get_ufs, get_choices
 from ..models import Candidature
@@ -80,12 +80,15 @@ class FilterFormSidebar(RemoveRequiredMixin, forms.ModelForm):
         label="Gênero", choices=Gender.choices[1:], widget=ButtonCheckboxSelectMultiple
     )
     color = forms.MultipleChoiceField(
-        label="Raça", choices=Color.choices[1:], widget=ButtonCheckboxSelectMultiple
+        label="Cor ou raça", choices=Color.choices[1:], widget=ButtonCheckboxSelectMultiple
+    )
+    sexuality = forms.MultipleChoiceField(
+        label="Sexualidade", choices=Sexuality.choices[1:], widget=ButtonCheckboxSelectMultiple
     )
 
     class Meta:
         model = Candidature
-        fields = ["proposes", "mandate_type", "gender", "color"]
+        fields = ["proposes", "mandate_type", "gender", "color", "sexuality"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -97,6 +100,7 @@ class FilterFormSidebar(RemoveRequiredMixin, forms.ModelForm):
             NoCrispyField("mandate_type"),
             NoCrispyField("gender"),
             NoCrispyField("color"),
+            NoCrispyField("sexuality"),
         )
 
     def get_proposes_choices(self):
