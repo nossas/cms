@@ -13,27 +13,27 @@ from .locations_utils import get_choices, get_states
 
 class Candidature(models.Model):
     legal_name = models.CharField(max_length=150, verbose_name="Nome")
-    ballot_name = models.CharField(max_length=100, verbose_name="Nome na Urna")
-    birth_date = models.DateField(verbose_name="Data de Nascimento")
+    ballot_name = models.CharField(max_length=100, verbose_name="Nome na urna")
+    birth_date = models.DateField(verbose_name="Data de nascimento")
     email = models.EmailField(verbose_name="E-mail")
     cpf = models.CharField(max_length=30, verbose_name="CPF")
-    number_id = models.PositiveIntegerField(verbose_name="Número na Urna")
-    intended_position = models.CharField(max_length=50, choices=IntendedPosition.choices, verbose_name="Cargo Pretendido")
+    number_id = models.PositiveIntegerField(verbose_name="Número na urna")
+    intended_position = models.CharField(max_length=50, choices=IntendedPosition.choices, verbose_name="Cargo pretendido")
     deputy_mayor = models.CharField(max_length=140, blank=True, null=True, verbose_name="Vice-prefeito")
-    deputy_mayor_political_party = models.CharField(max_length=60, blank=True, null=True, verbose_name="Partido do Vice-prefeito")
+    deputy_mayor_political_party = models.CharField(max_length=60, blank=True, null=True, verbose_name="Partido do vice-prefeito")
     state = models.CharField(max_length=10, verbose_name="Estado")
     city = models.CharField(max_length=60, verbose_name="Cidade")
-    is_collective_mandate = models.BooleanField(default=False, blank=True, verbose_name="Mandato Coletivo")
-    political_party = models.CharField(max_length=60, choices=PoliticalParty.choices, verbose_name="Partido Político")
+    is_collective_mandate = models.BooleanField(default=False, blank=True, verbose_name="Mandato coletivo")
+    political_party = models.CharField(max_length=60, choices=PoliticalParty.choices, verbose_name="Partido político")
     video = models.FileField(upload_to="candidatures/videos/", null=True, blank=True, verbose_name="Vídeo")
     photo = models.FileField(upload_to="candidatures/photos/", null=True, blank=True, verbose_name="Foto")
     gender = models.CharField(max_length=30, verbose_name="Gênero")
-    color = models.CharField(max_length=30, verbose_name="Raça")
-    sexuality = models.CharField(max_length=30, null=True, blank=True, choices=Sexuality.choices, verbose_name="Sexualidade")
-    social_media = models.JSONField(blank=True, null=True, default=list, verbose_name="Redes Sociais")
+    color = models.CharField(max_length=30, verbose_name="Cor ou raça")
+    sexuality = models.CharField(max_length=30, null=True, blank=True, verbose_name="Sexualidade")
+    social_media = models.JSONField(blank=True, null=True, default=list, verbose_name="Redes sociais")
     education = models.CharField(max_length=80, null=True, blank=True, choices=Education.choices, verbose_name="Educação")
     employment = models.CharField(max_length=150, null=True, blank=True, verbose_name="Ocupação")
-    short_description = models.TextField(verbose_name="Descrição Curta")
+    short_description = models.TextField(verbose_name="Descrição curta")
     milestones = models.JSONField(blank=True, null=True, default=list, verbose_name="Marcos")
     proposes = models.JSONField(blank=True, verbose_name="Propostas")
     appointments = models.JSONField(blank=True, verbose_name="Compromissos")
@@ -73,6 +73,10 @@ class Candidature(models.Model):
     @property
     def get_gender_display(self):
         return dict(Gender.choices).get(self.gender)
+
+    @property
+    def get_sexuality_display(self):
+        return dict(Sexuality.choices).get(self.sexuality)
     
     @property
     def get_proposes_display(self):

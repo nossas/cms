@@ -19,7 +19,7 @@ class CandidatureSearchView(ListView):
         "short_description",
     ]
     unique_filter_fields = ["political_party", "state", "city", "intended_position"]
-    multiple_filter_fields = ["gender", "color", "proposes"]
+    multiple_filter_fields = ["gender", "color", "proposes", "sexuality"]
 
     def get_queryset(self):
         queryset = super().get_queryset()
