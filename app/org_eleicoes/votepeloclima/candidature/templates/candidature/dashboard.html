@@ -18,12 +18,12 @@
       {% if flow.status == "draft" %}
         <div class="mt-2 px-2 d-flex flex-column align-items-end">
           <p>Seu cadastro está incompleto e seu perfil não está ativo. Por favor, complete as informações necessárias para ativar seu perfil e torná-lo visível aos eleitores. Clique em "Continuar Cadastro" para finalizar o cadastro.</p>
-          <{% if checkout_is_valid %}a href="{% url 'register_step' step='checkout' %}"{% else %}button type="button" disabled{% endif %} class="btn btn-secondary">Submeter para análise</{% if checkout_is_valid %}a{% else %}button{% endif %}>
+          <{% if checkout_is_valid %}a href="{% url 'register_step' step='checkout' %}"{% else %}button type="button" disabled{% endif %} class="btn btn-secondary text-uppercase">Submeter para análise</{% if checkout_is_valid %}a{% else %}button{% endif %}>
         </div>
       {% elif flow.status == "editing" %}
       <div class="mt-2 px-2 d-flex flex-column align-items-end">
         <p>Sua edição está incompleta e seu perfil está ativo. Você pode desativar seu perfil para que ele não fique público durante o processo de edição, se preferir.</p>
-        <{% if checkout_is_valid %}a href="{% url 'register_step' step='checkout' %}"{% else %}button type="button" disabled{% endif %} class="btn btn-secondary">Submeter para análise</{% if checkout_is_valid %}a{% else %}button{% endif %}>
+        <{% if checkout_is_valid %}a href="{% url 'register_step' step='checkout' %}"{% else %}button type="button" disabled{% endif %} class="btn btn-secondary text-uppercase">Submeter para análise</{% if checkout_is_valid %}a{% else %}button{% endif %}>
       </div>
       {% elif flow.status == "invalid" %}
       <div class="mt-2 px-2 d-flex flex-column">
@@ -38,14 +38,14 @@
 
     </div>
     <div class="d-flex flex-column" style="--bs-gap:10px;width:245px;">
-      <{% if is_public %}a href="{% url 'candidate_profile' slug=flow.candidature.slug %}"{% else %}button disabled{% endif %} class="btn btn-secondary">Visualizar perfil</{% if is_public %}a{% else %}button{% endif %}>
+      <{% if is_public %}a href="{% url 'candidate_profile' slug=flow.candidature.slug %}"{% else %}button disabled{% endif %} class="btn btn-secondary text-uppercase">Visualizar perfil</{% if is_public %}a{% else %}button{% endif %}>
       <!-- <a class="btn btn-secondary" href="#">Compartilhar seu perfil</a> -->
       {% if flow.status == "draft" or flow.status == "editing" %}
-      <a class="btn btn-secondary" href="{% url 'register_step' step='checkout' %}">Editar informações</a>
+      <a class="btn btn-secondary text-uppercase" href="{% url 'register_step' step='checkout' %}">Editar informações</a>
       {% else %}
       <form method="post">
         {% csrf_token %}
-        <input class="btn btn-secondary w-100" type="submit" name="request_change" value="Editar informações" />
+        <input class="btn btn-secondary text-uppercase w-100" type="submit" name="request_change" value="Editar informações" />
       </form>
       {% endif %}
     </div>
