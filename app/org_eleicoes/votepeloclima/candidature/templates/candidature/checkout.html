@@ -18,7 +18,7 @@
                 <div class="me-3" style="max-width: 620px;">
                     {{ wizard.form|crispy }}
                 </div>
-                <button class="btn btn-secondary mb-3 d-flex align-items-center justify-content-center" style="min-width: 320px;--bs-gap:10px;" type="submit" name="submit"><i class="ds-icon-confirm"></i>Concluir Cadastro</button>
+                <button class="btn btn-secondary text-uppercase mb-3 d-flex align-items-center justify-content-center" style="min-width: 320px;--bs-gap:10px;" type="submit" name="submit"><i class="ds-icon-confirm"></i>Concluir Cadastro</button>
             </div>
         </form>
     {% else %}
@@ -26,7 +26,7 @@
             <div class="d-flex justify-content-between align-items-center pt-4 pb-2 gap-2">
                 <h5 class="fw-bold text-uppercase m-0">{{ step.title }}</h5>
                 {% if step.edit_url %}
-                <a class="btn btn-secondary d-flex align-items-center px-2" style="--bs-gap:10px;" href="{{ step.edit_url }}"><i class="ds-icon-pencil"></i>Editar</a>
+                <a class="btn btn-secondary d-flex align-items-center text-uppercase px-2" style="--bs-gap:10px;" href="{{ step.edit_url }}"><i class="ds-icon-pencil"></i>Editar</a>
                 {% endif %}
             </div>
             {% if step.form.helper %}
