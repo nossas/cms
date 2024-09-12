@@ -227,19 +227,33 @@ class CandidatureBaseView(NamedUrlSessionWizardView):
     def post(self, *args, **kwargs):
         request = self.request
         try:
-            if "wizard_goto_last" in request.POST:
-                form = self.get_form(data=request.POST, files=request.FILES)
+            form = self.get_form(data=request.POST, files=request.FILES)
 
-                if form.is_valid():
+            if form.is_valid():
+                legal_name = form.cleaned_data.get("legal_name")
+                number_id = form.cleaned_data.get("number_id")
+                email = form.cleaned_data.get("email")
+
+                # Verifica se já existe um cadastro com o mesmo nome e número de urna
+                existing_entry = CandidatureFlow.objects.filter(
+                    legal_name=legal_name, number_id=number_id
+                ).first()
+
+                if existing_entry and existing_entry.user.email != email:
+                    form.add_error(None, "Esta candidatura já foi cadastrada com outro e-mail. \
+    Se você iniciou o cadastro anteriormente e gostaria de alterar suas informações, clique aqui para acessar sua conta. \
+    Se não for o caso, entre em contato com a nossa equipe e avaliaremos o que ocorreu.")
+                    return self.render(form)
+
+                if "wizard_goto_last" in request.POST:
                     self.storage.set_step_data(self.steps.current, self.process_step(form))
-                    self.storage.set_step_files(
-                        self.steps.current, self.process_step_files(form)
-                    )
+                    self.storage.set_step_files(self.steps.current, self.process_step_files(form))
                     # Move to last step
                     self.storage.current_step = self.steps.all[-1]
                     return self.render(self.get_form())
 
             return super().post(*args, **kwargs)
+
         except IntegrityError:
             # Evita problemas com e-mails duplicados
             form = self.get_form(data=request.POST, files=request.FILES)
