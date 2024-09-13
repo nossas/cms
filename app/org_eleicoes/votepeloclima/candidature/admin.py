@@ -25,6 +25,7 @@ class CandidatureAdmin(admin.ModelAdmin):
 
 class CandidatureFlowAdmin(admin.ModelAdmin):
     form = RegisterAdminForm
+    # change_form_template = "candidature/admin/change_form.html"
     list_filter = ("status",)
     list_display = (
         "legal_name",
@@ -125,21 +126,13 @@ class CandidatureFlowAdmin(admin.ModelAdmin):
     def cpf(self, obj):
         return obj.properties.get("cpf")
 
-    def save_form(self, request: HttpRequest, form: forms.ModelForm, change: bool) -> Any:
-        # import ipdb;ipdb.set_trace()
-        raise Exception("Desabilitado alterar formulário")
-        # return super().save_form(request, form, change)
-
-    def save_model(self, request: HttpRequest, obj: Any, form: forms.ModelForm, change: bool) -> None:
-        # import ipdb;ipdb.set_trace()
-        raise Exception("Desabilitado alterar formulário")
-        # return super().save_model(request, obj, form, change)
+    def save_model(self, request, obj, form, change):
+        # Força o formulário a passar novamente pelo processo de validação
+        obj.status = "submitted"
+        return super().save_model(request, obj, form, change)
 
     def has_add_permission(self, request):
         return False
-
-    # def has_change_permission(self, request, obj=None):
-    #     return False
 
     def has_delete_permission(self, request, obj=None):
         return False

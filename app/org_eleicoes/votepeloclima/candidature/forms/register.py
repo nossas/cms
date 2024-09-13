@@ -650,10 +650,26 @@ class RegisterAdminForm(
         }
 
     def __init__(self, data=None, *args, **kwargs):
+        # Prepara os dados do formulário para conseguir passar pela validação
+        # no django admin
+        new_data = kwargs.get("instance").properties
+        if data:
+            ballot_name = data.get("ballot_name")
+            number_id = data.get("number_id")
+            csrfmiddlewaretoken = data.get("csrfmiddlewaretoken")
+
+
+            new_data.update({
+                "ballot_name": ballot_name[0] if isinstance(ballot_name, list) else ballot_name,
+                "number_id": number_id[0] if isinstance(number_id, list) else number_id,
+                "csrfmiddlewaretoken": csrfmiddlewaretoken[0] if isinstance(csrfmiddlewaretoken, list) else csrfmiddlewaretoken,
+            })
+        
         # Nomeia o argumento posicional data para não perder a referência da posição
         # nas demais sobrescritas do método __init__
-        super().__init__(data=data, *args, **kwargs)
+        super().__init__(data=new_data, *args, **kwargs)
 
-        self.fields["milestones"].widget = forms.Textarea(attrs={"disabled": "disabled"})
-        self.fields["social_media"].widget = forms.Textarea(attrs={"disabled": "disabled"})
+        for field in self.fields:
+            if field not in ("ballot_name", "number_id"):
+                self.fields[field].widget.attrs.update({"disabled": "disabled", "readonly": "readonly"})
     
