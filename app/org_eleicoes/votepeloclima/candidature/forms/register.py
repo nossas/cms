@@ -635,6 +635,7 @@ class RegisterAdminForm(
         TrackForm.Meta,
         ProfileForm.Meta,
     ):
+        model = CandidatureFlow
         untangled_fields = ["photo", "video", "status"]
         entangled_fields = {
             "properties": list(
@@ -652,4 +653,7 @@ class RegisterAdminForm(
         # Nomeia o argumento posicional data para não perder a referência da posição
         # nas demais sobrescritas do método __init__
         super().__init__(data=data, *args, **kwargs)
+
+        self.fields["milestones"].widget = forms.Textarea(attrs={"disabled": "disabled"})
+        self.fields["social_media"].widget = forms.Textarea(attrs={"disabled": "disabled"})
     
