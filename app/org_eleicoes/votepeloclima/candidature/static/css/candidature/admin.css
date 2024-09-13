@@ -1,0 +1,7 @@
+form .aligned label+div.readonly {
+    margin: 0 0 0 5px;
+}
+
+.aligned label + div.readonly {
+    padding: 0;
+}
