@@ -1,8 +1,4 @@
-from typing import Any
 from django.contrib import admin
-from django import forms
-from django.http import HttpRequest
-from entangled.forms import EntangledModelForm
 
 from .forms.register import RegisterAdminForm
 from .models import Candidature, CandidatureFlow
@@ -25,7 +21,7 @@ class CandidatureAdmin(admin.ModelAdmin):
 
 class CandidatureFlowAdmin(admin.ModelAdmin):
     form = RegisterAdminForm
-    # change_form_template = "candidature/admin/change_form.html"
+    change_form_template = "candidature/admin/change_form.html"
     list_filter = ("status",)
     list_display = (
         "legal_name",
