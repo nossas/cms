@@ -2,6 +2,7 @@ from django.contrib import admin
 
 from .forms.register import RegisterAdminForm
 from .models import Candidature, CandidatureFlow
+from .choices import PoliticalParty
 
 
 class CandidatureAdmin(admin.ModelAdmin):
@@ -22,6 +23,7 @@ class CandidatureAdmin(admin.ModelAdmin):
 class CandidatureFlowAdmin(admin.ModelAdmin):
     form = RegisterAdminForm
     change_form_template = "candidature/admin/change_form.html"
+    search_fields = ["properties", ]
     list_filter = ("status",)
     list_display = (
         "legal_name",
@@ -37,21 +39,17 @@ class CandidatureFlowAdmin(admin.ModelAdmin):
         (None, {"fields": ("status", )}),
         (
             "Informações pessoais",
-            {"fields": ("legal_name", "cpf", "email", "birth_date")},
+            {"fields": ("legal_name", ("cpf", "birth_date"), "email")},
         ),
         (
             "Dados de candidatura",
             {
                 "fields": (
-                    "ballot_name",
-                    "number_id",
-                    "intended_position",
-                    "state",
-                    "city",
+                    ("ballot_name", "number_id"),
+                    ("intended_position", "political_party"),
                     "is_collective_mandate",
-                    "political_party",
-                    "deputy_mayor",
-                    "deputy_mayor_political_party",
+                    ("state", "city"),
+                    ("deputy_mayor", "deputy_mayor_political_party"),
                 )
             },
         ),
@@ -72,15 +70,15 @@ class CandidatureFlowAdmin(admin.ModelAdmin):
                     "direito_dos_animais",
                     "economia_verde",
                     "pessoas_afetadas_desastres"
-                )
+                ),
+                "classes": ("proposes-fieldset", )
             }
         ),
         (
             "Trajetória",
             {
                 "fields": (
-                    "education",
-                    "employment",
+                    ("education", "employment"),
                     "short_description",
                     "milestones"
                 )
@@ -90,8 +88,7 @@ class CandidatureFlowAdmin(admin.ModelAdmin):
             "Complete seu perfil",
             {
                 "fields": (
-                    "photo",
-                    "video",
+                    ("photo", "video"),
                     "gender",
                     "color",
                     "sexuality",
@@ -116,11 +113,7 @@ class CandidatureFlowAdmin(admin.ModelAdmin):
 
     @admin.display
     def political_party(self, obj):
-        return obj.properties.get("political_party")
-
-    @admin.display
-    def cpf(self, obj):
-        return obj.properties.get("cpf")
+        return dict(PoliticalParty.choices).get(obj.properties.get("political_party"))
 
     def save_model(self, request, obj, form, change):
         # Força o formulário a passar novamente pelo processo de validação
@@ -132,6 +125,15 @@ class CandidatureFlowAdmin(admin.ModelAdmin):
 
     def has_delete_permission(self, request, obj=None):
         return False
+    
+    def get_search_results(self, request, queryset, search_term):
+        from django.db.models import Q
+
+        # Busca se o termo está presente em qualquer parte do campo JSON
+        queryset = queryset.filter(
+            Q(properties__icontains=search_term)
+        )
+        return queryset, False
 
 
 admin.site.register(Candidature, CandidatureAdmin)

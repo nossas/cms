@@ -649,10 +649,10 @@ class RegisterAdminForm(
             )
         }
 
-    def __init__(self, data=None, *args, **kwargs):
+    def __init__(self, data=None, instance=None, *args, **kwargs):
         # Prepara os dados do formulário para conseguir passar pela validação
         # no django admin
-        new_data = kwargs.get("instance").properties
+        new_data = instance.properties if instance else {}
         if data:
             ballot_name = data.get("ballot_name")
             number_id = data.get("number_id")
@@ -667,7 +667,17 @@ class RegisterAdminForm(
         
         # Nomeia o argumento posicional data para não perder a referência da posição
         # nas demais sobrescritas do método __init__
-        super().__init__(data=new_data, *args, **kwargs)
+        super().__init__(data=new_data, instance=instance, *args, **kwargs)
+
+        if data or instance:
+            state = None
+            if instance:
+                state = instance.properties.get("state", None)
+            if data:
+                state = data.get("state", None)
+
+            if state:
+                self.fields["city"].choices = get_choices(state)
 
         for field in self.fields:
             if field not in ("ballot_name", "number_id"):
