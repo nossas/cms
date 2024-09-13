@@ -229,7 +229,8 @@ legend.form-label {
 
 // Partner Tag
 .partners-list {
-    a {
+    a,
+    div {
         display: flex;
         justify-content: center;
         align-items: center;
