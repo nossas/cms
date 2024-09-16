@@ -1,16 +1,56 @@
 {
   "scripts": {
+    "build": "webpack --mode=production --node-env=production",
     "page": "npx tailwindcss --config ./tailwind.page.config.js -i ./static/tailwind/tailwindcss/page.css -o ./static/dist/tailwind/css/page.css",
     "admin": "npx tailwindcss --config ./tailwind.adminstyled.config.js -i ../admin_styled/static/admin_styled/tailwindcss/admin.css -o ../admin_styled/static/dist/admin_styled/css/admin.css",
     "page:dev": "npm run page -- --watch",
     "admin:dev": "npm run admin -- --watch",
     "page:build": "npm run page -- --minify",
-    "admin:build": "npm run admin -- --minify"
+    "admin:build": "npm run admin -- --minify",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "build:css": "npx tailwindcss -i ./static/tailwind/tailwindcss/page.css -o ./static/dist/tailwind/css/page.css",
+    "build:storybook": "sb build",
+    "watch:css": "npx tailwindcss -i ./static/tailwind/tailwindcss/page.css -o ./static/dist/tailwind/css/page.css --watch",
+    "watch:storybook": "sb dev -p 6006",
+    "build:dev": "webpack --mode=development",
+    "build:prod": "webpack --mode=production --node-env=production",
+    "watch": "webpack --watch",
+    "serve": "webpack serve"
   },
   "devDependencies": {
+    "@babel/core": "^7.22.20",
+    "@babel/preset-env": "^7.22.20",
+    "@storybook/blocks": "^7.4.4",
+    "@storybook/html": "^7.4.4",
+    "@storybook/html-webpack5": "^7.4.4",
+    "@storybook/testing-library": "^0.2.1",
+    "@webpack-cli/generators": "^3.0.7",
+    "autoprefixer": "^10.4.16",
+    "babel-loader": "^9.1.3",
+    "css-loader": "^6.8.1",
     "daisyui": "^3.5.1",
+    "html-webpack-plugin": "^5.5.3",
+    "postcss": "^8.4.30",
     "postcss-import": "^15.1.0",
+    "postcss-loader": "^7.3.3",
     "postcss-nesting": "^11.3.0",
-    "tailwindcss": "^3.3.2"
-  }
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "storybook": "^7.4.4",
+    "style-loader": "^3.3.3",
+    "tailwindcss": "^3.3.2",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  },
+  "dependencies": {
+    "@storybook/addon-essentials": "^7.4.4",
+    "@storybook/addon-interactions": "^7.4.4",
+    "@storybook/addon-links": "^7.4.4",
+    "@storybook/addon-styling": "^1.3.7"
+  },
+  "version": "1.0.0",
+  "description": "Estilos do CMS",
+  "name": "tailwind"
 }
