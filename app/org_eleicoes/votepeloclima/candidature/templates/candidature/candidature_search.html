@@ -14,7 +14,7 @@
 <form method="get">
 <main class="container mx-auto pb-4">
     <section class="pt-5 pb-3" style="max-width:570px;">
-        <h2 class="text-uppercase fw-bold">Conheça candidaturas da sua cidade</h2>
+        <h2 class="text-uppercase fw-bold search-title-font-size">Conheça candidaturas da sua cidade</h2>
         <p>Use os filtros para descobrir candidaturas comprometidas com políticas climáticas!</span>
     </section>
     <div class="grid">
@@ -22,7 +22,7 @@
         <div class="g-col-12">
             <div class="search-header">
                 {% crispy form.header %}
-                <button class="btn btn-primary" type="submit"><i class="ds-icon-search"></i><span class="d-inline-block d-md-none mx-auto">Buscar</span></button>
+                <button class="btn btn-primary search-button" type="submit"><i class="ds-icon-search"></i><span class="d-inline-block d-md-none">Buscar</span></button>
             </div>
         </div>
         <!-- Sidebar -->
@@ -68,8 +68,8 @@
                     <h5 class="text-uppercase fw-bold text-center">Infelizmente nenhuma candidatura foi encontrada</h5>
                     <p class="text-center">Tente ajustar os filtros para encontrar uma candidatura que se alinhe com suas prioridades climáticas.</p>
                     <div class="d-flex flex-column flex-md-row justify-content-center" style="--bs-gap:1rem;">
-                        <a href="{% url 'candidature_search' %}" class="btn btn-secondary">Limpar filtros</a>
-                        <a href="{% url 'register' %}" class="btn btn-outline-secondary">Cadastre sua candidatura</a>
+                        <a href="{% url 'candidature_search' %}" class="btn btn-secondary text-uppercase">Limpar filtros</a>
+                        <a href="{% url 'register' %}" class="btn btn-outline-secondary text-uppercase">Cadastre sua candidatura</a>
                     </div>
                 </div>
                 {% endfor %}
