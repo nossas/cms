@@ -23,7 +23,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav me-auto my-2 my-lg-0">
         {% show_menu 0 100 100 100 "votepeloclima/menu_item.html" %}
         <!-- <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">Menu 1</a>
@@ -35,14 +35,14 @@
           <a class="nav-link" href="#">Pricing</a>
         </li> -->
       </ul>
-      <div class="d-flex" style="--bs-gap:1rem;">
+      <div class="d-flex flex-column flex-md-row" style="--bs-gap:1rem;">
         {% block navbar_actions %}
         {% if request.user.is_authenticated %}
-        <a class="btn btn-outline-light" href="{% url 'dashboard' %}">Área da Candidatura</a>
-        <a class="btn btn-light" href="{% url 'oauth:logout' %}">Sair</a>
+        <a class="btn btn-outline-light text-uppercase" href="{% url 'dashboard' %}">Área da Candidatura</a>
+        <a class="btn btn-light text-uppercase" href="{% url 'oauth:logout' %}">Sair</a>
         {% else %}
-        <a class="btn btn-outline-light" href="{% url 'register' %}" role="button">Cadastre-se</a>
-        <a class="btn btn-light" href="{% url 'dashboard' %}" role="button">Login</a>
+        <a class="btn btn-outline-light text-uppercase" href="{% url 'register' %}" role="button">Cadastre-se</a>
+        <a class="btn btn-light text-uppercase" href="{% url 'dashboard' %}" role="button">Login</a>
         {% endif %}
         {% endblock %}
       </div>
@@ -62,11 +62,12 @@
       <div class="g-col-12 g-col-md-8">
         <img src="{% static "imgs/logo-footer.svg" %}" alt="Vote Pelo Clima">
         <p class="mt-3">Vote pelo Clima é uma iniciativa para fortalecer a democracia por meio da participação popular nas eleições municipais, com ênfase na crise climática. Nosso objetivo é dar visibilidade a candidaturas comprometidas em enfrentar amplamente as mudanças climáticas nas cidades</p>
-        <ul class="d-flex list-unstyled gap-2 mb-2">
+        <ul class="d-flex flex-wrap list-unstyled gap-2 mb-2">
           {% comment %} <li><a class="text-white text-uppercase fw-bold" href="{% url 'candidature-list' %}" rel="noopener noreferrer">Conheça as candidaturas</a></li> {% endcomment %}
           <li><a class="text-white text-uppercase fw-bold" href="{% url 'register' %}" rel="noopener noreferrer">Cadastre-se</a></li>
           <li><a class="text-white text-uppercase fw-bold" href="{% url 'dashboard' %}" rel="noopener noreferrer">Login</a></li>
-          <li><a class="text-white text-uppercase fw-bold" href="mailto:votepeloclima@nossas.org" rel="noopener noreferrer">Contato</a></li>
+          <li><a class="text-white text-uppercase fw-bold" href="/contato" rel="noopener noreferrer">Contato</a></li>
+          <li><a class="text-white text-uppercase fw-bold" href="https://docs.google.com/forms/d/e/1FAIpQLScNjIpS-4FBFKbsJNECFC8aupOc01TkiZ7AQWd6fQ8Q8uze5A/viewform" target="_blank" rel="noopener noreferrer">Seja Nosso Parceiro</a></li>
         </ul>
       </div>
       <div class="g-col-12 g-col-md-4">

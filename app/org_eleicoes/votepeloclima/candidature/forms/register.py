@@ -453,11 +453,22 @@ class ProposeForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
-        selected_size = len(list(filter(lambda x: bool(x), cleaned_data.values())))
+
+        # Garante que esse metódo fará a verificação apenas nos campos deste formulário
+        # possibilitando que esse formulário seja herdado em outra classe e ainda assim
+        # mantenha o funcionamento do método clean
+        fields = ProposeForm.Meta.entangled_fields.get("properties")
+        new_cleaned_data = {}
+
+        for field_name in fields:
+            new_cleaned_data[field_name] = cleaned_data[field_name]
+
+        selected_size = len(list(filter(lambda x: bool(x), new_cleaned_data.values())))
         if selected_size > 3:
             raise ValidationError("Selecione apenas 3 bandeiras")
         elif selected_size == 0:
             raise ValidationError("Selecione ao menos 1 bandeira")
+
         return cleaned_data
 
 
@@ -607,3 +618,68 @@ register_form_list = [
     ("complemente-seu-perfil", ProfileForm),
     ("checkout", CheckoutForm),
 ]
+
+
+class RegisterAdminForm(
+    PersonalForm,
+    ApplicationForm,
+    ProposeForm,
+    TrackForm,
+    ProfileForm
+):
+    
+    class Meta(
+        PersonalForm.Meta,
+        ApplicationForm.Meta,
+        ProposeForm.Meta,
+        TrackForm.Meta,
+        ProfileForm.Meta,
+    ):
+        model = CandidatureFlow
+        untangled_fields = ["photo", "video", "status"]
+        entangled_fields = {
+            "properties": list(
+                set(
+                    PersonalForm.Meta.entangled_fields["properties"] +
+                    ApplicationForm.Meta.entangled_fields["properties"] +
+                    ProposeForm.Meta.entangled_fields["properties"] +
+                    TrackForm.Meta.entangled_fields["properties"] +
+                    ProfileForm.Meta.entangled_fields["properties"]
+                )
+            )
+        }
+
+    def __init__(self, data=None, instance=None, *args, **kwargs):
+        # Prepara os dados do formulário para conseguir passar pela validação
+        # no django admin
+        new_data = instance.properties if instance else {}
+        if data:
+            ballot_name = data.get("ballot_name")
+            number_id = data.get("number_id")
+            csrfmiddlewaretoken = data.get("csrfmiddlewaretoken")
+
+
+            new_data.update({
+                "ballot_name": ballot_name[0] if isinstance(ballot_name, list) else ballot_name,
+                "number_id": number_id[0] if isinstance(number_id, list) else number_id,
+                "csrfmiddlewaretoken": csrfmiddlewaretoken[0] if isinstance(csrfmiddlewaretoken, list) else csrfmiddlewaretoken,
+            })
+        
+        # Nomeia o argumento posicional data para não perder a referência da posição
+        # nas demais sobrescritas do método __init__
+        super().__init__(data=new_data, instance=instance, *args, **kwargs)
+
+        if data or instance:
+            state = None
+            if instance:
+                state = instance.properties.get("state", None)
+            if data:
+                state = data.get("state", None)
+
+            if state:
+                self.fields["city"].choices = get_choices(state)
+
+        for field in self.fields:
+            if field not in ("ballot_name", "number_id"):
+                self.fields[field].widget.attrs.update({"disabled": "disabled", "readonly": "readonly"})
+    
