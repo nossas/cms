@@ -169,3 +169,19 @@ legend.form-label {
         }
     }
 }
+
+@media (max-width: 768px) {
+    .search-title-font-size {
+        font-size: 20px;
+    }
+}
+
+.search-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-button .ds-icon-search {
+    margin-right: 8px;
+}
