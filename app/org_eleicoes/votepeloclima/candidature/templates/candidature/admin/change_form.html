@@ -2,6 +2,6 @@
 
 {% block submit_buttons_bottom %}
 <div class="submit-row">
-    <input type="submit" value="Salvar" class="default" name="_save" {% if obj.status != "invalid" %} disabled{% endif %}>
+    <input type="submit" value="Salvar" class="default" name="_save" {% if original.status != "invalid" %} disabled{% endif %}>
 </div>
 {% endblock %}
