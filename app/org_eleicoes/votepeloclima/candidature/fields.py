@@ -339,13 +339,15 @@ class InlineArrayWidget(forms.MultiWidget):
 
 class ChangeHelpTextBoundField(forms.BoundField):
     def __str__(self):
+        from django.utils.safestring import mark_safe
+
         help_text_html = (
             f"<div class='form-text mb-3'>{self.field.add_help_text}</div>"
             if self.field.add_help_text
             else ""
         )
         widget_html = self.as_widget()
-        return f"{help_text_html}{widget_html}"
+        return mark_safe(f"{help_text_html}{widget_html}")
 
 
 class NoLabelBoundField(forms.BoundField):

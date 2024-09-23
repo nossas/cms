@@ -1,106 +1,139 @@
 from django.contrib import admin
-from django import forms
-from entangled.forms import EntangledModelForm
 
+from .forms.register import RegisterAdminForm
 from .models import Candidature, CandidatureFlow
+from .choices import PoliticalParty
 
 
 class CandidatureAdmin(admin.ModelAdmin):
     search_fields = ("legal_name", "ballot_name", "email", "political_party")
     list_display = ("legal_name", "email", "political_party", "status", "updated_at")
-    ordering = ("updated_at", )
+    ordering = ("updated_at",)
 
     def has_add_permission(self, request):
         return False
-    
+
     def has_change_permission(self, request, obj=None):
         return False
-    
+
     def has_delete_permission(self, request, obj=None):
         return False
 
 
-class CandidatureFlowAdminForm(EntangledModelForm):
-    legal_name = forms.CharField(label='Nome Legal', required=True)
-    cpf = forms.CharField(label='CPF', required=True)
-    email = forms.EmailField(label='Email', required=True)
-    birth_date = forms.DateField(
-        label='Data de Nascimento', 
-        required=False, 
-        widget=forms.DateInput(attrs={'type': 'date'})
-    )
-    ballot_name = forms.CharField(label='Nome na Urna', required=True)
-    number_id = forms.CharField(label='Número de Identificação', required=True)
-    intended_position = forms.CharField(label='Cargo Pretendido', required=True)
-    state = forms.CharField(label='Estado', required=True)
-    city = forms.CharField(label='Cidade', required=True)
-    political_party = forms.CharField(label='Partido Político', required=True)
-    deputy_mayor = forms.CharField(label='Vice-prefeito', required=False)
-    deputy_mayor_political_party = forms.CharField(label='Partido do Vice-prefeito', required=False)
-
-    class Meta:
-        model = CandidatureFlow
-        entangled_fields = {'properties': [
-            'legal_name', 'cpf', 'email', 'birth_date', 
-            'ballot_name', 'number_id', 'intended_position', 
-            'state', 'city', 'political_party', 
-            'deputy_mayor', 'deputy_mayor_political_party'
-        ]}
-        untangled_fields = ['photo', 'video', 'status']
-
-
 class CandidatureFlowAdmin(admin.ModelAdmin):
-    form = CandidatureFlowAdminForm
-    list_filter = ("status", )
-    list_display = ("legal_name", "email", "political_party", "status", "created_at", "updated_at")
-    ordering = ("updated_at", )
-    
-    fieldsets = (
-        (None, {
-            'fields': ('photo', 'video', 'status')
-        }),
-        ('Informações Pessoais', {
-            'fields': (
-                'legal_name', 
-                'cpf', 
-                'email', 
-                'birth_date'
-            )
-        }),
-        ('Dados de Candidatura', {
-            'fields': (
-                'ballot_name', 
-                'number_id',
-                'intended_position',
-                'state', 
-                'city', 
-                'political_party', 
-                'deputy_mayor', 
-                'deputy_mayor_political_party'
-            )
-        }),
+    form = RegisterAdminForm
+    change_form_template = "candidature/admin/change_form.html"
+    search_fields = ["properties", ]
+    list_filter = ("status",)
+    list_display = (
+        "legal_name",
+        "email",
+        "political_party",
+        "status",
+        "created_at",
+        "updated_at",
     )
+    ordering = ("updated_at",)
+
+    fieldsets = (
+        (None, {"fields": ("status", )}),
+        (
+            "Informações pessoais",
+            {"fields": ("legal_name", ("cpf", "birth_date"), "email")},
+        ),
+        (
+            "Dados de candidatura",
+            {
+                "fields": (
+                    ("ballot_name", "number_id"),
+                    ("intended_position", "political_party"),
+                    "is_collective_mandate",
+                    ("state", "city"),
+                    ("deputy_mayor", "deputy_mayor_political_party"),
+                )
+            },
+        ),
+        (
+            "Propostas",
+            {
+                "fields": (
+                    "transporte_e_mobilidade",
+                    "gestao_de_residuos",
+                    "povos_originarios_tradicionais",
+                    "educacao_climatica",
+                    "combate_racismo_ambiental",
+                    "moradia_digna",
+                    "transicao_energetica",
+                    "agricultura_sustentavel",
+                    "direito_a_cidade",
+                    "adaptacao_reducao_desastres",
+                    "direito_dos_animais",
+                    "economia_verde",
+                    "pessoas_afetadas_desastres"
+                ),
+                "classes": ("proposes-fieldset", )
+            }
+        ),
+        (
+            "Trajetória",
+            {
+                "fields": (
+                    ("education", "employment"),
+                    "short_description",
+                    "milestones"
+                )
+            }
+        ),
+        (
+            "Complete seu perfil",
+            {
+                "fields": (
+                    ("photo", "video"),
+                    "gender",
+                    "color",
+                    "sexuality",
+                    "social_media"
+                )
+            }
+        )
+    )
+
+    readonly_fields = ("status", "photo", "video")
+
+    class Media:
+        css = {"all": ("css/candidature/admin.css",)}
 
     @admin.display
     def legal_name(self, obj):
         return obj.properties.get("legal_name")
-    
+
     @admin.display
     def email(self, obj):
         return obj.properties.get("email")
-    
+
     @admin.display
     def political_party(self, obj):
-        return obj.properties.get("political_party")
-    
+        return dict(PoliticalParty.choices).get(obj.properties.get("political_party"))
+
+    def save_model(self, request, obj, form, change):
+        # Força o formulário a passar novamente pelo processo de validação
+        obj.status = "submitted"
+        return super().save_model(request, obj, form, change)
+
     def has_add_permission(self, request):
         return False
-    
-    def has_change_permission(self, request, obj=None):
-        return False
-    
+
     def has_delete_permission(self, request, obj=None):
         return False
+    
+    def get_search_results(self, request, queryset, search_term):
+        from django.db.models import Q
+
+        # Busca se o termo está presente em qualquer parte do campo JSON
+        queryset = queryset.filter(
+            Q(properties__icontains=search_term)
+        )
+        return queryset, False
 
 
 admin.site.register(Candidature, CandidatureAdmin)
