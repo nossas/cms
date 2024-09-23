@@ -649,9 +649,10 @@ class RegisterAdminForm(
             )
         }
 
-    def __init__(self, data=None, instance=None, *args, **kwargs):
+    def __init__(self, data=None, *args, **kwargs):
         # Prepara os dados do formulário para conseguir passar pela validação
         # no django admin
+        instance = kwargs.pop("instance", None)
         new_data = instance.properties if instance else {}
         if data:
             ballot_name = data.get("ballot_name")
