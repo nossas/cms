@@ -10,7 +10,7 @@
 {% block content %}
 <main class="candidature-profile">
     <section class="container">
-        <div class="grid py-5">
+        <div class="grid py-6">
             <div class="g-col-12 g-col-md-4">
                 {% if candidature.photo %}
                     <div class="candidature-profile-photo">
@@ -20,7 +20,7 @@
             </div>
             <div class="g-col-12 g-col-md-8">
                 <div>
-                    <div class="d-flex justify-content-between mb-2">
+                    <div class="d-flex justify-content-between">
                         <p class="text-opacity-75 m-0">{{ candidature.get_city_display }} - {{ candidature.get_state_display }}</p>
                         <div class="d-flex gap-1">
                             {% for social in candidature.social_media %}
@@ -50,7 +50,7 @@
                     <h3 class="text-uppercase pb-2">Informações</h3>
                     <div class="d-flex flex-wrap">
                         <div class="col pe-2">
-                            <p><strong>Data de Nascimento:</strong> {{ candidature.birth_date }}</p>
+                            <p><strong>Data de nascimento:</strong> {{ candidature.birth_date }}</p>
                             <p><strong>Cor ou raça:</strong> {{ candidature.get_color_display }}</p>
                             <p><strong>Gênero:</strong> {{ candidature.get_gender_display }}</p>
                         </div>
@@ -65,7 +65,6 @@
                 <div>
                     <div>
                         <h3 class="text-uppercase">Propostas</h3>
-                        <p class="text-muted">Propostas de {{ candidature.ballot_name }}.</p>
                     </div>
                     <div>
                         {% for item in candidature.get_proposes_items %}
@@ -155,23 +154,23 @@
                 </div>
                 <div class="g-col-12 g-col-md-4">
                     <div class="d-flex flex-column justify-content-center gap-2">
-                        <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" href="https://wa.me/?text=Oi! As eleições estão chegando e o futuro da nossa cidade depende do nosso voto. Compartilho com você uma das candidaturas comprometidas na luta pelo meio ambiente e contra as ameaças climáticas. Conheça as propostas na plataforma *Vote pelo Clima!* {{ request.build_absolute_uri|urlencode }}" target="_blank">
+                        <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1  text-white" href="https://wa.me/?text=Oi! As eleições estão chegando e o futuro da nossa cidade depende do nosso voto. Compartilho com você uma das candidaturas comprometidas na luta pelo meio ambiente e contra as ameaças climáticas. Conheça as propostas na plataforma *Vote pelo Clima!* {{ request.build_absolute_uri|urlencode }}" target="_blank">
                             <span class="ds-icon-whatsapp"></span>
                             WhatsApp
                         </a>
-                        <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri|urlencode }}&text=O clima mudou. A política precisa mudar. #VotePeloClima é a plataforma que reúne candidaturas de todo o Brasil comprometidas com a pauta climática, eu sou uma delas! Acesse o perfil e conheça as propostas." target="_blank">
+                        <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1  text-white" href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri|urlencode }}&text=O clima mudou. A política precisa mudar. #VotePeloClima é a plataforma que reúne candidaturas de todo o Brasil comprometidas com a pauta climática, eu sou uma delas! Acesse o perfil e conheça as propostas." target="_blank">
                             <span class="ds-icon-x"></span>
                             Twitter
                         </a>
-                        <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri|urlencode }}&title=O clima mudou. A política precisa mudar.&summary=A #VotePeloClima é a plataforma que reúne candidaturas de todo o Brasil comprometidas com a pauta climática, eu sou uma delas! Acesse o perfil e conheça as propostas." target="_blank">
+                        <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1  text-white" href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri|urlencode }}&title=O clima mudou. A política precisa mudar.&summary=A #VotePeloClima é a plataforma que reúne candidaturas de todo o Brasil comprometidas com a pauta climática, eu sou uma delas! Acesse o perfil e conheça as propostas." target="_blank">
                             <span class="ds-icon-linkedin"></span>
                             LinkedIn
                         </a>
-                        <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode }}&quote=O clima mudou. A política precisa mudar. #VotePeloClima é a plataforma que reúne candidaturas de todo o Brasil comprometidas com a pauta climática, eu sou uma delas! Acesse o perfil e conheça as propostas." target="_blank">
+                        <a class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1  text-white" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode }}&quote=O clima mudou. A política precisa mudar. #VotePeloClima é a plataforma que reúne candidaturas de todo o Brasil comprometidas com a pauta climática, eu sou uma delas! Acesse o perfil e conheça as propostas." target="_blank">
                             <span class="ds-icon-facebook"></span>
                             Facebook
                         </a>
-                        <button type="button" id="copyButton" onclick="copyURL()" class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1" data-bs-toggle="tooltip" data-bs-trigger="click" data-bs-placement="bottom" title="Copiado!">
+                        <button type="button" id="copyButton" onclick="copyURL()" class="btn btn-primary text-uppercase d-inline-flex justify-content-center align-items-center gap-1 text-white" data-bs-toggle="tooltip" data-bs-trigger="click" data-bs-placement="bottom" title="Copiado!">
                             <span class="ds-icon-anchor"></span>
                             Copiar Link
                         </button>
