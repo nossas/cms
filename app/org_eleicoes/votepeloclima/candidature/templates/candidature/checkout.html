@@ -2,10 +2,10 @@
 {% load i18n crispy_forms_tags %}
 
 {% block main %}
-<div class="mt-3">
+<div class="mt-3 checkout-step">
     <div class="w-75">
         <h2 class="fw-bold text-uppercase">Para finalizar, confirme suas informações</h2>
-        <p>Verifique com atenção todas as informações fornecidas. Após finalizar, você terá acesso a uma área restrita onde poderá visualizar e editar seus dados.</p>
+        <p>Confira suas informações e, ao final da página, <span class="fw-bold">aceite os termos de privacidade e clique em 'Concluir Cadastro'</span>. Somente assim seu cadastro será submetido.</p>
     </div>
     <div class="mt-4">
     {% for step in checkout_steps %}
