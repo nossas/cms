@@ -243,3 +243,11 @@ legend.form-label {
         object-position: center;
     }
 }
+
+
+.checkout-step {
+    .form-check-input[type="checkbox"] {
+        background-color: white;
+        border-color: #c7c7c7;
+    }
+}
