@@ -33,7 +33,7 @@ class CandidatureFlowAdmin(admin.ModelAdmin):
         "created_at",
         "updated_at",
     )
-    ordering = ("updated_at",)
+    ordering = ("-updated_at", "-created_at")
 
     fieldsets = (
         (None, {"fields": ("status", )}),

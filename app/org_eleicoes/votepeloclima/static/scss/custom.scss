@@ -246,7 +246,7 @@ legend.form-label {
 
 
 .checkout-step {
-    .form-check-input[type="checkbox"] {
+    .form-check-input[type="checkbox"]:not(:checked) {
         background-color: white;
         border-color: #c7c7c7;
     }
