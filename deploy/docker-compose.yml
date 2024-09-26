@@ -59,6 +59,9 @@ services:
       - traefik.http.routers.votepeloclima.tls=true
       - traefik.http.routers.votepeloclima.tls.certresolver=myresolver
       - traefik.http.routers.votepeloclima.rule=${VOTEPELOCLIMA_TRAEFIK_ROUTERS_RULE:-HostRegexp(`votepeloclima.staging.bonde.org`,`www.votepeloclima.staging.bonde.org`)}
+      # Regras de upload
+      - traefik.http.middlewares.votepeloclima.buffering.maxRequestBodyBytes=62914560
+      - traefik.http.middlewares.votepeloclima.buffering.maxResponseBodyBytes=62914560
 
   nossas:
     image: ${NOSSAS_DOCKER_IMAGE:-nossas/nossas-cms:latest}

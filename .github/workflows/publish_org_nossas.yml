@@ -6,6 +6,7 @@ on:
       - 'app/project/**'
       - 'app/tailwind/**'
       - 'app/admin_styled/**'
+      - 'app/wsgi.ini'
       - 'app/org_nossas/**'
     branches:
       - main
