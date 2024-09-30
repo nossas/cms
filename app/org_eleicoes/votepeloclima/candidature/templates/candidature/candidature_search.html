@@ -42,25 +42,25 @@
             <div class="grid gap-2">
                 {% for candidature in candidatures %}
                 <div class="g-col-12 g-col-md-6 g-col-lg-4">
-                    <a class="card" href="{% url 'candidate_profile' candidature.slug %}">
-                        <img src="{{ candidature.photo|thumbnail_url:'profile-photo' }}" class="card-img-top" alt="Foto de {{ candidature.legal_name }}">
+                    <div class="card">
+                        <a href="{% url 'candidate_profile' candidature.slug %}">
+                            <img src="{{ candidature.photo|thumbnail_url:'profile-photo' }}" class="card-img-top" alt="Foto de {{ candidature.legal_name }}">
+                        </a>
                         <div class="card-body px-2 py-1">
                             <p class="state-city mb-1 text-black-50">{{ candidature.get_city_display }} - {{ candidature.get_state_display }}</p>
                             <div class="card-title">
                                 <h5 class="text-uppercase fw-bold">{{ candidature.ballot_name|title }}</h5>
                             </div>
-                            <hr style="width: 24px;" class="my-2" />
-                            <div>
+                            <hr style="width: 24px;" class="my-2"></hr>
                                 <h6>{{ candidature.get_intended_position_display }} | {{ candidature.get_political_party_display }} | {{ candidature.number_id }}</h6>
                                 <p class="text-muted form-text">
                                     {{ candidature.get_proposes_display|join:" / "|escape }}
                                 </p>
                             </div>
-                        </div>
-                        <div class="card-footer">
-                            <a class="btn btn-dark text-uppercase w-100" href="{% url 'candidate_profile' candidature.slug %}">Conheça</a>
-                        </div>
-                    </a>
+                            <div class="card-footer">
+                                <a href="{% url 'candidate_profile' candidature.slug %}" class="btn btn-dark text-uppercase w-100">Conheça</a>
+                            </div>
+                    </div>
                 </div>
                 {% empty %}
                 <div class="empty-box g-col-12 p-3 border d-flex flex-column align-items-center">
