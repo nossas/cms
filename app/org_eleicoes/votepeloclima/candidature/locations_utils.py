@@ -1,37 +1,13 @@
-from django.conf import settings
-from pathlib import Path
-import csv
-from typing import List, Tuple, Set
+from typing import List, Tuple
+from contrib.bonde.models import PlacesIBGE
 
-csv_filename = Path(settings.BASE_DIR) / "org_eleicoes/votepeloclima/candidature/csv/places.csv"
-
-def read_csv_file(file_path: Path) -> List[dict]:
-    with open(file_path) as f:
-        reader = csv.DictReader(f)
-        reader.fieldnames = [field.strip() for field in reader.fieldnames]
-        return [row for row in reader]
-
-def get_states(column_label="Nome_UF") -> List[Tuple[str, str]]:
-    rows = read_csv_file(csv_filename)
-    states = set()
-    for row in rows:
-        uf = row["UF"].strip()
-        state_name = row[column_label].strip()
-        states.add((uf, state_name))
-    return sorted(list(states), key=lambda x: x[1])
+def get_states(column_label="nome_uf") -> List[Tuple[str, str]]:
+    states = PlacesIBGE.objects.values('uf', column_label).distinct()
+    return sorted([(state['uf'], state[column_label]) for state in states], key=lambda x: x[1])
 
 def get_ufs() -> List[Tuple[str, str]]:
-    return get_states(column_label="Nome_UF")
+    return get_states(column_label="nome_uf")
 
 def get_choices(uf: str) -> List[Tuple[str, str]]:
-    rows = read_csv_file(csv_filename)
-    choices = []
-    seen_cities = set()
-    for row in rows:
-        if row["UF"].strip() == uf:
-            city_code = row["Código Município Completo"].strip()
-            city_name = row["Nome_Município"].strip()
-            if city_name not in seen_cities:
-                choices.append((city_code, city_name))
-                seen_cities.add(city_name)
-    return sorted(choices, key=lambda x: x[1])
+    choices = PlacesIBGE.objects.filter(uf=uf).values('codigo_municipio_completo', 'nome_municipio').distinct()
+    return sorted([(choice['codigo_municipio_completo'], choice['nome_municipio']) for choice in choices], key=lambda x: x[1])
