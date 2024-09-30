@@ -195,6 +195,15 @@ legend.form-label {
     }
 }
 
+// Dashboard 
+@media (max-width: 992px) {
+    .dashboard {
+        h2 {
+            font-size: 32px;
+        }
+    }
+}
+
 
 // Perfil da Candidatura
 @media (max-width: 992px) {

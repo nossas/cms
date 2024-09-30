@@ -1,53 +1,62 @@
 {% extends "votepeloclima/base.html" %}
 {% load static crispy_forms_filters social_share %}
 
+{% block head_css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/custom.css' %}">
+{% endblock %}
+
 {% block content %}
-<div class="container mx-auto py-5">
-  <div class="d-flex justify-content-between">
-    <div class="d-flex flex-column align-items-start" style="max-width:758px;">      
-      <h1 class="fw-bold text-uppercase text-secondary">Olá, {{ request.user.first_name }}!</h1>
-      <p>Gerencie suas informações de candidatura, edite seus dados e compartilhe seu perfil com os eleitores.</p>
-      
-      <!-- Status e Mensagem -->
-      <div class="text-bg-light border rounded py-2 px-2" style="--bs-light-rgb:255,255,255;">
-      <!-- BADGE -->
-      <div class="badge text-bg-light text-uppercase d-flex align-items-center">
-        <i class="bg-{% if flow.status == 'is_valid' %}secondary{% elif flow.status == 'submitted' %}warning{% else %}danger{% endif %} rounded-circle d-inline-block me-1" style="width:12px;height:12px;"></i>
-        <span>{{ flow.get_status_display }}</span>
-      </div>
-      {% if flow.status == "draft" %}
+<main class="dashboard container mx-auto py-5">
+  <div class="grid gap-4">
+    <div class="g-col-12 g-col-md-8">
+      <div class="d-flex flex-column align-items-start">      
+        <h2 class="fw-bold text-uppercase text-secondary">Olá, {{ request.user.first_name }}!</h2>
+        <p>Gerencie suas informações de candidatura, edite seus dados e compartilhe seu perfil com os eleitores.</p>
+        
+        <!-- Status e Mensagem -->
+        <div class="text-bg-light border rounded py-2 px-2" style="--bs-light-rgb:255,255,255;">
+        <!-- BADGE -->
+        <div class="badge text-bg-light text-uppercase d-flex align-items-center">
+          <i class="bg-{% if flow.status == 'is_valid' %}secondary{% elif flow.status == 'submitted' %}warning{% else %}danger{% endif %} rounded-circle d-inline-block me-1" style="width:12px;height:12px;"></i>
+          <span>{{ flow.get_status_display }}</span>
+        </div>
+        {% if flow.status == "draft" %}
+          <div class="mt-2 px-2 d-flex flex-column align-items-end">
+            <p>Seu cadastro está incompleto e seu perfil não está ativo. Por favor, complete as informações necessárias para ativar seu perfil e torná-lo visível aos eleitores. Clique em "Continuar Cadastro" para finalizar o cadastro.</p>
+            <{% if checkout_is_valid %}a href="{% url 'register_step' step='checkout' %}"{% else %}button type="button" disabled{% endif %} class="btn btn-secondary text-uppercase">Submeter para análise</{% if checkout_is_valid %}a{% else %}button{% endif %}>
+          </div>
+        {% elif flow.status == "editing" %}
         <div class="mt-2 px-2 d-flex flex-column align-items-end">
-          <p>Seu cadastro está incompleto e seu perfil não está ativo. Por favor, complete as informações necessárias para ativar seu perfil e torná-lo visível aos eleitores. Clique em "Continuar Cadastro" para finalizar o cadastro.</p>
+          <p>Sua edição está incompleta e seu perfil está ativo. Você pode desativar seu perfil para que ele não fique público durante o processo de edição, se preferir.</p>
           <{% if checkout_is_valid %}a href="{% url 'register_step' step='checkout' %}"{% else %}button type="button" disabled{% endif %} class="btn btn-secondary text-uppercase">Submeter para análise</{% if checkout_is_valid %}a{% else %}button{% endif %}>
         </div>
-      {% elif flow.status == "editing" %}
-      <div class="mt-2 px-2 d-flex flex-column align-items-end">
-        <p>Sua edição está incompleta e seu perfil está ativo. Você pode desativar seu perfil para que ele não fique público durante o processo de edição, se preferir.</p>
-        <{% if checkout_is_valid %}a href="{% url 'register_step' step='checkout' %}"{% else %}button type="button" disabled{% endif %} class="btn btn-secondary text-uppercase">Submeter para análise</{% if checkout_is_valid %}a{% else %}button{% endif %}>
-      </div>
-      {% elif flow.status == "invalid" %}
-      <div class="mt-2 px-2 d-flex flex-column">
-        <p>{{ flow.invalid_reason }}</p>
-      </div>
-      {% elif flow.status == "submitted" %}
-        <div class="mt-2 px-2">
-          <p>Estamos verificando suas informações, este processo pode levar até 24 horas. Assim que a verificação for concluída te enviaremos um e-mail com o link do seu perfil.</p>
+        {% elif flow.status == "invalid" %}
+        <div class="mt-2 px-2 d-flex flex-column">
+          <p>{{ flow.invalid_reason }}</p>
         </div>
-      {% endif %}
+        {% elif flow.status == "submitted" %}
+          <div class="mt-2 px-2">
+            <p>Estamos verificando suas informações, este processo pode levar até 24 horas. Assim que a verificação for concluída te enviaremos um e-mail com o link do seu perfil.</p>
+          </div>
+        {% endif %}
+        </div>
+  
       </div>
-
     </div>
-    <div class="d-flex flex-column" style="--bs-gap:10px;width:245px;">
-      <{% if is_public %}a href="{% url 'candidate_profile' slug=flow.candidature.slug %}"{% else %}button disabled{% endif %} class="btn btn-secondary text-uppercase">Visualizar perfil</{% if is_public %}a{% else %}button{% endif %}>
-      <!-- <a class="btn btn-secondary" href="#">Compartilhar seu perfil</a> -->
-      {% if flow.status == "draft" or flow.status == "editing" %}
-      <a class="btn btn-secondary text-uppercase" href="{% url 'register_step' step='checkout' %}">Editar informações</a>
-      {% else %}
-      <form method="post">
-        {% csrf_token %}
-        <input class="btn btn-secondary text-uppercase w-100" type="submit" name="request_change" value="Editar informações" />
-      </form>
-      {% endif %}
+    <div class="g-col-12 g-col-md-4">
+      <div class="d-flex flex-column gap-2">
+        <{% if is_public %}a href="{% url 'candidate_profile' slug=flow.candidature.slug %}"{% else %}button disabled{% endif %} class="btn btn-secondary text-uppercase">Visualizar perfil</{% if is_public %}a{% else %}button{% endif %}>
+        <!-- <a class="btn btn-secondary" href="#">Compartilhar seu perfil</a> -->
+        {% if flow.status == "draft" or flow.status == "editing" %}
+        <a class="btn btn-secondary text-uppercase" href="{% url 'register_step' step='checkout' %}">Editar informações</a>
+        {% else %}
+        <form method="post">
+          {% csrf_token %}
+          <input class="btn btn-secondary text-uppercase w-100" type="submit" name="request_change" value="Editar informações" />
+        </form>
+        {% endif %}
+      </div>
     </div>
   </div>
   <div class="accordion mt-4" id="accordionCheckoutSteps">
@@ -73,21 +82,19 @@
   <hr class="hr my-4"/>
   <section class="py-5">
     <div class="container">
-        <div class="grid gap-5">
-            <div class="g-col-12 g-col-md-8">
-                <div class="d-flex flex-column justify-content-between h-100">
-                    <div>
-                        <h2 class="fw-bold text-uppercase">Outras informações</h2>
-                        <p class="w-75">Compartilhe seu perfil com eleitores e ajude a divulgar suas propostas. Para mais detalhes sobre o processo de verificação, acesse o link abaixo. Se precisar de suporte ou tiver dúvidas, entre em contato conosco. Se preferir remover seu perfil e dados da plataforma, você pode excluir seu cadastro a qualquer momento.</p>
-                        <div class="d-flex">
-                          <p>
-                              <a href="mailto:votepeloclima@nossas.org" target="_blank" rel="noopener noreferrer" class="me-3">Contato</a>
-                              <a href="{% static 'docs/aviso-de-privacidade-candidaturas.pdf' %}" target="_blank" rel="noopener noreferrer">Política de privacidade</a>
-                          </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="d-flex gap-5">
+              <div class="d-flex flex-column justify-content-between h-100">
+                  <div>
+                      <h2 class="fw-bold text-uppercase">Outras informações</h2>
+                      <p>Compartilhe seu perfil com eleitores e ajude a divulgar suas propostas. Para mais detalhes sobre o processo de verificação, acesse o link abaixo. Se precisar de suporte ou tiver dúvidas, entre em contato conosco. Se preferir remover seu perfil e dados da plataforma, você pode excluir seu cadastro a qualquer momento.</p>
+                      <div class="d-flex">
+                        <p>
+                            <a href="mailto:votepeloclima@nossas.org" target="_blank" rel="noopener noreferrer" class="me-3">Contato</a>
+                            <a href="{% static 'docs/aviso-de-privacidade-candidaturas.pdf' %}" target="_blank" rel="noopener noreferrer">Política de privacidade</a>
+                        </p>
+                      </div>
+                  </div>
+              </div>
             {% if is_public and candidature %}
               <div class="g-col-12 g-col-md-4">
                   <p class="fw-bold text-uppercase">Compartilhe seu perfil:</p>
@@ -128,7 +135,7 @@
       <a href="#">Saiba mais sobre a verificação de cadastro</a>
     </div>
   </div> -->
-</div>
+</main>
 {% endblock %}
 
 {% block footer_js %}
