@@ -8,7 +8,7 @@ from crispy_forms.helper import FormHelper
 from ..layout import NoCrispyField
 from ..choices import Gender, Color, Sexuality
 from ..fields import CepField, ButtonCheckboxSelectMultiple, ButtonRadioSelect
-from ..locations_utils import get_ufs, get_choices
+from ..locations_utils import get_states, get_choices
 from ..models import Candidature
 
 from .register import ProposeForm
@@ -36,7 +36,7 @@ class FilterFormHeader(RemoveRequiredMixin, forms.ModelForm):
         field="state",
         label="Estado",
         placeholder="Todos os estados",
-        choices=[("", "Todos os estados")] + lazy(get_ufs, list)(),
+        choices=[("", "Todos os estados")] + lazy(get_states, list)(),
     )
     city = CepField(
         field="city", parent="state", label="Município", placeholder="Selecione"

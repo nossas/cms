@@ -9,7 +9,7 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Div, Field, HTML
 from bootstrap_datepicker_plus.widgets import DatePickerInput
 
-from ..locations_utils import get_ufs, get_choices
+from ..locations_utils import get_states, get_choices
 from ..choices import (
     PoliticalParty,
     IntendedPosition,
@@ -192,7 +192,7 @@ class ApplicationForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
         field="state",
         label="Estado",
         placeholder="Selecione",
-        choices=[("", "Selecione")] + lazy(get_ufs, list)(),
+        choices=[("", "Selecione")] + lazy(get_states, list)(),
         help_text="Estado onde você está concorrendo",
     )
     city = CepField(
