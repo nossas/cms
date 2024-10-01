@@ -206,6 +206,16 @@ legend.form-label {
 
 
 // Perfil da Candidatura
+.candidature-profile {
+    .candidature-profile-info p {
+        text-transform: lowercase;
+
+        &::first-letter {
+            text-transform: uppercase;
+        }
+        
+    }
+}
 @media (max-width: 992px) {
     .candidature-profile {
         h2 {
