@@ -1,0 +1,7 @@
+<div class="form-check form-switch py-2">
+  <input class="form-check-input" type="checkbox" role="switch"name="{{ widget.name }}"{% if widget.value != None %} value="{{ widget.value|stringformat:'s' }}"{% endif %}{% include "django/forms/widgets/attrs.html" %}>
+  <label class="form-check-label" for="id_{{ widget.name }}">
+    {{ widget.label }}
+    {% if widget.help_text %}<div class="form-text fw-normal mt-2">{{ widget.help_text }}</div>{% endif %}
+  </label>
+</div>

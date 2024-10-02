@@ -1,0 +1,40 @@
+form .aligned label+div.readonly {
+    margin: 0 0 0 5px;
+}
+
+.aligned label + div.readonly {
+    padding: 0;
+}
+
+.flex-container.form-multiline > div {
+    flex: 1;
+}
+
+.field-is_collective_mandate .flex-container {
+    flex-direction: column;
+}
+
+.field-milestones .flex-container,
+.field-social_media .flex-container {
+    flex-direction: column;
+
+    #inline-array {
+        li {
+            margin-top: 10px;
+        }
+    }
+}
+
+.proposes-fieldset {
+    .form-row {
+        padding: 0;
+        
+        .form-check {
+            margin-top: 10px;
+        }
+
+        .flex-container {
+            flex-direction: column;
+        }
+    }
+}
