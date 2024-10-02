@@ -80,9 +80,8 @@ class Sexuality(models.TextChoices):
     heterossexual = "heterossexual", "Heterossexual"
     pansexual = "pansexual", "Pansexual"
     bissexual = "bissexual", "Bissexual"
-    gay = "gay", "Homossexual"
+    homossexual = "homossexual", "Homossexual"
     queer = "queer", "Queer"
-    lesbica = "lesbica", "Lésbica"
     nao_declarada = "nao_declarada", "Não declarada"
 
 
