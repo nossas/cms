@@ -5,7 +5,7 @@ from django.utils.text import slugify
 from django.utils.html import mark_safe
 
 from .choices import CandidatureFlowStatus, IntendedPosition, PoliticalParty, Gender, Color, Sexuality, Education
-from .locations_utils import get_choices, get_states
+from .locations_utils import get_choices, get_ufs
 
 
 # Acompanhar validação da candidatura
@@ -58,7 +58,7 @@ class Candidature(models.Model):
     
     @property
     def get_state_display(self):
-        states = dict(get_states())
+        states = dict(get_ufs())
         return states.get(self.state, "")
 
     @property
