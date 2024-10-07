@@ -111,3 +111,8 @@ class Education(models.TextChoices):
     mestrado_completo = "mestrado_completo", "Mestrado Completo"
     doutorado_incompleto = "doutorado_incompleto", "Doutorado Incompleto"
     doutorado_completo = "doutorado_completo", "Doutorado Completo"
+
+class ElectionStatus(models.TextChoices):
+    eleita = "eleita", "Eleita/o"
+    segundo_turno = "segundo_turno", "Segundo Turno"
+    nao_eleita = "nao_eleito", "Não Eleita/o"

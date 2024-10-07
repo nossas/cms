@@ -4,7 +4,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.utils.text import slugify
 from django.utils.html import mark_safe
 
-from .choices import CandidatureFlowStatus, IntendedPosition, PoliticalParty, Gender, Color, Sexuality, Education
+from .choices import CandidatureFlowStatus, IntendedPosition, PoliticalParty, Gender, Color, Sexuality, Education, ElectionStatus
 from .locations_utils import get_choices, get_ufs
 
 
@@ -44,6 +44,15 @@ class Candidature(models.Model):
     #
     created_at = models.DateTimeField(verbose_name="Criado em", auto_now_add=True, null=True, blank=True)
     updated_at = models.DateTimeField(verbose_name="Atualizado em", auto_now=True, null=True, blank=True)
+
+    election_status = models.CharField(
+        max_length=20,
+        choices=ElectionStatus.choices,
+        blank=True, 
+        null=True,
+        verbose_name="Status da Eleição"
+    )
+    election_year = models.PositiveIntegerField(blank=True, null=True, verbose_name="Ano da Eleição")
 
     class Meta:
         verbose_name = "Candidatura"
