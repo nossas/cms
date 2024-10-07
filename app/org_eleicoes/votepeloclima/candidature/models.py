@@ -45,15 +45,6 @@ class Candidature(models.Model):
     created_at = models.DateTimeField(verbose_name="Criado em", auto_now_add=True, null=True, blank=True)
     updated_at = models.DateTimeField(verbose_name="Atualizado em", auto_now=True, null=True, blank=True)
 
-    election_status = models.CharField(
-        max_length=20,
-        choices=ElectionStatus.choices,
-        blank=True, 
-        null=True,
-        verbose_name="Status da Eleição"
-    )
-    election_year = models.PositiveIntegerField(blank=True, null=True, verbose_name="Ano da Eleição")
-
     class Meta:
         verbose_name = "Candidatura"
         ordering = ["-updated_at"]
@@ -113,11 +104,21 @@ class Candidature(models.Model):
 
         return proposes_list
 
+    @property
+    def get_election_result(self, year):
+        return self.election_results.filter(year=year).first()
+
     
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = f"{slugify(self.ballot_name)}-{self.number_id}"
         super().save(*args, **kwargs)
+
+
+class ElectionResult(models.Model):
+    candidature = models.ForeignKey('Candidature', on_delete=models.CASCADE, related_name='election_results')
+    year = models.PositiveIntegerField(verbose_name="Ano da eleição")
+    status = models.CharField(max_length=20, choices=ElectionStatus.choices, verbose_name="Status da eleição")
 
 
 class CandidatureFlow(models.Model):
