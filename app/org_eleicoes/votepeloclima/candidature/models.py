@@ -38,6 +38,8 @@ class Candidature(models.Model):
     proposes = models.JSONField(blank=True, verbose_name="Propostas")
     appointments = models.JSONField(blank=True, verbose_name="Compromissos")
 
+    election_year = models.PositiveIntegerField(default=2024, verbose_name="Ano da eleição")
+
     # friendly url by ballot_name
     slug = models.SlugField(max_length=100, unique=True, blank=True, null=True)
 
@@ -48,6 +50,9 @@ class Candidature(models.Model):
     class Meta:
         verbose_name = "Candidatura"
         ordering = ["-updated_at"]
+        constraints = [
+            models.UniqueConstraint(fields=['cpf', 'election_year'], name='unique_cpf_per_year')
+        ]
 
     @property
     def status(self):
@@ -105,8 +110,8 @@ class Candidature(models.Model):
         return proposes_list
 
     @property
-    def get_election_result(self, year):
-        return self.election_results.filter(year=year).first()
+    def get_election_result(self):
+        return self.election_results.first()
 
     
     def save(self, *args, **kwargs):
@@ -117,7 +122,6 @@ class Candidature(models.Model):
 
 class ElectionResult(models.Model):
     candidature = models.ForeignKey('Candidature', on_delete=models.CASCADE, related_name='election_results')
-    year = models.PositiveIntegerField(verbose_name="Ano da eleição")
     status = models.CharField(max_length=20, choices=ElectionStatus.choices, verbose_name="Status da eleição")
 
 
