@@ -1,6 +1,11 @@
 {% extends "votepeloclima/base.html" %}
 {% load static crispy_forms_filters social_media_tags thumbnail %}
 
+{% block meta %}
+{{ block.super }}
+ <title>{{ page_title }} - Vote Pelo Clima</title>
+{% endblock %}
+
 {% block head_css %}
 {{ block.super }}
 <link rel="stylesheet" href="{% static 'css/icons.css' %}">
