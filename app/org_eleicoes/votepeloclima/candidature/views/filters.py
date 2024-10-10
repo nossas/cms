@@ -3,6 +3,7 @@ from django.views.generic import ListView
 
 from ..models import CandidatureFlowStatus, Candidature
 from ..forms.filters import FilterFactoryForm
+from ..choices import ElectionStatus
 
 
 class CandidatureSearchView(ListView):
@@ -76,6 +77,18 @@ class CandidatureSearchView(ListView):
                         True if mandate_type == "coletivo" else False
                     )
                 )
+
+            election_status = cleaned_data.get("election_status", "second_round")
+        else:
+            election_status = "second_round"
+        
+        # Filtra com base no status da eleição
+        if election_status == "second_round":
+            # Filtra candidaturas que foram para o 2º turno
+            queryset = queryset.filter(election_results__status=ElectionStatus.segundo_turno)
+        elif election_status == "elected":
+            # Filtra candidaturas eleitas
+            queryset = queryset.filter(election_results__status=ElectionStatus.eleita)
 
         return queryset
 
