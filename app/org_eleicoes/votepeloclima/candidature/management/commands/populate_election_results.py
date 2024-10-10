@@ -16,6 +16,12 @@ class Command(BaseCommand):
             type=str,
             help="Tipo de eleição: 'vereador' ou 'prefeito'."
         )
+        
+        parser.add_argument(
+            'ano',
+            type=int,
+            help="Ano da eleição."
+        )
 
     def map_situacao_to_status(self, situacao, eleicao):
         """
@@ -40,6 +46,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         eleicao = kwargs['eleicao']
+        ano = kwargs['ano']
 
         # Define o caminho correto para o CSV com base no tipo de eleição
         if eleicao == 'vereador':
@@ -68,7 +75,7 @@ class Command(BaseCommand):
                     csv_data[chave_composta] = row
 
             # Carrega todas as candidaturas da base de dados
-            candidatures = Candidature.objects.all()
+            candidatures = Candidature.objects.filter(election_year=ano)
 
             # Itera pelas candidaturas e busca os resultados no CSV
             for candidature in candidatures:
