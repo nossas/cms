@@ -374,7 +374,7 @@ class PlacesIBGE(models.Model):
     codigo_municipio_completo = models.CharField(max_length=10)
     nome_municipio = models.CharField(max_length=100)
     distrito = models.CharField(max_length=10)
-    codigo_distrito_completo = models.CharField(max_length=15)
+    codigo_distrito_completo = models.CharField(max_length=15, primary_key=True)
     nome_distrito = models.CharField(max_length=100)
     sigla_uf = models.CharField(max_length=2)
 
