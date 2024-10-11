@@ -39,6 +39,12 @@
                             {% if candidature.is_collective_mandate %}
                             <span class="badge bg-primary fs-6">Mandato Coletivo</span>
                             {% endif %}
+                            {% if candidature.get_election_result == "segundo_turno" %}
+                                <span class="badge bg-primary fs-6">2º Turno</span>
+                            {% endif %}
+                            {% if candidature.get_election_result == "eleita" %}
+                                <span class="badge bg-primary fs-6">Eleito/a</span>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

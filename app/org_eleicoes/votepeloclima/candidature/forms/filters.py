@@ -6,7 +6,7 @@ from crispy_forms.helper import FormHelper
 # from django_select2.forms import Select2Widget
 
 from ..layout import NoCrispyField
-from ..choices import Gender, Color, Sexuality
+from ..choices import Gender, Color, Sexuality, ElectionStatus
 from ..fields import CepField, ButtonCheckboxSelectMultiple, ButtonRadioSelect
 from ..locations_utils import get_states, get_choices
 from ..models import Candidature
@@ -68,6 +68,16 @@ class FilterFormHeader(RemoveRequiredMixin, forms.ModelForm):
 
 
 class FilterFormSidebar(RemoveRequiredMixin, forms.ModelForm):
+    election_status = forms.ChoiceField(
+        label="Filtrar por", 
+        choices=[
+            ("second_round", "Candidaturas no 2º turno"),
+            ("all", "Todas as candidaturas"),
+            ("elected", "Candidaturas eleitas")
+        ],
+        widget=ButtonRadioSelect,
+        initial="second_round"  # Define o filtro de 2º turno como padrão
+    )
     proposes = forms.MultipleChoiceField(
         label="Propostas", widget=ButtonCheckboxSelectMultiple
     )
@@ -88,7 +98,7 @@ class FilterFormSidebar(RemoveRequiredMixin, forms.ModelForm):
 
     class Meta:
         model = Candidature
-        fields = ["proposes", "mandate_type", "gender", "color", "sexuality"]
+        fields = ["election_status", "proposes", "mandate_type", "gender", "color", "sexuality"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -96,6 +106,7 @@ class FilterFormSidebar(RemoveRequiredMixin, forms.ModelForm):
         self.fields["proposes"].choices = self.get_proposes_choices()
 
         self.helper.layout = Layout(
+            NoCrispyField("election_status"),
             NoCrispyField("proposes"),
             NoCrispyField("mandate_type"),
             NoCrispyField("gender"),

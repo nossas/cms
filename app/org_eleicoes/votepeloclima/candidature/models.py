@@ -4,7 +4,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.utils.text import slugify
 from django.utils.html import mark_safe
 
-from .choices import CandidatureFlowStatus, IntendedPosition, PoliticalParty, Gender, Color, Sexuality, Education
+from .choices import CandidatureFlowStatus, IntendedPosition, PoliticalParty, Gender, Color, Sexuality, Education, ElectionStatus
 from .locations_utils import get_choices, get_ufs
 
 
@@ -38,6 +38,8 @@ class Candidature(models.Model):
     proposes = models.JSONField(blank=True, verbose_name="Propostas")
     appointments = models.JSONField(blank=True, verbose_name="Compromissos")
 
+    election_year = models.PositiveIntegerField(default=2024, verbose_name="Ano da eleição")
+
     # friendly url by ballot_name
     slug = models.SlugField(max_length=100, unique=True, blank=True, null=True)
 
@@ -48,6 +50,9 @@ class Candidature(models.Model):
     class Meta:
         verbose_name = "Candidatura"
         ordering = ["-updated_at"]
+        constraints = [
+            models.UniqueConstraint(fields=['cpf', 'election_year'], name='unique_cpf_per_year')
+        ]
 
     @property
     def status(self):
@@ -104,11 +109,20 @@ class Candidature(models.Model):
 
         return proposes_list
 
+    @property
+    def get_election_result(self):
+        return self.election_results.first().status
+
     
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = f"{slugify(self.ballot_name)}-{self.number_id}"
         super().save(*args, **kwargs)
+
+
+class ElectionResult(models.Model):
+    candidature = models.ForeignKey('Candidature', on_delete=models.CASCADE, related_name='election_results')
+    status = models.CharField(max_length=20, choices=ElectionStatus.choices, verbose_name="Status da eleição")
 
 
 class CandidatureFlow(models.Model):
