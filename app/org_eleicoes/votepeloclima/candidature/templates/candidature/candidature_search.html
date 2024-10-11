@@ -43,8 +43,14 @@
                 {% for candidature in candidatures %}
                 <div class="g-col-12 g-col-md-6 g-col-lg-4">
                     <div class="card">
-                        <a href="{% url 'candidate_profile' candidature.slug %}">
+                        <a class="position-relative" href="{% url 'candidate_profile' candidature.slug %}">
                             <img src="{{ candidature.photo|thumbnail_url:'profile-photo' }}" class="card-img-top" alt="Foto de {{ candidature.legal_name }}">
+                            {% if candidature.second_round %}
+                                <span class="card-flag badge bg-primary position-absolute top-0 end-0 mt-3 p-2">2º Turno</span>
+                            {% endif %}
+                            {% if candidature.elected %}
+                                <span class="card-flag badge bg-secondary position-absolute top-0 end-0 mt-3 p-2">Eleito/a</span>
+                            {% endif %}
                         </a>
                         <div class="card-body px-2 py-1">
                             <p class="state-city mb-1 text-black-50">{{ candidature.get_city_display }} - {{ candidature.get_state_display }}</p>
