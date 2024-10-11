@@ -1,0 +1,11 @@
+{% extends "votepeloclima/base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+<section class="container py-5">
+    <div class="text-center">
+        <h1 class="text-danger">Candidatura aguardando verificações</h1>
+        <p>A candidatura de {{ candidature.ballot_name }} ainda não foi aprovada.</p>
+    </div>
+</section>
+{% endblock %}

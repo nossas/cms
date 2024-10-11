@@ -1,0 +1,5 @@
+<div>
+{% if widget.label %}<label for="id_{{ widget.name }}">{{ widget.label }}</label>{% endif %}
+<textarea name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %}>{% if widget.value %}{{ widget.value }}{% endif %}</textarea>
+{% if widget.help_text %}<div id="id_{{ widget.name }}_helptext" class="form-text">{{widget.help_text}}</div>{% endif %}
+</div>

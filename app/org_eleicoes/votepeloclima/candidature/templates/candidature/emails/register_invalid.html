@@ -1,0 +1,15 @@
+{% extends "votepeloclima/base_mail.html" %}
+
+{% block content %}
+<p>Oi {{user.first_name}},</p>
+
+{% if not user.is_active %}
+<p>Durante a validação do seu cadastro, identificamos um problema que impede sua aprovação no momento. Para acessar a área da candidatura e ver mais detalhes, você precisa criar uma senha:</p>
+<a style="color:#1f8523;" href="{{ protocol }}://{{ domain }}{% url 'oauth:change-password' uidb64=uid token=token %}">Criar senha</a>
+{% else %}
+<p>Durante a validação do seu cadastro, identificamos um problema que impede sua aprovação no momento. Por favor, acesse a área da candidatura para saber mais detalhes:</p>
+<a style="color:#1f8523;" href="{{ protocol }}://{{ domain }}{% url 'dashboard' %}">Ver área da candidatura</a>
+{% endif %}
+
+<p>Se precisar de ajuda ou tiver dúvidas, estamos à disposição para ajudar.</p>
+{% endblock %}

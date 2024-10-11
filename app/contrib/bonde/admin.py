@@ -5,6 +5,10 @@ from django import forms
 # Register your models here.
 
 from django.utils.translation import gettext_lazy as _
+from django.core.mail import EmailMultiAlternatives
+from django.template import Context, Template
+
+from djangocms_text_ckeditor.widgets import TextEditorWidget
 from djangocms_form_builder import actions
 
 from .api import create_form_entry
@@ -33,3 +37,60 @@ class IntegrateWithBonde(actions.FormAction):
 
         if len(list(filter(lambda x: not x, settings.values()))) == 0:
             create_form_entry(settings, **form.cleaned_data)
+
+
+
+@actions.register
+class IntegrateWithEmail(actions.FormAction):
+    verbose_name = _("Integração com o EMAIL")
+
+    class Meta:
+        entangled_fields = {
+            "action_parameters": ["subject", "to_email", "email_text_html"]
+        }
+    
+    # name = forms.CharField(label="Nome", required=False)
+    to_email = forms.EmailField(label="Email", required=False)
+    subject = forms.CharField(
+        label="Assunto",
+        required=False,
+        help_text="Você pode usar {{FieldName}} para inserir uma informaçâo do formulário nesse texto.",
+    )
+    email_text_html = forms.CharField(
+        label="Corpo do e-mail",
+        help_text="Você pode usar {{FieldName}} para inserir uma informaçâo do formulário nesse texto.",
+        required=False,
+        widget=TextEditorWidget
+    )
+
+    def execute(self, form, request):
+        # name = self.get_parameter(form, "name")
+        to_email = self.get_parameter(form, "to_email")
+        subject_text = self.get_parameter(form, "subject")
+        email_text_html = self.get_parameter(form, "email_text_html")
+
+        # context = form.cleaned_data
+        # email_template_name = "forms/body.html"
+        # html_email_template_name = email_template_name
+        # import ipdb;ipdb.set_trace()
+        # if to_email and body_text and subject_text:
+        """
+        Send a django.core.mail.EmailMultiAlternatives to `to_email`.
+        """
+        from_email = form.cleaned_data.get("email")
+        context = Context({**form.cleaned_data})
+        # subject = loader.render_to_string(subject_template_name, context)
+        # Email subject *must not* contain newlines
+        # subject = "".join(subject.splitlines())
+
+        subject = Template(subject_text).render(context)
+        body = Template(email_text_html).render(context)
+
+        # import ipdb;ipdb.set_trace()
+        email_message = EmailMultiAlternatives(subject, body, from_email, [to_email])
+        email_message.attach_alternative(body, "text/html")
+        email_message.send()
+
+# TODO:
+# Adicionar campos do formulário no contexto do assunto
+# 

@@ -1,0 +1,22 @@
+{% extends "votepeloclima/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="d-flex">
+  <div class="candidate-signup container py-5">
+    {% widthratio wizard.steps.step1 wizard.steps.count 100 as progress %}
+    <div class="progress mb-4 border" role="progressbar" aria-label="Basic example" aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100" style="max-width:256px;">
+      <div class="progress-bar bg-secondary" style="width:{{ progress }}%"></div>
+    </div>
+    {% block main %}{% endblock %}
+  </div>
+  {% block screenside %}
+  <div class="bg-screenside d-none d-md-block">
+    <div class="screenside" style="background-image:url({% static 'imgs/bg-steps.svg' %});">
+    </div>
+  </div>
+  {% endblock %}
+</div>
+{% endblock %}
+
+{% block footer %}{% endblock %}
