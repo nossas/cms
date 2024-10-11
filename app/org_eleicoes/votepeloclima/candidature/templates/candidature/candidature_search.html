@@ -45,10 +45,10 @@
                     <div class="card">
                         <a class="position-relative" href="{% url 'candidate_profile' candidature.slug %}">
                             <img src="{{ candidature.photo|thumbnail_url:'profile-photo' }}" class="card-img-top" alt="Foto de {{ candidature.legal_name }}">
-                            {% if candidature.second_round %}
+                            {% if candidature.get_election_result == "segundo_turno" %}
                                 <span class="card-flag badge bg-primary position-absolute top-0 end-0 mt-3 p-2">2º Turno</span>
                             {% endif %}
-                            {% if candidature.elected %}
+                            {% if candidature.get_election_result == "eleita" %}
                                 <span class="card-flag badge bg-secondary position-absolute top-0 end-0 mt-3 p-2">Eleito/a</span>
                             {% endif %}
                         </a>

@@ -62,7 +62,7 @@ class Command(BaseCommand):
         try:
             # Carrega o CSV em um dicionário com uma chave composta
             csv_data = {}
-            with open(csv_path, mode='r', encoding='utf-8') as csv_file:
+            with open(csv_path, mode='r', encoding='utf-8-sig') as csv_file:
                 reader = csv.DictReader(csv_file)
                 for row in reader:
                     numero = row[csv_key_num].strip()
@@ -75,7 +75,10 @@ class Command(BaseCommand):
                     csv_data[chave_composta] = row
 
             # Carrega todas as candidaturas da base de dados
-            candidatures = Candidature.objects.filter(election_year=ano)
+            if eleicao == 'vereador':
+                candidatures = Candidature.objects.filter(election_year=ano, intended_position='vereacao')
+            elif  eleicao == 'prefeito':
+                candidatures = Candidature.objects.filter(election_year=ano, intended_position='prefeitura')
 
             # Itera pelas candidaturas e busca os resultados no CSV
             for candidature in candidatures:

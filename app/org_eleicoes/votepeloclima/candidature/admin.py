@@ -1,19 +1,28 @@
 from django.contrib import admin
 
 from .forms.register import RegisterAdminForm
-from .models import Candidature, CandidatureFlow
+from .models import Candidature, CandidatureFlow, ElectionResult
 from .choices import PoliticalParty
 
+
+class ElectionResultsInline(admin.StackedInline):
+    model = ElectionResult
+    extra = 1
 
 class CandidatureAdmin(admin.ModelAdmin):
     search_fields = ("legal_name", "ballot_name", "email", "political_party")
     list_display = ("legal_name", "email", "political_party", "status", "updated_at")
     ordering = ("updated_at",)
+    inlines = (ElectionResultsInline,)
+    
+    def get_readonly_fields(self, request, obj=None):
+        readonly_fields = []
+        for field in obj._meta.get_fields():
+            if not field.is_relation:
+                readonly_fields.append(field.name)
+        return readonly_fields
 
     def has_add_permission(self, request):
-        return False
-
-    def has_change_permission(self, request, obj=None):
         return False
 
     def has_delete_permission(self, request, obj=None):

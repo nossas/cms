@@ -111,7 +111,7 @@ class Candidature(models.Model):
 
     @property
     def get_election_result(self):
-        return self.election_results.first()
+        return self.election_results.first().status
 
     
     def save(self, *args, **kwargs):
