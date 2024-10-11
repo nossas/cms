@@ -185,7 +185,10 @@ class ApplicationForm(EntangledModelFormMixin, DisabledMixin, forms.ModelForm):
     )
     intended_position = forms.ChoiceField(
         label="Cargo pretendido",
-        choices=IntendedPosition.choices,
+        choices=(
+            ("", "Selecione uma opção"),
+            ("prefeitura", "Prefeito/a"),
+        ),
         help_text="Selecione o cargo que você está concorrendo",
     )
     state = CepField(
