@@ -48,7 +48,7 @@ services:
       - ETCD_PORT=${ETCD_PORT:-2379}
     labels:
       - traefik.enable=true
-      - traefik.http.routers.nossas.priority=10
+      - traefik.http.routers.nossas.priority=999
       - traefik.http.services.nossas.loadbalancer.server.port=8000
       - traefik.http.routers.nossas.tls=true
       - traefik.http.routers.nossas.tls.certresolver=myresolver
