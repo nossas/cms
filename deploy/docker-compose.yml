@@ -5,7 +5,7 @@ services:
     pull_policy: always
     environment:
       - DJANGO_SETTINGS_MODULE=org_eleicoes.eleicaodoano.settings
-      - DEBUG=${DEBUG:-True}
+      - DEBUG=${ELEICAODOANO_DEBUG:-True}
       - ALLOWED_HOSTS=${ALLOWED_HOSTS:-"docker.localhost"}
       - CMS_DATABASE_URL=${ELEICAODOANO_DATABASE_URL}
       - BONDE_DATABASE_URL=${BONDE_DATABASE_URL}
