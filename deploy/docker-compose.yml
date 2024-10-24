@@ -88,12 +88,15 @@ services:
       - traefik.http.routers.nossas.tls.certresolver=myresolver
       - traefik.http.routers.nossas.rule=${NOSSAS_TRAEFIK_ROUTERS_RULE:-HostRegexp(`nossas.staging.bonde.org`,`www.nossas.staging.bonde.org`)}
 
+  # Estamos setando a configuração antiga de maneira forçada
   observatorio:
-    image: ${ADP_DOCKER_IMAGE:-nossas/amazoniadepe-cms:latest}
+    # image: ${ADP_DOCKER_IMAGE:-nossas/amazoniadepe-cms:latest}
+    image: ${ADP_DOCKER_IMAGE:-nossas/cms:V0.2.5}
     restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
     pull_policy: always
     environment:
-      - DJANGO_SETTINGS_MODULE=org_amazonia_de_pe.adp.settings.production
+      # - DJANGO_SETTINGS_MODULE=org_amazonia_de_pe.adp.settings.production
+      - DJANGO_SETTINGS_MODULE=adp.settings.production
       - DEBUG=${DEBUG:-True}
       - ALLOWED_HOSTS=${ALLOWED_HOSTS:-"docker.localhost"}
       - CMS_DATABASE_URL=${ADP_DATABASE_URL}
