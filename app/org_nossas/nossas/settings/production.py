@@ -44,6 +44,18 @@ MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/"
 
 DEFAULT_FILE_STORAGE = "project.storages.PublicMediaStorage"
 
+if not DEBUG:
+
+    PUBLIC_STATIC_LOCATION = "static"
+
+    STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_STATIC_LOCATION}/"
+
+    STATICFILES_STORAGE = 'project.storages.PublicStaticStorage'
+
+    COMPRESS_STORAGE = STATICFILES_STORAGE
+
+    COMPRESS_URL = STATIC_URL
+
 
 # Configurações de e-mail
 DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", default="Suporte <suporte@bonde.org>")
