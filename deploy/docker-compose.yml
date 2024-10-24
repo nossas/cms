@@ -4,7 +4,7 @@ services:
     restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
     pull_policy: always
     environment:
-      - DJANGO_SETTINGS_MODULE=org_eleicoes.eleicaodoano.settings
+      - DJANGO_SETTINGS_MODULE=org_eleicoes.eleicaodoano.settings.production
       - DEBUG=${ELEICAODOANO_DEBUG:-True}
       - ALLOWED_HOSTS=${ALLOWED_HOSTS:-"docker.localhost"}
       - CMS_DATABASE_URL=${ELEICAODOANO_DATABASE_URL}
