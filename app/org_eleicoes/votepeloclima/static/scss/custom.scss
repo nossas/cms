@@ -1,0 +1,272 @@
+// 
+h1 {
+    font-size: 48px;
+}
+
+h2 {
+    font-size: 40px;
+}
+
+h3 {
+    font-size: 32px;
+}
+
+// Subtitles
+h4 {
+    font-size: 24px;
+}
+
+h5 {
+    font-size: 20px;
+}
+
+h6 {
+    font-size: 18px;
+}
+
+.fw-bold {
+    font-weight: 900 !important;
+}
+
+.fw-semibold {
+    font-weight: 700 !important;
+}
+
+.fw-normal {
+    font-weight: 400 !important;
+}
+
+.fw-light {
+    font-weight: 200 !important;
+}
+
+.form-control, .form-control:focus, .form-select {
+    background-color: white;
+}
+
+.asteriskField {
+    margin-left: 3px;
+    color: var(--bs-danger);
+}
+
+.form-check-input:checked {
+    background-color: var(--bs-secondary);
+    border: none;
+}
+
+legend.form-label {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#inline-array {
+    ol {
+        li {
+            span.text-nowrap {
+                font-size: 14px;
+            }
+        }
+    }
+}
+
+#accordionCheckoutSteps {
+    .accordion-item {
+        margin-bottom: 20px;
+        border-top: var(--bs-accordion-border-width) solid var(--bs-accordion-border-color);
+        border-right: var(--bs-accordion-border-width) solid var(--bs-accordion-border-color);
+        border-bottom: var(--bs-accordion-border-width) solid var(--bs-accordion-border-color);
+        border-left: var(--bs-accordion-border-width) solid var(--bs-accordion-border-color);
+        
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+
+        .accordion-button {
+            border-radius: 10px;
+        }
+
+        .accordion-button:not(.collapsed) {
+            box-shadow: none;
+        }
+    }
+
+    .accordion-item:not(:first-of-type) {
+        border-top: var(--bs-accordion-border-width) solid var(--bs-accordion-border-color);
+    }
+}
+
+// Custom select2
+.select2-container {
+    .select2-selection--single {
+        height: 36px !important;
+        padding: 4px 0;
+    }
+}
+
+.select2-container--default {
+    .select2-selection--single {
+        border-color: var(--bs-border-color) !important;
+
+        .select2-selection__placeholder {
+            color: #000 !important;
+        }
+
+        .select2-selection__arrow {
+            top: 5px !important;
+            right: 7px !important;
+        }
+    }
+}
+
+// Create new class
+.toogle-button {
+
+    .btn {
+        padding-top: 14px;
+        padding-bottom: 14px;
+    }
+
+    .btn-check:checked + .btn {
+        border-color: var(--bs-btn-active-border-color)!important;
+    }
+}
+
+#dropzone {
+    > div:not(:last-child) {
+        border-bottom: 1px solid var(--bs-gray-400);
+        padding-bottom: 25px;
+    }
+}
+
+.form-switch {
+    label {
+        cursor: pointer;
+
+        .form-text {
+            margin-left: -36px;
+        }
+    }
+
+    input:not([disabled]) + label {
+        &:hover {
+            color: var(--bs-secondary);
+
+            .form-text {
+                color: var(--bs-secondary);
+            }
+        }
+    }
+}
+
+// Cadastro
+.candidate-signup {
+    padding: 0 72px;
+}
+
+@media (max-width: 992px) {
+    .candidate-signup {
+        padding: 0 20px;
+
+        h2 {
+            font-size: 28px;
+        }
+    }
+}
+
+.btn-inline-delete {
+    padding: 6px 12px;
+}
+
+// Login e Recuperar
+.candidate-login,
+.candidate-reset-password {
+    padding: 0 72px;
+}
+
+@media (max-width: 992px) {
+    .candidate-login,
+    .candidate-reset-password {
+        padding: 0 20px;
+
+        h2 {
+            font-size: 40px;
+        }
+    }
+}
+
+// Dashboard 
+@media (max-width: 992px) {
+    .dashboard {
+        h2 {
+            font-size: 32px;
+        }
+    }
+}
+
+
+// Perfil da Candidatura
+.candidature-profile {
+    .candidature-profile-info p {
+        text-transform: lowercase;
+
+        &::first-letter {
+            text-transform: uppercase;
+        }
+        
+    }
+}
+@media (max-width: 992px) {
+    .candidature-profile {
+        h2 {
+            font-size: 32px;
+        }
+
+        h3 {
+            font-size: 24px;
+        }
+    }
+}
+
+@media (min-width: 1200px) {
+    .candidature-profile {
+        .candidature-profile-photo {
+            margin-right: 2.5rem;
+        }
+    }
+}
+
+.candidature-video {
+    max-height: 600px;
+}
+
+#carouselControls {
+    .carousel-item > div {
+        min-height: 230px;
+    }
+}
+
+// Partner Tag
+.partners-list {
+    a,
+    div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    img {
+        width: 125px;
+        height: 70px;
+        object-fit: contain;
+        object-position: center;
+    }
+}
+
+
+.checkout-step {
+    .form-check-input[type="checkbox"]:not(:checked) {
+        background-color: white;
+        border-color: #c7c7c7;
+    }
+}

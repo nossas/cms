@@ -1,0 +1,13 @@
+{% for group, options, index in widget.optgroups %}
+    {% for option in options %}
+        <div class="mb-2">
+            <input type="checkbox" name="{{ widget.name }}" value="{{ option.value }}"
+                   id="{{ widget.attrs.id }}_{{ forloop.counter0 }}"
+                   {% if option.selected %}checked{% endif %}
+                   {% include "django/forms/widgets/attrs.html" %}>
+            <label class="btn btn-sm d-flex align-items-center" for="{{ widget.attrs.id }}_{{ forloop.counter0 }}">
+                <div class="ms-2 text-start fw-normal">{{ option.label }}</div>
+            </label>
+        </div>
+    {% endfor %}
+{% endfor %}

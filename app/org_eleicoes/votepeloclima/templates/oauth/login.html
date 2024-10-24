@@ -1,0 +1,46 @@
+{% extends 'votepeloclima/base.html' %}
+{% load static crispy_forms_filters %}
+
+{% block content %}
+<div class="d-flex" style="height:100vh;">
+    <div class="bg-screenside d-none d-lg-flex">
+        <div class="screenside" style="background-image:url({% static 'imgs/bg-steps.svg' %});"></div>
+    </div>
+  <div class="candidate-login container py-5 my-auto">
+    <h2 class="fw-bold text-uppercase">Login</h2>
+    <p>Acesse a área restrita das candidaturas para verificar, editar e compartilhar suas informações.</p>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.errors }}
+      <div id="div_id_username" class="mb-3">
+        <label for="id_username" class="form-label requiredField">E-mail<span class="asteriskField">*</span></label>
+        <input type="email" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" class="textinput form-control" required="" id="id_username" placeholder="Insira seu e-mail" />
+      </div>
+      <div id="div_id_password" class="mb-3">
+        <label for="id_password" class="form-label requiredField">Senha<span class="asteriskField">*</span> </label>
+        <div class="input-group">
+            <input type="password" name="password" autocomplete="current-password" class="passwordinput form-control" required="" id="id_password" placeholder="Insira sua senha" />
+            <button class="btn btn-outline-secondary text-uppercase" type="button" id="togglePassword">
+                <i class="bi bi-eye-slash" id="toggleIcon"></i>
+            </button>
+        </div>
+    </div>    
+      <div class="d-flex flex-column align-items-end">
+        <a class="text-dark" href="{% url 'oauth:reset-password' %}">Esqueci minha senha</a>
+      </div>
+      <div class="mt-3 d-flex flex-column align-items-md-start" style="--bs-gap:1.5rem;">
+        <button class="btn btn-secondary text-uppercase" type="submit" style="min-width:320px;">Entrar</button>
+        <span>Não tem uma conta? <a href="{% url 'register' %}">Cadastre-se</a></span>
+        <span>Não finalizou seu cadastro? <a href="{% url 'oauth:reset-password' %}">Crie uma senha e finalize o cadastro</a></span>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block footer %}{% endblock %}
+
+
+{% block footer_js %}
+    <script src="{% static "js/toggle_password.js" %}" type="module"></script>
+{% endblock %}

@@ -336,14 +336,14 @@ class BondeBasePluginModel(CMSPlugin):
     class Meta:
         abstract = True
 
-    def get_widget(self) -> Widget | None:
+    def get_widget(self):
         if not self.reference_id:
             return None
 
         return Widget.objects.get(id=self.reference_id)
 
     @property
-    def widget(self) -> Widget | None:
+    def widget(self):
         return self.get_widget()
 
 
@@ -357,3 +357,27 @@ class FormProxy(Form):
     @property
     def render_success(self):
         return "forms/success.html"
+
+
+class PlacesIBGE(models.Model):
+    uf = models.CharField(max_length=2)
+    nome_uf = models.CharField(max_length=100)
+    regiao_geografica_intermediaria = models.CharField(max_length=10)
+    nome_regiao_geografica_intermediaria = models.CharField(max_length=100)
+    regiao_geografica_imediata = models.CharField(max_length=10)
+    nome_regiao_geografica_imediata = models.CharField(max_length=100)
+    mesorregiao_geografica = models.CharField(max_length=10)
+    nome_mesorregiao = models.CharField(max_length=100)
+    microrregiao_geografica = models.CharField(max_length=10)
+    nome_microrregiao = models.CharField(max_length=100)
+    municipio = models.CharField(max_length=10)
+    codigo_municipio_completo = models.CharField(max_length=10)
+    nome_municipio = models.CharField(max_length=100)
+    distrito = models.CharField(max_length=10)
+    codigo_distrito_completo = models.CharField(max_length=15, primary_key=True)
+    nome_distrito = models.CharField(max_length=100)
+    sigla_uf = models.CharField(max_length=2)
+
+    class Meta:
+        managed = False
+        db_table = 'places_ibge'
