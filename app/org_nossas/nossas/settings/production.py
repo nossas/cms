@@ -43,3 +43,19 @@ PUBLIC_MEDIA_LOCATION = "media"
 MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/"
 
 DEFAULT_FILE_STORAGE = "project.storages.PublicMediaStorage"
+
+
+# Configurações de e-mail
+DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", default="Suporte <suporte@bonde.org>")
+
+EMAIL_HOST = env("SMTP_HOST", default="localhost")
+
+EMAIL_PORT = env("SMTP_PORT", default=1025)
+
+EMAIL_HOST_USER = env("SMTP_USER", default="")
+
+EMAIL_HOST_PASSWORD = env("SMTP_PASS", default="")
+
+EMAIL_USE_TLS = env("SMTP_USE_TLS", default=False)
+
+EMAIL_USE_SSL = env("SMTP_USE_SSL", default=False)
