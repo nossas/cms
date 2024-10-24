@@ -22,7 +22,7 @@ services:
       - ADMINS=${ADMINS:-"('Admin', 'admin@localhost'),"}
     labels:
       - traefik.enable=true
-      - traefik.http.routers.eleicaodoano.priority=10
+      - traefik.http.routers.eleicaodoano.priority=999
       - traefik.http.services.eleicaodoano.loadbalancer.server.port=8000
       - traefik.http.routers.eleicaodoano.tls=true
       - traefik.http.routers.eleicaodoano.tls.certresolver=myresolver
@@ -82,7 +82,7 @@ services:
       - ADMINS=${ADMINS:-"('Admin', 'admin@localhost'),"}
     labels:
       - traefik.enable=true
-      - traefik.http.routers.nossas.priority=10
+      - traefik.http.routers.nossas.priority=999
       - traefik.http.services.nossas.loadbalancer.server.port=8000
       - traefik.http.routers.nossas.tls=true
       - traefik.http.routers.nossas.tls.certresolver=myresolver
@@ -109,7 +109,7 @@ services:
       - ADMINS=${ADMINS:-"('Admin', 'admin@localhost'),"}
     labels:
       - traefik.enable=true
-      - traefik.http.routers.observatorio.priority=10
+      - traefik.http.routers.observatorio.priority=999
       - traefik.http.services.observatorio.loadbalancer.server.port=8000
       - traefik.http.routers.observatorio.tls=true
       - traefik.http.routers.observatorio.tls.certresolver=myresolver
@@ -127,7 +127,7 @@ services:
       - MY_APP_URL_MVT=${ADP_MAPA_URL_MVT}
     labels:
       - traefik.enable=true
-      - traefik.http.routers.observatorio-mapa.priority=10
+      - traefik.http.routers.observatorio-mapa.priority=999
       - traefik.http.services.observatorio-mapa.loadbalancer.server.port=80
       - traefik.http.routers.observatorio-mapa.tls=true
       - traefik.http.routers.observatorio-mapa.tls.certresolver=myresolver
