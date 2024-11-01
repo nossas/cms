@@ -3,6 +3,7 @@ FROM node:18-alpine AS node-builder
 
 WORKDIR /app
 
+# TODO: Copiar apenas arquivos para o build do node
 COPY . .
 
 WORKDIR /app/tailwind
@@ -43,15 +44,17 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
 # Install the application server.
 RUN pip install uwsgi django-storages boto3 django-prometheus
 
-# Install the project requirements.
-# COPY org_nossas/requirements.txt /
-RUN pip install -r org_nossas/requirements.txt
-
 # Use /app folder as a directory where the source code is stored.
 WORKDIR /app
 
 # Copy the source code of the project into the container.
 COPY --from=node-builder /app ./
+
+# Install the project requirements.
+# Os arquivos do projeto foram copiados em sua totalidade no node-builder e por esse motivo
+# essa linha precisa ser executada após trazer os arquivos do node-builder pra esse stage
+# em Python
+RUN pip install -r org_nossas/requirements.txt
 
 RUN python manage.py collectstatic --noinput --clear -i tailwindcss
 
