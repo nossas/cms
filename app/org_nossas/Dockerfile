@@ -44,8 +44,8 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
 RUN pip install uwsgi django-storages boto3 django-prometheus
 
 # Install the project requirements.
-COPY org_nossas/requirements.txt /
-RUN pip install -r requirements.txt
+# COPY org_nossas/requirements.txt /
+RUN pip install -r org_nossas/requirements.txt
 
 # Use /app folder as a directory where the source code is stored.
 WORKDIR /app
