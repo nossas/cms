@@ -32,39 +32,6 @@ services:
       - traefik.http.routers.eleicaodoano.tls.certresolver=myresolver
       - traefik.http.routers.eleicaodoano.rule=${ELEICAODOANO_TRAEFIK_ROUTERS_RULE:-HostRegexp(`eleicaodoano.staging.bonde.org`,`www.eleicaodoano.staging.bonde.org`)}
 
-  # votepeloclima:
-  #   image: ${ELEICOES_DOCKER_IMAGE:-nossas/eleicoes-cms:latest}
-  #   restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
-  #   pull_policy: always
-  #   environment:
-  #     - DJANGO_SETTINGS_MODULE=org_eleicoes.votepeloclima.settings.production
-  #     - DEBUG=${DEBUG:-True}
-  #     - ALLOWED_HOSTS=${ALLOWED_HOSTS:-"docker.localhost"}
-  #     - CMS_DATABASE_URL=${VOTEPELOCLIMA_DATABASE_URL}
-  #     - BONDE_DATABASE_URL=${BONDE_DATABASE_URL}
-  #     - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-  #     - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-  #     - AWS_S3_REGION_NAME=${AWS_S3_REGION_NAME:-"us-east-1"}
-  #     - AWS_STORAGE_BUCKET_NAME=${VOTEPELOCLIMA_AWS_STORAGE_BUCKET_NAME}
-  #     - RECAPTCHA_PUBLIC_KEY=${VOTEPELOCLIMA_RECAPTCHA_PUBLIC_KEY}
-  #     - RECAPTCHA_PRIVATE_KEY=${VOTEPELOCLIMA_RECAPTCHA_PRIVATE_KEY}
-  #     - DISABLE_RECAPTCHA=${DISABLE_RECAPTCHA}
-  #     - BONDE_ACTION_API_URL=${BONDE_ACTION_API_URL}
-  #     - BONDE_ACTION_SECRET_KEY=${BONDE_ACTION_SECRET_KEY}
-  #     - ETCD_HOST=${ETCD_HOST:-etcd}
-  #     - ETCD_PORT=${ETCD_PORT:-2379}
-  #     - SMTP_HOST=${SMTP_HOST:-fake-smtp}
-  #     - SMTP_PORT=${SMTP_PORT:-1025}
-  #     - SMTP_USER=${SMTP_USER:-user}
-  #     - SMTP_PASS=${SMTP_PASS:-pass}
-  #   labels:
-  #     - traefik.enable=true
-  #     - traefik.http.routers.votepeloclima.priority=10
-  #     - traefik.http.services.votepeloclima.loadbalancer.server.port=8000
-  #     - traefik.http.routers.votepeloclima.tls=true
-  #     - traefik.http.routers.votepeloclima.tls.certresolver=myresolver
-  #     - traefik.http.routers.votepeloclima.rule=${VOTEPELOCLIMA_TRAEFIK_ROUTERS_RULE:-HostRegexp(`votepeloclima.staging.bonde.org`,`www.votepeloclima.staging.bonde.org`)}
-
   nossas:
     image: ${NOSSAS_DOCKER_IMAGE:-nossas/nossas-cms:latest}
     restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
@@ -147,6 +114,40 @@ services:
       - traefik.http.routers.observatorio-mapa.tls=true
       - traefik.http.routers.observatorio-mapa.tls.certresolver=myresolver
       - traefik.http.routers.observatorio-mapa.rule=${ADP_MAPA_TRAEFIK_ROUTERS_RULE:-HostRegexp(`observatorio-mapa.staging.bonde.org`)}
+  
+  votepeloclima:
+    image: ${VPC_DOCKER_IMAGE:-nossas/eleicoes-cms:latest}
+    restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
+    environment:
+      - DJANGO_SETTINGS_MODULE=org_eleicoes.votepeloclima.settings.production
+      - DEBUG=${DEBUG:-True}
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS:-"votepeloclima.localhost"}
+      - SECRET_KEY=${SECRET_KEY}
+      - CMS_DATABASE_URL=${VPC_CMS_DATABASE_URL}
+      - BONDE_DATABASE_URL=${BONDE_DATABASE_URL}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_S3_REGION_NAME=${AWS_S3_REGION_NAME:-"us-east-1"}
+      - AWS_STORAGE_BUCKET_NAME=${AWS_STORAGE_BUCKET_NAME}
+      - RECAPTCHA_PUBLIC_KEY=${RECAPTCHA_PUBLIC_KEY}
+      - RECAPTCHA_PRIVATE_KEY=${RECAPTCHA_PRIVATE_KEY}
+      - BONDE_ACTION_API_URL=${BONDE_ACTION_API_URL}
+      - BONDE_ACTION_SECRET_KEY=${BONDE_ACTION_SECRET_KEY}
+      - SMTP_HOST=${SMTP_HOST:-fake-smtp}
+      - SMTP_PORT=${SMTP_PORT:-1025}
+      - SMTP_USER=${SMTP_USER:-user}
+      - SMTP_PASS=${SMTP_PASS:-pass}
+      - REDIRECT_MIDDLEWARE_ROOT_DOMAIN=${REDIRECT_MIDDLEWARE_ROOT_DOMAIN:-"votepeloclima.localhost"}
+      - REDIRECT_MIDDLEWARE_LIST_DOMAIN=${REDIRECT_MIDDLEWARE_LIST_DOMAIN:-"votepeloclima.localhost.devel"}
+      - ADMINS=${ADMINS:-"('Admin', 'admin@localhost'),"}
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.votepeloclima.priority=10
+      - traefik.http.services.votepeloclima.loadbalancer.server.port=8000
+      - traefik.http.routers.votepeloclima.tls=true
+      - traefik.http.routers.votepeloclima.tls.certresolver=myresolver
+      - custom.servicename=votepeloclima
+      - traefik.http.routers.votepeloclima.rule=${CMS_TRAEFIK_ROUTERS_RULE:-HostRegexp(`votepeloclima.staging.bonde.org`,`www.votepeloclima.staging.bonde.org`)}
 
 networks:
   default:
