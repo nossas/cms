@@ -76,7 +76,7 @@ class FilterFormSidebar(RemoveRequiredMixin, forms.ModelForm):
             ("elected", "Candidaturas eleitas")
         ],
         widget=ButtonRadioSelect,
-        initial="second_round"  # Define o filtro de 2º turno como padrão
+        initial="elected"  # Define o filtro de eleito como padrão
     )
     proposes = forms.MultipleChoiceField(
         label="Propostas", widget=ButtonCheckboxSelectMultiple

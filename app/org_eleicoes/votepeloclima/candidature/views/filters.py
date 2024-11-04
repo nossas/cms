@@ -78,9 +78,9 @@ class CandidatureSearchView(ListView):
                     )
                 )
 
-            election_status = cleaned_data.get("election_status", "second_round")
+            election_status = cleaned_data.get("election_status", "elected")
         else:
-            election_status = "second_round"
+            election_status = "elected"
         
         # Filtra com base no status da eleição
         if election_status == "second_round":
