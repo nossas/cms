@@ -13,9 +13,9 @@
 {% block content %}
 <form method="get">
 <main class="container mx-auto pb-4">
-    <section class="pt-5 pb-3" style="max-width:570px;">
-        <h2 class="text-uppercase fw-bold search-title-font-size">Conheça candidaturas da sua cidade</h2>
-        <p>Use os filtros para descobrir candidaturas comprometidas com políticas climáticas!</span>
+    <section class="pt-5 pb-3" style="max-width:757px;">
+        <h2 class="text-uppercase fw-bold search-title-font-size">Conheça candidaturas comprometidas com o clima</h2>
+        <p>Veja todas as candidaturas cadastradas em 2024 e descubra quais foram eleitas com compromisso com políticas climáticas. Use os filtros para explorar as propostas e os representantes de sua cidade.</p>
     </section>
     <div class="grid">
         <!-- Navbar -->
@@ -45,11 +45,11 @@
                     <div class="card">
                         <a class="position-relative" href="{% url 'candidate_profile' candidature.slug %}">
                             <img src="{{ candidature.photo|thumbnail_url:'profile-photo' }}" class="card-img-top" alt="Foto de {{ candidature.legal_name }}">
-                            {% if candidature.get_election_result == "segundo_turno" %}
-                                <span class="card-flag badge bg-primary position-absolute top-0 end-0 mt-3 p-2">2º Turno</span>
-                            {% endif %}
                             {% if candidature.get_election_result == "eleita" %}
-                                <span class="card-flag badge bg-secondary position-absolute top-0 end-0 mt-3 p-2">Eleito/a</span>
+                            <span class="card-flag badge bg-secondary position-absolute top-0 end-0 mt-3 p-2">Eleito/a</span>
+                            {% endif %}
+                            {% if candidature.get_election_result == "segundo_turno" %}
+                            <span class="card-flag badge bg-primary position-absolute top-0 end-0 mt-3 p-2">2º Turno</span>
                             {% endif %}
                         </a>
                         <div class="card-body px-2 py-1">
