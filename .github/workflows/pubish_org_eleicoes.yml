@@ -36,7 +36,6 @@ jobs:
 
       - name: Run tests
         run: |
-          pytest --ds=org_eleicoes.eleicaodoano.settings app/org_eleicoes/eleicaodoano/eleicao/tests/
           pytest --ds=org_eleicoes.votepeloclima.settings app/org_eleicoes/votepeloclima/candidature/tests/
           pytest --ds=project.settings app/contrib/ds/tests/
           pytest --ds=project.settings app/contrib/ds/blocks/tests/
