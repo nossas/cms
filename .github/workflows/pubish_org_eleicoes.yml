@@ -37,15 +37,15 @@ jobs:
       - name: Run tests
         run: |
           pytest --ds=org_eleicoes.votepeloclima.settings app/org_eleicoes/votepeloclima/candidature/tests/
-          pytest --ds=project.settings app/contrib/ds/tests/
-          pytest --ds=project.settings app/contrib/ds/blocks/tests/
-          pytest --ds=project.settings app/contrib/ds/card/tests/
-          pytest --ds=project.settings app/contrib/ds/accordion/tests/
-          pytest --ds=project.settings app/contrib/ds/carousel/tests/
-          pytest --ds=project.settings app/contrib/ds/counter/tests/
-          pytest --ds=project.settings app/contrib/ds/grid/tests/
-          pytest --ds=project.settings app/contrib/ds/link/tests/
-          pytest --ds=project.settings app/contrib/ds/picture/tests/
+          pytest --ds=org_eleicoes.votepeloclima.settings app/contrib/ds/tests/
+          pytest --ds=org_eleicoes.votepeloclima.settings app/contrib/ds/blocks/tests/
+          pytest --ds=org_eleicoes.votepeloclima.settings app/contrib/ds/card/tests/
+          pytest --ds=org_eleicoes.votepeloclima.settings app/contrib/ds/accordion/tests/
+          pytest --ds=org_eleicoes.votepeloclima.settings app/contrib/ds/carousel/tests/
+          pytest --ds=org_eleicoes.votepeloclima.settings app/contrib/ds/counter/tests/
+          pytest --ds=org_eleicoes.votepeloclima.settings app/contrib/ds/grid/tests/
+          pytest --ds=org_eleicoes.votepeloclima.settings app/contrib/ds/link/tests/
+          pytest --ds=org_eleicoes.votepeloclima.settings app/contrib/ds/picture/tests/
           
 
       - name: Set up Docker Buildx
