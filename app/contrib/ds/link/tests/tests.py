@@ -5,7 +5,7 @@ from cms.plugin_rendering import ContentRenderer
 from cms.test_utils.testcases import CMSTestCase
 
 # from .cms_plugins import GridPlugin, ColumnPlugin
-from .models import Context, Target, Styled, Size, IconPosition
+from ..models import Context, Target, Styled, Size, IconPosition
 
 
 # Create your tests here.

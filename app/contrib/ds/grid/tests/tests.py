@@ -1,7 +1,7 @@
 from cms.api import add_plugin, create_page
 from cms.test_utils.testcases import CMSTestCase
 
-from .cms_plugins import GridPlugin, ColumnPlugin
+from ..cms_plugins import GridPlugin, ColumnPlugin
 
 
 # Create your tests here.

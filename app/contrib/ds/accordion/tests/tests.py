@@ -4,7 +4,7 @@ from cms.api import add_plugin, create_page
 from cms.plugin_rendering import ContentRenderer
 from cms.test_utils.testcases import CMSTestCase
 
-from .cms_plugins import AccordionPlugin, AccordionItemPlugin
+from ..cms_plugins import AccordionPlugin, AccordionItemPlugin
 
 # from .models import Context, Target
 
