@@ -32,6 +32,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install setuptools
           pip install -r app/requirements.txt
+          pip install -r app/org_nossas/requirements.txt
           pip install pytest pytest-django
 
       - name: Run tests
