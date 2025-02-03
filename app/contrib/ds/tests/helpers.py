@@ -23,6 +23,7 @@ def create_image(mode="RGB", size=(800, 600)):
 
     return image
 
+
 def get_image(image_name="test_file.jpg", size=(800, 600)):
     """
     Creates and stores an image to the file system using PILImage
@@ -43,6 +44,7 @@ def get_image(image_name="test_file.jpg", size=(800, 600)):
         "path": image_path,
     }
 
+
 def get_file(file_name="test_file.pdf"):
     """
     Creates and stores an arbitrary file into a temporary dir
@@ -62,6 +64,7 @@ def get_file(file_name="test_file.pdf"):
         "path": file_path,
     }
 
+
 def get_filer_image(image_name="test_file.jpg", size=(800, 600)):
     """
     Creates and stores an image to filer and returns it
@@ -80,6 +83,7 @@ def get_filer_image(image_name="test_file.jpg", size=(800, 600)):
     )
 
     return filer_object
+
 
 def get_filer_file(file_name="test_file.pdf", folder=None):
     """
@@ -101,6 +105,7 @@ def get_filer_file(file_name="test_file.pdf", folder=None):
     )
 
     return filer_object
+
 
 def get_filer_folder(folder_name="test_folder", parent=None):
     """

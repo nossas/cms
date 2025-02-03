@@ -1,1 +1,11 @@
-
+{% for partner in partners %}
+{% if partner.link %}
+  <a href="{{ partner.link }}" target="_blank" rel="noopener noreferrer">
+    <img src="{{ partner.logo.url }}" alt="{{ partner.name }}">
+  </a>
+{% else %}
+<div class="partner-logo">
+  <img src="{{ partner.logo.url }}" alt="{{ partner.name }}">
+</div>
+{% endif %}
+{% endfor %}
