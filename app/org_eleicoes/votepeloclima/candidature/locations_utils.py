@@ -1,4 +1,5 @@
 from typing import List, Tuple
+from django.core.exceptions import ImproperlyConfigured
 from contrib.bonde.models import PlacesIBGE
 
 
