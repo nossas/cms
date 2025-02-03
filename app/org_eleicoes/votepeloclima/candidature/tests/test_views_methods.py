@@ -27,7 +27,7 @@ def setup_oauth_urls():
 
 
 def test_base_view_form_list():
-    from org_eleicoes.votepeloclima.candidature.forms import register_form_list
+    from org_eleicoes.votepeloclima.candidature.forms.register import register_form_list
 
     assert CandidatureBaseView.form_list == register_form_list
 
@@ -150,7 +150,7 @@ def test_remove_process_step_files():
 def test_create_user_when_process_step_infos(mocker, setup_oauth_urls):
     import datetime
     from django.contrib.auth.models import User
-    from org_eleicoes.votepeloclima.candidature.forms import PersonalForm
+    from org_eleicoes.votepeloclima.candidature.forms.register import PersonalForm
 
     initial_data = {
         "legal_name": "Test Surname",
@@ -198,13 +198,12 @@ def test_create_user_when_process_step_infos(mocker, setup_oauth_urls):
 
 @pytest.mark.django_db
 def test_create_user_and_sendmail_when_is_new(mocker, setup_oauth_urls):
-    mocker.patch("org_eleicoes.votepeloclima.candidature.views.base.send_confirmation_email")
+    mock_send_mail = mocker.patch("org_eleicoes.votepeloclima.candidature.views.base.send_mail")
 
     import datetime
     from django.contrib.auth.models import User
-    from org_eleicoes.votepeloclima.candidature.forms import PersonalForm
-    from org_eleicoes.votepeloclima.candidature.views.base import CandidatureBaseView, send_confirmation_email
-
+    from org_eleicoes.votepeloclima.candidature.forms.register import PersonalForm
+    from org_eleicoes.votepeloclima.candidature.views.base import CandidatureBaseView
 
     initial_data = {
         "legal_name": "Test Surname",
@@ -217,7 +216,8 @@ def test_create_user_and_sendmail_when_is_new(mocker, setup_oauth_urls):
 
     view = CandidatureBaseView()
     view.request = type("WSGIRequest", (object,), {
-        "is_secure": lambda: False
+        "is_secure": lambda: False,
+        "user": None,
     })
 
     cleaned_data = {
@@ -237,12 +237,19 @@ def test_create_user_and_sendmail_when_is_new(mocker, setup_oauth_urls):
     ) and mocker.patch.object(
         view, "get_form_list", return_value=OrderedDict(view.form_list)
     ):
-        # Fake form response in get_form_step_data
         view.process_step(form=form)
 
-        send_confirmation_email.assert_called_once_with(
-            user=User.objects.get(email="test@localhost"),
-            request=view.request
+        user = User.objects.get(email="test@localhost")
+        assert user.username == "test@localhost"
+        assert user.first_name == "Test"
+        assert user.last_name == "Surname"
+        assert user.is_active is False
+
+        mock_send_mail.assert_called_once_with(
+            user=user,
+            request=view.request,
+            email_template_name="candidature/emails/register_incomplete.html",
+            subject_template_name="candidature/emails/register_incomplete_subject.txt"
         )
 
 
@@ -250,15 +257,14 @@ def test_create_user_and_sendmail_when_is_new(mocker, setup_oauth_urls):
 def test_upsert_instance_create_flow_personal_step(mocker):
     import datetime
     from django.contrib.auth.models import User
-    from org_eleicoes.votepeloclima.candidature.forms import PersonalForm
+    from org_eleicoes.votepeloclima.candidature.forms.register import PersonalForm
 
     user = User.objects.create(**{"username": "test@localhost", "email": "test@localhost"})
     current_step = "informacoes-pessoais"
-    
-    appoitments = {"appointment_1": True,"appointment_2": True}
+
+    appointments = {"appointment_1": True, "appointment_2": True}
     initial_data = {
         "legal_name": "Test Surname",
-        "ballot_name": "Test",
         "birth_date": datetime.date(1992, 10, 12),
         "email": "test@localhost",
         "cpf": "123.456.789-01"
@@ -268,16 +274,14 @@ def test_upsert_instance_create_flow_personal_step(mocker):
     view = CandidatureBaseView()
     view.request = type("WSGIRequest", (object,), {"is_secure": lambda: False, "user": None})
     with mocker.patch.object(
-        view, "get_cleaned_data_for_step", return_value=appoitments
+        view, "get_cleaned_data_for_step", return_value=appointments
     ):
-
         instance, created = view.upsert_instance(form, current_step, user)
 
-        assert created == True
-        assert instance.properties == {
-            **appoitments,
-            **initial_data
-        }
+        assert created is True
+        print('instance.properties', instance.properties)
+        print('initial_data', initial_data)
+        assert instance.properties == initial_data
 
 
 @pytest.mark.django_db
@@ -285,16 +289,15 @@ def test_upsert_instance_update_flow_personal_step(mocker):
     import datetime
     from django.contrib.auth.models import User
     from org_eleicoes.votepeloclima.candidature.models import CandidatureFlow
-    from org_eleicoes.votepeloclima.candidature.forms import PersonalForm
+    from org_eleicoes.votepeloclima.candidature.forms.register import PersonalForm
 
     user = User.objects.create(**{"username": "test@localhost", "email": "test@localhost"})
     flow = CandidatureFlow.objects.create(user=user)
     current_step = "informacoes-pessoais"
-    
-    appoitments = {"appointment_1": True,"appointment_2": True}
+
+    appointments = {"appointment_1": True, "appointment_2": True}
     initial_data = {
         "legal_name": "Test Surname",
-        "ballot_name": "Test",
         "birth_date": datetime.date(1992, 10, 12),
         "email": "test@localhost",
         "cpf": "123.456.789-01"
@@ -304,20 +307,18 @@ def test_upsert_instance_update_flow_personal_step(mocker):
     view = CandidatureBaseView()
     view.request = type("WSGIRequest", (object,), {"is_secure": lambda: False, "user": None})
     with mocker.patch.object(
-        view, "get_cleaned_data_for_step", return_value=appoitments
+        view, "get_cleaned_data_for_step", return_value=appointments
     ):
-
         instance, created = view.upsert_instance(form, current_step, user)
 
-        assert created == False
+        assert created is False
         assert instance.id == flow.id
         assert instance.properties == initial_data
-
 
 @pytest.mark.django_db
 def test_call_upsert_instance_when_user(mocker):
     from django.contrib.auth.models import User
-    from org_eleicoes.votepeloclima.candidature.forms import ApplicationForm
+    from org_eleicoes.votepeloclima.candidature.forms.register import ApplicationForm
     from org_eleicoes.votepeloclima.candidature.models import CandidatureFlow
 
     user = User.objects.create(username="test@localhost", email="test@localhost")

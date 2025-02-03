@@ -47,3 +47,4 @@ pytest-django
 pytest-cov
 pytest-mock
 mock
+model-bakery

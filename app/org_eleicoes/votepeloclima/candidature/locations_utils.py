@@ -1,9 +1,13 @@
 from typing import List, Tuple
 from contrib.bonde.models import PlacesIBGE
 
+
 def get_states(column_label="nome_uf") -> List[Tuple[str, str]]:
-    states = PlacesIBGE.objects.values('uf', column_label).distinct()
-    return sorted([(state['uf'], state[column_label]) for state in states], key=lambda x: x[1])
+    try:
+        states = PlacesIBGE.objects.values('uf', column_label).distinct()
+        return sorted([(state['uf'], state[column_label]) for state in states], key=lambda x: x[1])
+    except ImproperlyConfigured:
+        return []
 
 def get_ufs() -> List[Tuple[str, str]]:
     return get_states(column_label="sigla_uf")
