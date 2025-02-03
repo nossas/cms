@@ -1,14 +1,9 @@
 from typing import List, Tuple
-from django.core.exceptions import ImproperlyConfigured
 from contrib.bonde.models import PlacesIBGE
 
-
 def get_states(column_label="nome_uf") -> List[Tuple[str, str]]:
-    try:
-        states = PlacesIBGE.objects.values('uf', column_label).distinct()
-        return sorted([(state['uf'], state[column_label]) for state in states], key=lambda x: x[1])
-    except ImproperlyConfigured:
-        return []
+    states = PlacesIBGE.objects.values('uf', column_label).distinct()
+    return sorted([(state['uf'], state[column_label]) for state in states], key=lambda x: x[1])
 
 def get_ufs() -> List[Tuple[str, str]]:
     return get_states(column_label="sigla_uf")
