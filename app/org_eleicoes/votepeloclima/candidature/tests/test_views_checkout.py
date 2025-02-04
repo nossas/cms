@@ -4,7 +4,7 @@ from collections import OrderedDict
 from formtools.wizard.views import StepsHelper, normalize_name
 
 from org_eleicoes.votepeloclima.candidature.views.base import CandidatureBaseView
-from org_eleicoes.votepeloclima.candidature.forms import (
+from org_eleicoes.votepeloclima.candidature.forms.register import (
     ProfileForm,
     AppointmentForm,
     CheckoutForm,
@@ -93,7 +93,7 @@ def test_context_checkout_steps_with_forms_filleds_and_disabled(mocker):
 def test_flag_editing_when_process_step_next_is_checkout(mocker):
     from django.contrib.auth.models import User
     from org_eleicoes.votepeloclima.candidature.models import CandidatureFlow
-    from org_eleicoes.votepeloclima.candidature.forms import ProfileForm
+    from org_eleicoes.votepeloclima.candidature.forms.register import ProfileForm
 
     user = User.objects.create(email="test@localhost", username="test@localhost")
     instance = CandidatureFlow.objects.create(user=user)

@@ -5,7 +5,7 @@ from cms.plugin_rendering import ContentRenderer
 from cms.test_utils.testcases import CMSTestCase
 from filer.models import File
 
-from .cms_plugins import CardPlugin
+from ..cms_plugins import CardPlugin
 
 # from .models import Context, Target
 

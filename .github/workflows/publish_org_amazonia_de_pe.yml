@@ -21,6 +21,32 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install setuptools
+          pip install -r app/requirements.txt
+          pip install -r app/org_amazonia_de_pe/requirements.txt
+          pip install pytest pytest-django
+
+      - name: Run tests
+        run: |
+          pytest --ds=org_amazonia_de_pe.adp.settings app/org_amazonia_de_pe/adp/map/tests/
+          pytest --ds=org_amazonia_de_pe.adp.settings app/contrib/ds/tests/
+          pytest --ds=org_amazonia_de_pe.adp.settings app/contrib/ds/blocks/tests/
+          pytest --ds=org_amazonia_de_pe.adp.settings app/contrib/ds/card/tests/
+          pytest --ds=org_amazonia_de_pe.adp.settings app/contrib/ds/accordion/tests/
+          pytest --ds=org_amazonia_de_pe.adp.settings app/contrib/ds/carousel/tests/
+          pytest --ds=org_amazonia_de_pe.adp.settings app/contrib/ds/counter/tests/
+          pytest --ds=org_amazonia_de_pe.adp.settings app/contrib/ds/grid/tests/
+          pytest --ds=org_amazonia_de_pe.adp.settings app/contrib/ds/link/tests/
+          pytest --ds=org_amazonia_de_pe.adp.settings app/contrib/ds/picture/tests/
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
