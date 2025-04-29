@@ -30,7 +30,7 @@
         pageNum = 1,
         pageRendering = false,
         pageNumPending = null,
-        scale = 0.8,
+        scale = 1.5,
         canvas = document.getElementById('the-canvas'),
         ctx = canvas.getContext('2d');
   
@@ -45,6 +45,12 @@
         var viewport = page.getViewport({scale: scale});
         canvas.height = viewport.height;
         canvas.width = viewport.width;
+        canvas.style.width = '100%';
+        canvas.style.height = 'auto';
+
+        // Melhora a qualidade de renderização
+        var outputScale = window.devicePixelRatio || 1;
+        ctx.scale(outputScale, outputScale);
   
         // Render PDF page into canvas context
         var renderContext = {
