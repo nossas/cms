@@ -30,7 +30,7 @@
         pageNum = 1,
         pageRendering = false,
         pageNumPending = null,
-        scale = 1.5,
+        scale = 1.0,
         canvas = document.getElementById('the-canvas'),
         ctx = canvas.getContext('2d');
   
@@ -43,12 +43,21 @@
       // Using promise to fetch the page
       pdfDoc.getPage(num).then(function(page) {
         var viewport = page.getViewport({scale: scale});
+        // Calcula a escala para caber no container
+        var container = canvas.parentElement;
+        var viewport = page.getViewport({scale: 1.0});
+        
+        // Ajusta a escala para caber na largura do container
+        scale = Math.min((container.clientWidth - 20) / viewport.width, 1.5);
+        
+        // Cria novo viewport com a escala ajustada
+        viewport = page.getViewport({scale: scale * (window.devicePixelRatio || 1)});
+        
+        // Ajusta o canvas
         canvas.height = viewport.height;
         canvas.width = viewport.width;
-
-        // Melhora a qualidade de renderização
-        var outputScale = window.devicePixelRatio || 1;
-        ctx.scale(outputScale, outputScale);
+        canvas.style.width = (viewport.width / (window.devicePixelRatio || 1)) + 'px';
+        canvas.style.height = (viewport.height / (window.devicePixelRatio || 1)) + 'px';
   
         // Render PDF page into canvas context
         var renderContext = {
