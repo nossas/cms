@@ -1,10 +1,5 @@
 module.exports = {
-  plugins: {
-    'postcss-import': {},
-    'tailwindcss/nesting': 'postcss-nesting',
-    tailwindcss: {},
-    'postcss-preset-env': {
-      features: { 'nesting-rules': false },
-    },
-  }
-}
+  // Add you postcss configuration here
+  // Learn more about it at https://github.com/webpack-contrib/postcss-loader#config-files
+  plugins: [["autoprefixer"]],
+};
