@@ -13,8 +13,8 @@ RUN npm run page:build
 
 RUN npm run admin:build
 
-# Use an official Python runtime based on Debian 10 "buster" as a parent image.
-FROM python:slim-buster
+# Use an official Python runtime based on Debian 11 "bullseye" as a parent image.
+FROM python:slim-bullseye
 
 # Port used by this container to serve HTTP.
 EXPOSE 8000

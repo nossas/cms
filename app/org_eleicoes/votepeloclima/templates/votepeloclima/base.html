@@ -37,13 +37,7 @@
       </ul>
       <div class="d-flex flex-column flex-md-row" style="--bs-gap:1rem;">
         {% block navbar_actions %}
-        {% if request.user.is_authenticated %}
-        <a class="btn btn-outline-light text-uppercase" href="{% url 'dashboard' %}">Área da Candidatura</a>
-        <a class="btn btn-light text-uppercase" href="{% url 'oauth:logout' %}">Sair</a>
-        {% else %}
-        <a class="btn btn-outline-light text-uppercase" href="{% url 'register' %}" role="button">Cadastre-se</a>
-        <a class="btn btn-light text-uppercase" href="{% url 'dashboard' %}" role="button">Login</a>
-        {% endif %}
+        <!-- Navbar Actions -->
         {% endblock %}
       </div>
     </div>
