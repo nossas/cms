@@ -14,7 +14,7 @@ RUN npm run admin:build
 
 
 # Python runtime - Debian Bookworm
-FROM python:3.11-slim-bookworm
+FROM python:3.10-slim-bookworm
 
 # Port used by this container to serve HTTP.
 EXPOSE 8000
