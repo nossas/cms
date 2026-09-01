@@ -1,4 +1,4 @@
-# Build staticfiles
+# Build static files
 FROM node:18-alpine AS node-builder
 
 WORKDIR /app
@@ -7,57 +7,66 @@ COPY . .
 
 WORKDIR /app/tailwind
 
-RUN npm i
+RUN npm ci || npm install
 
 RUN npm run page:build
-
 RUN npm run admin:build
 
-# Use an official Python runtime based on Debian 10 "buster" as a parent image.
-FROM python:slim-buster
+
+# Python runtime - Debian Bookworm
+FROM python:3.11-slim-bookworm
 
 # Port used by this container to serve HTTP.
 EXPOSE 8000
 
-# Set environment variables.
-# 1. Force Python stdout and stderr streams to be unbuffered.
-# 2. Set PORT variable that is used by Gunicorn. This should match "EXPOSE"
-#    command.
 ENV PYTHONUNBUFFERED=1 \
-    PORT=8000
+    PORT=8000 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
 
-# Install system packages required by Django CMS and Django.
-RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-recommends \
-    build-essential \
-    cargo \
-    libssl-dev \
-    libffi-dev \
-    sox \
-    ffmpeg \
-    libcairo2 \
-    libcairo2-dev \
-    python3-dev \
-    git \
-&& rm -rf /var/lib/apt/lists/*
+# Install system dependencies
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        build-essential \
+        cargo \
+        libssl-dev \
+        libffi-dev \
+        sox \
+        ffmpeg \
+        libcairo2 \
+        libcairo2-dev \
+        python3-dev \
+        git \
+    && rm -rf /var/lib/apt/lists/*
 
-# Install the application server.
-RUN pip install uwsgi django-storages boto3 django-prometheus
+# Upgrade packaging tools
+RUN python -m pip install --upgrade pip setuptools wheel
 
-# Install the project requirements.
-COPY requirements.txt /
-RUN pip install -r requirements.txt
+# Install application dependencies
+RUN pip install \
+    uwsgi \
+    django-storages \
+    boto3 \
+    django-prometheus
 
-# Use /app folder as a directory where the source code is stored.
+# Install project requirements
+COPY requirements.txt /requirements.txt
+
+RUN pip install -r /requirements.txt
+
+# Application directory
 WORKDIR /app
 
-# Copy the source code of the project into the container.
-COPY --from=node-builder /app ./
+# Copy project including generated frontend/static assets
+COPY --from=node-builder /app /app
 
-RUN python manage.py collectstatic --noinput --clear -i tailwindcss
+# Generate Django static files
+RUN python manage.py collectstatic \
+    --noinput \
+    --clear \
+    -i tailwindcss
 
-# Runtime command that executes when "docker run" is called.
-
-# Check traefik + etcd configs to running domains
+# Check traefik + etcd configs for running domains
 ENV ENABLE_CHECK_TRAEFIK=True
 
 CMD ["uwsgi", "--ini", "/app/wsgi.ini"]
